@@ -6,6 +6,7 @@ $hiilite_options['amp'] = get_theme_mod('amp');
 *	
 */
 define( 'HIILITE_DIR', dirname( __FILE__ ) );
+add_filter( 'auto_update_theme', '__return_true' );
 
 
 add_theme_support( 'post-thumbnails' );
