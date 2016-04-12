@@ -44,6 +44,51 @@ vc_remove_element('vc_button2');
 vc_remove_element("vc_custom_heading");
 vc_remove_element("vc_btn");
 
+// Title
+vc_map( array(
+		"name" => "Title",
+		"base" => "title",
+		"category" => 'by Hiilite',
+		"icon" => "icon-wpb-button",
+		"allowed_container_element" => 'vc_row',
+		"params" => array(
+			array(
+				"type" => "dropdown",
+				"holder" => "div",
+				"class" => "",
+				"heading" => "Size",
+				"param_name" => "size",
+				"value" => array(
+					"h1" => "h1",
+                    "h2" => "h2",
+					"h3" => "h3",	
+					"h5" => "h5",
+					"h6" => "h6"
+				)
+			),
+			array(
+				"type" => "dropdown",
+				"holder" => "div",
+				"class" => "",
+				"heading" => "Color",
+				"param_name" => "color",
+				"value" => array(
+					"Default" => "",
+                    "Color 1" => "color_one",
+					"Color 2" => "color_two",	
+					"Color 3" => "color_three",
+					"Color 4" => "color_four"
+				)
+			),
+			array(
+				"type" => "textfield",
+				"holder" => "div",
+				"class" => "",
+				"heading" => "Text",
+				"param_name" => "text"
+			)
+		)
+) );
 
 
 vc_map( array(

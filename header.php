@@ -382,10 +382,10 @@ header.centered #main-nav {
 	padding: 1em; /*set*/
 	display:block;
 }
-.menu .menu-item:hover {
+.menu li:hover {
 	background: <?=$hiilite_options['color_one'];?>;
 }
-.menu .menu-item:hover a {
+.menu li:hover a {
 	color:white;
 }
 ul.sub-menu {
@@ -397,7 +397,7 @@ ul.sub-menu {
 	min-width: 12em;
 	z-index: 10;
 }
-.menu .menu-item:hover > ul.sub-menu {
+.menu li:hover > ul.sub-menu {
 	display:block;
 }
 
@@ -433,7 +433,7 @@ ul.sub-menu {
 		box-shadow: 0 0 0 0vw rgba(0,0,0,0.3);
 	}
 
-	.main-menu li.menu-item {
+	.main-menu li {
 		width: 100%;
 		text-align: center;
 	}
@@ -817,7 +817,7 @@ ga('send', 'pageview');
 							<<?=$_amp?>img src="<?=$hiilite_options['main_logo'];?>" width="<?=$hiilite_options['logo_width'];?>" height="<?=$hiilite_options['logo_height'];?>"><?=($_amp!='')?'</amp-img>':'';?>
 						</a>
 					</div>
-					<!--Insert header_center_right here if layout set to centered -->
+
 					<?php if($hiilite_options['header_center_right_on'] && $hiilite_options['header_type'] == 'centered'){ 
 						wp_nav_menu(array(
 								'menu' =>  'right-menu',
@@ -825,7 +825,8 @@ ga('send', 'pageview');
 								'container_class' => 'align-right flex-item',
 								'container_id' => 'header_center_right',
 								'items_wrap'  => '<ul id="%1s" class="%2$s right-menu">%3$s</ul>',
-								'theme_location' => 'right-menu'
+								'theme_location' => 'right-menu',
+								'fallback_cb'    => false
 							));	
 					} 
 					wp_nav_menu(array(
@@ -834,7 +835,8 @@ ga('send', 'pageview');
 								'container_class' => 'flex-item',
 								'container_id' => 'main-nav',
 								'items_wrap'  => '<ul id="%1s" class="%2$s main-menu">%3$s</ul>',
-								'theme_location' => 'header-menu'
+								'theme_location' => 'header-menu',
+								'fallback_cb'    => false
 							)); 
 					
 					if($hiilite_options['header_center_right_on'] && $hiilite_options['header_type'] == 'regular'){ 
@@ -844,7 +846,8 @@ ga('send', 'pageview');
 								'container_class' => 'align-right flex-item',
 								'container_id' => 'header_center_right',
 								'items_wrap'  => '<ul id="%1s" class="%2$s right-menu">%3$s</ul>',
-								'theme_location' => 'right-menu'
+								'theme_location' => 'right-menu',
+								'fallback_cb'    => false
 							));	
 					} ?>
 				<?php if($hiilite_options['header_in_grid']) { echo '</div>'; } ?>

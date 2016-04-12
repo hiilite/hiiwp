@@ -1,11 +1,11 @@
 <?php
 /*
 -Plugin Name: WPBakery Visual Composer
-Plugin URI: http://vc.wpbakery.com
+-Plugin URI: http://vc.wpbakery.com
 Description: Drag and drop page builder for WordPress. Take full control over your WordPress site, build any layout you can imagine – no programming knowledge required.
-Version: 4.10
-Author: Michael M - WPBakery.com
-Author URI: http://wpbakery.com
+-Version: 4.10
+-Author: Michael M - WPBakery.com
+-Author URI: http://wpbakery.com
 */
 
 // don't load directly
@@ -890,7 +890,7 @@ class Vc_Manager {
 	 */
 	public function assetUrl( $file ) {
 		//return preg_replace( '/\s/', '%20', plugins_url( $this->path( 'ASSETS_DIR_NAME', $file ), __FILE__ ) );
-		return '/wp-content/themes/hiiwp/addons/js_composer/assets/'.$file;
+		return get_template_directory_uri().'/addons/js_composer/assets/'.$file;
 	}
 }
 

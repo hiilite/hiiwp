@@ -23,6 +23,7 @@ include_once( dirname( __FILE__ ) . '/includes/register_sidebars.php' );
 include_once( dirname( __FILE__ ) . '/includes/business_profile.php' );
 
 require_once( dirname( __FILE__ ) . '/includes/shortcodes/button.php');
+require_once( dirname( __FILE__ ) . '/includes/shortcodes/title.php');
 require_once( dirname( __FILE__ ) . '/includes/shortcodes/social-share.php');
 
 require_once( dirname( __FILE__ ) . '/addons/tinymce_edits/tinymce_edits.php');
