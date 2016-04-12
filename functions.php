@@ -26,6 +26,7 @@ require_once( dirname( __FILE__ ) . '/includes/shortcodes/button.php');
 require_once( dirname( __FILE__ ) . '/includes/shortcodes/social-share.php');
 
 require_once( dirname( __FILE__ ) . '/addons/tinymce_edits/tinymce_edits.php');
+require_once( dirname( __FILE__ ) . '/addons/github-updater/github-updater.php');
 
 
 function hiiwp_init(){
