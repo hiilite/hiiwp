@@ -377,6 +377,15 @@
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0
 		},
+	"\/addons\/js_composer\/assets\/css\/lib\/monosocialiconsfont\/monosocialiconsfont.min.css": {
+		"fileType": 16,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/addons\/js_composer\/assets\/css\/lib\/monosocialiconsfont\/monosocialiconsfont.min.css",
+		"outputAbbreviatedPath": "No Output Path",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0
+		},
 	"\/addons\/js_composer\/assets\/css\/lib\/typicons\/src\/font\/LICENCE.md": {
 		"criticStyle": 0,
 		"enableFootnotes": 1,
@@ -3082,7 +3091,7 @@
 		"disableJavascript": 0,
 		"fileType": 1,
 		"ieCompatibility": 1,
-		"ignore": 1,
+		"ignore": 0,
 		"ignoreWasSetByUser": 0,
 		"inputAbbreviatedPath": "\/addons\/js_composer\/assets\/less\/modules\/vc_license_activation_notice.less",
 		"outputAbbreviatedPath": "\/addons\/js_composer\/assets\/less\/css\/vc_license_activation_notice.css",
@@ -12682,6 +12691,15 @@
 		"ignore": 0,
 		"ignoreWasSetByUser": 0,
 		"inputAbbreviatedPath": "\/css\/font-awesome\/css\/font-awesome.min.css",
+		"outputAbbreviatedPath": "No Output Path",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0
+		},
+	"\/css\/main-css.php": {
+		"fileType": 8192,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/css\/main-css.php",
 		"outputAbbreviatedPath": "No Output Path",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0

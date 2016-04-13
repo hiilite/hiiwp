@@ -50,7 +50,7 @@ $hiilite_options['color_palette'] 				= array('color_one' => $hiilite_options['c
 
 // HEADER
 $hiilite_options['header_type'] 				= get_theme_mod( 'header_type', 'regular'); // regular | centered | fixed
-$hiilite_options['header_above_content'] 		= get_theme_mod( 'header_above_content', false);
+$hiilite_options['header_above_content'] 		= get_theme_mod( 'header_above_content', true);
 $hiilite_options['header_background_image']		= get_theme_mod( 'header_background_image', '');
 $hiilite_options['header_background_repeat']	= get_theme_mod( 'header_background_repeat', 'no-repeat');
 $hiilite_options['header_background_size']	    = get_theme_mod( 'header_background_size', 'cover');

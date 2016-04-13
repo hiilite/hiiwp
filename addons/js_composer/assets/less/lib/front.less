@@ -92,6 +92,7 @@ ul.wpb_thumbnails-fluid > li,
   }
   &[data-vc-full-width] {
     .transition(opacity 0.5s ease);
+    overflow: hidden; /** Fix overflow **/
     &.vc_hidden {
       opacity: 0;
     }

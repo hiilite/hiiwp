@@ -23,7 +23,7 @@ Kirki::add_field( 'header_above_content', array(
     'settings'    => 'header_above_content',
     'label'       => __( 'Content Below Header', 'my_textdomain' ),
     'section'     => 'header_section',
-    'default'     => false,
+    'default'     => true,
     'priority'    => 1,
 ) );
 Kirki::add_field( 'header_in_grid', array(

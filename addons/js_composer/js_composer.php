@@ -1,11 +1,11 @@
 <?php
 /*
--Plugin Name: WPBakery Visual Composer
--Plugin URI: http://vc.wpbakery.com
+Plugin Name: WPBakery Visual Composer
+Plugin URI: http://vc.wpbakery.com
 Description: Drag and drop page builder for WordPress. Take full control over your WordPress site, build any layout you can imagine – no programming knowledge required.
--Version: 4.10
--Author: Michael M - WPBakery.com
--Author URI: http://wpbakery.com
+Version: 4.11.2
+Author: Michael M - WPBakery.com
+Author URI: http://wpbakery.com
 */
 
 // don't load directly
@@ -19,7 +19,7 @@ if ( ! defined( 'WPB_VC_VERSION' ) ) {
 	/**
 	 *
 	 */
-	define( 'WPB_VC_VERSION', '4.10' );
+	define( 'WPB_VC_VERSION', '4.11.2' );
 }
 
 /**
@@ -54,7 +54,7 @@ class Vc_Manager {
 	 * @since 4.2
 	 * @var bool
 	 */
-	private $is_as_theme = true;
+	private $is_as_theme = false;
 	/**
 	 * Vc is network plugin or not.
 	 * @since 4.2
@@ -131,8 +131,6 @@ class Vc_Manager {
 	 */
 	private function __construct() {
 		$dir = dirname( __FILE__ );
-		//$dir = '';
-		//echo '<pre>'.$dir.'</pre>';
 		/**
 		 * Define path settings for visual composer.
 		 *
@@ -182,11 +180,9 @@ class Vc_Manager {
 		require_once $this->path( 'AUTOLOAD_DIR', 'vc-shortcode-autoloader.php' );
 		require_once $this->path( 'SHORTCODES_DIR', 'shortcodes.php' );
 		// Add hooks
-		//add_action( 'plugins_loaded', array( &$this, 'pluginsLoaded' ), 9 );
 		add_action( 'init', array( &$this, 'pluginsLoaded' ), 9 );
 		add_action( 'init', array( &$this, 'init' ), 9 );
 		$this->setPluginName( $this->path( 'APP_DIR', 'js_composer.php' ) );
-		//add_action( 'init', array( &$this, 'activationHook' ), 9 );
 		//register_activation_hook( __FILE__, array( $this, 'activationHook' ) );
 	}
 
@@ -269,6 +265,14 @@ class Vc_Manager {
 		do_action( 'vc_after_mapping' ); // VC ACTION
 		// Load && Map shortcodes from Automapper.
 		vc_automapper()->map();
+		if ( vc_user_access()
+			->wpAny( 'manage_options' )
+			->part( 'settings' )
+			->can( 'vc-updater-tab' )
+			->get()
+		) {
+			vc_license()->setupReminder();
+		}
 		do_action( 'vc_after_init' );
 	}
 
