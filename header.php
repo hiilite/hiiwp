@@ -82,8 +82,8 @@ echo $html;
 <?php include_once('css/font-awesome/css/font-awesome.min.css');
 ob_start();
 include_once('css/main-css.php');
-$str_sidebar = ob_get_clean();
-$body = str_replace("!important", $str_sidebar, $body);
+$maincss = ob_get_clean();
+$body = str_replace("!important", "", $maincss);
 echo $body;
  ?>
 
