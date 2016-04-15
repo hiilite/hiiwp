@@ -213,7 +213,7 @@ function minqueue_init () {
 function minqueue_scripts() {
 	global $wp_scripts;
 	$queue = $wp_scripts->queue;
-
+	if($queue){
    foreach( $queue as $key => $handle) {
 	   /* if( $handle != 'customize-preview' && 
 	    	$handle != 'customize-preview-widgets' && 
@@ -229,6 +229,7 @@ function minqueue_scripts() {
 				wp_deregister_script($handle); 
 			}
 		/*}*/
+    }
     }
 }
 

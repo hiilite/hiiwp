@@ -34,6 +34,45 @@ echo $WebSite;
 	
 	$html = '{
 	  "@context" : "http://schema.org",
+	  "@type" : "Organization",';
+	 if($options['business_url']!='')$html .= '"url" : "'.$options['business_url'].'",';
+	 
+	  if($options['business_logo']!='')$html .= '"logo" : "'.$options['business_logo'].'",';
+	  if($options['business_email']!='')$html .= '"email" : "'.$options['business_email'].'",';
+	  if($options['business_telephone']!='')$html .= '"telephone" : "'.$options['business_telephone'].'",';
+	  if($options['business_faxNumber']!='')$html .= '"faxNumber" : "'.$options['business_faxNumber'].'",';
+	  if($options['business_description']!='')$html .= ' "description" : "'.$options['business_description'].'",';
+	  if($options['business_name']!='')$html .= ' "name" : "'.$options['business_name'].'",';
+	  if($options['business_telephone']!='')$html .= ' "contactPoint" : [{
+		"@type" : "ContactPoint",
+		"telephone" : "'.$options['business_telephone'].'",
+		"contactType" : "reservations"
+	  }],';
+	 $html .= '"sameAs" : [';
+		if($options['business_facebook']!='')$html .= '"'.$options['business_facebook'].'"';
+		if($options['business_twitter']!='')$html .= ',"'.$options['business_twitter'].'"';
+		if($options['business_googleplus']!='')$html .= ',"'.$options['business_googleplus'].'"';
+		if($options['business_linkedin']!='')$html .= ',"'.$options['business_linkedin'].'"';
+		if($options['business_instagram']!='')$html .= ',"'.$options['business_instagram'].'"';
+	 $html.= ' ],
+	  "address": {
+		"@type": "PostalAddress",';
+		if($options['business_addressLocality']!='')$html .= '"addressLocality": "'.$options['business_addressLocality'].'",';
+		if($options['business_addressRegion']!='')$html .= '"addressRegion": "'.$options['business_addressRegion'].'",';
+		if($options['business_streetAddress']!='')$html .= '"streetAddress": "'.$options['business_streetAddress'].'",';
+		if($options['business_addressCountry']!='')$html .= '"addressCountry": "'.$options['business_addressCountry'].'"';
+	$html.='  },';
+	  if($options['business_geo_latitude']!='' && $options['business_geo_longitude']!=''){$html .= '"geo": {
+		"@type": "GeoCoordinates",
+		"latitude": "'.$options['business_geo_latitude'].'",
+		"longitude": "'.$options['business_geo_longitude'].'"
+	  }';}
+
+	$html .= '}';
+	
+	
+	$html = '{
+	  "@context" : "http://schema.org",
 	  "@type" : "'.$options['business_type'].'",';
 	 if($options['business_url']!='')$html .= '"url" : "'.$options['business_url'].'",';
 	 
@@ -46,8 +85,50 @@ echo $WebSite;
 	  if($options['business_telephone']!='')$html .= ' "contactPoint" : [{
 		"@type" : "ContactPoint",
 		"telephone" : "'.$options['business_telephone'].'",
-		"contactType" : "customer service"
+		"contactType" : "reservations"
 	  }],';
+	 $html .= '"openingHoursSpecification" : [';
+	 $html .= '{
+			    "@type": "OpeningHoursSpecification",
+			    "dayOfWeek": [
+			      "Monday",
+			      "Tuesday",
+			      "Wednesday",
+			      "Thursday",
+			      "Friday"
+			    ],
+			    "opens": "12:00",
+			    "closes": "15:00"
+			  },
+			  {
+			    "@type": "OpeningHoursSpecification",
+			    "dayOfWeek": [
+			      "Monday",
+			      "Tuesday",
+			      "Wednesday",
+			      "Thursday"
+			    ],
+			    "opens": "17:00",
+			    "closes": "22:00"
+			  },
+			  {
+			    "@type": "OpeningHoursSpecification",
+			    "dayOfWeek": [
+			      "Friday",
+			      "Saturday"
+			    ],
+			    "opens": "17:00",
+			    "closes": "23:59"
+			  },
+			  {
+			    "@type": "OpeningHoursSpecification",
+			    "dayOfWeek": [
+			      "Sunday"
+			    ],
+			    "opens": "10:30",
+			    "closes": "15:00"
+			  }	';
+	 $html .= ' ],';
 	 $html .= '"sameAs" : [';
 		if($options['business_facebook']!='')$html .= '"'.$options['business_facebook'].'"';
 		if($options['business_twitter']!='')$html .= ',"'.$options['business_twitter'].'"';
@@ -97,6 +178,7 @@ echo $body;
 	<script async custom-element="amp-iframe" src="https://cdn.ampproject.org/v0/amp-iframe-0.1.js"></script>
 	<script async custom-element="amp-analytics" src="https://cdn.ampproject.org/v0/amp-analytics-0.1.js"></script>
 	<script async custom-element="amp-social-share" src="https://cdn.ampproject.org/v0/amp-social-share-0.1.js"></script>
+	<script async custom-element="amp-facebook" src="https://cdn.ampproject.org/v0/amp-facebook-0.1.js"></script>
 	<script async src="https://cdn.ampproject.org/v0.js"></script>
 <?php } else { ?>
 <script type="text/javascript">

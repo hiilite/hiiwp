@@ -99,9 +99,6 @@ h6 {
 
 /* CONTAINERS */
 .wrapper {
-	position: fixed;
-	overflow: hidden;
-	height: 100%;
 	width: 100%;
 }
 .wrapper_inner {
@@ -410,7 +407,9 @@ ul.sub-menu {
 <?=$_amp?>img.full-width, .full-width <?=$_amp?>iframe, .row {
 	min-width: 100%;
 }
-
+.full-width,.threequarter-width,.half-width,.third-width,.twothird-width,.quarter-width {
+    box-sizing: border-box;
+}
 .full-width, .col-12 {
 	width: 100%;
 }
@@ -431,7 +430,7 @@ ul.sub-menu {
 }
 
 .third-width, .col-4 {
-	min-width: 15em;
+	min-width: 10em;
 	max-width: 33em;
 	width: 33.33%;
 	margin: auto;
@@ -563,10 +562,11 @@ amp-carousel.slider .slide-text-overlay amp-fit-text {
 }
 
 /*for when image bleeds beyond edges*/
-amp-carousel <?=$_amp?>img {
+<?=$_amp?>carousel <?=$_amp?>img {
 	max-height: 100%;
 	max-width: 150%;
-	margin-left: -25%;
+	min-width:100%;
+	min-height:100%;
 }
 .text-align.center {
 	text-align: center;

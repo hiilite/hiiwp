@@ -4,7 +4,7 @@
     'title'       => __( 'Logo', 'textdomain' ),
     'description' => __( 'Global settings', 'textdomain' ),
 ) );
-Kirki::add_field( 'main_logo', array(
+Kirki::add_field( 'hiiwp', array(
 	'type'        => 'image',
 	'settings'    => 'main_logo',
 	'label'       => __( 'Main Logo', 'my_textdomain' ),
@@ -13,7 +13,7 @@ Kirki::add_field( 'main_logo', array(
 	'default'     => get_template_directory_uri().'/images/logoNormal@2x.png',
 	'priority'    => 1,
 ) );
-Kirki::add_field( 'logo_size_mod', array(
+Kirki::add_field( 'hiiwp', array(
 	'type'        => 'slider',
 	'settings'    => 'logo_size_mod',
 	'label'       => esc_attr__( 'A percentage that the logo should be scaled too', 'my_textdomain' ),

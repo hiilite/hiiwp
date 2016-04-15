@@ -14,7 +14,7 @@ Kirki::add_section( 'general_section_globals', array(
 ) );
 
 
-Kirki::add_field( 'amp', array(
+Kirki::add_field( 'hiiwp', array(
 	'type'        => 'switch',
 	'settings'    => 'amp',
 	'label'       => esc_attr__( 'Make AMP Site', 'my_textdomain' ),
@@ -24,7 +24,7 @@ Kirki::add_field( 'amp', array(
 	'description'    => __( 'Make whole site AMP compatible. This means no external CSS or JS is allowed, so many plugins will not work. Any forms must be loaded in an iframe (can be done in row options) and be 75% or 600px from the top of the page. No in tag CSS is allowed, and no use of !important in custom CSS. all image and other embedded elements are converted to there amp counterparts' ),
 ) );
 
-Kirki::add_field( 'grid_width', array(
+Kirki::add_field( 'hiiwp', array(
 	'type'        => 'dimension',
 	'settings'    => 'grid_width',
 	'label'       => esc_attr__( 'Grid Width', 'my_textdomain' ),
@@ -34,7 +34,7 @@ Kirki::add_field( 'grid_width', array(
 ) );
 
 
-Kirki::add_field( 'custom_css', array(
+Kirki::add_field( 'hiiwp', array(
 	'type'        => 'code',
 	'settings'    => 'custom_css',
 	'label'       => __( 'Custom CSS', 'my_textdomain' ),
@@ -58,7 +58,7 @@ Kirki::add_section( 'general_section', array(
     'panel'          => 'general_panel', // Not typically needed.
     'priority'       => 3,
 ) );
-Kirki::add_field( 'default_font', array(
+Kirki::add_field( 'hiiwp', array(
     'type'        => 'typography',
     'settings'    => 'default_font',
     'label'       => esc_attr__( 'Default Font', 'kirki' ),
@@ -79,7 +79,7 @@ Kirki::add_field( 'default_font', array(
         ),
     ),
 ) );
-Kirki::add_field( 'heading_font', array(
+Kirki::add_field( 'hiiwp', array(
     'type'        => 'typography',
     'settings'    => 'heading_font',
     'label'       => esc_attr__( 'Heading Font', 'kirki' ),
@@ -111,7 +111,7 @@ Kirki::add_section( 'general_section_color_palette', array(
     'capability'     => 'edit_theme_options',
     
 ) );
-Kirki::add_field( 'color_one', array(
+Kirki::add_field( 'hiiwp', array(
 	'type'        => 'color',
 	'settings'    => 'color_one',
 	'label'       => __( 'Primary Color', 'my_textdomain' ),
@@ -122,7 +122,7 @@ Kirki::add_field( 'color_one', array(
 	'transport'	  => 'postMessage',
 	
 ) );
-Kirki::add_field( 'color_two', array(
+Kirki::add_field( 'hiiwp', array(
 	'type'        => 'color',
 	'settings'    => 'color_two',
 	'label'       => __( 'Secondary Color', 'my_textdomain' ),
@@ -131,7 +131,7 @@ Kirki::add_field( 'color_two', array(
 	'priority'    => 2,
 	'alpha'       => true,
 ) );
-Kirki::add_field( 'color_three', array(
+Kirki::add_field( 'hiiwp', array(
 	'type'        => 'color',
 	'settings'    => 'color_three',
 	'label'       => __( 'Info Color', 'my_textdomain' ),
@@ -140,7 +140,7 @@ Kirki::add_field( 'color_three', array(
 	'priority'    => 3,
 	'alpha'       => true,
 ) );
-Kirki::add_field( 'color_four', array(
+Kirki::add_field( 'hiiwp', array(
 	'type'        => 'color',
 	'settings'    => 'color_four',
 	'label'       => __( 'Typography Color', 'my_textdomain' ),
@@ -149,7 +149,7 @@ Kirki::add_field( 'color_four', array(
 	'priority'    => 4,
 	'alpha'       => true,
 ) );
-Kirki::add_field( 'color_five', array(
+Kirki::add_field( 'hiiwp', array(
 	'type'        => 'color',
 	'settings'    => 'color_five',
 	'label'       => __( 'Text Link Color', 'my_textdomain' ),
@@ -158,7 +158,7 @@ Kirki::add_field( 'color_five', array(
 	'priority'    => 5,
 	'alpha'       => true,
 ) );
-Kirki::add_field( 'default_background_color', array(
+Kirki::add_field( 'hiiwp', array(
 	'type'        => 'color',
 	'settings'    => 'default_background_color',
 	'label'       => __( 'Background Color', 'my_textdomain' ),
@@ -168,7 +168,7 @@ Kirki::add_field( 'default_background_color', array(
 	'alpha'       => true,
 ) );
 
-Kirki::add_field( 'secondary_background_color', array(
+Kirki::add_field( 'hiiwp', array(
 	'type'        => 'color',
 	'settings'    => 'secondary_background_color',
 	'label'       => __( 'Background Color', 'my_textdomain' ),
@@ -189,7 +189,7 @@ Kirki::add_section( 'general_section_seo', array(
 ) );
 
 
-Kirki::add_field( 'analytics_id', array(
+Kirki::add_field( 'hiiwp', array(
 	'type'        => 'text',
 	'settings'    => 'analytics_id',
 	'label'       => __( 'Google Analytics ID', 'my_textdomain' ),
@@ -198,7 +198,7 @@ Kirki::add_field( 'analytics_id', array(
 	'priority'    => 1,
 ) );
 
-Kirki::add_field( 'brand_seo_title', array(
+Kirki::add_field( 'hiiwp', array(
 	'type'        => 'textlimited',
 	'settings'    => 'brand_seo_title',
 	'label'       => __( 'Brand Name', 'my_textdomain' ),
@@ -209,7 +209,7 @@ Kirki::add_field( 'brand_seo_title', array(
 	'priority'    => 1,
 ) );
 
-Kirki::add_field( 'site_seo_title', array(
+Kirki::add_field( 'hiiwp', array(
 	'type'        => 'textlimited',
 	'settings'    => 'site_seo_title',
 	'label'       => __( 'Site Title', 'my_textdomain' ),
@@ -220,7 +220,7 @@ Kirki::add_field( 'site_seo_title', array(
 	'priority'    => 1,
 ) );
 
-Kirki::add_field( 'site_seo_title', array(
+Kirki::add_field( 'hiiwp', array(
 	'type'        => 'textarealimited',
 	'settings'    => 'site_seo_description',
 	'label'       => __( 'Site Description', 'my_textdomain' ),

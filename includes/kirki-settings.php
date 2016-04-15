@@ -61,11 +61,16 @@ add_action( 'customize_register', function( $wp_customize ) {
 		$controls['textarealimited'] = 'Kirki_Controls_Textarea_Limited_Control';
 		return $controls;
 	} );
+	
+	
 
 } );
 
 // PANELS
-
+Kirki::add_config( 'hiiwp', array(
+		'capability'    => 'edit_theme_options',
+		'option_type'   => 'theme_mod',
+	) );
 // GENERAL
 require_once 'kirki_sets/general_panel.php';
 

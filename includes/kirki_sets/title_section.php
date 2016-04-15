@@ -5,7 +5,7 @@ Kirki::add_section( 'title_section', array(
     'description' => __( 'Title settings', 'textdomain' ),
 ) );
 
-Kirki::add_field( 'show_page_titles', array(
+Kirki::add_field( 'hiiwp', array(
     'type'        => 'switch',
     'settings'    => 'show_page_titles',
     'label'       => __( 'Show page titles', 'my_textdomain' ),
@@ -15,7 +15,7 @@ Kirki::add_field( 'show_page_titles', array(
     'priority'    => 1,
 ) );
 
-Kirki::add_field( 'title_height', array(
+Kirki::add_field( 'hiiwp', array(
     'type'        => 'dimension',
     'settings'    => 'title_height',
     'label'       => __( 'Title Height', 'my_textdomain' ),

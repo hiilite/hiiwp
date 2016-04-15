@@ -6,7 +6,7 @@ Kirki::add_section( 'footer_section', array(
 ) );
 
 
-Kirki::add_field( 'footer_in_grid', array(
+Kirki::add_field( 'hiiwp', array(
     'type'        => 'switch',
     'settings'    => 'footer_in_grid',
     'label'       => __( 'Footer in Grid', 'my_textdomain' ),
@@ -15,7 +15,7 @@ Kirki::add_field( 'footer_in_grid', array(
     'priority'    => 1,
 ) );
 
-Kirki::add_field( 'footer_background', array(
+Kirki::add_field( 'hiiwp', array(
 	'type'        => 'background',
     'settings'    => 'footer_background',
     'label'       => __( 'Footer Background', 'my_textdomain' ),
@@ -35,7 +35,7 @@ Kirki::add_field( 'footer_background', array(
 
 
 
-Kirki::add_field( 'footer_top_col1', array(
+Kirki::add_field( 'hiiwp', array(
     'type'        => 'switch',
     'settings'    => 'footer_top_col1',
     'label'       => __( 'Footer Column 1', 'my_textdomain' ),
@@ -44,7 +44,7 @@ Kirki::add_field( 'footer_top_col1', array(
     'default'     => true,
     'priority'    => 6,
 ) );
-Kirki::add_field( 'footer_top_col2', array(
+Kirki::add_field( 'hiiwp', array(
     'type'        => 'switch',
     'settings'    => 'footer_top_col2',
     'label'       => __( 'Footer Column 2', 'my_textdomain' ),
@@ -53,7 +53,7 @@ Kirki::add_field( 'footer_top_col2', array(
     'default'     => true,
     'priority'    => 6,
 ) );
-Kirki::add_field( 'footer_top_col3', array(
+Kirki::add_field( 'hiiwp', array(
     'type'        => 'switch',
     'settings'    => 'footer_top_col3',
     'label'       => __( 'Footer Column 3', 'my_textdomain' ),
@@ -62,7 +62,7 @@ Kirki::add_field( 'footer_top_col3', array(
     'default'     => true,
     'priority'    => 6,
 ) );
-Kirki::add_field( 'footer_top_col4', array(
+Kirki::add_field( 'hiiwp', array(
     'type'        => 'switch',
     'settings'    => 'footer_top_col4',
     'label'       => __( 'Footer Column 4', 'my_textdomain' ),
@@ -74,7 +74,7 @@ Kirki::add_field( 'footer_top_col4', array(
 
 
 
-Kirki::add_field( 'footer_bottom_background_color', array(
+Kirki::add_field( 'hiiwp', array(
     'type'        => 'color',
     'settings'    => 'footer_bottom_background_color',
     'label'       => __( 'Footer Bottom Background Color', 'my_textdomain' ),
@@ -85,7 +85,7 @@ Kirki::add_field( 'footer_bottom_background_color', array(
    
 ) );
 
-Kirki::add_field( 'footer_bottom_center', array(
+Kirki::add_field( 'hiiwp', array(
     'type'        => 'switch',
     'settings'    => 'footer_bottom_center',
     'label'       => __( 'Footer Bottom Center', 'my_textdomain' ),
@@ -95,7 +95,7 @@ Kirki::add_field( 'footer_bottom_center', array(
     'priority'    => 8,
 ) );
 
-Kirki::add_field( 'footer_bottom_left', array(
+Kirki::add_field( 'hiiwp', array(
     'type'        => 'switch',
     'settings'    => 'footer_bottom_left',
     'label'       => __( 'Footer Bottom Left', 'my_textdomain' ),
@@ -105,7 +105,7 @@ Kirki::add_field( 'footer_bottom_left', array(
     'priority'    => 8,
 ) );
 
-Kirki::add_field( 'footer_bottom_right', array(
+Kirki::add_field( 'hiiwp', array(
     'type'        => 'switch',
     'settings'    => 'footer_bottom_right',
     'label'       => __( 'Footer Bottom Right', 'my_textdomain' ),

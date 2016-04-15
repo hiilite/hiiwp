@@ -4,7 +4,7 @@ Kirki::add_section( 'header_section', array(
     'title'       => __( 'Header', 'textdomain' ),
     'description' => __( 'header settings', 'textdomain' ),
 ) );
-Kirki::add_field( 'header_type', array(
+Kirki::add_field( 'hiiwp', array(
 	'type'        => 'select',
     'settings'    => 'header_type',
     'label'       => __( 'Type of header', 'my_textdomain' ),
@@ -18,7 +18,7 @@ Kirki::add_field( 'header_type', array(
         'fixed' => esc_attr__( 'Fixed', 'my_textdomain' ),
     ),
 ) );
-Kirki::add_field( 'header_above_content', array(
+Kirki::add_field( 'hiiwp', array(
     'type'        => 'switch',
     'settings'    => 'header_above_content',
     'label'       => __( 'Content Below Header', 'my_textdomain' ),
@@ -26,7 +26,7 @@ Kirki::add_field( 'header_above_content', array(
     'default'     => true,
     'priority'    => 1,
 ) );
-Kirki::add_field( 'header_in_grid', array(
+Kirki::add_field( 'hiiwp', array(
     'type'        => 'switch',
     'settings'    => 'header_in_grid',
     'label'       => __( 'Header in Grid', 'my_textdomain' ),
@@ -35,7 +35,7 @@ Kirki::add_field( 'header_in_grid', array(
     'priority'    => 1,
 ) );
 
-Kirki::add_field( 'header_background', array(
+Kirki::add_field( 'hiiwp', array(
 	'type'        => 'background',
     'settings'    => 'header_background',
     'label'       => __( 'Header Background', 'my_textdomain' ),
@@ -59,7 +59,7 @@ Kirki::add_field( 'header_background', array(
     	)
     ),
 ) );
-Kirki::add_field( 'header_line_height', array(
+Kirki::add_field( 'hiiwp', array(
     'type'        => 'dimension',
     'settings'    => 'header_line_height',
     'label'       => __( 'Header Line Height', 'my_textdomain' ),
@@ -70,7 +70,7 @@ Kirki::add_field( 'header_line_height', array(
 ) );
 
 
-Kirki::add_field( 'header_top_border_width', array(
+Kirki::add_field( 'hiiwp', array(
     'type'        => 'dimension',
     'settings'    => 'header_top_border_width',
     'label'       => __( 'Header Top Border Thickness', 'my_textdomain' ),
@@ -80,7 +80,7 @@ Kirki::add_field( 'header_top_border_width', array(
     'output' => '#header_top',
 ) );
 
-Kirki::add_field( 'header_top_border_color', array(
+Kirki::add_field( 'hiiwp', array(
     'type'        => 'palette',
     'settings'    => 'header_top_border_color',
     'label'       => __( 'Header Top Border Color', 'my_textdomain' ),
@@ -115,7 +115,7 @@ Kirki::add_field( 'header_top_border_color', array(
 
 
 
-Kirki::add_field( 'header_top_left', array(
+Kirki::add_field( 'hiiwp', array(
     'type'        => 'switch',
     'settings'    => 'header_top_left',
     'label'       => __( 'Header Top Left', 'my_textdomain' ),
@@ -124,7 +124,7 @@ Kirki::add_field( 'header_top_left', array(
     'default'     => false,
     'priority'    => 6,
 ) );
-Kirki::add_field( 'header_top_right', array(
+Kirki::add_field( 'hiiwp', array(
     'type'        => 'switch',
     'settings'    => 'header_top_right',
     'label'       => __( 'Header Top Right', 'my_textdomain' ),
@@ -133,7 +133,7 @@ Kirki::add_field( 'header_top_right', array(
     'default'     => false,
     'priority'    => 7,
 ) );
-Kirki::add_field( 'header_top_background_color', array(
+Kirki::add_field( 'hiiwp', array(
 	'type'        => 'color',
 	'settings'    => 'header_top_background_color',
 	'label'       => __( 'Header Top Background Color', 'my_textdomain' ),
@@ -151,7 +151,7 @@ Kirki::add_field( 'header_top_background_color', array(
 
 
 
-Kirki::add_field( 'header_center_left_on', array(
+Kirki::add_field( 'hiiwp', array(
     'type'        => 'switch',
     'settings'    => 'header_center_left_on',
     'label'       => __( 'Header Center Left', 'my_textdomain' ),
@@ -160,7 +160,7 @@ Kirki::add_field( 'header_center_left_on', array(
     'default'     => false,
     'priority'    => 8,
 ) );
-Kirki::add_field( 'header_center_right_on', array(
+Kirki::add_field( 'hiiwp', array(
     'type'        => 'switch',
     'settings'    => 'header_center_right_on',
     'label'       => __( 'Header Center Right', 'my_textdomain' ),
@@ -170,7 +170,7 @@ Kirki::add_field( 'header_center_right_on', array(
     'priority'    => 8,
 ) );
 
-Kirki::add_field( 'header_bottom_on', array(
+Kirki::add_field( 'hiiwp', array(
     'type'        => 'switch',
     'settings'    => 'header_bottom_on',
     'label'       => __( 'Header Bottom', 'my_textdomain' ),

@@ -126,11 +126,10 @@ $business_args = array(
 add_action('admin_menu', 'company_admin_add_page');
 
 function company_admin_add_page() {
-	
 	$company_page = add_menu_page ( 'Company Profile', 'Company Profile', 'manage_options', 'company', 'company_options_page', 'dashicons-id-alt', 2 );
 	
 	//call register settings function
-	add_action( 'admin_init', 'company_admin_init' , $business_args);
+	add_action( 'admin_init', 'company_admin_init' );
 	add_action('load-'.$company_page, 'company_page_help_tab');
 }
 function company_page_help_tab(){

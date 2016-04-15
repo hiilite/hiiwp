@@ -27,7 +27,7 @@ Kirki::add_section( 'typography_footer_section', array(
 
 
 
-Kirki::add_field( 'typography_h1_font', array(
+Kirki::add_field( 'hiiwp', array(
     'type'        => 'typography',
     'settings'    => 'typography_h1_font',
     'label'       => esc_attr__( 'H1 Style', 'kirki' ),
@@ -50,7 +50,7 @@ Kirki::add_field( 'typography_h1_font', array(
     ),
 ) );
 
-Kirki::add_field( 'typography_h2_font', array(
+Kirki::add_field( 'hiiwp', array(
     'type'        => 'typography',
     'settings'    => 'typography_h2_font',
     'label'       => esc_attr__( 'H2 Style', 'kirki' ),
@@ -73,7 +73,7 @@ Kirki::add_field( 'typography_h2_font', array(
     ),
 ) );
 
-Kirki::add_field( 'typography_h3_font', array(
+Kirki::add_field( 'hiiwp', array(
     'type'        => 'typography',
     'settings'    => 'typography_h3_font',
     'label'       => esc_attr__( 'H3 Style', 'kirki' ),
@@ -96,7 +96,7 @@ Kirki::add_field( 'typography_h3_font', array(
     ),
 ) );
 
-Kirki::add_field( 'typography_h4_font', array(
+Kirki::add_field( 'hiiwp', array(
     'type'        => 'typography',
     'settings'    => 'typography_h4_font',
     'label'       => esc_attr__( 'H4 Style', 'kirki' ),
@@ -119,7 +119,7 @@ Kirki::add_field( 'typography_h4_font', array(
     ),
 ) );
 
-Kirki::add_field( 'typography_h5_font', array(
+Kirki::add_field( 'hiiwp', array(
     'type'        => 'typography',
     'settings'    => 'typography_h5_font',
     'label'       => esc_attr__( 'H5 Style', 'kirki' ),
@@ -142,7 +142,7 @@ Kirki::add_field( 'typography_h5_font', array(
     ),
 ) );
 
-Kirki::add_field( 'typography_h6_font', array(
+Kirki::add_field( 'hiiwp', array(
     'type'        => 'typography',
     'settings'    => 'typography_h6_font',
     'label'       => esc_attr__( 'H6 Style', 'kirki' ),
@@ -165,7 +165,7 @@ Kirki::add_field( 'typography_h6_font', array(
     ),
 ) );
 
-Kirki::add_field( 'typography_link_color', array(
+Kirki::add_field( 'hiiwp', array(
 	'type'        => 'color',
 	'settings'    => 'typography_link_color',
 	'label'       => __( 'Link Color (a)', 'my_textdomain' ),
@@ -174,7 +174,7 @@ Kirki::add_field( 'typography_link_color', array(
 	'priority'    => 1,
 ) );
 
-Kirki::add_field( 'typography_link_custom_css', array(
+Kirki::add_field( 'hiiwp', array(
 	'type'        => 'code',
 	'settings'    => 'typography_link_custom_css',
 	'label'       => __( 'Link Custom CSS (a)', 'my_textdomain' ),
@@ -191,7 +191,7 @@ Kirki::add_field( 'typography_link_custom_css', array(
 	'output' => 'a',
 ) );
 
-Kirki::add_field( 'typography_icon_custom_css', array(
+Kirki::add_field( 'hiiwp', array(
 	'type'        => 'code',
 	'settings'    => 'typography_icon_custom_css',
 	'label'       => __( 'Icon Custom CSS (.fa)', 'my_textdomain' ),
@@ -216,7 +216,7 @@ Kirki::add_field( 'typography_icon_custom_css', array(
 ) );
 
 
-Kirki::add_field( 'typography_button_custom_css', array(
+Kirki::add_field( 'hiiwp', array(
 	'type'        => 'code',
 	'settings'    => 'typography_button_custom_css',
 	'label'       => __( 'Button Custom CSS (.button)', 'my_textdomain' ),
@@ -242,7 +242,7 @@ Kirki::add_field( 'typography_button_custom_css', array(
 ) );
 
 
-Kirki::add_field( 'custom_format_1', array(
+Kirki::add_field( 'hiiwp', array(
 	'type'        => 'code',
 	'settings'    => 'custom_format_1',
 	'label'       => __( 'Custom Format 1 (.custom_format_1)', 'my_textdomain' ),
@@ -258,7 +258,7 @@ Kirki::add_field( 'custom_format_1', array(
 	),
 	'output' => '.custom_format_1',
 ) );
-Kirki::add_field( 'custom_format_2', array(
+Kirki::add_field( 'hiiwp', array(
 	'type'        => 'code',
 	'settings'    => 'custom_format_2',
 	'label'       => __( 'Custom Format 2 (.custom_format_2)', 'my_textdomain' ),
@@ -274,7 +274,7 @@ Kirki::add_field( 'custom_format_2', array(
 	),
 	'output' => '.custom_format_2',
 ) );
-Kirki::add_field( 'custom_format_3', array(
+Kirki::add_field( 'hiiwp', array(
 	'type'        => 'code',
 	'settings'    => 'custom_format_3',
 	'label'       => __( 'Custom Format 3 (.custom_format_3)', 'my_textdomain' ),
@@ -294,7 +294,7 @@ Kirki::add_field( 'custom_format_3', array(
 
 
 
-Kirki::add_field( 'typography_footer_headings_font', array(
+Kirki::add_field( 'hiiwp', array(
     'type'        => 'typography',
     'settings'    => 'typography_footer_headings_font',
     'label'       => esc_attr__( 'Footer Headings Font', 'kirki' ),
@@ -316,7 +316,7 @@ Kirki::add_field( 'typography_footer_headings_font', array(
     ),
 ) );
 
-Kirki::add_field( 'typography_footer_text_font', array(
+Kirki::add_field( 'hiiwp', array(
     'type'        => 'typography',
     'settings'    => 'typography_footer_text_font',
     'label'       => esc_attr__( 'Footer Text Font', 'kirki' ),
@@ -338,7 +338,7 @@ Kirki::add_field( 'typography_footer_text_font', array(
     ),
 ) );
 
-Kirki::add_field( 'typography_footer_links_font', array(
+Kirki::add_field( 'hiiwp', array(
     'type'        => 'typography',
     'settings'    => 'typography_footer_links_font',
     'label'       => esc_attr__( 'Footer Links Font', 'kirki' ),

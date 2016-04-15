@@ -4,7 +4,7 @@ Kirki::add_section( 'menu_section', array(
     'title'       => __( 'Navigation', 'textdomain' ),
     'description' => __( 'Global settings', 'textdomain' ),
 ) );
-Kirki::add_field( 'main_menu_font', array(
+Kirki::add_field( 'hiiwp', array(
     'type'        => 'typography',
     'settings'    => 'main_menu_font',
     'label'       => esc_attr__( 'Menu Font', 'kirki' ),
@@ -25,7 +25,7 @@ Kirki::add_field( 'main_menu_font', array(
         ),
     ),
 ) );
-Kirki::add_field( 'main_menu_background_color', array(
+Kirki::add_field( 'hiiwp', array(
 	'type'        => 'color',
 	'settings'    => 'main_menu_background_color',
 	'label'       => __( 'Menu Background Color', 'my_textdomain' ),
@@ -34,7 +34,7 @@ Kirki::add_field( 'main_menu_background_color', array(
 	'priority'    => 7,
 ) );
 
-Kirki::add_field( 'mobile_menu_switch', array(
+Kirki::add_field( 'hiiwp', array(
     'type'        => 'dimension',
     'settings'    => 'mobile_menu_switch',
     'label'       => __( 'Mobile Menu Switch', 'my_textdomain' ),
@@ -43,7 +43,7 @@ Kirki::add_field( 'mobile_menu_switch', array(
     'default'     => '768px',
     'priority'    => 11,
 ) );
-Kirki::add_field( 'main_menu_links_css', array(
+Kirki::add_field( 'hiiwp', array(
 	'type'        => 'code',
 	'settings'    => 'main_menu_links_css',
 	'label'       => __( 'Menu Link Custom CSS', 'my_textdomain' ),
