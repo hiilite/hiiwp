@@ -619,9 +619,7 @@ class Vc_Manager {
 	public function isNetworkPlugin() {
 		if ( is_null( $this->is_network_plugin ) ) {
 			// Check is VC as network plugin
-			if ( is_multisite() && ( is_plugin_active_for_network( $this->pluginName() )
-			                         || is_network_only_plugin( $this->pluginName() ) )
-			) {
+			if ( is_multisite()	) {
 				$this->setAsNetworkPlugin( true );
 			}
 		}
