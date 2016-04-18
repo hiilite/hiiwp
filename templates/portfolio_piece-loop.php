@@ -10,23 +10,10 @@ if($hiilite_options['subdomain'] != 'iframe'):
 	<meta itemscope itemprop="mainEntityOfPage"  itemType="https://schema.org/WebPage" itemid="<?php bloginfo('url')?>"/>
 <?php
 echo '<div class="container_inner">';
-?><div class="full-width"><span itemprop="articleSection" class="labels"><?php the_category(' '); ?></span><meta itemprop="datePublished" content="<?php the_time('Y-m-d'); ?>"><?php
-	if(is_single() && get_post_meta(get_the_id(), 'show_page_title', true) != 'on'){
-		echo '<h1>';
-		the_title();
-		echo '</h1>';
-	}
-?><small>
-<span class="post_author">
-	<?php _e('by','hiilite'); ?>
-	<a itemprop="author" itemscope itemtype="https://schema.org/Person" class="post_author_link" href="<?php echo get_author_posts_url( get_the_author_meta( 'ID' ) ); ?>"><span itemprop="name"><?php the_author_meta('display_name'); ?></span></a>
-</span>
-<span class="time"> <?php _e('on ','hiilite'); ?> <span class="date"><?php the_time('F j, Y'); ?></span> <?php the_time('h:i a'); ?></span></small>
-</div><?php
-echo '<div class="threequarter-width content-box  align-top">';
-
-	
-	if(has_post_thumbnail($post->id)): 
+?><div class="full-width">
+	<?php
+		
+		if(has_post_thumbnail($post->id)): 
 			
 		$tn_id = get_post_thumbnail_id( $post->ID );
 
@@ -39,8 +26,27 @@ echo '<div class="threequarter-width content-box  align-top">';
 		<meta itemprop="width" content="<?=$img[1];?>">
 		<meta itemprop="height" content="<?=$img[2];?>">
 		<<?=$_amp?>img src='<?=$img[0];?>' layout='responsive' width='<?=$width?>' height='<?=$height?>'><?=($_amp!='')?'</amp-img>':''?>
-	</figure><?php endif;
-		
+	</figure>
+	<?php endif; ?>
+</div><?php
+echo '<div class="threequarter-width content-box  align-top">';
+	?>
+	<span itemprop="articleSection" class="labels"><?php the_category(' '); ?></span>
+	<meta itemprop="dateModified" content="<?php the_modified_date('Y-m-d'); ?>">
+	<meta itemprop="datePublished" content="<?php the_time('Y-m-d'); ?>">
+	<?php
+	if(is_single() && get_post_meta(get_the_id(), 'show_page_title', true) != 'on'){
+		echo '<h1 itemprop="headline">';
+		the_title();
+		echo '</h1>';
+	}
+?><small>
+<span class="post_author">
+	<?php _e('by','hiilite'); ?>
+	<a itemprop="author" itemscope itemtype="https://schema.org/Person" class="post_author_link" href="<?php echo get_author_posts_url( get_the_author_meta( 'ID' ) ); ?>"><span itemprop="name"><?php the_author_meta('display_name'); ?></span></a>
+</span>
+<span class="time"> <?php _e('on ','hiilite'); ?> <span class="date"><?php the_time('F j, Y'); ?></span> <?php the_time('h:i a'); ?></span></small>
+	<?php	
 	the_content();
 	
 	

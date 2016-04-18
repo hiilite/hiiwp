@@ -18,6 +18,9 @@ $hiilite_options['heading_font']				= get_theme_mod( 'heading_font', array(
         'color'          => '#333333',
     ) );
 $hiilite_options['amp'] = get_theme_mod( 'amp', '0');
+$hiilite_options['portfolio_on'] = get_theme_mod( 'portfolio_on', '0');
+$hiilite_options['teams_on'] = get_theme_mod( 'teams_on', '0');
+
 $hiilite_options['default_background_color']	= get_theme_mod( 'default_background_color', 'rgba(255,255,255,0.85)');
 $hiilite_options['secondary_background_color']	= get_theme_mod( 'secondary_background_color', '#ebeef1');
 

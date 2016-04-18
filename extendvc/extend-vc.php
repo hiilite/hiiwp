@@ -42,7 +42,7 @@ vc_remove_element('vc_masonry_media_grid');
 vc_remove_element('vc_icon');
 vc_remove_element('vc_button2');
 vc_remove_element("vc_custom_heading");
-vc_remove_element("vc_btn");
+//vc_remove_element("vc_btn");
 
 // Title
 vc_map( array(

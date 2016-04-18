@@ -27,15 +27,15 @@ while ( $my_query->have_posts() ) {
 		
 	$post = new stdClass();
 	
-	$post->id = get_the_ID();
-	$post->link = get_permalink( $post->id );
+	$post_id = get_the_ID();
+	$post->link = get_permalink( $post_id );
 	?>
 	<div class="flex-item third-width">
 		<article class="content-box">
 			<?php 
-			if(has_post_thumbnail($post->id)): 
-					
-				$tn_id = get_post_thumbnail_id( $post->ID );
+			if(has_post_thumbnail($post_id)): 
+				
+				$tn_id = get_post_thumbnail_id( $post_id );
 		
 				$img = wp_get_attachment_image_src( $tn_id, 'large' );
 				$width = $img[1];

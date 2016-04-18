@@ -25,6 +25,26 @@ Kirki::add_field( 'hiiwp', array(
 ) );
 
 Kirki::add_field( 'hiiwp', array(
+	'type'        => 'switch',
+	'settings'    => 'portfolio_on',
+	'label'       => esc_attr__( 'Portfolio', 'my_textdomain' ),
+	'section'     => 'general_section_globals',
+	'default'     => false,
+	'priority'	  => 1,
+	'description'    => __( 'Turn on the Portfolio post type' ),
+) );
+
+Kirki::add_field( 'hiiwp', array(
+	'type'        => 'switch',
+	'settings'    => 'teams_on',
+	'label'       => esc_attr__( 'Teams', 'my_textdomain' ),
+	'section'     => 'general_section_globals',
+	'default'     => false,
+	'priority'	  => 1,
+	'description'    => __( 'Turn on the Teams post type' ),
+) );
+
+Kirki::add_field( 'hiiwp', array(
 	'type'        => 'dimension',
 	'settings'    => 'grid_width',
 	'label'       => esc_attr__( 'Grid Width', 'my_textdomain' ),

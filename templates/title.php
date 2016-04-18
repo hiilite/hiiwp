@@ -5,7 +5,9 @@ if(	!is_single() &&
 ?>
 <div class="page-title">
 	<div class="container_inner">
-		<h1><?php wp_title(''); ?></h1>
+		<div class="in_grid">
+			<h1><?php wp_title(''); ?></h1>
+		</div>
 	</div>
 </div>
 

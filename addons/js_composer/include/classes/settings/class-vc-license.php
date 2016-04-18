@@ -461,7 +461,7 @@ class Vc_License {
 		     && ! ( vc_is_network_plugin() && is_network_admin() )
 		     && ! vc_is_as_theme()
 		) {
-			add_action( 'admin_notices', array( &$this, 'adminNoticeLicenseActivation', ) );
+			//add_action( 'admin_notices', array( &$this, 'adminNoticeLicenseActivation', ) );
 		}
 	}
 

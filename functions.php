@@ -1,9 +1,12 @@
 <?php
 global $hiilite_options;
 $hiilite_options['amp'] = get_theme_mod('amp');
+$hiilite_options['portfolio_on'] = get_theme_mod('portfolio_on');
+$hiilite_options['teams_on'] = get_theme_mod('teams_on');
 /*
 * Convert all images to amp-img	
 *	
+*
 */
 define( 'HIILITE_DIR', dirname( __FILE__ ) );
 add_filter( 'auto_update_theme', '__return_true' );
@@ -11,9 +14,15 @@ add_filter( 'auto_update_theme', '__return_true' );
 
 add_theme_support( 'post-thumbnails' );
 add_theme_support( 'menus' );
+
 if(!class_exists('Vc_Manager')){
 	require_once( dirname( __FILE__ ) . '/addons/js_composer/js_composer.php');
 }
+// Initialising Shortcodes
+function requireVcExtend(){
+	require_once locate_template('/extendvc/extend-vc.php');
+}
+add_action('init', 'requireVcExtend', 10);
 
 
 include_once( dirname( __FILE__ ) . '/includes/kirki-settings.php' );
@@ -131,7 +140,6 @@ function amp_image_tags($content)
         
         return $html = preg_replace($find, $replace, str_replace( array('<html>', '</html>', '<body>', '</body>'), array('', '', '', ''), $html->saveHTML()));
         
-        //return $html = preg_replace('/style="(.*)"/', 'class="$1"', $html->saveHTML());        
         
     } catch (Exception $e) {
         return $content;
@@ -142,8 +150,6 @@ function amp_image_tags($content)
 
 
 function add_defer_attribute($tag, $handle) {
-    //if ( 'my-js-handle' !== $handle )
-      //  return $tag;
 	global $hiilite_options;
 	$urlParts = explode('.', $_SERVER['HTTP_HOST']);
 	$hiilite_options['subdomain'] = $urlParts[0];
@@ -152,7 +158,6 @@ function add_defer_attribute($tag, $handle) {
     	if(is_admin()) return $tag;
 		
 		return str_replace( ' src', ' defer="defer" src', $tag );
-		//return '';
     } else {
 	    return $tag;
     }
@@ -189,11 +194,7 @@ function disable_emojicons_tinymce( $plugins ) {
 
 
 
-/**
- * Init
- *
- * @return null
- */
+
 function minqueue_init () {
 	global $hiilite_options;
 	if(is_admin()) return ;
@@ -212,24 +213,17 @@ function minqueue_init () {
 	
 function minqueue_scripts() {
 	global $wp_scripts;
-	$queue = $wp_scripts->queue;
-	if($queue){
-   foreach( $queue as $key => $handle) {
-	   /* if( $handle != 'customize-preview' && 
-	    	$handle != 'customize-preview-widgets' && 
-	    	$handle != 'customize-preview-nav-menus'&&
-	    	$handle != 'wp-embed' &&
-	    	$handle != 'wpb_composer_front_js' &&
-	    	$handle != 'wp-embed' &&
-	    	$handle != 'vc_inline_iframe_js' 
-	    	) {		*/
+	
+	if($wp_scripts){
+		$queue = $wp_scripts->queue;
+		foreach( $queue as $key => $handle) {
+
 			if ((isset($_REQUEST['vc_editable']) && $_REQUEST['vc_editable'] == true) || (isset($_REQUEST['wp_customize']) && $_REQUEST['wp_customize'] == 'on')){
 			
 			} else {
 				wp_deregister_script($handle); 
 			}
-		/*}*/
-    }
+		}
     }
 }
 
@@ -237,11 +231,6 @@ function minqueue_styles() {
 	global $wp_styles;
 	$queue = $wp_styles->queue;
     foreach( $queue as $key => $handle) {
-	    /*if($handle != 'kirki_google_fonts' &&
-	   	  $handle != 'js_composer_front' &&
-	   	  $handle != 'vc_inline_css' &&
-	  	  $handle != 'customize-preview' ) {*/
-
 		if ((isset($_REQUEST['vc_editable']) && $_REQUEST['vc_editable'] == true) || (isset($_REQUEST['wp_customize']) && $_REQUEST['wp_customize'] == 'on')){
 			
 		} elseif(
@@ -252,15 +241,10 @@ function minqueue_styles() {
 		) {
 			wp_deregister_style($handle);
 		}
-		//}
     }
 }
 
-// Initialising Shortcodes
-function requireVcExtend(){
-	require_once locate_template('/extendvc/extend-vc.php');
-}
-add_action('init', 'requireVcExtend', 10);
+
 
 function enqueue_less_styles($tag, $handle) {
     global $wp_styles;
@@ -281,9 +265,9 @@ function enqueue_less_styles($tag, $handle) {
 
 
 add_action( 'add_meta_boxes', 'page_options_meta_box' );
-/**
- * Adds the meta box to the page screen
- */
+//
+// Adds the meta box to the page screen
+//
 function page_options_meta_box()
 {
     add_meta_box(
@@ -296,9 +280,9 @@ function page_options_meta_box()
     );
 }
 
-/**
- * Callback function for our meta box.  Echos out the content
- */
+//
+//  Callback function for our meta box.  Echos out the content
+//
 function page_options_meta_box_cb( $post )
 {
 	// $post is already set, and contains an object: the WordPress post
@@ -318,6 +302,7 @@ function page_options_meta_box_cb( $post )
     </p>
     <?php    
 }
+
 add_action( 'save_post', 'show_page_title_meta_box_save' );
 function show_page_title_meta_box_save( $post_id )
 {
@@ -328,7 +313,7 @@ function show_page_title_meta_box_save( $post_id )
     if( !isset( $_POST['meta_box_nonce'] ) || !wp_verify_nonce( $_POST['meta_box_nonce'], 'show_page_title__meta_box_nonce' ) ) return;
      
     // if our current user can't edit this post, bail
-    if( !current_user_can( 'edit_post' ) ) return;
+    //if( !current_user_can( 'edit_post' ) ) return;
     
     // This is purely my personal preference for saving check-boxes
     $chk = isset( $_POST['show_page_title'] )? 'on' : 'off';
@@ -340,5 +325,283 @@ function show_page_title_meta_box_save( $post_id )
 
 
 
+////////////////////////
+//
+//	REGISTER PORTFOLIO
+//
+////////////////////////
+add_action( 'init', 'hii_post_type_init' );
+function hii_post_type_init() {
+	global $hiilite_options;
+	////////////////////////
+	//
+	//	REGISTER PORTFOLIO
+	//
+	////////////////////////
+	if($hiilite_options['portfolio_on']){
+		$labels = array(
+			'name'               => _x( 'Portfolio', 'post type general name', 'hiilite' ),
+			'singular_name'      => _x( 'Piece', 'post type singular name', 'hiilite' ),
+			'menu_name'          => _x( 'Portfolio', 'admin menu', 'hiilite' ),
+			'name_admin_bar'     => _x( 'Portfolio Piece', 'add new on admin bar', 'hiilite' ),
+			'add_new'            => _x( 'Add New', 'book', 'hiilite' ),
+			'add_new_item'       => __( 'Add New Portfolio Piece', 'hiilite' ),
+			'new_item'           => __( 'New Piece', 'hiilite' ),
+			'edit_item'          => __( 'Edit Piece', 'hiilite' ),
+			'view_item'          => __( 'View Piece', 'hiilite' ),
+			'all_items'          => __( 'All Portfolio Pieces', 'hiilite' ),
+			'search_items'       => __( 'Search Portfolio', 'hiilite' ),
+			'parent_item_colon'  => __( 'Parent Piece:', 'hiilite' ),
+			'not_found'          => __( 'No Pieces found.', 'hiilite' ),
+			'not_found_in_trash' => __( 'No Pieces found in Trash.', 'hiilite' )
+		);
+	
+		$args = array(
+			'labels'             => $labels,
+	                'description'        => __( 'Description.', 'hiilite' ),
+			'public'             => true,
+			'publicly_queryable' => true,
+			'show_ui'            => true,
+			'show_in_menu'       => true,
+			'query_var'          => true,
+			'rewrite'            => array( 'slug' => 'portfolio' ),
+			'capability_type'    => 'post',
+			'has_archive'        => true,
+			'hierarchical'       => false,
+			'menu_position'      => 6,
+			'menu_icon'			 => 'dashicons-format-image',
+			'supports'           => array( 'title', 'editor', 'author', 'thumbnail', 'excerpt', 'comments' )
+		);
+	
+		register_post_type( 'portfolio', $args );
+		
+		
+		// Add new taxonomy, make it hierarchical (like categories)
+	    $labels = array(
+	        'name'              => _x( 'Mediums', 'taxonomy general name', 'textdomain' ),
+	        'singular_name'     => _x( 'Medium', 'taxonomy singular name', 'textdomain' ),
+	        'search_items'      => __( 'Search Mediums', 'textdomain' ),
+	        'all_items'         => __( 'All Mediums', 'textdomain' ),
+	        'parent_item'       => __( 'Parent Medium', 'textdomain' ),
+	        'parent_item_colon' => __( 'Parent Medium:', 'textdomain' ),
+	        'edit_item'         => __( 'Edit Medium', 'textdomain' ),
+	        'update_item'       => __( 'Update Medium', 'textdomain' ),
+	        'add_new_item'      => __( 'Add New Medium', 'textdomain' ),
+	        'new_item_name'     => __( 'New Medium Name', 'textdomain' ),
+	        'menu_name'         => __( 'Mediums', 'textdomain' ),
+	    );
+	 
+	    $args = array(
+	        'hierarchical'      => true,
+	        'labels'            => $labels,
+	        'show_ui'           => true,
+	        'show_admin_column' => true,
+	        'query_var'         => true,
+	        'rewrite'           => array( 'slug' => 'medium' ),
+	    );
+	 
+	    register_taxonomy( 'medium', array( 'portfolio' ), $args );
+
+	}
+
+	////////////////////////
+	//
+	//	REGISTER TEAM
+	//
+	////////////////////////
+	if($hiilite_options['teams_on']){
+		$labels = array(
+			'name'               => _x( 'Team', 'post type general name', 'hiilite' ),
+			'singular_name'      => _x( 'Team Member', 'post type singular name', 'hiilite' ),
+			'menu_name'          => _x( 'Team', 'admin menu', 'hiilite' ),
+			'name_admin_bar'     => _x( 'Team Member', 'add new on admin bar', 'hiilite' ),
+			'add_new'            => _x( 'Add Team Member', 'book', 'hiilite' ),
+			'add_new_item'       => __( 'Add New Team Member', 'hiilite' ),
+			'new_item'           => __( 'New Team Member', 'hiilite' ),
+			'edit_item'          => __( 'Edit Team Member', 'hiilite' ),
+			'view_item'          => __( 'View Team Member', 'hiilite' ),
+			'all_items'          => __( 'All Team Members', 'hiilite' ),
+			'search_items'       => __( 'Search Team Members', 'hiilite' ),
+			'parent_item_colon'  => __( 'Parent Team Member:', 'hiilite' ),
+			'not_found'          => __( 'No Team Members found.', 'hiilite' ),
+			'not_found_in_trash' => __( 'No Team Members found in Trash.', 'hiilite' )
+		);
+	
+		$args = array(
+			'labels'             => $labels,
+	                'description'        => __( 'Description.', 'hiilite' ),
+			'public'             => true,
+			'publicly_queryable' => true,
+			'show_ui'            => true,
+			'show_in_menu'       => true,
+			'query_var'          => true,
+			'rewrite'            => array( 'slug' => 'team' ),
+			'capability_type'    => 'post',
+			'has_archive'        => true,
+			'hierarchical'       => false,
+			'menu_position'      => 7,
+			'menu_icon'			 => 'dashicons-groups',
+			'supports'           => array( 'title', 'editor', 'thumbnail' )
+		);
+	
+		register_post_type( 'team', $args );
+		
+		
+		// Add new taxonomy, make it hierarchical (like categories)
+	    $labels = array(
+	        'name'              => _x( 'Positions', 'taxonomy general name', 'textdomain' ),
+	        'singular_name'     => _x( 'Position', 'taxonomy singular name', 'textdomain' ),
+	        'search_items'      => __( 'Search Positions', 'textdomain' ),
+	        'all_items'         => __( 'All Positions', 'textdomain' ),
+	        'parent_item'       => __( 'Parent Position', 'textdomain' ),
+	        'parent_item_colon' => __( 'Parent Position:', 'textdomain' ),
+	        'edit_item'         => __( 'Edit Position', 'textdomain' ),
+	        'update_item'       => __( 'Update Position', 'textdomain' ),
+	        'add_new_item'      => __( 'Add New Position', 'textdomain' ),
+	        'new_item_name'     => __( 'New Position Name', 'textdomain' ),
+	        'menu_name'         => __( 'Positions', 'textdomain' ),
+	    );
+	 
+	    $args = array(
+	        'hierarchical'      => true,
+	        'labels'            => $labels,
+	        'show_ui'           => true,
+	        'show_admin_column' => true,
+	        'query_var'         => true,
+	        'rewrite'           => array( 'slug' => 'position' ),
+	    );
+	 
+	    register_taxonomy( 'position', array( 'team' ), $args );
+	}
+}
+
+function my_rewrite_flush() {
+    hii_post_type_init();
+    flush_rewrite_rules();
+}
+add_action( 'after_switch_theme', 'my_rewrite_flush' );
+
+
+
+
+
+/**
+ * -----------------------------------------------------------------------------------------
+ * Based on `https://github.com/mecha-cms/mecha-cms/blob/master/system/kernel/converter.php`
+ * -----------------------------------------------------------------------------------------
+ */
+// HTML Minifier
+function minify_html($input) {
+    if(trim($input) === "") return $input;
+    // Remove extra white-space(s) between HTML attribute(s)
+    $input = preg_replace_callback('#<([^\/\s<>!]+)(?:\s+([^<>]*?)\s*|\s*)(\/?)>#s', function($matches) {
+        return '<' . $matches[1] . preg_replace('#([^\s=]+)(\=([\'"]?)(.*?)\3)?(\s+|$)#s', ' $1$2', $matches[2]) . $matches[3] . '>';
+    }, str_replace("\r", "", $input));
+    // Minify inline CSS declaration(s)
+    if(strpos($input, ' style=') !== false) {
+        $input = preg_replace_callback('#<([^<]+?)\s+style=([\'"])(.*?)\2(?=[\/\s>])#s', function($matches) {
+            return '<' . $matches[1] . ' style=' . $matches[2] . minify_css($matches[3]) . $matches[2];
+        }, $input);
+    }
+    return preg_replace(
+        array(
+            // t = text
+            // o = tag open
+            // c = tag close
+            // Keep important white-space(s) after self-closing HTML tag(s)
+            '#<(img|input)(>| .*?>)#s',
+            // Remove a line break and two or more white-space(s) between tag(s)
+            '#(<!--.*?-->)|(>)(?:\n*|\s{2,})(<)|^\s*|\s*$#s',
+            '#(<!--.*?-->)|(?<!\>)\s+(<\/.*?>)|(<[^\/]*?>)\s+(?!\<)#s', // t+c || o+t
+            '#(<!--.*?-->)|(<[^\/]*?>)\s+(<[^\/]*?>)|(<\/.*?>)\s+(<\/.*?>)#s', // o+o || c+c
+            '#(<!--.*?-->)|(<\/.*?>)\s+(\s)(?!\<)|(?<!\>)\s+(\s)(<[^\/]*?\/?>)|(<[^\/]*?\/?>)\s+(\s)(?!\<)#s', // c+t || t+o || o+t -- separated by long white-space(s)
+            '#(<!--.*?-->)|(<[^\/]*?>)\s+(<\/.*?>)#s', // empty tag
+            '#<(img|input)(>| .*?>)<\/\1>#s', // reset previous fix
+            '#(&nbsp;)&nbsp;(?![<\s])#', // clean up ...
+            '#(?<=\>)(&nbsp;)(?=\<)#', // --ibid
+            // Remove HTML comment(s) except IE comment(s)
+            '#\s*<!--(?!\[if\s).*?-->\s*|(?<!\>)\n+(?=\<[^!])#s'
+        ),
+        array(
+            '<$1$2</$1>',
+            '$1$2$3',
+            '$1$2$3',
+            '$1$2$3$4$5',
+            '$1$2$3$4$5$6$7',
+            '$1$2$3',
+            '<$1$2',
+            '$1 ',
+            '$1',
+            ""
+        ),
+    $input);
+}
+// CSS Minifier => http://ideone.com/Q5USEF + improvement(s)
+function minify_css($input) {
+    if(trim($input) === "") return $input;
+    return preg_replace(
+        array(
+            // Remove comment(s)
+            '#("(?:[^"\\\]++|\\\.)*+"|\'(?:[^\'\\\\]++|\\\.)*+\')|\/\*(?!\!)(?>.*?\*\/)|^\s*|\s*$#s',
+            // Remove unused white-space(s)
+            '#("(?:[^"\\\]++|\\\.)*+"|\'(?:[^\'\\\\]++|\\\.)*+\'|\/\*(?>.*?\*\/))|\s*+;\s*+(})\s*+|\s*+([*$~^|]?+=|[{};,>~+]|\s*+-(?![0-9\.])|!important\b)\s*+|([[(:])\s++|\s++([])])|\s++(:)\s*+(?!(?>[^{}"\']++|"(?:[^"\\\]++|\\\.)*+"|\'(?:[^\'\\\\]++|\\\.)*+\')*+{)|^\s++|\s++\z|(\s)\s+#si',
+            // Replace `0(cm|em|ex|in|mm|pc|pt|px|vh|vw|%)` with `0`
+            '#(?<=[\s:])(0)(cm|em|ex|in|mm|pc|pt|px|vh|vw|%)#si',
+            // Replace `:0 0 0 0` with `:0`
+            '#:(0\s+0|0\s+0\s+0\s+0)(?=[;\}]|\!important)#i',
+            // Replace `background-position:0` with `background-position:0 0`
+            '#(background-position):0(?=[;\}])#si',
+            // Replace `0.6` with `.6`, but only when preceded by `:`, `,`, `-` or a white-space
+            '#(?<=[\s:,\-])0+\.(\d+)#s',
+            // Minify string value
+            '#(\/\*(?>.*?\*\/))|(?<!content\:)([\'"])([a-z_][a-z0-9\-_]*?)\2(?=[\s\{\}\];,])#si',
+            '#(\/\*(?>.*?\*\/))|(\burl\()([\'"])([^\s]+?)\3(\))#si',
+            // Minify HEX color code
+            '#(?<=[\s:,\-]\#)([a-f0-6]+)\1([a-f0-6]+)\2([a-f0-6]+)\3#i',
+            // Replace `(border|outline):none` with `(border|outline):0`
+            '#(?<=[\{;])(border|outline):none(?=[;\}\!])#',
+            // Remove empty selector(s)
+            '#(\/\*(?>.*?\*\/))|(^|[\{\}])(?:[^\s\{\}]+)\{\}#s'
+        ),
+        array(
+            '$1',
+            '$1$2$3$4$5$6$7',
+            '$1',
+            ':0',
+            '$1:0 0',
+            '.$1',
+            '$1$3',
+            '$1$2$4$5',
+            '$1$2$3',
+            '$1:0',
+            '$1$2'
+        ),
+    $input);
+}
+// JavaScript Minifier
+function minify_js($input) {
+    if(trim($input) === "") return $input;
+    return preg_replace(
+        array(
+            // Remove comment(s)
+            '#\s*("(?:[^"\\\]++|\\\.)*+"|\'(?:[^\'\\\\]++|\\\.)*+\')\s*|\s*\/\*(?!\!|@cc_on)(?>[\s\S]*?\*\/)\s*|\s*(?<![\:\=])\/\/.*(?=[\n\r]|$)|^\s*|\s*$#',
+            // Remove white-space(s) outside the string and regex
+            '#("(?:[^"\\\]++|\\\.)*+"|\'(?:[^\'\\\\]++|\\\.)*+\'|\/\*(?>.*?\*\/)|\/(?!\/)[^\n\r]*?\/(?=[\s.,;]|[gimuy]|$))|\s*([!%&*\(\)\-=+\[\]\{\}|;:,.<>?\/])\s*#s',
+            // Remove the last semicolon
+            '#;+\}#',
+            // Minify object attribute(s) except JSON attribute(s). From `{'foo':'bar'}` to `{foo:'bar'}`
+            '#([\{,])([\'])(\d+|[a-z_][a-z0-9_]*)\2(?=\:)#i',
+            // --ibid. From `foo['bar']` to `foo.bar`
+            '#([a-z0-9_\)\]])\[([\'"])([a-z_][a-z0-9_]*)\2\]#i'
+        ),
+        array(
+            '$1',
+            '$1$2',
+            '}',
+            '$1$3',
+            '$1.$3'
+        ),
+    $input);
+}
 
 ?>

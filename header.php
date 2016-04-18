@@ -20,6 +20,12 @@ if(get_theme_mod('site_seo_title') != '' && is_front_page()) {
 <script type="application/ld+json">
 	<?php
 	$options = get_option('company_options');
+	
+	/*
+	*
+	*	WEBSITE
+	*
+	*/
 	$WebSite = '{
 	  "@context" : "http://schema.org",
 	  "@type" : "WebSite",';
@@ -27,26 +33,26 @@ if(get_theme_mod('site_seo_title') != '' && is_front_page()) {
 	 if($options['business_url']!='')$WebSite .= '"url" : "'.$options['business_url'].'"';
 	$WebSite .= '}';
 echo $WebSite;
-?>
-</script>
-<script type="application/ld+json">
-	<?php 
-	
+?></script><script type="application/ld+json"><?php
+	/*
+	*
+	*	ORGANIZATION
+	*
+	*/
 	$html = '{
-	  "@context" : "http://schema.org",
-	  "@type" : "Organization",';
-	 if($options['business_url']!='')$html .= '"url" : "'.$options['business_url'].'",';
-	 
-	  if($options['business_logo']!='')$html .= '"logo" : "'.$options['business_logo'].'",';
-	  if($options['business_email']!='')$html .= '"email" : "'.$options['business_email'].'",';
-	  if($options['business_telephone']!='')$html .= '"telephone" : "'.$options['business_telephone'].'",';
-	  if($options['business_faxNumber']!='')$html .= '"faxNumber" : "'.$options['business_faxNumber'].'",';
-	  if($options['business_description']!='')$html .= ' "description" : "'.$options['business_description'].'",';
-	  if($options['business_name']!='')$html .= ' "name" : "'.$options['business_name'].'",';
-	  if($options['business_telephone']!='')$html .= ' "contactPoint" : [{
+		"@context" : "http://schema.org",
+		"@type" : "Organization",';
+	if($options['business_url']!='')$html .= '"url" : "'.$options['business_url'].'",';
+	if($options['business_logo']!='')$html .= '"logo" : "'.$options['business_logo'].'",';
+	if($options['business_email']!='')$html .= '"email" : "'.$options['business_email'].'",';
+	if($options['business_telephone']!='')$html .= '"telephone" : "'.$options['business_telephone'].'",';
+	if($options['business_faxNumber']!='')$html .= '"faxNumber" : "'.$options['business_faxNumber'].'",';
+	if($options['business_description']!='')$html .= ' "description" : "'.$options['business_description'].'",';
+	if($options['business_name']!='')$html .= ' "name" : "'.$options['business_name'].'",';
+	if($options['business_telephone']!='')$html .= ' "contactPoint" : [{
 		"@type" : "ContactPoint",
 		"telephone" : "'.$options['business_telephone'].'",
-		"contactType" : "reservations"
+		"contactType" : "'.$options['business_contactType'].'"
 	  }],';
 	 $html .= '"sameAs" : [';
 		if($options['business_facebook']!='')$html .= '"'.$options['business_facebook'].'"';
@@ -61,94 +67,100 @@ echo $WebSite;
 		if($options['business_addressRegion']!='')$html .= '"addressRegion": "'.$options['business_addressRegion'].'",';
 		if($options['business_streetAddress']!='')$html .= '"streetAddress": "'.$options['business_streetAddress'].'",';
 		if($options['business_addressCountry']!='')$html .= '"addressCountry": "'.$options['business_addressCountry'].'"';
-	$html.='  },';
-	  if($options['business_geo_latitude']!='' && $options['business_geo_longitude']!=''){$html .= '"geo": {
-		"@type": "GeoCoordinates",
-		"latitude": "'.$options['business_geo_latitude'].'",
-		"longitude": "'.$options['business_geo_longitude'].'"
-	  }';}
+	$html.='  }';
 
 	$html .= '}';
-	
-	
+	echo $html;
+?></script><script type="application/ld+json"><?php	
+	/*
+	*
+	*	SPECIFIC TYPE
+	*
+	*/
 	$html = '{
 	  "@context" : "http://schema.org",
 	  "@type" : "'.$options['business_type'].'",';
-	 if($options['business_url']!='')$html .= '"url" : "'.$options['business_url'].'",';
+	if($options['business_url']!='')$html .= '"url" : "'.$options['business_url'].'",';
 	 
-	  if($options['business_logo']!='')$html .= '"logo" : "'.$options['business_logo'].'",';
-	  if($options['business_email']!='')$html .= '"email" : "'.$options['business_email'].'",';
-	  if($options['business_telephone']!='')$html .= '"telephone" : "'.$options['business_telephone'].'",';
-	  if($options['business_faxNumber']!='')$html .= '"faxNumber" : "'.$options['business_faxNumber'].'",';
-	  if($options['business_description']!='')$html .= ' "description" : "'.$options['business_description'].'",';
-	  if($options['business_name']!='')$html .= ' "name" : "'.$options['business_name'].'",';
-	  if($options['business_telephone']!='')$html .= ' "contactPoint" : [{
+	if($options['business_logo']!='')$html .= '"logo" : "'.$options['business_logo'].'",';
+	if($options['business_email']!='')$html .= '"email" : "'.$options['business_email'].'",';
+	if($options['business_telephone']!='')$html .= '"telephone" : "'.$options['business_telephone'].'",';
+	if($options['business_faxNumber']!='')$html .= '"faxNumber" : "'.$options['business_faxNumber'].'",';
+	if($options['business_description']!='')$html .= ' "description" : "'.$options['business_description'].'",';
+	if($options['business_name']!='')$html .= ' "name" : "'.$options['business_name'].'",';
+	  
+	if(in_array($options['business_type'], array('FoodEstablishment','Bakery','BarOrPub','Brewery','CafeOrCoffeeShop','FastFoodRestaurant','IceCreamShop','Restaurant','Winery'))){
+		if($options['business_acceptsReservations']!='')$html .= ' "acceptsReservations" : "'.$options['business_acceptsReservations'].'",';
+		if($options['business_menu']!='')$html .= ' "menu" : "'.$options['business_menu'].'",';
+	  	
+	  	if(isset($options['business_potentialAction'])):
+			$html .= '"potentialAction":{
+			    "@type":"ReserveAction",
+			    "target":{
+			      "@type":"EntryPoint",
+			      "urlTemplate":"'.$options['business_potentialAction_urlTemplate'].'",
+			      "inLanguage":"en-CA",
+			      "actionPlatform":[
+			        "http://schema.org/DesktopWebPlatform",
+			        "http://schema.org/IOSPlatform",
+			        "http://schema.org/AndroidPlatform",
+			        "http://schema.org/MobileWebPlatform"
+			      ]
+			    },
+			    "result":{
+			      "@type":"'.$options['business_potentialAction_resultType'].'",
+			      "name":"'.$options['business_potentialAction_name'].'"
+			    }
+			},';
+		endif;
+	}
+	if($options['business_telephone']!='')$html .= ' "contactPoint" : [{
 		"@type" : "ContactPoint",
 		"telephone" : "'.$options['business_telephone'].'",
-		"contactType" : "reservations"
-	  }],';
-	 $html .= '"openingHoursSpecification" : [';
-	 $html .= '{
+		"contactType" : "'.$options['business_contactType'].'"
+		}],';
+	$hoursets = $options['hoursets'];
+	 
+	$html .= '"openingHoursSpecification" : [';
+	$comma = '';
+	for($i=0;$i < $hoursets;$i++):
+	 
+	$html .= $comma.'{
 			    "@type": "OpeningHoursSpecification",
-			    "dayOfWeek": [
-			      "Monday",
-			      "Tuesday",
-			      "Wednesday",
-			      "Thursday",
-			      "Friday"
-			    ],
-			    "opens": "12:00",
-			    "closes": "15:00"
-			  },
-			  {
-			    "@type": "OpeningHoursSpecification",
-			    "dayOfWeek": [
-			      "Monday",
-			      "Tuesday",
-			      "Wednesday",
-			      "Thursday"
-			    ],
-			    "opens": "17:00",
-			    "closes": "22:00"
-			  },
-			  {
-			    "@type": "OpeningHoursSpecification",
-			    "dayOfWeek": [
-			      "Friday",
-			      "Saturday"
-			    ],
-			    "opens": "17:00",
-			    "closes": "23:59"
-			  },
-			  {
-			    "@type": "OpeningHoursSpecification",
-			    "dayOfWeek": [
-			      "Sunday"
-			    ],
-			    "opens": "10:30",
-			    "closes": "15:00"
-			  }	';
-	 $html .= ' ],';
-	 $html .= '"sameAs" : [';
+			    "dayOfWeek": [';
+			$comma2 ='';
+			foreach($options['business_openingHoursSpecification'][$i]['dayOfWeek'] as $key=>$day){
+				$html .= $comma2.'"'.$day.'"';
+				$comma2 =',';
+			}
+			
+	$html .= '],
+			    "opens": "'.$options['business_openingHoursSpecification'][$i]['opens'].'",
+			    "closes": "'.$options['business_openingHoursSpecification'][$i]['closes'].'"
+			  }';
+		$comma = ',';
+	endfor;
+	$html .= ' ],';
+	$html .= '"sameAs" : [';
 		if($options['business_facebook']!='')$html .= '"'.$options['business_facebook'].'"';
 		if($options['business_twitter']!='')$html .= ',"'.$options['business_twitter'].'"';
 		if($options['business_googleplus']!='')$html .= ',"'.$options['business_googleplus'].'"';
 		if($options['business_linkedin']!='')$html .= ',"'.$options['business_linkedin'].'"';
 		if($options['business_instagram']!='')$html .= ',"'.$options['business_instagram'].'"';
-	 $html.= ' ],
+	$html.= ' ],
 	  "address": {
 		"@type": "PostalAddress",';
 		if($options['business_addressLocality']!='')$html .= '"addressLocality": "'.$options['business_addressLocality'].'",';
 		if($options['business_addressRegion']!='')$html .= '"addressRegion": "'.$options['business_addressRegion'].'",';
 		if($options['business_streetAddress']!='')$html .= '"streetAddress": "'.$options['business_streetAddress'].'",';
-		if($options['business_addressCountry']!='')$html .= '"addressCountry": "'.$options['business_addressCountry'].'"';
+		if($options['business_addressCountry']!='')$html .= '"addressCountry": "'.$options['business_addressCountry'].'",';
+		if($options['business_postalCode']!='')$html .= '"postalCode": "'.$options['business_postalCode'].'"';
 	$html.='  },';
 	  if($options['business_geo_latitude']!='' && $options['business_geo_longitude']!=''){$html .= '"geo": {
 		"@type": "GeoCoordinates",
 		"latitude": "'.$options['business_geo_latitude'].'",
 		"longitude": "'.$options['business_geo_longitude'].'"
 	  }';}
-
 	$html .= '}';
 echo $html;
 ?>
@@ -159,16 +171,15 @@ echo $html;
 <link href='https://fonts.googleapis.com/css?family=Raleway:100,300,600,400' rel='stylesheet' type='text/css'>
 <link href='https://fonts.googleapis.com/css?family=Playfair+Display' rel='stylesheet' type='text/css'>
 <?php wp_head(); ?>
-<style <?php if($hiilite_options['amp']) echo 'amp-custom'; ?>>
-<?php include_once('css/font-awesome/css/font-awesome.min.css');
+
+<?php 
 ob_start();
 include_once('css/main-css.php');
 $maincss = ob_get_clean();
 $body = str_replace("!important", "", $maincss);
-echo $body;
+echo minify_css($body);
  ?>
 
-</style>
 <?php if($hiilite_options['amp']) { ?>
 
 	<script async custom-element="amp-fit-text" src="https://cdn.ampproject.org/v0/amp-fit-text-0.1.js"></script>

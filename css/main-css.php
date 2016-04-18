@@ -1,3 +1,5 @@
+<style <?php if($hiilite_options['amp']) echo 'amp-custom'; ?>>
+	<?php include_once('font-awesome/css/font-awesome.min.css'); ?>
 html {
 	<?php 
 	foreach($hiilite_options['default_font'] as $key => $value){
@@ -122,6 +124,7 @@ h6 {
 	width: 100%;
 	align-items: center;
 	flex-wrap: wrap;
+	box-sizing: border-box;
 }
 .row {
 	box-sizing: content-box;
@@ -177,6 +180,32 @@ header.centered #main-nav {
 .blog-article .content-box {
 	padding-top: 0;
 }
+<?php if($hiilite_options['portfolio_on']): ?>
+.portfolio-piece {
+	padding: 0.5em;
+}
+.portfolio-piece .content-box {
+	box-shadow: inset 0 0 1px rgba(0,0,0,0.1);
+}
+.portfolio-piece h3 {
+	margin: 0;
+}
+.portfolio-piece figure {
+	overflow:hidden;	
+	max-height: calc(100vh);
+	min-height: calc(50vh);
+	position: relative;
+}
+.portfolio-piece figure <?=$_amp?>img {
+    min-height: 100%;
+    min-width: 100%;
+    max-width: none;
+    position: absolute;
+    width: 150%;
+    left: -25%;
+}
+<?php endif; ?>
+
 @media (max-width:<?=$hiilite_options['grid_width'];?>){
 	.container_inner {
 		padding: 0 1em;
@@ -555,7 +584,7 @@ hr.small {
 	top: 10%;
 	left: 10%;
 	height: 80%;
-	<?=$slider_slide_styles?>
+	<?php echo (isset($slider_slide_styles))?$slider_slide_styles:'';?>
 }
 amp-carousel.slider .slide-text-overlay amp-fit-text {
 	height: 100%;
@@ -628,3 +657,4 @@ input,textarea {padding: 1em;border: 1px solid gray; font-size: 1rem;}
 do_action ( 'custom_css' );
 echo $hiilite_options['custom_css'];
 ?>
+</style>
