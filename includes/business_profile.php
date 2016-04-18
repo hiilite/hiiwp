@@ -329,7 +329,7 @@ function company_setting_hours($args){
 			<input type="checkbox" id="<?=$args['name']?>_<?=$i?>_fri" name="company_options[<?=$args['name']?>][<?=$i?>][dayOfWeek][]" value="Friday">
 				<label for="<?=$args['name']?>_<?=$i?>_fri">Fri</label>&nbsp;
 			<input type="checkbox" id="<?=$args['name']?>_<?=$i?>_sat" name="company_options[<?=$args['name']?>][<?=$i?>][dayOfWeek][]" value="Saturday">
-				<label for="<?=$args['name']?>_<?=$i?>_sat">Sun</label>&nbsp;
+				<label for="<?=$args['name']?>_<?=$i?>_sat">Sat</label>&nbsp;
 		</div>
 		<div class="hii_openingHours">
 			<label for="<?=$args['name']?>_<?=$i?>_opens">Opens</label>

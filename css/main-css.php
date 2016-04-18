@@ -206,6 +206,33 @@ header.centered #main-nav {
 }
 <?php endif; ?>
 
+<?php if($hiilite_options['teams_on']): ?>
+.team-member {
+	padding: 0.5em;
+}
+.team-member .content-box {
+	box-shadow: inset 0 0 1px rgba(0,0,0,0.1);
+}
+.team-member h3 {
+	margin: 0;
+}
+.team-member figure {
+	overflow:hidden;
+	max-width: 300px;	
+	max-height: 300px;
+	min-height: 300px;
+	position: relative;
+}
+.team-member figure <?=$_amp?>img {
+    min-height: 100%;
+    min-width: 100%;
+    max-width: none;
+    position: absolute;
+    width: 150%;
+    left: -25%;
+}
+<?php endif; ?>
+
 @media (max-width:<?=$hiilite_options['grid_width'];?>){
 	.container_inner {
 		padding: 0 1em;

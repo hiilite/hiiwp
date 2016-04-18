@@ -112,7 +112,7 @@ $output .= (!empty($atts['in_grid']) && ($hiilite_options['subdomain'] != 'ifram
 
 if(!empty($atts['in_iframe']) && $hiilite_options['subdomain'] != 'iframe' && $hiilite_options['amp']){
 	$output .= !empty($atts['in_iframe'])?'<div class="iframe-content">':'';
-	$output .= '<amp-iframe src="https://iframe.'.$_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"].'" frameborder="0" height="75vh" width="100vw" sandbox="allow-scripts allow-same-origin allow-forms allow-top-navigation"></amp-iframe>';
+	$output .= '<amp-iframe src="https://iframe.'.$_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"].'" frameborder="0" height="75vh" width="100vw" sandbox="allow-scripts allow-same-origin allow-forms allow-top-navigation allow-popups"></amp-iframe>';
 	$output .= !empty($atts['in_iframe'])?'</div>':'';
 
 } elseif($hiilite_options['subdomain'] == 'iframe' && !empty($atts['in_iframe']) ) {

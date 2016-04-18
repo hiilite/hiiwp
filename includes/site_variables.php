@@ -64,8 +64,8 @@ $hiilite_options['header_background_color']		= get_theme_mod( 'header_background
 $hiilite_options['header_line_height']			= get_theme_mod( 'header_line_height', '30px');
 
 
-$hiilite_options['header_top_border_color']		= get_theme_mod( 'header_top_border_color', '' );
-$hiilite_options['header_top_border_width']		= get_theme_mod( 'header_top_border_width', '' );
+$hiilite_options['header_top_border_color']		= get_theme_mod( 'header_top_border_color', '#ef5022' );
+$hiilite_options['header_top_border_width']		= get_theme_mod( 'header_top_border_width', '3px' );
 
 $hiilite_options['header_in_grid']				= get_theme_mod( 'header_in_grid', true );
 

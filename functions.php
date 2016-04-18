@@ -441,7 +441,7 @@ function hii_post_type_init() {
 			'hierarchical'       => false,
 			'menu_position'      => 7,
 			'menu_icon'			 => 'dashicons-groups',
-			'supports'           => array( 'title', 'editor', 'thumbnail' )
+			'supports'           => array( 'title', 'editor', 'thumbnail', 'excerpt' )
 		);
 	
 		register_post_type( 'team', $args );

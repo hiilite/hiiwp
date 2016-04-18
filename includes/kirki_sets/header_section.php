@@ -81,36 +81,18 @@ Kirki::add_field( 'hiiwp', array(
 ) );
 
 Kirki::add_field( 'hiiwp', array(
-    'type'        => 'palette',
+    'type'        => 'color',
     'settings'    => 'header_top_border_color',
     'label'       => __( 'Header Top Border Color', 'my_textdomain' ),
     'description'       => __( 'Select your color palette under General > Color Palette, the refresh the page', 'my_textdomain' ),
     'section'     => 'header_section',
-    'default'     => 'color_one',
+    'default'     => '#ef5022',
     'priority'    => 5,
     'required'	  => array(array(
 	    'setting'  => 'header_top_border_width',
 		'operator' => '!=',
 		'value'    => '0px',
     )),
-    'choices'     => array(
-        'color_one' => array(
-            get_theme_mod( 'color_one', '#ef5022'),
-        ),
-        'color_two' => array(
-            get_theme_mod( 'color_two', '#71be44'),
-        ),
-        'color_three' => array(
-            get_theme_mod( 'color_three', '#2eb6c4'),
-        ),
-        'color_four' => array(
-            get_theme_mod( 'color_four', '#555555'),
-        ),
-        'color_five' => array(
-            get_theme_mod( 'color_five', '#8f52a0'),
-        ),
-        
-    ),
 ) );
 
 

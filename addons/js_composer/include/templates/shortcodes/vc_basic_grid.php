@@ -12,7 +12,7 @@ if($hiilite_options['amp']) $_amp = 'amp-'; else $_amp = '';
  * Shortcode class
  * @var $this WPBakeryShortCode_VC_Basic_Grid
  */
-
+print_r($atts);
 $query;
 if($atts['post_type'] != 'custom'){
 	$query = array(
