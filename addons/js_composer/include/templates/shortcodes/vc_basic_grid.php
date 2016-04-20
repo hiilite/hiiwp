@@ -12,12 +12,45 @@ if($hiilite_options['amp']) $_amp = 'amp-'; else $_amp = '';
  * Shortcode class
  * @var $this WPBakeryShortCode_VC_Basic_Grid
  */
-print_r($atts);
+ 
+ 
+ // TESTING
+$this->post_id = false;
+$css = $el_class = '';
+$posts = $filter_terms = array();
+$this->buildAtts( $atts, $content );
+
+$css = isset( $atts['css'] ) ? $atts['css'] : '';
+$el_class = isset( $atts['el_class'] ) ? $atts['el_class'] : '';
+
+$class_to_filter = 'vc_grid-container vc_clearfix wpb_content_element ' . $this->shortcode;
+$class_to_filter .= vc_shortcode_custom_css_class( $css, ' ' ) . $this->getExtraClass( $el_class );
+
+$css_class = apply_filters( VC_SHORTCODE_CUSTOM_CSS_FILTER_TAG, $class_to_filter, $this->settings['base'], $atts );
+
+$this->buildGridSettings();
+
+
+if ( ! empty( $atts['page_id'] ) ) {
+	$this->grid_settings['page_id'] = (int) $atts['page_id'];
+}
+
+$grid_id = $this->atts['item'];
+$grid_query = new WP_Query('post_type=vc_grid_item&post='.$grid_id);
+if ( $grid_query->have_posts() ) {
+	$grid_query->the_post();
+	$grid_code = $grid_query->post->post_content;
+}
+
+// END TESTING
+
+
+
 $query;
 if($atts['post_type'] != 'custom'){
 	$query = array(
 		'post_type' => $atts['post_type'],
-		'posts_per_page' => $atts['max_items']
+		'posts_per_page' => isset($atts['max_items'])?$atts['max_items']:10
 	);
 }
 echo '<div class="container_inner">';
@@ -29,6 +62,7 @@ while ( $my_query->have_posts() ) {
 	
 	$post_id = get_the_ID();
 	$post->link = get_permalink( $post_id );
+
 	?>
 	<div class="flex-item third-width">
 		<article class="content-box">

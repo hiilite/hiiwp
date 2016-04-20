@@ -12,7 +12,7 @@ return array(
 	'as_parent' => array(
 		'only' => 'vc_tta_section',
 	),
-	'category' => __( 'Content', 'js_composer' ),
+	'category' => __( 'by Hiilite', 'js_composer' ),
 	'description' => __( 'AMP Slideshow carousel', 'js_composer' ),
 	'params' => array(
 		array(

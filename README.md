@@ -6,6 +6,7 @@ AMP is a way to build web pages for static content that render fast. AMP in acti
 - [AMP HTML](https://www.ampproject.org/docs/get_started/about-amp.html#amp-html)
 - [AMP JS](https://www.ampproject.org/docs/get_started/about-amp.html#amp-js)
 - [Google AMP Cache](https://www.ampproject.org/docs/get_started/about-amp.html#google-amp-cache)
+
 AMP HTML is HTML with some restrictions for reliable performance and some extensions for building rich content beyond basic HTML. The AMP JS library ensures the fast rendering of AMP HTML pages. The Google AMP Cache (optionally) delivers the AMP HTML pages.
 
 The Hiilite AMP theme also employs the latest in [Structured Data Markup](https://developers.google.com/structured-data/), with an easy to use interface for providing Google with all the information it needs to so show all your business information right in Google's search results page. 
@@ -20,6 +21,13 @@ Experiment with third-party plugins at your own risk. Generally any plugin that 
 Avoid SEO based plugins. The AMP theme is structured in such a way to be perfectly compliant with Google's new AMP tracking and Structured Data Markup, and other third-party SEO plugins can cause errors in the data that Google is getting, or create unnecessary duplicate data.
 
 ## Change log
+### v0.1.8
+- Numerous bug fixes
+- Adjustments to rich-snippet data for portfolio and blog articles
+- Added Hiilite footer
+- Change default headings for team and portfolio pages
+- Added content-box class to title areas
+
 ### v0.1.7
 - Added Team Member post type and template
 

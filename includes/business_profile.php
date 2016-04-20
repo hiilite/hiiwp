@@ -121,7 +121,37 @@ $business_args = array(
 		'callback'	=>'company_setting_url',
 		'page'		=> 'company',
 		'section'	=> 'company_social' ),
-		
+	array(
+		'id'		=>'business_pinterest',
+		'title'		=>'Pinterest',
+		'callback'	=>'company_setting_url',
+		'page'		=> 'company',
+		'section'	=> 'company_social' ),
+	array(
+		'id'		=>'business_houzz',
+		'title'		=>'Houzz',
+		'callback'	=>'company_setting_url',
+		'page'		=> 'company',
+		'section'	=> 'company_social' ),
+	array(
+		'id'		=>'business_tripadvisor',
+		'title'		=>'TripAdvisor',
+		'callback'	=>'company_setting_url',
+		'page'		=> 'company',
+		'section'	=> 'company_social' ),
+	array(
+		'id'		=>'business_yelp',
+		'title'		=>'Yelp',
+		'callback'	=>'company_setting_url',
+		'page'		=> 'company',
+		'section'	=> 'company_social' ),
+	array(
+		'id'		=>'business_youtube',
+		'title'		=>'YouTube',
+		'callback'	=>'company_setting_url',
+		'page'		=> 'company',
+		'section'	=> 'company_social' ),	
+	
 	/*	
 	*	COMPANY ADDRESS	
 	*/

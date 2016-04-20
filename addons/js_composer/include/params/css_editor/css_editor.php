@@ -102,7 +102,7 @@ if ( ! class_exists( 'WPBakeryVisualComposerCssEditor' ) ) {
 			           . '    <div class="vc_background-style"><select name="background_style" class="vc_background-style">' . $this->getBackgroundStyleOptions() . '</select></div>'
 			           . '    <label>' . __( 'Box controls', 'js_composer' ) . '</label>'
 			           . '    <label class="vc_checkbox"><input type="checkbox" name="simply" class="vc_simplify" value=""> ' . __( 'Simplify controls', 'js_composer' ) . '</label>'
-			           . '</div>';
+			           			           . '</div>';
 			$output .= '<input name="' . $this->setting( 'param_name' ) . '" class="wpb_vc_param_value  ' . $this->setting( 'param_name' ) . ' ' . $this->setting( 'type' ) . '_field" type="hidden" value="' . esc_attr( $this->value() ) . '"/>';
 			$output .= '</div><div class="vc_clearfix"></div>';
 			$output .= '<script type="text/html" id="vc_css-editor-image-block">'
@@ -241,7 +241,6 @@ function vc_css_editor_form_field( $settings, $value ) {
 	$css_editor = new WPBakeryVisualComposerCssEditor();
 	$css_editor->settings( $settings );
 	$css_editor->value( $value );
-
 	return $css_editor->render();
 
 }

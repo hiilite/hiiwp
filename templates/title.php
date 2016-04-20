@@ -8,11 +8,12 @@ if(	(!is_single() &&
 	)) || 
 	is_archive() || 
 	is_post_type_archive()): 
+$post_meta = get_post_meta(get_the_id());
 ?>
-<div class="page-title">
+<div class="page-title <?php echo get_post_meta ( $post->ID, 'page_title_bg', true); ?>" >
 	<div class="container_inner">
-		<div class="in_grid">
-			<h1><?php wp_title(''); ?></h1>
+		<div class="in_grid content-box">
+			<h1 class="<?php echo get_post_meta ( $post->ID, 'page_title_color', true); ?>"><?php wp_title(''); ?></h1>
 		</div>
 	</div>
 </div>

@@ -21,6 +21,16 @@ return array(
 			'description' => __( 'If the content contains form elements or requires javascript, it must be within an iframe. iframe content needs to be an minimum of 600px from the top of the page ', 'js_composer' ),
 			'value' => array( __( 'Yes', 'js_composer' ) => 'yes' ),
 		),
+		array(
+			'type' => 'textfield',
+			'heading' => __( 'Custom Row Height', 'js_composer' ),
+			'param_name' => 'row_height',
+			'description' => __( '', 'js_composer' ),
+			'dependency' => array(
+				'element' => 'in_iframe',
+				'not_empty' => true,
+			),
+		),
 		/*
 		array(
 			'type' => 'dropdown',
@@ -50,6 +60,7 @@ return array(
 			'description' => __( 'If checked row will be set to full height.', 'js_composer' ),
 			'value' => array( __( 'Yes', 'js_composer' ) => 'yes' ),
 		),
+		
 		array(
 			'type' => 'dropdown',
 			'heading' => __( 'Columns position', 'js_composer' ),
@@ -84,6 +95,21 @@ return array(
 				__( 'Bottom', 'js_composer' ) => 'bottom',
 			),
 			'description' => __( 'Select content position within columns.', 'js_composer' ),
+		),
+		array(
+			'type' => 'dropdown',
+			'heading' => __( 'Background Color', 'js_composer' ),
+			'param_name' => 'background_palette',
+			'value' => array(
+				'None' => '',
+				'Color One' => 'bg_color_one',
+				'Color Two' => 'bg_color_two',
+				'Color Three' => 'bg_color_three',
+				'Color Four' => 'bg_color_four',
+				'White' => 'bg_white',
+			),
+			'std' => '0',
+			'description' => __( 'Select from your predefined theme colors', 'js_composer' ),
 		),
 		/*
 		array(

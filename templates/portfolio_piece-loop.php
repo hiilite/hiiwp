@@ -40,12 +40,12 @@ echo '<div class="threequarter-width content-box  align-top">';
 		the_title();
 		echo '</h1>';
 	}
-?><small>
-<span class="post_author">
-	<?php _e('by','hiilite'); ?>
-	<a itemprop="author" itemscope itemtype="https://schema.org/Person" class="post_author_link" href="<?php echo get_author_posts_url( get_the_author_meta( 'ID' ) ); ?>"><span itemprop="name"><?php the_author_meta('display_name'); ?></span></a>
-</span>
-<span class="time"> <?php _e('on ','hiilite'); ?> <span class="date"><?php the_time('F j, Y'); ?></span> <?php the_time('h:i a'); ?></span></small>
+?>
+
+<span itemprop="author" itemscope itemtype="https://schema.org/Person"><meta itemprop="name" content="<?php the_author_meta('display_name'); ?>"></span>
+
+
+
 	<?php	
 	the_content();
 	
@@ -82,17 +82,14 @@ echo '<div class="threequarter-width content-box  align-top">';
 
 		echo '</div>';
 		
-		if ( is_active_sidebar( 'header_top_right' ) ) :
-			
-						
 					
 		echo '<aside class="quarter-width content-box  align-top align-center">';
 			dynamic_sidebar( 'post_sidebar' );
 		echo '</aside>';
-		endif;
+		
 echo '</div>';
 endif;
-
+/*
 if($hiilite_options['subdomain'] != 'iframe'){
 	echo '<div class="iframe-content container_inner">';
 	echo '<amp-iframe width="100vw" height="100vh"
@@ -106,7 +103,7 @@ if($hiilite_options['subdomain'] != 'iframe'){
 		comments_template();
 	echo '</div>';
 }
-
+*/
 
 
 if($hiilite_options['subdomain'] != 'iframe'):

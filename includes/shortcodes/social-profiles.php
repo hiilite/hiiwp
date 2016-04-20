@@ -1,39 +1,43 @@
 <?php
-function add_social_share_shortcode( $atts ){
+
+
+function add_social_profiles_shortcode( $atts ){
+	$options = get_option('company_options');
 	extract( shortcode_atts( array(
-      'fa'  => false,
-      'gp'  => false,
-      'tw'	=> false,
-      'pt'	=> false,
-      'li'	=> false,
-      'em'	=> false,
-   ), $atts ) );
-  
-if($tw) $output = '<amp-social-share type="twitter" width="50" height="50"><a title="Share On Twitter"><i class="fa fa-twitter"></i></a> </amp-social-share>';
-if($fa) $output .= '<amp-social-share type="facebook" width="50" height="50" data-attribution="1749904918576539" data-url="'.get_the_permalink().'">
-			<a title="Share On Facebook"><i class="fa fa-facebook"></i></a></amp-social-share>';
-if($pt) $output .= '<amp-social-share type="pinterest" width="50" height="50"><a title="Share On Pinterest"><i class="fa fa-pinterest"></i></a></amp-social-share>';
-if($li) $output .= '<amp-social-share type="linkedin" width="50" height="50"><a title="Share On LinkedIn"><i class="fa fa-linkedin"></i></a></amp-social-share>';
-if($gp) $output .= '<amp-social-share type="gplus" width="50" height="50"><a title="Share On Google+"><i class="fa fa-google-plus"></i></a></amp-social-share>';
-if($em) $output .= '<amp-social-share type="email" width="50" height="50"><a title="Email"><i class="fa fa-envelope"></i></a></amp-social-share>';
+	    'facebook'  	=> false,
+	    'twitter'  		=> false,
+	    'google-plus'	=> false,
+	    'linkedin'		=> false,
+	    'pinterest'		=> false,
+	    'houzz'			=> false,
+	    'youtube'		=> false,
+	    'tripadvisor'	=> false,
+		'yelp'			=> false,
+    ), $atts ) );
+    $output = '';
+	foreach($atts as $key=>$profile){
+		$bkey = isset($options['business_'.str_replace('-','',$key)])?$options['business_'.str_replace('-','',$key)]:false;
+		if($bkey) $output .= '<a href="'.$bkey.'" target="_blank"><i class="fa fa-'.$key.'"></i></a> ';
+	}
+
 	return $output;
 }
-add_shortcode( 'social-share', 'add_social_share_shortcode' );
+add_shortcode( 'social-profiles', 'add_social_profiles_shortcode' );
 
 
 
 
-class Social_Share_Widget extends WP_Widget {
+class Social_Profiles_Widget extends WP_Widget {
 
 	/**
 	 * Sets up the widgets name etc
 	 */
 	public function __construct() {
 		$widget_ops = array( 
-			'classname' => 'social_share',
-			'description' => 'Adds social sharing buttons',
+			'classname' => 'social_profiles',
+			'description' => 'Adds social profile buttons',
 		);
-		parent::__construct( 'social_share', 'Social Share', $widget_ops );
+		parent::__construct( 'social_profiles', 'Social Profiles', $widget_ops );
 	}
 
 	/**
@@ -85,7 +89,7 @@ class Social_Share_Widget extends WP_Widget {
 }
 
 add_action( 'widgets_init', function(){
-	register_widget( 'Social_Share_Widget' );
+	register_widget( 'Social_Profiles_Widget' );
 });
 	
 	?>

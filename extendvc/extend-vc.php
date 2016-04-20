@@ -1,20 +1,20 @@
 <?php
 
 /*** Removing shortcodes ***/
-vc_remove_element("vc_widget_sidebar");
+//vc_remove_element("vc_widget_sidebar");
 vc_remove_element("vc_wp_search");
 vc_remove_element("vc_wp_meta");
 vc_remove_element("vc_wp_recentcomments");
 vc_remove_element("vc_wp_calendar");
 vc_remove_element("vc_wp_pages");
 vc_remove_element("vc_wp_tagcloud");
-vc_remove_element("vc_wp_custommenu");
+//vc_remove_element("vc_wp_custommenu");
 vc_remove_element("vc_wp_text");
-vc_remove_element("vc_wp_posts");
+//vc_remove_element("vc_wp_posts");
 vc_remove_element("vc_wp_links");
-vc_remove_element("vc_wp_categories");
-vc_remove_element("vc_wp_archives");
-vc_remove_element("vc_wp_rss");
+//vc_remove_element("vc_wp_categories");
+//vc_remove_element("vc_wp_archives");
+//vc_remove_element("vc_wp_rss");
 vc_remove_element("vc_teaser_grid");
 vc_remove_element("vc_button");
 vc_remove_element("vc_cta_button");
@@ -25,6 +25,14 @@ vc_remove_element("vc_progress_bar");
 vc_remove_element("vc_pie");
 vc_remove_element("vc_posts_slider");
 vc_remove_element("vc_toggle");
+
+vc_remove_element("vc_facebook");
+vc_remove_element("vc_tweetmeme");
+vc_remove_element("vc_googleplus");
+vc_remove_element("vc_pinterest");
+vc_remove_element("vc_flickr");
+vc_remove_element("vc_empty_space");
+
 vc_remove_element("vc_images_carousel");
 //vc_remove_element("vc_posts_grid");
 vc_remove_element("vc_carousel");
@@ -49,9 +57,16 @@ vc_map( array(
 		"name" => "Title",
 		"base" => "title",
 		"category" => 'by Hiilite',
-		"icon" => "icon-wpb-button",
+		"icon" => "icon-wpb-layer-shape-text",
 		"allowed_container_element" => 'vc_row',
 		"params" => array(
+			array(
+				"type" => "textfield",
+				"holder" => "div",
+				"class" => "",
+				"heading" => "Text",
+				"param_name" => "text",
+			),
 			array(
 				"type" => "dropdown",
 				"holder" => "div",
@@ -77,25 +92,36 @@ vc_map( array(
                     "Color 1" => "color_one",
 					"Color 2" => "color_two",	
 					"Color 3" => "color_three",
-					"Color 4" => "color_four"
+					"Color 4" => "color_four",
+					"White" => "white"
 				)
 			),
 			array(
+	            'type' => 'css_editor',
+	            'heading' => __( 'Css', 'my-text-domain' ),
+	            'param_name' => 'css',
+	            'group' => __( 'Design options', 'my-text-domain' ),
+	        ),
+	        array(
 				"type" => "textfield",
 				"holder" => "div",
 				"class" => "",
-				"heading" => "Text",
-				"param_name" => "text"
-			)
+				"heading" => "Max Width",
+				"param_name" => "max_width",
+				'group' => __( 'Design options', 'my-text-domain' ),
+			),
 		)
 ) );
 
 
+
+
+// Button
 vc_map( array(
 		"name" => "Button",
 		"base" => "button",
 		"category" => 'by Hiilite',
-		"icon" => "icon-wpb-button",
+		"icon" => "icon-wpb-ui-button",
 		"allowed_container_element" => 'vc_row',
 		"params" => array(
 			array(
@@ -246,9 +272,165 @@ vc_map( array(
 				"heading" => "Border radius",
 				"param_name" => "border_radius",
 				"description" => __("Please insert border radius(Rounded corners) in px. For example: 4 ", 'qode')
-			)
+			),
+			array(
+	            'type' => 'css_editor',
+	            'heading' => __( 'Css', 'my-text-domain' ),
+	            'param_name' => 'css',
+	            'group' => __( 'Design options', 'my-text-domain' ),
+	        ),
+	        array(
+				"type" => "textfield",
+				"holder" => "div",
+				"class" => "",
+				"heading" => "Max Width",
+				"param_name" => "max_width",
+				'group' => __( 'Design options', 'my-text-domain' ),
+			),
 		)
 ) );
 
 
+// Social Share
+vc_map( array(
+		"name" => "Social Share",
+		"base" => "social-share",
+		"category" => 'by Hiilite',
+		"description" => "Allow users to share the page on social media",
+		"icon" => "icon-wpb-flickr",
+		"allowed_container_element" => 'vc_row',
+		"params" => array(
+			array(
+				"type" => "checkbox",
+				"holder" => "div",
+				"class" => "",
+				"heading" => "Google+",
+				"param_name" => "gp"
+			),
+			array(
+				"type" => "checkbox",
+				"holder" => "div",
+				"class" => "",
+				"heading" => "Facebook",
+				"param_name" => "fa"
+			),
+			array(
+				"type" => "checkbox",
+				"holder" => "div",
+				"class" => "",
+				"heading" => "Twitter",
+				"param_name" => "tw"
+			),
+			array(
+				"type" => "checkbox",
+				"holder" => "div",
+				"class" => "",
+				"heading" => "Pinterest",
+				"param_name" => "pt"
+			),
+			array(
+				"type" => "checkbox",
+				"holder" => "div",
+				"class" => "",
+				"heading" => "LinkedIn",
+				"param_name" => "li"
+			),
+			array(
+				"type" => "checkbox",
+				"holder" => "div",
+				"class" => "",
+				"heading" => "Email",
+				"param_name" => "em"
+			),
+			array(
+	            'type' => 'css_editor',
+	            'heading' => __( 'Css', 'my-text-domain' ),
+	            'param_name' => 'css',
+	            'group' => __( 'Design options', 'my-text-domain' ),
+	        ),
+		)
+) );
+
+
+// Social Share
+vc_map( array(
+		"name" => "Social Profiles",
+		"base" => "social-profiles",
+		"category" => 'by Hiilite',
+		"description" => "Show links to all social profiles listed in Business Profiles",
+		"icon" => "icon-wpb-flickr",
+		"allowed_container_element" => 'vc_row',
+		"params" => array(
+			array(
+				"type" => "checkbox",
+				"holder" => "div",
+				"class" => "",
+				"heading" => "Google+",
+				"param_name" => "google-plus"
+			),
+			array(
+				"type" => "checkbox",
+				"holder" => "div",
+				"class" => "",
+				"heading" => "Facebook",
+				"param_name" => "facebook"
+			),
+			array(
+				"type" => "checkbox",
+				"holder" => "div",
+				"class" => "",
+				"heading" => "Twitter",
+				"param_name" => "twitter"
+			),
+			array(
+				"type" => "checkbox",
+				"holder" => "div",
+				"class" => "",
+				"heading" => "Pinterest",
+				"param_name" => "pinterest"
+			),
+			array(
+				"type" => "checkbox",
+				"holder" => "div",
+				"class" => "",
+				"heading" => "LinkedIn",
+				"param_name" => "linkedin"
+			),
+			array(
+				"type" => "checkbox",
+				"holder" => "div",
+				"class" => "",
+				"heading" => "houzz",
+				"param_name" => "houzz"
+			),
+			array(
+				"type" => "checkbox",
+				"holder" => "div",
+				"class" => "",
+				"heading" => "Yelp",
+				"param_name" => "yelp"
+			),
+			array(
+				"type" => "checkbox",
+				"holder" => "div",
+				"class" => "",
+				"heading" => "TripAdvisor",
+				"param_name" => "tripadvisor"
+			),
+			array(
+				"type" => "checkbox",
+				"holder" => "div",
+				"class" => "",
+				"heading" => "YouTube",
+				"param_name" => "youtube"
+			),
+			array(
+	            'type' => 'css_editor',
+	            'heading' => __( 'Css', 'my-text-domain' ),
+	            'param_name' => 'css',
+	            'group' => __( 'Design options', 'my-text-domain' ),
+	        ),
+			
+		)
+) );
 ?>

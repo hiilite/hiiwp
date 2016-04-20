@@ -177,6 +177,10 @@ if ( $link ) {
 		$wrapperClass .= ' ' . $a_attrs['class'];
 		unset( $a_attrs['class'] );
 	}
+	if($_amp!=''){
+		$img['thumbnail'] = str_replace( '<img', '<amp-img '.$reponsive.' ', $img['thumbnail'] );
+		$img['thumbnail'] = str_replace( '/>', '></amp-img> ', $img['thumbnail'] );
+	}
 	$html = '<a ' . vc_stringify_attributes( $a_attrs ) . ' class="' . $wrapperClass . '">' . $img['thumbnail'] . '</a>';
 } else {
 	if($_amp!=''){

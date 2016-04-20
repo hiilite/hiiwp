@@ -41,7 +41,7 @@ echo '<div class="twothird-width content-box">';
 	} else {
 		the_content();
 	}
-	
+	$exclude = array(get_the_id());
 echo '</div>';
 if(has_excerpt($post->id)){
 echo '<div class="row"><div class="container_inner"><div class="in_grid">';
@@ -55,8 +55,13 @@ endif;
 if($hiilite_options['subdomain'] != 'iframe'):
 echo '</div>';
 echo '</article>';
-$team = new WP_Query();
-$team->query('post_type=team&posts_per_page=3');
+
+$team = new WP_Query(
+array(	'post_type'=>'team',
+		'posts_per_page'=>3,
+		'orderby' => 'rand',
+		'post__not_in' => $exclude
+	));
 if($team->have_posts()):
 	echo '<div class="row"><div class="container_inner"><div class="in_grid">';
 	echo '<h2 class="full-width">Meet the rest of the team</h2>';

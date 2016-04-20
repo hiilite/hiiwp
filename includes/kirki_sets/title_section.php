@@ -32,4 +32,46 @@ Kirki::add_field( 'hiiwp', array(
     )),
 ) );
 
+
+Kirki::add_field( 'hiiwp', array(
+    'type'        => 'typography',
+    'settings'    => 'title_font',
+    'label'       => esc_attr__( 'Title Style', 'kirki' ),
+    'description' => __( 'Define styles for page title' ),
+    'section'     => 'title_section',
+    'default'     => array(
+        'font-family'    => ' ',
+        'variant'        => ' ',
+        'font-size'      => ' ',
+        'line-height'    => '1.5',
+        'letter-spacing' => '0',
+        'text-transform' => ' ',
+        'color'          => ' ',
+    ),
+    'priority'    => 6,
+    'output'      => array(
+        array(
+            'element' => '.page-title h1',
+        ),
+    ),
+) );
+
+Kirki::add_field( 'hiiwp', array(
+	'type'        => 'background',
+    'settings'    => 'title_background',
+    'label'       => __( 'Title Background', 'my_textdomain' ),
+    'section'     => 'title_section',
+    'priority'    => 7,
+    'default'     => array(
+		'color'    => '',
+		'image'    => '',
+		'repeat'   => 'no-repeat',
+		'size'     => 'cover',
+		'attach'   => 'fixed',
+		'position' => 'left-top',
+		'opacity'  => 90,
+	),
+	'output' => '.page-title',
+) );
+
 	?>

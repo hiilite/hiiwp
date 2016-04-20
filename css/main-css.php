@@ -24,6 +24,7 @@ figure.align-center <?=$_amp?>img{
 }
 
 
+
 /* TYPOGRAPHY */
 h1,h2,h3,h4,h5,h6,.h1,.h2 {
 	<?php 
@@ -174,11 +175,16 @@ header.centered #main-nav {
 <?php } ?>
 
 .blog-article {
-	margin-bottom: 1em;
+	margin-bottom: 3em;
 	display: flex;
+	flex-wrap: wrap;
 }
 .blog-article .content-box {
-	padding-top: 0;
+	padding-top: 2px;
+	padding:2px 2em;
+}
+.blog-article figure {
+	padding: 0 2em;
 }
 <?php if($hiilite_options['portfolio_on']): ?>
 .portfolio-piece {
@@ -187,7 +193,7 @@ header.centered #main-nav {
 .portfolio-piece .content-box {
 	box-shadow: inset 0 0 1px rgba(0,0,0,0.1);
 }
-.portfolio-piece h3 {
+.portfolio-piece h5 {
 	margin: 0;
 }
 .portfolio-piece figure {
@@ -203,6 +209,7 @@ header.centered #main-nav {
     position: absolute;
     width: 150%;
     left: -25%;
+    
 }
 <?php endif; ?>
 
@@ -210,32 +217,24 @@ header.centered #main-nav {
 .team-member {
 	padding: 0.5em;
 }
-.team-member .content-box {
-	box-shadow: inset 0 0 1px rgba(0,0,0,0.1);
-}
-.team-member h3 {
+
+.team-member h5 {
 	margin: 0;
 }
 .team-member figure {
 	overflow:hidden;
 	max-width: 300px;	
 	max-height: 300px;
-	min-height: 300px;
 	position: relative;
 }
 .team-member figure <?=$_amp?>img {
-    min-height: 100%;
-    min-width: 100%;
-    max-width: none;
-    position: absolute;
-    width: 150%;
-    left: -25%;
+ 
 }
 <?php endif; ?>
 
 @media (max-width:<?=$hiilite_options['grid_width'];?>){
 	.container_inner {
-		padding: 0 1em;
+		padding: 0em;
 	}
 }
 #header_top {
@@ -277,7 +276,7 @@ header.centered #main-nav {
 ?>
 }
 
-#main_footer a, #main_footer a .fa {
+#main_footer a {
 	<?php 
 	foreach($hiilite_options['typography_footer_links_font'] as $key => $value){
 		if($value != ' ' && $value != '' && $value != 'px'){
@@ -455,6 +454,9 @@ ul.sub-menu {
 	display: flex;
 	
 }
+.page-title h1 {
+	margin-bottom: 0;
+}
 
 <?=$_amp?>img {
 	max-width: 100%;
@@ -468,21 +470,24 @@ ul.sub-menu {
 }
 .full-width, .col-12 {
 	width: 100%;
+	
 }
 .col-1 {
 	width: 16.67%;
 }
 .threequarter-width, .col-9 {
-	min-width: 25em;
+	min-width: 320px;
 	max-width: 76em;
 	width: 75%;
 	margin: auto;
+	flex: 1 320px;
 }
 .half-width, .col-6 {
-	min-width: 20em;
+	min-width: 30em;
 	max-width: 50em;
 	width: 50%;
 	margin: auto;
+	flex: 1 30em;
 }
 
 .third-width, .col-4 {
@@ -490,19 +495,22 @@ ul.sub-menu {
 	max-width: 33em;
 	width: 33.33%;
 	margin: auto;
+	flex: 1 20em;
 }
 
 .twothird-width , .col-8{
-	min-width: 25em;
+	min-width: 320px;
 	max-width: 66em;
 	width: 66.66%;
 	margin: auto;
+	flex: 1 320px;
 }
 .quarter-width, .col-3 {
 	min-width: 10em;
 	max-width: 25em;
 	width: 25%;
 	margin: auto;
+	flex: 1 10em;
 }
 
 
@@ -545,6 +553,12 @@ ul.sub-menu {
 .color_two 	{ color: <?=$hiilite_options['color_two'];?>; }
 .color_three{ color: <?=$hiilite_options['color_three'];?>; }
 .color_four { color: <?=$hiilite_options['color_four'];?>; }
+.white { color:white; }
+.bg_color_one  { background-color: <?=$hiilite_options['color_one'];?>; }
+.bg_color_two 	{ background-color: <?=$hiilite_options['color_two'];?>; }
+.bg_color_three{ background-color: <?=$hiilite_options['color_three'];?>; }
+.bg_color_four { background-color: <?=$hiilite_options['color_four'];?>; }
+.bg_white { background-color:white; }
 
 .label{
 	background: rgba(128,128,128,0.4);

@@ -10,7 +10,11 @@ if($hiilite_options['subdomain'] != 'iframe'):
 	<meta itemscope itemprop="mainEntityOfPage"  itemType="https://schema.org/WebPage" itemid="<?php bloginfo('url')?>"/>
 <?php
 echo '<div class="container_inner">';
-?><div class="full-width"><span itemprop="articleSection" class="labels"><?php the_category(' '); ?></span><meta itemprop="datePublished" content="<?php the_time('Y-m-d'); ?>"><?php
+?><div class="full-width content-box">
+	<span itemprop="articleSection" class="labels"><?php the_category(' '); ?></span>
+	<meta itemprop="datePublished" content="<?php the_time('Y-m-d'); ?>">
+	<meta itemprop="dateModified" content="<?php the_modified_date('Y-m-d'); ?>">
+	<meta itemprop="headline" content="<?php the_title(); ?>"><?php
 	if(is_single() && get_post_meta(get_the_id(), 'show_page_title', true) != 'on'){
 		echo '<h1>';
 		the_title();
@@ -19,7 +23,9 @@ echo '<div class="container_inner">';
 ?><small>
 <span class="post_author">
 	<?php _e('by','hiilite'); ?>
-	<a itemprop="author" itemscope itemtype="https://schema.org/Person" class="post_author_link" href="<?php echo get_author_posts_url( get_the_author_meta( 'ID' ) ); ?>"><span itemprop="name"><?php the_author_meta('display_name'); ?></span></a>
+	<a itemprop="author" itemscope itemtype="https://schema.org/Person" class="post_author_link" href="<?php echo get_author_posts_url( get_the_author_meta( 'ID' ) ); ?>">
+		<span itemprop="name"><?php the_author_meta('display_name'); ?></span>
+	</a>
 </span>
 <span class="time"> <?php _e('on ','hiilite'); ?> <span class="date"><?php the_time('F j, Y'); ?></span> <?php the_time('h:i a'); ?></span></small>
 </div><?php
@@ -45,12 +51,12 @@ echo '<div class="threequarter-width content-box  align-top">';
 	
 	
 	$source = get_post_meta( $post->ID, 'source_article_link');
-	if($source && $source[0] != ''){ ?>
+	if(isset($source) && $source[0] != ''){ ?>
 	<br>
 	<div class="articleSource labels">
 		<p>
 			<strong class="label">Source</strong> <a href="<?=get_post_meta( $post->ID, 'source_article_link', true); ?>"><?=get_post_meta ( $post->ID, 'source_article_title', true); ?></a> <span class="label"><?=get_post_meta( $post->ID, 'source_site_title', true); ?></span>
-		<meta itemprop="sameAs" content="<?=get_post_meta( $post->ID, 'source_article_link'); ?>">
+		<meta itemprop="sameAs" content="<?=get_post_meta( $post->ID, 'source_article_link', true); ?>">
 		</p>
 	</div>
 	<?php } 
@@ -76,17 +82,15 @@ echo '<div class="threequarter-width content-box  align-top">';
 
 		echo '</div>';
 		
-		if ( is_active_sidebar( 'header_top_right' ) ) :
-			
 						
 					
 		echo '<aside class="quarter-width content-box  align-top align-center">';
 			dynamic_sidebar( 'post_sidebar' );
 		echo '</aside>';
-		endif;
+	
 echo '</div>';
 endif;
-
+/*
 if($hiilite_options['subdomain'] != 'iframe'){
 	echo '<div class="iframe-content container_inner">';
 	echo '<amp-iframe width="100vw" height="100vh"
@@ -101,7 +105,7 @@ if($hiilite_options['subdomain'] != 'iframe'){
 	echo '</div>';
 }
 
-
+*/
 
 if($hiilite_options['subdomain'] != 'iframe'):
 echo '</div>';

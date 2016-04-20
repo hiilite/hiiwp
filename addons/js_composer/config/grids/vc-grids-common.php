@@ -595,14 +595,14 @@ $grid_params = array_merge( array(
 		),
 		'description' => __( 'Select "animation out" for page transition.', 'js_composer' ),
 	),
-	33 => array(
+	/*33 => array(
 		'type' => 'vc_grid_item',
 		'heading' => __( 'Grid element template', 'js_composer' ),
 		'param_name' => 'item',
 		'description' => sprintf( __( '%sCreate new%s template or %smodify selected%s. Predefined templates will be cloned.', 'js_composer' ), '<a href="' . esc_url( admin_url( 'post-new.php?post_type=vc_grid_item' ) ) . '" target="_blank">', '</a>', '<a href="#" target="_blank" data-vc-grid-item="edit_link">', '</a>' ),
 		'group' => __( 'Item Design', 'js_composer' ),
 		'value' => 'none',
-	),
+	),*/
 	34 => array(
 		'type' => 'vc_grid_id',
 		'param_name' => 'grid_id',

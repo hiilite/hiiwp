@@ -24,11 +24,22 @@ if($hiilite_options['amp']) $_amp = 'amp-'; else $_amp = '';
 	<div class="flex-item half-width content-box" >
 		<span itemprop="articleSection" class="labels"><?php the_category(', '); ?></span>
 		<meta itemprop="datePublished" content="<?php the_time('Y-m-d'); ?>">
-		<h2><a href="<?=get_the_permalink()?>" itemprop="headline"><?php the_title(); ?></a></h2>
-	
+		<meta itemprop="dateModified" content="<?php the_modified_date('Y-m-d'); ?>">
+		<meta itemprop="headline" content="<?php the_title(); ?>">
+		<h2><a href="<?=get_the_permalink()?>"><?php the_title(); ?></a></h2>
+		<span itemprop="author" itemscope itemtype="https://schema.org/Person"><meta itemprop="name" content="<?php the_author_meta('display_name'); ?>"></span>
 		<p><?php the_excerpt(); ?></p>
 		<a class="button" href="<?php the_permalink() ?>">Read More</a>
 	<div>
+		<?php $options = get_option('company_options'); ?>
+		<div itemprop="publisher" itemscope itemtype="https://schema.org/Organization">
+			<div itemprop="logo" itemscope itemtype="https://schema.org/ImageObject">
+			  <meta itemprop="url" content="<?=$options['business_logo']?>">
+			  <meta itemprop="width" content="150">
+			  <meta itemprop="height" content="150">
+			</div>
+			<meta itemprop="name" content="<?=$options['business_name']?>">
+		</div>
 </article>
 <?php
 	

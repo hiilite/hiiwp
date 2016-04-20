@@ -4,7 +4,8 @@ $post_meta = get_post_meta(get_the_id());
 if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
 }
-
+$hiilite_options['amp'] = get_theme_mod('amp');
+if($hiilite_options['amp']) $_amp = 'amp-'; else $_amp = '';
 /**
  * Shortcode attributes
  * @var $atts
@@ -34,6 +35,7 @@ extract( $atts );
 
 wp_enqueue_script( 'wpb_composer_front_js' );
 
+
 $el_class = $this->getExtraClass( $el_class );
 
 $css_classes = array(
@@ -44,6 +46,10 @@ $css_classes = array(
 
 if (vc_shortcode_custom_css_has_property( $css, array('border', 'background') ) || $video_bg || $parallax) {
 	$css_classes[]='vc_row-has-fill';
+}
+
+if ($parallax) {
+	$css_classes[]='vc_row-parallax';
 }
 
 if (!empty($atts['gap'])) {
@@ -88,28 +94,47 @@ if ( ! empty( $content_placement ) ) {
 if ( ! empty( $flex_row ) ) {
 	$css_classes[] = ' row-flex';
 }
+if ( ! empty( $background_palette )) {
+	$css_classes[] =  ' '.$background_palette;
+}
+
+
 
 $css_class = preg_replace( '/\s+/', ' ', apply_filters( VC_SHORTCODE_CUSTOM_CSS_FILTER_TAG, implode( ' ', array_filter( $css_classes ) ), $this->settings['base'], $atts ) );
 $wrapper_attributes[] = 'class="' . esc_attr( trim( $css_class ) ) . '"';
 
 $output .= '<section ' . implode( ' ', $wrapper_attributes ) . '>';
-$output .= !empty($atts['in_grid'])?'<div class="container_inner">':'';
 
-if(!empty($atts['in_iframe']) && $hiilite_options['subdomain'] != 'iframe'){
+if($parallax_image){
+	$para_img = wp_get_attachment_image_src($parallax_image,'large');
+	$output .= '<amp-img src="'.$para_img[0].'"  width="'.$para_img[1].'" height="'.$para_img[2].'" class="parallax-image"></amp-img>';
+}
+
+$output .= '<div class="container_inner">';
+$output .= (!empty($atts['in_grid']) && ($hiilite_options['subdomain'] != 'iframe' && empty($atts['in_iframe'])))?'<div class="in_grid">':'';
+
+if(!empty($atts['in_iframe']) && $hiilite_options['subdomain'] != 'iframe' && $hiilite_options['amp']){
 	$output .= !empty($atts['in_iframe'])?'<div class="iframe-content">':'';
-	$output .= '<amp-iframe src="https://iframe.'.$_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"].'" height="500" width="1000" sandbox="allow-scripts allow-same-origin allow-forms"></amp-iframe>';
+	$output .= '<amp-iframe src="https://iframe.'.$_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"].'" frameborder="0" height="75vh" width="100vw" sandbox="allow-scripts allow-same-origin allow-forms allow-top-navigation allow-popups"></amp-iframe>';
 	$output .= !empty($atts['in_iframe'])?'</div>':'';
 
-} elseif($hiilite_options['subdomain'] == 'iframe' && !empty($atts['in_iframe'])) {
+} elseif($hiilite_options['subdomain'] == 'iframe' && !empty($atts['in_iframe']) ) {
+	$output .= '<div class="container_inner">';
+	$output .= !empty($atts['in_grid'])?'<div class="in_grid">':'';
 	$output .= wpb_js_remove_wpautop( $content );
+	$output .= '</div>';
+	$output .= '</div>';
 } elseif($hiilite_options['subdomain'] == 'iframe' && empty($atts['in_iframe'])) {
-	$output .= '';
-	return ;
+	$output .= '<div class="container_inner">';
+	$output .= !empty($atts['in_grid'])?'<div class="in_grid">':'';
+	$output .= wpb_js_remove_wpautop( $content );
+	$output .= '</div>';
+	$output .= '</div>';
 } else {
 	$output .= wpb_js_remove_wpautop( $content );
 }
-$output .= !empty($atts['in_grid'])?'</div>':'';
-$output .= '</section>';
+$output .= (!empty($atts['in_grid']) && ($hiilite_options['subdomain'] != 'iframe' && empty($atts['in_iframe'])))?'</div>':'';
+$output .= '</div></section>';
 $output .= $after_output;
 
 echo $output;

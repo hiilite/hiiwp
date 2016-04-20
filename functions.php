@@ -34,6 +34,7 @@ include_once( dirname( __FILE__ ) . '/includes/business_profile.php' );
 require_once( dirname( __FILE__ ) . '/includes/shortcodes/button.php');
 require_once( dirname( __FILE__ ) . '/includes/shortcodes/title.php');
 require_once( dirname( __FILE__ ) . '/includes/shortcodes/social-share.php');
+require_once( dirname( __FILE__ ) . '/includes/shortcodes/social-profiles.php');
 
 require_once( dirname( __FILE__ ) . '/addons/tinymce_edits/tinymce_edits.php');
 require_once( dirname( __FILE__ ) . '/addons/github-updater/github-updater.php');
@@ -288,17 +289,42 @@ function page_options_meta_box_cb( $post )
 	// $post is already set, and contains an object: the WordPress post
     global $post;
     $values = get_post_custom( $post->ID );
+   
     //$text = isset( $values['my_meta_box_text'] ) ? $values['my_meta_box_text'] : '';
     //$selected = isset( $values['my_meta_box_select'] ) ? esc_attr( $values['my_meta_box_select'] ) : '';
     $check = isset( $values['show_page_title'][0] ) ? esc_attr( $values['show_page_title'][0] ) : '';
-     
+    $select = isset( $values['page_title_bg'][0] ) ? esc_attr( $values['page_title_bg'][0] ) : '';
+    $color = isset( $values['page_title_color'][0] ) ? esc_attr( $values['page_title_color'][0] ) : '';
     // We'll use this nonce field later on when saving.
     wp_nonce_field( 'show_page_title__meta_box_nonce', 'meta_box_nonce' );
+
     ?>
      
     <p>
         <input type="checkbox" id="show_page_title" name="show_page_title" <?php checked( $check, 'on' ); ?> value="on" />
         <label for="show_page_title">Hide Page Title</label>
+    </p>
+    
+    <p>
+        <label for="page_title_bg">Page Title Background Color</label>
+        <select id="page_title_bg" name="page_title_bg">
+	        <option value=""></option>
+	        <option value="bg_color_one" <?=$select=='bg_color_one'?'selected="selected"':'';?>>Color One</option>
+	        <option value="bg_color_two" <?=$select=='bg_color_two'?'selected="selected"':'';?>>Color Two</option>
+	        <option value="bg_color_three" <?=$select=='bg_color_three'?'selected="selected"':'';?>>Color Three</option>
+	        <option value="bg_color_four" <?=$select=='bg_color_four'?'selected="selected"':'';?>>Color Four</option>
+        </select>
+    </p>
+    <p>
+        <label for="page_title_color">Page Title Font Color</label>
+        <select id="page_title_color" name="page_title_color">
+	        <option value="" <?=$select=='color_one'?'selected="selected"':'';?>></option>
+	        <option value="color_one" <?=$select=='color_one'?'selected="selected"':'';?>>Color One</option>
+	        <option value="color_two" <?=$select=='color_two'?'selected="selected"':'';?>>Color Two</option>
+	        <option value="color_three" <?=$select=='color_three'?'selected="selected"':'';?>>Color Three</option>
+	        <option value="color_four" <?=$select=='color_four'?'selected="selected"':'';?>>Color Four</option>
+	        <option value="white" <?=$select=='white'?'selected="selected"':'';?>>White</option>
+        </select>
     </p>
     <?php    
 }
@@ -317,7 +343,11 @@ function show_page_title_meta_box_save( $post_id )
     
     // This is purely my personal preference for saving check-boxes
     $chk = isset( $_POST['show_page_title'] )? 'on' : 'off';
+    $ptbg = isset( $_POST['page_title_bg'] )? $_POST['page_title_bg'] : '';
+    $ptc = isset( $_POST['page_title_color'] )? $_POST['page_title_color'] : '';
     update_post_meta( $post_id, 'show_page_title', $chk );
+    update_post_meta( $post_id, 'page_title_bg', $ptbg );
+    update_post_meta( $post_id, 'page_title_color', $ptc );
 }
 
 

@@ -22,11 +22,11 @@ if($hiilite_options['amp']) $_amp = 'amp-'; else $_amp = '';
 		<span itemprop="articleSection" class="labels"><?php the_category(', '); ?></span>
 		<meta itemprop="datePublished" content="<?php the_time('Y-m-d'); ?>">
 		<meta itemprop="dateModified" content="<?php the_modified_date('Y-m-d'); ?>">
-		<h3><span itemprop="articleSection" class="labels"><span rel="category tag"><?php 
+		<h5><span itemprop="articleSection" class="labels"><span rel="category tag"><?php 
 			$terms = get_the_terms( $post->id, 'medium');
-			if($terms)echo $terms[0]->name;
+			if(!empty($terms))echo $terms[0]->name;
 			?></span></span>
-		<a href="<?=get_the_permalink()?>"><span itemprop="headline"><?php the_title(); ?></span></a></h3>
+		<a href="<?=get_the_permalink()?>"><span itemprop="headline"><?php the_title(); ?></span></a></h5>
 	<div>
 </article>
 <?php

@@ -179,6 +179,7 @@ class Vc_Manager {
 		require_once $this->path( 'PARAMS_DIR', 'params.php' );
 		require_once $this->path( 'AUTOLOAD_DIR', 'vc-shortcode-autoloader.php' );
 		require_once $this->path( 'SHORTCODES_DIR', 'shortcodes.php' );
+		require_once $this->path( 'SHORTCODES_DIR', 'vc-gitem.php' );
 		// Add hooks
 		add_action( 'init', array( &$this, 'pluginsLoaded' ), 9 );
 		add_action( 'init', array( &$this, 'init' ), 9 );

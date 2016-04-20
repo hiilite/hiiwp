@@ -91,9 +91,13 @@ if($hiilite_options['subdomain'] != 'iframe'):
 				</div>
 				
 			</footer>
+			<div class="full-width align-center">
+		<small>Copyright © <?=date('Y')?> <?=do_shortcode('[business_name]')?>. All rights reserved. <a href="https://hiilite.com/" target="_blank" title="Hiilite Creative Group | Web + Marketing">Web Design by Hiilite Creative Group Kelowna</a></small>
+	</div>
 <?php endif; //end iframe check ?>
 		</div>
 	</div>
 	<?php wp_footer(); ?>
+	
 </body>
 </html>
