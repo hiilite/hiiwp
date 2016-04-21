@@ -1,26 +1,56 @@
 <?php
 global $hiilite_options;
 $hiilite_options['amp'] = get_theme_mod('amp');
+$options = get_option('company_options');
 if($hiilite_options['amp']) $_amp = 'amp-'; else $_amp = '';
-
+$post_id = get_the_id();
+$post_object = get_post( $post_id );
+// Page Title
 $brand_title = (get_theme_mod('brand_seo_title')!='')?get_theme_mod('brand_seo_title'):get_bloginfo('title');
-
-if(get_theme_mod('site_seo_title') != '' && is_front_page()) {
+if(get_post_meta(get_the_id(), 'page_seo_title', true) != ''){
+	$page_title = get_post_meta(get_the_id(), 'page_seo_title', true);
+}
+elseif(get_theme_mod('site_seo_title') != '' && is_front_page()) {
 	$page_title = get_theme_mod('site_seo_title');
 } else {
 	$page_title = wp_title('|',false,'right').$brand_title;
+}
+
+// Page Description
+if(get_post_meta(get_the_id(), 'page_seo_description', true) != ''){
+	$page_description = get_post_meta(get_the_id(), 'page_seo_description', true);
+}
+elseif(get_theme_mod('site_seo_description') != '' && is_front_page()) {
+	$page_description = get_theme_mod('site_seo_description');
+} else {
+	
+	$the_content = $post_object->post_content;
+	$the_content = substr(preg_replace('/\[.*.\]|\n+/', '', $the_content), 0, 165);
+	$page_description = strip_tags($the_content);
+}
+// Page Image
+if(has_post_thumbnail($post_id)){
+	$page_image = wp_get_attachment_image_src(get_post_thumbnail_id($post_id), 'full');
+	$page_image=$page_image[0];
+} else {
+	$page_image = $options['business_logo'];
 }
 ?>
 <!doctype html>
 <html <?php if($hiilite_options['amp'] && $hiilite_options['subdomain'] != 'iframe') echo 'amp'; ?> lang="en">
 <head>
 <meta charset="utf-8">
-<title><?= $page_title ?></title>
+<title><?=$page_title?></title>
+<meta name="description" content="<?=$page_description?>">
 <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+<meta property="og:title" content="<?=$page_title?>">
+<meta property="og:type" content="website">
+<meta property="og:url" content="<?=get_permalink($post_id)?>">
+<meta property="og:image" content="<?=$page_image?>">
+<meta property="og:description" content="<?=$page_description?>">
+<meta property="og:site_name" content="<?=$brand_title?>">
 <script type="application/ld+json">
 	<?php
-	$options = get_option('company_options');
-	
 	/*
 	*
 	*	WEBSITE

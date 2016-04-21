@@ -279,6 +279,14 @@ function page_options_meta_box()
         'side', // context (where on the screen
         'low' // priority, where should this go in the context?
     );
+    add_meta_box(
+        'page_seo_options', // id, used as the html id att
+        __( 'SEO Options' ), // meta box title, like "Page Attributes"
+        'page_seo_options_meta_box_cb', // callback function, spits out the content
+        array('page','post','portfolio','team'), // post type or page. We'll add this to pages only
+        'advanced', // context (where on the screen
+        'high' // priority, where should this go in the context?
+    );
 }
 
 //
@@ -348,6 +356,60 @@ function show_page_title_meta_box_save( $post_id )
     update_post_meta( $post_id, 'show_page_title', $chk );
     update_post_meta( $post_id, 'page_title_bg', $ptbg );
     update_post_meta( $post_id, 'page_title_color', $ptc );
+}
+
+
+//////////////////////////////
+//
+//	PAGE SEO OPTIONS META
+//
+/////////////////////////////
+
+function page_seo_options_meta_box_cb( $post )
+{
+	// $post is already set, and contains an object: the WordPress post
+    global $post;
+    $values = get_post_custom( $post->ID );
+   
+    //$text = isset( $values['my_meta_box_text'] ) ? $values['my_meta_box_text'] : '';
+    //$selected = isset( $values['my_meta_box_select'] ) ? esc_attr( $values['my_meta_box_select'] ) : '';
+    $page_seo_title = isset( $values['page_seo_title'][0] ) ? esc_attr( $values['page_seo_title'][0] ) : '';
+    $page_seo_description = isset( $values['page_seo_description'][0] ) ? esc_attr( $values['page_seo_description'][0] ) : '';
+    // We'll use this nonce field later on when saving.
+    wp_nonce_field( 'page_seo_options__meta_box_nonce', 'meta_box_nonce' );
+
+    ?>
+     
+    <p>
+	    <label for="page_seo_title">SEO Title</label><br>
+        <input id="page_seo_title" name="page_seo_title" maxlength="65" type="text" size="70" placeholder="%%title%% %%sep%% %%sitename%%" value="<?=$page_seo_title?>" /><br>
+        <small>The title element of a web page is meant to be an accurate and concise description of a page's content. This element is critical to both user experience and search engine optimization. It creates value in three specific areas: relevancy, browsing, and in the search engine results pages. The suggested format for SEO titles is "Primary Keyword - Secondary Keyword | Brand Name". <a href="https://moz.com/learn/seo/title-tag">More on title tags here</a></small>
+    </p>
+    
+    <p>
+        <label for="page_seo_description">Meta Description</label><br>
+        <textarea id="page_seo_description" name="page_seo_description" cols="70" rows="4" maxlength="165"><?=$page_seo_description?></textarea><br>
+        <small>Google announced in September of 2009 that neither meta descriptions nor meta keywords factor into Google's ranking algorithms for web search. Google uses meta descriptions to return results when searchers use advanced search operators to match meta tag content, as well as to pull preview snippets on search result pages, but it's important to note that meta descriptions do not to influence Google's ranking algorithms for normal web search. <a href="https://moz.com/learn/seo/meta-description">More info on Meta descriptions here</a></small>
+    </p>
+    <?php    
+}
+add_action( 'save_post', 'page_seo_options_meta_box_save' );
+function page_seo_options_meta_box_save( $post_id )
+{
+    // Bail if we're doing an auto save
+    if( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) return;
+     
+    // if our nonce isn't there, or we can't verify it, bail
+    if( !isset( $_POST['meta_box_nonce'] ) || !wp_verify_nonce( $_POST['meta_box_nonce'], 'page_seo_options__meta_box_nonce' ) ) return;
+     
+    // if our current user can't edit this post, bail
+    //if( !current_user_can( 'edit_post' ) ) return;
+    
+    // This is purely my personal preference for saving check-boxes
+    $page_seo_title = isset( $_POST['page_seo_title'] )? $_POST['page_seo_title'] : '';
+    $page_seo_description = isset( $_POST['page_seo_description'] )? $_POST['page_seo_description'] : '';
+    update_post_meta( $post_id, 'page_seo_title', $page_seo_title );
+    update_post_meta( $post_id, 'page_seo_description', $page_seo_description );
 }
 
 

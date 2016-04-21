@@ -483,11 +483,11 @@ ul.sub-menu {
 	flex: 1 320px;
 }
 .half-width, .col-6 {
-	min-width: 30em;
+	min-width: 50%;
 	max-width: 50em;
 	width: 50%;
 	margin: auto;
-	flex: 1 30em;
+	flex: 1 50%;
 }
 
 .third-width, .col-4 {
@@ -495,7 +495,7 @@ ul.sub-menu {
 	max-width: 33em;
 	width: 33.33%;
 	margin: auto;
-	flex: 1 20em;
+	flex: 1 15em;
 }
 
 .twothird-width , .col-8{

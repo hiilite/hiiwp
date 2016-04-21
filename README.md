@@ -21,6 +21,10 @@ Experiment with third-party plugins at your own risk. Generally any plugin that 
 Avoid SEO based plugins. The AMP theme is structured in such a way to be perfectly compliant with Google's new AMP tracking and Structured Data Markup, and other third-party SEO plugins can cause errors in the data that Google is getting, or create unnecessary duplicate data.
 
 ## Change log
+### v0.1.9
+- Added SEO title and description editors for pages
+- Added basic OpenGraph protocols to all pages
+
 ### v0.1.8
 - Numerous bug fixes
 - Adjustments to rich-snippet data for portfolio and blog articles
