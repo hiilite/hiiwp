@@ -39,6 +39,9 @@ $image_id = attachment_url_to_postid( $hiilite_options['main_logo'] );
 if( isset( $image_id ) ) {
   $image_url  = wp_get_attachment_metadata($image_id); 
 }
+
+$hiilite_options['favicon']						= get_theme_mod('favicon', '');
+
 $hiilite_options['logo_size_mod'] 				= (get_theme_mod( 'logo_size_mod', 100) / 100);
 
 $hiilite_options['logo_width']					= isset($image_url['width'])?($image_url['width'] * $hiilite_options['logo_size_mod']):'183px';

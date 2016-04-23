@@ -35,6 +35,8 @@ if(has_post_thumbnail($post_id)){
 } else {
 	$page_image = $options['business_logo'];
 }
+
+
 ?>
 <!doctype html>
 <html <?php if($hiilite_options['amp'] && $hiilite_options['subdomain'] != 'iframe') echo 'amp'; ?> lang="en">
@@ -44,7 +46,30 @@ if(has_post_thumbnail($post_id)){
 <meta name="description" content="<?=$page_description?>">
 <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
 <meta property="og:title" content="<?=$page_title?>">
-<meta property="og:type" content="website">
+<meta property="op:markup_version" content="v1.0">
+<link rel="shortcut icon" href="<?=get_theme_mod('favicon');?>"> 
+<?php 
+if(in_array($options['business_type'], array('FoodEstablishment', 'Bakery','BarOrPub','Brewery', 'CafeOrCoffeeShop', 'FastFoodRestaurant', 'IceCreamShop', 'Restaurant', 'Winery'))){
+	echo '<meta property="og:type" content="restaurant.menu">';
+	echo '<meta property="restaurant:restaurant" content="'.$options['business_name'].'">';
+} elseif(is_single()){
+	echo '<meta property="og:type" content="article">';
+} elseif(is_front_page() || is_home() || !is_single() || !is_archive()){
+	echo '<meta property="og:type" content="business.business">';
+	echo '<meta property="business:contact_data:street_address" content="'.$options['business_streetAddress'].'">';
+	echo '<meta property="business:contact_data:locality" content="'.$options['business_addressLocality'].'">';
+	echo '<meta property="business:contact_data:postal_code" content="'.$options['business_postalCode'].'">';
+	echo '<meta property="business:contact_data:country_name" content="'.$options['business_addressCountry'].'">';
+	echo '<meta property="place:location:latitude" content="'.$options['business_geo_latitude'].'">';
+	echo '<meta property="place:location:longitude" content="'.$options['business_geo_longitude'].'">';
+} else {
+	echo '<meta property="og:type" content="website">';
+}
+if($options['business_fb_article_claim'] != ''){
+	echo '<meta property="fb:pages" content="'.$options['business_fb_article_claim'].'" />';
+}
+?>
+
 <meta property="og:url" content="<?=get_permalink($post_id)?>">
 <meta property="og:image" content="<?=$page_image?>">
 <meta property="og:description" content="<?=$page_description?>">
@@ -97,6 +122,7 @@ echo $WebSite;
 		if($options['business_addressRegion']!='')$html .= '"addressRegion": "'.$options['business_addressRegion'].'",';
 		if($options['business_streetAddress']!='')$html .= '"streetAddress": "'.$options['business_streetAddress'].'",';
 		if($options['business_addressCountry']!='')$html .= '"addressCountry": "'.$options['business_addressCountry'].'"';
+		if($options['business_postalCode']!='')$html .= '"postalCode": "'.$options['business_postalCode'].'"';
 	$html.='  }';
 
 	$html .= '}';

@@ -19,10 +19,20 @@ Kirki::add_field( 'hiiwp', array(
 	'label'       => esc_attr__( 'A percentage that the logo should be scaled too', 'my_textdomain' ),
 	'section'     => 'logo_section',
 	'default'     => 100,
+	'priority'    => 2,
 	'choices'     => array(
 		'min'  => '0',
 		'max'  => '200',
 		'step' => '1',
 	),
+) );
+Kirki::add_field( 'hiiwp', array(
+	'type'        => 'image',
+	'settings'    => 'favicon',
+	'label'       => __( 'Favicon', 'my_textdomain' ),
+	'description' => __( 'Ideally use square images around 64x64', 'my_textdomain' ),
+	'section'     => 'logo_section',
+	'priority'    => 4,
+	'default'     =>  '',
 ) );
 	?>

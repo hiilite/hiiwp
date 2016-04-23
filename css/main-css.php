@@ -22,7 +22,9 @@ figure {
 figure.align-center <?=$_amp?>img{
 	margin: auto;
 }
-
+address {
+	display: inline-block;
+}
 
 
 /* TYPOGRAPHY */

@@ -60,7 +60,7 @@ $business_args = array(
 	array(
 		'id'		=>'business_description',
 		'title'		=>'Description',
-		'callback'	=>'company_setting_string',
+		'callback'	=>'company_setting_textarea',
 		'page'		=> 'company',
 		'section'	=> 'company_main' ),
 		
@@ -229,6 +229,17 @@ $business_args = array(
 		'callback'	=>'company_setting_string',
 		'page'		=> 'company',
 		'section'	=> 'company_action' ),
+	/*
+	*	PAGE VALIDATION
+	*/
+	array(
+		'id'		=>'business_fb_article_claim',
+		'title'		=>'Facebook Instant Articles ID',
+		'callback'	=>'company_setting_string',
+		'page'		=> 'company',
+		'section'	=> 'page_validation' ),
+		
+		
 );
 
 // create custom plugin settings menu
@@ -273,6 +284,7 @@ function company_admin_init() {
 	add_settings_section('company_geo', 'Geo', 'company_section_text', 'company');
 	add_settings_section('company_store', 'Store Settings', 'company_section_text', 'company');
 	add_settings_section('company_action', 'Potential Action', 'company_section_text', 'company');	
+	add_settings_section('page_validation', 'Site Validation', 'company_section_text', 'company');	
 	
 	foreach($business_args as $business){
 		add_settings_field($business['id'], $business['title'], $business['callback'], $business['page'], $business['section'], array('name'=>$business['id']));
@@ -304,6 +316,12 @@ function company_setting_string($args) {
 	$options = get_option('company_options');
 	$value = isset($options[$args['name']])?$options[$args['name']]:'';
 	echo "<input id='{$args['name']}' name='company_options[{$args['name']}]' size='40' type='text' value='{$value}' />";
+} 
+
+function company_setting_textarea($args) {
+	$options = get_option('company_options');
+	$value = isset($options[$args['name']])?$options[$args['name']]:'';
+	echo "<textarea id='{$args['name']}' name='company_options[{$args['name']}]' cols='40' rows='3' maxlength='165'>{$value}</textarea>";
 } 
 
 function company_setting_url($args) {
