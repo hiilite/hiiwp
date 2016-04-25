@@ -22,8 +22,7 @@ if(get_post_meta(get_the_id(), 'page_seo_description', true) != ''){
 }
 elseif(get_theme_mod('site_seo_description') != '' && is_front_page()) {
 	$page_description = get_theme_mod('site_seo_description');
-} else {
-	
+} elseif (!is_tax()) {
 	$the_content = $post_object->post_content;
 	$the_content = substr(preg_replace('/\[.*.\]|\n+/', '', $the_content), 0, 165);
 	$page_description = strip_tags($the_content);
@@ -45,20 +44,46 @@ if(has_post_thumbnail($post_id)){
 <title><?=$page_title?></title>
 <meta name="description" content="<?=$page_description?>">
 <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
-<meta property="og:title" content="<?=$page_title?>">
-<meta property="op:markup_version" content="v1.0">
 <link rel="shortcut icon" href="<?=get_theme_mod('favicon');?>"> 
+
+<meta property="op:markup_version" content="v1.0">
+<meta property="og:title" content="<?=$page_title?>">
 <?php 
 if(in_array($options['business_type'], array('FoodEstablishment', 'Bakery','BarOrPub','Brewery', 'CafeOrCoffeeShop', 'FastFoodRestaurant', 'IceCreamShop', 'Restaurant', 'Winery'))){
-	echo '<meta property="og:type" content="restaurant.menu">';
-	echo '<meta property="restaurant:restaurant" content="'.$options['business_name'].'">';
+	
+	if(is_page('menu') || is_tax('menu-section')){
+		echo '<meta property="fb:app_id" content="'.$options['business_fb_article_claim'].'" />';
+		echo '<meta property="og:type" content="restaurant.menu">';
+		echo '<meta property="restaurant:restaurant" content="'.$brand_title.'" />';
+	} if(is_singular('menu')){
+		echo '<meta property="fb:app_id" content="'.$options['business_fb_article_claim'].'" />';
+		echo '<meta property="og:type" content="restaurant.menu_item">';
+		$section = get_the_terms($post_id, 'menu-section');
+		$meta_price = get_post_meta($post_id, 'price', true);
+		echo '<meta property="restaurant:section"                  content="'.$section[0]->name.'" /> 
+			  <meta property="restaurant:variation:price:amount"   content="'.$meta_price.'" /> 
+			  <meta property="restaurant:variation:price:currency" content="CAD" />';
+	} else {
+		echo '<meta property="og:type" content="restaurant.restaurant">';
+		echo '<meta property="restaurant:contact_info:street_address" content="'.$options['business_streetAddress'].'" /> 
+			  <meta property="restaurant:contact_info:locality"       content="'.$options['business_addressLocality'].'" /> 
+			  <meta property="restaurant:contact_info:region"         content="'.$options['business_addressRegion'].'" /> 
+			  <meta property="restaurant:contact_info:postal_code"    content="'.$options['business_postalCode'].'" /> 
+			  <meta property="restaurant:contact_info:country_name"   content="'.$options['business_addressCountry'].'" /> 
+			  <meta property="restaurant:contact_info:email"          content="'.$options['business_email'].'" /> 
+			  <meta property="restaurant:contact_info:phone_number"   content="'.$options['business_telephone'].'" /> 
+			  <meta property="restaurant:contact_info:website"        content="'.$options['business_url'].'" /> 
+			  <meta property="place:location:latitude"                content="'.$options['business_geo_latitude'].'" /> 
+			  <meta property="place:location:longitude"               content="'.$options['business_geo_longitude'].'" />';
+	}
 } elseif(is_single()){
 	echo '<meta property="og:type" content="article">';
 } elseif(is_front_page() || is_home() || !is_single() || !is_archive()){
 	echo '<meta property="og:type" content="business.business">';
 	echo '<meta property="business:contact_data:street_address" content="'.$options['business_streetAddress'].'">';
-	echo '<meta property="business:contact_data:locality" content="'.$options['business_addressLocality'].'">';
-	echo '<meta property="business:contact_data:postal_code" content="'.$options['business_postalCode'].'">';
+	echo '<meta property="business:contact_data:locality" 	  content="'.$options['business_addressLocality'].'">';
+	echo '<meta property="restaurant:contact_info:region"     content="'.$options['business_addressRegion'].'" />';
+	echo '<meta property="business:contact_data:postal_code"  content="'.$options['business_postalCode'].'">';
 	echo '<meta property="business:contact_data:country_name" content="'.$options['business_addressCountry'].'">';
 	echo '<meta property="place:location:latitude" content="'.$options['business_geo_latitude'].'">';
 	echo '<meta property="place:location:longitude" content="'.$options['business_geo_longitude'].'">';
@@ -68,6 +93,7 @@ if(in_array($options['business_type'], array('FoodEstablishment', 'Bakery','BarO
 if($options['business_fb_article_claim'] != ''){
 	echo '<meta property="fb:pages" content="'.$options['business_fb_article_claim'].'" />';
 }
+
 ?>
 
 <meta property="og:url" content="<?=get_permalink($post_id)?>">
@@ -75,7 +101,7 @@ if($options['business_fb_article_claim'] != ''){
 <meta property="og:description" content="<?=$page_description?>">
 <meta property="og:site_name" content="<?=$brand_title?>">
 <script type="application/ld+json">
-	<?php
+<?php
 	/*
 	*
 	*	WEBSITE
@@ -88,7 +114,10 @@ if($options['business_fb_article_claim'] != ''){
 	 if($options['business_url']!='')$WebSite .= '"url" : "'.$options['business_url'].'"';
 	$WebSite .= '}';
 echo $WebSite;
-?></script><script type="application/ld+json"><?php
+?>
+</script>
+<script type="application/ld+json">
+<?php
 	/*
 	*
 	*	ORGANIZATION
@@ -127,7 +156,10 @@ echo $WebSite;
 
 	$html .= '}';
 	echo $html;
-?></script><script type="application/ld+json"><?php	
+?>
+</script>
+<script type="application/ld+json">
+<?php	
 	/*
 	*
 	*	SPECIFIC TYPE
@@ -226,9 +258,10 @@ echo $html;
 <?php } ?>
 <link href='https://fonts.googleapis.com/css?family=Raleway:100,300,600,400' rel='stylesheet' type='text/css'>
 <link href='https://fonts.googleapis.com/css?family=Playfair+Display' rel='stylesheet' type='text/css'>
-<?php wp_head(); ?>
-
 <?php 
+wp_head(); 
+	
+
 ob_start();
 include_once('css/main-css.php');
 $maincss = ob_get_clean();

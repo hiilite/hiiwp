@@ -7,8 +7,8 @@ function hiiwp_widgets_init() {
         'description' => __( 'Widgets in this area will be shown in the top header above the logo', 'theme-slug' ),
         'before_widget' => '<div id="%1$s" class="flex-item %2$s">',
 	'after_widget'  => '</div>',
-	'before_title'  => '<h2 class="widgettitle">',
-	'after_title'   => '</h2>',
+	'before_title'  => '<h4 class="widgettitle">',
+	'after_title'   => '</h4>',
     ) );
     
     register_sidebar( array(
@@ -17,8 +17,8 @@ function hiiwp_widgets_init() {
         'description' => __( 'Widgets in this area will be shown in the top header above the logo', 'theme-slug' ),
         'before_widget' => '<div id="%1$s" class="flex-item align-right %2$s">',
 	'after_widget'  => '</div>',
-	'before_title'  => '<h2 class="widgettitle">',
-	'after_title'   => '</h2>',
+	'before_title'  => '<h4 class="widgettitle">',
+	'after_title'   => '</h4>',
     ) );
     
     register_sidebar( array(
@@ -27,8 +27,8 @@ function hiiwp_widgets_init() {
         'description' => __( 'Widgets in this area will be shown in the header on the left of the logo', 'theme-slug' ),
         'before_widget' => '<div id="%1$s" class="flex-item align-left %2$s">',
 	'after_widget'  => '</div>',
-	'before_title'  => '<h2 class="widgettitle">',
-	'after_title'   => '</h2>',
+	'before_title'  => '<h4 class="widgettitle">',
+	'after_title'   => '</h4>',
     ) );
     
     register_sidebar( array(
@@ -37,8 +37,8 @@ function hiiwp_widgets_init() {
         'description' => __( 'Widgets in this area will be shown in the header on the right of the logo', 'theme-slug' ),
         'before_widget' => '<div id="%1$s" class="flex-item align-left %2$s">',
 	'after_widget'  => '</div>',
-	'before_title'  => '<h2 class="widgettitle">',
-	'after_title'   => '</h2>',
+	'before_title'  => '<h4 class="widgettitle">',
+	'after_title'   => '</h4>',
     ) );
     
     register_sidebar( array(
@@ -47,8 +47,8 @@ function hiiwp_widgets_init() {
         'description' => __( 'Widgets in this area will be shown in the header under the menu', 'theme-slug' ),
         'before_widget' => '<div id="%1$s" class="flex-item align-center %2$s">',
 	'after_widget'  => '</div>',
-	'before_title'  => '<h2 class="widgettitle">',
-	'after_title'   => '</h2>',
+	'before_title'  => '<h4 class="widgettitle">',
+	'after_title'   => '</h4>',
     ) );
     
     
@@ -58,8 +58,8 @@ function hiiwp_widgets_init() {
         'description' => __( 'Footer Column 1', 'theme-slug' ),
         'before_widget' => '<div id="%1$s" class="flex-item %2$s">',
 	'after_widget'  => '</div>',
-	'before_title'  => '<h2 class="widgettitle">',
-	'after_title'   => '</h2>',
+	'before_title'  => '<h4 class="widgettitle">',
+	'after_title'   => '</h4>',
     ) );
     
     register_sidebar( array(
@@ -68,8 +68,8 @@ function hiiwp_widgets_init() {
         'description' => __( 'Footer Column 2', 'theme-slug' ),
         'before_widget' => '<div id="%1$s" class="flex-item %2$s">',
 	'after_widget'  => '</div>',
-	'before_title'  => '<h2 class="widgettitle">',
-	'after_title'   => '</h2>',
+	'before_title'  => '<h4 class="widgettitle">',
+	'after_title'   => '</h4>',
     ) );
     
     register_sidebar( array(
@@ -78,8 +78,8 @@ function hiiwp_widgets_init() {
         'description' => __( 'Footer Column 3', 'theme-slug' ),
         'before_widget' => '<div id="%1$s" class="flex-item %2$s">',
 	'after_widget'  => '</div>',
-	'before_title'  => '<h2 class="widgettitle">',
-	'after_title'   => '</h2>',
+	'before_title'  => '<h4 class="widgettitle">',
+	'after_title'   => '</h4>',
     ) );
     
     register_sidebar( array(
@@ -88,8 +88,8 @@ function hiiwp_widgets_init() {
         'description' => __( 'Footer Column 4', 'theme-slug' ),
         'before_widget' => '<div id="%1$s" class="flex-item %2$s">',
 	'after_widget'  => '</div>',
-	'before_title'  => '<h2 class="widgettitle">',
-	'after_title'   => '</h2>',
+	'before_title'  => '<h4 class="widgettitle">',
+	'after_title'   => '</h4>',
     ) );
     
      register_sidebar( array(
@@ -98,8 +98,8 @@ function hiiwp_widgets_init() {
         'description' => __( 'Footer Bottom Center', 'theme-slug' ),
         'before_widget' => '<div id="%1$s" class="flex-item %2$s">',
 	'after_widget'  => '</div>',
-	'before_title'  => '<h2 class="widgettitle">',
-	'after_title'   => '</h2>',
+	'before_title'  => '<h4 class="widgettitle">',
+	'after_title'   => '</h4>',
     ) );
     
     register_sidebar( array(
@@ -108,8 +108,8 @@ function hiiwp_widgets_init() {
         'description' => __( 'Footer Bottom Left', 'theme-slug' ),
         'before_widget' => '<div id="%1$s" class="flex-item %2$s">',
 	'after_widget'  => '</div>',
-	'before_title'  => '<h2 class="widgettitle">',
-	'after_title'   => '</h2>',
+	'before_title'  => '<h4 class="widgettitle">',
+	'after_title'   => '</h4>',
     ) );
     
     register_sidebar( array(
@@ -118,8 +118,8 @@ function hiiwp_widgets_init() {
         'description' => __( 'Footer Bottom Right', 'theme-slug' ),
         'before_widget' => '<div id="%1$s" class="flex-item %2$s">',
 	'after_widget'  => '</div>',
-	'before_title'  => '<h2 class="widgettitle">',
-	'after_title'   => '</h2>',
+	'before_title'  => '<h4 class="widgettitle">',
+	'after_title'   => '</h4>',
     ) );
     
     
@@ -129,8 +129,8 @@ function hiiwp_widgets_init() {
         'description' => __( 'Shows in the right sidebar of a post', 'hiilite' ),
         'before_widget' => '<div id="%1$s" class="flex-item %2$s">',
 	'after_widget'  => '</div>',
-	'before_title'  => '<h2 class="widgettitle">',
-	'after_title'   => '</h2>',
+	'before_title'  => '<h4 class="widgettitle">',
+	'after_title'   => '</h4>',
     ) );
     
     register_sidebar( array(
@@ -139,8 +139,8 @@ function hiiwp_widgets_init() {
         'description' => __( 'Shows at the bottom of a post', 'hiilite' ),
         'before_widget' => '<div id="%1$s" class="flex-item %2$s">',
 	'after_widget'  => '</div>',
-	'before_title'  => '<h2 class="widgettitle">',
-	'after_title'   => '</h2>',
+	'before_title'  => '<h4 class="widgettitle">',
+	'after_title'   => '</h4>',
     ) );
     
    

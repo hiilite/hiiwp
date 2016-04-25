@@ -45,6 +45,16 @@ Kirki::add_field( 'hiiwp', array(
 ) );
 
 Kirki::add_field( 'hiiwp', array(
+	'type'        => 'switch',
+	'settings'    => 'menus_on',
+	'label'       => esc_attr__( 'Food Menu', 'my_textdomain' ),
+	'section'     => 'general_section_globals',
+	'default'     => false,
+	'priority'	  => 1,
+	'description'    => __( 'Turn on the Restaurant Menu post type' ),
+) );
+
+Kirki::add_field( 'hiiwp', array(
 	'type'        => 'dimension',
 	'settings'    => 'grid_width',
 	'label'       => esc_attr__( 'Grid Width', 'my_textdomain' ),

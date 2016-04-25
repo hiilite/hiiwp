@@ -1,4 +1,6 @@
 <?php
+global $hiilite_options;
+
 
 /*** Removing shortcodes ***/
 //vc_remove_element("vc_widget_sidebar");
@@ -433,4 +435,19 @@ vc_map( array(
 			
 		)
 ) );
+
+
+
+// Menu
+/*  Section (All, loop), 
+	Title Tag (span,p,h3,h4,h5.h6), 
+	Ingredients (span,p,hide), 
+	Seperator (-,|,<br>),
+	Price (span,p,h3,h4,h5,h6,hide)
+	
+*/
+
+
+
+
 ?>

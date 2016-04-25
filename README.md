@@ -20,7 +20,15 @@ Experiment with third-party plugins at your own risk. Generally any plugin that 
 
 Avoid SEO based plugins. The AMP theme is structured in such a way to be perfectly compliant with Google's new AMP tracking and Structured Data Markup, and other third-party SEO plugins can cause errors in the data that Google is getting, or create unnecessary duplicate data.
 
+## How to Begin
+### Step 1: Your Company Profile
+This is where you can fill out all your company info that can then be distributed across the site and used as Structured Date in Google's SERP. Each field also has a shortcode attributed to it for easy distribution throughout your site content, such as using the shortcode \[business_phone\] to display the phone number. For a complete list of the shortcodes, see the "Help" tab on the Company Profile page.
+
 ## Change log
+### v0.1.11
+- Added Menu post type
+- Added post and taxonomy reordering
+- Added taxonomy images
 
 ### v0.1.10
 - Added Social Share widget/shortcode with dynamic meta data

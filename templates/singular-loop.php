@@ -5,6 +5,8 @@ if(get_post_type($post) == 'portfolio'){
 	get_template_part('templates/portfolio_piece', 'loop');
 } elseif(get_post_type($post) == 'team'){
 	get_template_part('templates/team_member', 'loop');
+} elseif(get_post_type($post) == 'menu'){
+	get_template_part('templates/menu_item', 'loop');
 } elseif(is_single()) {
 	get_template_part('templates/post', 'loop');
 } else {

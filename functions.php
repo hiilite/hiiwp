@@ -3,6 +3,7 @@ global $hiilite_options;
 $hiilite_options['amp'] = get_theme_mod('amp');
 $hiilite_options['portfolio_on'] = get_theme_mod('portfolio_on');
 $hiilite_options['teams_on'] = get_theme_mod('teams_on');
+$hiilite_options['menus_on'] = get_theme_mod('menus_on');
 /*
 * Convert all images to amp-img	
 *	
@@ -29,6 +30,7 @@ include_once( dirname( __FILE__ ) . '/includes/kirki-settings.php' );
 
 include_once( dirname( __FILE__ ) . '/includes/register_sidebars.php' );
 
+
 include_once( dirname( __FILE__ ) . '/includes/business_profile.php' );
 
 require_once( dirname( __FILE__ ) . '/includes/shortcodes/button.php');
@@ -36,8 +38,14 @@ require_once( dirname( __FILE__ ) . '/includes/shortcodes/title.php');
 require_once( dirname( __FILE__ ) . '/includes/shortcodes/social-share.php');
 require_once( dirname( __FILE__ ) . '/includes/shortcodes/social-profiles.php');
 
+
+
 require_once( dirname( __FILE__ ) . '/addons/tinymce_edits/tinymce_edits.php');
 require_once( dirname( __FILE__ ) . '/addons/github-updater/github-updater.php');
+
+require_once( dirname( __FILE__ ) . '/addons/post-types-order/post-types-order.php');
+require_once( dirname( __FILE__ ) . '/addons/taxonomy-images/taxonomy-images.php');
+require_once( dirname( __FILE__ ) . '/addons/taxonomy-terms-order/taxonomy-terms-order.php');
 
 
 function hiiwp_init(){
@@ -275,7 +283,7 @@ function page_options_meta_box()
         'show_page_title_meta_box', // id, used as the html id att
         __( 'Page Options' ), // meta box title, like "Page Attributes"
         'page_options_meta_box_cb', // callback function, spits out the content
-        'page', // post type or page. We'll add this to pages only
+         array('page','post','portfolio','team'), // post type or page. We'll add this to pages only
         'side', // context (where on the screen
         'low' // priority, where should this go in the context?
     );
@@ -417,166 +425,6 @@ function page_seo_options_meta_box_save( $post_id )
 
 
 
-////////////////////////
-//
-//	REGISTER PORTFOLIO
-//
-////////////////////////
-add_action( 'init', 'hii_post_type_init' );
-function hii_post_type_init() {
-	global $hiilite_options;
-	////////////////////////
-	//
-	//	REGISTER PORTFOLIO
-	//
-	////////////////////////
-	if($hiilite_options['portfolio_on']){
-		$labels = array(
-			'name'               => _x( 'Portfolio', 'post type general name', 'hiilite' ),
-			'singular_name'      => _x( 'Piece', 'post type singular name', 'hiilite' ),
-			'menu_name'          => _x( 'Portfolio', 'admin menu', 'hiilite' ),
-			'name_admin_bar'     => _x( 'Portfolio Piece', 'add new on admin bar', 'hiilite' ),
-			'add_new'            => _x( 'Add New', 'book', 'hiilite' ),
-			'add_new_item'       => __( 'Add New Portfolio Piece', 'hiilite' ),
-			'new_item'           => __( 'New Piece', 'hiilite' ),
-			'edit_item'          => __( 'Edit Piece', 'hiilite' ),
-			'view_item'          => __( 'View Piece', 'hiilite' ),
-			'all_items'          => __( 'All Portfolio Pieces', 'hiilite' ),
-			'search_items'       => __( 'Search Portfolio', 'hiilite' ),
-			'parent_item_colon'  => __( 'Parent Piece:', 'hiilite' ),
-			'not_found'          => __( 'No Pieces found.', 'hiilite' ),
-			'not_found_in_trash' => __( 'No Pieces found in Trash.', 'hiilite' )
-		);
-	
-		$args = array(
-			'labels'             => $labels,
-	                'description'        => __( 'Description.', 'hiilite' ),
-			'public'             => true,
-			'publicly_queryable' => true,
-			'show_ui'            => true,
-			'show_in_menu'       => true,
-			'query_var'          => true,
-			'rewrite'            => array( 'slug' => 'portfolio' ),
-			'capability_type'    => 'post',
-			'has_archive'        => true,
-			'hierarchical'       => false,
-			'menu_position'      => 6,
-			'menu_icon'			 => 'dashicons-format-image',
-			'supports'           => array( 'title', 'editor', 'author', 'thumbnail', 'excerpt', 'comments' )
-		);
-	
-		register_post_type( 'portfolio', $args );
-		
-		
-		// Add new taxonomy, make it hierarchical (like categories)
-	    $labels = array(
-	        'name'              => _x( 'Mediums', 'taxonomy general name', 'textdomain' ),
-	        'singular_name'     => _x( 'Medium', 'taxonomy singular name', 'textdomain' ),
-	        'search_items'      => __( 'Search Mediums', 'textdomain' ),
-	        'all_items'         => __( 'All Mediums', 'textdomain' ),
-	        'parent_item'       => __( 'Parent Medium', 'textdomain' ),
-	        'parent_item_colon' => __( 'Parent Medium:', 'textdomain' ),
-	        'edit_item'         => __( 'Edit Medium', 'textdomain' ),
-	        'update_item'       => __( 'Update Medium', 'textdomain' ),
-	        'add_new_item'      => __( 'Add New Medium', 'textdomain' ),
-	        'new_item_name'     => __( 'New Medium Name', 'textdomain' ),
-	        'menu_name'         => __( 'Mediums', 'textdomain' ),
-	    );
-	 
-	    $args = array(
-	        'hierarchical'      => true,
-	        'labels'            => $labels,
-	        'show_ui'           => true,
-	        'show_admin_column' => true,
-	        'query_var'         => true,
-	        'rewrite'           => array( 'slug' => 'medium' ),
-	    );
-	 
-	    register_taxonomy( 'medium', array( 'portfolio' ), $args );
-
-	}
-
-	////////////////////////
-	//
-	//	REGISTER TEAM
-	//
-	////////////////////////
-	if($hiilite_options['teams_on']){
-		$labels = array(
-			'name'               => _x( 'Team', 'post type general name', 'hiilite' ),
-			'singular_name'      => _x( 'Team Member', 'post type singular name', 'hiilite' ),
-			'menu_name'          => _x( 'Team', 'admin menu', 'hiilite' ),
-			'name_admin_bar'     => _x( 'Team Member', 'add new on admin bar', 'hiilite' ),
-			'add_new'            => _x( 'Add Team Member', 'book', 'hiilite' ),
-			'add_new_item'       => __( 'Add New Team Member', 'hiilite' ),
-			'new_item'           => __( 'New Team Member', 'hiilite' ),
-			'edit_item'          => __( 'Edit Team Member', 'hiilite' ),
-			'view_item'          => __( 'View Team Member', 'hiilite' ),
-			'all_items'          => __( 'All Team Members', 'hiilite' ),
-			'search_items'       => __( 'Search Team Members', 'hiilite' ),
-			'parent_item_colon'  => __( 'Parent Team Member:', 'hiilite' ),
-			'not_found'          => __( 'No Team Members found.', 'hiilite' ),
-			'not_found_in_trash' => __( 'No Team Members found in Trash.', 'hiilite' )
-		);
-	
-		$args = array(
-			'labels'             => $labels,
-	                'description'        => __( 'Description.', 'hiilite' ),
-			'public'             => true,
-			'publicly_queryable' => true,
-			'show_ui'            => true,
-			'show_in_menu'       => true,
-			'query_var'          => true,
-			'rewrite'            => array( 'slug' => 'team' ),
-			'capability_type'    => 'post',
-			'has_archive'        => true,
-			'hierarchical'       => false,
-			'menu_position'      => 7,
-			'menu_icon'			 => 'dashicons-groups',
-			'supports'           => array( 'title', 'editor', 'thumbnail', 'excerpt' )
-		);
-	
-		register_post_type( 'team', $args );
-		
-		
-		// Add new taxonomy, make it hierarchical (like categories)
-	    $labels = array(
-	        'name'              => _x( 'Positions', 'taxonomy general name', 'textdomain' ),
-	        'singular_name'     => _x( 'Position', 'taxonomy singular name', 'textdomain' ),
-	        'search_items'      => __( 'Search Positions', 'textdomain' ),
-	        'all_items'         => __( 'All Positions', 'textdomain' ),
-	        'parent_item'       => __( 'Parent Position', 'textdomain' ),
-	        'parent_item_colon' => __( 'Parent Position:', 'textdomain' ),
-	        'edit_item'         => __( 'Edit Position', 'textdomain' ),
-	        'update_item'       => __( 'Update Position', 'textdomain' ),
-	        'add_new_item'      => __( 'Add New Position', 'textdomain' ),
-	        'new_item_name'     => __( 'New Position Name', 'textdomain' ),
-	        'menu_name'         => __( 'Positions', 'textdomain' ),
-	    );
-	 
-	    $args = array(
-	        'hierarchical'      => true,
-	        'labels'            => $labels,
-	        'show_ui'           => true,
-	        'show_admin_column' => true,
-	        'query_var'         => true,
-	        'rewrite'           => array( 'slug' => 'position' ),
-	    );
-	 
-	    register_taxonomy( 'position', array( 'team' ), $args );
-	}
-}
-
-function my_rewrite_flush() {
-    hii_post_type_init();
-    flush_rewrite_rules();
-}
-add_action( 'after_switch_theme', 'my_rewrite_flush' );
-
-
-
-
-
 /**
  * -----------------------------------------------------------------------------------------
  * Based on `https://github.com/mecha-cms/mecha-cms/blob/master/system/kernel/converter.php`
@@ -695,5 +543,8 @@ function minify_js($input) {
         ),
     $input);
 }
+
+
+include_once( dirname( __FILE__ ) . '/includes/register_post_types.php');
 
 ?>
