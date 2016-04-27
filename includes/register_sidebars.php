@@ -122,9 +122,18 @@ function hiiwp_widgets_init() {
 	'after_title'   => '</h4>',
     ) );
     
+    register_sidebar( array(
+        'name' => __( 'Blog Sidebar', 'hiiwp' ),
+        'id' => 'blog_sidebar',
+        'description' => __( 'Shows in the right sidebar of the blog page', 'hiilite' ),
+        'before_widget' => '<div id="%1$s" class="flex-item %2$s">',
+	'after_widget'  => '</div>',
+	'before_title'  => '<h4 class="widgettitle">',
+	'after_title'   => '</h4>',
+    ) );
     
     register_sidebar( array(
-        'name' => __( 'Post Sidebar', 'hiiwp' ),
+        'name' => __( 'Single Post Sidebar', 'hiiwp' ),
         'id' => 'post_sidebar',
         'description' => __( 'Shows in the right sidebar of a post', 'hiilite' ),
         'before_widget' => '<div id="%1$s" class="flex-item %2$s">',

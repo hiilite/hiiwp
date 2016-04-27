@@ -91,4 +91,7 @@ require_once 'kirki_sets/footer_section.php';
 
 // TYPOGRAPHY
 require_once 'kirki_sets/typography_panel.php';
+
+// BLOG
+require_once 'kirki_sets/blog_section.php';
 ?>

@@ -265,6 +265,30 @@ $hiilite_options['h6_color']					= '#635d5d';
 
 
 
+// BLOG
+$hiilite_options['blog_layout']			= get_theme_mod( 'blog_layout', 'full-width' );
+$hiilite_options['blog_columns']		= get_theme_mod( 'blog_columns', '' );
+$hiilite_options['blog_image_pos']		= get_theme_mod( 'blog_image_pos', 'image-left' );
+$hiilite_options['blog_title_pos']		= get_theme_mod( 'blog_title_pos', 'title-below' );
+$hiilite_options['blog_title_on']		= get_theme_mod( 'blog_title_on', true );
+$hiilite_options['blog_cats_on']		= get_theme_mod( 'blog_cats_on', true );
+$hiilite_options['blog_meta_on']		= get_theme_mod( 'blog_meta_on', true );
+$hiilite_options['blog_excerpt_on']		= get_theme_mod( 'blog_excerpt_on', true );
+$hiilite_options['blog_more_on']		= get_theme_mod( 'blog_more_on', true );
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 	
 ?>

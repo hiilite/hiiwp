@@ -46,7 +46,7 @@ require_once( dirname( __FILE__ ) . '/addons/github-updater/github-updater.php')
 require_once( dirname( __FILE__ ) . '/addons/post-types-order/post-types-order.php');
 require_once( dirname( __FILE__ ) . '/addons/taxonomy-images/taxonomy-images.php');
 require_once( dirname( __FILE__ ) . '/addons/taxonomy-terms-order/taxonomy-terms-order.php');
-
+require_once( dirname( __FILE__ ) . '/addons/force-gzip/force-gzip.php');
 
 function hiiwp_init(){
 	global $hiilite_options;
@@ -55,7 +55,7 @@ function hiiwp_init(){
 }
 add_action( 'wp_head', 'hiiwp_init' );
 
-
+// AMP FIXES
 if($hiilite_options['amp']){
 	add_filter( 'the_content', 'amp_image_tags', 10);
 	add_filter( 'post_thumbnail_html', 'amp_image_tags',100);
@@ -84,9 +84,21 @@ function custom_colors() {
 add_action('admin_head', 'custom_colors');
 
 
+// MAKE NEXT AND PREV LINKS BUTTONS
+add_filter('next_posts_link_attributes', 'posts_link_attributes');
+add_filter('previous_posts_link_attributes', 'posts_link_attributes');
+function posts_link_attributes() {
+    return 'class="button"';
+}
 
+// REMOVE COMMENT CSS FROM HEADER
+add_action( 'widgets_init', 'my_remove_recent_comments_style' );
+function my_remove_recent_comments_style() {
+	global $wp_widget_factory;
+	remove_action( 'wp_head', array( $wp_widget_factory->widgets['WP_Widget_Recent_Comments'], 'recent_comments_style'  ) );
+}
 
-
+// REGISTER MEU AREAS
 function register_my_menus() {
   register_nav_menus(
     array(
@@ -99,7 +111,7 @@ function register_my_menus() {
 }
 add_action( 'init', 'register_my_menus' );
 
-
+// MODIFIY IMAGE TAGS
 function amp_image_tags($content)
 {
     try {
@@ -202,6 +214,28 @@ function disable_emojicons_tinymce( $plugins ) {
 
 
 
+// REPLACE rel_canonical to load on all pages
+function rel_canonical_with_custom_tag_override()
+{
+    global $wp_the_query;
+    if( !$id = $wp_the_query->get_queried_object_id() )
+        $link = get_permalink( $id );
+    else {
+	    $link = "https://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+    }
+    	
+    
+    echo "<link rel='canonical' href='" . esc_url( $link ) . "' />\n";
+}
+
+// remove the default WordPress canonical URL function
+if( function_exists( 'rel_canonical' ) )
+{
+    remove_action( 'wp_head', 'rel_canonical' );
+}
+// replace the default WordPress canonical URL function with your own
+add_action( 'wp_head', 'rel_canonical_with_custom_tag_override' );
+
 
 
 function minqueue_init () {
@@ -257,7 +291,7 @@ function minqueue_styles() {
 
 function enqueue_less_styles($tag, $handle) {
     global $wp_styles;
-      
+    if(is_admin()){
         $handle = $wp_styles->registered[$handle]->handle;
         $media = $wp_styles->registered[$handle]->args;
         $href = $wp_styles->registered[$handle]->src;
@@ -266,7 +300,8 @@ function enqueue_less_styles($tag, $handle) {
 
         $tag = "<link $title href='$href' rel='stylesheet' type='text/css' id='$handle'>";
     
-    return $tag;
+    	return $tag;
+	}
 }
 
 

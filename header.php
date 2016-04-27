@@ -22,7 +22,7 @@ if(get_post_meta(get_the_id(), 'page_seo_description', true) != ''){
 }
 elseif(get_theme_mod('site_seo_description') != '' && is_front_page()) {
 	$page_description = get_theme_mod('site_seo_description');
-} elseif (!is_tax()) {
+} elseif (!is_tax() && is_singular()) {
 	$the_content = $post_object->post_content;
 	$the_content = substr(preg_replace('/\[.*.\]|\n+/', '', $the_content), 0, 165);
 	$page_description = strip_tags($the_content);
@@ -34,10 +34,18 @@ if(has_post_thumbnail($post_id)){
 } else {
 	$page_image = $options['business_logo'];
 }
-
-
-?>
-<!doctype html>
+function sanitize_output($buffer) {
+    $search = array(
+        '/\>[^\S ]+/s',  // strip whitespaces after tags, except space
+        '/[^\S ]+\</s',  // strip whitespaces before tags, except space
+        '/(\s)+/s'       // shorten multiple whitespace sequences
+    );
+    $replace = array('>','<','\\1');
+    $buffer = preg_replace($search, $replace, $buffer);
+    return $buffer;
+}
+ob_start("sanitize_output");
+?><!doctype html>
 <html <?php if($hiilite_options['amp'] && $hiilite_options['subdomain'] != 'iframe') echo 'amp'; ?> lang="en">
 <head>
 <meta charset="utf-8">
@@ -96,7 +104,7 @@ if($options['business_fb_article_claim'] != ''){
 
 ?>
 
-<meta property="og:url" content="<?=get_permalink($post_id)?>">
+<meta property="og:url" content="<?='https://'.$_SERVER["HTTP_HOST"].$_SERVER["REQUEST_URI"]?>">
 <meta property="og:image" content="<?=$page_image?>">
 <meta property="og:description" content="<?=$page_description?>">
 <meta property="og:site_name" content="<?=$brand_title?>">
@@ -150,7 +158,7 @@ echo $WebSite;
 		if($options['business_addressLocality']!='')$html .= '"addressLocality": "'.$options['business_addressLocality'].'",';
 		if($options['business_addressRegion']!='')$html .= '"addressRegion": "'.$options['business_addressRegion'].'",';
 		if($options['business_streetAddress']!='')$html .= '"streetAddress": "'.$options['business_streetAddress'].'",';
-		if($options['business_addressCountry']!='')$html .= '"addressCountry": "'.$options['business_addressCountry'].'"';
+		if($options['business_addressCountry']!='')$html .= '"addressCountry": "'.$options['business_addressCountry'].'",';
 		if($options['business_postalCode']!='')$html .= '"postalCode": "'.$options['business_postalCode'].'"';
 	$html.='  }';
 
@@ -255,10 +263,8 @@ echo $html;
 </script>
 <?php if($hiilite_options['amp']) { ?>
 <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
-<?php } ?>
-<link href='https://fonts.googleapis.com/css?family=Raleway:100,300,600,400' rel='stylesheet' type='text/css'>
-<link href='https://fonts.googleapis.com/css?family=Playfair+Display' rel='stylesheet' type='text/css'>
-<?php 
+<?php } 
+	
 wp_head(); 
 	
 
@@ -267,18 +273,12 @@ include_once('css/main-css.php');
 $maincss = ob_get_clean();
 $body = str_replace("!important", "", $maincss);
 echo minify_css($body);
- ?>
 
-<?php if($hiilite_options['amp']) { ?>
-
-	<script async custom-element="amp-fit-text" src="https://cdn.ampproject.org/v0/amp-fit-text-0.1.js"></script>
+if($hiilite_options['amp']) { ?>
 	<script async custom-element="amp-carousel" src="https://cdn.ampproject.org/v0/amp-carousel-0.1.js"></script>
 	<script async custom-element="amp-lightbox" src="https://cdn.ampproject.org/v0/amp-lightbox-0.1.js"></script>
-	<script async custom-element="amp-anim" src="https://cdn.ampproject.org/v0/amp-anim-0.1.js"></script>
 	<script async custom-element="amp-iframe" src="https://cdn.ampproject.org/v0/amp-iframe-0.1.js"></script>
 	<script async custom-element="amp-analytics" src="https://cdn.ampproject.org/v0/amp-analytics-0.1.js"></script>
-	<script async custom-element="amp-social-share" src="https://cdn.ampproject.org/v0/amp-social-share-0.1.js"></script>
-	<script async custom-element="amp-facebook" src="https://cdn.ampproject.org/v0/amp-facebook-0.1.js"></script>
 	<script async src="https://cdn.ampproject.org/v0.js"></script>
 <?php } else { ?>
 <script type="text/javascript">

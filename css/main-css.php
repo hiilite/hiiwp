@@ -1,5 +1,68 @@
 <style <?php if($hiilite_options['amp']) echo 'amp-custom'; ?>>
-	<?php include_once('font-awesome/css/font-awesome.min.css'); ?>
+/* lato-regular - latin */
+@font-face {
+  font-family: 'Lato';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Lato Regular'), local('Lato-Regular'),
+       url('css/fonts/lato-v11-latin-regular.woff2') format('woff2'), /* Chrome 26+, Opera 23+, Firefox 39+ */
+       url('css/fonts/lato-v11-latin-regular.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+}
+/* lato-700 - latin */
+@font-face {
+  font-family: 'Lato';
+  font-style: normal;
+  font-weight: 700;
+  src: local('Lato Bold'), local('Lato-Bold'),
+       url('css/fonts/lato-v11-latin-700.woff2') format('woff2'), /* Chrome 26+, Opera 23+, Firefox 39+ */
+       url('css/fonts/lato-v11-latin-700.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+}
+/* roboto-regular - latin */
+@font-face {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Roboto'), local('Roboto-Regular'),
+       url('css/fonts/roboto-v15-latin-regular.woff2') format('woff2'), /* Chrome 26+, Opera 23+, Firefox 39+ */
+       url('css/fonts/roboto-v15-latin-regular.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+}
+/* raleway-100 - latin */
+@font-face {
+  font-family: 'Raleway';
+  font-style: normal;
+  font-weight: 100;
+  src: local('Raleway Thin'), local('Raleway-Thin'),
+       url('css/fonts/raleway-v10-latin-100.woff2') format('woff2'), /* Chrome 26+, Opera 23+, Firefox 39+ */
+       url('css/fonts/raleway-v10-latin-100.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+}
+/* raleway-300 - latin */
+@font-face {
+  font-family: 'Raleway';
+  font-style: normal;
+  font-weight: 300;
+  src: local('Raleway Light'), local('Raleway-Light'),
+       url('css/fonts/raleway-v10-latin-300.woff2') format('woff2'), /* Chrome 26+, Opera 23+, Firefox 39+ */
+       url('css/fonts/raleway-v10-latin-300.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+}
+/* raleway-regular - latin */
+@font-face {
+  font-family: 'Raleway';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Raleway'), local('Raleway-Regular'),
+       url('css/fonts/raleway-v10-latin-regular.woff2') format('woff2'), /* Chrome 26+, Opera 23+, Firefox 39+ */
+       url('css/fonts/raleway-v10-latin-regular.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+}
+/* raleway-700 - latin */
+@font-face {
+  font-family: 'Raleway';
+  font-style: normal;
+  font-weight: 700;
+  src: local('Raleway Bold'), local('Raleway-Bold'),
+       url('css/fonts/raleway-v10-latin-700.woff2') format('woff2'), /* Chrome 26+, Opera 23+, Firefox 39+ */
+       url('css/fonts/raleway-v10-latin-700.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+}
+<?php include_once('font-awesome/css/font-awesome.min.css'); ?>
 html {
 	<?php 
 	foreach($hiilite_options['default_font'] as $key => $value){
@@ -175,64 +238,6 @@ header.centered #main-nav {
 }
 
 <?php } ?>
-
-.blog-article {
-	margin-bottom: 3em;
-	display: flex;
-	flex-wrap: wrap;
-}
-.blog-article .content-box {
-	padding-top: 2px;
-	padding:2px 2em;
-}
-.blog-article figure {
-	padding: 0 2em;
-}
-<?php if($hiilite_options['portfolio_on']): ?>
-.portfolio-piece {
-	padding: 0.5em;
-}
-.portfolio-piece .content-box {
-	box-shadow: inset 0 0 1px rgba(0,0,0,0.1);
-}
-.portfolio-piece h5 {
-	margin: 0;
-}
-.portfolio-piece figure {
-	overflow:hidden;	
-	max-height: calc(100vh);
-	min-height: calc(50vh);
-	position: relative;
-}
-.portfolio-piece figure <?=$_amp?>img {
-    min-height: 100%;
-    min-width: 100%;
-    max-width: none;
-    position: absolute;
-    width: 150%;
-    left: -25%;
-    
-}
-<?php endif; ?>
-
-<?php if($hiilite_options['teams_on']): ?>
-.team-member {
-	padding: 0.5em;
-}
-
-.team-member h5 {
-	margin: 0;
-}
-.team-member figure {
-	overflow:hidden;
-	max-width: 300px;	
-	max-height: 300px;
-	position: relative;
-}
-.team-member figure <?=$_amp?>img {
- 
-}
-<?php endif; ?>
 
 @media (max-width:<?=$hiilite_options['grid_width'];?>){
 	.container_inner {
@@ -467,15 +472,12 @@ ul.sub-menu {
 <?=$_amp?>img.full-width, .full-width <?=$_amp?>iframe, .row {
 	min-width: 100%;
 }
-.full-width,.threequarter-width,.half-width,.third-width,.twothird-width,.quarter-width {
+.full-width,.threequarter-width,.half-width,.third-width,.twothird-width,.quarter-width,
+.col-12,.col-9,.col-8,.col-6,.col-4,.col-3,.col-1 {
     box-sizing: border-box;
 }
 .full-width, .col-12 {
 	width: 100%;
-	
-}
-.col-1 {
-	width: 16.67%;
 }
 .threequarter-width, .col-9 {
 	min-width: 320px;
@@ -484,22 +486,6 @@ ul.sub-menu {
 	margin: auto;
 	flex: 1 320px;
 }
-.half-width, .col-6 {
-	min-width: 50%;
-	max-width: 50em;
-	width: 50%;
-	margin: auto;
-	flex: 1 50%;
-}
-
-.third-width, .col-4 {
-	min-width: 10em;
-	max-width: 33em;
-	width: 33.33%;
-	margin: auto;
-	flex: 1 15em;
-}
-
 .twothird-width , .col-8{
 	min-width: 320px;
 	max-width: 66em;
@@ -507,12 +493,29 @@ ul.sub-menu {
 	margin: auto;
 	flex: 1 320px;
 }
+.half-width, .col-6 {
+	min-width: 18em;
+	max-width: 50em;
+	width: 50%;
+	margin: auto;
+	flex: 1 50%;
+}
+.third-width, .col-4 {
+	min-width: 17em;
+	max-width: 33em;
+	width: 33.33%;
+	margin: auto;
+	flex: 1 33.3%;
+}
 .quarter-width, .col-3 {
 	min-width: 10em;
 	max-width: 25em;
 	width: 25%;
 	margin: auto;
-	flex: 1 10em;
+	flex: 1 25%;
+}
+.col-1 {
+	width: 16.67%;
 }
 
 
@@ -527,6 +530,77 @@ ul.sub-menu {
 	padding: 1em;
 }
 
+
+.blog-article {
+	padding-bottom: 2em;
+	margin-top: 0;
+	display: flex;
+	flex-wrap: wrap;
+	break-inside:avoid;
+}
+.blog-article .content-box {
+	padding-top: 2px;
+	padding:2px 2em;
+}
+.blog-article figure {
+	padding: 0 2em;
+}
+<?php if($hiilite_options['blog_layout'] == 'masonry'): ?>
+.masonry {
+	display: block;
+}
+.col-count-<?=$hiilite_options['blog_columns']?> {
+	column-count:<?=$hiilite_options['blog_columns']?>;
+	column-width: 17em;
+	
+}
+<?php 
+endif;
+if($hiilite_options['portfolio_on']): ?>
+.portfolio-piece {
+	padding: 0.5em;
+}
+.portfolio-piece .content-box {
+	box-shadow: inset 0 0 1px rgba(0,0,0,0.1);
+}
+.portfolio-piece h5 {
+	margin: 0;
+}
+.portfolio-piece figure {
+	overflow:hidden;	
+	max-height: calc(100vh);
+	min-height: calc(50vh);
+	position: relative;
+}
+.portfolio-piece figure <?=$_amp?>img {
+    min-height: 100%;
+    min-width: 100%;
+    max-width: none;
+    position: absolute;
+    width: 150%;
+    left: -25%;
+}
+
+<?php endif; ?>
+
+<?php if($hiilite_options['teams_on']): ?>
+.team-member {
+	padding: 0.5em;
+}
+
+.team-member h5 {
+	margin: 0;
+}
+.team-member figure {
+	overflow:hidden;
+	max-width: 300px;	
+	max-height: 300px;
+	position: relative;
+}
+.team-member figure <?=$_amp?>img {
+ 
+}
+<?php endif; ?>
 
 
 

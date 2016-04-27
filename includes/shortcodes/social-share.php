@@ -16,6 +16,8 @@ function add_social_share_shortcode( $atts ){
       'li'	=> false
    ), $atts ) );
    
+   $permalink = 'https://'.$_SERVER["HTTP_HOST"].$_SERVER["REQUEST_URI"];
+   
    // Page Image
    $post_id = get_the_id();
 	if(has_post_thumbnail($post_id)){
@@ -48,13 +50,13 @@ function add_social_share_shortcode( $atts ){
 		}
 	}
 	$output = '';
-	if($fa) $output .= '<a title="Share On Facebook" target="_blank" href="http://www.facebook.com/sharer.php?u='.get_the_permalink().'"><i class="fa fa-facebook"></i></a>  ';
-	if($gp) $output .= '<a title="Share On Google+" target="_blank" href="https://plus.google.com/share?url='.get_the_permalink().'"><i class="fa fa-google-plus"></i></a>  ';
+	if($fa) $output .= '<a title="Share On Facebook" target="_blank" href="http://www.facebook.com/sharer.php?u='.$permalink.'"><i class="fa fa-facebook"></i></a>  ';
+	if($gp) $output .= '<a title="Share On Google+" target="_blank" href="https://plus.google.com/share?url='.$permalink.'"><i class="fa fa-google-plus"></i></a>  ';
 	
-	if($tw) $output .= '<a title="Share On Twitter" target="_blank" href="https://twitter.com/share?url='.urlencode(get_the_permalink()).'&text='.$page_title.str_replace(' ','',$hashtags).'"><i class="fa fa-twitter"></i></a>  ';
+	if($tw) $output .= '<a title="Share On Twitter" target="_blank" href="https://twitter.com/share?url='.urlencode($permalink).'&text='.$page_title.str_replace(' ','',$hashtags).'"><i class="fa fa-twitter"></i></a>  ';
 	
-	if($li) $output .= '<a title="Share On LinkedIn" target="_blank" href="http://www.linkedin.com/shareArticle?url='.get_the_permalink().'"><i class="fa fa-linkedin"></i></a>  ';
-	if($pt) $output .= '<a title="Share On Pinterest" target="_blank" href="https://pinterest.com/pin/create/bookmarklet/?media='.$page_image.'&url='.get_the_permalink().'&description='.$page_title.'"><i class="fa fa-pinterest"></i></a>  ';
+	if($li) $output .= '<a title="Share On LinkedIn" target="_blank" href="http://www.linkedin.com/shareArticle?url='.$permalink.'"><i class="fa fa-linkedin"></i></a>  ';
+	if($pt) $output .= '<a title="Share On Pinterest" target="_blank" href="https://pinterest.com/pin/create/bookmarklet/?media='.$page_image.'&url='.$permalink.'&description='.$page_title.'"><i class="fa fa-pinterest"></i></a>  ';
 	
 	
 	/*
