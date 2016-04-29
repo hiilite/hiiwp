@@ -17,7 +17,7 @@ Domain Path: /languages/
 
     register_deactivation_hook(__FILE__, 'TO_deactivated');
     register_activation_hook(__FILE__, 'TO_activated');
-
+	add_action( 'init', 'TO_activated');
     function TO_activated() 
         {
             global $wpdb;

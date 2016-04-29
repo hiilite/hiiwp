@@ -384,7 +384,7 @@ class Vc_Frontend_Editor implements Vc_Editor_Interface {
 	 */
 	function renderEditor() {
 		global $current_user;
-		get_currentuserinfo();
+		wp_get_current_user();
 		$this->current_user = $current_user;
 		$this->post_url = vc_str_remove_protocol( get_permalink( $this->post_id ) );
 

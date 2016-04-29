@@ -92,8 +92,8 @@ class WPBMap {
 
 		// @todo fix_roles? what is this and why it is inside class-wpb-map?
 		if ( null !== self::$settings ) {
-			if ( function_exists( 'get_currentuserinfo' ) ) {
-				get_currentuserinfo();
+			if ( function_exists( 'wp_get_current_user' ) ) {
+				wp_get_current_user();
 				/** @var Vc_Settings $settings - get use group access rules */
 				if ( ! empty( $current_user->roles ) ) {
 					self::$user_role = $current_user->roles[0];

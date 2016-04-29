@@ -32,8 +32,8 @@ if ( ! class_exists( 'Kirki_Controls_Typography_Control' ) ) {
 				'font-family'    => false,
 				'font-size'      => false,
 				'line-height'    => false,
-				'text-transform'    => false,
 				'letter-spacing' => false,
+				'text-transform' => false,
 				'color'          => false,
 			);
 			$this->json['default'] = wp_parse_args( $this->json['default'], $defaults );
@@ -87,17 +87,17 @@ if ( ! class_exists( 'Kirki_Controls_Typography_Control' ) ) {
 					</div>
 				<# } #>
 				
-				<# if ( data.default['text-transform'] ) { #>
-					<div class="text-transform">
-						<h5>{{ data.l10n['text-transform'] }}</h5>
-						<input type="text" value="{{ data.value['text-transform'] }}"/>
-					</div>
-				<# } #>
-
 				<# if ( data.default['letter-spacing'] ) { #>
 					<div class="letter-spacing">
 						<h5>{{ data.l10n['letter-spacing'] }}</h5>
 						<input type="text" value="{{ data.value['letter-spacing'] }}"/>
+					</div>
+				<# } #>
+				
+				<# if ( data.default['text-transform'] ) { #>
+					<div class="text-transform">
+						<h5>{{ data.l10n['text-transform'] }}</h5>
+						<input type="text" value="{{ data.value['text-transform'] }}"/>
 					</div>
 				<# } #>
 
@@ -118,8 +118,8 @@ if ( ! class_exists( 'Kirki_Controls_Typography_Control' ) ) {
 				'font-size'      => '',
 				'variant'        => ( isset( $value['font-weight'] ) ) ? $value['font-weight'] : 'regular',
 				'line-height'    => '',
-				'text-transform'    => '',
 				'letter-spacing' => '',
+				'text-transform'    => '',
 				'color'          => '',
 			);
 			// font-weight is now variant.
@@ -128,9 +128,9 @@ if ( ! class_exists( 'Kirki_Controls_Typography_Control' ) ) {
 				$old_values['variant'] = 'regular';
 			}
 			// letter spacing was in px, now it requires units.
-			if ( isset( $value['letter-spacing'] ) && $value['letter-spacing'] == intval( $value['letter-spacing'] ) ) {
+			/*if ( isset( $value['letter-spacing'] ) && $value['letter-spacing'] == intval( $value['letter-spacing'] ) ) {
 				$value['letter-spacing'] .= 'px';
-			}
+			}*/
 			$this->json['value'] = wp_parse_args( $value, $old_values );
 		}
 

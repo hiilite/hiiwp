@@ -7,7 +7,7 @@ $hiilite_options['menus_on'] = get_theme_mod('menus_on');
 /*
 * Convert all images to amp-img	
 *	
-*
+*kir
 */
 define( 'HIILITE_DIR', dirname( __FILE__ ) );
 add_filter( 'auto_update_theme', '__return_true' );
@@ -19,6 +19,10 @@ add_theme_support( 'menus' );
 if(!class_exists('Vc_Manager')){
 	require_once( dirname( __FILE__ ) . '/addons/js_composer/js_composer.php');
 }
+
+if(!class_exists('ICWP_Cloudflare_Flexible_SSL')){
+	require_once( dirname( __FILE__ ) . '/addons/cloudflare-flexible-ssl/plugin.php');
+}
 // Initialising Shortcodes
 function requireVcExtend(){
 	require_once locate_template('/extendvc/extend-vc.php');
@@ -27,6 +31,8 @@ add_action('init', 'requireVcExtend', 10);
 
 
 include_once( dirname( __FILE__ ) . '/includes/kirki-settings.php' );
+include_once( dirname( __FILE__ ) . '/addons/cmb2-functions.php' );
+
 
 include_once( dirname( __FILE__ ) . '/includes/register_sidebars.php' );
 
@@ -38,7 +44,8 @@ require_once( dirname( __FILE__ ) . '/includes/shortcodes/title.php');
 require_once( dirname( __FILE__ ) . '/includes/shortcodes/social-share.php');
 require_once( dirname( __FILE__ ) . '/includes/shortcodes/social-profiles.php');
 
-
+require_once( dirname( __FILE__ ) . '/includes/wp_login_screen.php');
+require_once( dirname( __FILE__ ) . '/includes/wp_admin_dashboard.php');
 
 require_once( dirname( __FILE__ ) . '/addons/tinymce_edits/tinymce_edits.php');
 require_once( dirname( __FILE__ ) . '/addons/github-updater/github-updater.php');
@@ -54,6 +61,26 @@ function hiiwp_init(){
 	require_once(dirname( __FILE__ ) . '/includes/site_variables.php');
 }
 add_action( 'wp_head', 'hiiwp_init' );
+
+function hiilite_admin_styles() {
+    wp_register_style( 'hiilite_admin_stylesheet', get_stylesheet_directory_uri(). '/css/admin-style.css' );
+    wp_enqueue_style( 'hiilite_admin_stylesheet' );
+    
+    wp_enqueue_media();
+ 
+    // Registers and enqueues the required javascript.
+    wp_register_script( 'meta_uploader', get_stylesheet_directory_uri() . '/js/meta_uploader.js', array( 'jquery' ) );
+    wp_localize_script( 'meta_uploader', 'meta_image',
+        array(
+            'title' => __( 'Choose or Upload an Image', 'prfx-textdomain' ),
+            'button' => __( 'Use this image', 'prfx-textdomain' ),
+        )
+    );
+    wp_enqueue_script( 'meta_uploader' );
+}
+add_action( 'admin_enqueue_scripts', 'hiilite_admin_styles' );
+
+
 
 // AMP FIXES
 if($hiilite_options['amp']){
@@ -77,7 +104,7 @@ function custom_colors() {
 	
 	require_once(dirname( __FILE__ ) . '/includes/site_variables.php');
 	echo '<style>';
-	require_once(dirname( __FILE__ ) . '/editor-style.php');
+		require_once(dirname( __FILE__ ) . '/editor-style.php');
 	echo '</style>';
 	add_editor_style( 'editor-style.css' ); 
 }
@@ -291,7 +318,7 @@ function minqueue_styles() {
 
 function enqueue_less_styles($tag, $handle) {
     global $wp_styles;
-    if(is_admin()){
+    //if(is_admin()){
         $handle = $wp_styles->registered[$handle]->handle;
         $media = $wp_styles->registered[$handle]->args;
         $href = $wp_styles->registered[$handle]->src;
@@ -301,105 +328,29 @@ function enqueue_less_styles($tag, $handle) {
         $tag = "<link $title href='$href' rel='stylesheet' type='text/css' id='$handle'>";
     
     	return $tag;
-	}
+	//}
 }
 
 
 
 
-
-add_action( 'add_meta_boxes', 'page_options_meta_box' );
 //
 // Adds the meta box to the page screen
 //
+add_action( 'add_meta_boxes', 'page_options_meta_box' );
 function page_options_meta_box()
 {
-    add_meta_box(
-        'show_page_title_meta_box', // id, used as the html id att
-        __( 'Page Options' ), // meta box title, like "Page Attributes"
-        'page_options_meta_box_cb', // callback function, spits out the content
-         array('page','post','portfolio','team'), // post type or page. We'll add this to pages only
-        'side', // context (where on the screen
-        'low' // priority, where should this go in the context?
-    );
+    
     add_meta_box(
         'page_seo_options', // id, used as the html id att
         __( 'SEO Options' ), // meta box title, like "Page Attributes"
         'page_seo_options_meta_box_cb', // callback function, spits out the content
-        array('page','post','portfolio','team'), // post type or page. We'll add this to pages only
+        array('page','post','portfolio','team','menu'), // post type or page. We'll add this to pages only
         'advanced', // context (where on the screen
         'high' // priority, where should this go in the context?
     );
 }
 
-//
-//  Callback function for our meta box.  Echos out the content
-//
-function page_options_meta_box_cb( $post )
-{
-	// $post is already set, and contains an object: the WordPress post
-    global $post;
-    $values = get_post_custom( $post->ID );
-   
-    //$text = isset( $values['my_meta_box_text'] ) ? $values['my_meta_box_text'] : '';
-    //$selected = isset( $values['my_meta_box_select'] ) ? esc_attr( $values['my_meta_box_select'] ) : '';
-    $check = isset( $values['show_page_title'][0] ) ? esc_attr( $values['show_page_title'][0] ) : '';
-    $select = isset( $values['page_title_bg'][0] ) ? esc_attr( $values['page_title_bg'][0] ) : '';
-    $color = isset( $values['page_title_color'][0] ) ? esc_attr( $values['page_title_color'][0] ) : '';
-    // We'll use this nonce field later on when saving.
-    wp_nonce_field( 'show_page_title__meta_box_nonce', 'meta_box_nonce' );
-
-    ?>
-     
-    <p>
-        <input type="checkbox" id="show_page_title" name="show_page_title" <?php checked( $check, 'on' ); ?> value="on" />
-        <label for="show_page_title">Hide Page Title</label>
-    </p>
-    
-    <p>
-        <label for="page_title_bg">Page Title Background Color</label>
-        <select id="page_title_bg" name="page_title_bg">
-	        <option value=""></option>
-	        <option value="bg_color_one" <?=$select=='bg_color_one'?'selected="selected"':'';?>>Color One</option>
-	        <option value="bg_color_two" <?=$select=='bg_color_two'?'selected="selected"':'';?>>Color Two</option>
-	        <option value="bg_color_three" <?=$select=='bg_color_three'?'selected="selected"':'';?>>Color Three</option>
-	        <option value="bg_color_four" <?=$select=='bg_color_four'?'selected="selected"':'';?>>Color Four</option>
-        </select>
-    </p>
-    <p>
-        <label for="page_title_color">Page Title Font Color</label>
-        <select id="page_title_color" name="page_title_color">
-	        <option value="" <?=$select=='color_one'?'selected="selected"':'';?>></option>
-	        <option value="color_one" <?=$select=='color_one'?'selected="selected"':'';?>>Color One</option>
-	        <option value="color_two" <?=$select=='color_two'?'selected="selected"':'';?>>Color Two</option>
-	        <option value="color_three" <?=$select=='color_three'?'selected="selected"':'';?>>Color Three</option>
-	        <option value="color_four" <?=$select=='color_four'?'selected="selected"':'';?>>Color Four</option>
-	        <option value="white" <?=$select=='white'?'selected="selected"':'';?>>White</option>
-        </select>
-    </p>
-    <?php    
-}
-
-add_action( 'save_post', 'show_page_title_meta_box_save' );
-function show_page_title_meta_box_save( $post_id )
-{
-    // Bail if we're doing an auto save
-    if( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) return;
-     
-    // if our nonce isn't there, or we can't verify it, bail
-    if( !isset( $_POST['meta_box_nonce'] ) || !wp_verify_nonce( $_POST['meta_box_nonce'], 'show_page_title__meta_box_nonce' ) ) return;
-     
-    // if our current user can't edit this post, bail
-    //if( !current_user_can( 'edit_post' ) ) return;
-    
-    // This is purely my personal preference for saving check-boxes
-    $chk = isset( $_POST['show_page_title'] )? 'on' : 'off';
-    $ptbg = isset( $_POST['page_title_bg'] )? $_POST['page_title_bg'] : '';
-    $ptc = isset( $_POST['page_title_color'] )? $_POST['page_title_color'] : '';
-    update_post_meta( $post_id, 'show_page_title', $chk );
-    update_post_meta( $post_id, 'page_title_bg', $ptbg );
-    update_post_meta( $post_id, 'page_title_color', $ptc );
-}
 
 
 //////////////////////////////
@@ -413,18 +364,17 @@ function page_seo_options_meta_box_cb( $post )
 	// $post is already set, and contains an object: the WordPress post
     global $post;
     $values = get_post_custom( $post->ID );
-   
-    //$text = isset( $values['my_meta_box_text'] ) ? $values['my_meta_box_text'] : '';
-    //$selected = isset( $values['my_meta_box_select'] ) ? esc_attr( $values['my_meta_box_select'] ) : '';
     $page_seo_title = isset( $values['page_seo_title'][0] ) ? esc_attr( $values['page_seo_title'][0] ) : '';
+    if(isset($values['_yoast_wpseo_title'][0]) && $page_seo_title == '')$page_seo_title = $values['_yoast_wpseo_title'][0];
+    
     $page_seo_description = isset( $values['page_seo_description'][0] ) ? esc_attr( $values['page_seo_description'][0] ) : '';
+    if(isset($values['_yoast_wpseo_title'][0]) && $page_seo_title == '')$page_seo_title = $values['_yoast_wpseo_title'][0];
+    if(isset($values['_yoast_wpseo_metadesc'][0]) && $page_seo_description == '')$page_seo_description = $values['_yoast_wpseo_metadesc'][0];
     // We'll use this nonce field later on when saving.
     wp_nonce_field( 'page_seo_options__meta_box_nonce', 'meta_box_nonce' );
-
     ?>
-     
     <p>
-	    <label for="page_seo_title">SEO Title</label><br>
+	<label for="page_seo_title">SEO Title</label><br>
         <input id="page_seo_title" name="page_seo_title" maxlength="65" type="text" size="70" placeholder="%%title%% %%sep%% %%sitename%%" value="<?=$page_seo_title?>" /><br>
         <small>The title element of a web page is meant to be an accurate and concise description of a page's content. This element is critical to both user experience and search engine optimization. It creates value in three specific areas: relevancy, browsing, and in the search engine results pages. The suggested format for SEO titles is "Primary Keyword - Secondary Keyword | Brand Name". <a href="https://moz.com/learn/seo/title-tag">More on title tags here</a></small>
     </p>
@@ -436,7 +386,7 @@ function page_seo_options_meta_box_cb( $post )
     </p>
     <?php    
 }
-add_action( 'save_post', 'page_seo_options_meta_box_save' );
+add_action( 'save_post', 'page_seo_options_meta_box_save',999 );
 function page_seo_options_meta_box_save( $post_id )
 {
     // Bail if we're doing an auto save
@@ -444,11 +394,7 @@ function page_seo_options_meta_box_save( $post_id )
      
     // if our nonce isn't there, or we can't verify it, bail
     if( !isset( $_POST['meta_box_nonce'] ) || !wp_verify_nonce( $_POST['meta_box_nonce'], 'page_seo_options__meta_box_nonce' ) ) return;
-     
-    // if our current user can't edit this post, bail
-    //if( !current_user_can( 'edit_post' ) ) return;
     
-    // This is purely my personal preference for saving check-boxes
     $page_seo_title = isset( $_POST['page_seo_title'] )? $_POST['page_seo_title'] : '';
     $page_seo_description = isset( $_POST['page_seo_description'] )? $_POST['page_seo_description'] : '';
     update_post_meta( $post_id, 'page_seo_title', $page_seo_title );
@@ -458,6 +404,71 @@ function page_seo_options_meta_box_save( $post_id )
 
 
 
+add_action('cmb2_init', 'cmb2_post_metaboxes');
+function cmb2_post_metaboxes(){
+	$prefix = '_hiilite_';
+	
+	// create the metabox
+    $cmb = new_cmb2_box( array(
+        'id'            => 'page_options',
+        'title'         => 'Page Options',
+        'object_types'  => array( 'page', 'post', 'team', 'menu', 'portfolio' ), // post type
+        'context'       => 'normal', // 'normal', 'advanced' or 'side'
+        'priority'      => 'high', // 'high', 'core', 'default' or 'low'
+        'show_names'    => true, // show field names on the left
+        'cmb_styles'    => true, // false to disable the CMB stylesheet
+        'closed'        => false, // keep the metabox closed by default
+    ) );
+    
+    $cmb->add_field( array(
+	    'name' => 'Page Title Options',
+	    'desc' => 'alter the default page title settings',
+	    'type' => 'title',
+	    'id'   => 'page_title_options_title'
+	) );
+    // metabox title
+	$cmb->add_field( array(
+	    'name' => 'Hide Page Title',
+	    'id'   => 'show_page_title',
+	    'type' => 'checkbox',
+	    'default' => false
+	) );
+	
+	$cmb->add_field( array(
+	    'name'             => 'Title Background Color',
+	    'desc'             => 'Edit color sets in the theme customizer',
+	    'id'               => 'page_title_bg',
+	    'type'             => 'radio_inline',
+	    'show_option_none' => true,
+	    'default'          => '',
+	    'options'          => array(
+	        '' => 'None',
+	        'bg_color_one'    => '<span style="background:'.get_theme_mod( 'color_one', '#ef5022').'">'.get_theme_mod( 'color_one', '#ef5022').'</span>',
+	        'bg_color_two'    => '<span style="background:'.get_theme_mod( 'color_two', '#71be44').'">'.get_theme_mod( 'color_two', '#71be44').'</span>',
+	        'bg_color_three'  => '<span style="background:'.get_theme_mod( 'color_three', '#2eb6c4').'">'.get_theme_mod( 'color_three', '#2eb6c4').'</span>',
+	        'bg_color_four'   => '<span style="background:'.get_theme_mod( 'color_four', '#555555').'">'.get_theme_mod( 'color_four', '#555555').'</span>',
+	        'bg_color_five'   => '<span style="background:'.get_theme_mod( 'color_five', '#8f52a0').'">'.get_theme_mod( 'color_five', '#8f52a0').'</span>',
+	    ),
+	) );
+	
+	$cmb->add_field( array(
+	    'name'             => 'Title Font Color',
+	    'desc'             => 'Edit color sets in the theme customizer',
+	    'id'               => 'page_title_color',
+	    'type'             => 'radio_inline',
+	    'show_option_none' => true,
+	    'default'          => '',
+	    'options'          => array(
+	        '' => 'None',
+	        'color_one'    => '<span style="background:'.get_theme_mod( 'color_one', '#ef5022').'">'.get_theme_mod( 'color_one', '#ef5022').'</span>',
+	        'color_two'    => '<span style="background:'.get_theme_mod( 'color_two', '#71be44').'">'.get_theme_mod( 'color_two', '#71be44').'</span>',
+	        'color_three'  => '<span style="background:'.get_theme_mod( 'color_three', '#2eb6c4').'">'.get_theme_mod( 'color_three', '#2eb6c4').'</span>',
+	        'color_four'   => '<span style="background:'.get_theme_mod( 'color_four', '#555555').'">'.get_theme_mod( 'color_four', '#555555').'</span>',
+	        'color_five'   => '<span style="background:'.get_theme_mod( 'color_five', '#8f52a0').'">'.get_theme_mod( 'color_five', '#8f52a0').'</span>',
+	        'white'   	   => '#ffffff',
+	    ),
+	) );
+}
 
 
 /**
@@ -578,6 +589,12 @@ function minify_js($input) {
         ),
     $input);
 }
+
+function cc_mime_types($mimes) {
+  $mimes['svg'] = 'image/svg+xml';
+  return $mimes;
+}
+add_filter('upload_mimes', 'cc_mime_types');
 
 
 include_once( dirname( __FILE__ ) . '/includes/register_post_types.php');

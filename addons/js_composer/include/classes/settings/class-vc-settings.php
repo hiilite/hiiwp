@@ -99,7 +99,7 @@ class Vc_Settings {
 	 */
 	public function isEditorEnabled() {
 		global $current_user;
-		get_currentuserinfo();
+		wp_get_current_user();
 
 		/** @var $settings - get use group access rules */
 		$settings = $this->get( 'groups_access_rules' );

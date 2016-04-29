@@ -1,0 +1,147 @@
+/*
+Admin Styles
+*/
+@import url(http://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic);
+
+h1,h2,h3,h4,h5,h6 {
+	font-family: 'Lato', "Open Sans", sans-serif;;
+}
+
+#wpadminbar>#wp-toolbar>#wp-admin-bar-root-default #wp-admin-bar-wp-logo .ab-icon {
+	background-image: url('../images/hiilite-logo-symbolmark.svg') !important;
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-position: center center;
+	width: 100%;
+	height: 100%;
+	padding: 0;
+	margin: 0;
+}
+#wpadminbar>#wp-toolbar>#wp-admin-bar-root-default #wp-admin-bar-wp-logo .ab-icon:before {
+	display: none;
+}
+#wpadminbar #wp-admin-bar-wp-logo>.ab-item {
+	padding: 0;
+	width: 2.3em;
+}
+
+/* styling for the footer */
+#wpfooter #footer-left img {
+	height: 1.5em;
+	width: auto;
+	margin-right: 0.5em;
+	vertical-align: bottom;
+}
+.postbox {
+    box-shadow: none;
+}
+
+/* styling for admin menu */
+ 
+/* background and text color */
+#adminmenuback, #adminmenuwrap {
+   
+}
+#adminmenu li.menu-top:hover, #adminmenu li.opensub > a.menu-top, #adminmenu li > a.menu-top:focus {
+    color: #2FB6C4;
+}
+#adminmenu li.wp-menu-separator {
+    
+}
+ 
+/* links in admin menu */
+#adminmenu li.wp-has-current-submenu a.wp-has-current-submenu {
+	background: #2FB6C4;
+}
+
+#adminmenu a,
+#adminmenu li.menu-top:hover,
+#adminmenu li.opensub > a.menu-top,
+#adminmenu li > a.menu-top:focus {
+   
+}
+a {
+	color: #2FB6C4;
+}
+#adminmenu a:hover,
+#adminmenu a:active,
+#adminmenu .wp-submenu a:hover,
+#collapse-menu:hover {
+	color: #2FB6C4;
+}
+#wpadminbar a:hover,
+#wpadminbar a:active,
+#wpadminbar li:hover>a.ab-item,
+#wpadminbar li:hover>a.ab-item:before,
+#wpadminbar>#wp-toolbar li:hover span.ab-label,
+#wpadminbar>#wp-toolbar li:hover span.ab-icon:before{
+	color: #2FB6C4 !important;
+}
+#adminmenu li a:focus div.wp-menu-image:before, 
+#adminmenu li.opensub div.wp-menu-image:before, 
+#adminmenu li:hover div.wp-menu-image:before {
+	color: #2FB6C4;
+}
+
+#adminmenu .wp-submenu a {
+    
+}
+ 
+/* change color of arrow to submenus */
+#adminmenu li.wp-not-current-submenu .wp-menu-arrow,
+#adminmenu li.wp-not-current-submenu .wp-menu-arrow div {
+    
+}
+ 
+/* active screen as seen in menu - change the background and arrow colour */
+#adminmenu li.wp-has-current-submenu a.wp-has-current-submenu,
+#adminmenu li.current a.menu-top,
+.folded #adminmenu li.wp-has-current-submenu,
+.folded #adminmenu li.current.menu-top,
+#adminmenu .wp-menu-arrow,
+#adminmenu .wp-has-current-submenu .wp-submenu .wp-submenu-head {
+    
+}
+#adminmenu li.wp-has-current-submenu .wp-menu-arrow,
+#adminmenu li.wp-has-current-submenu .wp-menu-arrow div {
+   
+}
+
+/* links elsewhere */
+a:hover, a:active {
+}
+
+.wp-core-ui .button, .wp-core-ui .button-secondary {
+    color: #000;
+    border-color: #ccc;
+    background: rgb(244,244,244);
+    box-shadow: 0px 1px 1px rgba(0,0,0,0.3);
+    border: none;
+    border-radius: 1px;
+}
+
+/* buttons */
+.wp-core-ui .button-primary, .login .button-primary {
+    background: rgb(33,150,243);
+    border-color: none; 
+    color: white;
+    -webkit-box-shadow: none;
+    box-shadow: 0px 1px 1px rgba(0,0,0,0.3);
+    text-shadow: none;
+	border-radius: 1px;
+}
+.wp-core-ui .button-primary.active,
+.wp-core-ui .button-primary:hover,
+.wp-core-ui .button-primary:active,
+.wp-core-ui .button-primary:focus {
+
+}
+
+.wp-admin select {
+    padding: 2px;
+    line-height: 28px;
+    height: 28px;
+    border-radius: 1px;
+    border: none;
+    box-shadow: 0px 1px 2px rgba(0,0,0,0.3);
+}

@@ -449,7 +449,7 @@ HTML;
 		$template_id = vc_request_param( 'template_unique_id' );
 		$template_type = vc_request_param( 'template_type' );
 		global $current_user;
-		get_currentuserinfo();
+		wp_get_current_user();
 
 		if ( ! isset( $template_id, $template_type ) || '' === $template_id || '' === $template_type ) {
 			die( __( 'Error: wrong template id.', 'js_composer' ) );

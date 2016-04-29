@@ -53,7 +53,7 @@ if ( ! class_exists( 'Kirki_Fonts_Google' ) ) {
 			$this->create_link();
 			// If $this->link is not empty then enqueue it.
 			if ( '' != $this->link ) {
-				//wp_enqueue_style( 'kirki_google_fonts', $this->link, array(), null );
+				wp_enqueue_style( 'kirki_google_fonts', $this->link, array(), null );
 			}
 		}
 
