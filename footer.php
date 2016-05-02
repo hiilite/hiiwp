@@ -1,5 +1,7 @@
 <?php
 global $hiilite_options;
+if($hiilite_options['fromApp']) echo '</div>';
+if(!$hiilite_options['subpage']):
 if($hiilite_options['subdomain'] != 'iframe'):
 ?>			
 
@@ -101,3 +103,4 @@ if($hiilite_options['subdomain'] != 'iframe'):
 	
 </body>
 </html>
+<?php endif; // end if subpage ?>

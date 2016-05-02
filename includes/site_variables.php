@@ -277,6 +277,10 @@ $hiilite_options['blog_excerpt_on']		= get_theme_mod( 'blog_excerpt_on', true );
 $hiilite_options['blog_more_on']		= get_theme_mod( 'blog_more_on', true );
 
 
+// PORTFOLIO
+$hiilite_options['portfolio_layout']		= get_theme_mod( 'portfolio_layout', 'masonry-h' );
+$hiilite_options['portfolio_show_filter']	= get_theme_mod( 'portfolio_show_filter', true );
+
 
 
 

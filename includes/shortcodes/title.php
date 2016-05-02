@@ -22,7 +22,7 @@ if (!function_exists('hii_title')) {
             $button_styles .= 'class="'.$color.'" ';
         }
 
-        $html .=  '<'.$size.' '.$button_styles.'>'.$text.'</'.$size.'>';
+        $html .=  '<div class="text-block"><'.$size.' '.$button_styles.'>'.$text.'</'.$size.'></div>';
 
         return $html;
     }

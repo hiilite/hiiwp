@@ -1,5 +1,17 @@
 <?php
 global $hiilite_options;
+if(isset($_GET['fromApp'])){
+	header("Access-Control-Allow-Origin: *");
+	$hiilite_options['fromApp'] = true;
+} else {
+	$hiilite_options['fromApp'] = false;
+}
+if(isset($_GET['subpage'])){
+	$hiilite_options['subpage'] = true;
+} else {
+	$hiilite_options['subpage'] = false;
+}
+
 $hiilite_options['amp'] = get_theme_mod('amp');
 $options = get_option('company_options');
 if($hiilite_options['amp']) $_amp = 'amp-'; else $_amp = '';
@@ -45,6 +57,7 @@ function sanitize_output($buffer) {
     return $buffer;
 }
 ob_start("sanitize_output");
+if(!$hiilite_options['subpage']):
 ?><!doctype html>
 <html <?php if($hiilite_options['amp'] && $hiilite_options['subdomain'] != 'iframe') echo 'amp'; ?> lang="en">
 <head>
@@ -419,4 +432,7 @@ ga('send', 'pageview');
 				</div>
 			</aside>
 			<?php endif; //end iframe check ?>
+<?php 
+if($hiilite_options['fromApp']){ echo '<div id="content_load">';}
+endif; //end subpage check ?>
 			

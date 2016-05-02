@@ -1033,7 +1033,7 @@ class CMB2_Field {
 		) ) : $args['options'];
 
 		$args['_id']        = $args['id'];
-		$args['_name']      = 'company_options['.$args['id'].']';
+		$args['_name']      = $args['id'];
 
 		if ( $this->group ) {
 

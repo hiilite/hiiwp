@@ -53,7 +53,7 @@ require_once( dirname( __FILE__ ) . '/addons/github-updater/github-updater.php')
 require_once( dirname( __FILE__ ) . '/addons/post-types-order/post-types-order.php');
 require_once( dirname( __FILE__ ) . '/addons/taxonomy-images/taxonomy-images.php');
 require_once( dirname( __FILE__ ) . '/addons/taxonomy-terms-order/taxonomy-terms-order.php');
-require_once( dirname( __FILE__ ) . '/addons/force-gzip/force-gzip.php');
+//require_once( dirname( __FILE__ ) . '/addons/force-gzip/force-gzip.php');
 
 function hiiwp_init(){
 	global $hiilite_options;
@@ -334,6 +334,124 @@ function enqueue_less_styles($tag, $handle) {
 
 
 
+
+
+add_action('cmb2_init', 'cmb2_portfolio_metaboxes');
+function cmb2_portfolio_metaboxes(){
+	//$prefix = '_hiilite_';
+	//////////////////////////////////
+	// Generic Options for all posts
+	/////////////////////////////////
+    $cmb = new_cmb2_box( array(
+        'id'            => 'portfolio_options',
+        'title'         => 'Portfolio Options',
+        'object_types'  => array( 'portfolio' ), // post type
+        'context'       => 'normal', // 'normal', 'advanced' or 'side'
+        'priority'      => 'high', // 'high', 'core', 'default' or 'low'
+        'show_names'    => true, // show field names on the left
+        'cmb_styles'    => true, // false to disable the CMB stylesheet
+        'closed'        => false, // keep the metabox closed by default
+    ) );
+    $cmb->add_field( array(
+	    'name' => 'Isolated Image',
+	    'id'   => 'isolated',
+	    'type' => 'checkbox',
+	    'default' => false
+	) );
+	$cmb->add_field( array(
+	    'name'    => 'Anchor Isolated Image',
+	    'id'      => 'anchor_to',
+	    'type'    => 'radio_inline',
+	    'default' => 'center',
+	    'options' => array(
+	        'top-left' 	=> __( 'Top Left', 'hiilite' ),
+	        'top' 		=> __( 'Top', 'hiilite' ),
+	        'top-right' => __( 'Top Right', 'hiilite' ),
+	        'left' 		=> __( 'Left', 'hiilite' ),
+			'center' 	=> __( 'Center', 'hiilite' ),
+			'right' 	=> __( 'Right', 'hiilite' ),
+			'bottom-left'=> __( 'Bottom Left', 'hiilite' ),
+			'bottom' 	=> __( 'Bottom', 'hiilite' ),
+			'bottom-right'=> __( 'Bottom Right', 'hiilite' ),
+	    ),
+	) );
+	$cmb->add_field( array(
+	    'name'    => 'Background',
+	    'id'      => 'background_color',
+	    'type'    => 'colorpicker',
+	    'default' => '#ffffff',
+	) );
+	$cmb->add_field( array(
+	    'name'    => 'Minimum Padding',
+	    'id'      => 'min_padding',
+	    'type'    => 'text',
+	    'default' => '',
+	) );
+}
+
+
+
+add_action('cmb2_admin_init', 'cmb2_post_metaboxes');
+function cmb2_post_metaboxes(){
+	//////////////////////////////////
+	// Generic Options for all posts
+	/////////////////////////////////
+    $cmb = new_cmb2_box( array(
+        'id'            => 'page_options',
+        'title'         => 'Page Options',
+        'object_types'  => array( 'page', 'post', 'team', 'menu', 'portfolio' ), // post type
+        'context'       => 'normal', // 'normal', 'advanced' or 'side'
+        'priority'      => 'high', // 'high', 'core', 'default' or 'low'
+        'show_names'    => true, // show field names on the left
+        'cmb_styles'    => true, // false to disable the CMB stylesheet
+        'closed'        => false, // keep the metabox closed by default
+    ) );
+    
+    // metabox title
+	$cmb->add_field( array(
+	    'name' => 'Hide Page Title',
+	    'id'   => 'show_page_title',
+	    'type' => 'checkbox',
+	    'default' => false
+	) );
+	
+	$cmb->add_field( array(
+	    'name'             => 'Title Background Color',
+	    'desc'             => 'Edit color sets in the theme customizer',
+	    'id'               => 'page_title_bg',
+	    'type'             => 'radio_inline',
+	    'show_option_none' => true,
+	    'default'          => '',
+	    'options'          => array(
+	        '' => 'None',
+	        'bg_color_one'    => '<span style="background:'.get_theme_mod( 'color_one', '#ef5022').'">'.get_theme_mod( 'color_one', '#ef5022').'</span>',
+	        'bg_color_two'    => '<span style="background:'.get_theme_mod( 'color_two', '#71be44').'">'.get_theme_mod( 'color_two', '#71be44').'</span>',
+	        'bg_color_three'  => '<span style="background:'.get_theme_mod( 'color_three', '#2eb6c4').'">'.get_theme_mod( 'color_three', '#2eb6c4').'</span>',
+	        'bg_color_four'   => '<span style="background:'.get_theme_mod( 'color_four', '#555555').'">'.get_theme_mod( 'color_four', '#555555').'</span>',
+	        'bg_color_five'   => '<span style="background:'.get_theme_mod( 'color_five', '#8f52a0').'">'.get_theme_mod( 'color_five', '#8f52a0').'</span>',
+	    ),
+	) );
+	
+	$cmb->add_field( array(
+	    'name'             => 'Title Font Color',
+	    'desc'             => 'Edit color sets in the theme customizer',
+	    'id'               => 'page_title_color',
+	    'type'             => 'radio_inline',
+	    'show_option_none' => true,
+	    'default'          => '',
+	    'options'          => array(
+	        '' => 'None',
+	        'color_one'    => '<span style="background:'.get_theme_mod( 'color_one', '#ef5022').'">'.get_theme_mod( 'color_one', '#ef5022').'</span>',
+	        'color_two'    => '<span style="background:'.get_theme_mod( 'color_two', '#71be44').'">'.get_theme_mod( 'color_two', '#71be44').'</span>',
+	        'color_three'  => '<span style="background:'.get_theme_mod( 'color_three', '#2eb6c4').'">'.get_theme_mod( 'color_three', '#2eb6c4').'</span>',
+	        'color_four'   => '<span style="background:'.get_theme_mod( 'color_four', '#555555').'">'.get_theme_mod( 'color_four', '#555555').'</span>',
+	        'color_five'   => '<span style="background:'.get_theme_mod( 'color_five', '#8f52a0').'">'.get_theme_mod( 'color_five', '#8f52a0').'</span>',
+	        'white'   	   => '#ffffff',
+	    ),
+	) );
+}
+
+
 //
 // Adds the meta box to the page screen
 //
@@ -346,7 +464,7 @@ function page_options_meta_box()
         __( 'SEO Options' ), // meta box title, like "Page Attributes"
         'page_seo_options_meta_box_cb', // callback function, spits out the content
         array('page','post','portfolio','team','menu'), // post type or page. We'll add this to pages only
-        'advanced', // context (where on the screen
+        'normal', // context (where on the screen
         'high' // priority, where should this go in the context?
     );
 }
@@ -400,76 +518,6 @@ function page_seo_options_meta_box_save( $post_id )
     update_post_meta( $post_id, 'page_seo_title', $page_seo_title );
     update_post_meta( $post_id, 'page_seo_description', $page_seo_description );
 }
-
-
-
-
-add_action('cmb2_init', 'cmb2_post_metaboxes');
-function cmb2_post_metaboxes(){
-	$prefix = '_hiilite_';
-	
-	// create the metabox
-    $cmb = new_cmb2_box( array(
-        'id'            => 'page_options',
-        'title'         => 'Page Options',
-        'object_types'  => array( 'page', 'post', 'team', 'menu', 'portfolio' ), // post type
-        'context'       => 'normal', // 'normal', 'advanced' or 'side'
-        'priority'      => 'high', // 'high', 'core', 'default' or 'low'
-        'show_names'    => true, // show field names on the left
-        'cmb_styles'    => true, // false to disable the CMB stylesheet
-        'closed'        => false, // keep the metabox closed by default
-    ) );
-    
-    $cmb->add_field( array(
-	    'name' => 'Page Title Options',
-	    'desc' => 'alter the default page title settings',
-	    'type' => 'title',
-	    'id'   => 'page_title_options_title'
-	) );
-    // metabox title
-	$cmb->add_field( array(
-	    'name' => 'Hide Page Title',
-	    'id'   => 'show_page_title',
-	    'type' => 'checkbox',
-	    'default' => false
-	) );
-	
-	$cmb->add_field( array(
-	    'name'             => 'Title Background Color',
-	    'desc'             => 'Edit color sets in the theme customizer',
-	    'id'               => 'page_title_bg',
-	    'type'             => 'radio_inline',
-	    'show_option_none' => true,
-	    'default'          => '',
-	    'options'          => array(
-	        '' => 'None',
-	        'bg_color_one'    => '<span style="background:'.get_theme_mod( 'color_one', '#ef5022').'">'.get_theme_mod( 'color_one', '#ef5022').'</span>',
-	        'bg_color_two'    => '<span style="background:'.get_theme_mod( 'color_two', '#71be44').'">'.get_theme_mod( 'color_two', '#71be44').'</span>',
-	        'bg_color_three'  => '<span style="background:'.get_theme_mod( 'color_three', '#2eb6c4').'">'.get_theme_mod( 'color_three', '#2eb6c4').'</span>',
-	        'bg_color_four'   => '<span style="background:'.get_theme_mod( 'color_four', '#555555').'">'.get_theme_mod( 'color_four', '#555555').'</span>',
-	        'bg_color_five'   => '<span style="background:'.get_theme_mod( 'color_five', '#8f52a0').'">'.get_theme_mod( 'color_five', '#8f52a0').'</span>',
-	    ),
-	) );
-	
-	$cmb->add_field( array(
-	    'name'             => 'Title Font Color',
-	    'desc'             => 'Edit color sets in the theme customizer',
-	    'id'               => 'page_title_color',
-	    'type'             => 'radio_inline',
-	    'show_option_none' => true,
-	    'default'          => '',
-	    'options'          => array(
-	        '' => 'None',
-	        'color_one'    => '<span style="background:'.get_theme_mod( 'color_one', '#ef5022').'">'.get_theme_mod( 'color_one', '#ef5022').'</span>',
-	        'color_two'    => '<span style="background:'.get_theme_mod( 'color_two', '#71be44').'">'.get_theme_mod( 'color_two', '#71be44').'</span>',
-	        'color_three'  => '<span style="background:'.get_theme_mod( 'color_three', '#2eb6c4').'">'.get_theme_mod( 'color_three', '#2eb6c4').'</span>',
-	        'color_four'   => '<span style="background:'.get_theme_mod( 'color_four', '#555555').'">'.get_theme_mod( 'color_four', '#555555').'</span>',
-	        'color_five'   => '<span style="background:'.get_theme_mod( 'color_five', '#8f52a0').'">'.get_theme_mod( 'color_five', '#8f52a0').'</span>',
-	        'white'   	   => '#ffffff',
-	    ),
-	) );
-}
-
 
 /**
  * -----------------------------------------------------------------------------------------

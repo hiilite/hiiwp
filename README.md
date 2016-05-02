@@ -24,7 +24,14 @@ Avoid SEO based plugins. The AMP theme is structured in such a way to be perfect
 ### Step 1: Your Company Profile
 This is where you can fill out all your company info that can then be distributed across the site and used as Structured Date in Google's SERP. Each field also has a shortcode attributed to it for easy distribution throughout your site content, such as using the shortcode \[business_phone\] to display the phone number. For a complete list of the shortcodes, see the "Help" tab on the Company Profile page.
 
+- Try :focus based navigation pop out
+
 ## Change log
+### v0.1.14
+- Created new horizontal portfolio layout system
+- Added portfolio isolation options to post
+- Changed portfolio Medium to Work
+
 ### v0.1.13
 - Added cmd2 to manage meta boxes
 - Added Hiilite dashboard and branding

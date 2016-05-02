@@ -1,67 +1,4 @@
 <style <?php if($hiilite_options['amp']) echo 'amp-custom'; ?>>
-/* lato-regular - latin */
-@font-face {
-  font-family: 'Lato';
-  font-style: normal;
-  font-weight: 400;
-  src: local('Lato Regular'), local('Lato-Regular'),
-       url('css/fonts/lato-v11-latin-regular.woff2') format('woff2'), /* Chrome 26+, Opera 23+, Firefox 39+ */
-       url('css/fonts/lato-v11-latin-regular.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
-}
-/* lato-700 - latin */
-@font-face {
-  font-family: 'Lato';
-  font-style: normal;
-  font-weight: 700;
-  src: local('Lato Bold'), local('Lato-Bold'),
-       url('css/fonts/lato-v11-latin-700.woff2') format('woff2'), /* Chrome 26+, Opera 23+, Firefox 39+ */
-       url('css/fonts/lato-v11-latin-700.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
-}
-/* roboto-regular - latin */
-@font-face {
-  font-family: 'Roboto';
-  font-style: normal;
-  font-weight: 400;
-  src: local('Roboto'), local('Roboto-Regular'),
-       url('css/fonts/roboto-v15-latin-regular.woff2') format('woff2'), /* Chrome 26+, Opera 23+, Firefox 39+ */
-       url('css/fonts/roboto-v15-latin-regular.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
-}
-/* raleway-100 - latin */
-@font-face {
-  font-family: 'Raleway';
-  font-style: normal;
-  font-weight: 100;
-  src: local('Raleway Thin'), local('Raleway-Thin'),
-       url('css/fonts/raleway-v10-latin-100.woff2') format('woff2'), /* Chrome 26+, Opera 23+, Firefox 39+ */
-       url('css/fonts/raleway-v10-latin-100.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
-}
-/* raleway-300 - latin */
-@font-face {
-  font-family: 'Raleway';
-  font-style: normal;
-  font-weight: 300;
-  src: local('Raleway Light'), local('Raleway-Light'),
-       url('css/fonts/raleway-v10-latin-300.woff2') format('woff2'), /* Chrome 26+, Opera 23+, Firefox 39+ */
-       url('css/fonts/raleway-v10-latin-300.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
-}
-/* raleway-regular - latin */
-@font-face {
-  font-family: 'Raleway';
-  font-style: normal;
-  font-weight: 400;
-  src: local('Raleway'), local('Raleway-Regular'),
-       url('css/fonts/raleway-v10-latin-regular.woff2') format('woff2'), /* Chrome 26+, Opera 23+, Firefox 39+ */
-       url('css/fonts/raleway-v10-latin-regular.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
-}
-/* raleway-700 - latin */
-@font-face {
-  font-family: 'Raleway';
-  font-style: normal;
-  font-weight: 700;
-  src: local('Raleway Bold'), local('Raleway-Bold'),
-       url('css/fonts/raleway-v10-latin-700.woff2') format('woff2'), /* Chrome 26+, Opera 23+, Firefox 39+ */
-       url('css/fonts/raleway-v10-latin-700.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
-}
 <?php include_once('font-awesome/css/font-awesome.min.css'); ?>
 html {
 	<?php 
@@ -201,6 +138,9 @@ h6 {
 .row-o-full-height {
 	min-height: 100vh;
 	display: flex;
+}
+.row_reverse {
+	flex-direction: row-reverse;
 }
 
 /* HEADER */
@@ -400,7 +340,7 @@ ul.sub-menu {
 	nav#main-nav .main-menu {
 		position: fixed;
 		z-index: 9999;
-		left: 10vw;
+		left: 0;
 		top: 0;
 		max-height: 0vh;
 		transition:all 1s;
@@ -417,7 +357,7 @@ ul.sub-menu {
 
 	nav#main-nav:hover .main-menu {
 		max-height: 100vh;
-		box-shadow: 0 0 0 10vw rgba(0,0,0,0.3);
+		box-shadow: 0 0 0 20vw rgba(0,0,0,0.3);
 	}
 }
 
@@ -463,6 +403,13 @@ ul.sub-menu {
 }
 .page-title h1 {
 	margin-bottom: 0;
+	<?php 
+	foreach($hiilite_options['title_font'] as $key => $value){
+		if($value != ' ' && $value != '' && $value != 'px'){
+			echo ($key == 'variant')?'font-weight:'.$value.';':$key.':'.$value.';';
+		}
+	}
+	?>
 }
 
 <?=$_amp?>img {
@@ -484,14 +431,14 @@ ul.sub-menu {
 	max-width: 76em;
 	width: 75%;
 	margin: auto;
-	flex: 1 320px;
+	flex: 1 75%;
 }
 .twothird-width , .col-8{
 	min-width: 320px;
 	max-width: 66em;
 	width: 66.66%;
 	margin: auto;
-	flex: 1 320px;
+	flex: 1 66.6%;
 }
 .half-width, .col-6 {
 	min-width: 18em;
@@ -518,7 +465,12 @@ ul.sub-menu {
 	width: 16.67%;
 }
 
-
+.fixed_columns .flex-item {
+	min-width: 0;
+}
+.fixed_columns {
+	align-items: stretch;
+}
 .tagline {
 	background: #f2f2f2;
 	width: 100%;
@@ -565,20 +517,6 @@ if($hiilite_options['portfolio_on']): ?>
 }
 .portfolio-piece h5 {
 	margin: 0;
-}
-.portfolio-piece figure {
-	overflow:hidden;	
-	max-height: calc(100vh);
-	min-height: calc(50vh);
-	position: relative;
-}
-.portfolio-piece figure <?=$_amp?>img {
-    min-height: 100%;
-    min-width: 100%;
-    max-width: none;
-    position: absolute;
-    width: 150%;
-    left: -25%;
 }
 
 <?php endif; ?>
@@ -668,9 +606,33 @@ strong.label {
 .align-top {
 	vertical-align: top;
 	align-self: flex-start;
-	margin: 0 auto;
+	margin: 0 auto auto auto;
 }
-
+.align-bottom {
+	vertical-align:bottom;
+	align-self: flex-end;
+	margin: auto auto 0 auto;
+}
+.align-top-left {
+	vertical-align:top;
+	align-self: flex-start;
+	margin: 0 auto auto 0;
+}
+.align-top-right {
+	vertical-align:top;
+	align-self: flex-start;
+	margin: 0 0 auto auto;
+}
+.align-bottom-left {
+	vertical-align:bottom;
+	align-self: flex-end;
+	margin: auto auto 0 0;
+}
+.align-bottom-right {
+	vertical-align:bottom;
+	align-self: flex-end;
+	margin: auto 0 0 auto;
+}
 
 hr.small {
 	width: 60px;
@@ -678,15 +640,6 @@ hr.small {
 }
 
 /* dynamic custom styles when an id is defined */
-
-.my_custom_row {
-	background: url(<?php bloginfo('template_url');?>/images/bg.jpg);
-	color: white;
-}
-.my_white_header {
-	color: white;
-	border-color: white;
-}
 
 /* SLIDER */
 <?=$_amp?>carousel {
@@ -770,8 +723,11 @@ input,textarea {padding: 1em;border: 1px solid gray; font-size: 1rem;}
 	transform: translateZ(-1px) scale(2);
 	
 }
+
+
 <?php
 do_action ( 'custom_css' );
 echo $hiilite_options['custom_css'];
+echo $hiilite_options['portfolio_custom_css'];
 ?>
 </style>
