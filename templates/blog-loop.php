@@ -3,7 +3,7 @@ global $hiilite_options;
 $post_meta = get_post_meta(get_the_id());
 $hiilite_options['amp'] = get_theme_mod('amp');
 if($hiilite_options['amp']) $_amp = 'amp-'; else $_amp = '';
-$article_title = ($hiilite_options['blog_title_on'])?'<h2><a href="'.get_the_permalink().'">'.get_the_title().'</a></h2>':'';
+$article_title = ($hiilite_options['blog_title_on'])?'<'.$hiilite_options['blog_heading_size'].'><a href="'.get_the_permalink().'">'.get_the_title().'</a></'.$hiilite_options['blog_heading_size'].'>':'';
 $cols = '';
 if($hiilite_options['blog_layout'] =='boxed'){
 	switch ($hiilite_options['blog_columns']) {

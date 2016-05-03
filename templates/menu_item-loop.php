@@ -45,10 +45,27 @@ if($hiilite_options['subdomain'] != 'iframe'):
     $output .= '<span class="menu-price">'.get_post_meta($post_id, 'price', true).'</span>';
     $output .= '<br>';
    
-    if(get_post_meta($post_id, 'addons', true)){
-	    $output .= '<span class="menu-addons-title">Add Onto Your '.get_the_title().':</span><br>';
-	    $output .= '<span class="menu-addons">'.nl2br(get_post_meta($post_id, 'addons', true)) .'</span><br><br>';
-    }
+	if(get_post_meta($post_id, 'addons', true)){
+	    $output .= '<table><tr>';
+	    $output .= '<td class="menu-addons-title flex-item col-2">Add Ons:</td>';
+	    $output .= '<td class="menu-addons"><table class="full-width">';
+	    
+	    $entries = get_post_meta( get_the_ID(), 'addons', true );
+		foreach ( (array) $entries as $key => $entry ) {
+		    $title = $desc = '';
+		
+		    if ( isset( $entry['addons_text'] ) )
+		        $title = esc_html( $entry['addons_text'] );
+		
+		    if ( isset( $entry['addons_price'] ) )
+		        $desc = esc_html( $entry['addons_price'] );
+			
+			$output .= '<tr><td>'.$title.'</td><td>'.$desc.'</td></tr>';
+		   
+		    // Do something with the data
+		}
+	    $output .= '</table></td></tr></table>';
+	}
     $output .= '</span>';
      echo $output;
 	if(has_excerpt($post->id)){
@@ -76,7 +93,7 @@ if($hiilite_options['subdomain'] != 'iframe'):
 
 
 	echo '<div class="row"><div class="container_inner"><div class="in_grid">';
-	echo '<div class="flex-item align-center text-block">';
+	echo '<div class="flex-item text-block align-center">';
 	echo '<h4>Share this meal</h4>';
 	echo do_shortcode('[social-share gp="true" fa="true" tw="true" pt="true" li="true" em="true"]');
 	
@@ -85,8 +102,8 @@ if($hiilite_options['subdomain'] != 'iframe'):
 	
 	echo '<div class="row"><div class="container_inner"><div class="in_grid">';
 	
-	echo '<div class="flex-item align-center text-block">';
-	echo '<h2 class="full-width">More from the '.$terms[0]->name.' menu</h2>';
+	echo '<div class="flex-item text-block col-9">';
+	echo '<h2 class="full-width align-center">More from the '.$terms[0]->name.' menu</h2>';
 	echo do_shortcode('[menu section="'.$terms[0]->slug.'" show_title="false"]');
 	echo '</div>';
 	echo '</div></div></div>';

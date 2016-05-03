@@ -159,3 +159,9 @@ a:hover, a:active {
 .cmb2-id-anchor-to ul li:nth-child(3n + 1) {
     clear: left;
 }
+
+#addons_repeat.cmb-field-list .cmb-row {
+	float: left;
+	padding-right: 1em;
+	
+}

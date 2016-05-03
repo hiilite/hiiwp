@@ -101,7 +101,9 @@ h6 {
 	clear: both;
 }
 
-
+table td {
+	vertical-align: top;
+}
 /* CONTAINERS */
 .wrapper {
 	width: 100%;
@@ -340,6 +342,7 @@ ul.sub-menu {
 	nav#main-nav .main-menu {
 		position: fixed;
 		z-index: 9999;
+		background: white;
 		left: 0;
 		top: 0;
 		max-height: 0vh;
@@ -388,12 +391,12 @@ ul.sub-menu {
 	<?php 
 	if ($hiilite_options['header_above_content'] == false){ echo 'position:absolute;z-index:100;margin-top: 200px;'; } else {
 		echo 'position: relative;';
-		echo ($hiilite_options['header_background_image'] != '')?'background-image:url('.$hiilite_options['header_background_image'].');':'';
-		echo 'background-repeat:'.$hiilite_options['header_background_repeat'].';';
-		echo 'background-size:'.$hiilite_options['header_background_size'].';';
-		echo 'background-attachment:'.$hiilite_options['header_background_attach'].';';
-		echo 'background-position:'.str_replace('-', ' ', $hiilite_options['header_background_position']).';';
-		echo 'background-color:'.$hiilite_options['header_background_color'].';';
+		echo ($hiilite_options['title_background_image'] != '')?'background-image:url('.$hiilite_options['title_background_image'].');':'';
+		echo 'background-repeat:'.$hiilite_options['title_background_repeat'].';';
+		echo 'background-size:'.$hiilite_options['title_background_size'].';';
+		echo 'background-attachment:'.$hiilite_options['title_background_attach'].';';
+		echo 'background-position:'.str_replace('-', ' ', $hiilite_options['title_background_position']).';';
+		echo 'background-color:'.$hiilite_options['title_background_color'].';';
 	}
 	?>
 	
@@ -440,6 +443,13 @@ ul.sub-menu {
 	margin: auto;
 	flex: 1 66.6%;
 }
+.col-7 {
+	min-width: 18em;
+	max-width: 50em;
+	width: 58.33%;
+	margin: auto;
+	flex: 1 58.33%;
+}
 .half-width, .col-6 {
 	min-width: 18em;
 	max-width: 50em;
@@ -455,14 +465,21 @@ ul.sub-menu {
 	flex: 1 33.3%;
 }
 .quarter-width, .col-3 {
-	min-width: 10em;
+	min-width: 9em;
 	max-width: 25em;
 	width: 25%;
 	margin: auto;
 	flex: 1 25%;
 }
-.col-1 {
+.col-2 {
+	min-width: 10em;
+	max-width: 25em;
 	width: 16.67%;
+	margin: auto;
+	flex: 1 16.67%;
+}
+.col-1 {
+	width: 8.33%;
 }
 
 .fixed_columns .flex-item {
@@ -567,7 +584,7 @@ if($hiilite_options['portfolio_on']): ?>
 .color_two 	{ color: <?=$hiilite_options['color_two'];?>; }
 .color_three{ color: <?=$hiilite_options['color_three'];?>; }
 .color_four { color: <?=$hiilite_options['color_four'];?>; }
-.white { color:white; }
+.white, .page-title h1.white { color:white; }
 .bg_color_one  { background-color: <?=$hiilite_options['color_one'];?>; }
 .bg_color_two 	{ background-color: <?=$hiilite_options['color_two'];?>; }
 .bg_color_three{ background-color: <?=$hiilite_options['color_three'];?>; }

@@ -324,7 +324,7 @@ function menu_add_default_sections(){
 		);
 }
 
-add_action( 'add_meta_boxes', 'menu_options_meta_box' );
+//add_action( 'add_meta_boxes', 'menu_options_meta_box' );
 //
 // Adds the meta box to the page screen
 //
@@ -386,7 +386,7 @@ function menu_options_meta_box_cb( $post )
 	 
 }
 
-add_action( 'save_post', 'menu_meta_box_save' );
+//add_action( 'save_post', 'menu_meta_box_save' );
 function menu_meta_box_save( $post_id )
 {
     if( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) return;
@@ -425,10 +425,10 @@ function get_portfolio($args = null){
 	$html = '';
 	$css = '';
 	
-	$args = ($args==null)?array('post_type' => 'portfolio','posts_per_page' => -1,'nopaging' => true,):$args;
+	$args = ($args==null)?array('post_type'=>'portfolio','posts_per_page'=> -1,'nopaging'=>true,'order'=>'ASC','orderby'=>'menu_order'):$args;
 	$query = new WP_Query($args);
 	if($query->have_posts()):
-		$html .= '<div class="row">';
+	$html .= '<div class="row">';
 		if($hiilite_options['portfolio_show_filter'] == true){
 			$taxonomy_objects = get_terms('work');
 			$html .= '<div class="flex-item align-center col-12 text-block labels">';
@@ -457,20 +457,20 @@ function get_portfolio($args = null){
 		    if($minpad != ''):
 			    $padding = 'padding:';
 			    if($imgs[$i]['isolate'] == 'align-top-left') 	$padding .= '0 '.$minpad.' 0 '.$minpad;
-			    elseif($imgs[$i]['isolate'] == 'align-top') 		$padding .= '0 '.$minpad.' '.$minpad.' '.$minpad;
+			    elseif($imgs[$i]['isolate'] == 'align-top') 	$padding .= '0 '.$minpad.' '.$minpad.' '.$minpad;
 			    elseif($imgs[$i]['isolate'] == 'align-top-right') 	$padding .= '0 0 '.$minpad.' '.$minpad;
-			    elseif($imgs[$i]['isolate'] == 'align-left') 		$padding .= $minpad.' '.$minpad.' '.$minpad.' 0';
-			    elseif($imgs[$i]['isolate'] == 'align-center') 		$padding .= $minpad;
-			    elseif($imgs[$i]['isolate'] == 'align-right') 		$padding .= $minpad.' 0 '.$minpad.' '.$minpad;
+			    elseif($imgs[$i]['isolate'] == 'align-left') 	$padding .= $minpad.' '.$minpad.' '.$minpad.' 0';
+			    elseif($imgs[$i]['isolate'] == 'align-center') 	$padding .= $minpad;
+			    elseif($imgs[$i]['isolate'] == 'align-right') 	$padding .= $minpad.' 0 '.$minpad.' '.$minpad;
 			    elseif($imgs[$i]['isolate'] == 'align-bottom-left') $padding .= $minpad.' '.$minpad.' 0 0';
-			    elseif($imgs[$i]['isolate'] == 'align-bottom') 		$padding .= $minpad.' '.$minpad.' 0 '.$minpad;
+			    elseif($imgs[$i]['isolate'] == 'align-bottom') 	$padding .= $minpad.' '.$minpad.' 0 '.$minpad;
 			    elseif($imgs[$i]['isolate'] == 'align-bottom-right')$padding .= $minpad.' 0 0 '.$minpad;
 			    $padding .= ';';
 		    endif;
 		    
-		    $css .= '#pfi'.get_the_id().'{flex:'.$ratio.';background-color:'.$imgs[$i]['background_color'].';'.$padding.'}';
+		    $css .= '#pfi'.get_the_id().'{flex:'.$ratio.';background:'.$imgs[$i]['background_color'].';'.$padding.'}';
 		    
-		    if($ratio <= 0.3){
+		    if($ratio < 0.4){
 			    $imgs[$i]['col'] = 'col-2';
 			    $col2[] = $imgs[$i];
 		    }
@@ -478,23 +478,23 @@ function get_portfolio($args = null){
 			    $imgs[$i]['col'] = 'col-3';
 				    $col3[] = $imgs[$i];
 			    }
-			    elseif($ratio >= 0.6 && $ratio <= 0.8){
+			    elseif($ratio > 0.5 && $ratio <= 0.8){
 				    $imgs[$i]['col'] = 'col-4';
 				    $col4[] = $imgs[$i];
 			    }
-			    elseif($ratio >= 0.9 && $ratio <=1.1){
+			    elseif($ratio > 0.8 && $ratio <=1.1){
 				    $imgs[$i]['col'] = 'col-6';
 				    $col6[] = $imgs[$i];
 			    }
-			    elseif($ratio >= 1.2 && $ratio <= 1.4){
+			    elseif($ratio > 1.1 && $ratio <= 1.4){
 				    $imgs[$i]['col'] = 'col-8';
 				    $col8[] = $imgs[$i];
 			    }
-			    elseif($ratio >= 1.5 && $ratio <= 1.7){
+			    elseif($ratio > 1.4 && $ratio <= 1.7){
 				    $imgs[$i]['col'] = 'col-9';
 				    $col9[] = $imgs[$i];
 			    }
-			    elseif($ratio >= 1.7){
+			    elseif($ratio > 1.7){
 				    $imgs[$i]['col'] = 'col-12';
 				    $col12[] = $imgs[$i];
 			    }
@@ -682,16 +682,60 @@ function get_portfolio($args = null){
 				$current = array_shift($col8);
 				$current['col'] = 'col-6';
 				$next = array(3,4,6,8,9,12);
-			} 
+			}
+			// if last col9
+			elseif(!empty($col9) && empty($col3) && count($col9) == 3 && $rowend) {
+				$rowstart = true;
+				$rowend = false;
+				$prev = 9;
+				$current = array_shift($col9);
+				$current['col'] = 'col-4';
+				$next = array(9);
+			}// if last col9
+			elseif(!empty($col9) && empty($col3) && count($col9) == 2 && $rowstart && !$rowend) {
+				$rowstart = false;
+				$rowend = false;
+				$prev = 9;
+				$current = array_shift($col9);
+				$current['col'] = 'col-4';
+				$next = array(9);
+			}// if last col9
+			elseif(!empty($col9) && empty($col3) && count($col9) == 1 && !$rowstart && !$rowend) {
+				$rowstart = false;
+				$rowend = true;
+				$prev = 9;
+				$current = array_shift($col9);
+				$current['col'] = 'col-4';
+				$next = array(9);
+			}
+			// if col9 but no col 3s
+			elseif(!empty($col9) && empty($col3) && !$rowstart) {
+				$rowstart = true;
+				$rowend = false;
+				$prev = 9;
+				$current = array_shift($col9);
+				$current['col'] = 'col-6';
+				$next = array(6,9);
+			}
+			// if col9 but no col 3s
+			elseif(!empty($col9) && empty($col3) && $rowstart) {
+				$rowstart = false;
+				$rowend = true;
+				$prev = 9;
+				$current = array_shift($col9);
+				$current['col'] = 'col-6';
+				$next = array(3,4,6,8,9,12);
+			}
 			
 			
-			if ($rowstart){ $html .= '<div class="container_inner fixed_columns ';
+			if ($rowstart){ 
+				$html .= '<div class="container_inner fixed_columns ';
 				$html .= ($rowdirection)?'row_reverse">':'">';
 			}
 			
 			$html .= '<div id="pfi'.$current['id'].'" class="flex-item '.$current['col'].' '.$current['isolate'].'">';
 			$html .= '<a href="'.$current['href'].'">';
-			$html .= '<amp-img src='.$current['src'].' layout="responsive" width="'.$current['width'].'" height="'.$current['height'].'"></amp-img>';
+			$html .= '<amp-img src="'.$current['src'].'" layout="responsive" width="'.$current['width'].'" height="'.$current['height'].'"></amp-img>';
 			$html .= '</a>';
 			$html .= '</div>';
 			if ($rowend) $html .= '</div>';

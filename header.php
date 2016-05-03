@@ -66,7 +66,9 @@ if(!$hiilite_options['subpage']):
 <meta name="description" content="<?=$page_description?>">
 <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
 <link rel="shortcut icon" href="<?=get_theme_mod('favicon');?>"> 
-
+<link rel="mask-icon" href="<?=get_bloginfo('template_url') ?>/images/website_icon.svg" color="#ef5022">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta property="op:markup_version" content="v1.0">
 <meta property="og:title" content="<?=$page_title?>">
 <?php 

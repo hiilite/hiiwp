@@ -335,62 +335,6 @@ function enqueue_less_styles($tag, $handle) {
 
 
 
-
-add_action('cmb2_init', 'cmb2_portfolio_metaboxes');
-function cmb2_portfolio_metaboxes(){
-	//$prefix = '_hiilite_';
-	//////////////////////////////////
-	// Generic Options for all posts
-	/////////////////////////////////
-    $cmb = new_cmb2_box( array(
-        'id'            => 'portfolio_options',
-        'title'         => 'Portfolio Options',
-        'object_types'  => array( 'portfolio' ), // post type
-        'context'       => 'normal', // 'normal', 'advanced' or 'side'
-        'priority'      => 'high', // 'high', 'core', 'default' or 'low'
-        'show_names'    => true, // show field names on the left
-        'cmb_styles'    => true, // false to disable the CMB stylesheet
-        'closed'        => false, // keep the metabox closed by default
-    ) );
-    $cmb->add_field( array(
-	    'name' => 'Isolated Image',
-	    'id'   => 'isolated',
-	    'type' => 'checkbox',
-	    'default' => false
-	) );
-	$cmb->add_field( array(
-	    'name'    => 'Anchor Isolated Image',
-	    'id'      => 'anchor_to',
-	    'type'    => 'radio_inline',
-	    'default' => 'center',
-	    'options' => array(
-	        'top-left' 	=> __( 'Top Left', 'hiilite' ),
-	        'top' 		=> __( 'Top', 'hiilite' ),
-	        'top-right' => __( 'Top Right', 'hiilite' ),
-	        'left' 		=> __( 'Left', 'hiilite' ),
-			'center' 	=> __( 'Center', 'hiilite' ),
-			'right' 	=> __( 'Right', 'hiilite' ),
-			'bottom-left'=> __( 'Bottom Left', 'hiilite' ),
-			'bottom' 	=> __( 'Bottom', 'hiilite' ),
-			'bottom-right'=> __( 'Bottom Right', 'hiilite' ),
-	    ),
-	) );
-	$cmb->add_field( array(
-	    'name'    => 'Background',
-	    'id'      => 'background_color',
-	    'type'    => 'colorpicker',
-	    'default' => '#ffffff',
-	) );
-	$cmb->add_field( array(
-	    'name'    => 'Minimum Padding',
-	    'id'      => 'min_padding',
-	    'type'    => 'text',
-	    'default' => '',
-	) );
-}
-
-
-
 add_action('cmb2_admin_init', 'cmb2_post_metaboxes');
 function cmb2_post_metaboxes(){
 	//////////////////////////////////
@@ -468,6 +412,137 @@ function page_options_meta_box()
         'high' // priority, where should this go in the context?
     );
 }
+
+
+
+
+
+add_action('cmb2_init', 'cmb2_portfolio_metaboxes');
+function cmb2_portfolio_metaboxes(){
+	//$prefix = '_hiilite_';
+	//////////////////////////////////
+	// Portfolio for all posts
+	/////////////////////////////////
+    $cmb = new_cmb2_box( array(
+        'id'            => 'portfolio_options',
+        'title'         => 'Portfolio Options',
+        'object_types'  => array( 'portfolio' ), // post type
+        'context'       => 'normal', // 'normal', 'advanced' or 'side'
+        'priority'      => 'high', // 'high', 'core', 'default' or 'low'
+        'show_names'    => true, // show field names on the left
+        'cmb_styles'    => true, // false to disable the CMB stylesheet
+        'closed'        => false, // keep the metabox closed by default
+    ) );
+    $cmb->add_field( array(
+	    'name' => 'Isolated Image',
+	    'id'   => 'isolated',
+	    'type' => 'checkbox',
+	    'default' => false
+	) );
+	$cmb->add_field( array(
+	    'name'    => 'Anchor Isolated Image',
+	    'id'      => 'anchor_to',
+	    'type'    => 'radio_inline',
+	    'default' => 'center',
+	    'options' => array(
+	        'top-left' 	=> __( 'Top Left', 'hiilite' ),
+	        'top' 		=> __( 'Top', 'hiilite' ),
+	        'top-right' => __( 'Top Right', 'hiilite' ),
+	        'left' 		=> __( 'Left', 'hiilite' ),
+			'center' 	=> __( 'Center', 'hiilite' ),
+			'right' 	=> __( 'Right', 'hiilite' ),
+			'bottom-left'=> __( 'Bottom Left', 'hiilite' ),
+			'bottom' 	=> __( 'Bottom', 'hiilite' ),
+			'bottom-right'=> __( 'Bottom Right', 'hiilite' ),
+	    ),
+	) );
+	$cmb->add_field( array(
+	    'name'    => 'Background',
+	    'id'      => 'background_color',
+	    'type'    => 'colorpicker',
+	    'default' => '#ffffff',
+	) );
+	$cmb->add_field( array(
+	    'name'    => 'Minimum Padding',
+	    'id'      => 'min_padding',
+	    'type'    => 'text',
+	    'default' => '',
+	) );
+}
+
+
+add_action('cmb2_init', 'cmb2_menu_metaboxes');
+function cmb2_menu_metaboxes(){
+	//////////////////////////////////
+	// Menu for all posts
+	/////////////////////////////////
+    $cmb = new_cmb2_box( array(
+        'id'            => 'menu_options',
+        'title'         => 'Menu Item Details',
+        'object_types'  => array( 'menu' ), // post type
+        'context'       => 'advanced', // 'normal', 'advanced' or 'side'
+        'priority'      => 'high', // 'high', 'core', 'default' or 'low'
+        'show_names'    => true, // show field names on the left
+        'cmb_styles'    => true, // false to disable the CMB stylesheet
+        'closed'        => false, // keep the metabox closed by default
+    ) );
+    $cmb->add_field( array(
+	    'name' => 'Ingredients',
+	    'id' => 'ingredients',
+	    'type' => 'textarea_small'
+	) );
+	$cmb->add_field( array(
+	    'name'    => 'Price',
+	    'desc'    => '(ex: $9.99/per, $ 9.99 each, 9.99)',
+	    'id'      => 'price',
+	    'type'    => 'text_small'
+	) );
+	$cmb->add_field( array(
+	    'name'    => 'Notes',
+	    'desc'    => '(ex: *Below served with your choice of daily soup, salad, or fries)',
+	    'id'      => 'notes',
+	    'type'    => 'text'
+	) );
+	
+	
+	
+	$group_field_id = $cmb->add_field( array(
+	    'id'          => 'addons',
+	    'type'        => 'group',
+	    // 'repeatable'  => false, // use false if you want non-repeatable group
+	    'options'     => array(
+	        'group_title'   => __( 'Addon {#}', 'hiilite' ), // since version 1.1.4, {#} gets replaced by row number
+	        'add_button'    => __( 'Add Another', 'hiilite' ),
+	        'remove_button' => __( 'Remove', 'hiilite' ),
+	        'sortable'      => true, // beta
+	        // 'closed'     => true, // true to have the groups closed by default
+	    ),
+	) );
+	// Id's for group's fields only need to be unique for the group. Prefix is not needed.
+	$cmb->add_group_field( $group_field_id, array(
+	    'name' => 'Text',
+	    'id'   => 'addons_text',
+	    'type' => 'text_medium',
+	    //'repeatable' => true, // Repeatable fields are supported w/in repeatable groups (for most types)
+	) );
+	$cmb->add_group_field( $group_field_id, array(
+	    'name' => '$',
+	    'id'   => 'addons_price',
+	    'type' => 'text_small',
+	) );
+	
+	$cmb->add_field( array(
+	    'name' => 'Show Add Ons Prefix',
+	    'id' => 'show_addons_prefix',
+		'desc' => 'Show the word "Add on" before the addons',
+	    'type' => 'checkbox',
+	    'default' => true
+	) );
+}
+
+
+
+
 
 
 

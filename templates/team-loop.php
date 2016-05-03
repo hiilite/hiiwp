@@ -19,7 +19,7 @@ if($hiilite_options['amp']) $_amp = 'amp-'; else $_amp = '';
 	</figure><?php endif; ?>
 	<div class="flex-item full-width content-box align-center">
 		<h3><a href="<?=get_the_permalink()?>"><?php the_title(); ?></a></h3>
-		<span itemprop="articleSection" class="labels"><span rel="category tag"><?php 
+		<span itemprop="articleSection" class="labels"><span class="category tag"><?php 
 			$terms = get_the_terms( $post->id, 'position');
 			if($terms)echo $terms[0]->name;
 			?></span></span>

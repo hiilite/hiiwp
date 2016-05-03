@@ -85,6 +85,29 @@ Kirki::add_field( 'hiiwp', array(
     'priority'    => 1,
 ) );
 Kirki::add_field( 'hiiwp', array(
+	'type'        => 'radio-buttonset',
+	'settings'    => 'blog_heading_size',
+	'label'       => esc_attr__( 'Title Size', 'my_textdomain' ),
+	'section'     => 'blog_section',
+	'default'     => 'h2',
+	'priority'    => 1,
+	'choices'     => array(
+		'h1'    => 'h1',
+		'h2'    => 'h2',
+		'h3'	=> 'h3',
+		'h4'	=> 'h4',
+		'h5'	=> 'h5',
+		'h6'	=> 'h6',
+	),
+	'required'	=> array(
+		array(
+			'setting'  => 'blog_title_on',
+			'operator' => '==',
+			'value'    => true,
+		),
+	),
+) );
+Kirki::add_field( 'hiiwp', array(
     'type'        => 'switch',
     'settings'    => 'blog_cats_on',
     'label'       => __( 'Show Category', 'my_textdomain' ),
