@@ -165,3 +165,10 @@ a:hover, a:active {
 	padding-right: 1em;
 	
 }
+
+.cmb2-metabox-description {
+	padding-bottom: 0 !important;
+}
+#side-sortables .cmb2-wrap>.cmb-field-list>.cmb-row, .inner-sidebar .cmb2-wrap>.cmb-field-list>.cmb-row {
+    padding: 1em 0 !important;
+}

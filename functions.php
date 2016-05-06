@@ -244,10 +244,12 @@ function disable_emojicons_tinymce( $plugins ) {
 // REPLACE rel_canonical to load on all pages
 function rel_canonical_with_custom_tag_override()
 {
-    global $wp_the_query;
-    if( !$id = $wp_the_query->get_queried_object_id() )
+    global $wp_the_query, $post;
+    if( !$id = $wp_the_query->get_queried_object_id() ) {
         $link = get_permalink( $id );
-    else {
+    } elseif(get_post_meta( $post->ID, 'article_canonical_link', true) != '') {
+	    $link = get_post_meta( $post->ID, 'article_canonical_link', true);
+    } else {
 	    $link = "https://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
     }
     	
@@ -411,6 +413,45 @@ function page_options_meta_box()
         'normal', // context (where on the screen
         'high' // priority, where should this go in the context?
     );
+}
+
+
+add_action('cmb2_admin_init', 'cmb2_blog_metaboxes');
+function cmb2_blog_metaboxes(){
+	//////////////////////////////////
+	// Generic Options for all posts
+	/////////////////////////////////
+    $cmb = new_cmb2_box( array(
+        'id'            => 'blog_options',
+        'title'         => 'Blog Post Options',
+        'object_types'  => array( 'post' ), // post type
+        'context'       => 'side', // 'normal', 'advanced' or 'side'
+        'priority'      => 'high', // 'high', 'core', 'default' or 'low'
+        'show_names'    => false, // show field names on the left
+        'cmb_styles'    => true, // false to disable the CMB stylesheet
+        'closed'        => false, // keep the metabox closed by default
+    ) );
+    $cmb->add_field( array(
+	    'name'    => 'Source Site',
+	    'desc'    => 'Source Site',
+	    'default' => '',
+	    'id'      => 'source_site_title',
+	    'type'    => 'text_medium'
+	) );
+	$cmb->add_field( array(
+	    'name'    => 'Source Site URL',
+	    'desc'    => 'Source Site URL',
+	    'default' => '',
+	    'id'      => 'source_article_link',
+	    'type'    => 'text_url'
+	) );
+	$cmb->add_field( array(
+	    'name'    => 'Canonical URL',
+	    'desc'    => 'Canonical URL',
+	    'default' => '',
+	    'id'      => 'article_canonical_link',
+	    'type'    => 'text_url'
+	) );
 }
 
 

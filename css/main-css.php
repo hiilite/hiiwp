@@ -39,60 +39,44 @@ h1,h2,h3,h4,h5,h6,.h1,.h2 {
 	line-height:1.5;
 	margin-top: 0;
 }
-h1,.h1 {
-	<?php 
-	foreach($hiilite_options['typography_h1_font'] as $key => $value){
+<?php 
+//////////////////////
+//
+//	Generate Heading tags
+//
+//////////////////////
+for($h=1;$h<=6;$h++):
+	echo "h$h,.h$h {";
+	foreach($hiilite_options['typography_h'.$h.'_font'] as $key => $value){
 		if($value != ' ' && $value != '' && $value != 'px'){
 			echo ($key == 'variant')?'font-weight:'.$value.';':$key.':'.$value.';';
 		}
 	}
-	?>
+	echo '}';
+endfor; ?>
+@media (max-width:768px){
+<?php 
+for($h=1;$h<=6;$h++):
+	$font_size = preg_match('!\d+!', $hiilite_options['typography_h'.$h.'_font']['font-size'],$fs_int);
+	$font_unit = preg_replace("/[^a-zA-Z]+/", "", $hiilite_options['typography_h'.$h.'_font']['font-size']);
+	if($font_size && $font_unit){
+	echo "h$h,.h$h {";
+	echo 'font-size:'. ($fs_int[0]* 0.8).$font_unit;
+	echo '}';
+	}
+endfor; ?>
 }
-h2, .h2 {
-	<?php 
-	foreach($hiilite_options['typography_h2_font'] as $key => $value){
-		if($value != ' ' && $value != '' && $value != 'px'){
-			echo ($key == 'variant')?'font-weight:'.$value.';':$key.':'.$value.';';
-		}
+@media (max-width:550px){
+<?php 
+for($h=1;$h<=6;$h++):
+	$font_size = preg_match('!\d+!', $hiilite_options['typography_h'.$h.'_font']['font-size'],$fs_int);
+	$font_unit = preg_replace("/[^a-zA-Z]+/", "", $hiilite_options['typography_h'.$h.'_font']['font-size']);
+	if($font_size && $font_unit){
+	echo "h$h,.h$h {";
+	echo 'font-size:'. ($fs_int[0]* 0.7).$font_unit;
+	echo '}';
 	}
-	?>
-}
-h3 {
-	<?php 
-	foreach($hiilite_options['typography_h3_font'] as $key => $value){
-		if($value != ' ' && $value != '' && $value != 'px'){
-			echo ($key == 'variant')?'font-weight:'.$value.';':$key.':'.$value.';';
-		}
-	}
-	?>
-}
-h4 {
-	<?php 
-	foreach($hiilite_options['typography_h4_font'] as $key => $value){
-		if($value != ' ' && $value != '' && $value != 'px'){
-			echo ($key == 'variant')?'font-weight:'.$value.';':$key.':'.$value.';';
-		}
-	}
-	?>
-}
-
-h5 {
-	<?php 
-	foreach($hiilite_options['typography_h5_font'] as $key => $value){
-		if($value != ' ' && $value != '' && $value != 'px'){
-			echo ($key == 'variant')?'font-weight:'.$value.';':$key.':'.$value.';';
-		}
-	}
-	?>
-}
-h6 {
-	<?php 
-	foreach($hiilite_options['typography_h6_font'] as $key => $value){
-		if($value != ' ' && $value != '' && $value != 'px'){
-			echo ($key == 'variant')?'font-weight:'.$value.';':$key.':'.$value.';';
-		}
-	}
-	?>
+endfor; ?>
 }
 .clearfix:before,
 .clearfix:after {
@@ -105,22 +89,8 @@ table td {
 	vertical-align: top;
 }
 /* CONTAINERS */
-.wrapper {
-	width: 100%;
-}
-.wrapper_inner {
+.wrapper, .wrapper_inner {
 	width:100%;
-	overflow-y: auto;
-	overflow-x: hidden;
-		flex-direction: column;
-	min-height: 100vh;
-	align-content: space-around;
-
-	perspective: 1px;
-	perspective-origin-x: 100%;
-	transform-style: preserve-3d;
-	position: relative;
-	height: 100%;
 }
 
 .container_inner, .in_grid {
@@ -267,7 +237,7 @@ header.centered #main-nav {
 	padding:1em;
 }
 .flex-item {
-	flex: 1 auto;
+	flex: 1 1 auto;
 }
 
 
@@ -423,64 +393,44 @@ ul.sub-menu {
 	min-width: 100%;
 }
 .full-width,.threequarter-width,.half-width,.third-width,.twothird-width,.quarter-width,
-.col-12,.col-9,.col-8,.col-6,.col-4,.col-3,.col-1 {
+.col-12,.col-9,.col-7,.col-8,.col-6,.col-4,.col-3,.col-2,.col-1 {
     box-sizing: border-box;
+    min-width: 100px;
+    margin: auto;
 }
-.full-width, .col-12 {
-	width: 100%;
+<?php 
+$alt_cols =	array(false,false,false,'quarter-width','third-width',false,'half-width',false,'twothird-width','threequarter-width',false,false,'full-width');
+$col_4 = ($hiilite_options['grid_width'] / 3) + 1;
+for($i = 12; $i>0;$i--){
+	echo '.col-'.$i;
+	echo ($alt_cols[$i])?', .'.$alt_cols[$i]:'';
+	echo '{';
+		$perc_ratio = (($i/12)*100) - 0.1;
+		echo 'max-width:'.$perc_ratio.'em;';
+		echo 'width:'.$perc_ratio.'%;';
+		$min_width = ($i>5)?'320':'160';
+		//echo 'min-width:'.$min_width.'px;';
+		echo 'flex:1 1 '.$perc_ratio.'%;';
+		//echo 'flex:1 1 '.(($hiilite_options['grid_width']*(($i-1)/12)) + 1).'px;';
+	echo '}';
+} 
+?>
+@media (max-width:550px){
+<?php
+for($i = 12; $i>0;$i--){
+	echo '.col-'.$i;
+	echo ($alt_cols[$i])?', .'.$alt_cols[$i]:'';
+	echo '{';
+		$perc_ratio = (($i/12)*100);
+		echo 'width:'.$perc_ratio.'%;';
+		$min_width = ($i>3)?'320':'160';
+		echo 'flex:1 1 '.$min_width.'px;';
+	echo '}';
+} 	
+?>	
 }
-.threequarter-width, .col-9 {
-	min-width: 320px;
-	max-width: 76em;
-	width: 75%;
-	margin: auto;
-	flex: 1 75%;
-}
-.twothird-width , .col-8{
-	min-width: 320px;
-	max-width: 66em;
-	width: 66.66%;
-	margin: auto;
-	flex: 1 66.6%;
-}
-.col-7 {
-	min-width: 18em;
-	max-width: 50em;
-	width: 58.33%;
-	margin: auto;
-	flex: 1 58.33%;
-}
-.half-width, .col-6 {
-	min-width: 18em;
-	max-width: 50em;
-	width: 50%;
-	margin: auto;
-	flex: 1 50%;
-}
-.third-width, .col-4 {
-	min-width: 17em;
-	max-width: 33em;
-	width: 33.33%;
-	margin: auto;
-	flex: 1 33.3%;
-}
-.quarter-width, .col-3 {
-	min-width: 9em;
-	max-width: 25em;
-	width: 25%;
-	margin: auto;
-	flex: 1 25%;
-}
-.col-2 {
-	min-width: 10em;
-	max-width: 25em;
-	width: 16.67%;
-	margin: auto;
-	flex: 1 16.67%;
-}
-.col-1 {
-	width: 8.33%;
-}
+
+
 
 .fixed_columns .flex-item {
 	min-width: 0;
@@ -715,30 +665,6 @@ input,textarea {padding: 1em;border: 1px solid gray; font-size: 1rem;}
 
 #disqus_thread {
 	width: 100%;
-}
-
-
-/* PARALLAX */
-.vc_row-parallax {	
-	position: relative;
-	width: 100%;
-	transform-style: preserve-3d;
-	z-index: -1;
-}
-.vc_row-parallax .parallax-image img {
-	height: auto;
-}
-
-.vc_row-parallax .parallax-image {
-	content: '';
-	position: absolute;
-	
-	bottom: 0;
-	left: 0;
-	right: 0;
-	min-width: 100vw;
-	transform: translateZ(-1px) scale(2);
-	
 }
 
 
