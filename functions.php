@@ -43,6 +43,7 @@ require_once( dirname( __FILE__ ) . '/includes/shortcodes/button.php');
 require_once( dirname( __FILE__ ) . '/includes/shortcodes/title.php');
 require_once( dirname( __FILE__ ) . '/includes/shortcodes/social-share.php');
 require_once( dirname( __FILE__ ) . '/includes/shortcodes/social-profiles.php');
+require_once( dirname( __FILE__ ) . '/includes/shortcodes/media-gallery.php');
 
 require_once( dirname( __FILE__ ) . '/includes/wp_login_screen.php');
 require_once( dirname( __FILE__ ) . '/includes/wp_admin_dashboard.php');

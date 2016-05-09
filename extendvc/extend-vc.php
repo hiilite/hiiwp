@@ -28,17 +28,17 @@ vc_remove_element("vc_pie");
 vc_remove_element("vc_posts_slider");
 vc_remove_element("vc_toggle");
 
-vc_remove_element("vc_facebook");
-vc_remove_element("vc_tweetmeme");
-vc_remove_element("vc_googleplus");
-vc_remove_element("vc_pinterest");
-vc_remove_element("vc_flickr");
-vc_remove_element("vc_empty_space");
+//vc_remove_element("vc_facebook");
+//vc_remove_element("vc_tweetmeme");
+//vc_remove_element("vc_googleplus");
+//vc_remove_element("vc_pinterest");
+//vc_remove_element("vc_flickr");
+//vc_remove_element("vc_empty_space");
 
 vc_remove_element("vc_images_carousel");
 //vc_remove_element("vc_posts_grid");
 vc_remove_element("vc_carousel");
-vc_remove_element("vc_cta");
+//vc_remove_element("vc_cta");
 vc_remove_element("vc_round_chart");
 vc_remove_element("vc_line_chart");
 vc_remove_element("vc_tta_accordion");
@@ -49,10 +49,12 @@ vc_remove_element("vc_tta_tabs");
 vc_remove_element('vc_media_grid');
 vc_remove_element('vc_masonry_grid');
 vc_remove_element('vc_masonry_media_grid');
-vc_remove_element('vc_icon');
+//vc_remove_element('vc_icon');
 vc_remove_element('vc_button2');
 vc_remove_element("vc_custom_heading");
 //vc_remove_element("vc_btn");
+
+vc_remove_element('vc_gallery');
 
 // Title
 vc_map( array(
@@ -353,6 +355,25 @@ vc_map( array(
 		)
 ) );
 
+// Social Share
+vc_map( array(
+		"name" => "Media Gallery",
+		"base" => "media-gallery",
+		"category" => 'by Hiilite',
+		"description" => "Show links to all social profiles listed in Business Profiles",
+		"icon" => "icon-wpb-images-stack",
+		"allowed_container_element" => 'vc_row',
+		"params" => array(
+			array(
+				"type" => "attach_images",
+				"holder" => "div",
+				"class" => "",
+				"heading" => "Images",
+				"param_name" => "media_grid_images"
+			),
+		)
+	)
+);
 
 // Social Share
 vc_map( array(

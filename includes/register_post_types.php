@@ -35,22 +35,22 @@ function hii_post_type_init() {
 	
 		$args = array(
 			'labels'             => $labels,
-	                'description'        => __( 'Description.', 'hiilite' ),
+	        'description'        => __( 'Description.', 'hiilite' ),
 			'public'             => true,
 			'publicly_queryable' => true,
 			'show_ui'            => true,
 			'show_in_menu'       => true,
 			'query_var'          => true,
-			'rewrite'            => array( 'slug' => 'portfolio' ),
+			'rewrite'            => array( 'slug' => get_theme_mod( 'portfolio_slug', 'portfolio' ) ),
 			'capability_type'    => 'post',
 			'has_archive'        => true,
-			'hierarchical'       => false,
+			'hierarchical'       => true,
 			'menu_position'      => 6,
 			'menu_icon'			 => 'dashicons-format-image',
 			'supports'           => array( 'title', 'editor', 'author', 'thumbnail', 'excerpt', 'comments' )
 		);
 	
-		register_post_type( 'portfolio', $args );
+		register_post_type( get_theme_mod( 'portfolio_slug', 'portfolio' ), $args );
 		
 		
 		// Add new taxonomy, make it hierarchical (like categories)
@@ -78,7 +78,7 @@ function hii_post_type_init() {
 	    );
 	 
 	    register_taxonomy( 'work', array( 'portfolio' ), $args );
-
+		flush_rewrite_rules();
 	}
 
 	////////////////////////
@@ -424,58 +424,62 @@ function get_portfolio($args = null){
 	$hiilite_options['portfolio_show_filter'] = get_theme_mod( 'portfolio_show_filter', true );
 	$html = '';
 	$css = '';
+	$slug = get_theme_mod( 'portfolio_slug', 'portfolio' );
 	
-	$args = ($args==null)?array('post_type'=>'portfolio','posts_per_page'=> -1,'nopaging'=>true,'order'=>'ASC','orderby'=>'menu_order'):$args;
+	$args = ($args==null)?array('post_type'=>$slug,'posts_per_page'=> -1,'nopaging'=>true,'order'=>'ASC','orderby'=>'menu_order'):$args;
+	
 	$query = new WP_Query($args);
+	$images = array();
+    
+    
 	if($query->have_posts()):
-	$html .= '<div class="row">';
-		if($hiilite_options['portfolio_show_filter'] == true){
-			$taxonomy_objects = get_terms('work');
-			$html .= '<div class="flex-item align-center col-12 text-block labels">';
-			foreach($taxonomy_objects as $cat){
-				$html .= '<a href="/work/'.$cat->slug.'">'.$cat->name.'</a> ';
+    
+		if($args['post_type'] == $slug):
+			$html .= '<div class="row">';
+			if($hiilite_options['portfolio_show_filter'] == true){
+				$taxonomy_objects = get_terms('work');
+				$html .= '<div class="flex-item align-center col-12 text-block labels">';
+				foreach($taxonomy_objects as $cat){
+					$html .= '<a href="/work/'.$cat->slug.'">'.$cat->name.'</a> ';
+				}
+				$html .= '</div>';
 			}
-			$html .= '</div>';
-		}
+		endif;
+		
 		$imgs = $col2 = $col3 = $col4 = $col6 = $col8 = $col9 = $col12 = array();
 		$i = 0;
-	while($query->have_posts()):
-		$query->the_post();
 		
-		if ( has_post_thumbnail() ) {
-		    $image = wp_get_attachment_image_src( get_post_thumbnail_id( get_the_id() ), 'large' );
-		    $imgs[$i]['src'] 	= $image[0];
-		    $imgs[$i]['width'] 	= $image[1];
-		    $imgs[$i]['height'] = $image[2];
-		    $imgs[$i]['ratio'] 	= $ratio = round($image[1] / $image[2],4);
-		    $imgs[$i]['id'] 	= get_the_id();
-		    $imgs[$i]['href'] 	= get_the_permalink();
-		    $imgs[$i]['background_color'] 	= get_post_meta( get_the_ID(), 'background_color', true );
-		    $imgs[$i]['isolate']= (get_post_meta( get_the_ID(), 'isolated', true ) == 'on')?'align-'.get_post_meta( get_the_ID(), 'anchor_to', true ):'';
-		    $imgs[$i]['min_padding'] = $minpad = get_post_meta( get_the_ID(), 'min_padding', true );
-		    $padding ='';
-		    if($minpad != ''):
-			    $padding = 'padding:';
-			    if($imgs[$i]['isolate'] == 'align-top-left') 	$padding .= '0 '.$minpad.' 0 '.$minpad;
-			    elseif($imgs[$i]['isolate'] == 'align-top') 	$padding .= '0 '.$minpad.' '.$minpad.' '.$minpad;
-			    elseif($imgs[$i]['isolate'] == 'align-top-right') 	$padding .= '0 0 '.$minpad.' '.$minpad;
-			    elseif($imgs[$i]['isolate'] == 'align-left') 	$padding .= $minpad.' '.$minpad.' '.$minpad.' 0';
-			    elseif($imgs[$i]['isolate'] == 'align-center') 	$padding .= $minpad;
-			    elseif($imgs[$i]['isolate'] == 'align-right') 	$padding .= $minpad.' 0 '.$minpad.' '.$minpad;
-			    elseif($imgs[$i]['isolate'] == 'align-bottom-left') $padding .= $minpad.' '.$minpad.' 0 0';
-			    elseif($imgs[$i]['isolate'] == 'align-bottom') 	$padding .= $minpad.' '.$minpad.' 0 '.$minpad;
-			    elseif($imgs[$i]['isolate'] == 'align-bottom-right')$padding .= $minpad.' 0 0 '.$minpad;
-			    $padding .= ';';
-		    endif;
+	    /*foreach ( $query->posts as $image) {
+	        $images[]= $image->guid;
+	    }
+	    print_r($images);*/
+	    
+	    
+	    //////////////////////////
+	    //
+	    //	if attachment
+	    //
+	    //////////////////////////
+	    if($args['post_type'] == 'attachment'):
 		    
-		    $css .= '#pfi'.get_the_id().'{flex:'.$ratio.';background:'.$imgs[$i]['background_color'].';'.$padding.'}';
-		    
-		    if($ratio < 0.4){
-			    $imgs[$i]['col'] = 'col-2';
-			    $col2[] = $imgs[$i];
-		    }
-		    elseif($ratio >= 0.4 && $ratio <=0.5){
-			    $imgs[$i]['col'] = 'col-3';
+		    foreach ( $query->posts as $attachment) :
+	        	$image = wp_get_attachment_image_src( $attachment->ID, 'large' );
+				
+				$imgs[$i]['src'] 	= $image[0];
+			    $imgs[$i]['width'] 	= $image[1];
+			    $imgs[$i]['height'] = $image[2];
+			    $imgs[$i]['ratio'] 	= $ratio = round($image[1] / $image[2],4);
+			    $imgs[$i]['id'] 	= $attachment->ID;
+			    $imgs[$i]['href'] 	= $image[0];
+	        	
+	        	$css .= '#pfi'.($attachment->ID).'{flex:'.$ratio.';}';
+			
+				if($ratio < 0.4) {
+				    $imgs[$i]['col'] = 'col-2';
+				    $col2[] = $imgs[$i];
+			    }
+			    elseif($ratio >= 0.4 && $ratio <=0.5){
+				   $imgs[$i]['col'] = 'col-3';
 				    $col3[] = $imgs[$i];
 			    }
 			    elseif($ratio > 0.5 && $ratio <= 0.8){
@@ -497,11 +501,83 @@ function get_portfolio($args = null){
 			    elseif($ratio > 1.7){
 				    $imgs[$i]['col'] = 'col-12';
 				    $col12[] = $imgs[$i];
-			    }
-			}
+				}
 				
-			$i++;
-		endwhile;
+				$i++;	
+				   
+	    	endforeach;
+		//////////////////////////
+	    //
+	    //	if regular post with feature image
+	    //
+	    //////////////////////////	
+		else:
+	    
+			while($query->have_posts()):
+				$query->the_post();
+				if ( has_post_thumbnail() ) {
+					
+					$image = wp_get_attachment_image_src( get_post_thumbnail_id( get_the_id() ), 'large' );
+				    
+				    $imgs[$i]['src'] 	= $image[0];
+				    $imgs[$i]['width'] 	= $image[1];
+				    $imgs[$i]['height'] = $image[2];
+				    $imgs[$i]['ratio'] 	= $ratio = round($image[1] / $image[2],4);
+				    $imgs[$i]['id'] 	= get_the_id();
+				    $imgs[$i]['href'] 	= get_the_permalink();
+				    $imgs[$i]['background_color'] 	= get_post_meta( get_the_ID(), 'background_color', true );
+				    $imgs[$i]['isolate']= (get_post_meta( get_the_ID(), 'isolated', true ) == 'on')?'align-'.get_post_meta( get_the_ID(), 'anchor_to', true ):'';
+				    $imgs[$i]['min_padding'] = $minpad = get_post_meta( get_the_ID(), 'min_padding', true );
+				    $padding ='';
+				    if($minpad != ''):
+					    $padding = 'padding:';
+					    if($imgs[$i]['isolate'] == 'align-top-left') 	$padding .= '0 '.$minpad.' 0 '.$minpad;
+					    elseif($imgs[$i]['isolate'] == 'align-top') 	$padding .= '0 '.$minpad.' '.$minpad.' '.$minpad;
+					    elseif($imgs[$i]['isolate'] == 'align-top-right') 	$padding .= '0 0 '.$minpad.' '.$minpad;
+					    elseif($imgs[$i]['isolate'] == 'align-left') 	$padding .= $minpad.' '.$minpad.' '.$minpad.' 0';
+					    elseif($imgs[$i]['isolate'] == 'align-center') 	$padding .= $minpad;
+					    elseif($imgs[$i]['isolate'] == 'align-right') 	$padding .= $minpad.' 0 '.$minpad.' '.$minpad;
+					    elseif($imgs[$i]['isolate'] == 'align-bottom-left') $padding .= $minpad.' '.$minpad.' 0 0';
+					    elseif($imgs[$i]['isolate'] == 'align-bottom') 	$padding .= $minpad.' '.$minpad.' 0 '.$minpad;
+					    elseif($imgs[$i]['isolate'] == 'align-bottom-right')$padding .= $minpad.' 0 0 '.$minpad;
+					    $padding .= ';';
+				    endif;
+				    
+				    $css .= '#pfi'.get_the_id().'{flex:'.$ratio.';background:'.$imgs[$i]['background_color'].';'.$padding.'}';
+				    
+				    if($ratio < 0.4) {
+					    $imgs[$i]['col'] = 'col-2';
+					    $col2[] = $imgs[$i];
+				    }
+				    elseif($ratio >= 0.4 && $ratio <=0.5){
+					    $imgs[$i]['col'] = 'col-3';
+					    $col3[] = $imgs[$i];
+				    }
+				    elseif($ratio > 0.5 && $ratio <= 0.8){
+					    $imgs[$i]['col'] = 'col-4';
+					    $col4[] = $imgs[$i];
+				    }
+				    elseif($ratio > 0.8 && $ratio <=1.1){
+					    $imgs[$i]['col'] = 'col-6';
+					    $col6[] = $imgs[$i];
+				    }
+				    elseif($ratio > 1.1 && $ratio <= 1.4){
+					    $imgs[$i]['col'] = 'col-8';
+					    $col8[] = $imgs[$i];
+				    }
+				    elseif($ratio > 1.4 && $ratio <= 1.7){
+					    $imgs[$i]['col'] = 'col-9';
+					    $col9[] = $imgs[$i];
+				    }
+				    elseif($ratio > 1.7){
+					    $imgs[$i]['col'] = 'col-12';
+					    $col12[] = $imgs[$i];
+				    }
+				}
+				
+				$i++;
+			endwhile;
+		endif; //end if attachment else
 		
 		$prev2 = $prev = 12; 
 		$next = array(12,9,8,6,4,3);
@@ -512,13 +588,14 @@ function get_portfolio($args = null){
 			$current = null;
 			
 			$prev2 = $prev;
-			
+			$debug = null;
 			// if there are 12cols and 12 col is next
-			if(!empty($col12) && in_array(12,$next)){
+			if(!empty($col12) && in_array(12,$next) && $rowend){
 				$rowstart = $rowend = true;
 				$current = array_shift($col12); 
 				$next = array(9,8,6,4,3);
 				$prev = 12;
+				$debug = '12';
 			} 
 			// start col 9, next col 3
 			elseif(!empty($col9) && in_array(9, $next) && !empty($col3)){
@@ -530,6 +607,8 @@ function get_portfolio($args = null){
 				$next = array(3);
 				
 				$rowdirection = ($rowdirection)?false:true;
+				
+				$debug = '9->3';
 			}  
 			// prev col 9 end with col 3
 			elseif(!empty($col3) && in_array(3, $next) && $prev == 9){
@@ -538,6 +617,7 @@ function get_portfolio($args = null){
 				$prev = 3;
 				$current = array_shift($col3);
 				$next = array(3,4,6,8,12);
+				$debug = '3end';
 			} 
 			// start col 8 end with col 4
 			elseif(!empty($col8) && in_array(8, $next) && !empty($col4)){
@@ -548,6 +628,7 @@ function get_portfolio($args = null){
 				
 				$next = array(4);
 				$rowdirection = ($rowdirection)?false:true;
+				$debug = '8->4';
 			} 
 			// prev col 8, end with 4
 			elseif(!empty($col4) && ($prev == 8) && in_array(4, $next) && $rowstart){
@@ -556,6 +637,7 @@ function get_portfolio($args = null){
 				$rowend = true;
 				$prev = 4;
 				$next = array(3,4,6,8,9,12);
+				$debug = '4end';
 			} 
 			// start col 6, end with 6
 			elseif(count($col6) >= 2){
@@ -565,6 +647,7 @@ function get_portfolio($args = null){
 				$prev = 6;
 				$next = array(6,3);
 				$rowdirection = ($rowdirection)?false:true;
+				$debug = '6->6';
 			} 
 			// if prev = 6, end with 6
 			elseif(!empty($col6) && $rowstart && $prev = 6){
@@ -573,44 +656,46 @@ function get_portfolio($args = null){
 				$rowend = true;
 				$prev = 6;
 				$next = array(3,4,6,8,9,12);
+				$debug = '6end';
 			} 
-			
+			// if last col9
+			elseif(empty($col3) && count($col9) == 1 && !$rowstart && !$rowend) {
+				$rowstart = false;
+				$rowend = true;
+				$prev = 9;
+				$current = array_shift($col9);
+				$current['col'] = 'col-4';
+				$next = array(12,9,8,6,4,3);
+				$debug = '9[4]end';
+			}
 			// start with 4 continue with 4 if more then 2 col4s
-			elseif(count($col4) > 2 && !$rowstart){
+			elseif(count($col4) > 2 && !$rowstart && $rowend){
 				$current = array_shift($col4);
-			
 				$rowstart = true;
 				$rowend = false;
 				$prev = 4;
-				
 				$next = array(4);
-				
 				$rowdirection = ($rowdirection)?false:true;
+				$debug = '4r2';
 			} 
 			// continue with 4 if prev was 4 in same row
 			elseif(in_array(4, $next) && $rowstart && !$rowend){
 				$current = array_shift($col4);
-			
 				$rowstart = false;
 				$rowend = false;
 				$prev = 4;
-				
 				$next = array(4);
-				
-				$rowdirection = ($rowdirection)?false:true;
+				$debug = '4p4>4';
 			} 
 			
 			// continue with 4 if prev was 4 in same row and end with 4
 			elseif(in_array(4, $next) && !$rowstart && !$rowend){
 				$current = array_shift($col4);
-			
 				$rowstart = false;
 				$rowend = true;
 				$prev = 4;
-				
 				$next = array(4,3,6,8,9,12);
-				
-				$rowdirection = ($rowdirection)?false:true;
+				$debug = '4end';
 			} 
 			
 			// start with 3, cont with 3 if more then 3
@@ -682,49 +767,57 @@ function get_portfolio($args = null){
 				$current = array_shift($col8);
 				$current['col'] = 'col-6';
 				$next = array(3,4,6,8,9,12);
+				$debug = '8[6]end';
 			}
-			// if last col9
-			elseif(!empty($col9) && empty($col3) && count($col9) == 3 && $rowend) {
+			// if last 3 col9
+			elseif(empty($col3) && count($col9) == 3 && $rowend) {
 				$rowstart = true;
 				$rowend = false;
 				$prev = 9;
 				$current = array_shift($col9);
 				$current['col'] = 'col-4';
 				$next = array(9);
+				$debug = '9[4]->9';
 			}// if last col9
-			elseif(!empty($col9) && empty($col3) && count($col9) == 2 && $rowstart && !$rowend) {
+			elseif(empty($col3) && count($col9) == 2 && $rowstart && !$rowend) {
 				$rowstart = false;
 				$rowend = false;
 				$prev = 9;
 				$current = array_shift($col9);
 				$current['col'] = 'col-4';
 				$next = array(9);
-			}// if last col9
-			elseif(!empty($col9) && empty($col3) && count($col9) == 1 && !$rowstart && !$rowend) {
-				$rowstart = false;
-				$rowend = true;
-				$prev = 9;
-				$current = array_shift($col9);
-				$current['col'] = 'col-4';
-				$next = array(9);
+				$debug = '4p9[4]>9';
 			}
+			// if col9 but no col 3s
+			elseif(!empty($col9) && empty($col3) && $rowend && $rowstart) {
+				$rowstart = true;
+				$rowend = false;
+				$prev = 6;
+				$current = array_shift($col9);
+				$current['col'] = 'col-6';
+				$next = array(6,9);
+				$debug = '9[6]';
+			}
+			
 			// if col9 but no col 3s
 			elseif(!empty($col9) && empty($col3) && !$rowstart) {
 				$rowstart = true;
 				$rowend = false;
-				$prev = 9;
+				$prev = 6;
 				$current = array_shift($col9);
 				$current['col'] = 'col-6';
 				$next = array(6,9);
+				$debug = '9[6]';
 			}
 			// if col9 but no col 3s
 			elseif(!empty($col9) && empty($col3) && $rowstart) {
 				$rowstart = false;
 				$rowend = true;
-				$prev = 9;
+				$prev = 6;
 				$current = array_shift($col9);
 				$current['col'] = 'col-6';
 				$next = array(3,4,6,8,9,12);
+				$debug = '9[6]end';
 			}
 			
 			
@@ -734,6 +827,7 @@ function get_portfolio($args = null){
 			}
 			
 			$html .= '<div id="pfi'.$current['id'].'" class="flex-item '.$current['col'].' '.$current['isolate'].'">';
+			//$html .= $debug;
 			$html .= '<a href="'.$current['href'].'">';
 			$html .= '<amp-img src="'.$current['src'].'" layout="responsive" width="'.$current['width'].'" height="'.$current['height'].'"></amp-img>';
 			$html .= '</a>';

@@ -102,7 +102,7 @@ table td {
 	box-sizing: border-box;
 }
 .row {
-	box-sizing: content-box;
+	box-sizing: border-box;
 }
 .in_grid {
 	max-width: <?=$hiilite_options['grid_width'];?>;

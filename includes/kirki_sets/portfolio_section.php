@@ -5,7 +5,14 @@ Kirki::add_section( 'portfolio_section', array(
     'description' => __( 'Portfolio settings', 'textdomain' ),
 ) );
 
-
+Kirki::add_field( 'hiiwp', array(
+    'type'        => 'text',
+    'settings'    => 'portfolio_slug',
+    'label'       => __( 'Portfolio Slug', 'my_textdomain' ),
+    'section'     => 'portfolio_section',
+    'default'     => 'portfolio',
+    'priority'    => 1,
+) );
 
 
 Kirki::add_field( 'hiiwp', array(

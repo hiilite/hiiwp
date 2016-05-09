@@ -70,14 +70,6 @@ if($hiilite_options['subdomain'] != 'iframe'):
      echo $output;
 	if(has_excerpt($post->id)){
 		the_excerpt();
-	} else {
-		the_content();
-	}
-	$exclude = array(get_the_id());
-	
-	function add_menu_meta(){
-		return 'loliing';
-		
 	}
 
 	echo '</div>';
