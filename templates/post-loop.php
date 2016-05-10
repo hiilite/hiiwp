@@ -19,12 +19,11 @@ if($hiilite_options['subdomain'] != 'iframe'):
 				}
 				?><small>
 				<address class="post_author">
-					<?php _e('by','hiilite'); ?>
 					<a itemprop="author" itemscope itemtype="https://schema.org/Person" class="post_author_link" href="<?php echo get_author_posts_url( get_the_author_meta( 'ID' ) ); ?>">
 						<span itemprop="name"><?php the_author_meta('display_name'); ?></span>
 					</a>
-				</address>
-				<time class="time op-published" datetime="<?php the_time('c'); ?>"> <?php _e('on ','hiilite'); ?> <span class="date"><?php the_time('F j, Y'); ?></span> <?php the_time('h:i a'); ?></time></small>
+				</address> | 
+				<time class="time op-published" datetime="<?php the_time('c'); ?>"><span class="date"><?php the_time('F j, Y'); ?></span> <?php the_time('h:i a'); ?></time></small>
 			</header>
 			<?php
 			echo '<div class="threequarter-width content-box  align-top">';
@@ -81,11 +80,11 @@ if($hiilite_options['subdomain'] != 'iframe'):
 				echo '</div>';
 				
 								
-							
+				if(is_sidebar_active('post_sidebar')){	
 				echo '<aside class="quarter-width content-box  align-top align-center">';
 					dynamic_sidebar( 'post_sidebar' );
 				echo '</aside>';
-		
+				}
 			echo '</div>';
 			endif;
 	/*

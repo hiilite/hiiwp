@@ -4,7 +4,11 @@
 function add_media_gallery_shortcode( $atts ){
 	$options = get_option('company_options');
 	extract( shortcode_atts( array(
-	    'media_grid_images'  => false,
+	    'media_grid_images' => false,
+	    'show_post_meta'  	=> false,
+	    'show_post_title'  	=> false,
+	    'in_grid'			=> false,
+	    'padding'			=> false,
     ), $atts ) );
     $output = '';
 	
@@ -15,7 +19,14 @@ function add_media_gallery_shortcode( $atts ){
 			'post_status' => 'inherit',
 			'posts_per_page' => -1,
 			'post__in' => explode(',', $media_grid_images )
-		));
+		),
+		array(
+		    'media_grid_images' => $media_grid_images,
+		    'show_post_meta'  	=> $show_post_meta,
+		    'show_post_title'  	=> $show_post_title,
+		    'in_grid'			=> $in_grid,
+		    'add_padding'		=> $add_padding,
+	    ));
 	echo $portfolio;
 
 	return $output;
@@ -50,7 +61,7 @@ class Media_Gallery_Widget extends WP_Widget {
 		if ( ! empty( $instance['title'] ) ) {
 			echo $args['before_title'] . apply_filters( 'widget_title', $instance['title'] ). $args['after_title'];
 		}
-		echo do_shortcode('[social-share]');
+		echo do_shortcode('[media-gallery]');
 		echo $args['after_widget'];
 		
 	}

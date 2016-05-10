@@ -89,6 +89,36 @@ echo '<div class="threequarter-width content-box  align-top">';
 		
 echo '</div>';
 endif;
+?>
+<aside class="col-12">
+	<div class="align-center">
+		<h4>More Projects</h4>
+	</div>
+	<?php
+	$slug = get_theme_mod( 'portfolio_slug', 'portfolio' );
+	$args = array('post_type'=>$slug,'posts_per_page'=> -1,'nopaging'=>true,'order'=>'ASC','orderby'=>'menu_order');
+	
+	$query = new WP_Query($args);
+	?>
+	
+	<amp-carousel height="300" layout="fixed-height" type="carousel" class="carousel">
+      <?php
+	while($query->have_posts()):
+		$query->the_post();
+		if ( has_post_thumbnail() ) {
+			$image = wp_get_attachment_image_src( get_post_thumbnail_id( get_the_id() ), 'large' );
+			$hratio = (300 / $image[2]);
+		?>
+	<a href="<?=get_the_permalink()?>">
+    	<amp-img src="<?=$image[0]?>" width="<?=$image[1]*$hratio?>" height="<?=$image[2]*$hratio?>" alt="<?=get_the_title()?>"></amp-img>
+	</a>
+  <?php
+	  	}
+	  endwhile;
+	  ?>
+	</amp-carousel>
+</aside>
+<?php
 /*
 if($hiilite_options['subdomain'] != 'iframe'){
 	echo '<div class="iframe-content container_inner">';

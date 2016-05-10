@@ -44,6 +44,8 @@ require_once( dirname( __FILE__ ) . '/includes/shortcodes/title.php');
 require_once( dirname( __FILE__ ) . '/includes/shortcodes/social-share.php');
 require_once( dirname( __FILE__ ) . '/includes/shortcodes/social-profiles.php');
 require_once( dirname( __FILE__ ) . '/includes/shortcodes/media-gallery.php');
+require_once( dirname( __FILE__ ) . '/includes/shortcodes/vc_empty_space.php');
+require_once( dirname( __FILE__ ) . '/includes/shortcodes/amp-carousel.php');
 
 require_once( dirname( __FILE__ ) . '/includes/wp_login_screen.php');
 require_once( dirname( __FILE__ ) . '/includes/wp_admin_dashboard.php');
@@ -95,7 +97,7 @@ if($hiilite_options['amp']){
 	remove_action( 'wp_head', 'wlwmanifest_link');
 	add_action( 'init', 'minqueue_init', 1 );
 	add_filter( 'style_loader_tag', 'enqueue_less_styles', 5, 2);
-	show_admin_bar(false);
+	//show_admin_bar(true);
 }
 
 
@@ -304,13 +306,17 @@ function minqueue_styles() {
 	global $wp_styles;
 	$queue = $wp_styles->queue;
     foreach( $queue as $key => $handle) {
-		if ((isset($_REQUEST['vc_editable']) && $_REQUEST['vc_editable'] == true) || (isset($_REQUEST['wp_customize']) && $_REQUEST['wp_customize'] == 'on')){
+		if ((isset($_REQUEST['vc_editable']) && 
+			$_REQUEST['vc_editable'] == true) || 
+			(isset($_REQUEST['wp_customize']) && 
+			$_REQUEST['wp_customize'] == 'on' )){
 			
 		} elseif(
+			//($handle != 'js_composer_front' && !is_admin()) &&
 			$handle != 'kirki_google_fonts' &&
-			//$handle != 'js_composer_front' &&
 			$handle != 'vc_inline_css' &&
-			$handle != 'customize-preview'
+			$handle != 'customize-preview' && 
+			$handle != 'admin-bar'
 		) {
 			wp_deregister_style($handle);
 		}

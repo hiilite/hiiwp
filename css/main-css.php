@@ -110,6 +110,11 @@ table td {
 .row-o-full-height {
 	min-height: 100vh;
 	display: flex;
+	scroll-snap-type: proximity;
+
+	/* older spec implementation */
+	scroll-snap-destination: 0% 100%;
+	scroll-snap-points-x: repeat(100%);
 }
 .row_reverse {
 	flex-direction: row-reverse;
@@ -434,6 +439,8 @@ for($i = 12; $i>0;$i--){
 
 .fixed_columns .flex-item {
 	min-width: 0;
+	position: relative;
+	box-sizing: border-box;
 }
 .fixed_columns {
 	align-items: stretch;
@@ -485,7 +492,24 @@ if($hiilite_options['portfolio_on']): ?>
 .portfolio-piece h5 {
 	margin: 0;
 }
-
+.portfolio_row .post_meta {
+	position: absolute;
+    width: 100%;
+    bottom: 10px;
+    text-align: center;
+}
+.portfolio_row .post_meta h3 {
+	margin: 2px;
+	background: rgba(255,255,255,0.8);
+	display: inline-block;
+	padding: 5px;
+}
+.portfolio_row .post_meta small {
+	margin: 2px;
+    background: rgba(255,255,255,0.8);
+    display: inline-block;
+    padding: 5px;
+}
 <?php endif; ?>
 
 <?php if($hiilite_options['teams_on']): ?>
@@ -609,7 +633,7 @@ hr.small {
 /* dynamic custom styles when an id is defined */
 
 /* SLIDER */
-<?=$_amp?>carousel {
+<?=$_amp?>carousel.slider {
 	min-width: 100%;
 	min-height: 400px;
 	max-height: 100vh;
@@ -626,13 +650,15 @@ hr.small {
 amp-carousel.slider .slide-text-overlay amp-fit-text {
 	height: 100%;
 }
+amp-carousel.slider amp-img img {
+    height: auto;
+}
 
 /*for when image bleeds beyond edges*/
-<?=$_amp?>carousel <?=$_amp?>img {
+<?=$_amp?>carousel.slider <?=$_amp?>img {
 	max-height: 100%;
-	max-width: 150%;
+	max-width: 100%;
 	min-width:100%;
-	min-height:100%;
 }
 .text-align.center {
 	text-align: center;
@@ -666,7 +692,9 @@ input,textarea {padding: 1em;border: 1px solid gray; font-size: 1rem;}
 #disqus_thread {
 	width: 100%;
 }
-
+.vc_empty_space {
+	height: 2em;
+}
 
 <?php
 do_action ( 'custom_css' );

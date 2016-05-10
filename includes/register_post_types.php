@@ -419,23 +419,31 @@ add_action( 'after_switch_theme', 'my_rewrite_flush' );
 //	GET PORTFOLIO TEMPLATE
 //
 //////////////////////////
-function get_portfolio($args = null){
+function get_portfolio($args = null, $options = null){
 	global $hiilite_options;
 	$hiilite_options['portfolio_show_filter'] = get_theme_mod( 'portfolio_show_filter', true );
 	$html = '';
 	$css = '';
 	$slug = get_theme_mod( 'portfolio_slug', 'portfolio' );
-	
+	extract( shortcode_atts( array(
+	    'show_post_meta'  	=> $hiilite_options['portfolio_show_post_meta'],
+	    'show_post_title'  	=> $hiilite_options['portfolio_show_post_title'],
+	    'in_grid'			=> $hiilite_options['portfolio_in_grid'],
+	    'add_padding'		=> $hiilite_options['portfolio_add_padding'],
+    ), $options ) );
 	$args = ($args==null)?array('post_type'=>$slug,'posts_per_page'=> -1,'nopaging'=>true,'order'=>'ASC','orderby'=>'menu_order'):$args;
 	
 	$query = new WP_Query($args);
 	$images = array();
     
-    
+    if($add_padding) $css .= '.fixed_columns .flex-item { padding:'.$add_padding.'; }';
 	if($query->have_posts()):
-    
+    	$html .= '<div class="row">';
+		if ($in_grid) $html .= '<div class="in_grid">';
+		
 		if($args['post_type'] == $slug):
-			$html .= '<div class="row">';
+			
+			
 			if($hiilite_options['portfolio_show_filter'] == true){
 				$taxonomy_objects = get_terms('work');
 				$html .= '<div class="flex-item align-center col-12 text-block labels">';
@@ -449,12 +457,6 @@ function get_portfolio($args = null){
 		$imgs = $col2 = $col3 = $col4 = $col6 = $col8 = $col9 = $col12 = array();
 		$i = 0;
 		
-	    /*foreach ( $query->posts as $image) {
-	        $images[]= $image->guid;
-	    }
-	    print_r($images);*/
-	    
-	    
 	    //////////////////////////
 	    //
 	    //	if attachment
@@ -527,6 +529,20 @@ function get_portfolio($args = null){
 				    $imgs[$i]['href'] 	= get_the_permalink();
 				    $imgs[$i]['background_color'] 	= get_post_meta( get_the_ID(), 'background_color', true );
 				    $imgs[$i]['isolate']= (get_post_meta( get_the_ID(), 'isolated', true ) == 'on')?'align-'.get_post_meta( get_the_ID(), 'anchor_to', true ):'';
+				    $imgs[$i]['post_title'] = get_the_title();
+				    
+				    if($show_post_meta):
+						$imgs[$i]['post_meta'] = '<small><address class="post_author">';
+						$imgs[$i]['post_meta'] .= '<a itemprop="author" itemscope itemtype="https://schema.org/Person" class="post_author_link" href="'.get_author_posts_url( get_the_author_meta( 'ID' ) ).'"><span itemprop="name">';
+						$imgs[$i]['post_meta'] .= get_the_author_meta('display_name'); 
+						$imgs[$i]['post_meta'] .= '</span></a></address> | <time class="time op-published" datetime="';
+						$imgs[$i]['post_meta'] .= get_the_time('c');
+						$imgs[$i]['post_meta'] .= '">';
+						$imgs[$i]['post_meta'] .= '<span class="date">';
+						$imgs[$i]['post_meta'] .= get_the_time('F j, Y');
+						$imgs[$i]['post_meta'] .= ' </span>'.get_the_time('h:i a').'</time></small>';
+					endif;
+				    
 				    $imgs[$i]['min_padding'] = $minpad = get_post_meta( get_the_ID(), 'min_padding', true );
 				    $padding ='';
 				    if($minpad != ''):
@@ -543,7 +559,9 @@ function get_portfolio($args = null){
 					    $padding .= ';';
 				    endif;
 				    
-				    $css .= '#pfi'.get_the_id().'{flex:'.$ratio.';background:'.$imgs[$i]['background_color'].';'.$padding.'}';
+				    $background_color = ($imgs[$i]['background_color'] != '')?'background:'.$imgs[$i]['background_color'].';':'';
+				    
+				    $css .= '#pfi'.get_the_id().'{flex:'.$ratio.';'.$background_color.$padding.'}';
 				    
 				    if($ratio < 0.4) {
 					    $imgs[$i]['col'] = 'col-2';
@@ -640,7 +658,7 @@ function get_portfolio($args = null){
 				$debug = '4end';
 			} 
 			// start col 6, end with 6
-			elseif(count($col6) >= 2){
+			elseif(count($col6) >= 2 && $rowend){
 				$current = array_shift($col6);
 				$rowstart = true;
 				$rowend = false;
@@ -650,7 +668,7 @@ function get_portfolio($args = null){
 				$debug = '6->6';
 			} 
 			// if prev = 6, end with 6
-			elseif(!empty($col6) && $rowstart && $prev = 6){
+			elseif(count($col6) && $rowstart && in_array(6, $next) && $prev == 6){
 				$current = array_shift($col6);
 				$rowstart = false;
 				$rowend = true;
@@ -760,7 +778,7 @@ function get_portfolio($args = null){
 				$current['col'] = 'col-6';
 				$next = array(8);
 			} 		
-			elseif(count($col8) && empty($col4) && in_array(8, $next) ){
+			elseif(count($col8) && empty($col4) && in_array(8, $next) && $prev == 8){
 				$rowstart = false;
 				$rowend = true;
 				$prev = 8;
@@ -769,6 +787,16 @@ function get_portfolio($args = null){
 				$next = array(3,4,6,8,9,12);
 				$debug = '8[6]end';
 			}
+			// last col8
+			elseif(count($col8) == 1){
+				$rowstart = true;
+				$rowend = true;
+				$prev = 8;
+				$current = array_shift($col8);
+				$current['col'] = 'col-12';
+				$next = array(3,4,6,8,9,12);
+				$debug = '8>12';
+			} 
 			// if last 3 col9
 			elseif(empty($col3) && count($col9) == 3 && $rowend) {
 				$rowstart = true;
@@ -822,7 +850,7 @@ function get_portfolio($args = null){
 			
 			
 			if ($rowstart){ 
-				$html .= '<div class="container_inner fixed_columns ';
+				$html .= '<div class="container_inner fixed_columns portfolio_row ';
 				$html .= ($rowdirection)?'row_reverse">':'">';
 			}
 			
@@ -831,10 +859,17 @@ function get_portfolio($args = null){
 			$html .= '<a href="'.$current['href'].'">';
 			$html .= '<amp-img src="'.$current['src'].'" layout="responsive" width="'.$current['width'].'" height="'.$current['height'].'"></amp-img>';
 			$html .= '</a>';
+			
+			if($show_post_title ||  $show_post_meta) $html .= '<div class="post_meta">';
+			if($show_post_title) $html .= '<h3>'.$current['post_title'].'</h3><br>';
+			if($show_post_meta) $html .= $current['post_meta'];
+			if($show_post_title ||  $show_post_meta) $html .= '</div>';
+			
 			$html .= '</div>';
+			
 			if ($rowend) $html .= '</div>';
 		}
-		
+		if ($in_grid) $html .= '</div>';
 		$html .= '</div>';
 		
 		$hiilite_options['portfolio_custom_css'] = $css;

@@ -11,6 +11,10 @@ AMP HTML is HTML with some restrictions for reliable performance and some extens
 
 The Hiilite AMP theme also employs the latest in [Structured Data Markup](https://developers.google.com/structured-data/), with an easy to use interface for providing Google with all the information it needs to so show all your business information right in Google's search results page. 
 
+## Sites Running AMP Theme
+- [Hiilite](https://hiilite.com)
+- [Krafty Kitchen](https://kraftykitchen.ca)
+
 ## No Thirdparty Plugins
 Because of how strict AMP is, any plugin that requires Javascript or CSS to load to the front-end will inherently not function, as no scripts are added to the WordPress queue when in AMP mode. You can however run font-end plugins within an iframe, allowing you to still run complex sliders and forms, though it should be avoided.
 Form elements are also prohibited within AMP pages, but can also be loaded with an iframe. And all iframes must be at least 75% below the top of the screen on load, or the content simply will not be loaded.
@@ -25,6 +29,10 @@ Avoid SEO based plugins. The AMP theme is structured in such a way to be perfect
 This is where you can fill out all your company info that can then be distributed across the site and used as Structured Date in Google's SERP. Each field also has a shortcode attributed to it for easy distribution throughout your site content, such as using the shortcode \[business_phone\] to display the phone number. For a complete list of the shortcodes, see the "Help" tab on the Company Profile page.
 
 ## Change log
+### v0.1.18
+- Added the Amp-Carousel shortcode and "More Project" to portfolio single page
+- New options to show Title and Meta for portfolio page
+
 ### v0.1.17
 - Added media-gallery shortcode
 - adjusted portfolio algorithm
