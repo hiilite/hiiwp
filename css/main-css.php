@@ -446,10 +446,7 @@ for($i = 12; $i>0;$i--){
 	min-width: 0;
 	position: relative;
 	box-sizing: border-box;
-<<<<<<< HEAD
 	max-width: 100%;
-=======
->>>>>>> origin/master
 }
 .fixed_columns {
 	align-items: stretch;
@@ -737,12 +734,9 @@ input,textarea {padding: 1em;border: 1px solid gray; font-size: 1rem;}
 .vc_empty_space {
 	height: 2em;
 }
-<<<<<<< HEAD
 .fl {
 	float: left;
 }
-=======
->>>>>>> origin/master
 
 <?php
 do_action ( 'custom_css' );

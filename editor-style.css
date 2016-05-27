@@ -9,40 +9,28 @@
 }
 .custom_format_1 {
 	
-<<<<<<< HEAD
   color:white;
   text-transform:uppercase;
   text-shadow:0 0 4px rgba(0,0,0,0.5);
   font-weight:400;
   border-color:white;
-=======
-  color:#fff;
->>>>>>> origin/master
 
 }
 .custom_format_2 {
 	
-<<<<<<< HEAD
   color:white;
   text-shadow:0 0 4px rgba(0,0,0,0.5);
   font-weight:400;
   font-family:georgia;
   font-style:italic;
   text-transform:none;
-=======
-  color:#396022;
->>>>>>> origin/master
 
 }
 .custom_format_3 {
 	
-<<<<<<< HEAD
   font-family: georgia;
     text-transform: capitalize;
     font-style: italic;
     font-weight: normal;
-=======
-  font-weight:700;
->>>>>>> origin/master
 
 }

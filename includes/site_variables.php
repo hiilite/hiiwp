@@ -294,7 +294,6 @@ $hiilite_options['portfolio_in_grid']	= get_theme_mod( 'portfolio_in_grid', fals
 $hiilite_options['portfolio_show_post_title']	= get_theme_mod( 'portfolio_show_post_title', false );
 $hiilite_options['portfolio_show_post_meta']	= get_theme_mod( 'portfolio_show_post_meta', false );
 $hiilite_options['portfolio_add_padding']	= get_theme_mod( 'portfolio_add_padding', '0px' );
-<<<<<<< HEAD
 $hiilite_options['portfolio_custom_css'] = get_theme_mod( 'portfolio_custom_css', '' );
 
 
@@ -303,9 +302,6 @@ if(class_exists( 'WooCommerce' )){
 } else {
 	$hiilite_options['is_woocommerce'] = false;
 }
-=======
-
->>>>>>> origin/master
 
 
 
