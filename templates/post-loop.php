@@ -85,7 +85,11 @@ if($hiilite_options['subdomain'] != 'iframe'):
 				echo '</div>';
 				
 								
+<<<<<<< HEAD
 				if(is_active_sidebar('post_sidebar')){	
+=======
+				if(is_sidebar_active('post_sidebar')){	
+>>>>>>> origin/master
 				echo '<aside class="quarter-width content-box  align-top align-center">';
 					dynamic_sidebar( 'post_sidebar' );
 				echo '</aside>';

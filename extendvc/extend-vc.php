@@ -45,7 +45,7 @@ vc_remove_element("vc_tta_accordion");
 vc_remove_element("vc_tta_tour");
 vc_remove_element("vc_tta_tabs");
 
-//vc_remove_element('vc_basic_grid');
+vc_remove_element('vc_basic_grid');
 vc_remove_element('vc_media_grid');
 vc_remove_element('vc_masonry_grid');
 vc_remove_element('vc_masonry_media_grid');

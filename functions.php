@@ -52,7 +52,10 @@ require_once( dirname( __FILE__ ) . '/includes/shortcodes/social-profiles.php');
 require_once( dirname( __FILE__ ) . '/includes/shortcodes/media-gallery.php');
 require_once( dirname( __FILE__ ) . '/includes/shortcodes/vc_empty_space.php');
 require_once( dirname( __FILE__ ) . '/includes/shortcodes/amp-carousel.php');
+<<<<<<< HEAD
 require_once( dirname( __FILE__ ) . '/includes/shortcodes/author-info.php');
+=======
+>>>>>>> origin/master
 
 require_once( dirname( __FILE__ ) . '/includes/wp_login_screen.php');
 require_once( dirname( __FILE__ ) . '/includes/wp_admin_dashboard.php');
@@ -114,6 +117,26 @@ function hiilite_admin_styles() {
 add_action( 'admin_enqueue_scripts', 'hiilite_admin_styles' );
 
 
+<<<<<<< HEAD
+=======
+
+// AMP FIXES
+if($hiilite_options['amp']){
+	add_filter( 'the_content', 'amp_image_tags', 10);
+	add_filter( 'post_thumbnail_html', 'amp_image_tags',100);
+	add_filter('script_loader_tag', 'add_defer_attribute', 10, 2);
+	add_action( 'init', 'disable_wp_emojicons' );
+	remove_action( 'wp_head', 'rsd_link' );
+	remove_action( 'wp_head', 'rest_output_link_wp_head', 10 );
+	remove_action( 'wp_head', 'wp_oembed_add_discovery_links', 10 );
+	remove_action( 'wp_head', 'wlwmanifest_link');
+	add_action( 'init', 'minqueue_init', 1 );
+	add_filter( 'style_loader_tag', 'enqueue_less_styles', 5, 2);
+	//show_admin_bar(true);
+}
+
+
+>>>>>>> origin/master
 // THIS GIVES US SOME OPTIONS FOR STYLING THE ADMIN AREA
 function custom_colors() {
 	global $hiilite_options;

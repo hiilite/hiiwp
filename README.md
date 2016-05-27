@@ -29,10 +29,13 @@ Avoid SEO based plugins. The AMP theme is structured in such a way to be perfect
 This is where you can fill out all your company info that can then be distributed across the site and used as Structured Date in Google's SERP. Each field also has a shortcode attributed to it for easy distribution throughout your site content, such as using the shortcode \[business_phone\] to display the phone number. For a complete list of the shortcodes, see the "Help" tab on the Company Profile page.
 
 ## Change log
+<<<<<<< HEAD
 ### v0.2.0
 - Added option to pages to make non-amp
 - Adding WooCommerce support
 
+=======
+>>>>>>> origin/master
 ### v0.1.18
 - Added the Amp-Carousel shortcode and "More Project" to portfolio single page
 - New options to show Title and Meta for portfolio page
