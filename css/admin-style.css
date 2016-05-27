@@ -172,3 +172,6 @@ a:hover, a:active {
 #side-sortables .cmb2-wrap>.cmb-field-list>.cmb-row, .inner-sidebar .cmb2-wrap>.cmb-field-list>.cmb-row {
     padding: 1em 0 !important;
 }
+.wpb_vc_param_value {
+    word-wrap: break-word;
+}

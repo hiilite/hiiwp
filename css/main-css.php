@@ -110,6 +110,11 @@ table td {
 .row-o-full-height {
 	min-height: 100vh;
 	display: flex;
+	scroll-snap-type: proximity;
+
+	/* older spec implementation */
+	scroll-snap-destination: 0% 100%;
+	scroll-snap-points-x: repeat(100%);
 }
 .row_reverse {
 	flex-direction: row-reverse;
@@ -391,6 +396,11 @@ ul.sub-menu {
 }
 <?=$_amp?>img.full-width, .full-width <?=$_amp?>iframe, .row {
 	min-width: 100%;
+	scroll-snap-type: proximity;
+
+	/* older spec implementation */
+	scroll-snap-destination: 0% 100%;
+	scroll-snap-points-x: repeat(100%);
 }
 .full-width,.threequarter-width,.half-width,.third-width,.twothird-width,.quarter-width,
 .col-12,.col-9,.col-7,.col-8,.col-6,.col-4,.col-3,.col-2,.col-1 {
@@ -434,6 +444,9 @@ for($i = 12; $i>0;$i--){
 
 .fixed_columns .flex-item {
 	min-width: 0;
+	position: relative;
+	box-sizing: border-box;
+	max-width: 100%;
 }
 .fixed_columns {
 	align-items: stretch;
@@ -449,7 +462,12 @@ for($i = 12; $i>0;$i--){
 	padding: 1em;
 }
 
-
+.author_details <?=$_amp?>img {
+	margin-right: 1em; 
+}
+.author_bio_section {
+	background: rgba(240,240,240,0.8);
+}
 .blog-article {
 	padding-bottom: 2em;
 	margin-top: 0;
@@ -464,6 +482,22 @@ for($i = 12; $i>0;$i--){
 .blog-article figure {
 	padding: 0 2em;
 }
+<?php if($hiilite_options['blog_layout'] == 'boxed'): ?>
+.boxed .blog-article h4 {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+
+.boxed .blog-article p {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    font-size: 0.9em;
+}
+<?php endif; ?>
 <?php if($hiilite_options['blog_layout'] == 'masonry'): ?>
 .masonry {
 	display: block;
@@ -485,7 +519,24 @@ if($hiilite_options['portfolio_on']): ?>
 .portfolio-piece h5 {
 	margin: 0;
 }
-
+.portfolio_row .post_meta {
+	position: absolute;
+    width: 100%;
+    bottom: 10px;
+    text-align: center;
+}
+.portfolio_row .post_meta h3 {
+	margin: 2px;
+	background: rgba(255,255,255,0.8);
+	display: inline-block;
+	padding: 5px;
+}
+.portfolio_row .post_meta small {
+	margin: 2px;
+    background: rgba(255,255,255,0.8);
+    display: inline-block;
+    padding: 5px;
+}
 <?php endif; ?>
 
 <?php if($hiilite_options['teams_on']): ?>
@@ -541,31 +592,31 @@ if($hiilite_options['portfolio_on']): ?>
 .bg_color_four { background-color: <?=$hiilite_options['color_four'];?>; }
 .bg_white { background-color:white; }
 
-.label{
+.label, .labels a{
 	background: rgba(128,128,128,0.4);
 	padding: 0.3em;
 	color: white;
+	font-size: 0.7em;
+	
 }
 .labels a{
 	background: <?=$hiilite_options['color_one'];?>;
-	padding: 0.3em;
-	color: white;
 }
 strong.label {
 	background: <?=$hiilite_options['color_two'];?>;
 }
 /* Complimentary styles */
-.align-right {
+.align-right, .alignright {
 	text-align: right;
 	align-self: flex-end;
 	margin: auto 0 auto auto;
 }
-.align-left {
+.align-left, .alignleft {
 	text-align: left;
 	align-self: flex-start;
 	margin: auto auto auto 0;
 }
-.align-center {
+.align-center, .aligncenter {
 	text-align: center;
 	align-self: center;
 	margin: auto;
@@ -609,7 +660,7 @@ hr.small {
 /* dynamic custom styles when an id is defined */
 
 /* SLIDER */
-<?=$_amp?>carousel {
+<?=$_amp?>carousel.slider {
 	min-width: 100%;
 	min-height: 400px;
 	max-height: 100vh;
@@ -626,18 +677,32 @@ hr.small {
 amp-carousel.slider .slide-text-overlay amp-fit-text {
 	height: 100%;
 }
+amp-carousel.slider amp-img img {
+    height: auto;
+}
 
 /*for when image bleeds beyond edges*/
-<?=$_amp?>carousel <?=$_amp?>img {
+<?=$_amp?>carousel.slider <?=$_amp?>img {
 	max-height: 100%;
-	max-width: 150%;
+	max-width: 100%;
 	min-width:100%;
-	min-height:100%;
 }
+
+.relatedposts .relatedarticle {
+	max-width: 200px;
+	overflow: hidden;
+}
+.relatedposts .relatedarticle p {
+	max-width: 200px;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	overflow: hidden;
+}
+
+
 .text-align.center {
 	text-align: center;
 }
-
 /* Gravity Forms */
 .gform_fields {
 	padding: 0;
@@ -666,7 +731,12 @@ input,textarea {padding: 1em;border: 1px solid gray; font-size: 1rem;}
 #disqus_thread {
 	width: 100%;
 }
-
+.vc_empty_space {
+	height: 2em;
+}
+.fl {
+	float: left;
+}
 
 <?php
 do_action ( 'custom_css' );

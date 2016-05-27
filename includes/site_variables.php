@@ -247,6 +247,7 @@ $hiilite_options['typography_icon_custom_css']	= get_theme_mod( 'typography_icon
 }' );
 $hiilite_options['typography_button_custom_css']	= get_theme_mod( 'typography_button_custom_css', '{
 	border:2px solid '.$hiilite_options['color_one'].';
+	background: none;
 	text-transform: uppercase;
 	color: '.$hiilite_options['color_one'].';
 	padding: 0.5em 1em;
@@ -289,6 +290,18 @@ $hiilite_options['portfolio_slug']		= get_theme_mod( 'portfolio_slug', 'portfoli
 $hiilite_options['portfolio_layout']		= get_theme_mod( 'portfolio_layout', 'masonry-h' );
 $hiilite_options['portfolio_show_filter']	= get_theme_mod( 'portfolio_show_filter', true );
 
+$hiilite_options['portfolio_in_grid']	= get_theme_mod( 'portfolio_in_grid', false );
+$hiilite_options['portfolio_show_post_title']	= get_theme_mod( 'portfolio_show_post_title', false );
+$hiilite_options['portfolio_show_post_meta']	= get_theme_mod( 'portfolio_show_post_meta', false );
+$hiilite_options['portfolio_add_padding']	= get_theme_mod( 'portfolio_add_padding', '0px' );
+$hiilite_options['portfolio_custom_css'] = get_theme_mod( 'portfolio_custom_css', '' );
+
+
+if(class_exists( 'WooCommerce' )){
+	$hiilite_options['is_woocommerce'] = (is_woocommerce())?true:false;
+} else {
+	$hiilite_options['is_woocommerce'] = false;
+}
 
 
 

@@ -37,4 +37,40 @@ Kirki::add_field( 'hiiwp', array(
     'default'     => true,
     'priority'    => 1,
 ) );
+
+Kirki::add_field( 'hiiwp', array(
+    'type'        => 'switch',
+    'settings'    => 'portfolio_in_grid',
+    'label'       => __( 'Show in grid', 'my_textdomain' ),
+    'section'     => 'portfolio_section',
+    'default'     => false,
+    'priority'    => 1,
+) );
+
+Kirki::add_field( 'hiiwp', array(
+    'type'        => 'switch',
+    'settings'    => 'portfolio_show_post_title',
+    'label'       => __( 'Show Title', 'my_textdomain' ),
+    'section'     => 'portfolio_section',
+    'default'     => false,
+    'priority'    => 1,
+) );
+
+Kirki::add_field( 'hiiwp', array(
+    'type'        => 'switch',
+    'settings'    => 'portfolio_show_post_meta',
+    'label'       => __( 'Show Meta', 'my_textdomain' ),
+    'section'     => 'portfolio_section',
+    'default'     => false,
+    'priority'    => 1,
+) );
+
+Kirki::add_field( 'hiiwp', array(
+    'type'        => 'text',
+    'settings'    => 'portfolio_add_padding',
+    'label'       => __( 'Add Padding Between', 'my_textdomain' ),
+    'section'     => 'portfolio_section',
+    'default'     => '0px',
+    'priority'    => 1,
+) );
 	?>

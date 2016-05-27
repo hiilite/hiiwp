@@ -28,17 +28,17 @@ vc_remove_element("vc_pie");
 vc_remove_element("vc_posts_slider");
 vc_remove_element("vc_toggle");
 
-//vc_remove_element("vc_facebook");
-//vc_remove_element("vc_tweetmeme");
-//vc_remove_element("vc_googleplus");
-//vc_remove_element("vc_pinterest");
-//vc_remove_element("vc_flickr");
+vc_remove_element("vc_facebook");
+vc_remove_element("vc_tweetmeme");
+vc_remove_element("vc_googleplus");
+vc_remove_element("vc_pinterest");
+vc_remove_element("vc_flickr");
 //vc_remove_element("vc_empty_space");
 
 vc_remove_element("vc_images_carousel");
-//vc_remove_element("vc_posts_grid");
+vc_remove_element("vc_posts_grid");
 vc_remove_element("vc_carousel");
-//vc_remove_element("vc_cta");
+vc_remove_element("vc_cta");
 vc_remove_element("vc_round_chart");
 vc_remove_element("vc_line_chart");
 vc_remove_element("vc_tta_accordion");
@@ -49,7 +49,7 @@ vc_remove_element("vc_tta_tabs");
 vc_remove_element('vc_media_grid');
 vc_remove_element('vc_masonry_grid');
 vc_remove_element('vc_masonry_media_grid');
-//vc_remove_element('vc_icon');
+vc_remove_element('vc_icon');
 vc_remove_element('vc_button2');
 vc_remove_element("vc_custom_heading");
 //vc_remove_element("vc_btn");
@@ -371,93 +371,130 @@ vc_map( array(
 				"heading" => "Images",
 				"param_name" => "media_grid_images"
 			),
+			array(
+				"type" => "checkbox",
+				"holder" => "div",
+				"class" => "",
+				"heading" => "In Grid",
+				"param_name" => "in_grid"
+			),
+			array(
+				"type" => "checkbox",
+				"holder" => "div",
+				"class" => "",
+				"heading" => "Show Meta",
+				"param_name" => "show_post_meta"
+			),
+			array(
+				"type" => "checkbox",
+				"holder" => "div",
+				"class" => "",
+				"heading" => "Show Title",
+				"param_name" => "show_post_title"
+			),
+			array(
+				"type" => "textfield",
+				"holder" => "div",
+				"class" => "",
+				"heading" => "Padding",
+				"param_name" => "add_padding"
+			),
 		)
 	)
 );
 
+
 // Social Share
 vc_map( array(
-		"name" => "Social Profiles",
-		"base" => "social-profiles",
+		"name" => "Media Gallery",
+		"base" => "media-gallery",
 		"category" => 'by Hiilite',
 		"description" => "Show links to all social profiles listed in Business Profiles",
-		"icon" => "icon-wpb-flickr",
+		"icon" => "icon-wpb-images-stack",
 		"allowed_container_element" => 'vc_row',
 		"params" => array(
 			array(
-				"type" => "checkbox",
+				"type" => "attach_images",
 				"holder" => "div",
 				"class" => "",
-				"heading" => "Google+",
-				"param_name" => "google-plus"
+				"heading" => "Images",
+				"param_name" => "media_grid_images"
 			),
 			array(
 				"type" => "checkbox",
 				"holder" => "div",
 				"class" => "",
-				"heading" => "Facebook",
-				"param_name" => "facebook"
+				"heading" => "In Grid",
+				"param_name" => "in_grid"
 			),
 			array(
 				"type" => "checkbox",
 				"holder" => "div",
 				"class" => "",
-				"heading" => "Twitter",
-				"param_name" => "twitter"
+				"heading" => "Show Meta",
+				"param_name" => "show_post_meta"
 			),
 			array(
 				"type" => "checkbox",
 				"holder" => "div",
 				"class" => "",
-				"heading" => "Pinterest",
-				"param_name" => "pinterest"
+				"heading" => "Show Title",
+				"param_name" => "show_post_title"
 			),
 			array(
-				"type" => "checkbox",
+				"type" => "textfield",
 				"holder" => "div",
 				"class" => "",
-				"heading" => "LinkedIn",
-				"param_name" => "linkedin"
+				"heading" => "Padding",
+				"param_name" => "add_padding"
+			),
+		)
+	)
+);
+
+
+// Social Share
+vc_map( array(
+		"name" => "AMP Carousel",
+		"base" => "amp-carousel",
+		"category" => 'by Hiilite',
+		"description" => "Carousel of images",
+		"icon" => "icon-wpb-images-carousel",
+		"allowed_container_element" => 'vc_row',
+		"params" => array(
+			array(
+				"type" => "attach_images",
+				"holder" => "div",
+				"class" => "",
+				"heading" => "Images",
+				"param_name" => "media_grid_images"
 			),
 			array(
-				"type" => "checkbox",
+				"type" => "textfield",
 				"holder" => "div",
 				"class" => "",
-				"heading" => "houzz",
-				"param_name" => "houzz"
+				"heading" => "Height",
+				"param_name" => "height",
+				"default"	=> "300"
 			),
-			array(
-				"type" => "checkbox",
-				"holder" => "div",
-				"class" => "",
-				"heading" => "Yelp",
-				"param_name" => "yelp"
-			),
-			array(
-				"type" => "checkbox",
-				"holder" => "div",
-				"class" => "",
-				"heading" => "TripAdvisor",
-				"param_name" => "tripadvisor"
-			),
-			array(
-				"type" => "checkbox",
-				"holder" => "div",
-				"class" => "",
-				"heading" => "YouTube",
-				"param_name" => "youtube"
-			),
+		)
+) );
+
+vc_map( array(
+		"name" => "Empty Space",
+		"base" => "vc_empty_space",
+		"category" => 'by Hiilite',
+		"description" => "2em of empty space",
+		"icon" => "icon-wpb-ui-empty_space",
+		"allowed_container_element" => 'vc_row',
+		"params" => array(
 			array(
 	            'type' => 'css_editor',
 	            'heading' => __( 'Css', 'my-text-domain' ),
 	            'param_name' => 'css',
 	            'group' => __( 'Design options', 'my-text-domain' ),
 	        ),
-			
-		)
-) );
-
-
+)));
 
 // Menu
 /*  Section (All, loop), 

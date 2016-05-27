@@ -90,7 +90,7 @@ if($hiilite_options['blog_layout'] =='boxed'){
 			echo $article_title;
 		
 		}
-		if($hiilite_options['blog_excerpt_on']):?><p><?php the_excerpt(); ?></p><?php endif;
+		if($hiilite_options['blog_excerpt_on']):?><p><?=get_the_excerpt(); ?></p><?php endif;
 		if($hiilite_options['blog_more_on']):?><a class="button" href="<?php the_permalink() ?>">Read More</a><?php endif;?>
 	<div>
 		<?php $options = get_option('company_options'); ?>
@@ -102,7 +102,7 @@ if($hiilite_options['blog_layout'] =='boxed'){
 			</div>
 			<meta itemprop="name" content="<?=$options['business_name']?>">
 		</div>
-		<hr>
+
 </article>
 <?php
 	

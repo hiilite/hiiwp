@@ -1,4 +1,9 @@
 <?php
+/*
+TODO:
+- Turn Related posts into widget and shortcode
+- Turn about the author into widget and shortcode	
+*/
 global $hiilite_options;
 $post_meta = get_post_meta(get_the_id());
 $hiilite_options['amp'] = get_theme_mod('amp');
@@ -19,12 +24,11 @@ if($hiilite_options['subdomain'] != 'iframe'):
 				}
 				?><small>
 				<address class="post_author">
-					<?php _e('by','hiilite'); ?>
 					<a itemprop="author" itemscope itemtype="https://schema.org/Person" class="post_author_link" href="<?php echo get_author_posts_url( get_the_author_meta( 'ID' ) ); ?>">
 						<span itemprop="name"><?php the_author_meta('display_name'); ?></span>
 					</a>
-				</address>
-				<time class="time op-published" datetime="<?php the_time('c'); ?>"> <?php _e('on ','hiilite'); ?> <span class="date"><?php the_time('F j, Y'); ?></span> <?php the_time('h:i a'); ?></time></small>
+				</address> | 
+				<time class="time op-published" datetime="<?php the_time('c'); ?>"><span class="date"><?php the_time('F j, Y'); ?></span> <?php the_time('h:i a'); ?></time></small>
 			</header>
 			<?php
 			echo '<div class="threequarter-width content-box  align-top">';
@@ -53,7 +57,7 @@ if($hiilite_options['subdomain'] != 'iframe'):
 			<br>
 			<div class="articleSource labels">
 				<p>
-					<strong class="label">Source</strong> <a href="<?=get_post_meta( $post->ID, 'source_article_link', true); ?>"><?=get_post_meta ( $post->ID, 'source_article_title', true); ?></a> <span class="label"><?=get_post_meta( $post->ID, 'source_site_title', true); ?></span>
+					<strong class="label">Source</strong> <a href="<?=get_post_meta( $post->ID, 'source_article_link', true); ?>"><?=get_post_meta ( $post->ID, 'source_article_title', true); ?><span class="label"><?=get_post_meta( $post->ID, 'source_site_title', true); ?></span></a>
 				<meta itemprop="sameAs" content="<?=get_post_meta( $post->ID, 'source_article_link', true); ?>">
 				</p>
 			</div>
@@ -81,13 +85,82 @@ if($hiilite_options['subdomain'] != 'iframe'):
 				echo '</div>';
 				
 								
-							
+				if(is_active_sidebar('post_sidebar')){	
 				echo '<aside class="quarter-width content-box  align-top align-center">';
 					dynamic_sidebar( 'post_sidebar' );
 				echo '</aside>';
-		
+				}
 			echo '</div>';
 			endif;
+
+/////////////////////////
+//
+//	RELATED POSTS
+//
+/////////////////////////
+echo '<aside class="col-12 text-block">';
+
+//for use in the loop, list 5 post titles related to first tag on current post
+
+$args = wp_parse_args( (array) $args, array(
+        'orderby' => 'modified',
+        'return'  => 'query', // Valid values are: 'query' (WP_Query object), 'array' (the arguments array)
+    ) );
+    
+$related_args = array(
+    'post_type'      => get_post_type( $post_id ),
+    'posts_per_page' => 8,
+    'post_status'    => 'publish',
+    'post__not_in'   => array( get_the_ID() ),
+    'orderby'        => $args['orderby'],
+  
+);
+$taxonomies = array('category','post_tag');
+foreach( $taxonomies as $taxonomy ) {
+    $terms = get_the_terms( $post_id, $taxonomy );
+    $term_list = wp_list_pluck( $terms, 'slug' );
+    $related_args['tax_query'][] = array(
+        'taxonomy' => $taxonomy,
+        'field'    => 'slug',
+        'terms'    => $term_list
+    );
+}
+if( count( $related_args['tax_query'] ) > 1 ) {
+    $related_args['tax_query']['relation'] = 'OR';
+}
+	?>
+	<div class="align-center">
+		<h4>Related Articles</h4>
+	</div>
+	<?php
+$my_query = new WP_Query($related_args);
+if( $my_query->have_posts() ) :
+	?>
+	<amp-carousel height="300" layout="fixed-height" type="carousel" class="relatedposts">
+      <?php
+	while ($my_query->have_posts()) : $my_query->the_post();
+		if ( has_post_thumbnail() ) {
+			$image = wp_get_attachment_image_src( get_post_thumbnail_id( get_the_id() ));
+		}
+		?>
+		<article class="relatedarticle">
+			
+			<a href="<?=get_the_permalink()?>">
+		    	<amp-img src="<?=$image[0]?>" width="200" height="200" alt="<?=get_the_title()?>"></amp-img>
+		    	<p><?=get_the_title();?></p>
+			</a>
+			
+		</article>
+  <?php
+	  	
+	  endwhile;
+	  ?>
+	</amp-carousel> 
+<?php
+	endif;
+
+echo '</aside>';
+//end related Posts
 	/*
 	if($hiilite_options['subdomain'] != 'iframe'){
 		echo '<div class="iframe-content container_inner">';

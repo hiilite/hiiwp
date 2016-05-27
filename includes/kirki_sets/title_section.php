@@ -49,11 +49,6 @@ Kirki::add_field( 'hiiwp', array(
         'color'          => ' ',
     ),
     'priority'    => 6,
-    'output'      => array(
-        array(
-            'element' => '.page-title h1',
-        ),
-    ),
 ) );
 
 Kirki::add_field( 'hiiwp', array(

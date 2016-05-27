@@ -12,11 +12,18 @@ if(isset($_GET['subpage'])){
 	$hiilite_options['subpage'] = false;
 }
 
-$hiilite_options['amp'] = get_theme_mod('amp');
-$options = get_option('company_options');
-if($hiilite_options['amp']) $_amp = 'amp-'; else $_amp = '';
 $post_id = get_the_id();
 $post_object = get_post( $post_id );
+
+if(get_post_meta($post_id, 'amp', true) == 'nonamp'){
+	$hiilite_options['amp'] = false;
+} else {
+	$hiilite_options['amp'] = (!isset($hiilite_options['amp']))?get_theme_mod('amp'):$hiilite_options['amp'];
+}
+
+
+$options = get_option('company_options');
+if($hiilite_options['amp']) $_amp = 'amp-'; else $_amp = '';
 // Page Title
 $brand_title = (get_theme_mod('brand_seo_title')!='')?get_theme_mod('brand_seo_title'):get_bloginfo('title');
 if(get_post_meta(get_the_id(), 'page_seo_title', true) != ''){
@@ -59,7 +66,7 @@ function sanitize_output($buffer) {
 ob_start("sanitize_output");
 if(!$hiilite_options['subpage']):
 ?><!doctype html>
-<html <?php if($hiilite_options['amp'] && $hiilite_options['subdomain'] != 'iframe') echo 'amp'; ?> lang="en">
+<html <?php if($hiilite_options['amp'] && (isset($hiilite_options['subdomain']) && $hiilite_options['subdomain'] != 'iframe')) echo 'amp'; ?> lang="en">
 <head>
 <meta charset="utf-8">
 <title><?=$page_title?></title>

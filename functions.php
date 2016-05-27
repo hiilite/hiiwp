@@ -4,6 +4,11 @@ $hiilite_options['amp'] = get_theme_mod('amp');
 $hiilite_options['portfolio_on'] = get_theme_mod('portfolio_on');
 $hiilite_options['teams_on'] = get_theme_mod('teams_on');
 $hiilite_options['menus_on'] = get_theme_mod('menus_on');
+if(class_exists( 'WooCommerce' )){
+	$hiilite_options['is_woocommerce'] = (is_woocommerce())?true:false;
+} else {
+	$hiilite_options['is_woocommerce'] = false;
+}
 /*
 * Convert all images to amp-img	
 *	
@@ -15,6 +20,7 @@ add_filter( 'auto_update_theme', '__return_true' );
 
 add_theme_support( 'post-thumbnails' );
 add_theme_support( 'menus' );
+add_theme_support( 'woocommerce' );
 
 if(!class_exists('Vc_Manager')){
 	require_once( dirname( __FILE__ ) . '/addons/js_composer/js_composer.php');
@@ -44,6 +50,9 @@ require_once( dirname( __FILE__ ) . '/includes/shortcodes/title.php');
 require_once( dirname( __FILE__ ) . '/includes/shortcodes/social-share.php');
 require_once( dirname( __FILE__ ) . '/includes/shortcodes/social-profiles.php');
 require_once( dirname( __FILE__ ) . '/includes/shortcodes/media-gallery.php');
+require_once( dirname( __FILE__ ) . '/includes/shortcodes/vc_empty_space.php');
+require_once( dirname( __FILE__ ) . '/includes/shortcodes/amp-carousel.php');
+require_once( dirname( __FILE__ ) . '/includes/shortcodes/author-info.php');
 
 require_once( dirname( __FILE__ ) . '/includes/wp_login_screen.php');
 require_once( dirname( __FILE__ ) . '/includes/wp_admin_dashboard.php');
@@ -57,9 +66,32 @@ require_once( dirname( __FILE__ ) . '/addons/taxonomy-terms-order/taxonomy-terms
 //require_once( dirname( __FILE__ ) . '/addons/force-gzip/force-gzip.php');
 
 function hiiwp_init(){
-	global $hiilite_options;
-		
+	global $hiilite_options, $post;
+	
 	require_once(dirname( __FILE__ ) . '/includes/site_variables.php');
+	
+	if(get_post_meta($post->ID, 'amp', true) == 'nonamp'){
+		$hiilite_options['amp'] = false;
+	} else {
+		$hiilite_options['amp'] = get_theme_mod('amp');
+	}
+	
+	
+	
+	// AMP FIXES
+	if($hiilite_options['amp']){
+		add_filter( 'the_content', 'amp_image_tags', 10);
+		add_filter( 'post_thumbnail_html', 'amp_image_tags',100);
+		add_filter('script_loader_tag', 'add_defer_attribute', 10, 2);
+		add_action( 'init', 'disable_wp_emojicons' );
+		remove_action( 'wp_head', 'rsd_link' );
+		remove_action( 'wp_head', 'rest_output_link_wp_head', 10 );
+		remove_action( 'wp_head', 'wp_oembed_add_discovery_links', 10 );
+		remove_action( 'wp_head', 'wlwmanifest_link');
+		add_action( 'init', 'minqueue_init', 1 );
+		add_filter( 'style_loader_tag', 'enqueue_less_styles', 5, 2);
+		//show_admin_bar(true);
+	}
 }
 add_action( 'wp_head', 'hiiwp_init' );
 
@@ -80,23 +112,6 @@ function hiilite_admin_styles() {
     wp_enqueue_script( 'meta_uploader' );
 }
 add_action( 'admin_enqueue_scripts', 'hiilite_admin_styles' );
-
-
-
-// AMP FIXES
-if($hiilite_options['amp']){
-	add_filter( 'the_content', 'amp_image_tags', 10);
-	add_filter( 'post_thumbnail_html', 'amp_image_tags',100);
-	add_filter('script_loader_tag', 'add_defer_attribute', 10, 2);
-	add_action( 'init', 'disable_wp_emojicons' );
-	remove_action( 'wp_head', 'rsd_link' );
-	remove_action( 'wp_head', 'rest_output_link_wp_head', 10 );
-	remove_action( 'wp_head', 'wp_oembed_add_discovery_links', 10 );
-	remove_action( 'wp_head', 'wlwmanifest_link');
-	add_action( 'init', 'minqueue_init', 1 );
-	add_filter( 'style_loader_tag', 'enqueue_less_styles', 5, 2);
-	show_admin_bar(false);
-}
 
 
 // THIS GIVES US SOME OPTIONS FOR STYLING THE ADMIN AREA
@@ -270,7 +285,10 @@ add_action( 'wp_head', 'rel_canonical_with_custom_tag_override' );
 
 function minqueue_init () {
 	global $hiilite_options;
-	if(is_admin()) return ;
+	global $post;
+	if(is_admin() || get_post_meta($post->ID, 'amp', true) == 'nonamp' || get_theme_mod('amp') == false){
+		return;
+	} 
 	// Run the minifier
 	$urlParts = explode('.', $_SERVER['HTTP_HOST']);
 	$hiilite_options['subdomain'] = $urlParts[0];
@@ -285,7 +303,17 @@ function minqueue_init () {
 }
 	
 function minqueue_scripts() {
-	global $wp_scripts;
+	global $wp_scripts, $hiilite_options;
+	global $post;
+	if(is_admin() || get_post_meta($post->ID, 'amp', true) == 'nonamp' || get_theme_mod('amp') == false){
+		return;
+	} 
+	
+	if(class_exists( 'WooCommerce' )){
+		$hiilite_options['is_woocommerce'] = (is_woocommerce())?true:false;
+	} else {
+		$hiilite_options['is_woocommerce'] = false;
+	}
 	
 	if($wp_scripts){
 		$queue = $wp_scripts->queue;
@@ -293,7 +321,7 @@ function minqueue_scripts() {
 
 			if ((isset($_REQUEST['vc_editable']) && $_REQUEST['vc_editable'] == true) || (isset($_REQUEST['wp_customize']) && $_REQUEST['wp_customize'] == 'on')){
 			
-			} else {
+			} elseif(!$hiilite_options['is_woocommerce'])  {
 				wp_deregister_script($handle); 
 			}
 		}
@@ -301,18 +329,29 @@ function minqueue_scripts() {
 }
 
 function minqueue_styles() {
-	global $wp_styles;
+	global $wp_styles, $hiilite_options;
+	
+	if(class_exists( 'WooCommerce' )){
+		$hiilite_options['is_woocommerce'] = (is_woocommerce())?true:false;
+	} else {
+		$hiilite_options['is_woocommerce'] = false;
+	}
+
 	$queue = $wp_styles->queue;
     foreach( $queue as $key => $handle) {
-		if ((isset($_REQUEST['vc_editable']) && $_REQUEST['vc_editable'] == true) || (isset($_REQUEST['wp_customize']) && $_REQUEST['wp_customize'] == 'on')){
+		if ((isset($_REQUEST['vc_editable']) && 
+			$_REQUEST['vc_editable'] == true) || 
+			(isset($_REQUEST['wp_customize']) && 
+			$_REQUEST['wp_customize'] == 'on' )){
 			
 		} elseif(
+			//($handle != 'js_composer_front' && !is_admin()) &&
 			$handle != 'kirki_google_fonts' &&
-			//$handle != 'js_composer_front' &&
 			$handle != 'vc_inline_css' &&
-			$handle != 'customize-preview'
+			$handle != 'customize-preview' && 
+			$handle != 'admin-bar'
 		) {
-			wp_deregister_style($handle);
+			if(!$hiilite_options['is_woocommerce']) wp_deregister_style($handle);
 		}
     }
 }
@@ -395,6 +434,19 @@ function cmb2_post_metaboxes(){
 	        'color_five'   => '<span style="background:'.get_theme_mod( 'color_five', '#8f52a0').'">'.get_theme_mod( 'color_five', '#8f52a0').'</span>',
 	        'white'   	   => '#ffffff',
 	    ),
+	) );
+	
+	$cmb->add_field( array(
+	    'name' => 'Turn off AMP',
+	    'id'   => 'amp',
+	    'type' => 'select',
+	    'default' => 'default',
+	    
+	    'options'          => array(
+	        'default' => 'default',
+	        'nonamp'    =>'Non-AMP',
+	        'amp'	=>'AMP'
+	    )
 	) );
 }
 
