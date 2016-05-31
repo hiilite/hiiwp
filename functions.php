@@ -80,10 +80,11 @@ function hiiwp_init(){
 	
 	// AMP FIXES
 	if($hiilite_options['amp']){
+		add_filter('widget_text', 'amp_image_tags');
 		add_filter( 'the_content', 'amp_image_tags', 10);
 		add_filter( 'post_thumbnail_html', 'amp_image_tags',100);
 		add_filter('script_loader_tag', 'add_defer_attribute', 10, 2);
-		add_action( 'init', 'disable_wp_emojicons' );
+		
 		remove_action( 'wp_head', 'rsd_link' );
 		remove_action( 'wp_head', 'rest_output_link_wp_head', 10 );
 		remove_action( 'wp_head', 'wp_oembed_add_discovery_links', 10 );
@@ -94,7 +95,7 @@ function hiiwp_init(){
 	}
 }
 add_action( 'wp_head', 'hiiwp_init' );
-
+add_action( 'init', 'disable_wp_emojicons' );
 function hiilite_admin_styles() {
     wp_register_style( 'hiilite_admin_stylesheet', get_stylesheet_directory_uri(). '/css/admin-style.css' );
     wp_enqueue_style( 'hiilite_admin_stylesheet' );

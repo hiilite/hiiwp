@@ -380,6 +380,23 @@ ga('send', 'pageview');
 				</div></div>
 			</aside>
 			
+			<?php 
+				if(get_theme_mod( 'header_top_home') == true && get_theme_mod('header_top_home_content') != false && is_front_page()){
+					$hometop_id = get_theme_mod('header_top_home_content');
+					$hometop = new WP_Query(array('page_id' => $hometop_id));
+					if($hometop->have_posts()){
+						echo '<aside id="header_home_top">';
+						while($hometop->have_posts()){
+							$hometop->the_post();
+							
+							the_content();
+						}
+						echo '</aside>';
+					}
+				}
+				
+			?>
+			
 			<!-- HEADER -->
 			<header id="main_header" class="<?=$hiilite_options['header_type'];?>"><div class="container_inner">
 				<?php if($hiilite_options['header_in_grid']) { echo '<div class="in_grid">'; }
@@ -434,7 +451,7 @@ ga('send', 'pageview');
 				<?php if($hiilite_options['header_in_grid']) { echo '</div>'; } ?>
 				</div>
 			</header>
-			<aside id="header_bottom flex-item">
+			<aside id="header_bottom" class="flex-item">
 				<div class="container_inner">
 					<div id="header_bottom_left"></div>
 					<div id="header_bottom_right"></div>

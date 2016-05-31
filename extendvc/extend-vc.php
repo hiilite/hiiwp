@@ -52,7 +52,7 @@ vc_remove_element('vc_masonry_media_grid');
 vc_remove_element('vc_icon');
 vc_remove_element('vc_button2');
 vc_remove_element("vc_custom_heading");
-//vc_remove_element("vc_btn");
+vc_remove_element("vc_btn");
 
 vc_remove_element('vc_gallery');
 
@@ -101,6 +101,19 @@ vc_map( array(
 				)
 			),
 			array(
+				"type" => "dropdown",
+				"holder" => "div",
+				"class" => "",
+				"heading" => "Align",
+				"param_name" => "align",
+				"value" => array(
+					"None" => "",
+					"Center" => "align-center",
+                    "Left" => "align-left",
+					"Right" => "align-right"
+				)
+			),
+			array(
 	            'type' => 'css_editor',
 	            'heading' => __( 'Css', 'my-text-domain' ),
 	            'param_name' => 'css',
@@ -137,6 +150,8 @@ vc_map( array(
 				"value" => array(
 					"Default" => "",
 					"White" => "white"
+					"Big Wide" => "bigwide",
+					"Big Wide White" => "bigwidewhite"
 				)
 			),
 			array(
@@ -256,26 +271,10 @@ vc_map( array(
 				"param_name" => "text_align",
 				"value" => array(
 					"" => "",
-					"Left" => "left",	
-					"Right" => "right",
-					"Center" => "center"
+					"Left" => "align-left",	
+					"Right" => "align-right",
+					"Center" => "align-center"
 				)
-			),
-			array(
-				"type" => "textfield",
-				"holder" => "div",
-				"class" => "",
-				"heading" => "Margin",
-				"param_name" => "margin",
-				"description" => __("Please insert margin in format: 0px 0px 1px 0px", 'qode')
-			),
-			array(
-				"type" => "textfield",
-				"holder" => "div",
-				"class" => "",
-				"heading" => "Border radius",
-				"param_name" => "border_radius",
-				"description" => __("Please insert border radius(Rounded corners) in px. For example: 4 ", 'qode')
 			),
 			array(
 	            'type' => 'css_editor',
@@ -356,6 +355,73 @@ vc_map( array(
 ) );
 
 // Social Share
+vc_map( array(
+		"name" => "Social Profiles",
+		"base" => "social-profiles",
+		"category" => 'by Hiilite',
+		"description" => "Display your social media profiles",
+		"icon" => "icon-wpb-flickr",
+		"allowed_container_element" => 'vc_row',
+		"params" => array(
+			array(
+				"type" => "checkbox",
+				"holder" => "div",
+				"class" => "",
+				"heading" => "Google+",
+				"param_name" => "google-plus"
+			),
+			array(
+				"type" => "checkbox",
+				"holder" => "div",
+				"class" => "",
+				"heading" => "Facebook",
+				"param_name" => "facebook"
+			),
+			array(
+				"type" => "checkbox",
+				"holder" => "div",
+				"class" => "",
+				"heading" => "Twitter",
+				"param_name" => "twitter"
+			),
+			array(
+				"type" => "checkbox",
+				"holder" => "div",
+				"class" => "",
+				"heading" => "Pinterest",
+				"param_name" => "pinterest"
+			),
+			array(
+				"type" => "checkbox",
+				"holder" => "div",
+				"class" => "",
+				"heading" => "LinkedIn",
+				"param_name" => "linkedin"
+			),
+			array(
+				"type" => "checkbox",
+				"holder" => "div",
+				"class" => "",
+				"heading" => "YouTube",
+				"param_name" => "youtube"
+			),
+			array(
+				"type" => "checkbox",
+				"holder" => "div",
+				"class" => "",
+				"heading" => "Email",
+				"param_name" => "email"
+			),
+			array(
+	            'type' => 'css_editor',
+	            'heading' => __( 'Css', 'my-text-domain' ),
+	            'param_name' => 'css',
+	            'group' => __( 'Design options', 'my-text-domain' ),
+	        ),
+		)
+) );
+
+// Media Gallery
 vc_map( array(
 		"name" => "Media Gallery",
 		"base" => "media-gallery",

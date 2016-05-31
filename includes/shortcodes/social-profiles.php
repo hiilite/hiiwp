@@ -14,12 +14,13 @@ function add_social_profiles_shortcode( $atts ){
 	    'tripadvisor'	=> false,
 		'yelp'			=> false,
     ), $atts ) );
-    $output = '';
+    $output = '<div class="text-block">';
+    
 	foreach($atts as $key=>$profile){
 		$bkey = isset($options['business_'.str_replace('-','',$key)])?$options['business_'.str_replace('-','',$key)]:false;
 		if($bkey) $output .= '<a href="'.$bkey.'" target="_blank"><i class="fa fa-'.$key.'"></i></a> ';
 	}
-
+	$output .= '</div>';
 	return $output;
 }
 add_shortcode( 'social-profiles', 'add_social_profiles_shortcode' );

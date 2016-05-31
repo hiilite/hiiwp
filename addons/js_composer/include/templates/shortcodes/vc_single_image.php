@@ -3,8 +3,17 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
 }
 global $hiilite_options;
-$hiilite_options['amp'] = get_theme_mod('amp');
-if($hiilite_options['amp']) $_amp = 'amp-'; else $_amp = '';
+$post_id = get_the_id();
+$post_object = get_post( $post_id );
+
+if(get_post_meta($post_id, 'amp', true) == 'nonamp'){
+	$hiilite_options['amp'] = false;
+} else {
+	$hiilite_options['amp'] = (!isset($hiilite_options['amp']))?get_theme_mod('amp'):$hiilite_options['amp'];
+}
+if($hiilite_options['amp'] != false) $_amp = 'amp-'; else $_amp = '';
+
+
 
 /**
  * Shortcode attributes

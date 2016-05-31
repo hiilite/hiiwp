@@ -27,6 +27,7 @@ $css_classes = array(
 	'flex-item',
 	$atts['content_alignment'],
 	$width,
+	vc_shortcode_custom_css_class( $css ),
 );
 
 if (vc_shortcode_custom_css_has_property( $css, array('border', 'background') )) {

@@ -75,7 +75,7 @@ Kirki::add_field( 'hiiwp', array(
     'settings'    => 'header_top_border_width',
     'label'       => __( 'Header Top Border Thickness', 'my_textdomain' ),
     'section'     => 'header_section',
-    'default'     => '',
+    'default'     => '0',
     'priority'    => 4,
     'output' => '#header_top',
 ) );
@@ -160,5 +160,34 @@ Kirki::add_field( 'hiiwp', array(
     'section'     => 'header_section',
     'default'     => false,
     'priority'    => 8,
+) );
+
+
+
+Kirki::add_field( 'hiiwp', array(
+    'type'        => 'switch',
+    'settings'    => 'header_top_home',
+    'label'       => __( 'Header Home Top', 'my_textdomain' ),
+    'description'  => __( 'Adds content above the header, but only on the home page', 'my_textdomain' ),
+    'section'     => 'header_section',
+    'default'     => false,
+    'priority'    => 9,
+) );
+
+
+Kirki::add_field( 'hiiwp', array(
+	'type'        => 'dropdown-pages',
+	'settings'    => 'header_top_home_content',
+	'label'       => __( 'Content Above Home Header', 'my_textdomain' ),
+	'description'  => __( 'Adds content above the header, but only on the home page', 'my_textdomain' ),
+	'section'     => 'header_section',
+	'default'     => false,
+	'priority'    => 9,
+	'required'	  => array(
+		array(
+		    'setting'  => 'header_top_home',
+			'operator' => '==',
+			'value'    => true,
+	    )),
 ) );
 	?>

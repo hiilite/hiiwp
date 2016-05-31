@@ -18,6 +18,7 @@ figure {
 	display: block;
 	margin: auto;
 	padding: 0;
+	position: relative;
 }
 figure.align-center <?=$_amp?>img{
 	margin: auto;
@@ -266,15 +267,15 @@ header.centered #main-nav {
 	position: relative;
 }
 .menu .menu-item a {
+	text-decoration: none;
+	padding: 1em; /*set*/
+	display:block;
 	<?php 
 	foreach($hiilite_options['main_menu_font'] as $key => $value){
 		echo ($key == 'variant')?'font-weight:'.$value.';':$key.':'.$value.';';
 	}
 	?>
 	<?=$hiilite_options['main_menu_links_css'];?>
-	text-decoration: none;
-	padding: 1em; /*set*/
-	display:block;
 }
 .menu li:hover {
 	background: <?=$hiilite_options['color_one'];?>;
@@ -416,9 +417,9 @@ for($i = 12; $i>0;$i--){
 	echo ($alt_cols[$i])?', .'.$alt_cols[$i]:'';
 	echo '{';
 		$perc_ratio = (($i/12)*100) - 0.1;
-		echo 'max-width:'.$perc_ratio.'em;';
+		echo ($i > 12)?'max-width:'.$perc_ratio.'em;':'max-width:100%;';
 		echo 'width:'.$perc_ratio.'%;';
-		$min_width = ($i>5)?'320':'160';
+		$min_width = ($i>4)?'320':'160';
 		//echo 'min-width:'.$min_width.'px;';
 		echo 'flex:1 1 '.$perc_ratio.'%;';
 		//echo 'flex:1 1 '.(($hiilite_options['grid_width']*(($i-1)/12)) + 1).'px;';
@@ -433,11 +434,11 @@ for($i = 12; $i>0;$i--){
 	echo '{';
 		$perc_ratio = (($i/12)*100);
 		echo 'width:'.$perc_ratio.'%;';
-		$min_width = ($i>3)?'320':'160';
+		$min_width = ($i>2)?'320':'160';
 		echo 'flex:1 1 '.$min_width.'px;';
 	echo '}';
 } 	
-?>	
+?>
 }
 
 
@@ -662,8 +663,9 @@ hr.small {
 /* SLIDER */
 <?=$_amp?>carousel.slider {
 	min-width: 100%;
-	min-height: 400px;
 	max-height: 100vh;
+	display: block;
+	position: relative;
 }
 
 <?=$_amp?>carousel.slider .slide-text-overlay {

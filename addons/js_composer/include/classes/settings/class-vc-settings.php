@@ -373,10 +373,13 @@ class Vc_Settings {
 	 * @return $this
 	 */
 	public function addField( $tab, $title, $field_name, $sanitize_callback, $field_callback, $args = array() ) {
-		register_setting( $this->option_group . '_' . $tab, self::$field_prefix . $field_name, $sanitize_callback );
-		add_settings_field( self::$field_prefix . $field_name, $title, $field_callback, $this->page . '_' . $tab, $this->option_group . '_' . $tab, $args );
+		if(function_exists('register_setting')) {
+			register_setting( $this->option_group . '_' . $tab, self::$field_prefix . $field_name, $sanitize_callback );
+		
+			add_settings_field( self::$field_prefix . $field_name, $title, $field_callback, $this->page . '_' . $tab, $this->option_group . '_' . $tab, $args );
 
-		return $this; // chaining
+			return $this; // chaining
+		}
 	}
 
 	/**
