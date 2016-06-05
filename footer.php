@@ -7,6 +7,7 @@ if($hiilite_options['subdomain'] != 'iframe'):
 
 			<!-- FOOTER -->
 			<footer id="main_footer">
+				<?php if($hiilite_options['footer_top_col1'] || $hiilite_options['footer_top_col2'] || $hiilite_options['footer_top_col3'] || $hiilite_options['footer_top_col4']): ?>
 				<div id="footer_top">
 					<div class="container_inner">
 				<?php if($hiilite_options['footer_in_grid']) { echo '<div class="in_grid">'; } 
@@ -70,7 +71,31 @@ if($hiilite_options['subdomain'] != 'iframe'):
 					 if($hiilite_options['footer_in_grid']) { echo '</div>'; } ?>
 					</div>
 				</div>
+				<?php endif; //end footer top 
+					
+					
+					
 				
+				if(get_theme_mod( 'footer_page_on') == true && get_theme_mod('footer_page_content') != false){
+					$footerpage_id = get_theme_mod('footer_page_content');
+					$footerpage = new WP_Query(array('page_id' => $footerpage_id));
+					if($footerpage->have_posts()){
+						echo '<div id="footer_page">';
+						while($footerpage->have_posts()){
+							$footerpage->the_post();
+							
+							the_content();
+						}
+						echo '</div>';
+					}
+				} 
+				
+		
+					
+					
+					
+					if($hiilite_options['footer_bottom_left'] || $hiilite_options['footer_bottom_center'] || $hiilite_options['footer_bottom_right']):
+				?>
 				<div id="footer_bottom">
 					<?php if($hiilite_options['footer_in_grid']) { echo '<div class="container_inner">'; } ?>
 						<?php if($hiilite_options['footer_bottom_left']) { echo '<div id="footer_bottom_left" class="flex-item align-left">';  
@@ -91,7 +116,7 @@ if($hiilite_options['subdomain'] != 'iframe'):
 					<?php if($hiilite_options['footer_in_grid']) { echo '</div>'; } ?>
 					
 				</div>
-				
+				<?php endif; //end footer bottom  ?>
 			</footer>
 			<div class="full-width align-center">
 		<small>Copyright © <?=date('Y')?> <?=do_shortcode('[business_name]')?>. All rights reserved. <a href="https://hiilite.com/" target="_blank" title="Hiilite Creative Group | Web + Marketing">Web Design by Hiilite Creative Group Kelowna</a></small>

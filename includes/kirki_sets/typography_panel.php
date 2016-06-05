@@ -43,11 +43,6 @@ Kirki::add_field( 'hiiwp', array(
         'color'          => ' ',
     ),
     'priority'    => 1,
-    'output'      => array(
-        array(
-            'element' => 'h1,.h1',
-        ),
-    ),
 ) );
 
 Kirki::add_field( 'hiiwp', array(
@@ -66,11 +61,6 @@ Kirki::add_field( 'hiiwp', array(
         'color'          => ' ',
     ),
     'priority'    => 1,
-    'output'      => array(
-        array(
-            'element' => 'h2,.h2',
-        ),
-    ),
 ) );
 
 Kirki::add_field( 'hiiwp', array(
@@ -89,11 +79,7 @@ Kirki::add_field( 'hiiwp', array(
         'color'          => ' ',
     ),
     'priority'    => 1,
-    'output'      => array(
-        array(
-            'element' => 'h3,.h3',
-        ),
-    ),
+ 
 ) );
 
 Kirki::add_field( 'hiiwp', array(
@@ -112,11 +98,6 @@ Kirki::add_field( 'hiiwp', array(
         'color'          => ' ',
     ),
     'priority'    => 1,
-    'output'      => array(
-        array(
-            'element' => 'h4,.h4',
-        ),
-    ),
 ) );
 
 Kirki::add_field( 'hiiwp', array(
@@ -135,11 +116,6 @@ Kirki::add_field( 'hiiwp', array(
         'color'          => ' ',
     ),
     'priority'    => 1,
-    'output'      => array(
-        array(
-            'element' => 'h5,.h5',
-        ),
-    ),
 ) );
 
 Kirki::add_field( 'hiiwp', array(
@@ -158,11 +134,6 @@ Kirki::add_field( 'hiiwp', array(
         'color'          => ' ',
     ),
     'priority'    => 1,
-    'output'      => array(
-        array(
-            'element' => 'h6,.h6',
-        ),
-    ),
 ) );
 
 Kirki::add_field( 'hiiwp', array(
@@ -212,7 +183,6 @@ Kirki::add_field( 'hiiwp', array(
 		'theme'    => 'monokai',
 		'height'   => '100',
 	),
-	'output' => '.fa',
 ) );
 
 
@@ -238,7 +208,6 @@ Kirki::add_field( 'hiiwp', array(
 		'theme'    => 'monokai',
 		'height'   => '100',
 	),
-	'output' => '.fa',
 ) );
 
 
@@ -309,11 +278,6 @@ Kirki::add_field( 'hiiwp', array(
         'color'          => ' ',
     ),
     'priority'    => 1,
-    'output'      => array(
-        array(
-            'element' => '#main_footer .widgettitle',
-        ),
-    ),
 ) );
 
 Kirki::add_field( 'hiiwp', array(
@@ -331,11 +295,6 @@ Kirki::add_field( 'hiiwp', array(
         'color'          => ' ',
     ),
     'priority'    => 1,
-    'output'      => array(
-        array(
-            'element' => '#main_footer',
-        ),
-    ),
 ) );
 
 Kirki::add_field( 'hiiwp', array(
@@ -353,11 +312,6 @@ Kirki::add_field( 'hiiwp', array(
         'color'          => ' ',
     ),
     'priority'    => 1,
-    'output'      => array(
-        array(
-            'element' => '#main_footer a',
-        ),
-    ),
 ) );
 
 	?>

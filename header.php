@@ -299,6 +299,7 @@ echo minify_css($body);
 if($hiilite_options['amp']) { ?>
 	<script async custom-element="amp-carousel" src="https://cdn.ampproject.org/v0/amp-carousel-0.1.js"></script>
 	<script async custom-element="amp-lightbox" src="https://cdn.ampproject.org/v0/amp-lightbox-0.1.js"></script>
+	<script async custom-element="amp-image-lightbox" src="https://cdn.ampproject.org/v0/amp-image-lightbox-0.1.js"></script>
 	<script async custom-element="amp-iframe" src="https://cdn.ampproject.org/v0/amp-iframe-0.1.js"></script>
 	<script async custom-element="amp-analytics" src="https://cdn.ampproject.org/v0/amp-analytics-0.1.js"></script>
 	<script async src="https://cdn.ampproject.org/v0.js"></script>
@@ -393,9 +394,13 @@ ga('send', 'pageview');
 						}
 						echo '</aside>';
 					}
+				} elseif (get_theme_mod( 'header_top_home') == true && !is_front_page()){					
+					echo '<aside id="header_top_pages"></aside>';
+				
 				}
 				
 			?>
+
 			
 			<!-- HEADER -->
 			<header id="main_header" class="<?=$hiilite_options['header_type'];?>"><div class="container_inner">

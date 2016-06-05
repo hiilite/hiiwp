@@ -9,6 +9,7 @@ function add_media_gallery_shortcode( $atts ){
 	    'show_post_title'  	=> false,
 	    'in_grid'			=> false,
 	    'padding'			=> false,
+	    
     ), $atts ) );
     $output = '';
 	
@@ -25,7 +26,7 @@ function add_media_gallery_shortcode( $atts ){
 		    'show_post_meta'  	=> $show_post_meta,
 		    'show_post_title'  	=> $show_post_title,
 		    'in_grid'			=> $in_grid,
-		    'add_padding'		=> $add_padding,
+		    'add_padding'		=> $padding,
 	    ));
 	echo $portfolio;
 

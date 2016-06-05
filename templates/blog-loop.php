@@ -56,13 +56,16 @@ if($hiilite_options['blog_layout'] =='boxed'){
 	<meta itemscope itemprop="mainEntityOfPage"  itemType="https://schema.org/WebPage" itemid="<?php bloginfo('url')?>"/>
 	<?php 
 	if($hiilite_options['blog_title_pos'] == 'title-above') { 
-		echo '<div class="content-box">';
+		echo '<div class="content-box col-12">';
 		
 		echo $article_title;
 		
 		echo '</div>';
 	}
-	echo '<figure class="flex-item half-width" itemprop="image" itemscope itemtype="https://schema.org/ImageObject">';
+	echo '<figure class="flex-item ';
+	echo ($hiilite_options['blog_image_pos']=='image-left')?'col-6':'col-12';
+	
+	echo '" itemprop="image" itemscope itemtype="https://schema.org/ImageObject">';
 	if(has_post_thumbnail($post->ID)): 
 		$tn_id = get_post_thumbnail_id( $post->ID );
 		$img = wp_get_attachment_image_src( $tn_id, 'large' );

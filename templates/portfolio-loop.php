@@ -23,7 +23,7 @@ if($hiilite_options['amp']) $_amp = 'amp-'; else $_amp = '';
 		<meta itemprop="datePublished" content="<?php the_time('Y-m-d'); ?>">
 		<meta itemprop="dateModified" content="<?php the_modified_date('Y-m-d'); ?>">
 		<h5><span itemprop="articleSection" class="labels"><span rel="category tag"><?php 
-			$terms = get_the_terms( $post->id, 'medium');
+			$terms = get_the_terms( $post->id, 'work');
 			if(!empty($terms))echo $terms[0]->name;
 			?></span></span>
 		<a href="<?=get_the_permalink()?>"><span itemprop="headline"><?php the_title(); ?></span></a></h5>

@@ -70,7 +70,7 @@ function hiiwp_init(){
 	
 	require_once(dirname( __FILE__ ) . '/includes/site_variables.php');
 	
-	if(get_post_meta($post->ID, 'amp', true) == 'nonamp'){
+	if(isset($post->ID) && get_post_meta($post->ID, 'amp', true) == 'nonamp'){
 		$hiilite_options['amp'] = false;
 	} else {
 		$hiilite_options['amp'] = get_theme_mod('amp');

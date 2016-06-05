@@ -141,19 +141,7 @@ vc_map( array(
 		"icon" => "icon-wpb-ui-button",
 		"allowed_container_element" => 'vc_row',
 		"params" => array(
-			array(
-				"type" => "dropdown",
-				"holder" => "div",
-				"class" => "",
-				"heading" => "Style",
-				"param_name" => "style",
-				"value" => array(
-					"Default" => "",
-					"White" => "white"
-					"Big Wide" => "bigwide",
-					"Big Wide White" => "bigwidewhite"
-				)
-			),
+			
 			array(
 				"type" => "textfield",
 				"holder" => "div",
@@ -181,6 +169,13 @@ vc_map( array(
 					"Top" => "_top"	
 				),
 				'save_always' => true
+			),
+			array(
+				"type" => "textfield",
+				"holder" => "div",
+				"class" => "",
+				"heading" => "Classes",
+				"param_name" => "classes"
 			),
             array(
                 "type" => "textfield",

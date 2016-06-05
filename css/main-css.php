@@ -1,10 +1,18 @@
 <style <?php if($hiilite_options['amp']) echo 'amp-custom'; ?>>
-<?php include_once('font-awesome/css/font-awesome.min.css'); ?>
+<?php include_once('font-awesome/css/font-awesome.min.css'); 
+	
+	function get_font_css($font){
+		foreach($font as $key => $value){
+			if($value != ' ' && $value != '' && $value != 'px'){
+				if($key == 'variant') echo 'font-weight:'; else echo $key.':';
+				if($value == 'regular' && $key == 'variant') echo '400;'; else echo $value.';';
+			}
+		}
+	}
+?>
 html {
 	<?php 
-	foreach($hiilite_options['default_font'] as $key => $value){
-		echo ($key == 'variant')?'font-weight:'.$value.';':$key.':'.$value.';';
-	}
+	get_font_css($hiilite_options['default_font']);
 	?>
 }
 body {
@@ -31,11 +39,7 @@ address {
 /* TYPOGRAPHY */
 h1,h2,h3,h4,h5,h6,.h1,.h2 {
 	<?php 
-	foreach($hiilite_options['heading_font'] as $key => $value){
-		if($value != '' && $value != 'px'){
-			echo ($key == 'variant')?'font-weight:'.$value.';':$key.':'.$value.';';
-		}
-	}
+	get_font_css($hiilite_options['heading_font']);
 	?>
 	line-height:1.5;
 	margin-top: 0;
@@ -48,11 +52,7 @@ h1,h2,h3,h4,h5,h6,.h1,.h2 {
 //////////////////////
 for($h=1;$h<=6;$h++):
 	echo "h$h,.h$h {";
-	foreach($hiilite_options['typography_h'.$h.'_font'] as $key => $value){
-		if($value != ' ' && $value != '' && $value != 'px'){
-			echo ($key == 'variant')?'font-weight:'.$value.';':$key.':'.$value.';';
-		}
-	}
+	get_font_css($hiilite_options['typography_h'.$h.'_font']);
 	echo '}';
 endfor; ?>
 @media (max-width:768px){
@@ -98,7 +98,7 @@ table td {
 	margin: auto;
 	display: flex;
 	width: 100%;
-	align-items: center;
+	align-items: stretch;
 	flex-wrap: wrap;
 	box-sizing: border-box;
 }
@@ -142,6 +142,25 @@ header#main_header {
 	}
 	?>
 }
+<?php
+if($hiilite_options['header_top_home'] == true){
+	?>
+	#header_top_pages {
+		<?php
+		echo ($hiilite_options['header_top_pages_background_image'] != '')?'background-image:url('.$hiilite_options['header_top_pages_background_image'].');':'';
+		echo 'background-repeat:'.$hiilite_options['header_top_pages_background_repeat'].';';
+		echo 'background-size:'.$hiilite_options['header_top_pages_background_size'].';';
+		echo 'background-attachment:'.$hiilite_options['header_top_pages_background_attach'].';';
+		echo 'background-position:'.str_replace('-', ' ', $hiilite_options['header_top_pages_background_position']).';';
+		echo 'background-color:'.$hiilite_options['header_top_pages_background_color'].';';	
+		echo 'height:'.$hiilite_options['header_top_pages_height'].';';
+	?>
+	}
+
+	<?php
+}
+
+?>
 <?php if($hiilite_options['header_type'] == 'centered') { ?>
 
 header.centered, 
@@ -183,31 +202,21 @@ header.centered #main-nav {
 
 #main_footer {
 	<?php 
-	foreach($hiilite_options['typography_footer_text_font'] as $key => $value){
-		if($value != ' ' && $value != '' && $value != 'px'){
-			echo ($key == 'variant')?'font-weight:'.$value.';':$key.':'.$value.';';
-		}
-	}
+	//print_r($hiilite_options['typography_footer_text_font']);
+	get_font_css($hiilite_options['typography_footer_text_font']);
+	
 ?>
-}
-
+} 
+ 
 #main_footer .widgettitle {
-	<?php 
-	foreach($hiilite_options['typography_footer_headings_font'] as $key => $value){
-		if($value != ' ' && $value != '' && $value != 'px'){
-			echo ($key == 'variant')?'font-weight:'.$value.';':$key.':'.$value.';';
-		}
-	}
+<?php 
+	get_font_css($hiilite_options['typography_footer_headings_font']);
 ?>
 }
 
 #main_footer a {
-	<?php 
-	foreach($hiilite_options['typography_footer_links_font'] as $key => $value){
-		if($value != ' ' && $value != '' && $value != 'px'){
-			echo ($key == 'variant')?'font-weight:'.$value.';':$key.':'.$value.';';
-		}
-	}
+<?php 
+	get_font_css($hiilite_options['typography_footer_links_font']);
 ?>
 }
 
@@ -271,9 +280,7 @@ header.centered #main-nav {
 	padding: 1em; /*set*/
 	display:block;
 	<?php 
-	foreach($hiilite_options['main_menu_font'] as $key => $value){
-		echo ($key == 'variant')?'font-weight:'.$value.';':$key.':'.$value.';';
-	}
+	get_font_css($hiilite_options['main_menu_font']);
 	?>
 	<?=$hiilite_options['main_menu_links_css'];?>
 }
@@ -383,11 +390,7 @@ ul.sub-menu {
 .page-title h1 {
 	margin-bottom: 0;
 	<?php 
-	foreach($hiilite_options['title_font'] as $key => $value){
-		if($value != ' ' && $value != '' && $value != 'px'){
-			echo ($key == 'variant')?'font-weight:'.$value.';':$key.':'.$value.';';
-		}
-	}
+	get_font_css($hiilite_options['title_font']);
 	?>
 }
 
@@ -571,15 +574,9 @@ if($hiilite_options['portfolio_on']): ?>
 	<?php echo preg_replace('/[{}]/','',$hiilite_options['typography_icon_custom_css']);?>
 }
 
-.custom_format_1 {
-	<?php echo preg_replace('/[{}]/','',$hiilite_options['custom_format_1']);?>
-}
-.custom_format_2 {
-	<?php echo preg_replace('/[{}]/','',$hiilite_options['custom_format_2']);?>
-}
-.custom_format_3 {
-	<?php echo preg_replace('/[{}]/','',$hiilite_options['custom_format_3']);?>
-}
+.custom_format_1 <?=$hiilite_options['custom_format_1'];?>
+.custom_format_2 <?=$hiilite_options['custom_format_2'];?>
+.custom_format_3 <?=$hiilite_options['custom_format_3'];?>
 
 /* Re coloring*/
 .color_one  { color: <?=$hiilite_options['color_one'];?>; }
@@ -739,7 +736,7 @@ input,textarea {padding: 1em;border: 1px solid gray; font-size: 1rem;}
 .fl {
 	float: left;
 }
-
+#closelightbox{position:fixed;width:100vw;height:100vh;z-index:9999;}
 <?php
 do_action ( 'custom_css' );
 echo $hiilite_options['custom_css'];

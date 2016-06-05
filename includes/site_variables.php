@@ -83,6 +83,18 @@ $hiilite_options['header_center_right_on'] 		= get_theme_mod( 'header_center_rig
 
 $hiilite_options['header_bottom_on']			= get_theme_mod( 'header_bottom_on', false );
 
+$hiilite_options['header_top_home']				= get_theme_mod( 'header_top_home', false );
+
+
+$hiilite_options['header_top_pages_background_image']		= get_theme_mod( 'header_top_pages_background_image', '');
+$hiilite_options['header_top_pages_background_repeat']	= get_theme_mod( 'header_top_pages_background_repeat', 'no-repeat');
+$hiilite_options['header_top_pages_background_size']	    = get_theme_mod( 'header_top_pages_background_size', 'cover');
+$hiilite_options['header_top_pages_background_attach']	= get_theme_mod( 'header_top_pages_background_attach', 'fixed');
+$hiilite_options['header_top_pages_background_position']	= get_theme_mod( 'header_top_pages_background_position', 'left-top');
+$hiilite_options['header_top_pages_background_color']		= get_theme_mod( 'header_top_pages_background_color', '#ffffff' );
+
+
+$hiilite_options['header_top_pages_height']		= get_theme_mod( 'header_top_pages_height', '100px' );
 
 // FOOTER 
 $hiilite_options['footer_font_color']			= '#8c8880';
@@ -150,7 +162,7 @@ $hiilite_options['typography_h1_font']				= get_theme_mod( 'typography_h1_font',
         'variant'        => ' ',
         'font-size'      => ' ',
         'line-height'    => ' ',
-        'letter-spacing' => ' ',
+        'letter-spacing' => '0',
         'text-transform' => ' ',
         'color'          => ' ',
     ) );
@@ -160,7 +172,7 @@ $hiilite_options['typography_h2_font']				= get_theme_mod( 'typography_h2_font',
         'variant'        => ' ',
         'font-size'      => ' ',
         'line-height'    => ' ',
-        'letter-spacing' => ' ',
+        'letter-spacing' => '0',
         'text-transform' => ' ',
         'color'          => ' ',
     ) );
@@ -170,7 +182,7 @@ $hiilite_options['typography_h3_font']				= get_theme_mod( 'typography_h3_font',
         'variant'        => ' ',
         'font-size'      => ' ',
         'line-height'    => ' ',
-        'letter-spacing' => ' ',
+        'letter-spacing' => '0',
         'text-transform' => ' ',
         'color'          => ' ',
     ) );
@@ -180,7 +192,7 @@ $hiilite_options['typography_h4_font']				= get_theme_mod( 'typography_h4_font',
         'variant'        => ' ',
         'font-size'      => ' ',
         'line-height'    => ' ',
-        'letter-spacing' => ' ',
+        'letter-spacing' => '0',
         'text-transform' => ' ',
         'color'          => ' ',
     ) );
@@ -190,7 +202,7 @@ $hiilite_options['typography_h5_font']				= get_theme_mod( 'typography_h5_font',
         'variant'        => ' ',
         'font-size'      => ' ',
         'line-height'    => ' ',
-        'letter-spacing' => ' ',
+        'letter-spacing' => '0',
         'text-transform' => ' ',
         'color'          => ' ',
     ) );
@@ -200,7 +212,7 @@ $hiilite_options['typography_h6_font']				= get_theme_mod( 'typography_h6_font',
         'variant'        => ' ',
         'font-size'      => ' ',
         'line-height'    => ' ',
-        'letter-spacing' => ' ',
+        'letter-spacing' => '0',
         'text-transform' => ' ',
         'color'          => ' ',
     ) );
@@ -211,7 +223,7 @@ $hiilite_options['typography_footer_headings_font']				= get_theme_mod( 'typogra
         'variant'        => ' ',
         'font-size'      => ' ',
         'line-height'    => ' ',
-        'letter-spacing' => ' ',
+        'letter-spacing' => '0',
         'text-transform' => ' ',
         'color'          => ' ',
     ) );
@@ -220,7 +232,7 @@ $hiilite_options['typography_footer_headings_font']				= get_theme_mod( 'typogra
         'variant'        => ' ',
         'font-size'      => ' ',
         'line-height'    => ' ',
-        'letter-spacing' => ' ',
+        'letter-spacing' => '0',
         'text-transform' => ' ',
         'color'          => ' ',
     ) );
@@ -229,7 +241,7 @@ $hiilite_options['typography_footer_headings_font']				= get_theme_mod( 'typogra
         'variant'        => ' ',
         'font-size'      => ' ',
         'line-height'    => ' ',
-        'letter-spacing' => ' ',
+        'letter-spacing' => '0',
         'text-transform' => ' ',
         'color'          => ' ',
     ) );

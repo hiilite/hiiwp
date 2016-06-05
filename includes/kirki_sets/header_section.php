@@ -190,4 +190,44 @@ Kirki::add_field( 'hiiwp', array(
 			'value'    => true,
 	    )),
 ) );
+
+Kirki::add_field( 'hiiwp', array(
+	'type'        => 'background',
+    'settings'    => 'header_top_pages_background',
+    'label'       => __( 'Background Above Header', 'my_textdomain' ),
+    'description'  => __( 'Fallback image for all pages except home', 'my_textdomain' ),
+    'section'     => 'header_section',
+    'priority'    => 9,
+    'default'     => array(
+		'color'    => '#ffffff',
+		'image'    => '',
+		'repeat'   => 'no-repeat',
+		'size'     => 'cover',
+		'attach'   => 'fixed',
+		'position' => 'left-top',
+		'opacity'  => 100,
+	),
+	'required'	  => array(
+		array(
+		    'setting'  => 'header_top_home',
+			'operator' => '==',
+			'value'    => true,
+	    )),
+) );
+
+Kirki::add_field( 'hiiwp', array(
+    'type'        => 'dimension',
+    'settings'    => 'header_top_pages_height',
+    'label'       => __( 'Above Header Height', 'my_textdomain' ),
+    'description'  => __( 'Height of above header image in all pages except home', 'my_textdomain' ),
+    'section'     => 'header_section',
+    'default'     => '100px',
+    'priority'    => 9,
+	'required'	  => array(
+		array(
+		    'setting'  => 'header_top_home',
+			'operator' => '==',
+			'value'    => true,
+	    )),
+) );
 	?>

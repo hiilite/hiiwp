@@ -30,7 +30,6 @@ Kirki::add_field( 'hiiwp', array(
 		'position' => 'left-top',
 		'opacity'  => 90,
 	),
-	'output' => 'footer#main_footer',
 ) );
 
 
@@ -113,6 +112,33 @@ Kirki::add_field( 'hiiwp', array(
     'section'     => 'footer_section',
     'default'     => false,
     'priority'    => 8,
+) );
+
+
+Kirki::add_field( 'hiiwp', array(
+    'type'        => 'switch',
+    'settings'    => 'footer_page_on',
+    'label'       => __( 'Use Footer Page', 'my_textdomain' ),
+    'description'  => __( 'Enable to use a pages content as the footer', 'my_textdomain' ),
+    'section'     => 'footer_section',
+    'default'     => false,
+    'priority'    => 9,
+) );
+
+Kirki::add_field( 'hiiwp', array(
+	'type'        => 'dropdown-pages',
+	'settings'    => 'footer_page_content',
+	'label'       => __( 'Footer Content Page', 'my_textdomain' ),
+	'description'  => __( 'Select the page to use as the footer for the site', 'my_textdomain' ),
+	'section'     => 'footer_section',
+	'default'     => false,
+	'priority'    => 9,
+	'required'	  => array(
+		array(
+		    'setting'  => 'footer_page_on',
+			'operator' => '==',
+			'value'    => true,
+	    )),
 ) );
 
 	?>

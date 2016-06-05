@@ -84,6 +84,7 @@ Kirki::add_field( 'hiiwp', array(
     'default'     => true,
     'priority'    => 1,
 ) );
+
 Kirki::add_field( 'hiiwp', array(
 	'type'        => 'radio-buttonset',
 	'settings'    => 'blog_heading_size',
