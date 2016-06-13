@@ -3,7 +3,7 @@
 
 function add_social_profiles_shortcode( $atts ){
 	$options = get_option('company_options');
-	extract( shortcode_atts( array(
+	$defaults = array(
 	    'facebook'  	=> false,
 	    'twitter'  		=> false,
 	    'google-plus'	=> false,
@@ -13,9 +13,10 @@ function add_social_profiles_shortcode( $atts ){
 	    'youtube'		=> false,
 	    'tripadvisor'	=> false,
 		'yelp'			=> false,
-    ), $atts ) );
+    );
+	if($atts == '')$atts = $defaults;
+	extract( shortcode_atts( $defaults, $atts ) );
     $output = '<div class="text-block">';
-    
 	foreach($atts as $key=>$profile){
 		$bkey = isset($options['business_'.str_replace('-','',$key)])?$options['business_'.str_replace('-','',$key)]:false;
 		if($bkey) $output .= '<a href="'.$bkey.'" target="_blank"><i class="fa fa-'.$key.'"></i></a> ';
@@ -53,7 +54,7 @@ class Social_Profiles_Widget extends WP_Widget {
 		if ( ! empty( $instance['title'] ) ) {
 			echo $args['before_title'] . apply_filters( 'widget_title', $instance['title'] ). $args['after_title'];
 		}
-		echo do_shortcode('[social-share]');
+		echo do_shortcode('[social-profiles]');
 		echo $args['after_widget'];
 		
 	}
@@ -84,7 +85,7 @@ class Social_Profiles_Widget extends WP_Widget {
 		// processes widget options to be saved
 		$instance = array();
 		$instance['title'] = ( ! empty( $new_instance['title'] ) ) ? strip_tags( $new_instance['title'] ) : '';
-
+		//$instance['facebook'] = ( ! empty( $new_instance['facebook'] ) ) ? strip_tags( $new_instance['facebook'] ) : '';
 		return $instance;
 	}
 }

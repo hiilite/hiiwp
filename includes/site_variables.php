@@ -8,13 +8,13 @@ $hiilite_options['default_font']				= get_theme_mod( 'default_font', array(
         'variant'        => '400',
         'font-size'      => '14px',
         'line-height'    => '1.5',
-        'letter-spacing' => '0',
+        'letter-spacing' => '0px',
         'color'          => '#333333',
     ) );
 $hiilite_options['heading_font']				= get_theme_mod( 'heading_font', array(
         'font-family'    => 'Roboto',
         'variant'        => '400',
-        'letter-spacing' => '0',
+        'letter-spacing' => '0px',
         'color'          => '#333333',
     ) );
 $hiilite_options['amp'] = get_theme_mod( 'amp', '0');
@@ -157,15 +157,7 @@ $hiilite_options['title_background_color']		= get_theme_mod( 'title_background_c
 
 // FONTS
 
-$hiilite_options['typography_h1_font']				= get_theme_mod( 'typography_h1_font', array(
-        'font-family'    => ' ',
-        'variant'        => ' ',
-        'font-size'      => ' ',
-        'line-height'    => ' ',
-        'letter-spacing' => '0',
-        'text-transform' => ' ',
-        'color'          => ' ',
-    ) );
+$hiilite_options['typography_h1_font']				= get_theme_mod( 'typography_h1_font', $hiilite_options['heading_font'] );
     
 $hiilite_options['typography_h2_font']				= get_theme_mod( 'typography_h2_font', array(
         'font-family'    => ' ',

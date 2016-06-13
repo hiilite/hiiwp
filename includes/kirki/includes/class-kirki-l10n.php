@@ -1,18 +1,47 @@
 <?php
-
+/**
+ * Internationalization helper.
+ *
+ * @package     Kirki
+ * @category    Core
+ * @author      Aristeides Stathopoulos
+ * @copyright   Copyright (c) 2016, Aristeides Stathopoulos
+ * @license     http://opensource.org/licenses/https://opensource.org/licenses/MIT
+ * @since       1.0
+ */
 
 if ( ! class_exists( 'Kirki_l10n' ) ) {
 
+	/**
+	 * Handles translations
+	 */
 	class Kirki_l10n {
 
+		/**
+		 * The plugin textdomain
+		 *
+		 * @access protected
+		 * @var string
+		 */
 		protected $textdomain = 'kirki';
 
+		/**
+		 * The class constructor.
+		 * Adds actions & filters to handle the rest of the methods.
+		 *
+		 * @access public
+		 */
 		public function __construct() {
 
 			add_action( 'plugins_loaded', array( $this, 'load_textdomain' ) );
 
 		}
 
+		/**
+		 * Load the plugin textdomain
+		 *
+		 * @access public
+		 */
 		public function load_textdomain() {
 
 			if ( null !== $this->get_path() ) {
@@ -23,7 +52,10 @@ if ( ! class_exists( 'Kirki_l10n' ) ) {
 		}
 
 		/**
-		 * @return string
+		 * Gets the path to a translation file.
+		 *
+		 * @access protected
+		 * @return string Absolute path to the translation file.
 		 */
 		protected function get_path() {
 			$path_found = false;
@@ -44,6 +76,9 @@ if ( ! class_exists( 'Kirki_l10n' ) ) {
 		}
 
 		/**
+		 * Returns an array of paths where translation files may be located.
+		 *
+		 * @access protected
 		 * @return array
 		 */
 		protected function get_paths() {
@@ -60,7 +95,7 @@ if ( ! class_exists( 'Kirki_l10n' ) ) {
 		 *
 		 * @static
 		 * @access public
-		 *
+		 * @param string $config_id The config ID. See Kirki_Config.
 		 * @return array
 		 */
 		public static function get_strings( $config_id = 'global' ) {
@@ -119,16 +154,20 @@ if ( ! class_exists( 'Kirki_l10n' ) ) {
 				'line-height'           => esc_attr__( 'Line Height', 'kirki' ),
 				'font-style'            => esc_attr__( 'Font Style', 'kirki' ),
 				'letter-spacing'        => esc_attr__( 'Letter Spacing', 'kirki' ),
-				'text-transform'        => esc_attr__( 'Text Transform', 'kirki' ),
 				'top'                   => esc_attr__( 'Top', 'kirki' ),
 				'bottom'                => esc_attr__( 'Bottom', 'kirki' ),
 				'left'                  => esc_attr__( 'Left', 'kirki' ),
 				'right'                 => esc_attr__( 'Right', 'kirki' ),
+				'center'                => esc_attr__( 'Center', 'kirki' ),
+				'justify'               => esc_attr__( 'Justify', 'kirki' ),
 				'color'                 => esc_attr__( 'Color', 'kirki' ),
 				'add-image'             => esc_attr__( 'Add Image', 'kirki' ),
 				'change-image'          => esc_attr__( 'Change Image', 'kirki' ),
-				'remove'                => esc_attr__( 'Remove', 'kirki' ),
 				'no-image-selected'     => esc_attr__( 'No Image Selected', 'kirki' ),
+				'add-file'              => esc_attr__( 'Add File', 'kirki' ),
+				'change-file'           => esc_attr__( 'Change File', 'kirki' ),
+				'no-file-selected'      => esc_attr__( 'No File Selected', 'kirki' ),
+				'remove'                => esc_attr__( 'Remove', 'kirki' ),
 				'select-font-family'    => esc_attr__( 'Select a font-family', 'kirki' ),
 				'variant'               => esc_attr__( 'Variant', 'kirki' ),
 				'subsets'               => esc_attr__( 'Subset', 'kirki' ),
@@ -154,18 +193,38 @@ if ( ! class_exists( 'Kirki_l10n' ) ) {
 				'ultra-bold'            => esc_attr__( 'Ultra-Bold 900', 'kirki' ),
 				'ultra-bold-italic'     => esc_attr__( 'Ultra-Bold 900 Italic', 'kirki' ),
 				'invalid-value'         => esc_attr__( 'Invalid Value', 'kirki' ),
+				'add-new'           	=> esc_attr__( 'Add new', 'kirki' ),
+				'row'           		=> esc_attr__( 'row', 'kirki' ),
+				'limit-rows'            => esc_attr__( 'Limit: %s rows', 'kirki' ),
+				'open-section'          => esc_attr__( 'Press return or enter to open this section', 'kirki' ),
+				'back'                  => esc_attr__( 'Back', 'kirki' ),
+				'reset-with-icon'       => sprintf( esc_attr__( '%s Reset', 'kirki' ), '<span class="dashicons dashicons-image-rotate"></span>' ),
+				'text-align'            => esc_attr__( 'Text Align', 'kirki' ),
+				'text-transform'        => esc_attr__( 'Text Transform', 'kirki' ),
+				'none'                  => esc_attr__( 'None', 'kirki' ),
+				'capitalize'            => esc_attr__( 'Capitalize', 'kirki' ),
+				'uppercase'             => esc_attr__( 'Uppercase', 'kirki' ),
+				'lowercase'             => esc_attr__( 'Lowercase', 'kirki' ),
+				'initial'               => esc_attr__( 'Initial', 'kirki' ),
+				'select-page'           => esc_attr__( 'Select a Page', 'kirki' ),
+				'open-editor'           => esc_attr__( 'Open Editor', 'kirki' ),
+				'close-editor'          => esc_attr__( 'Close Editor', 'kirki' ),
+				'switch-editor'         => esc_attr__( 'Switch Editor', 'kirki' ),
+				'hex-value'             => esc_attr__( 'Hex Value', 'kirki' ),
 			);
 
+			// Apply global changes from the kirki/config filter.
+			// This is generally to be avoided.
+			// It is ONLY provided here for backwards-compatibility reasons.
+			// Please use the kirki/{$config_id}/l10n filter instead.
 			$config = apply_filters( 'kirki/config', array() );
-
 			if ( isset( $config['i18n'] ) ) {
 				$translation_strings = wp_parse_args( $config['i18n'], $translation_strings );
 			}
 
+			// Apply l10n changes using the kirki/{$config_id}/l10n filter.
 			return apply_filters( 'kirki/' . $config_id . '/l10n', $translation_strings );
 
 		}
-
 	}
-
 }

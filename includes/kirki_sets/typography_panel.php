@@ -25,7 +25,11 @@ Kirki::add_section( 'typography_footer_section', array(
 ) );
 
 
-
+$default_h1 = get_theme_mod( 'heading_font' );
+$default_h1['font-size'] = '2em';
+$default_h1['text-transform'] = 'none';
+$default_h1['line-height'] = '1.5';
+$default_h1['font-size'] = '2em';
 
 Kirki::add_field( 'hiiwp', array(
     'type'        => 'typography',
@@ -33,15 +37,7 @@ Kirki::add_field( 'hiiwp', array(
     'label'       => esc_attr__( 'H1 Style', 'kirki' ),
     'description' => __( 'Define styles for H1 heading' ),
     'section'     => 'typography_headings_section',
-    'default'     => array(
-        'font-family'    => ' ',
-        'variant'        => ' ',
-        'font-size'      => ' ',
-        'line-height'    => ' ',
-        'letter-spacing' => ' ',
-        'text-transform' => ' ',
-        'color'          => ' ',
-    ),
+    'default'     => $default_h1,
     'priority'    => 1,
 ) );
 
@@ -56,7 +52,7 @@ Kirki::add_field( 'hiiwp', array(
         'variant'        => ' ',
         'font-size'      => ' ',
         'line-height'    => ' ',
-        'letter-spacing' => ' ',
+        'letter-spacing' => '0px',
         'text-transform' => ' ',
         'color'          => ' ',
     ),
@@ -74,7 +70,7 @@ Kirki::add_field( 'hiiwp', array(
         'variant'        => ' ',
         'font-size'      => ' ',
         'line-height'    => ' ',
-        'letter-spacing' => ' ',
+        'letter-spacing' => '0px',
         'text-transform' => ' ',
         'color'          => ' ',
     ),
@@ -93,7 +89,7 @@ Kirki::add_field( 'hiiwp', array(
         'variant'        => ' ',
         'font-size'      => ' ',
         'line-height'    => ' ',
-        'letter-spacing' => ' ',
+        'letter-spacing' => '0px',
         'text-transform' => ' ',
         'color'          => ' ',
     ),
@@ -111,7 +107,7 @@ Kirki::add_field( 'hiiwp', array(
         'variant'        => ' ',
         'font-size'      => ' ',
         'line-height'    => ' ',
-        'letter-spacing' => ' ',
+        'letter-spacing' => '0px',
         'text-transform' => ' ',
         'color'          => ' ',
     ),
@@ -129,7 +125,7 @@ Kirki::add_field( 'hiiwp', array(
         'variant'        => ' ',
         'font-size'      => ' ',
         'line-height'    => ' ',
-        'letter-spacing' => ' ',
+        'letter-spacing' => '0px',
         'text-transform' => ' ',
         'color'          => ' ',
     ),
@@ -159,7 +155,6 @@ Kirki::add_field( 'hiiwp', array(
 		'theme'    => 'monokai',
 		'height'   => '100',
 	),
-	'output' => 'a',
 ) );
 
 Kirki::add_field( 'hiiwp', array(

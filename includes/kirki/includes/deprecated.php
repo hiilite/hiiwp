@@ -7,11 +7,11 @@
  * @category    Core
  * @author      Aristeides Stathopoulos
  * @copyright   Copyright (c) 2016, Aristeides Stathopoulos
- * @license     http://opensource.org/licenses/gpl-2.0.php GNU Public License
+ * @license     http://opensource.org/licenses/https://opensource.org/licenses/MIT
  * @since       1.0
  */
 
-// Exit if accessed directly
+// Exit if accessed directly.
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
@@ -51,5 +51,21 @@ if ( ! function_exists( 'kirki_get_rgba' ) ) {
 if ( ! function_exists( 'kirki_get_brightness' ) ) {
 	function kirki_get_brightness( $hex ) {
 		return Kirki_Color::get_brightness( $hex );
+	}
+}
+
+/**
+ * Class was deprecated in 2.2.7
+ *
+ * @see https://github.com/aristath/kirki/commit/101805fd689fa8828920b789347f13efc378b4a7
+ */
+if ( ! class_exists( 'Kirki_Colourlovers' ) ) {
+	/**
+	 * Deprecated.
+	 */
+	class Kirki_Colourlovers {
+		public static function get_palettes( $palettes_nr = 5 ) {
+			return array();
+		}
 	}
 }

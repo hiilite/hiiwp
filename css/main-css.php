@@ -284,10 +284,12 @@ header.centered #main-nav {
 	?>
 	<?=$hiilite_options['main_menu_links_css'];?>
 }
-.menu li:hover {
+
+.menu li:hover, .menu .current-menu-item {
+	border-radius: 4px;
 	background: <?=$hiilite_options['color_one'];?>;
 }
-.menu li:hover a {
+.menu li:hover a, .menu .current-menu-item a {
 	color:white;
 }
 ul.sub-menu {
@@ -302,7 +304,9 @@ ul.sub-menu {
 .menu li:hover > ul.sub-menu {
 	display:block;
 }
-
+a, .button, .menu li {
+	transition:all 0.4s;
+}
 @media (max-width:<?=$hiilite_options['mobile_menu_switch'];?>){
 	#logo_container {
 	    padding: 0 1em;
@@ -509,7 +513,8 @@ for($i = 12; $i>0;$i--){
 .col-count-<?=$hiilite_options['blog_columns']?> {
 	column-count:<?=$hiilite_options['blog_columns']?>;
 	column-width: 17em;
-	
+	-moz-column-count:<?=$hiilite_options['blog_columns']?>;
+	-moz-column-width: 17em;
 }
 <?php 
 endif;

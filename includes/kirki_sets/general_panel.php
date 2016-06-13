@@ -79,6 +79,20 @@ Kirki::add_field( 'hiiwp', array(
 	),
 ) );
 
+Kirki::add_field( 'hiiwp', array(
+	'type'        => 'code',
+	'settings'    => 'admin_custom_css',
+	'label'       => __( 'Admin Custom CSS', 'my_textdomain' ),
+	'description' => __( 'Custom style for wp-login and admin areas', 'textdomain' ),
+	'section'     => 'general_section_globals',
+	'default'     => '',
+	'priority'    => 2,
+	'choices'     => array(
+		'language' => 'css',
+		'theme'    => 'monokai',
+		'height'   => '100',
+	),
+) );
 
 
 // DEFAULT FONTS
@@ -99,15 +113,11 @@ Kirki::add_field( 'hiiwp', array(
         'variant'        => '400',
         'font-size'      => '14px',
         'line-height'    => '1.5',
-        'letter-spacing' => '0',
+        'letter-spacing' => '0px',
         'color'          => '#333333',
     ),
     'priority'    => 9,
-    'output'      => array(
-        array(
-            'element' => 'body',
-        ),
-    ),
+    'transport' => 'refresh',
 ) );
 Kirki::add_field( 'hiiwp', array(
     'type'        => 'typography',
@@ -118,15 +128,10 @@ Kirki::add_field( 'hiiwp', array(
     'default'     => array(
         'font-family'    => 'Roboto',
         'variant'        => '400',
-        'letter-spacing' => '0',
+        'letter-spacing' => '0px',
         'color'          => '#333333',
     ),
     'priority'    => 10,
-    'output'      => array(
-        array(
-            'element' => 'h1,h2,h3,h4,h5,h6,.h1,.h2',
-        ),
-    ),
 ) );
 
 

@@ -115,7 +115,7 @@ $related_args = array(
     'orderby'        => $args['orderby'],
   
 );
-$taxonomies = array('category','post_tag');
+/*$taxonomies = array('category','post_tag');
 foreach( $taxonomies as $taxonomy ) {
     $terms = get_the_terms( $post_id, $taxonomy );
     $term_list = wp_list_pluck( $terms, 'slug' );
@@ -127,7 +127,7 @@ foreach( $taxonomies as $taxonomy ) {
 }
 if( count( $related_args['tax_query'] ) > 1 ) {
     $related_args['tax_query']['relation'] = 'OR';
-}
+}*/
 	?>
 	<div class="align-center">
 		<h4>Related Articles</h4>

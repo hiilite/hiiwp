@@ -1,99 +1,159 @@
 <?php
+/**
+ * Creates and validates field parameters.
+ *
+ * @package     Kirki
+ * @category    Core
+ * @author      Aristeides Stathopoulos
+ * @copyright   Copyright (c) 2016, Aristeides Stathopoulos
+ * @license     http://opensource.org/licenses/https://opensource.org/licenses/MIT
+ * @since       1.0
+ */
 
 if ( ! class_exists( 'Kirki_Field' ) ) {
+
+	/**
+	 * Please do not use this class directly.
+	 * You should instead extend it per-field-type.
+	 */
 	class Kirki_Field {
 
 		/**
+		 * The ID of the kirki_config we're using.
+		 *
+		 * @see Kirki_Config
 		 * @access protected
 		 * @var string
 		 */
 		protected $kirki_config = 'global';
 
 		/**
+		 * Thje capability required so that users can edit this field.
+		 *
 		 * @access protected
 		 * @var string
 		 */
 		protected $capability = 'edit_theme_options';
 
 		/**
+		 * If we're using options instead of theme_mods
+		 * and we want them serialized, this is the option that
+		 * will saved in the db.
+		 *
 		 * @access protected
 		 * @var string
 		 */
 		protected $option_name = '';
 
 		/**
+		 * Use "theme_mod" or "option".
+		 *
 		 * @access protected
 		 * @var string
 		 */
 		protected $option_type = 'theme_mod';
 
 		/**
+		 * The name of this setting (id for the db).
+		 *
 		 * @access protected
 		 * @var string|array
 		 */
 		protected $settings = '';
 
 		/**
+		 * Set to true if you want to disable all CSS output for this field.
+		 *
 		 * @access protected
 		 * @var bool
 		 */
 		protected $disable_output = false;
 
 		/**
+		 * The field type.
+		 *
 		 * @access protected
 		 * @var string
 		 */
 		protected $type = 'kirki-generic';
 
 		/**
+		 * Some fields require options to be set.
+		 * We're whitelisting the property here
+		 * and suggest you validate this in a child class.
+		 *
 		 * @access protected
 		 * @var array
 		 */
 		protected $choices = array();
 
 		/**
+		 * Assign this field to a section.
+		 * Fields not assigned to a section will not be displayed in the customizer.
+		 *
 		 * @access protected
 		 * @var string
 		 */
 		protected $section = '';
 
 		/**
+		 * The default value for this field.
+		 *
 		 * @access protected
 		 * @var string|array
 		 */
 		protected $default = '';
 
 		/**
+		 * Priority determines the position of a control inside a section.
+		 * Lower priority numbers move the control to the top.
+		 *
 		 * @access protected
 		 * @var int
 		 */
 		protected $priority = 10;
 
 		/**
+		 * Unique ID for this field.
+		 * This is auto-calculated from the $settings argument.
+		 *
 		 * @access protected
 		 * @var string
 		 */
 		protected $id = '';
 
 		/**
+		 * Use if you want to automatically generate CSS from this field's value.
+		 *
+		 * @see https://kirki.org/docs/arguments/output
 		 * @access protected
 		 * @var array
 		 */
 		protected $output = array();
 
 		/**
+		 * Use to automatically generate postMessage scripts.
+		 * Not necessary to use if you use 'transport' => 'auto'
+		 * and have already set an array for the 'output' argument.
+		 *
+		 * @see https://kirki.org/docs/arguments/js_vars
 		 * @access protected
 		 * @var array
 		 */
 		protected $js_vars = array();
 
 		/**
+		 * If you want to use a CSS compiler, then use this to set the variable names.
+		 *
+		 * @see https://kirki.org/docs/arguments/variables
 		 * @access protected
 		 * @var array
 		 */
 		protected $variables = array();
 
 		/**
+		 * Text that will be used in a tooltip to provide extra info for this field.
+		 *
 		 * @access protected
 		 * @var string
 		 */
@@ -116,45 +176,116 @@ if ( ! class_exists( 'Kirki_Field' ) ) {
 		protected $mode = '';
 
 		/**
+		 * A custom callback to determine if the field should be visible or not.
+		 *
 		 * @access protected
 		 * @var string|array
 		 */
 		protected $active_callback = '__return_true';
 
 		/**
+		 * A custom sanitize callback that will be used to properly save the values.
+		 *
 		 * @access protected
 		 * @var string|array
 		 */
 		protected $sanitize_callback = '';
 
 		/**
+		 * Use 'refresh', 'postMessage' or 'auto'.
+		 * 'auto' will automatically geberate any 'js_vars' from the 'output' argument.
+		 *
 		 * @access protected
 		 * @var string
 		 */
 		protected $transport = 'refresh';
 
 		/**
+		 * Define dependencies to show/hide this field based on the values of other fields.
+		 *
 		 * @access protected
 		 * @var array
 		 */
 		protected $required = array();
 
 		/**
+		 * Use only on select controls.
+		 * Defines if this is a multi-select or not.
+		 * If value is > 1, then the maximum number of selectable options
+		 * is the number defined here.
+		 *
 		 * @access protected
 		 * @var int
 		 */
 		protected $multiple = 1;
 
 		/**
+		 * Suggested width for cropped image.
+		 *
+		 * @access protected
+		 * @var int
+		 */
+		protected $width = 150;
+
+		/**
+		 * Suggested height for cropped image.
+		 *
+		 * @access protected
+		 * @var int
+		 */
+		protected $height = 150;
+
+		/**
+		 * Whether the width is flexible for cropped image.
+		 *
+		 * @access protected
+		 * @var bool
+		 */
+		protected $flex_width = false;
+
+		/**
+		 * Whether the height is flexible for cropped image.
+		 *
+		 * @access protected
+		 * @var bool
+		 */
+		protected $flex_height = false;
+
+		/**
+		 * Contain the settings for the repeater rows labels
+		 *
+		 * @access protected
+		 * @var array
+		 */
+		protected $row_label = array();
+
+		/**
+		 * Partial Refreshes array.
+		 *
+		 * @access protected
+		 * @var array
+		 */
+		protected $partial_refresh = array();
+
+		/**
+		 * Use only on image, cropped_image, upload controls.
+		 * Limit the Media library to a specific mime type
+		 *
+		 * @access protected
+		 * @var array
+		 */
+		protected $mime_type = '';
+
+		/**
 		 * The class constructor.
 		 * Parses and sanitizes all field arguments.
-		 * Then it adds the field to Kirki::$fields
+		 * Then it adds the field to Kirki::$fields.
 		 *
 		 * @access public
-		 * @param $config_id    string    The ID of the config we want to use.
-		 *                                Defaults to "global".
-		 *                                Configs are handled by the Kirki_Config class.
-		 * @param $args         array     The arguments of the field.
+		 * @param string $config_id    The ID of the config we want to use.
+		 *                             Defaults to "global".
+		 *                             Configs are handled by the Kirki_Config class.
+		 * @param array  $args         The arguments of the field.
 		 */
 		public function __construct( $config_id = 'global', $args = array() ) {
 
@@ -167,53 +298,66 @@ if ( ! class_exists( 'Kirki_Field' ) ) {
 			if ( is_string( $config_id ) ) {
 				$args['kirki_config'] = $config_id;
 			}
+
 			// In case the user only provides 1 argument,
-			// assume that the provided argument is $args and set $config_id = 'global'
+			// assume that the provided argument is $args and set $config_id = 'global'.
 			if ( is_array( $config_id ) && empty( $args ) ) {
 				$args = $config_id;
 				$this->kirki_config = 'global';
 			}
 			$this->kirki_config = trim( esc_attr( $config_id ) );
-			if ( '' == $config_id ) {
+			if ( '' === $config_id ) {
 				$this->kirki_config = 'global';
 			}
-			// Get defaults from the class
+
+			// Get defaults from the class.
 			$defaults = get_class_vars( __CLASS__ );
-			// Get the config arguments, and merge them with the defaults
-			$config_defaults = Kirki::$config[ $this->kirki_config ];
-			if($config_defaults){
-				foreach ( $config_defaults as $key => $value ) {
-					if ( isset( $defaults[ $key ] ) ) {
-						if ( ! empty( $value ) && $value != $defaults[ $key ] ) {
-							$defaults[ $key ] = $value;
-						}
+
+			// Get the config arguments, and merge them with the defaults.
+			$config_defaults = ( isset( Kirki::$config['global'] ) ) ? Kirki::$config['global'] : array();
+			if ( 'global' !== $this->kirki_config && isset( Kirki::$config[ $this->kirki_config ] ) ) {
+				$config_defaults = Kirki::$config[ $this->kirki_config ];
+			}
+			$config_defaults = ( is_array( $config_defaults ) ) ? $config_defaults : array();
+			foreach ( $config_defaults as $key => $value ) {
+				if ( isset( $defaults[ $key ] ) ) {
+					if ( ! empty( $value ) && $value != $defaults[ $key ] ) {
+						$defaults[ $key ] = $value;
 					}
 				}
 			}
-			// Merge our args with the defaults
+
+			// Merge our args with the defaults.
 			$args = wp_parse_args( $args, $defaults );
-			// Set the class properties using the parsed args
+
+			// Set the class properties using the parsed args.
 			foreach ( $args as $key => $value ) {
 				$this->$key = $value;
 			}
+
 			// An array of whitelisted properties that don't need to be sanitized here.
-			// format: $key => $default_value
+			// Format: $key => $default_value.
 			$whitelisted = apply_filters( 'kirki/' . $this->kirki_config . '/fields/properties_whitelist', array(
-				'label'       => '', // this is sanitized later in the controls themselves
-				'description' => '', // this is sanitized later in the controls themselves
-				'default'     => '', // this is sanitized later in the controls themselves
-				'mode'        => '', // only used for backwards-compatibility reasons
-				'fields'      => array(), // Used in repeater fields
+				'label'       => '', // This is sanitized later in the controls themselves.
+				'description' => '', // This is sanitized later in the controls themselves.
+				'mode'        => '', // Only used for backwards-compatibility reasons.
+				'fields'      => array(), // Used in repeater fields.
+				'row_label'   => array(), // Used in repeater fields.
 			) );
 
 			$this->set_field( $whitelisted );
 
 		}
 
+		/**
+		 * Processes the field arguments
+		 *
+		 * @param array $whitelisted_properties Defines an array of arguments that will skip validation at this point.
+		 */
 		protected function set_field( $whitelisted_properties = array() ) {
 
 			$properties = get_class_vars( __CLASS__ );
-			// remove any whitelisted properties from above
+			// Remove any whitelisted properties from above.
 			// These will get a free pass, completely unfiltered.
 			foreach ( $whitelisted_properties as $key => $default_value ) {
 				if ( isset( $properties[ $key ] ) ) {
@@ -235,9 +379,9 @@ if ( ! class_exists( 'Kirki_Field' ) ) {
 				}
 			}
 
-			// Sanitize the properties, skipping the ones run from the $priorities
+			// Sanitize the properties, skipping the ones run from the $priorities.
 			foreach ( $properties as $property => $value ) {
-				if ( in_array( $property, $priorities ) ) {
+				if ( in_array( $property, $priorities, true ) ) {
 					continue;
 				}
 				if ( method_exists( $this, 'set_' . $property ) ) {
@@ -246,13 +390,13 @@ if ( ! class_exists( 'Kirki_Field' ) ) {
 				}
 			}
 
-			// Get all arguments with their values
+			// Get all arguments with their values.
 			$args = get_class_vars( __CLASS__ );
 			foreach ( $args as $key => $default_value ) {
 				$args[ $key ] = $this->$key;
 			}
 
-			// add the whitelisted properties through the back door
+			// Add the whitelisted properties through the back door.
 			foreach ( $whitelisted_properties as $key => $default_value ) {
 				if ( ! isset( $this->$key ) ) {
 					$this->$key = $default_value;
@@ -260,18 +404,26 @@ if ( ! class_exists( 'Kirki_Field' ) ) {
 				$args[ $key ] = $this->$key;
 			}
 
-			// Add the field to the static $fields variable properly indexed
+			// Add the field to the static $fields variable properly indexed.
 			Kirki::$fields[ $this->settings ] = $args;
 
-			if ( 'background' == $this->type ) {
-				// Build the background fields
+			if ( 'background' === $this->type ) {
+				// Build the background fields.
 				Kirki::$fields = Kirki_Explode_Background_Field::process_fields( Kirki::$fields );
 			}
 
 		}
 
 		/**
-		 * escape $kirki_config
+		 * This allows us to process this on a field-basis
+		 * by using sub-classes which can override this method.
+		 *
+		 * @access protected
+		 */
+		protected function set_default() {}
+
+		/**
+		 * Escape $kirki_config.
 		 *
 		 * @access protected
 		 */
@@ -282,7 +434,7 @@ if ( ! class_exists( 'Kirki_Field' ) ) {
 		}
 
 		/**
-		 * escape $option_name
+		 * Escape $option_name.
 		 *
 		 * @access protected
 		 */
@@ -294,7 +446,7 @@ if ( ! class_exists( 'Kirki_Field' ) ) {
 
 
 		/**
-		 * escape the $section
+		 * Escape the $section.
 		 *
 		 * @access protected
 		 */
@@ -311,11 +463,11 @@ if ( ! class_exists( 'Kirki_Field' ) ) {
 		 * @access protected
 		 */
 		protected function set_capability() {
-			// early exit if we're using 'edit_theme_options'.
-			if ( 'edit_theme_options' == $this->capability ) {
+			// Early exit if we're using 'edit_theme_options'.
+			if ( 'edit_theme_options' === $this->capability ) {
 				return;
 			}
-			// escape & trim the capability
+			// Escape & trim the capability.
 			$this->capability = trim( esc_attr( $this->capability ) );
 		}
 
@@ -326,18 +478,37 @@ if ( ! class_exists( 'Kirki_Field' ) ) {
 		 */
 		protected function set_option_type() {
 
-			// If we have an option_name
-			// then make sure we're using options and not theme_mods
-			if ( '' != $this->option_name ) {
+			// If we have an option_name then make sure we're using options and not theme_mods.
+			if ( '' !== $this->option_name ) {
 				$this->option_type = 'option';
 			}
-			// Take care of common typos
-			if ( 'options' == $this->option_type ) {
+			// Take care of common typos.
+			if ( 'options' === $this->option_type ) {
 				$this->option_type = 'option';
 			}
-			// Take care of common typos
-			if ( 'theme_mods' == $this->option_type ) {
+			// Take care of common typos.
+			if ( 'theme_mods' === $this->option_type ) {
 				$this->option_type = 'theme_mod';
+			}
+		}
+
+		/**
+		 * Modifications for partial refreshes.
+		 *
+		 * @access protected
+		 */
+		protected function set_partial_refresh() {
+			if ( ! is_array( $this->partial_refresh ) ) {
+				$this->partial_refresh = array();
+			}
+			foreach ( $this->partial_refresh as $id => $args ) {
+				if ( ! is_array( $args ) || ! isset( $args['selector'] ) || ! isset( $args['render_callback'] ) || ! is_callable( $args['render_callback'] ) ) {
+					unset( $this->partial_refresh[ $id ] );
+					continue;
+				}
+			}
+			if ( ! empty( $this->partial_refresh ) ) {
+				$this->transport = 'postMessage';
 			}
 		}
 
@@ -359,8 +530,8 @@ if ( ! class_exists( 'Kirki_Field' ) ) {
 			$settings = array();
 			foreach ( $this->settings as $setting_key => $setting_value ) {
 				$settings[ sanitize_key( $setting_key ) ] = esc_attr( $setting_value );
-				// If we're using serialized options then we need to spice this up
-				if ( 'option' == $this->option_type && '' != $this->option_name && ( false === strpos( $setting_key, '[' ) ) ) {
+				// If we're using serialized options then we need to spice this up.
+				if ( 'option' === $this->option_type && '' !== $this->option_name && ( false === strpos( $setting_key, '[' ) ) ) {
 					$settings[ sanitize_key( $setting_key ) ] = esc_attr( $this->option_name ) . '[' . esc_attr( $setting_value ).']';
 				}
 			}
@@ -372,13 +543,13 @@ if ( ! class_exists( 'Kirki_Field' ) ) {
 		}
 
 		/**
-		 * escapes the tooltip messages
+		 * Escapes the tooltip messages.
 		 *
 		 * @access protected
 		 */
 		protected function set_tooltip() {
 
-			if ( '' != $this->tooltip ) {
+			if ( '' !== $this->tooltip ) {
 				$this->tooltip = wp_strip_all_tags( $this->tooltip );
 				return;
 			}
@@ -394,15 +565,21 @@ if ( ! class_exists( 'Kirki_Field' ) ) {
 		 */
 		protected function set_active_callback() {
 
+			if ( is_array( $this->active_callback ) && ! is_callable( $this->active_callback ) ) {
+				if ( isset( $this->active_callback[0] ) ) {
+					$this->required = $this->active_callback;
+				}
+			}
+
 			if ( ! empty( $this->required ) ) {
 				$this->active_callback = array( 'Kirki_Active_Callback', 'evaluate' );
 				return;
 			}
-			// No need to proceed any further if we're using the default value
-			if ( '__return_true' == $this->active_callback ) {
+			// No need to proceed any further if we're using the default value.
+			if ( '__return_true' === $this->active_callback ) {
 				return;
 			}
-			// Make sure the function is callable, otherwise fallback to __return_true
+			// Make sure the function is callable, otherwise fallback to __return_true.
 			if ( ! is_callable( $this->active_callback ) ) {
 				$this->active_callback = '__return_true';
 			}
@@ -416,75 +593,7 @@ if ( ! class_exists( 'Kirki_Field' ) ) {
 		 */
 		protected function set_type() {
 
-			switch ( $this->type ) {
-
-				case 'checkbox':
-					$this->type = 'kirki-checkbox';
-					// Tweaks for backwards-compatibility:
-					// Prior to version 0.8 switch & toggle were part of the checkbox control.
-					if ( in_array( $this->mode, array( 'switch', 'toggle' ) ) ) {
-						$this->type = $this->mode;
-					}
-					break;
-				case 'radio':
-					$this->type = 'kirki-radio';
-					// Tweaks for backwards-compatibility:
-					// Prior to version 0.8 radio-buttonset & radio-image were part of the checkbox control.
-					if ( in_array( $this->mode, array( 'buttonset', 'image' ) ) ) {
-						$this->type = 'radio-' . $this->mode;
-					}
-					break;
-				case 'group-title':
-				case 'group_title':
-					// Tweaks for backwards-compatibility:
-					// Prior to version 0.8 there was a group-title control.
-					// Instead we now just use a "custom" control.
-					$this->type = 'custom';
-					break;
-				case 'color-alpha':
-				case 'color_alpha':
-					// Just making sure that common typos will still work.
-					$this->type = 'color-alpha';
-					$this->choices['alpha'] = true;
-					break;
-				case 'color':
-					$this->type = 'color-alpha';
-					$this->choices['alpha'] = false;
-					// If a default value of rgba() is defined for a color control then we need to enable the alpha channel.
-					if ( false !== strpos( $this->default, 'rgba' ) ) {
-						$this->choices['alpha'] = true;
-					}
-					break;
-				case 'select':
-				case 'select2':
-				case 'select2-multiple':
-					$this->multiple = ( 'select2-multiple' == $this->type ) ? 999 : intval( $this->multiple );
-					$this->type     = 'kirki-select';
-					break;
-				case 'textarea':
-					$this->type               = 'kirki-generic';
-					$this->choices['element'] = 'textarea';
-					$this->choices['rows']    = '5';
-					if ( '' == $this->sanitize_callback ) {
-						$this->sanitize_callback = 'wp_kses_post';
-					}
-					break;
-				case 'text':
-					$this->type               = 'kirki-generic';
-					$this->choices['element'] = 'input';
-					$this->choices['type']    = 'text';
-					if ( '' == $this->sanitize_callback ) {
-						$this->sanitize_callback = 'wp_kses_post';
-					}
-					break;
-				case 'kirki-generic':
-					if ( ! isset( $this->choices['element'] ) ) {
-						$this->choices['element'] = 'input';
-					}
-					break;
-			}
-
-			// escape the control type (it doesn't hurt to be sure)
+			// Escape the control type (it doesn't hurt to be sure).
 			$this->type = esc_attr( $this->type );
 
 		}
@@ -517,30 +626,9 @@ if ( ! class_exists( 'Kirki_Field' ) ) {
 			}
 
 			$default_callbacks = array(
-				'checkbox'         => array( 'Kirki_Sanitize_Values', 'checkbox' ),
-				'toggle'           => array( 'Kirki_Sanitize_Values', 'checkbox' ),
-				'switch'           => array( 'Kirki_Sanitize_Values', 'checkbox' ),
-				'color'            => array( 'Kirki_Sanitize_Values', 'color' ),
-				'color-alpha'      => array( 'Kirki_Sanitize_Values', 'color' ),
-				'image'            => 'esc_url_raw',
-				'upload'           => 'esc_url_raw',
-				'radio'            => 'esc_attr',
-				'radio-image'      => 'esc_attr',
-				'radio-buttonset'  => 'esc_attr',
-				'palette'          => 'esc_attr',
-				'select'           => array( 'Kirki_Sanitize_Values', 'unfiltered' ),
-				'select2'          => array( 'Kirki_Sanitize_Values', 'unfiltered' ),
-				'select2-multiple' => array( 'Kirki_Sanitize_Values', 'unfiltered' ),
-				'dropdown-pages'   => array( 'Kirki_Sanitize_Values', 'dropdown_pages' ),
-				'slider'           => array( 'Kirki_Sanitize_Values', 'number' ),
-				'number'           => array( 'Kirki_Sanitize_Values', 'number' ),
-				'text'             => 'esc_textarea',
-				'kirki-text'       => 'esc_textarea',
-				'textarea'         => 'wp_kses_post',
-				'editor'           => 'wp_kses_post',
-				'multicheck'       => array( 'Kirki_Sanitize_Values', 'multicheck' ),
-				'sortable'         => array( 'Kirki_Sanitize_Values', 'sortable' ),
-				'typography'       => array( 'Kirki_Sanitize_Values', 'typography' ),
+				'kirki-multicheck'       => array( 'Kirki_Sanitize_Values', 'multicheck' ),
+				'kirki-sortable'         => array( 'Kirki_Sanitize_Values', 'sortable' ),
+				'kirki-typography'       => array( 'Kirki_Sanitize_Values', 'typography' ),
 			);
 
 			if ( array_key_exists( $this->type, $default_callbacks ) ) {
@@ -550,7 +638,7 @@ if ( ! class_exists( 'Kirki_Field' ) ) {
 		}
 
 		/**
-		 * Sets the $choices
+		 * Sets the $choices.
 		 *
 		 * @access protected
 		 */
@@ -563,7 +651,7 @@ if ( ! class_exists( 'Kirki_Field' ) ) {
 		}
 
 		/**
-		 * escapes the $disable_output
+		 * Escapes the $disable_output.
 		 *
 		 * @access protected
 		 */
@@ -586,7 +674,7 @@ if ( ! class_exists( 'Kirki_Field' ) ) {
 			if ( ! empty( $this->output ) && ! is_array( $this->output ) ) {
 				$this->output = array( array( 'element' => $this->output ) );
 			}
-			// Convert to array of arrays if needed
+			// Convert to array of arrays if needed.
 			if ( isset( $this->output['element'] ) ) {
 				$this->output = array( $this->output );
 			}
@@ -595,13 +683,13 @@ if ( ! class_exists( 'Kirki_Field' ) ) {
 				if ( ! isset( $output['element'] ) ) {
 					continue;
 				}
-				if ( ! isset( $output['property'] ) && ! in_array( $this->type, array( 'typography', 'background' ) ) ) {
+				if ( ! isset( $output['property'] ) && ! in_array( $this->type, array( 'kirki-typography', 'background' ), true ) ) {
 					continue;
 				}
 				if ( ! isset( $output['sanitize_callback'] ) && isset( $output['callback'] ) ) {
 					$output['sanitize_callback'] = $output['callback'];
 				}
-				// Convert element arrays to strings
+				// Convert element arrays to strings.
 				if ( is_array( $output['element'] ) ) {
 					$output['element'] = array_unique( $output['element'] );
 					sort( $output['element'] );
@@ -632,233 +720,55 @@ if ( ! class_exists( 'Kirki_Field' ) ) {
 				$this->js_vars = array();
 			}
 
-			/**
-			 * @todo
-			 *
-			 * The following is a work in progress that will help us auto-calculate js_vars
-			 * from the output of a field.
-			 * During initial tests there were some unforseen side-effects so we're not enabling it yet.
-			 */
-			// // Try to auto-calculate these.
-			// $js_vars = array();
-			// if ( empty ( $this->js_vars ) && ! empty( $this->output ) ) {
-			// 	$easy_css_properties = array(
-			// 		// 'align-content',
-			// 		// 'align-items',
-			// 		// 'align-self',
-			// 		// 'all',
-			// 		// 'animation',
-			// 		// 'animation-delay',
-			// 		// 'animation-direction',
-			// 		// 'animation-duration',
-			// 		// 'animation-fill-mode',
-			// 		// 'animation-iteration-count',
-			// 		// 'animation-name',
-			// 		// 'animation-play-state',
-			// 		// 'animation-timing-function',
-			// 		// 'backface-visibility',
-			// 		// 'background',
-			// 		// 'background-attachment',
-			// 		// 'background-blend-mode',
-			// 		// 'background-clip',
-			// 		'background-color',
-			// 		// 'background-image',
-			// 		// 'background-origin',
-			// 		// 'background-position',
-			// 		'background-repeat',
-			// 		// 'background-size',
-			// 		// 'border',
-			// 		// 'border-bottom',
-			// 		'border-bottom-color',
-			// 		'border-bottom-left-radius',
-			// 		'border-bottom-right-radius',
-			// 		'border-bottom-style',
-			// 		'border-bottom-width',
-			// 		// 'border-collapse',
-			// 		'border-color',
-			// 		// 'border-image',
-			// 		// 'border-image-outset',
-			// 		// 'border-image-repeat',
-			// 		// 'border-image-slice',
-			// 		// 'border-image-source',
-			// 		'border-image-width',
-			// 		// 'border-left',
-			// 		'border-left-color',
-			// 		// 'border-left-style',
-			// 		'border-left-width',
-			// 		// 'border-radius',
-			// 		// 'border-right',
-			// 		'border-right-color',
-			// 		// 'border-right-style',
-			// 		'border-right-width',
-			// 		// 'border-spacing',
-			// 		// 'border-style',
-			// 		// 'border-top',
-			// 		'border-top-color',
-			// 		// 'border-top-left-radius',
-			// 		// 'border-top-right-radius',
-			// 		// 'border-top-style',
-			// 		'border-top-width',
-			// 		'border-width',
-			// 		'bottom',
-			// 		// 'box-shadow',
-			// 		// 'box-sizing',
-			// 		// 'caption-side',
-			// 		'clear',
-			// 		// 'clip',
-			// 		'color',
-			// 		'column-count',
-			// 		// 'column-fill',
-			// 		// 'column-gap',
-			// 		// 'column-rule',
-			// 		'column-rule-color',
-			// 		// 'column-rule-style',
-			// 		'column-rule-width',
-			// 		// 'column-span',
-			// 		'column-width',
-			// 		// 'columns',
-			// 		// 'content',
-			// 		// 'counter-increment',
-			// 		// 'counter-reset',
-			// 		// 'cursor',
-			// 		// 'direction',
-			// 		'display',
-			// 		// 'empty-cells',
-			// 		// 'filter',
-			// 		// 'flex',
-			// 		// 'flex-basis',
-			// 		// 'flex-direction',
-			// 		// 'flex-flow',
-			// 		// 'flex-grow',
-			// 		// 'flex-shrink',
-			// 		// 'flex-wrap',
-			// 		// 'float',
-			// 		// 'font',
-			// 		// '@font-face',
-			// 		// 'font-family',
-			// 		'font-size',
-			// 		// 'font-size-adjust',
-			// 		// 'font-stretch',
-			// 		'font-style',
-			// 		'font-variant',
-			// 		'font-weight',
-			// 		// 'hanging-punctuation',
-			// 		'height',
-			// 		// 'justify-content',
-			// 		// '@keyframes',
-			// 		'left',
-			// 		// 'letter-spacing',
-			// 		'line-height',
-			// 		'list-style',
-			// 		// 'list-style-image',
-			// 		// 'list-style-position',
-			// 		'list-style-type',
-			// 		'margin',
-			// 		'margin-bottom',
-			// 		'margin-left',
-			// 		'margin-right',
-			// 		'margin-top',
-			// 		'max-height',
-			// 		'max-width',
-			// 		// '@media',
-			// 		'min-height',
-			// 		'min-width',
-			// 		// 'nav-down',
-			// 		// 'nav-index',
-			// 		// 'nav-left',
-			// 		// 'nav-right',
-			// 		// 'nav-up',
-			// 		// 'opacity',
-			// 		// 'order',
-			// 		// 'outline',
-			// 		'outline-color',
-			// 		// 'outline-offset',
-			// 		// 'outline-style',
-			// 		'outline-width',
-			// 		'overflow',
-			// 		'overflow-x',
-			// 		'overflow-y',
-			// 		'padding',
-			// 		'padding-bottom',
-			// 		'padding-left',
-			// 		'padding-right',
-			// 		'padding-top',
-			// 		// 'page-break-after',
-			// 		// 'page-break-before',
-			// 		// 'page-break-inside',
-			// 		// 'perspective',
-			// 		// 'perspective-origin',
-			// 		// 'position',
-			// 		// 'quotes',
-			// 		// 'resize',
-			// 		'right',
-			// 		// 'tab-size',
-			// 		// 'table-layout',
-			// 		'text-align',
-			// 		// 'text-align-last',
-			// 		// 'text-decoration',
-			// 		'text-decoration-color',
-			// 		// 'text-decoration-line',
-			// 		// 'text-decoration-style',
-			// 		'text-indent',
-			// 		'text-justify',
-			// 		// 'text-overflow',
-			// 		// 'text-shadow',
-			// 		// 'text-transform',
-			// 		'top',
-			// 		// 'transform',
-			// 		// 'transform-origin',
-			// 		// 'transform-style',
-			// 		// 'transition',
-			// 		// 'transition-delay',
-			// 		// 'transition-duration',
-			// 		// 'transition-property',
-			// 		// 'transition-timing-function',
-			// 		// 'unicode-bidi',
-			// 		// 'vertical-align',
-			// 		'visibility',
-			// 		// 'white-space',
-			// 		'width',
-			// 		// 'word-break',
-			// 		// 'word-spacing',
-			// 		// 'word-wrap',
-			// 		'z-index',
-			// 	);
-			// 	// start going through each item in the $output array
-			// 	foreach ( $this->output as $output ) {
-			// 		$output['function'] = 'css';
-			// 		// If 'element' or 'property' are not defined, skip this.
-			// 		if ( ! isset( $output['element'] ) || ! isset( $output['property'] ) ) {
-			// 			continue;
-			// 		}
-			// 		// If this is not one of the "easy" elements, skip it.
-			// 		if ( ! in_array( $output['property'], $easy_css_properties ) ) {
-			// 			continue;
-			// 		}
-			// 		if ( is_array( $output['element'] ) ) {
-			// 			$output['element'] = implode( ',', $output['element'] );
-			// 		}
-			// 		if ( false !== strrpos( $output['element'], ':' ) ) {
-			// 			$output['function'] = 'style';
-			// 		}
-			// 		// If there's a sanitize_callback defined, skip this.
-			// 		if ( isset( $output['sanitize_callback'] ) && ! empty( $output['sanitize_callback'] ) ) {
-			// 			continue;
-			// 		}
-			// 		// If we got this far, it's safe to add this.
+			// Check if transport is set to auto.
+			// If not, then skip the auto-calculations and exit early.
+			if ( 'auto' !== $this->transport ) {
+				return;
+			}
 
-			// 		$js_vars[] = $output;
-			// 	}
+			// Set transport to refresh initially.
+			// Serves as a fallback in case we failt to auto-calculate js_vars.
+			$this->transport = 'refresh';
 
-			// 	// Did we manage to get all the items from 'output'?
-			// 	// If not, then we're missing something so don't add this.
-			// 	if ( count( $js_vars ) != count( $this->output ) ) {
-			// 		return;
-			// 	}
-			// 	$this->js_vars   = $js_vars;
-			// 	$this->transport = 'postMessage';
+			$js_vars = array();
 
-			// }
+			// Try to auto-generate js_vars.
+			// First we need to check if js_vars are empty, and that output is not empty.
+			if ( empty( $this->js_vars ) && ! empty( $this->output ) ) {
+
+				// Start going through each item in the $output array.
+				foreach ( $this->output as $output ) {
+					$output['function'] = 'css';
+
+					// If 'element' or 'property' are not defined, skip this.
+					if ( ! isset( $output['element'] ) || ! isset( $output['property'] ) ) {
+						continue;
+					}
+					if ( is_array( $output['element'] ) ) {
+						$output['element'] = implode( ',', $output['element'] );
+					}
+					if ( false !== strpos( $output['element'], ':' ) ) {
+						$output['function'] = 'style';
+					}
+
+					// If there's a sanitize_callback defined, skip this.
+					if ( isset( $output['sanitize_callback'] ) && ! empty( $output['sanitize_callback'] ) ) {
+						continue;
+					}
+
+					// If we got this far, it's safe to add this.
+					$js_vars[] = $output;
+				}
+
+				// Did we manage to get all the items from 'output'?
+				// If not, then we're missing something so don't add this.
+				if ( count( $js_vars ) !== count( $this->output ) ) {
+					return;
+				}
+				$this->js_vars   = $js_vars;
+				$this->transport = 'postMessage';
+
+			}
 
 		}
 
@@ -883,10 +793,10 @@ if ( ! class_exists( 'Kirki_Field' ) ) {
 		 */
 		protected function set_help() {
 
-			if ( '' != $this->tooltip ) {
+			if ( '' !== $this->tooltip ) {
 				return;
 			}
-			if ( '' != $this->help ) {
+			if ( '' !== $this->help ) {
 				$this->tooltip = wp_strip_all_tags( $this->help );
 				// $help has been deprecated
 				$this->help = '';
@@ -902,7 +812,7 @@ if ( ! class_exists( 'Kirki_Field' ) ) {
 		 */
 		protected function set_transport() {
 
-			if ( 'postmessage' == trim( strtolower( $this->transport ) ) ) {
+			if ( 'postmessage' === trim( strtolower( $this->transport ) ) ) {
 				$this->transport = 'postMessage';
 			}
 
@@ -942,7 +852,5 @@ if ( ! class_exists( 'Kirki_Field' ) ) {
 			$this->priority = absint( $this->priority );
 
 		}
-
 	}
-
 }
