@@ -4,15 +4,24 @@
 function add_media_gallery_shortcode( $atts ){
 	$options = get_option('company_options');
 	extract( shortcode_atts( array(
-	    'media_grid_images' => false,
-	    'show_post_meta'  	=> false,
-	    'show_post_title'  	=> false,
-	    'in_grid'			=> false,
-	    'padding'			=> false,
-	    
+	    'show_post_meta'  	=> get_theme_mod( 'portfolio_show_post_meta', false ),
+	    'show_post_title'  	=> get_theme_mod( 'portfolio_show_post_title', false ),
+	    'in_grid'			=> get_theme_mod( 'portfolio_in_grid', false ),
+	    'add_padding'		=> get_theme_mod( 'portfolio_add_padding', '0px' ),
+	    'portfolio_layout'	=> get_theme_mod( 'portfolio_layout', false ),
+	    'portfolio_columns'	=> get_theme_mod( 'portfolio_columns', '1' ),
+		'portfolio_image_pos'=> get_theme_mod( 'portfolio_image_pos', 'image-left' ),
+		'portfolio_title_pos'=> get_theme_mod( 'portfolio_title_pos', 'title-below' ),
+		'portfolio_heading_size'=> get_theme_mod( 'portfolio_heading_size', 'h2' ),
+		'portfolio_excerpt_on'=> get_theme_mod( 'portfolio_excerpt_on', false ),
+		'portfolio_more_on'	=> get_theme_mod( 'portfolio_more_on', false ),
+		'media_grid_images' => false,
+		'css'				=> '',
     ), $atts ) );
     $output = '';
-	
+    
+    $css_class = apply_filters( VC_SHORTCODE_CUSTOM_CSS_FILTER_TAG, vc_shortcode_custom_css_class( $css, ' ' ), 'media-gallery', $atts );
+    
 	$portfolio = get_portfolio(
 		array(
 			'post_type'=>'attachment',
@@ -26,7 +35,10 @@ function add_media_gallery_shortcode( $atts ){
 		    'show_post_meta'  	=> $show_post_meta,
 		    'show_post_title'  	=> $show_post_title,
 		    'in_grid'			=> $in_grid,
-		    'add_padding'		=> $padding,
+		    'add_padding'		=> $add_padding,
+		    'css_class'			=> $css_class,			
+		    'portfolio_layout'	=> $portfolio_layout,
+		    'portfolio_columns' => $portfolio_columns,
 	    ));
 	echo $portfolio;
 

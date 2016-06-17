@@ -39,11 +39,12 @@ add_action('init', 'requireVcExtend', 10);
 include_once( dirname( __FILE__ ) . '/includes/kirki-settings.php' );
 include_once( dirname( __FILE__ ) . '/addons/cmb2-functions.php' );
 
-
 include_once( dirname( __FILE__ ) . '/includes/register_sidebars.php' );
 
 
 include_once( dirname( __FILE__ ) . '/includes/business_profile.php' );
+
+include_once( dirname( __FILE__ ) . '/includes/classes.php' );
 
 require_once( dirname( __FILE__ ) . '/includes/shortcodes/button.php');
 require_once( dirname( __FILE__ ) . '/includes/shortcodes/title.php');

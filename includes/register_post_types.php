@@ -1,7 +1,4 @@
 <?php 
-
-
-
 ////////////////////////
 //
 //	REGISTER POST TYPES
@@ -9,7 +6,7 @@
 ////////////////////////
 add_action( 'init', 'hii_post_type_init' );
 function hii_post_type_init() {
-	global $hiilite_options;
+	global $hiilite_options; 
 	////////////////////////
 	//
 	//	REGISTER PORTFOLIO
@@ -441,6 +438,7 @@ function get_portfolio($args = null, $options = null){
 		'portfolio_heading_size'=> get_theme_mod( 'portfolio_heading_size', 'h2' ),
 		'portfolio_excerpt_on'=> get_theme_mod( 'portfolio_excerpt_on', false ),
 		'portfolio_more_on'=> get_theme_mod( 'portfolio_more_on', false ),
+		'css_class'		=> '',
 
     ), $options ) );
 	$args = ($args==null)?array('post_type'=>$slug,'posts_per_page'=> -1,'nopaging'=>true,'order'=>'ASC','orderby'=>'menu_order'):$args;
@@ -449,7 +447,7 @@ function get_portfolio($args = null, $options = null){
 	
 	if($query->have_posts()):
 		
-    	$html .= '<div class="row">';
+    	$html .= '<div class="row '.esc_attr( $css_class ).'">';
 		if ($in_grid) $html .= '<div class="in_grid">';
 		
 		if($args['post_type'] == $slug):
@@ -476,7 +474,8 @@ function get_portfolio($args = null, $options = null){
 	    //////////////////////////
 	    
 	    if($args['post_type'] == 'attachment'):
-		    
+		    if($portfolio_layout == 'masonry') $html .= '<div class="row masonry col-count-'.$portfolio_columns.'">';
+		    $css .= '.masonry article{padding:'.$add_padding.';}';
 		    foreach ( $query->posts as $attachment) :
 	        	$image = wp_get_attachment_image_src( $attachment->ID, 'large' );
 				
@@ -487,40 +486,83 @@ function get_portfolio($args = null, $options = null){
 			    $imgs[$i]['id'] 	= $attachment->ID;
 			    $imgs[$i]['href'] 	= $image[0];
 	        	
-	        	$css .= '#pfi'.($attachment->ID).'{flex:'.$ratio.';}';
-			
-				if($ratio < 0.4) {
-				    $imgs[$i]['col'] = 'col-2';
-				    $col2[] = $imgs[$i];
-			    }
-			    elseif($ratio >= 0.4 && $ratio <=0.5){
-				   $imgs[$i]['col'] = 'col-3';
-				    $col3[] = $imgs[$i];
-			    }
-			    elseif($ratio > 0.5 && $ratio <= 0.8){
-				    $imgs[$i]['col'] = 'col-4';
-				    $col4[] = $imgs[$i];
-			    }
-			    elseif($ratio > 0.8 && $ratio <=1.1){
-				    $imgs[$i]['col'] = 'col-6';
-				    $col6[] = $imgs[$i];
-			    }
-			    elseif($ratio > 1.1 && $ratio <= 1.4){
-				    $imgs[$i]['col'] = 'col-8';
-				    $col8[] = $imgs[$i];
-			    }
-			    elseif($ratio > 1.4 && $ratio <= 1.7){
-				    $imgs[$i]['col'] = 'col-9';
-				    $col9[] = $imgs[$i];
-			    }
-			    elseif($ratio > 1.7){
-				    $imgs[$i]['col'] = 'col-12';
-				    $col12[] = $imgs[$i];
-				}
+		        if($portfolio_layout == 'masonry-h'):
+		        	$css .= '#pfi'.($attachment->ID).'{flex:'.$ratio.';}';
 				
+					if($ratio < 0.4) {
+					    $imgs[$i]['col'] = 'col-2';
+					    $col2[] = $imgs[$i];
+				    }
+				    elseif($ratio >= 0.4 && $ratio <=0.5){
+					   $imgs[$i]['col'] = 'col-3';
+					    $col3[] = $imgs[$i];
+				    }
+				    elseif($ratio > 0.5 && $ratio <= 0.8){
+					    $imgs[$i]['col'] = 'col-4';
+					    $col4[] = $imgs[$i];
+				    }
+				    elseif($ratio > 0.8 && $ratio <=1.1){
+					    $imgs[$i]['col'] = 'col-6';
+					    $col6[] = $imgs[$i];
+				    }
+				    elseif($ratio > 1.1 && $ratio <= 1.4){
+					    $imgs[$i]['col'] = 'col-8';
+					    $col8[] = $imgs[$i];
+				    }
+				    elseif($ratio > 1.4 && $ratio <= 1.7){
+					    $imgs[$i]['col'] = 'col-9';
+					    $col9[] = $imgs[$i];
+				    }
+				    elseif($ratio > 1.7){
+					    $imgs[$i]['col'] = 'col-12';
+					    $col12[] = $imgs[$i];
+					};
+					
+				elseif($portfolio_layout == 'masonry'):
+					
+					$cols = '';					
+					//get_template_part('templates/portfolio', 'loop');
+					$html .= '<article class="row row-o-content-top flex-item" id="post-'.$imgs[$i]['id'].'" >';
+					
+										
+					$html .='<figure class="flex-item">
+						<'.$_amp.'img src="'.$imgs[$i]['src'].'" layout="responsive" on="tap:lightbox1" width='.$imgs[$i]['width'].' height='.$imgs[$i]['height'].'>';
+					$html .= ($_amp!='')?'</amp-img>':'';
+					$html .= '</figure>';
+					
+					$html .= '</article>';
+				elseif($portfolio_layout == 'boxed'):
+					
+					$cols = '';
+					switch ($portfolio_columns) {
+						case '1': 
+							$cols = ' col-12'; 
+						break;
+						case '2': 
+							$cols = ' col-6'; 
+						break;
+						case '3': 
+							$cols = ' col-4'; 
+						break;
+						case '4': 
+							$cols = ' col-3'; 
+						break;		
+					}			
+					//get_template_part('templates/portfolio', 'loop');
+					$html .= '<article class="row row-o-content-top flex-item '.$cols.'" id="post-'.$imgs[$i]['id'].'" >';
+					
+										
+					$html .='<figure class="flex-item">
+						<a href="'.$imgs[$i]['src'].'"><'.$_amp.'img src="'.$imgs[$i]['src'].'" layout="responsive" width='.$imgs[$i]['width'].' height='.$imgs[$i]['height'].'>';
+					$html .= ($_amp!='')?'</amp-img>':'';
+					$html .= '</a></figure>';
+					
+					$html .= '</article>';
+				endif;	
 				$i++;	
 				   
 	    	endforeach;
+			if($portfolio_layout == 'masonry'){ $html .= '</div>';};
 		//////////////////////////
 	    //
 	    //	if regular post with feature image
@@ -613,7 +655,80 @@ function get_portfolio($args = null, $options = null){
 					endif; // end if has thumbnails
 				
 					$i++;
+				elseif($portfolio_layout == 'masonry'):
+					// Create Title
+					$article_title = '';
+										
+					if($show_post_title) {
+						$article_title .= '<'.$portfolio_heading_size.'><a href="'.get_the_permalink().'">'.get_the_title().'</a></'.$portfolio_heading_size.'>';
+					} 
+					$article_title .= '<span itemprop="author" itemscope itemtype="https://schema.org/Person">';
+					if($show_post_meta):
+						$article_title .= '<small><address class="post_author">';
+						$article_title .= '<a itemprop="author" itemscope itemtype="https://schema.org/Person" class="post_author_link" href="'.get_author_posts_url( get_the_author_meta( 'ID' ) ).'"><span itemprop="name">';
+						$article_title .= get_the_author_meta('display_name'); 
+						$article_title .= '</span></a></address> | <time class="time op-published" datetime="';
+						$article_title .= get_the_time('c');
+						$article_title .= '">';
+						$article_title .= '<span class="date">';
+						$article_title .= get_the_time('F j, Y');
+						$article_title .= ' </span>'.get_the_time('h:i a').'</time></small>';
+					else:
+						$article_title .= '<meta itemprop="name" content="'.get_the_author_meta('display_name').'">';
+					endif;
+					$article_title .= '</span>';
+					
+					$cols = '';
+					
+					switch ($portfolio_columns) {
+						case '1': 
+							$cols = ' col-12'; 
+						break;
+						case '2': 
+							$cols = ' col-6'; 
+						break;
+						case '3': 
+							$cols = ' col-4'; 
+						break;
+						case '4': 
+							$cols = ' col-3'; 
+						break;		
+					}
+					
+					//get_template_part('templates/portfolio', 'loop');
+					$html .= '<article class="row row-o-content-top blog-article flex-item '.$cols.'" id="post-'.get_the_id().'" >
+					<meta itemscope itemprop="mainEntityOfPage"  itemType="https://schema.org/WebPage" itemid="'.get_bloginfo('url').'"/>';
+					
+					if($portfolio_title_pos == 'title-above') { 
+						$html .= '<div class="content-box">'.$article_title.'</div>';
+					}
+					
+					if(has_post_thumbnail(get_the_id())): 
+							
+						$tn_id = get_post_thumbnail_id( get_the_id() );
 				
+						$img = wp_get_attachment_image_src( $tn_id, 'large' );
+						$width = $img[1];
+						$height = $img[2];
+					
+						$html .='<figure class="flex-item col-6">
+							<a href="'.get_the_permalink().'"><'.$_amp.'img src="'.$img[0].'" layout="responsive" width='.$width.' height='.$height.'>';
+						$html .= ($_amp!='')?'</amp-img>':'';
+						$html .= '</a></figure>';
+					endif;
+	
+					$html .= '<div class="flex-item content-box';
+					$html .= ($portfolio_image_pos=='image-left')?' col-6':' col-12';
+					$html .= '">';
+					$html .= '<meta itemprop="datePublished" content="'.get_the_time('Y-m-d').'">
+						<meta itemprop="dateModified" content="'.get_the_modified_date('Y-m-d').'">';
+					
+					if($portfolio_title_pos == 'title-below') { 
+						$html .= $article_title;
+					}
+					if($portfolio_excerpt_on)$html .= '<p>'.get_the_excerpt().'</p>';
+					if($portfolio_more_on)$html .='<a class="button" href="'.get_the_permalink().'">Read More</a>';
+					$html .= '<div></article>';
 				else: // else if not masonry-h
 				
 					
@@ -690,7 +805,7 @@ function get_portfolio($args = null, $options = null){
 					if($portfolio_excerpt_on)$html .= '<p>'.get_the_excerpt().'</p>';
 					if($portfolio_more_on)$html .='<a class="button" href="'.get_the_permalink().'">Read More</a>';
 					$html .= '<div></article>';
-				endif; // end if masonry-h
+				endif; // end if not masonry-h
 				
 			endwhile;
 			
@@ -993,7 +1108,7 @@ function get_portfolio($args = null, $options = null){
 		if ($in_grid) $html .= '</div>';
 		$html .= '</div>';
 		$hiilite_options['portfolio_custom_css'] = $css;
-		
+		$html .= '<meta hiicss="'.$hiilite_options['portfolio_custom_css'].'">';
 		if($args['post_type'] == 'attachment') { 
 			$html .= '<amp-image-lightbox id="lightbox1" layout="nodisplay"><div id="closelightbox" on="tap:lightbox1.close"></div></amp-image-lightbox>';
 			$hiilite_options['portfolio_custom_css'] .= '#closelightbox{position:fixed;width:100vw;height:100vh;z-index:9999;}';

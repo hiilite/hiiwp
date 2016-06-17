@@ -506,18 +506,31 @@ for($i = 12; $i>0;$i--){
     font-size: 0.9em;
 }
 <?php endif; ?>
-<?php if($hiilite_options['blog_layout'] == 'masonry'): ?>
 .masonry {
 	display: block;
-}
-.col-count-<?=$hiilite_options['blog_columns']?> {
-	column-count:<?=$hiilite_options['blog_columns']?>;
 	column-width: 17em;
-	-moz-column-count:<?=$hiilite_options['blog_columns']?>;
 	-moz-column-width: 17em;
+	column-gap:0;
+	-moz-column-gap:0;
+}
+.col-count-1 {
+	column-count:1;
+	-moz-column-count:1;
+}
+.col-count-2 {
+	column-count:2;
+	-moz-column-count:2;
+}
+.col-count-3 {
+	column-count:3;
+	-moz-column-count:3;
+}
+.col-count-4 {
+	column-count:4;
+	-moz-column-count:4;
 }
 <?php 
-endif;
+
 if($hiilite_options['portfolio_on']): ?>
 .portfolio-piece {
 	padding: 0.5em;

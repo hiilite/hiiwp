@@ -26,6 +26,7 @@ Kirki::add_field( 'hiiwp', array(
     'multiple'    => 1,
     'choices'     => array(
         'masonry-h' => get_template_directory_uri() . '/images/icons/layout-masonry-h.png',
+        'masonry' => get_template_directory_uri() . '/images/icons/layout-masonry.png',
         'boxed' => get_template_directory_uri() . '/images/icons/layout-boxed.png',
     ),
 ) );

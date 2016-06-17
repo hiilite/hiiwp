@@ -52,11 +52,15 @@ vc_remove_element('vc_masonry_media_grid');
 vc_remove_element('vc_icon');
 vc_remove_element('vc_button2');
 vc_remove_element("vc_custom_heading");
-vc_remove_element("vc_btn");
+//vc_remove_element("vc_btn");
 
 vc_remove_element('vc_gallery');
 
-// Title
+////////////////////////////
+//
+//	Title
+//
+/////////////////////////////
 vc_map( array(
 		"name" => "Title",
 		"base" => "title",
@@ -131,9 +135,65 @@ vc_map( array(
 ) );
 
 
+////////////////////////////
+//
+//	Gravity Forms
+//
+/////////////////////////////
+$forms = RGFormsModel::get_forms( null, 'title' );
+$select = array();
+foreach( $forms as $form ):
+  $select[$form->title] = $form->id;
+endforeach;
+vc_map( array(
+		"name" => "Gravity Forms",
+		"base" => "gravityform",
+		"category" => 'by Hiilite',
+		"icon" => get_bloginfo('template_url')."/images/icons/gravity-forms.png",
+		"allowed_container_element" => 'vc_row',
+		"params" => array(
+			array(
+				"type" => "dropdown",
+				"holder" => "div",
+				"description" => "Select a form below to add it to your post or page",
+				"class" => "",
+				"heading" => "Forms",
+				"param_name" => "id",
+				"value" => $select,
+				"save_always" => true
+			),
+			array(
+				"type" => "checkbox",
+				"holder" => "div",
+				"class" => "",
+				"heading" => "Display form title",
+				"param_name" => "title",
+				"value" => true,
+			),
+			array(
+				"type" => "checkbox",
+				"holder" => "div",
+				"class" => "",
+				"heading" => "Display form description",
+				"param_name" => "description",
+				"value" => true,
+			),
+			array(
+				"type" => "checkbox",
+				"holder" => "div",
+				"class" => "",
+				"heading" => "Display form description",
+				"param_name" => "ajax",
+				"value" => true,
+			),
+		)
+) );
 
-
-// Button
+////////////////////////////
+//
+//	Button
+//
+/////////////////////////////
 vc_map( array(
 		"name" => "Button",
 		"base" => "button",
@@ -288,8 +348,11 @@ vc_map( array(
 		)
 ) );
 
-
-// Social Share
+////////////////////////////
+//
+//	Social Share
+//
+/////////////////////////////
 vc_map( array(
 		"name" => "Social Share",
 		"base" => "social-share",
@@ -349,7 +412,11 @@ vc_map( array(
 		)
 ) );
 
-// Social Share
+////////////////////////////
+//
+//	Social Profiles
+//
+/////////////////////////////
 vc_map( array(
 		"name" => "Social Profiles",
 		"base" => "social-profiles",
@@ -416,12 +483,16 @@ vc_map( array(
 		)
 ) );
 
-// Media Gallery
+////////////////////////////
+//
+//	Media Gallery
+//
+/////////////////////////////
 vc_map( array(
 		"name" => "Media Gallery",
 		"base" => "media-gallery",
 		"category" => 'by Hiilite',
-		"description" => "Show links to all social profiles listed in Business Profiles",
+		"description" => "Select a set of images to display in a selected layout",
 		"icon" => "icon-wpb-images-stack",
 		"allowed_container_element" => 'vc_row',
 		"params" => array(
@@ -433,11 +504,68 @@ vc_map( array(
 				"param_name" => "media_grid_images"
 			),
 			array(
+				"type" => "dropdown",
+				"holder" => "div",
+				"class" => "",
+				"heading" => "Portfolio Layout",
+				"param_name" => "portfolio_layout",
+				"description" => "Select the layout type for your grid",
+				"value" => array(
+					"Horizontal Masonry" => "masonry-h",
+					"Vertical Masonry" => "masonry",
+					"Boxed Layout" => "boxed",
+				)
+			),
+			array(
+				"type" => "dropdown",
+				"holder" => "div",
+				"class" => "",
+				"heading" => "Columns",
+				"param_name" => "portfolio_columns",
+				"value" => array(
+					'1 Column'   => '1',
+					'2 Columns'  => '2',
+					'3 Columns'  => '3',
+					'4 Columns'	 => '4',
+				),
+				"dependency" => array (
+					"element" => "portfolio_layout",
+					"value" => array("masonry", "boxed")
+				),
+			),
+			array(
 				"type" => "checkbox",
 				"holder" => "div",
 				"class" => "",
 				"heading" => "In Grid",
 				"param_name" => "in_grid"
+			),
+			
+			array(
+				"type" => "checkbox",
+				"holder" => "div",
+				"class" => "",
+				"heading" => "Show Title",
+				"param_name" => "show_post_title"
+			),
+			array(
+				"type" => "dropdown",
+				"holder" => "div",
+				"class" => "",
+				"heading" => "Heading Size",
+				"param_name" => "portfolio_heading_size",
+				"dependency" => array (
+					"element" => "show_post_title",
+					"not_empty" => true
+				),
+				"value" => array(
+					"H1" => "h1",
+					"H2" => "h2",
+					"H3" => "h3",
+					"H4" => "h4",
+					"H5" => "h5",
+					"H6" => "h6",
+				)
 			),
 			array(
 				"type" => "checkbox",
@@ -447,30 +575,33 @@ vc_map( array(
 				"param_name" => "show_post_meta"
 			),
 			array(
-				"type" => "checkbox",
-				"holder" => "div",
-				"class" => "",
-				"heading" => "Show Title",
-				"param_name" => "show_post_title"
-			),
-			array(
 				"type" => "textfield",
 				"holder" => "div",
 				"class" => "",
 				"heading" => "Padding",
 				"param_name" => "add_padding"
 			),
+			array(
+	            'type' => 'css_editor',
+	            'heading' => __( 'Css', 'hiiamp' ),
+	            'param_name' => 'css',
+	            'group' => __( 'Design options', 'my-text-domain' ),
+	        ),
 		)
 	)
 );
 
 
-// Social Share
+////////////////////////////
+//
+//	Post Grid
+//
+/////////////////////////////
 vc_map( array(
 		"name" => "Media Gallery",
 		"base" => "media-gallery",
 		"category" => 'by Hiilite',
-		"description" => "Show links to all social profiles listed in Business Profiles",
+		"description" => "Select a set of images to display in a selected layout",
 		"icon" => "icon-wpb-images-stack",
 		"allowed_container_element" => 'vc_row',
 		"params" => array(
@@ -482,11 +613,68 @@ vc_map( array(
 				"param_name" => "media_grid_images"
 			),
 			array(
+				"type" => "dropdown",
+				"holder" => "div",
+				"class" => "",
+				"heading" => "Portfolio Layout",
+				"param_name" => "portfolio_layout",
+				"description" => "Select the layout type for your grid",
+				"value" => array(
+					"Horizontal Masonry" => "masonry-h",
+					"Vertical Masonry" => "masonry",
+					"Boxed Layout" => "boxed",
+				)
+			),
+			array(
+				"type" => "dropdown",
+				"holder" => "div",
+				"class" => "",
+				"heading" => "Columns",
+				"param_name" => "portfolio_columns",
+				"value" => array(
+					'1 Column'   => '1',
+					'2 Columns'  => '2',
+					'3 Columns'  => '3',
+					'4 Columns'	 => '4',
+				),
+				"dependency" => array (
+					"element" => "portfolio_layout",
+					"value" => array("masonry", "boxed")
+				),
+			),
+			array(
 				"type" => "checkbox",
 				"holder" => "div",
 				"class" => "",
 				"heading" => "In Grid",
 				"param_name" => "in_grid"
+			),
+			
+			array(
+				"type" => "checkbox",
+				"holder" => "div",
+				"class" => "",
+				"heading" => "Show Title",
+				"param_name" => "show_post_title"
+			),
+			array(
+				"type" => "dropdown",
+				"holder" => "div",
+				"class" => "",
+				"heading" => "Heading Size",
+				"param_name" => "portfolio_heading_size",
+				"dependency" => array (
+					"element" => "show_post_title",
+					"not_empty" => true
+				),
+				"value" => array(
+					"H1" => "h1",
+					"H2" => "h2",
+					"H3" => "h3",
+					"H4" => "h4",
+					"H5" => "h5",
+					"H6" => "h6",
+				)
 			),
 			array(
 				"type" => "checkbox",
@@ -496,25 +684,27 @@ vc_map( array(
 				"param_name" => "show_post_meta"
 			),
 			array(
-				"type" => "checkbox",
-				"holder" => "div",
-				"class" => "",
-				"heading" => "Show Title",
-				"param_name" => "show_post_title"
-			),
-			array(
 				"type" => "textfield",
 				"holder" => "div",
 				"class" => "",
 				"heading" => "Padding",
 				"param_name" => "add_padding"
 			),
+			array(
+	            'type' => 'css_editor',
+	            'heading' => __( 'Css', 'hiiamp' ),
+	            'param_name' => 'css',
+	            'group' => __( 'Design options', 'my-text-domain' ),
+	        ),
 		)
 	)
 );
 
-
-// Social Share
+////////////////////////////
+//
+//	AMP Carousel
+//
+/////////////////////////////
 vc_map( array(
 		"name" => "AMP Carousel",
 		"base" => "amp-carousel",
@@ -541,6 +731,11 @@ vc_map( array(
 		)
 ) );
 
+////////////////////////////
+//
+//	Empty Space
+//
+/////////////////////////////
 vc_map( array(
 		"name" => "Empty Space",
 		"base" => "vc_empty_space",
