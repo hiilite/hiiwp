@@ -5,7 +5,9 @@
 		foreach($font as $key => $value){
 			if($value != ' ' && $value != '' && $value != 'px'){
 				if($key == 'variant') echo 'font-weight:'; else echo $key.':';
-				if($value == 'regular' && $key == 'variant') echo '400;'; else echo $value.';';
+				if($value == 'regular' && $key == 'variant') echo '400;'; 
+				elseif ($value == 'italic') echo '400;font-style:italic;';
+				else echo $value.';';
 			}
 		}
 	}
@@ -42,7 +44,7 @@ h1,h2,h3,h4,h5,h6,.h1,.h2 {
 	get_font_css($hiilite_options['heading_font']);
 	?>
 	line-height:1.5;
-	margin-top: 0;
+	margin: 0;
 }
 <?php 
 //////////////////////
@@ -62,7 +64,7 @@ for($h=1;$h<=6;$h++):
 	$font_unit = preg_replace("/[^a-zA-Z]+/", "", $hiilite_options['typography_h'.$h.'_font']['font-size']);
 	if($font_size && $font_unit){
 	echo "h$h,.h$h {";
-	echo 'font-size:'. ($fs_int[0]* 0.8).$font_unit;
+	echo 'font-size:'. ($fs_int[0]* 0.7).$font_unit;
 	echo '}';
 	}
 endfor; ?>
@@ -74,7 +76,7 @@ for($h=1;$h<=6;$h++):
 	$font_unit = preg_replace("/[^a-zA-Z]+/", "", $hiilite_options['typography_h'.$h.'_font']['font-size']);
 	if($font_size && $font_unit){
 	echo "h$h,.h$h {";
-	echo 'font-size:'. ($fs_int[0]* 0.7).$font_unit;
+	echo 'font-size:'. ($fs_int[0]* 0.5).$font_unit;
 	echo '}';
 	}
 endfor; ?>
@@ -104,6 +106,7 @@ table td {
 }
 .row {
 	box-sizing: border-box;
+	background-position: center top;
 }
 .in_grid {
 	max-width: <?=$hiilite_options['grid_width'];?>;
@@ -126,7 +129,6 @@ header#main_header {
 	width: 100%;
 	padding: 1em 0;
 	align-items: center;
-	line-height: <?=$hiilite_options['header_line_height']?>;
 	flex-wrap: wrap;
 	z-index: 9999;
 	<?php 
@@ -192,6 +194,11 @@ header.centered #main-nav {
 
 #logo_container {
     max-width: 100%;
+    <?php 
+	    foreach($hiilite_options['logo_padding'] as $key=>$value){
+		    echo 'padding-'.$key.':'.$value.';';
+	    }
+    ?>
 }
 
 #logo_container <?=($_amp!='')?$_amp.'img':'';?> img {
@@ -234,7 +241,6 @@ header.centered #main-nav {
 	echo 'background-position:'.str_replace('-', ' ', $hiilite_options['footer_background_position']).';';
 	echo 'background-color:'.$hiilite_options['footer_background_color'].';';
 	?>
-	color: <?=$hiilite_options['footer_font_color'];?>;
 	padding: 1em;
 	align-content: flex-start;
 	display: flex;
@@ -308,9 +314,6 @@ a, .button, .menu li {
 	transition:all 0.4s;
 }
 @media (max-width:<?=$hiilite_options['mobile_menu_switch'];?>){
-	#logo_container {
-	    padding: 0 1em;
-	}
 	nav#main-nav:before {
 		content: '\f0c9';
 		text-align: center;
@@ -512,6 +515,14 @@ for($i = 12; $i>0;$i--){
 	-moz-column-width: 17em;
 	column-gap:0;
 	-moz-column-gap:0;
+}
+.masonry img {
+    min-width: 100%;
+}
+.masonry article{
+	-webkit-column-break-inside: avoid;
+    page-break-inside: avoid;
+    break-inside: avoid;
 }
 .col-count-1 {
 	column-count:1;

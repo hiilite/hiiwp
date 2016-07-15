@@ -76,7 +76,7 @@ while ( $my_query->have_posts() ) {
 				$height = $img[2];
 			?>
 			<figure>
-				<a href="<?=$post->link?>"><<?=$_amp?>img src='<?=$img[0];?>' layout='responsive' width='<?=$width?>' height='<?=($width * 0.75)?>'><?=($_amp!='')?'</amp-img>':''?></a>
+				<a href="<?=$post->link?>"><<?=$_amp?>img src='<?=$img[0];?>' layout='responsive' width='<?=$width?>' height='<?=($height)?>'><?=($_amp!='')?'</amp-img>':''?></a>
 			</figure>
 			<?php endif; ?>
 			<h5><a href="<?=$post->link?>"><?php the_title(); ?></a></h5>

@@ -4,16 +4,12 @@ $hiilite_options['amp'] = get_theme_mod('amp');
 $hiilite_options['portfolio_on'] = get_theme_mod('portfolio_on');
 $hiilite_options['teams_on'] = get_theme_mod('teams_on');
 $hiilite_options['menus_on'] = get_theme_mod('menus_on');
+$hiilite_options['testimonials_on'] = get_theme_mod('testimonials_on');
 if(class_exists( 'WooCommerce' )){
 	$hiilite_options['is_woocommerce'] = (is_woocommerce())?true:false;
 } else {
 	$hiilite_options['is_woocommerce'] = false;
 }
-/*
-* Convert all images to amp-img	
-*	
-*kir
-*/
 define( 'HIILITE_DIR', dirname( __FILE__ ) );
 add_filter( 'auto_update_theme', '__return_true' );
 
@@ -53,7 +49,10 @@ require_once( dirname( __FILE__ ) . '/includes/shortcodes/social-profiles.php');
 require_once( dirname( __FILE__ ) . '/includes/shortcodes/media-gallery.php');
 require_once( dirname( __FILE__ ) . '/includes/shortcodes/vc_empty_space.php');
 require_once( dirname( __FILE__ ) . '/includes/shortcodes/amp-carousel.php');
-require_once( dirname( __FILE__ ) . '/includes/shortcodes/author-info.php');
+require_once( dirname( __FILE__ ) . '/includes/shortcodes/screen-showcase.php');
+
+/* Add with options in Custumizer */
+//require_once( dirname( __FILE__ ) . '/includes/shortcodes/author-info.php');
 
 require_once( dirname( __FILE__ ) . '/includes/wp_login_screen.php');
 require_once( dirname( __FILE__ ) . '/includes/wp_admin_dashboard.php');
@@ -66,6 +65,12 @@ require_once( dirname( __FILE__ ) . '/addons/taxonomy-images/taxonomy-images.php
 require_once( dirname( __FILE__ ) . '/addons/taxonomy-terms-order/taxonomy-terms-order.php');
 //require_once( dirname( __FILE__ ) . '/addons/force-gzip/force-gzip.php');
 
+// Flush rewrites on customizer save and theme update
+function my_rewrite_flush() { flush_rewrite_rules(); }
+add_action( 'after_switch_theme', 'my_rewrite_flush' );
+add_action( 'customize_save', 'my_rewrite_flush' );
+
+
 function hiiwp_init(){
 	global $hiilite_options, $post;
 	
@@ -76,9 +81,7 @@ function hiiwp_init(){
 	} else {
 		$hiilite_options['amp'] = get_theme_mod('amp');
 	}
-	
-	
-	
+
 	// AMP FIXES
 	if($hiilite_options['amp']){
 		add_filter('widget_text', 'amp_image_tags');
@@ -96,6 +99,8 @@ function hiiwp_init(){
 	}
 }
 add_action( 'wp_head', 'hiiwp_init' );
+
+
 add_action( 'init', 'disable_wp_emojicons' );
 function hiilite_admin_styles() {
     wp_register_style( 'hiilite_admin_stylesheet', get_stylesheet_directory_uri(). '/css/admin-style.css' );
@@ -213,8 +218,7 @@ function amp_image_tags($content)
 }
 
 
-
-
+// ADD DEFER TO SCRIPT TAGS
 function add_defer_attribute($tag, $handle) {
 	global $hiilite_options;
 	$urlParts = explode('.', $_SERVER['HTTP_HOST']);
@@ -230,6 +234,7 @@ function add_defer_attribute($tag, $handle) {
 }
 
 
+// REMOVE WP EMOJIS
 function disable_wp_emojicons() {
 	
 	// all actions related to emojis
@@ -245,10 +250,7 @@ function disable_wp_emojicons() {
 	add_filter( 'tiny_mce_plugins', 'disable_emojicons_tinymce' );
         
 }
-
-
 function disable_emojicons_tinymce( $plugins ) {
-	
 	if ( is_array( $plugins ) ) {
 		return array_diff( $plugins, array( 'wpemoji' ) );
 	} else {
@@ -399,6 +401,13 @@ function cmb2_post_metaboxes(){
 	$cmb->add_field( array(
 	    'name' => 'Hide Page Title',
 	    'id'   => 'show_page_title',
+	    'type' => 'checkbox',
+	    'default' => false
+	) );
+	
+	$cmb->add_field( array(
+	    'name' => 'Hide Feature Image',
+	    'id'   => 'hide_page_feature_image',
 	    'type' => 'checkbox',
 	    'default' => false
 	) );
@@ -563,76 +572,6 @@ function cmb2_portfolio_metaboxes(){
 	    'id'      => 'min_padding',
 	    'type'    => 'text',
 	    'default' => '',
-	) );
-}
-
-
-add_action('cmb2_init', 'cmb2_menu_metaboxes');
-function cmb2_menu_metaboxes(){
-	//////////////////////////////////
-	// Menu for all posts
-	/////////////////////////////////
-    $cmb = new_cmb2_box( array(
-        'id'            => 'menu_options',
-        'title'         => 'Menu Item Details',
-        'object_types'  => array( 'menu' ), // post type
-        'context'       => 'advanced', // 'normal', 'advanced' or 'side'
-        'priority'      => 'high', // 'high', 'core', 'default' or 'low'
-        'show_names'    => true, // show field names on the left
-        'cmb_styles'    => true, // false to disable the CMB stylesheet
-        'closed'        => false, // keep the metabox closed by default
-    ) );
-    $cmb->add_field( array(
-	    'name' => 'Ingredients',
-	    'id' => 'ingredients',
-	    'type' => 'textarea_small'
-	) );
-	$cmb->add_field( array(
-	    'name'    => 'Price',
-	    'desc'    => '(ex: $9.99/per, $ 9.99 each, 9.99)',
-	    'id'      => 'price',
-	    'type'    => 'text_small'
-	) );
-	$cmb->add_field( array(
-	    'name'    => 'Notes',
-	    'desc'    => '(ex: *Below served with your choice of daily soup, salad, or fries)',
-	    'id'      => 'notes',
-	    'type'    => 'text'
-	) );
-	
-	
-	
-	$group_field_id = $cmb->add_field( array(
-	    'id'          => 'addons',
-	    'type'        => 'group',
-	    // 'repeatable'  => false, // use false if you want non-repeatable group
-	    'options'     => array(
-	        'group_title'   => __( 'Addon {#}', 'hiilite' ), // since version 1.1.4, {#} gets replaced by row number
-	        'add_button'    => __( 'Add Another', 'hiilite' ),
-	        'remove_button' => __( 'Remove', 'hiilite' ),
-	        'sortable'      => true, // beta
-	        // 'closed'     => true, // true to have the groups closed by default
-	    ),
-	) );
-	// Id's for group's fields only need to be unique for the group. Prefix is not needed.
-	$cmb->add_group_field( $group_field_id, array(
-	    'name' => 'Text',
-	    'id'   => 'addons_text',
-	    'type' => 'text_medium',
-	    //'repeatable' => true, // Repeatable fields are supported w/in repeatable groups (for most types)
-	) );
-	$cmb->add_group_field( $group_field_id, array(
-	    'name' => '$',
-	    'id'   => 'addons_price',
-	    'type' => 'text_small',
-	) );
-	
-	$cmb->add_field( array(
-	    'name' => 'Show Add Ons Prefix',
-	    'id' => 'show_addons_prefix',
-		'desc' => 'Show the word "Add on" before the addons',
-	    'type' => 'checkbox',
-	    'default' => true
 	) );
 }
 

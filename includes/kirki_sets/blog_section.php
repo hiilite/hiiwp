@@ -140,4 +140,24 @@ Kirki::add_field( 'hiiwp', array(
     'default'     => true,
     'priority'    => 1,
 ) );
+
+Kirki::add_field( 'hiiwp', array(
+    'type'        => 'switch',
+    'settings'    => 'blog_author_bio',
+    'label'       => __( 'Show Author Bio', 'my_textdomain' ),
+    'section'     => 'blog_section',
+    'default'     => false,
+    'priority'    => 1,
+) );
+
+Kirki::add_field( 'hiiwp', array(
+    'type'        => 'switch',
+    'settings'    => 'blog_related_articles',
+    'label'       => __( 'Show Related Articles', 'my_textdomain' ),
+    'section'     => 'blog_section',
+    'default'     => true,
+    'priority'    => 1,
+) );
+
+
 	?>

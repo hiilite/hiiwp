@@ -175,3 +175,29 @@ a:hover, a:active {
 .wpb_vc_param_value {
     word-wrap: break-word;
 }
+
+
+#customize-control-favicon img {
+	width: 64px;
+	height: 64px;
+	float: right;
+}
+#customize-control-favicon label {
+	float: left;
+}
+
+/******************
+	KIRKI STYLES
+******************/
+li[id*=testimonials].customize-control,li[id*=menu].customize-control,li[id*=team].customize-control, li[id*=portfolio].customize-control {
+    background: rgba(0,0,0,0.1);
+    margin-bottom: 0;
+    padding-bottom: 1em;
+    padding-left: 1em;
+    box-sizing: border-box;
+}
+
+ul li[id*=testimonials_on].customize-control,ul li[id*=menus_on].customize-control,li[id*=teams_on].customize-control,li[id*=portfolio_on].customize-control {
+    padding-top: 1em;
+    margin-top: 1em;
+}

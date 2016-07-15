@@ -114,15 +114,15 @@ if($hiilite_options['subdomain'] != 'iframe'):
 						endif;
 							 echo '</div>'; } ?>
 					<?php if($hiilite_options['footer_in_grid']) { echo '</div>'; } ?>
-					
-				</div>
-				<?php endif; //end footer bottom  ?>
-			</footer>
-			<div class="full-width align-center">
+					<div class="full-width align-center">
 		<small>Copyright © <?=date('Y')?> <?=do_shortcode('[business_name]')?>. All rights reserved. <a href="https://hiilite.com/" target="_blank" title="Hiilite Creative Group | Web + Marketing">Web Design by Hiilite Creative Group Kelowna</a></small>
 	</div>
 <?php endif; //end iframe check ?>
 		</div>
+				</div>
+				<?php endif; //end footer bottom  ?>
+			</footer>
+			
 	</div>
 	<?php wp_footer(); ?>
 	

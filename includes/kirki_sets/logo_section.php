@@ -26,6 +26,28 @@ Kirki::add_field( 'hiiwp', array(
 		'step' => '1',
 	),
 ) );
+
+Kirki::add_field( 'hiiwp', array(
+	'type'        => 'spacing',
+	'settings'    => 'logo_padding',
+	'label'       => __( 'Logo Padding', 'my_textdomain' ),
+	'section'     => 'logo_section',
+	'default'     => array(
+		'top'    => '0',
+		'right'  => '1em',
+		'bottom' => '0',
+		'left'   => '1em',
+	),
+	'priority'    => 2,
+	'active_callback'    => array(
+		array(
+			'setting'  => 'main_logo',
+			'operator' => '!=',
+			'value'    => false,
+		),
+	),
+) );
+
 Kirki::add_field( 'hiiwp', array(
 	'type'        => 'image',
 	'settings'    => 'favicon',
@@ -34,5 +56,26 @@ Kirki::add_field( 'hiiwp', array(
 	'section'     => 'logo_section',
 	'priority'    => 4,
 	'default'     =>  '',
+) );
+
+Kirki::add_field( 'hiiwp', array(
+	'type'        => 'image',
+	'settings'    => 'safari_icon',
+	'label'       => __( 'Safari Icon', 'my_textdomain' ),
+	'description' => __( 'Must be SVG format and 100% black. The SVG file must be a single layer and the viewBox attribute must be set to "0 0 16 16".', 'my_textdomain' ),
+	'section'     => 'logo_section',
+	'priority'    => 4,
+	'default'     =>  '',
+) );
+
+Kirki::add_field( 'hiiwp', array(
+	'type'        => 'color',
+	'settings'    => 'safari_icon_color',
+	'label'       => __( 'Safari Icon Color', 'my_textdomain' ),
+	'description' => __( '', 'my_textdomain' ),
+	'section'     => 'logo_section',
+	'priority'    => 4,
+	'default'     =>  get_theme_mod('color_one'),
+	'alpha'       => false,
 ) );
 	?>

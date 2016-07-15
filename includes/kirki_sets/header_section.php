@@ -4,6 +4,8 @@ Kirki::add_section( 'header_section', array(
     'title'       => __( 'Header', 'textdomain' ),
     'description' => __( 'header settings', 'textdomain' ),
 ) );
+
+// header_type
 Kirki::add_field( 'hiiwp', array(
 	'type'        => 'select',
     'settings'    => 'header_type',
@@ -18,6 +20,8 @@ Kirki::add_field( 'hiiwp', array(
         'fixed' => esc_attr__( 'Fixed', 'my_textdomain' ),
     ),
 ) );
+
+
 Kirki::add_field( 'hiiwp', array(
     'type'        => 'switch',
     'settings'    => 'header_above_content',
@@ -51,7 +55,7 @@ Kirki::add_field( 'hiiwp', array(
 		'opacity'  => 90,
 	),
 	'output' => 'header#main_header',
-	'required'	  => array(
+	'active_callback' => array(
     	array(
 	    	'setting'  => 'header_above_content',
 			'operator' => '==',
@@ -59,16 +63,17 @@ Kirki::add_field( 'hiiwp', array(
     	)
     ),
 ) );
+
+/*
 Kirki::add_field( 'hiiwp', array(
     'type'        => 'dimension',
-    'settings'    => 'header_line_height',
-    'label'       => __( 'Header Line Height', 'my_textdomain' ),
+    'settings'    => 'header_height',
+    'label'       => __( 'Header Height', 'my_textdomain' ),
     'section'     => 'header_section',
-    'default'     => '30px',
+    'default'     => '100px',
     'priority'    => 3,
-    'output' => 'header#main_header',
 ) );
-
+*/
 
 Kirki::add_field( 'hiiwp', array(
     'type'        => 'dimension',

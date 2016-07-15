@@ -5,14 +5,7 @@ Kirki::add_section( 'portfolio_section', array(
     'description' => __( 'Portfolio settings', 'textdomain' ),
 ) );
 
-Kirki::add_field( 'hiiwp', array(
-    'type'        => 'text',
-    'settings'    => 'portfolio_slug',
-    'label'       => __( 'Portfolio Slug', 'my_textdomain' ),
-    'section'     => 'portfolio_section',
-    'default'     => 'portfolio',
-    'priority'    => 1,
-) );
+
 
 
 Kirki::add_field( 'hiiwp', array(
@@ -44,7 +37,7 @@ Kirki::add_field( 'hiiwp', array(
 		'3'   => '3 Columns',
 		'4'	=> '4 Columns',
 	),
-	'required'	=> array(
+	'active_callback'	=> array(
 		array(
 			'setting'  => 'portfolio_layout',
 			'operator' => '!=',
@@ -95,7 +88,7 @@ Kirki::add_field( 'hiiwp', array(
 		'h5'	=> 'h5',
 		'h6'	=> 'h6',
 	),
-	'required'	=> array(
+	'active_callback'	=> array(
 		array(
 			'setting'  => 'portfolio_show_post_title',
 			'operator' => '==',
@@ -127,7 +120,7 @@ Kirki::add_field( 'hiiwp', array(
         'image-left' => get_template_directory_uri() . '/images/icons/image-left.png',
         'image-above' => get_template_directory_uri() . '/images/icons/image-above.png',
     ),
-    'required'	=> array(
+    'active_callback'	=> array(
 		array(
 			'setting'  => 'portfolio_layout',
 			'operator' => '!=',
@@ -149,7 +142,7 @@ Kirki::add_field( 'hiiwp', array(
         'title-below' => get_template_directory_uri() . '/images/icons/title-below.png',
         'title-above' => get_template_directory_uri() . '/images/icons/title-above.png',
     ),
-    'required'	=> array(
+    'active_callback'	=> array(
 		array(
 			'setting'  => 'portfolio_show_post_title',
 			'operator' => '==',

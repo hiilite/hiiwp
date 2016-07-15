@@ -1,6 +1,9 @@
 <?php
 
 function add_social_share_shortcode( $atts ){
+	global $qode_options_proya;
+
+	$el_class = $width = $css = $offset = $output = $style = '';
 	/*
 		TODO:
 		- Add &via=@twittername to twitter link 
@@ -13,11 +16,22 @@ function add_social_share_shortcode( $atts ){
       'gp'  => false,
       'tw'	=> false,
       'pt'	=> false,
-      'li'	=> false
+      'li'	=> false,
+      'css'	=> ''
    ), $atts ) );
    
    $permalink = 'https://'.$_SERVER["HTTP_HOST"].$_SERVER["REQUEST_URI"];
    
+   
+   	$css_classes = array(
+		vc_shortcode_custom_css_class( $css ), 
+	);
+	if (vc_shortcode_custom_css_has_property( $css, array('border', 'background') )) {
+		$css_classes[]='';
+	}
+	$wrapper_attributes = array();
+	$css_class = preg_replace( '/\s+/', ' ', apply_filters( VC_SHORTCODE_CUSTOM_CSS_FILTER_TAG, implode( ' ', array_filter( $css_classes ) ), '.vc_custom_', $atts ) );
+	$wrapper_attributes[] = 'class="' . esc_attr( trim( $css_class ) ) . '"';
    // Page Image
    $post_id = get_the_id();
 	if(has_post_thumbnail($post_id)){
@@ -49,7 +63,7 @@ function add_social_share_shortcode( $atts ){
 			$comma = ',';
 		}
 	}
-	$output = '';
+	$output = '<div '.implode( ' ', $wrapper_attributes ).'>';
 	if($fa) $output .= '<a title="Share On Facebook" target="_blank" href="http://www.facebook.com/sharer.php?u='.$permalink.'"><i class="fa fa-facebook"></i></a>  ';
 	if($gp) $output .= '<a title="Share On Google+" target="_blank" href="https://plus.google.com/share?url='.$permalink.'"><i class="fa fa-google-plus"></i></a>  ';
 	
@@ -68,7 +82,7 @@ function add_social_share_shortcode( $atts ){
 	if($gp) $output .= '<amp-social-share type="gplus" width="50" height="50"><a title="Share On Google+"><i class="fa fa-google-plus"></i></a></amp-social-share>';
 	if($em) $output .= '<amp-social-share type="email" width="50" height="50"><a title="Email"><i class="fa fa-envelope"></i></a></amp-social-share>';
 	*/
-	
+	$output .= '</div>';
 	return $output;
 }
 add_shortcode( 'social-share', 'add_social_share_shortcode' );

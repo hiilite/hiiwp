@@ -52,9 +52,144 @@ vc_remove_element('vc_masonry_media_grid');
 vc_remove_element('vc_icon');
 vc_remove_element('vc_button2');
 vc_remove_element("vc_custom_heading");
-//vc_remove_element("vc_btn");
+vc_remove_element("vc_btn");
 
 vc_remove_element('vc_gallery');
+vc_remove_element('vc_separator');
+vc_remove_element('vc_text_separator');
+
+
+
+////////////////////////////
+//
+//	ROW
+//
+////////////////////////////
+$vc_row_params = array(
+		array(
+			'type' => 'checkbox',
+			'heading' => __( 'In Grid?', 'js_composer' ),
+			'param_name' => 'in_grid',
+			'description' => __( 'If checked contents of row will stay in grid width', 'js_composer' ),
+			'value' => array( __( 'Yes', 'js_composer' ) => 'yes' ),
+		),
+		array(
+			'type' => 'checkbox',
+			'heading' => __( 'iframe', 'js_composer' ),
+			'param_name' => 'in_iframe',
+			'description' => __( 'If the content contains form elements or requires javascript, it must be within an iframe. iframe content needs to be an minimum of 600px from the top of the page ', 'js_composer' ),
+			'value' => array( __( 'Yes', 'js_composer' ) => 'yes' ),
+		),
+		array(
+			'type' => 'textfield',
+			'heading' => __( 'Min Height', 'js_composer' ),
+			'param_name' => 'row_height',
+			'description' => __( 'Set a default height for the row (will grow if content is larger)', 'js_composer' ),
+		),
+		array(
+			'type' => 'dropdown',
+			'heading' => __( 'Content position', 'js_composer' ),
+			'param_name' => 'content_placement',
+			'value' => array(
+				__( 'Default', 'js_composer' ) => '',
+				__( 'Top', 'js_composer' ) => 'top',
+				__( 'Middle', 'js_composer' ) => 'middle',
+				__( 'Bottom', 'js_composer' ) => 'bottom',
+			),
+			'description' => __( 'Select contents vertical position within columns.', 'js_composer' ),
+		),
+		array(
+			'type' => 'dropdown',
+			'heading' => __( 'Columns position', 'js_composer' ),
+			'param_name' => 'columns_placement',
+			'value' => array(
+				__( 'Middle', 'js_composer' ) => 'middle',
+				__( 'Top', 'js_composer' ) => 'top',
+				__( 'Bottom', 'js_composer' ) => 'bottom',
+				__( 'Stretch', 'js_composer' ) => 'stretch',
+			),
+			'description' => __( 'Select columns position within row.', 'js_composer' ),
+		),
+		array(
+			'type' => 'checkbox',
+			'heading' => __( 'Full height row?', 'js_composer' ),
+			'param_name' => 'full_height',
+			'description' => __( 'If checked row will be set to full height.', 'js_composer' ),
+			'value' => array( __( 'Yes', 'js_composer' ) => 'yes' ),
+		),
+		
+		
+		array(
+			'type' => 'checkbox',
+			'heading' => __( 'Equal height', 'js_composer' ),
+			'param_name' => 'equal_height',
+			'description' => __( 'If checked columns will be set to equal height.', 'js_composer' ),
+			'value' => array( __( 'Yes', 'js_composer' ) => 'yes' ),
+		),
+		
+		array(
+			'type' => 'dropdown',
+			'heading' => __( 'Background Color', 'js_composer' ),
+			'param_name' => 'background_palette',
+			'value' => array(
+				'None' => '',
+				'Color One' => 'bg_color_one',
+				'Color Two' => 'bg_color_two',
+				'Color Three' => 'bg_color_three',
+				'Color Four' => 'bg_color_four',
+				'White' => 'bg_white',
+			),
+			'std' => '0',
+			'description' => __( 'Select from your predefined theme colors', 'js_composer' ),
+		),
+		
+		array(
+			'type' => 'checkbox',
+			'heading' => __( 'Parallax', 'js_composer' ),
+			'param_name' => 'parallax',
+			'value' => array(__( 'Yes', 'js_composer' ) => 'yes'),
+			'description' => __( 'Add parallax type background for row.', 'js_composer' ),
+		),
+		array(
+			'type' => 'attach_image',
+			'heading' => __( 'Image', 'js_composer' ),
+			'param_name' => 'parallax_image',
+			'value' => '',
+			'description' => __( 'Select image from media library.', 'js_composer' ),
+			'dependency' => array(
+				'element' => 'parallax',
+				'not_empty' => true,
+			),
+		),
+		array(
+			'type' => 'el_id',
+			'heading' => __( 'Row ID', 'js_composer' ),
+			'param_name' => 'el_id',
+			'description' => sprintf( __( 'Enter row ID (Note: make sure it is unique and valid according to <a href="%s" target="_blank">w3c specification</a>).', 'js_composer' ), 'http://www.w3schools.com/tags/att_global_id.asp' ),
+		),
+		array(
+			'type' => 'textfield',
+			'heading' => __( 'Extra class name', 'js_composer' ),
+			'param_name' => 'el_class',
+			'description' => __( 'Style particular content element differently - add a class name and refer to it in custom CSS.', 'js_composer' ),
+		),
+		array(
+			'type' => 'css_editor',
+			'heading' => __( 'CSS box', 'js_composer' ),
+			'param_name' => 'css',
+			'group' => __( 'Design Options', 'js_composer' ),
+		));
+vc_map( array(
+	'name' => __( 'Row' , 'js_composer' ),
+	"base" => "vc_row",
+	'is_container' => true,
+	'icon' => 'icon-wpb-row',
+	'show_settings_on_create' => false,
+	'category' => __( 'Content', 'js_composer' ),
+	'description' => __( 'Place content elements inside the row', 'js_composer' ),
+	'params' => $vc_row_params,
+	'js_view' => 'VcRowView',
+));
 
 ////////////////////////////
 //
@@ -140,54 +275,56 @@ vc_map( array(
 //	Gravity Forms
 //
 /////////////////////////////
-$forms = RGFormsModel::get_forms( null, 'title' );
-$select = array();
-foreach( $forms as $form ):
-  $select[$form->title] = $form->id;
-endforeach;
-vc_map( array(
-		"name" => "Gravity Forms",
-		"base" => "gravityform",
-		"category" => 'by Hiilite',
-		"icon" => get_bloginfo('template_url')."/images/icons/gravity-forms.png",
-		"allowed_container_element" => 'vc_row',
-		"params" => array(
-			array(
-				"type" => "dropdown",
-				"holder" => "div",
-				"description" => "Select a form below to add it to your post or page",
-				"class" => "",
-				"heading" => "Forms",
-				"param_name" => "id",
-				"value" => $select,
-				"save_always" => true
-			),
-			array(
-				"type" => "checkbox",
-				"holder" => "div",
-				"class" => "",
-				"heading" => "Display form title",
-				"param_name" => "title",
-				"value" => true,
-			),
-			array(
-				"type" => "checkbox",
-				"holder" => "div",
-				"class" => "",
-				"heading" => "Display form description",
-				"param_name" => "description",
-				"value" => true,
-			),
-			array(
-				"type" => "checkbox",
-				"holder" => "div",
-				"class" => "",
-				"heading" => "Display form description",
-				"param_name" => "ajax",
-				"value" => true,
-			),
-		)
-) );
+if(class_exists('GFForms')) {
+	$forms = RGFormsModel::get_forms( null, 'title' );
+	$select = array();
+	foreach( $forms as $form ):
+	  $select[$form->title] = $form->id;
+	endforeach;
+	vc_map( array(
+			"name" => "Gravity Forms",
+			"base" => "gravityform",
+			"category" => 'by Hiilite',
+			"icon" => get_bloginfo('template_url')."/images/icons/gravity-forms.png",
+			"allowed_container_element" => 'vc_row',
+			"params" => array(
+				array(
+					"type" => "dropdown",
+					"holder" => "div",
+					"description" => "Select a form below to add it to your post or page",
+					"class" => "",
+					"heading" => "Forms",
+					"param_name" => "id",
+					"value" => $select,
+					"save_always" => true
+				),
+				array(
+					"type" => "checkbox",
+					"holder" => "div",
+					"class" => "",
+					"heading" => "Display form title",
+					"param_name" => "title",
+					"value" => true,
+				),
+				array(
+					"type" => "checkbox",
+					"holder" => "div",
+					"class" => "",
+					"heading" => "Display form description",
+					"param_name" => "description",
+					"value" => true,
+				),
+				array(
+					"type" => "checkbox",
+					"holder" => "div",
+					"class" => "",
+					"heading" => "Use Ajax",
+					"param_name" => "ajax",
+					"value" => true,
+				),
+			)
+	) );
+}
 
 ////////////////////////////
 //
@@ -402,6 +539,19 @@ vc_map( array(
 				"class" => "",
 				"heading" => "Email",
 				"param_name" => "em"
+			),
+			array(
+				"type" => "dropdown",
+				"holder" => "div",
+				"class" => "",
+				"heading" => "Text Align",
+				"param_name" => "text_align",
+				"value" => array(
+					"" => "",
+					"Left" => "align-left",	
+					"Right" => "align-right",
+					"Center" => "align-center"
+				)
 			),
 			array(
 	            'type' => 'css_editor',
@@ -733,6 +883,56 @@ vc_map( array(
 
 ////////////////////////////
 //
+//	Multi Screen Showcase
+//
+/////////////////////////////
+vc_map( array(
+		"name" => "Multi Screen Showcase",
+		"base" => "screen-showcase",
+		"category" => 'by Hiilite',
+		"description" => "Shows scrolling images within multiple screen sizes",
+		"icon" => get_bloginfo('template_url')."/images/icons/multi-screens.png",
+		"allowed_container_element" => 'vc_row',
+		"params" => array(
+			array(
+				"type" => "attach_image",
+				"holder" => "div",
+				"class" => "",
+				"heading" => "iMac Image",
+				"param_name" => "imac_image"
+			),
+			array(
+				"type" => "attach_image",
+				"holder" => "div",
+				"class" => "",
+				"heading" => "MacBook Image",
+				"param_name" => "macbook_image"
+			),
+			array(
+				"type" => "attach_image",
+				"holder" => "div",
+				"class" => "",
+				"heading" => "iPad Image",
+				"param_name" => "ipad_image"
+			),
+			array(
+				"type" => "attach_image",
+				"holder" => "div",
+				"class" => "",
+				"heading" => "iPhone Image",
+				"param_name" => "iphone_image"
+			),
+			array(
+	            'type' => 'css_editor',
+	            'heading' => __( 'Css', 'hiiamp' ),
+	            'param_name' => 'css',
+	            'group' => __( 'Design options', 'my-text-domain' ),
+	        ),
+		)
+) );
+
+////////////////////////////
+//
 //	Empty Space
 //
 /////////////////////////////
@@ -761,7 +961,28 @@ vc_map( array(
 	
 */
 
+vc_add_param( 'vc_row', array(
+    'type' => 'css_editor',
+    'heading' => __( 'Css', 'my-text-domain' ),
+    'param_name' => 'css',
+    'group' => __( 'Design options', 'my-text-domain' ),
+));
+
+vc_remove_param( "vc_column_text", "css_animation" );
+
+vc_add_param( 'vc_tta_section', array(
+    'type' => 'textfield',
+    'heading' => __( 'Min Height', 'my-text-domain' ),
+    'param_name' => 'css',
+    'group' => __( 'Design options', 'my-text-domain' ),
+));
 
 
+
+vc_add_param( 'vc_single_image', array(
+    'type' => 'textfield',
+    'heading' => __( 'Banner Text', 'my-text-domain' ),
+    'param_name' => 'banner_text',
+));
 
 ?>

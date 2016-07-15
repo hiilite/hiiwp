@@ -21,6 +21,7 @@ $hiilite_options['amp'] = get_theme_mod( 'amp', '0');
 $hiilite_options['portfolio_on'] 				= get_theme_mod( 'portfolio_on', '0');
 $hiilite_options['teams_on'] 					= get_theme_mod( 'teams_on', '0');
 $hiilite_options['menus_on']					= get_theme_mod( 'menus_on', '0');
+$hiilite_options['testimonials_on']				= get_theme_mod( 'testimonials_on', '0');
 
 $hiilite_options['default_background_color']	= get_theme_mod( 'default_background_color', 'rgba(255,255,255,0.85)');
 $hiilite_options['secondary_background_color']	= get_theme_mod( 'secondary_background_color', '#ebeef1');
@@ -42,6 +43,12 @@ if( isset( $image_id ) ) {
 }
 
 $hiilite_options['favicon']						= get_theme_mod('favicon', '');
+$hiilite_options['logo_padding']				= get_theme_mod('logo_padding', array(
+		'top'    => '0',
+		'right'  => '1em',
+		'bottom' => '0',
+		'left'   => '1em',
+	));
 
 $hiilite_options['logo_size_mod'] 				= (get_theme_mod( 'logo_size_mod', 100) / 100);
 
@@ -65,7 +72,7 @@ $hiilite_options['header_background_attach']	= get_theme_mod( 'header_background
 $hiilite_options['header_background_position']	= get_theme_mod( 'header_background_position', 'left-top');
 $hiilite_options['header_background_color']		= get_theme_mod( 'header_background_color', '#ffffff' );
     
-$hiilite_options['header_line_height']			= get_theme_mod( 'header_line_height', '30px');
+//$hiilite_options['header_line_height']			= get_theme_mod( 'header_line_height', '30px');
 
 
 $hiilite_options['header_top_border_color']		= get_theme_mod( 'header_top_border_color', '#ef5022' );
@@ -287,6 +294,8 @@ $hiilite_options['blog_cats_on']		= get_theme_mod( 'blog_cats_on', true );
 $hiilite_options['blog_meta_on']		= get_theme_mod( 'blog_meta_on', true );
 $hiilite_options['blog_excerpt_on']		= get_theme_mod( 'blog_excerpt_on', true );
 $hiilite_options['blog_more_on']		= get_theme_mod( 'blog_more_on', true );
+$hiilite_options['blog_author_bio']		= get_theme_mod( 'blog_author_bio', false );
+$hiilite_options['blog_related_articles']		= get_theme_mod( 'blog_related_articles', true );
 
 
 // PORTFOLIO

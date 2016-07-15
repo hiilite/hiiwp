@@ -1,57 +1,25 @@
 <?php
-	Kirki::add_panel( 'general_panel', array(
+//////////////////////
+//
+//	GENERAL PANEL
+//
+//////////////////////
+Kirki::add_panel( 'general_panel', array(
     'priority'    => 1,
     'title'       => __( 'General', 'textdomain' ),
     'description' => __( 'Global settings', 'textdomain' ),
 ) );
-// GLOBAL SETTINGS
+//////////////////////
+//
+// GENERAL SETTINGS
+//
+//////////////////////
 Kirki::add_section( 'general_section_globals', array(
     'title'          => __( 'Global Settings' ),
     'description'    => __( 'Some basic settings for the site' ),
     'panel'          => 'general_panel', // Not typically needed.
     'priority'       => 1,
     'capability'     => 'edit_theme_options'
-) );
-
-
-Kirki::add_field( 'hiiwp', array(
-	'type'        => 'switch',
-	'settings'    => 'amp',
-	'label'       => esc_attr__( 'Make AMP Site', 'my_textdomain' ),
-	'section'     => 'general_section_globals',
-	'default'     => false,
-	'priority'	  => 1,
-	'description'    => __( 'Make whole site AMP compatible. This means no external CSS or JS is allowed, so many plugins will not work. Any forms must be loaded in an iframe (can be done in row options) and be 75% or 600px from the top of the page. No in tag CSS is allowed, and no use of !important in custom CSS. all image and other embedded elements are converted to there amp counterparts' ),
-) );
-
-Kirki::add_field( 'hiiwp', array(
-	'type'        => 'switch',
-	'settings'    => 'portfolio_on',
-	'label'       => esc_attr__( 'Portfolio', 'my_textdomain' ),
-	'section'     => 'general_section_globals',
-	'default'     => false,
-	'priority'	  => 1,
-	'description'    => __( 'Turn on the Portfolio post type' ),
-) );
-
-Kirki::add_field( 'hiiwp', array(
-	'type'        => 'switch',
-	'settings'    => 'teams_on',
-	'label'       => esc_attr__( 'Teams', 'my_textdomain' ),
-	'section'     => 'general_section_globals',
-	'default'     => false,
-	'priority'	  => 1,
-	'description'    => __( 'Turn on the Teams post type' ),
-) );
-
-Kirki::add_field( 'hiiwp', array(
-	'type'        => 'switch',
-	'settings'    => 'menus_on',
-	'label'       => esc_attr__( 'Food Menu', 'my_textdomain' ),
-	'section'     => 'general_section_globals',
-	'default'     => false,
-	'priority'	  => 1,
-	'description'    => __( 'Turn on the Restaurant Menu post type' ),
 ) );
 
 Kirki::add_field( 'hiiwp', array(
@@ -63,75 +31,320 @@ Kirki::add_field( 'hiiwp', array(
 	'priority'    => 1,
 ) );
 
-
+//////////////////
+// Make AMP
 Kirki::add_field( 'hiiwp', array(
-	'type'        => 'code',
-	'settings'    => 'custom_css',
-	'label'       => __( 'Custom CSS', 'my_textdomain' ),
-	'description' => __( 'Custom style for across the site', 'textdomain' ),
+	'type'        => 'switch',
+	'settings'    => 'amp',
+	'label'       => esc_attr__( 'Make AMP Site', 'my_textdomain' ),
 	'section'     => 'general_section_globals',
-	'default'     => '',
-	'priority'    => 2,
-	'choices'     => array(
-		'language' => 'css',
-		'theme'    => 'monokai',
-		'height'   => '100',
+	'default'     => false,
+	'priority'	  => 1,
+	'description'    => __( 'Make whole site AMP compatible. This means no external CSS or JS is allowed, so many plugins will not work. Any forms must be loaded in an iframe (can be done in row options) and be 75% or 600px from the top of the page. No in tag CSS is allowed, and no use of !important in custom CSS. all image and other embedded elements are converted to there amp counterparts' ),
+) );
+
+//////////////////
+// Portfolio
+Kirki::add_field( 'hiiwp', array(
+	'type'        => 'switch',
+	'settings'    => 'portfolio_on',
+	'label'       => esc_attr__( 'Portfolio', 'my_textdomain' ),
+	'section'     => 'general_section_globals',
+	'default'     => false,
+	'priority'	  => 1,
+	'description'    => __( 'Turn on the Portfolio post type' ),
+) );
+Kirki::add_field( 'hiiwp', array(
+    'type'        => 'text',
+    'settings'    => 'portfolio_title',
+    'label'       => __( 'Portfolio Title', 'my_textdomain' ),
+    'description'    => __('Re-title the menus for the Portfolio post-type'),
+    'section'     => 'general_section_globals',
+    'default'     => 'Portfolio',
+    'priority'    => 1,
+    'active_callback'	=> array(
+		array(
+			'setting'  => 'portfolio_on',
+			'operator' => '==',
+			'value'    => true,
+		),
+	),
+) );
+Kirki::add_field( 'hiiwp', array(
+    'type'        => 'text',
+    'settings'    => 'portfolio_slug',
+    'label'       => __( 'Portfolio Slug', 'my_textdomain' ),
+    'description'    => __('Change the url slug used for the portfolio post-type'),
+    'section'     => 'general_section_globals',
+    'default'     => 'portfolio',
+    'priority'    => 1,
+    'active_callback'	=> array(
+		array(
+			'setting'  => 'portfolio_on',
+			'operator' => '==',
+			'value'    => true,
+		),
+	),
+) );
+Kirki::add_field( 'hiiwp', array(
+    'type'        => 'text',
+    'settings'    => 'portfolio_tax_title',
+    'label'       => __( 'Portfolio Taxonomy Title', 'my_textdomain' ),
+    'description'    => __('Change the menu title of the portfolios Work taxonomy'),
+    'section'     => 'general_section_globals',
+    'default'     => 'Work',
+    'priority'    => 1,
+) );
+Kirki::add_field( 'hiiwp', array(
+    'type'        => 'text',
+    'settings'    => 'portfolio_tax_slug',
+    'label'       => __( 'Portfolio Taxonomy Slug', 'my_textdomain' ),
+    'description'    => __('Change the url slug used for the portfolios taxonomy'),
+    'section'     => 'general_section_globals',
+    'default'     => 'work',
+    'priority'    => 1,
+    'active_callback'	=> array(
+		array(
+			'setting'  => 'portfolio_on',
+			'operator' => '==',
+			'value'    => true,
+		),
 	),
 ) );
 
+
+//////////////////
+// Teams
 Kirki::add_field( 'hiiwp', array(
-	'type'        => 'code',
-	'settings'    => 'admin_custom_css',
-	'label'       => __( 'Admin Custom CSS', 'my_textdomain' ),
-	'description' => __( 'Custom style for wp-login and admin areas', 'textdomain' ),
+	'type'        => 'switch',
+	'settings'    => 'teams_on',
+	'label'       => esc_attr__( 'Teams', 'my_textdomain' ),
 	'section'     => 'general_section_globals',
-	'default'     => '',
-	'priority'    => 2,
-	'choices'     => array(
-		'language' => 'css',
-		'theme'    => 'monokai',
-		'height'   => '100',
+	'default'     => false,
+	'priority'	  => 1,
+	'description'    => __( 'Turn on the Teams post type' ),
+) );
+
+Kirki::add_field( 'hiiwp', array(
+    'type'        => 'text',
+    'settings'    => 'team_title',
+    'label'       => __( 'Teams Title', 'my_textdomain' ),
+    'description'    => __('Re-title the menus for the Team post-type'),
+    'section'     => 'general_section_globals',
+    'default'     => 'Team',
+    'priority'    => 1,
+    'active_callback'	=> array(
+		array(
+			'setting'  => 'teams_on',
+			'operator' => '==',
+			'value'    => true,
+		),
+	),
+) );
+Kirki::add_field( 'hiiwp', array(
+    'type'        => 'text',
+    'settings'    => 'team_slug',
+    'label'       => __( 'Teams Slug', 'my_textdomain' ),
+    'description'    => __('Change the url slug used for the team post-type'),
+    'section'     => 'general_section_globals',
+    'default'     => 'team',
+    'priority'    => 1,
+    'active_callback'	=> array(
+		array(
+			'setting'  => 'teams_on',
+			'operator' => '==',
+			'value'    => true,
+		),
+	),
+) );
+Kirki::add_field( 'hiiwp', array(
+    'type'        => 'text',
+    'settings'    => 'team_tax_title',
+    'label'       => __( 'Team Taxonomy Title', 'my_textdomain' ),
+    'description'    => __('Change the menu title of the teams Position taxonomy'),
+    'section'     => 'general_section_globals',
+    'default'     => 'Position',
+    'priority'    => 1,
+    'active_callback'	=> array(
+		array(
+			'setting'  => 'teams_on',
+			'operator' => '==',
+			'value'    => true,
+		),
+	),
+) );
+Kirki::add_field( 'hiiwp', array(
+    'type'        => 'text',
+    'settings'    => 'team_tax_slug',
+    'label'       => __( 'Team Taxonomy Slug', 'my_textdomain' ),
+    'description'    => __('Change the url slug used for the teams Position taxonomy'),
+    'section'     => 'general_section_globals',
+    'default'     => 'position',
+    'priority'    => 1,
+    'active_callback'	=> array(
+		array(
+			'setting'  => 'teams_on',
+			'operator' => '==',
+			'value'    => true,
+		),
 	),
 ) );
 
 
-// DEFAULT FONTS
-Kirki::add_section( 'general_section', array(
-    'title'          => __( 'Default Fonts' ),
-    'description'    => __( 'Select the fonts to use across the site' ),
-    'panel'          => 'general_panel', // Not typically needed.
-    'priority'       => 3,
+//////////////////
+// Menus
+Kirki::add_field( 'hiiwp', array(
+	'type'        => 'switch',
+	'settings'    => 'menus_on',
+	'label'       => esc_attr__( 'Food Menu', 'my_textdomain' ),
+	'section'     => 'general_section_globals',
+	'default'     => false,
+	'priority'	  => 1,
+	'description'    => __( 'Turn on the Restaurant Menu post type' ),
+) );
+
+Kirki::add_field( 'hiiwp', array(
+    'type'        => 'text',
+    'settings'    => 'menu_title',
+    'label'       => __( 'Menu Title', 'my_textdomain' ),
+    'description'    => __('Re-title the menus for the Menu post-type'),
+    'section'     => 'general_section_globals',
+    'default'     => 'Menu',
+    'priority'    => 1,
+    'active_callback'	=> array(
+		array(
+			'setting'  => 'menus_on',
+			'operator' => '==',
+			'value'    => true,
+		),
+	),
 ) );
 Kirki::add_field( 'hiiwp', array(
-    'type'        => 'typography',
-    'settings'    => 'default_font',
-    'label'       => esc_attr__( 'Default Font', 'kirki' ),
-    'description'    => __( 'This will be used for all body text (and headings if not defined in Font 1)' ),
-    'section'     => 'general_section',
-    'default'     => array(
-        'font-family'    => 'Roboto',
-        'variant'        => '400',
-        'font-size'      => '14px',
-        'line-height'    => '1.5',
-        'letter-spacing' => '0px',
-        'color'          => '#333333',
-    ),
-    'priority'    => 9,
-    'transport' => 'refresh',
+    'type'        => 'text',
+    'settings'    => 'menu_slug',
+    'label'       => __( 'Menu Slug', 'my_textdomain' ),
+    'description'    => __('Change the url slug used for the menu post-type'),
+    'section'     => 'general_section_globals',
+    'default'     => 'menu',
+    'priority'    => 1,
+    'active_callback'	=> array(
+		array(
+			'setting'  => 'menus_on',
+			'operator' => '==',
+			'value'    => true,
+		),
+	),
 ) );
 Kirki::add_field( 'hiiwp', array(
-    'type'        => 'typography',
-    'settings'    => 'heading_font',
-    'label'       => esc_attr__( 'Heading Font', 'kirki' ),
-    'description'    => __( 'This will be used for all body text (and headings if not defined in Font 1)' ),
-    'section'     => 'general_section',
-    'default'     => array(
-        'font-family'    => 'Roboto',
-        'variant'        => '400',
-        'letter-spacing' => '0px',
-        'color'          => '#333333',
-    ),
-    'priority'    => 10,
+    'type'        => 'text',
+    'settings'    => 'menu_tax_title',
+    'label'       => __( 'Menu Taxonomy Title', 'my_textdomain' ),
+    'description'    => __('Change the menu title of the menus Section taxonomy'),
+    'section'     => 'general_section_globals',
+    'default'     => 'Menu Section',
+    'priority'    => 1,
+    'active_callback'	=> array(
+		array(
+			'setting'  => 'menus_on',
+			'operator' => '==',
+			'value'    => true,
+		),
+	),
+) );
+Kirki::add_field( 'hiiwp', array(
+    'type'        => 'text',
+    'settings'    => 'menu_tax_slug',
+    'label'       => __( 'Team Taxonomy Slug', 'my_textdomain' ),
+    'description'    => __('Change the url slug used for the Menu Section taxonomy'),
+    'section'     => 'general_section_globals',
+    'default'     => 'menu-section',
+    'priority'    => 1,
+    'active_callback'	=> array(
+		array(
+			'setting'  => 'menus_on',
+			'operator' => '==',
+			'value'    => true,
+		),
+	),
+) );
+
+
+
+//////////////////
+// Menus
+Kirki::add_field( 'hiiwp', array(
+	'type'        => 'switch',
+	'settings'    => 'testimonials_on',
+	'label'       => esc_attr__( 'Testimonials On', 'my_textdomain' ),
+	'section'     => 'general_section_globals',
+	'default'     => false,
+	'priority'	  => 1,
+	'description'    => __( 'Turn on the testimonials post type' ),
+) );
+
+Kirki::add_field( 'hiiwp', array(
+    'type'        => 'text',
+    'settings'    => 'testimonials_title',
+    'label'       => __( 'Testimonials Title', 'my_textdomain' ),
+    'description'    => __('Re-title the menus for the testimonials post-type'),
+    'section'     => 'general_section_globals',
+    'default'     => 'Testimonials',
+    'priority'    => 1,
+    'active_callback'	=> array(
+		array(
+			'setting'  => 'testimonials_on',
+			'operator' => '==',
+			'value'    => true,
+		),
+	),
+) );
+Kirki::add_field( 'hiiwp', array(
+    'type'        => 'text',
+    'settings'    => 'testimonials_slug',
+    'label'       => __( 'Testimonials Slug', 'my_textdomain' ),
+    'description'    => __('Change the url slug used for the testimonials post-type'),
+    'section'     => 'general_section_globals',
+    'default'     => 'testimonials',
+    'priority'    => 1,
+    'active_callback'	=> array(
+		array(
+			'setting'  => 'testimonials_on',
+			'operator' => '==',
+			'value'    => true,
+		),
+	),
+) );
+Kirki::add_field( 'hiiwp', array(
+    'type'        => 'text',
+    'settings'    => 'testimonials_tax_title',
+    'label'       => __( 'Testimonials Taxonomy Title', 'my_textdomain' ),
+    'description'    => __('Change the menu title of the testimonials taxonomy'),
+    'section'     => 'general_section_globals',
+    'default'     => 'Testimonials Categories',
+    'priority'    => 1,
+    'active_callback'	=> array(
+		array(
+			'setting'  => 'testimonials_on',
+			'operator' => '==',
+			'value'    => true,
+		),
+	),
+) );
+Kirki::add_field( 'hiiwp', array(
+    'type'        => 'text',
+    'settings'    => 'testimonials_tax_slug',
+    'label'       => __( 'Testimonials Taxonomy Slug', 'my_textdomain' ),
+    'description'    => __('Change the url slug used for the testimonials taxonomy'),
+    'section'     => 'general_section_globals',
+    'default'     => 'testimonials_category',
+    'priority'    => 1,
+    'active_callback'	=> array(
+		array(
+			'setting'  => 'testimonials_on',
+			'operator' => '==',
+			'value'    => true,
+		),
+	),
 ) );
 
 
@@ -149,7 +362,7 @@ Kirki::add_section( 'general_section_color_palette', array(
 Kirki::add_field( 'hiiwp', array(
 	'type'        => 'color',
 	'settings'    => 'color_one',
-	'label'       => __( 'Primary Color', 'my_textdomain' ),
+	'label'       => __( 'Primary Color (Color 1)', 'my_textdomain' ),
 	'section'     => 'general_section_color_palette',
 	'default'     => '#ef5022',
 	'priority'    => 1,
@@ -160,7 +373,7 @@ Kirki::add_field( 'hiiwp', array(
 Kirki::add_field( 'hiiwp', array(
 	'type'        => 'color',
 	'settings'    => 'color_two',
-	'label'       => __( 'Secondary Color', 'my_textdomain' ),
+	'label'       => __( 'Secondary Color ( Color 2)', 'my_textdomain' ),
 	'section'     => 'general_section_color_palette',
 	'default'     => '#71be44',
 	'priority'    => 2,
@@ -169,7 +382,7 @@ Kirki::add_field( 'hiiwp', array(
 Kirki::add_field( 'hiiwp', array(
 	'type'        => 'color',
 	'settings'    => 'color_three',
-	'label'       => __( 'Info Color', 'my_textdomain' ),
+	'label'       => __( 'Info Color (Color 3)', 'my_textdomain' ),
 	'section'     => 'general_section_color_palette',
 	'default'     => '#2eb6c4',
 	'priority'    => 3,
@@ -178,7 +391,7 @@ Kirki::add_field( 'hiiwp', array(
 Kirki::add_field( 'hiiwp', array(
 	'type'        => 'color',
 	'settings'    => 'color_four',
-	'label'       => __( 'Typography Color', 'my_textdomain' ),
+	'label'       => __( 'Typography Color (Color 4)', 'my_textdomain' ),
 	'section'     => 'general_section_color_palette',
 	'default'     => '#555555',
 	'priority'    => 4,
@@ -187,7 +400,7 @@ Kirki::add_field( 'hiiwp', array(
 Kirki::add_field( 'hiiwp', array(
 	'type'        => 'color',
 	'settings'    => 'color_five',
-	'label'       => __( 'Text Link Color', 'my_textdomain' ),
+	'label'       => __( 'Text Link Color (Color 5)', 'my_textdomain' ),
 	'section'     => 'general_section_color_palette',
 	'default'     => '#8f52a0',
 	'priority'    => 5,
@@ -214,8 +427,46 @@ Kirki::add_field( 'hiiwp', array(
 ) );
 
 
+// GLOBAL CSS SETTINGS
+Kirki::add_section( 'general_section_custom_css', array(
+    'title'          => __( 'Custom CSS' ),
+    'description'    => __( 'Custom CSS for whole site' ),
+    'panel'          => 'general_panel', // Not typically needed.
+    'priority'       => 1,
+    'capability'     => 'edit_theme_options'
+) );
 
-// GLOBAL SETTINGS
+Kirki::add_field( 'hiiwp', array(
+	'type'        => 'code',
+	'settings'    => 'custom_css',
+	'label'       => __( 'Custom CSS', 'my_textdomain' ),
+	'description' => __( 'Custom style for across the site', 'textdomain' ),
+	'section'     => 'general_section_custom_css',
+	'default'     => '',
+	'priority'    => 2,
+	'choices'     => array(
+		'language' => 'css',
+		'theme'    => 'monokai',
+		'height'   => '100',
+	),
+) );
+
+Kirki::add_field( 'hiiwp', array(
+	'type'        => 'code',
+	'settings'    => 'admin_custom_css',
+	'label'       => __( 'Admin Custom CSS', 'my_textdomain' ),
+	'description' => __( 'Custom style for wp-login and admin areas', 'textdomain' ),
+	'section'     => 'general_section_custom_css',
+	'default'     => '',
+	'priority'    => 2,
+	'choices'     => array(
+		'language' => 'css',
+		'theme'    => 'monokai',
+		'height'   => '100',
+	),
+) );
+
+// GLOBAL SEO SETTINGS
 Kirki::add_section( 'general_section_seo', array(
     'title'          => __( 'SEO' ),
     'description'    => __( 'Define the preferred title and description Meta for the home page. Other pages should have their titles and description edited individually.' ),
@@ -250,7 +501,7 @@ Kirki::add_field( 'hiiwp', array(
 	'label'       => __( 'Site Title', 'my_textdomain' ),
 	'description'    => __( 'Limit of 55 characters. This will be used by default for the Home page (can be overwritten via the Page options) Optimal Format: "Primary Keyword - Secondary Keyword | Brand Name"' ),
 	'section'     => 'general_section_seo',
-	'default'     => '',
+	'default'     => get_bloginfo('title'),
 	'transport'	  => 'refresh',
 	'priority'    => 1,
 ) );

@@ -8,6 +8,22 @@ if($hiilite_options['amp']) $_amp = 'amp-'; else $_amp = '';
 // Create Title
 $article_title = '';
 
+$article_title .= '<span itemprop="author" itemscope itemtype="https://schema.org/Person">';
+if($hiilite_options['blog_meta_on']):
+	$article_title .= '<small><address class="post_author">';
+	$article_title .= '<a itemprop="author" itemscope itemtype="https://schema.org/Person" class="post_author_link" href="'.get_author_posts_url( get_the_author_meta( 'ID' ) ).'"><span itemprop="name">';
+	$article_title .= get_the_author_meta('display_name'); 
+	$article_title .= '</span></a> | </address><time class="time op-published" datetime="';
+	$article_title .= get_the_time('c');
+	$article_title .= '">';
+	$article_title .= '<span class="date">';
+	$article_title .= get_the_time('d F, Y');
+	$article_title .= ' </span>'.get_the_time('h:i a').'</time></small>';
+else:
+	$article_title .= '<meta itemprop="name" content="'.get_the_author_meta('display_name').'">';
+endif;
+$article_title .= '</span>';
+
 if($hiilite_options['blog_cats_on']):
 	$article_title .= '<span itemprop="articleSection" class="labels">'.get_the_category_list(' ').'</span>';
 else:
@@ -21,21 +37,7 @@ endif;
 if($hiilite_options['blog_title_on']) {
 	$article_title .= '<'.$hiilite_options['blog_heading_size'].'><a href="'.get_the_permalink().'">'.get_the_title().'</a></'.$hiilite_options['blog_heading_size'].'>';
 } 
-$article_title .= '<span itemprop="author" itemscope itemtype="https://schema.org/Person">';
-if($hiilite_options['blog_meta_on']):
-	$article_title .= '<small><address class="post_author">';
-	$article_title .= '<a itemprop="author" itemscope itemtype="https://schema.org/Person" class="post_author_link" href="'.get_author_posts_url( get_the_author_meta( 'ID' ) ).'"><span itemprop="name">';
-	$article_title .= get_the_author_meta('display_name'); 
-	$article_title .= '</span></a></address> | <time class="time op-published" datetime="';
-	$article_title .= get_the_time('c');
-	$article_title .= '">';
-	$article_title .= '<span class="date">';
-	$article_title .= get_the_time('F j, Y');
-	$article_title .= ' </span>'.get_the_time('h:i a').'</time></small>';
-else:
-	$article_title .= '<meta itemprop="name" content="'.get_the_author_meta('display_name').'">';
-endif;
-$article_title .= '</span>';
+
 
 $cols = '';
 if($hiilite_options['blog_layout'] =='boxed'){
@@ -94,7 +96,7 @@ if($hiilite_options['blog_layout'] =='boxed'){
 		
 		}
 		if($hiilite_options['blog_excerpt_on']):?><p><?=get_the_excerpt(); ?></p><?php endif;
-		if($hiilite_options['blog_more_on']):?><a class="button" href="<?php the_permalink() ?>">Read More</a><?php endif;?>
+		if($hiilite_options['blog_more_on']):?><a class="button readmore" href="<?php the_permalink() ?>">Read More</a><?php endif;?>
 	<div>
 		<?php $options = get_option('company_options'); ?>
 		<div itemprop="publisher" itemscope itemtype="https://schema.org/Organization">

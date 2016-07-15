@@ -4,10 +4,22 @@ Kirki::add_panel( 'typography_panel', array(
     'title'       => __( 'Typography', 'textdomain' ),
     'description' => __( 'Typography settings', 'textdomain' ),
 ) );
+Kirki::add_section( 'typography_defaults_section', array(
+    'title'          => __( 'Default Fonts' ),
+    'description'    => __( 'Select the fonts to use across the site' ),
+    'panel'          => 'typography_panel', // Not typically needed.
+    'priority'       => 6,
+) );
 Kirki::add_section( 'typography_headings_section', array(
     'priority'    => 6,
     'title'       => __( 'Headings', 'textdomain' ),
     'description' => __( 'Typography settings', 'textdomain' ),
+    'panel'		 => 'typography_panel',
+) );
+Kirki::add_section( 'typography_button_section', array(
+    'priority'    => 6,
+    'title'       => __( 'Buttons', 'textdomain' ),
+    'description' => __( 'Button font settings', 'textdomain' ),
     'panel'		 => 'typography_panel',
 ) );
 Kirki::add_section( 'typography_text_section', array(
@@ -24,6 +36,61 @@ Kirki::add_section( 'typography_footer_section', array(
     'panel'		 => 'typography_panel',
 ) );
 
+
+
+// DEFAULT FONTS
+
+Kirki::add_field( 'hiiwp', array(
+    'type'        => 'typography',
+    'settings'    => 'default_font',
+    'label'       => esc_attr__( 'Default Font', 'kirki' ),
+    'description'    => __( 'This will be used for all body text (and headings if not defined in Font 1)' ),
+    'section'     => 'typography_defaults_section',
+    'default'     => array(
+        'font-family'    => 'Roboto',
+        'variant'        => '400',
+        'font-size'      => '14px',
+        'line-height'    => '1.5',
+        'letter-spacing' => '0px',
+        'color'          => get_theme_mod('color_four','#333333'),
+    ),
+    'priority'    => 9,
+) );
+
+
+Kirki::add_field( 'hiiwp', array(
+    'type'        => 'typography',
+    'settings'    => 'heading_font',
+    'label'       => esc_attr__( 'Heading Font', 'kirki' ),
+    'description'    => __( 'This will be used for all body text (and headings if not defined in Font 1)' ),
+    'section'     => 'typography_defaults_section',
+    'default'     => array(
+        'font-family'    => 'Roboto',
+        'variant'        => '400',
+        'letter-spacing' => '0px',
+        'color'          => '#333333',
+        'text_transform'  => 'none',
+    ),
+    'priority'    => 10,
+) );
+
+Kirki::add_field( 'hiiwp', array(
+    'type'        => 'multicolor',
+    'settings'    => 'default_link_colors',
+    'label'       => esc_attr__( 'Default Link Color', 'kirki' ),
+    'section'     => 'general_section',
+    'priority'    => 10,
+    'choices'     => array(
+        'link'    => esc_attr__( 'Color', 'kirki' ),
+        'hover'   => esc_attr__( 'Hover', 'kirki' ),
+        'active'  => esc_attr__( 'Active', 'kirki' ),
+    ),
+    'default'     => array(
+        'link'    => get_theme_mod('color_five','#0088cc'),
+        'hover'   => get_theme_mod('color_one','#00aaff'),
+        'active'  => get_theme_mod('color_two','#00ffff'),
+    ),
+) );
 
 $default_h1 = get_theme_mod( 'heading_font' );
 $default_h1['font-size'] = '2em';
@@ -186,7 +253,7 @@ Kirki::add_field( 'hiiwp', array(
 	'settings'    => 'typography_button_custom_css',
 	'label'       => __( 'Button Custom CSS (.button)', 'my_textdomain' ),
 	'description' => __( 'Custom style for standard buttons across the site', 'textdomain' ),
-	'section'     => 'typography_text_section',
+	'section'     => 'typography_button_section',
 	'default'     => '{
 	border:2px solid '.get_theme_mod( 'color_one', '#ef5022').';
 	text-transform: uppercase;

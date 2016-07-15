@@ -73,7 +73,7 @@ if(!$hiilite_options['subpage']):
 <meta name="description" content="<?=$page_description?>">
 <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
 <link rel="shortcut icon" href="<?=get_theme_mod('favicon');?>"> 
-<link rel="mask-icon" href="<?=get_bloginfo('template_url') ?>/images/website_icon.svg" color="#ef5022">
+<link rel="mask-icon" href="<?=get_theme_mod('safari_icon');?>" color="<?=get_theme_mod('safari_icon_color');?>">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta property="op:markup_version" content="v1.0">
@@ -405,15 +405,20 @@ ga('send', 'pageview');
 			<!-- HEADER -->
 			<header id="main_header" class="<?=$hiilite_options['header_type'];?>"><div class="container_inner">
 				<?php if($hiilite_options['header_in_grid']) { echo '<div class="in_grid">'; }
-					if($hiilite_options['header_center_left_on']){
+					if($hiilite_options['header_center_left_on']){ ?>
+					<div id="header_center_left" class="align-left flex-item">
+						<?php 
+						if ( is_active_sidebar( 'header_center_left' ) ) :
+							if(!dynamic_sidebar( 'header_center_left' )){}
+						endif;
 						wp_nav_menu(array(
 								'menu' =>  'left-menu',
-								'container' => 'div',
-								'container_class' => 'align-left flex-item',
-								'container_id' => 'header_center_left',
+								'container' => 'nav',
 								'items_wrap'  => '<ul id="%1s" class="%2$s left-menu">%3$s</ul>',
-								'theme_location' => 'left-menu'
+								'theme_location' => 'left-menu',
+								'fallback_cb'    => false
 							));		
+					?></div><?php
 					} ?>
 					<div id="logo_container" class="flex-item <?php if($hiilite_options['header_center_right_on'] && !$hiilite_options['header_center_left_on']){ echo 'align-left';} ?>">
 						<a href="<?php bloginfo('url'); ?>">
@@ -421,16 +426,21 @@ ga('send', 'pageview');
 						</a>
 					</div>
 
-					<?php if($hiilite_options['header_center_right_on'] && $hiilite_options['header_type'] == 'centered'){ 
+					<?php if($hiilite_options['header_center_right_on'] && $hiilite_options['header_type'] == 'centered'){ ?>
+					<div id="header_center_right" class="align-right flex-item">
+						<?php 
+						if ( is_active_sidebar( 'header_center_right' ) ) :
+							if(!dynamic_sidebar( 'header_center_right' )){}
+						endif;
+
 						wp_nav_menu(array(
 								'menu' =>  'right-menu',
-								'container' => 'div',
-								'container_class' => 'align-right flex-item',
-								'container_id' => 'header_center_right',
+								'container' => 'nav',
 								'items_wrap'  => '<ul id="%1s" class="%2$s right-menu">%3$s</ul>',
 								'theme_location' => 'right-menu',
 								'fallback_cb'    => false
 							));	
+						?></div><?php
 					} 
 					wp_nav_menu(array(
 								'menu' =>  'header-menu',

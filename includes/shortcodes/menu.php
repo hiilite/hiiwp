@@ -1,5 +1,6 @@
 <?php
 function add_menu_shortcode( $atts ){
+	global $menu_tax_slug, $menu_slug;
 	extract( shortcode_atts( array(
       'section'			=> '',
       'heading_tag'		=> 'h2',
@@ -11,10 +12,11 @@ function add_menu_shortcode( $atts ){
   
     $query = new WP_Query(
 	    array(
-		    'post_type' => 'menu',
+		    'post_type' => $menu_slug,
+		    'posts_per_page' => '-1',
 		    'tax_query' => array(
 				array(
-					'taxonomy' => 'menu-section',
+					'taxonomy' => $menu_tax_slug,
 					'field'    => 'slug',
 					'terms'    => $section,
 					'include_children' => false
@@ -25,7 +27,7 @@ function add_menu_shortcode( $atts ){
     $output = '';
     if($query->have_posts()){
 	    if($show_title == 'true'){
-	    	$section_title = get_terms('menu-section', array('slug' => $section));
+	    	$section_title = get_terms($menu_tax_slug, array('slug' => $section));
 			$output .= '<'.$heading_tag.' class="menu-section-title align-center"><a class="menu-section-title-link" href="/menu-section/'.$section.'">'.$section_title[0]->name.'</a></'.$heading_tag.'>';
 		}
 		if($layout == 'table'){

@@ -15,7 +15,17 @@ if($hiilite_options['subdomain'] != 'iframe'):
 		<meta itemscope itemprop="mainEntityOfPage"  itemType="https://schema.org/WebPage" itemid="<?php bloginfo('url')?>"/>
 		<div class="container_inner">
 			<header class="full-width content-box">
-				<span itemprop="articleSection" class="labels"><?php the_category(' '); ?></span>
+				<?php
+				if($hiilite_options['blog_cats_on']):
+					echo '<span itemprop="articleSection" class="labels">'.get_the_category_list(' ').'</span>';
+				else:
+					$categories = get_the_category();$cats ='';
+					foreach($categories as $cat){
+						$cats .= $cat->name;
+					}
+					echo '<meta itemprop="articleSection" content="'.$cats.'">';
+				endif;
+				?>
 				<meta itemprop="datePublished" content="<?php the_time('Y-m-d'); ?>">
 				<meta itemprop="dateModified" content="<?php the_modified_date('Y-m-d'); ?>">
 				<meta itemprop="headline" content="<?php the_title(); ?>"><?php
@@ -93,6 +103,7 @@ if($hiilite_options['subdomain'] != 'iframe'):
 			echo '</div>';
 			endif;
 
+if($hiilite_options['blog_related_articles'] == true):
 /////////////////////////
 //
 //	RELATED POSTS
@@ -160,7 +171,9 @@ if( $my_query->have_posts() ) :
 	endif;
 
 echo '</aside>';
+
 //end related Posts
+endif;
 	/*
 	if($hiilite_options['subdomain'] != 'iframe'){
 		echo '<div class="iframe-content container_inner">';

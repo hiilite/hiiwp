@@ -17,6 +17,7 @@ Kirki::add_field( 'hiiwp', array(
         'line-height'    => '1.5',
         'letter-spacing' => '0',
         'color'          => '#333333',
+        'text-transform' => 'None'
     ),
     'priority'    => 10,
     'output'      => array(

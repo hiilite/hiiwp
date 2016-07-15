@@ -6,14 +6,14 @@ if($hiilite_options['amp']) $_amp = 'amp-'; else $_amp = '';
 if($hiilite_options['subdomain'] != 'iframe'):
 ?>
 <article  <?php post_class('row'); ?> itemscope itemtype="http://schema.org/Article" id="post-<?php the_ID(); ?>" >
-	<div class="in_grid">
+	
 	<meta itemscope itemprop="mainEntityOfPage"  itemType="https://schema.org/WebPage" itemid="<?php bloginfo('url')?>"/>
 <?php
 echo '<div class="container_inner">';
 ?><div class="full-width">
 	<?php
 		
-		if(has_post_thumbnail($post->id)): 
+		if(has_post_thumbnail($post->id) && get_post_meta(get_the_id(), 'hide_page_feature_image', true) != 'on'): 
 			
 		$tn_id = get_post_thumbnail_id( $post->ID );
 
@@ -137,7 +137,7 @@ if($hiilite_options['subdomain'] != 'iframe'){
 
 
 if($hiilite_options['subdomain'] != 'iframe'):
-echo '</div>';
+
 echo '</article>';
 endif;
 ?>
