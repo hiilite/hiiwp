@@ -2,28 +2,35 @@
 get_template_part( 'templates/title' );
 if(have_posts()):
 	$sections = get_terms('menu-section', array('parent' => 0));
+	$menu_html = '';
+	$nav_html = '';
 	foreach($sections as $section){
-		echo '<section class="row vc_row-has-fill ">
+		$nav_html .= '<li class="menu-item"><a href="#menu_section_'.$section->slug.'" class="">'.$section->name.'</a></li>';
+		$menu_html .= '<section class="row vc_row-has-fill" id="menu_section_'.$section->slug.'">
 				<div class="text-block align-center">
 					<h1><a href="/menu-section/'.$section->slug.'">'.$section->name.'</a></h1>
 				</div>
 			</section>';
 		
-		echo '<div class="row"><div class="container_inner"><div class="in_grid align-top">';	
-			echo '<div class="flex-item text-block ">';
-			echo do_shortcode('[menu section="'.$section->slug.'"]');
-			echo '</div>';
-		echo '</div></div></div>';
-		
-		echo '<div class="row"><div class="container_inner"><div class="in_grid align-top">';	
+		$sectionoutput = do_shortcode('[menu section="'.$section->slug.'"]');
+		if($sectionoutput !== '') {
+			$menu_html .= '<div class="row"><div class="container_inner"><div class="in_grid align-top">';	
+				$menu_html .= '<div class="flex-item text-block ">';
+				$menu_html .= do_shortcode('[menu section="'.$section->slug.'"]');
+				$menu_html .= '</div>';
+			$menu_html .= '</div></div></div>';
+		}
+		$menu_html .= '<div class="row"><div class="container_inner"><div class="in_grid align-top">';	
 		$children = get_terms('menu-section', array('parent' => $section->term_id));
 		foreach($children as $child){
-			echo '<div class="col-9">';
-			echo do_shortcode('[menu section="'.$child->slug.'"]');
-			echo '</div>';
+			$menu_html .= '<div class="col-9">';
+			$menu_html .= do_shortcode('[menu section="'.$child->slug.'"]');
+			$menu_html .= '</div>';
 		}
-		echo '</div></div></div>';
+		$menu_html .= '</div></div></div>';
 	}
+	echo '<nav class="anchor_menu"><ul class="menu main-menu align-center">'.$nav_html.'</ul></nav>';
+	echo $menu_html;
 	
 	echo '<div class="row"><div class="container_inner"><div class="in_grid">';
 	echo '<div class="flex-item align-center text-block">';

@@ -9,7 +9,14 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @var $content - shortcode content
  * @var $this WPBakeryShortCode_VC_Tta_Section
  */
-//add_action('custom_css', 'add_custom_css');
+ $post_id = get_the_id();
+if(get_post_meta($post_id, 'amp', true) == 'nonamp'){
+	$hiilite_options['amp'] = false;
+} else {
+	$hiilite_options['amp'] = (!isset($hiilite_options['amp']))?get_theme_mod('amp'):false;
+}
+if($hiilite_options['amp']) $_amp = 'amp-'; else $_amp = '';
+
 $css = $el_class = '';
 $atts = vc_map_get_attributes( $this->getShortcode(), $atts );
 $this->resetVariables( $atts, $content );
@@ -19,7 +26,6 @@ WPBakeryShortCode_VC_Tta_Section::$section_info[] = $atts;
 
 $isPageEditable = vc_is_page_editable();
 
-print_r($css);
 $css = $atts['css'];
 $link = wp_get_attachment_image_src( $atts['image'], 'full' );
 $src = $link[0];
@@ -45,7 +51,8 @@ $wrapper_attributes[] = 'class="' . esc_attr( trim( $css_class ) ) . '"';
 $output = '';
 
 $output .= '<div ' . implode( ' ', $wrapper_attributes ) . '>';
-//$output .= '<amp-img src="'.$src.'" width="'.$slide_width.'" height="'.$slide_height.'"  layout="responsive"></amp-img>';
+$output .= '<'.$_amp.'img src="'.$src.'" width="'.$slide_width.'" height="'.$slide_height.'"  layout="responsive">';
+$output .= ($_amp!='')?'</amp-img>':'';
 $output .= '<div class="slide-text-overlay">
 				';
 $output .= $this->getTemplateVariable( 'content' );

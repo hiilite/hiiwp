@@ -9,6 +9,14 @@ function add_amp_carousel_shortcode( $atts ){
 		- Pull post title and other meta from global values
 	*/
 	
+	$post_id = get_the_id();
+	if(get_post_meta($post_id, 'amp', true) == 'nonamp'){
+		$hiilite_options['amp'] = false;
+	} else {
+		$hiilite_options['amp'] = (!isset($hiilite_options['amp']))?get_theme_mod('amp'):false;
+	}
+	if($hiilite_options['amp']) $_amp = 'amp-'; else $_amp = '';
+	
 	$slug = get_theme_mod( 'portfolio_slug', 'portfolio' );
 	extract( shortcode_atts( array(
       'args'  => null,
@@ -23,19 +31,22 @@ function add_amp_carousel_shortcode( $atts ){
 				'post_mime_type' =>'image',
 				'post_status' => 'inherit',
 				'posts_per_page' => -1,
-				'post__in' => explode(',', $media_grid_images )
+				'post__in' => explode(',', $media_grid_images ),
+				'orderby' => 'post__in',
 			);
 	}
     $query = new WP_Query($args);
     
     $output = '';
-    $output .= '<amp-carousel height="300" layout="fixed-height" type="carousel" class="carousel">';
+    $output .= '<'.$_amp.'carousel height="300" layout="fixed-height" type="carousel" class="carousel">';
     if($args['post_type'] == 'attachment'):
 		foreach ( $query->posts as $attachment) :
 	       $image = wp_get_attachment_image_src( $attachment->ID, 'large' );
 	       $hratio = ($height / $image[2]);
 	       $output .= '<a href="'.get_the_permalink().'">';
-		   $output .= '<amp-img src="'.$image[0].'" width="'.($image[1]*$hratio).'" height="'.($image[2]*$hratio).'" alt="'.get_the_title().'"></amp-img></a>';
+		   $output .= '<'.$_amp.'img src="'.$image[0].'" width="'.($image[1]*$hratio).'" height="'.($image[2]*$hratio).'" alt="'.get_the_title().'">';
+		   if($hiilite_options['amp']) $output .= '</amp-img>';
+		   $output .= '</a>';
 	    endforeach;
 	else:
 		
@@ -49,7 +60,7 @@ function add_amp_carousel_shortcode( $atts ){
 		  	}
 		endwhile;
 		 
-	$output .= '</amp-carousel>';
+	$output .= '</'.$_amp.'carousel>';
     endif;
 	return $output;
 }

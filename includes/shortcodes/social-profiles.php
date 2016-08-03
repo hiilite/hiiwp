@@ -7,12 +7,14 @@ function add_social_profiles_shortcode( $atts ){
 	    'facebook'  	=> false,
 	    'twitter'  		=> false,
 	    'google-plus'	=> false,
+	    'instagram'		=> false,
 	    'linkedin'		=> false,
 	    'pinterest'		=> false,
 	    'houzz'			=> false,
 	    'youtube'		=> false,
 	    'tripadvisor'	=> false,
 		'yelp'			=> false,
+		'email'			=> false,
     );
 	if($atts == '')$atts = $defaults;
 	extract( shortcode_atts( $defaults, $atts ) );

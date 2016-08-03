@@ -37,14 +37,14 @@ if($hiilite_options['subdomain'] != 'iframe'):
 					<a itemprop="author" itemscope itemtype="https://schema.org/Person" class="post_author_link" href="<?php echo get_author_posts_url( get_the_author_meta( 'ID' ) ); ?>">
 						<span itemprop="name"><?php the_author_meta('display_name'); ?></span>
 					</a>
-				</address> | 
-				<time class="time op-published" datetime="<?php the_time('c'); ?>"><span class="date"><?php the_time('F j, Y'); ?></span> <?php the_time('h:i a'); ?></time></small>
+				</address> 
+				<time class="time op-published" datetime="<?php the_time('c'); ?>"><span class="date"><?php the_time('F j, Y'); ?></span> <?php //the_time('h:i a'); ?></time></small>
 			</header>
 			<?php
 			echo '<div class="threequarter-width content-box  align-top">';
 	
 		
-		if(has_post_thumbnail($post->id)): 
+		if(has_post_thumbnail($post->id) && get_post_meta( $post->ID, 'hide_page_feature_image', true) != 'on' ): 
 				
 			$tn_id = get_post_thumbnail_id( $post->ID );
 	

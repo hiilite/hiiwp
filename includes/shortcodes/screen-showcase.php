@@ -20,7 +20,7 @@ if (!function_exists('screen_showcase')) {
         //init variables
         $html  = "";
        
-        
+         
         // CUSTOM CSS BLOCK
 		$css_classes = array(
 			'hii_scrolling_screens',
@@ -31,29 +31,29 @@ if (!function_exists('screen_showcase')) {
 		$css_class = preg_replace( '/\s+/', ' ', apply_filters( VC_SHORTCODE_CUSTOM_CSS_FILTER_TAG, implode( ' ', array_filter( $css_classes ) ), '.vc_custom_', $atts ) );
 		$wrapper_attributes[] = 'class="' . esc_attr( trim( $css_class ) ) . '"';
 		// END CUSTOM CSS BLOCK
-
-        $html .=  '<div ' . implode( ' ', $wrapper_attributes ) . '>
-		<div class="imac_scrolling_screen">
+ 
+        $html .=  '<div ' . implode( ' ', $wrapper_attributes ) . '>';
+		$html .= ($imac_image!='')?'<div class="imac_scrolling_screen screen">
 			<img src="'.get_bloginfo('template_url').'/images/icons/iMac.png">
 			<div class="screen_area"></div>
-		</div>
+		</div>':'';
 		
-		<div class="macbook_scrolling_screen">
+		$html .= ($macbook_image!='')?'<div class="macbook_scrolling_screen screen">
 			<img src="'.get_bloginfo('template_url').'/images/icons/Macbook.png">
 			<div class="screen_area"></div>
-		</div>
+		</div>':'';
 		
-		<div class="ipad_scrolling_screen">
+		$html .= ($ipad_image!='')?'<div class="ipad_scrolling_screen screen">
 			<img src="'.get_bloginfo('template_url').'/images/icons/iPad.png">
 			<div class="screen_area"></div>
-		</div>
+		</div>':'';
 		
-		<div class="iphone_scrolling_screen">
+		$html .= ($iphone_image!='')?'<div class="iphone_scrolling_screen screen">
 			<img src="'.get_bloginfo('template_url').'/images/icons/iPhone.png">
 			<div class="screen_area"></div>
-		</div>
+		</div>':'';
 	
-	</div>';
+	$html .= '</div>';
 
         return $html;
     }

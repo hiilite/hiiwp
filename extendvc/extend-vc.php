@@ -35,7 +35,7 @@ vc_remove_element("vc_pinterest");
 vc_remove_element("vc_flickr");
 //vc_remove_element("vc_empty_space");
 
-vc_remove_element("vc_images_carousel");
+vc_remove_element("vc_images_carousel"); 
 vc_remove_element("vc_posts_grid");
 vc_remove_element("vc_carousel");
 vc_remove_element("vc_cta");
@@ -52,7 +52,7 @@ vc_remove_element('vc_masonry_media_grid');
 vc_remove_element('vc_icon');
 vc_remove_element('vc_button2');
 vc_remove_element("vc_custom_heading");
-vc_remove_element("vc_btn");
+vc_remove_element("vc_btn"); 
 
 vc_remove_element('vc_gallery');
 vc_remove_element('vc_separator');
@@ -299,29 +299,42 @@ if(class_exists('GFForms')) {
 					"save_always" => true
 				),
 				array(
-					"type" => "checkbox",
+					"type" => "dropdown",
 					"holder" => "div",
 					"class" => "",
 					"heading" => "Display form title",
 					"param_name" => "title",
-					"value" => true,
+					"value" => array(
+						'Yes' => true,
+						'No' => 'false',
+					),
+					"save_always" => true
 				),
 				array(
-					"type" => "checkbox",
+					"type" => "dropdown",
 					"holder" => "div",
 					"class" => "",
 					"heading" => "Display form description",
 					"param_name" => "description",
-					"value" => true,
+					"value" =>  array(
+						'Yes' => true,
+						'No' => 'false',
+					),
+					"save_always" => true
 				),
 				array(
-					"type" => "checkbox",
+					"type" => "dropdown",
 					"holder" => "div",
 					"class" => "",
 					"heading" => "Use Ajax",
 					"param_name" => "ajax",
-					"value" => true,
+					"value" =>  array(
+						'Yes' => true,
+						'No' => 'false',
+					),
+					"save_always" => true
 				),
+				
 			)
 	) );
 }
@@ -331,8 +344,8 @@ if(class_exists('GFForms')) {
 //	Button
 //
 /////////////////////////////
-vc_map( array(
-		"name" => "Button",
+vc_map( array( 
+		"name" => "Button", 
 		"base" => "button",
 		"category" => 'by Hiilite',
 		"icon" => "icon-wpb-ui-button",
@@ -383,105 +396,12 @@ vc_map( array(
                 "description" => "Set unique button ID attribute"
             ),
 			array(
-				"type" => "colorpicker",
-				"holder" => "div",
-				"class" => "",
-				"heading" => "Color",
-				"param_name" => "color"
-			),
-            array(
-                "type" => "colorpicker",
-                "holder" => "div",
-                "class" => "",
-                "heading" => "Hover Color",
-                "param_name" => "hover_color"
-            ),
-            array(
-                "type" => "colorpicker",
-                "holder" => "div",
-                "class" => "",
-                "heading" => "Background Color",
-                "param_name" => "background_color"
-            ),
-            array(
-                "type" => "colorpicker",
-                "holder" => "div",
-                "class" => "",
-                "heading" => "Hover Background Color",
-                "param_name" => "hover_background_color"
-            ),
-			array(
-				"type" => "colorpicker",
-				"holder" => "div",
-				"class" => "",
-				"heading" => "Border Color",
-				"param_name" => "border_color"
-			),
-            array(
-                "type" => "colorpicker",
-                "holder" => "div",
-                "class" => "",
-                "heading" => "Hover Border Color",
-                "param_name" => "hover_border_color"
-            ),
-			array(
-				"type" => "dropdown",
-				"holder" => "div",
-				"class" => "",
-				"heading" => "Font Style",
-				"param_name" => "font_style",
-				"value" => array(
-					"" => "",
-					"Normal" => "normal",	
-					"Italic" => "italic"
-				)
-			),
-			array(
-				"type" => "dropdown",
-				"holder" => "div",
-				"class" => "",
-				"heading" => "Font Weight",
-				"param_name" => "font_weight",
-				"value" => array(
-					"Default" => "",
-					"Thin 100" => "100",
-					"Extra-Light 200" => "200",
-					"Light 300" => "300",
-					"Regular 400" => "400",
-					"Medium 500" => "500",
-					"Semi-Bold 600" => "600",
-					"Bold 700" => "700",
-					"Extra-Bold 800" => "800",
-					"Ultra-Bold 900" => "900"
-				)
-			),
-			array(
-				"type" => "dropdown",
-				"holder" => "div",
-				"class" => "",
-				"heading" => "Text Align",
-				"param_name" => "text_align",
-				"value" => array(
-					"" => "",
-					"Left" => "align-left",	
-					"Right" => "align-right",
-					"Center" => "align-center"
-				)
-			),
-			array(
 	            'type' => 'css_editor',
 	            'heading' => __( 'Css', 'my-text-domain' ),
 	            'param_name' => 'css',
 	            'group' => __( 'Design options', 'my-text-domain' ),
 	        ),
-	        array(
-				"type" => "textfield",
-				"holder" => "div",
-				"class" => "",
-				"heading" => "Max Width",
-				"param_name" => "max_width",
-				'group' => __( 'Design options', 'my-text-domain' ),
-			),
+	       
 		)
 ) );
 
@@ -575,13 +495,7 @@ vc_map( array(
 		"icon" => "icon-wpb-flickr",
 		"allowed_container_element" => 'vc_row',
 		"params" => array(
-			array(
-				"type" => "checkbox",
-				"holder" => "div",
-				"class" => "",
-				"heading" => "Google+",
-				"param_name" => "google-plus"
-			),
+			
 			array(
 				"type" => "checkbox",
 				"holder" => "div",
@@ -600,8 +514,15 @@ vc_map( array(
 				"type" => "checkbox",
 				"holder" => "div",
 				"class" => "",
-				"heading" => "Pinterest",
-				"param_name" => "pinterest"
+				"heading" => "Google+",
+				"param_name" => "google-plus"
+			),
+			array(
+				"type" => "checkbox",
+				"holder" => "div",
+				"class" => "",
+				"heading" => "Instagram",
+				"param_name" => "instagram"
 			),
 			array(
 				"type" => "checkbox",
@@ -614,8 +535,36 @@ vc_map( array(
 				"type" => "checkbox",
 				"holder" => "div",
 				"class" => "",
+				"heading" => "Pinterest",
+				"param_name" => "pinterest"
+			),
+			array(
+				"type" => "checkbox",
+				"holder" => "div",
+				"class" => "",
+				"heading" => "Houzz",
+				"param_name" => "houzz"
+			),
+			array(
+				"type" => "checkbox",
+				"holder" => "div",
+				"class" => "",
 				"heading" => "YouTube",
 				"param_name" => "youtube"
+			),
+			array(
+				"type" => "checkbox",
+				"holder" => "div",
+				"class" => "",
+				"heading" => "TripAdvisor",
+				"param_name" => "tripadvisor"
+			),
+			array(
+				"type" => "checkbox",
+				"holder" => "div",
+				"class" => "",
+				"heading" => "Yelp",
+				"param_name" => "yelp"
 			),
 			array(
 				"type" => "checkbox",
@@ -632,6 +581,7 @@ vc_map( array(
 	        ),
 		)
 ) );
+
 
 ////////////////////////////
 //
@@ -885,7 +835,7 @@ vc_map( array(
 //
 //	Multi Screen Showcase
 //
-/////////////////////////////
+///////////////////////////// 
 vc_map( array(
 		"name" => "Multi Screen Showcase",
 		"base" => "screen-showcase",
@@ -899,7 +849,7 @@ vc_map( array(
 				"holder" => "div",
 				"class" => "",
 				"heading" => "iMac Image",
-				"param_name" => "imac_image"
+				"param_name" => "imac_image",
 			),
 			array(
 				"type" => "attach_image",
@@ -985,4 +935,183 @@ vc_add_param( 'vc_single_image', array(
     'param_name' => 'banner_text',
 ));
 
+
+
+if ( class_exists( 'WooCommerce' ) ) {
+	vc_map( array(
+		"name" => "Cart Page",
+		"base" => "woocommerce_cart",
+		"category" => 'WooCommerce',
+		"description" => "shows the cart page",
+		"icon" => get_bloginfo('template_url')."/images/icons/woocommerce.svg",
+		"allowed_container_element" => 'vc_row',
+	));
+	vc_map( array(
+		"name" => "Checkout Page",
+		"base" => "woocommerce_checkout",
+		"category" => 'WooCommerce',
+		"description" => "shows the checkout page",
+		"icon" => get_bloginfo('template_url')."/images/icons/woocommerce.svg",
+		"allowed_container_element" => 'vc_row',
+	));
+	vc_map( array(
+		"name" => "Order Tracking Page",
+		"base" => "woocommerce_order_tracking",
+		"category" => 'WooCommerce',
+		"description" => "shows the order tracking form",
+		"icon" => get_bloginfo('template_url')."/images/icons/woocommerce.svg",
+		"allowed_container_element" => 'vc_row',
+	));
+	
+	vc_map( array(
+		"name" => "My Account Page",
+		"base" => "woocommerce_my_account",
+		"category" => 'WooCommerce',
+		"description" => "shows the user account page",
+		"icon" => get_bloginfo('template_url')."/images/icons/woocommerce.svg",
+		"allowed_container_element" => 'vc_row',
+	));
+	vc_map( array(
+		"name" => "Recent Products",
+		"base" => "recent_products",
+		"category" => 'WooCommerce',
+		"description" => "Lists recent products",
+		"icon" => get_bloginfo('template_url')."/images/icons/woocommerce.svg",
+		"allowed_container_element" => 'vc_row',
+		"params" => array(
+			array(
+	            'type' => 'textfield',
+	            'heading' => __( 'Products Per Page', 'my-text-domain' ),
+	            'param_name' => 'per_page',
+	            'default' => '12',
+	        ),
+	        array(
+	            'type' => 'textfield',
+	            'heading' => __( 'Columns', 'my-text-domain' ),
+	            'param_name' => 'columns',
+	            'default' => '3',
+	        ),
+	        array(
+	            'type' => 'dropdown',
+	            'heading' => __( 'Order By', 'my-text-domain' ),
+	            'param_name' => 'orderby',
+	            'default' => 'date',
+	            'value' => array (
+		            "ID" => "ID",
+		            "author" => "author",
+		            "title" => "title",
+		            "name" => "name",
+		            "date" => "date",
+		            "modified" => "modified",
+		            "rand" => "rand",
+		            "menu_order" => "menu_order",
+	            )
+	        ),
+	        array(
+	            'type' => 'dropdown',
+	            'heading' => __( 'Order', 'my-text-domain' ),
+	            'param_name' => 'order',
+	            'default' => 'desc',
+	            'value' => array (
+		            "DESC" => "desc",
+		            "ASC" => "asc",
+	            )
+	        ),
+	)));
+	
+	vc_map( array(
+		"name" => "Featured Products",
+		"base" => "featured_products",
+		"category" => 'WooCommerce',
+		"description" => "displays products that have been set as featured",
+		"icon" => get_bloginfo('template_url')."/images/icons/woocommerce.svg",
+		"allowed_container_element" => 'vc_row',
+		"params" => array(
+			array(
+	            'type' => 'textfield',
+	            'heading' => __( 'Products Per Page', 'my-text-domain' ),
+	            'param_name' => 'per_page',
+	            'default' => '12',
+	        ),
+	        array(
+	            'type' => 'textfield',
+	            'heading' => __( 'Columns', 'my-text-domain' ),
+	            'param_name' => 'columns',
+	            'default' => '3',
+	        ),
+	        array(
+	            'type' => 'dropdown',
+	            'heading' => __( 'Order By', 'my-text-domain' ),
+	            'param_name' => 'orderby',
+	            'default' => 'date',
+	            'value' => array (
+		            "ID" => "ID",
+		            "author" => "author",
+		            "title" => "title",
+		            "name" => "name",
+		            "date" => "date",
+		            "modified" => "modified",
+		            "rand" => "rand",
+		            "menu_order" => "menu_order",
+	            )
+	        ),
+	        array(
+	            'type' => 'dropdown',
+	            'heading' => __( 'Order', 'my-text-domain' ),
+	            'param_name' => 'order',
+	            'default' => 'desc',
+	            'value' => array (
+		            "DESC" => "desc",
+		            "ASC" => "asc",
+	            )
+	        ),
+	)));
+	vc_map( array(
+		"name" => "Products",
+		"base" => "products", 
+		"category" => 'WooCommerce',
+		"description" => "Show multiple products by ID or SKU.",
+		"icon" => get_bloginfo('template_url')."/images/icons/woocommerce.svg",
+		"allowed_container_element" => 'vc_row',
+		"params" => array(
+			array(
+	            'type' => 'textfield',
+	            'heading' => __( 'Products Per Page', 'my-text-domain' ),
+	            'param_name' => 'per_page',
+	            'default' => '12',
+	        ),
+	        array(
+	            'type' => 'textfield',
+	            'heading' => __( 'Columns', 'my-text-domain' ),
+	            'param_name' => 'columns',
+	            'default' => '3',
+	        ),
+	        array(
+	            'type' => 'dropdown',
+	            'heading' => __( 'Order By', 'my-text-domain' ),
+	            'param_name' => 'orderby',
+	            'default' => 'date',
+	            'value' => array (
+		            "ID" => "ID",
+		            "author" => "author",
+		            "title" => "title",
+		            "name" => "name",
+		            "date" => "date",
+		            "modified" => "modified",
+		            "rand" => "rand",
+		            "menu_order" => "menu_order",
+	            )
+	        ),
+	        array(
+	            'type' => 'dropdown',
+	            'heading' => __( 'Order', 'my-text-domain' ),
+	            'param_name' => 'order',
+	            'default' => 'desc',
+	            'value' => array (
+		            "DESC" => "desc",
+		            "ASC" => "asc",
+	            )
+	        ),
+	)));
+}
 ?>

@@ -20,7 +20,7 @@ if($hiilite_options['subdomain'] != 'iframe'):
 			$height = $img[2];
 		?>
 		<figure class="flex-item third-width align-top">
-			<<?=$_amp?>img src='<?=$img[0];?>' layout='responsive' width='<?=$width?>' height='<?=$height?>'><?=($_amp!='')?'</amp-img>':''?>
+			<<?=$_amp?>img src='<?=$img[0];?>' layout='responsive' width='<?=$width?>' height='<?=$height?>'><?=($_amp!='')?'</amp-img>':'';?>
 		</figure>
 	<?php endif; 
 		

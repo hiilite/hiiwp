@@ -18,7 +18,9 @@ if($hiilite_options['blog_meta_on']):
 	$article_title .= '">';
 	$article_title .= '<span class="date">';
 	$article_title .= get_the_time('d F, Y');
-	$article_title .= ' </span>'.get_the_time('h:i a').'</time></small>';
+	$article_title .= ' </span>';
+	//$article_title .= get_the_time('h:i a')
+	$article_title .= '</time></small>';
 else:
 	$article_title .= '<meta itemprop="name" content="'.get_the_author_meta('display_name').'">';
 endif;

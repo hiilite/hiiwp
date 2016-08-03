@@ -124,7 +124,12 @@ if($hiilite_options['subdomain'] != 'iframe'):
 			</footer>
 			
 	</div>
-	<?php wp_footer(); ?>
+	<?php wp_footer(); 
+		
+if(!$hiilite_options['amp']){
+	include_once('js/non-amp-scripts.php');
+}
+	?>
 	
 </body>
 </html>

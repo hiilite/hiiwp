@@ -37,6 +37,8 @@ include_once( dirname( __FILE__ ) . '/addons/cmb2-functions.php' );
 
 include_once( dirname( __FILE__ ) . '/includes/register_sidebars.php' );
 
+include_once( dirname( __FILE__ ) . '/includes/register_post_types.php');
+
 
 include_once( dirname( __FILE__ ) . '/includes/business_profile.php' );
 
@@ -64,6 +66,8 @@ require_once( dirname( __FILE__ ) . '/addons/post-types-order/post-types-order.p
 require_once( dirname( __FILE__ ) . '/addons/taxonomy-images/taxonomy-images.php');
 require_once( dirname( __FILE__ ) . '/addons/taxonomy-terms-order/taxonomy-terms-order.php');
 //require_once( dirname( __FILE__ ) . '/addons/force-gzip/force-gzip.php');
+
+
 
 // Flush rewrites on customizer save and theme update
 function my_rewrite_flush() { flush_rewrite_rules(); }
@@ -755,6 +759,6 @@ function cc_mime_types($mimes) {
 add_filter('upload_mimes', 'cc_mime_types');
 
 
-include_once( dirname( __FILE__ ) . '/includes/register_post_types.php');
+
 
 ?>

@@ -1,6 +1,10 @@
 <?php
 function add_menu_shortcode( $atts ){
 	global $menu_tax_slug, $menu_slug;
+	$hiilite_options['amp'] = get_theme_mod('amp');
+	if($hiilite_options['amp']) $_amp = 'amp-'; else $_amp = '';
+	$menu_slug = get_theme_mod('menu_slug', 'menu');
+	$menu_tax_slug = get_theme_mod('menu_tax_slug', 'menu-section');
 	extract( shortcode_atts( array(
       'section'			=> '',
       'heading_tag'		=> 'h2',
@@ -8,8 +12,7 @@ function add_menu_shortcode( $atts ){
       'price_sep'		=> ' = ',
       'layout'			=> 'table', // table, inline
       'show_title'		=> true
-   ), $atts ) );
-  
+   ), $atts ) ); 
     $query = new WP_Query(
 	    array(
 		    'post_type' => $menu_slug,
@@ -36,7 +39,18 @@ function add_menu_shortcode( $atts ){
 			    $query->the_post();
 			    $post_id = get_the_id();
 			    $output .= '<tr class="menu-item">';
-			    $output .= '<td class="menu-title col-3"><a href="'.get_the_permalink($post_id).'" class="menu-title-link">'.get_the_title().'</a></td>';
+			    
+			    //Overlay
+			    $output .= '<td class="menu-image">';
+			    $tn_id = get_post_thumbnail_id( $post_id );
+			    $img = wp_get_attachment_image_src( $tn_id, 'thumbnail' );
+			    if($img) $output .= '<a href="'.get_the_permalink($post_id).'" class="menu-image-link"><div class="menu-popup"><'.$_amp.'img src='.$img[0].' layout="responsive" width="150" height="150">'.(($_amp!='')?'</amp-img>':'').'</div></a>';
+			    $output .= '</td>';
+			    
+			    $output .= '<td class="menu-title col-3"><a href="'.get_the_permalink($post_id).'" class="menu-title-link">'.get_the_title().'</a>';
+			     
+			    
+			    $output .= '</td>';
 			    $output .= '<td class="menu-ingredients flex-item col-7 align-left">'.get_post_meta($post_id, 'ingredients', true);
 			    if(get_post_meta($post_id, 'addons', true)){
 				    $output .= '<table class="full-width"><tr>';

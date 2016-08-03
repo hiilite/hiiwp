@@ -9,7 +9,8 @@ function add_button_shortcode( $atts ){
       'link'	=> '',
       'classes'	=> '',
       'text_align' => '',
-      'css'	=> ''
+      'css'	=> '',
+      'button_id'	=> ''
    );
    extract( shortcode_atts( $args, $atts ) );
    
@@ -29,7 +30,7 @@ function add_button_shortcode( $atts ){
 	
 	$wrapper_attributes[] = 'class="' . esc_attr( trim( $css_class ) ) . '"';
 		
-	return "<a ".implode( ' ', $wrapper_attributes )." href='{$link}' target={$target}>{$text} {$style}</a>";
+	return "<a ".implode( ' ', $wrapper_attributes )." id='{$button_id}' href='{$link}' target={$target}>{$text} {$style}</a>";
 }
 add_shortcode( 'button', 'add_button_shortcode' );
 	

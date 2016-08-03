@@ -1,4 +1,12 @@
 <?php
+/*
+*	
+*	header.php
+*	TODO:
+*	-	Check that analytics track numbers and emails in non-amp
+*	
+*/
+
 global $hiilite_options;
 if(isset($_GET['fromApp'])){
 	header("Access-Control-Allow-Origin: *");
@@ -6,7 +14,7 @@ if(isset($_GET['fromApp'])){
 } else {
 	$hiilite_options['fromApp'] = false;
 }
-if(isset($_GET['subpage'])){
+if(isset($_GET['subpage'])){ 
 	$hiilite_options['subpage'] = true;
 } else {
 	$hiilite_options['subpage'] = false;
@@ -18,12 +26,12 @@ $post_object = get_post( $post_id );
 if(get_post_meta($post_id, 'amp', true) == 'nonamp'){
 	$hiilite_options['amp'] = false;
 } else {
-	$hiilite_options['amp'] = (!isset($hiilite_options['amp']))?get_theme_mod('amp'):$hiilite_options['amp'];
+	$hiilite_options['amp'] = (!isset($hiilite_options['amp']))?get_theme_mod('amp'):false;
 }
-
+if($hiilite_options['amp']) $_amp = 'amp-'; else $_amp = '';
 
 $options = get_option('company_options');
-if($hiilite_options['amp']) $_amp = 'amp-'; else $_amp = '';
+
 // Page Title
 $brand_title = (get_theme_mod('brand_seo_title')!='')?get_theme_mod('brand_seo_title'):get_bloginfo('title');
 if(get_post_meta(get_the_id(), 'page_seo_title', true) != ''){
@@ -284,7 +292,7 @@ echo $html;
 ?>
 </script>
 <?php if($hiilite_options['amp']) { ?>
-<style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
+<style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 1s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 1s steps(1,end) 0s 1 normal both;animation:-amp-start 1s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
 <?php } 
 	
 wp_head(); 
@@ -292,6 +300,9 @@ wp_head();
 
 ob_start();
 include_once('css/main-css.php');
+if(!$hiilite_options['amp']){
+	include_once('css/non-amp-css.php');
+}
 $maincss = ob_get_clean();
 $body = str_replace("!important", "", $maincss);
 echo minify_css($body);
@@ -310,12 +321,24 @@ if($hiilite_options['amp']) { ?>
 <script>
 window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
 ga('create', '<?=$hiilite_options['analytics_id']?>', 'auto');
+
+// Replace the following lines with the plugins you want to use.
+ga('require', 'cleanUrlTracker');
 ga('require', 'eventTracker');
-ga('require', 'autotrack');
+ga('require', 'impressionTracker');
+ga('require', 'mediaQueryTracker');
+ga('require', 'outboundFormTracker');
+ga('require', 'outboundLinkTracker');
+ga('require', 'pageVisibilityTracker');
+ga('require', 'urlChangeTracker');
+
+// ...
+
 ga('send', 'pageview');
+
 </script>
 <script async src='https://www.google-analytics.com/analytics.js'></script>
-<script async src='path/to/autotrack.js'></script>
+<script async src='<?=get_bloginfo('template_url') ?>/js/vender/autotrack.js'></script>
 <?php } ?>
 </head>
 <body <?php body_class(); ?>>

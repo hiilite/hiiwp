@@ -14,6 +14,10 @@ The Hiilite AMP theme also employs the latest in [Structured Data Markup](https:
 ## Sites Running AMP Theme
 - [Hiilite](https://hiilite.com)
 - [Krafty Kitchen](https://kraftykitchen.ca)
+- [TOPS Telecom](https://www.topstelecom.com)
+- [Skaha Lake Marina](https://skahalakemarina.com/)
+- [The Green Vanity](https://thegreenvanity.ca/)
+
 
 ## No Thirdparty Plugins
 Because of how strict AMP is, any plugin that requires Javascript or CSS to load to the front-end will inherently not function, as no scripts are added to the WordPress queue when in AMP mode. You can however run font-end plugins within an iframe, allowing you to still run complex sliders and forms, though it should be avoided.
@@ -29,6 +33,9 @@ Avoid SEO based plugins. The AMP theme is structured in such a way to be perfect
 This is where you can fill out all your company info that can then be distributed across the site and used as Structured Date in Google's SERP. Each field also has a shortcode attributed to it for easy distribution throughout your site content, such as using the shortcode \[business_phone\] to display the phone number. For a complete list of the shortcodes, see the "Help" tab on the Company Profile page.
 
 ## Change log
+### v0.2.6
+- Numerous bug fixes and updates
+
 ### v0.2.5
 - Added screen-showcase option
 - many bug fixes and tweeks

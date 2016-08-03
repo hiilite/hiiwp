@@ -27,7 +27,7 @@ $hiilite_options['default_background_color']	= get_theme_mod( 'default_backgroun
 $hiilite_options['secondary_background_color']	= get_theme_mod( 'secondary_background_color', '#ebeef1');
 
 $hiilite_options['grid_width']					= get_theme_mod( 'grid_width', '1100px');
-$hiilite_options['custom_css']					= get_theme_mod( 'custom_css', '' );
+$hiilite_options['custom_css']					= get_theme_mod( 'custom_css', '' ); 
 
 
 $hiilite_options['analytics_id']				= get_theme_mod( 'analytics_id', '');

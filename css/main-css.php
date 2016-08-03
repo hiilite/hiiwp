@@ -36,6 +36,9 @@ figure.align-center <?=$_amp?>img{
 address {
 	display: inline-block;
 }
+amp-img[layout=responsive] {
+    max-width: 100%;
+}
 
 
 /* TYPOGRAPHY */
@@ -64,7 +67,7 @@ for($h=1;$h<=6;$h++):
 	$font_unit = preg_replace("/[^a-zA-Z]+/", "", $hiilite_options['typography_h'.$h.'_font']['font-size']);
 	if($font_size && $font_unit){
 	echo "h$h,.h$h {";
-	echo 'font-size:'. ($fs_int[0]* 0.7).$font_unit;
+	echo 'font-size:'. ($fs_int[0]* 0.8).$font_unit;
 	echo '}';
 	}
 endfor; ?>
@@ -76,7 +79,7 @@ for($h=1;$h<=6;$h++):
 	$font_unit = preg_replace("/[^a-zA-Z]+/", "", $hiilite_options['typography_h'.$h.'_font']['font-size']);
 	if($font_size && $font_unit){
 	echo "h$h,.h$h {";
-	echo 'font-size:'. ($fs_int[0]* 0.5).$font_unit;
+	echo 'font-size:'. ($fs_int[0]* 0.6).$font_unit;
 	echo '}';
 	}
 endfor; ?>
@@ -231,7 +234,7 @@ header.centered #main-nav {
     list-style: none;
     padding: 0;
 }
-#footer_top {
+#footer_top, #footer_page {
 	background: <?=$hiilite_options['footer_background_color'];?>;
 	<?php 
 	echo 'background-image:url('.$hiilite_options['footer_background_image'].');';
@@ -247,6 +250,10 @@ header.centered #main-nav {
 	align-items: center;
 	flex-wrap: wrap;
 }
+#footer_top .menu, #footer_page .menu {
+	display: block;
+}
+
 
 #footer_top .flex-item{
 	margin: 0 auto auto 0;
@@ -327,20 +334,20 @@ a, .button, .menu li {
 	nav#main-nav {
 		position: relative;
 		transition:all 1s;
+		display: block;
 	}
 
 	nav#main-nav .main-menu {
-		position: fixed;
+		position: relative;
 		z-index: 9999;
 		background: white;
 		left: 0;
 		top: 0;
-		max-height: 0vh;
-		transition:all 1s;
-		width: 80vw;
+		max-height: 0;
+		transition: all 1s;
+		width: 100vw;
 		display: flex;
 		overflow: auto;
-		box-shadow: 0 0 0 0vw rgba(0,0,0,0.3);
 	}
 
 	.main-menu li {
@@ -350,7 +357,28 @@ a, .button, .menu li {
 
 	nav#main-nav:hover .main-menu {
 		max-height: 100vh;
-		box-shadow: 0 0 0 20vw rgba(0,0,0,0.3);
+	}
+	ul.sub-menu {
+		position: relative;
+		display: block;
+	}
+	ul.sub-menu:before {
+	    position: absolute;
+	    content: "M";
+	    top: -3.5em;
+	    right: 0em;
+	    padding: 1em 1.5em;
+	    font-family: FontAwesome;
+	    content: '\f055';
+	}
+	ul.sub-menu:hover:before {
+	    content: '\f056';
+	}
+	ul.sub-menu li {
+	    display: none;
+	}
+	ul.sub-menu:hover li {
+	    display: block;
 	}
 }
 
@@ -647,6 +675,7 @@ strong.label {
 	text-align: center;
 	align-self: center;
 	margin: auto;
+	justify-content: center;
 }
 .align-top {
 	vertical-align: top;
@@ -716,6 +745,13 @@ amp-carousel.slider amp-img img {
 	min-width:100%;
 }
 
+
+<?=$_amp?>carousel.carousel {
+	width: 100%;
+	height: 300px;
+	overflow: hidden;
+}
+
 .relatedposts .relatedarticle {
 	max-width: 200px;
 	overflow: hidden;
@@ -734,7 +770,7 @@ amp-carousel.slider amp-img img {
 /* Gravity Forms */
 .gform_fields {
 	padding: 0;
-	list-style: none;
+	list-style: none; 
 }
 input,textarea {padding: 1em;border: 1px solid gray; font-size: 1rem;}
 
@@ -742,12 +778,11 @@ input,textarea {padding: 1em;border: 1px solid gray; font-size: 1rem;}
     margin-bottom: 2em;
 }
 
-.gfield span label {
+.gfield span label { 
     /* width: 100%; */
     display: inline-block;
-    position: absolute;
+    position: relative;
     left: 0;
-    bottom: -2em;
     font-size: 12px;
 }
 
@@ -766,6 +801,43 @@ input,textarea {padding: 1em;border: 1px solid gray; font-size: 1rem;}
 	float: left;
 }
 #closelightbox{position:fixed;width:100vw;height:100vh;z-index:9999;}
+
+.woocommerce {
+	width: 100%;
+}
+.menu-title, .menu-ingredients, .menu-price {
+    padding-top: 0.5em;
+}
+.menu-image {
+	width:4em;
+}
+.menu-title {
+	vertical-align: middle;
+}
+.menu-image-link {
+    position: relative;
+    display: inline-block;
+    width: 3em;
+    height: 3em;
+    margin-right: 10px;
+}
+.menu-popup {
+    width: 3em;
+    height: 3em;
+    overflow: hidden;
+    border-radius: 100%;
+    line-height: 3em;
+    display: inline-block;
+    transition: all 250ms;
+    position: absolute;
+    top: 0;
+}
+.menu-image-link:hover .menu-popup {
+    width: 10em;
+    height: 10em;
+    z-index: 99;
+    top: -3em;
+}
 <?php
 do_action ( 'custom_css' );
 echo $hiilite_options['custom_css'];
