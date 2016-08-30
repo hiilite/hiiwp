@@ -27,6 +27,7 @@ function add_testimonials_shortcode( $atts ){
       'show_title'		=> false,
       'show_rating'		=> false,
       'heading_tag'		=> 'h3',
+      'height'			=> '500px',
       'image_style'		=> 'none',
       'image_position'	=> 'above',
       'is_slider'		=> false,
@@ -73,7 +74,7 @@ function add_testimonials_shortcode( $atts ){
     if($query->have_posts()){
 	    
 	    // if slider
-	    if($hiilite_options['amp'] && $is_slider) $output .= '<amp-carousel width="1000px" height="500px" layout="responsive" type="slides" '.implode( ' ', $wrapper_attributes ).' autoplay delay="'.$slider_speed.'">';
+	    if($hiilite_options['amp'] && $is_slider) $output .= '<amp-carousel width="1000px" height="'.$height.'" layout="responsive" type="slides" '.implode( ' ', $wrapper_attributes ).' autoplay delay="'.$slider_speed.'">';
 	    
 	    while($query->have_posts()){
 		    $query->the_post();

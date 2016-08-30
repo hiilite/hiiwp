@@ -5,6 +5,8 @@ $hiilite_options['portfolio_on'] = get_theme_mod('portfolio_on');
 $hiilite_options['teams_on'] = get_theme_mod('teams_on');
 $hiilite_options['menus_on'] = get_theme_mod('menus_on');
 $hiilite_options['testimonials_on'] = get_theme_mod('testimonials_on');
+
+
 if(class_exists( 'WooCommerce' )){
 	$hiilite_options['is_woocommerce'] = (is_woocommerce())?true:false;
 } else {
@@ -13,10 +15,12 @@ if(class_exists( 'WooCommerce' )){
 define( 'HIILITE_DIR', dirname( __FILE__ ) );
 add_filter( 'auto_update_theme', '__return_true' );
 
-
+add_theme_support( 'title-tag' );
 add_theme_support( 'post-thumbnails' );
 add_theme_support( 'menus' );
 add_theme_support( 'woocommerce' );
+
+add_filter( 'wp_calculate_image_srcset_meta', '__return_null' );
 
 if(!class_exists('Vc_Manager')){
 	require_once( dirname( __FILE__ ) . '/addons/js_composer/js_composer.php');
@@ -31,23 +35,32 @@ function requireVcExtend(){
 }
 add_action('init', 'requireVcExtend', 10);
 
-
 include_once( dirname( __FILE__ ) . '/includes/kirki-settings.php' );
-include_once( dirname( __FILE__ ) . '/addons/cmb2-functions.php' );
+
+if(!class_exists('HiiWP')){ 
+	require_once( dirname( __FILE__ ) . '/addons/hiiwp/hiiwp.php');
+}
+if(class_exists('SrUtils')) include_once( dirname( __FILE__ ) . '/includes/rets-listings.php' );
+
+require_once( dirname( __FILE__ ) . '/addons/tinymce_edits/tinymce_edits.php');
+require_once( dirname( __FILE__ ) . '/addons/github-updater/github-updater.php');
+
+require_once( dirname( __FILE__ ) . '/addons/post-types-order/post-types-order.php');
+require_once( dirname( __FILE__ ) . '/addons/taxonomy-images/taxonomy-images.php');
+require_once( dirname( __FILE__ ) . '/addons/taxonomy-terms-order/taxonomy-terms-order.php');
 
 include_once( dirname( __FILE__ ) . '/includes/register_sidebars.php' );
 
 include_once( dirname( __FILE__ ) . '/includes/register_post_types.php');
 
 
-include_once( dirname( __FILE__ ) . '/includes/business_profile.php' );
+
 
 include_once( dirname( __FILE__ ) . '/includes/classes.php' );
 
+
 require_once( dirname( __FILE__ ) . '/includes/shortcodes/button.php');
 require_once( dirname( __FILE__ ) . '/includes/shortcodes/title.php');
-require_once( dirname( __FILE__ ) . '/includes/shortcodes/social-share.php');
-require_once( dirname( __FILE__ ) . '/includes/shortcodes/social-profiles.php');
 require_once( dirname( __FILE__ ) . '/includes/shortcodes/media-gallery.php');
 require_once( dirname( __FILE__ ) . '/includes/shortcodes/vc_empty_space.php');
 require_once( dirname( __FILE__ ) . '/includes/shortcodes/amp-carousel.php');
@@ -56,16 +69,25 @@ require_once( dirname( __FILE__ ) . '/includes/shortcodes/screen-showcase.php');
 /* Add with options in Custumizer */
 //require_once( dirname( __FILE__ ) . '/includes/shortcodes/author-info.php');
 
-require_once( dirname( __FILE__ ) . '/includes/wp_login_screen.php');
-require_once( dirname( __FILE__ ) . '/includes/wp_admin_dashboard.php');
 
-require_once( dirname( __FILE__ ) . '/addons/tinymce_edits/tinymce_edits.php');
-require_once( dirname( __FILE__ ) . '/addons/github-updater/github-updater.php');
 
-require_once( dirname( __FILE__ ) . '/addons/post-types-order/post-types-order.php');
-require_once( dirname( __FILE__ ) . '/addons/taxonomy-images/taxonomy-images.php');
-require_once( dirname( __FILE__ ) . '/addons/taxonomy-terms-order/taxonomy-terms-order.php');
-//require_once( dirname( __FILE__ ) . '/addons/force-gzip/force-gzip.php');
+/*
+Speed up the WP Admin by removing or slowing down heartbeat	
+*/
+function optimize_heartbeat_settings( $settings ) {
+    $settings['autostart'] = false;
+    $settings['interval'] = 60;
+    return $settings;
+}
+add_filter( 'heartbeat_settings', 'optimize_heartbeat_settings' );
+
+function disable_heartbeat_unless_post_edit_screen() {
+    global $pagenow;
+    if ( $pagenow != 'post.php' && $pagenow != 'post-new.php' )
+        wp_deregister_script('heartbeat');
+}
+add_action( 'init', 'disable_heartbeat_unless_post_edit_screen', 1 );
+
 
 
 
@@ -75,8 +97,10 @@ add_action( 'after_switch_theme', 'my_rewrite_flush' );
 add_action( 'customize_save', 'my_rewrite_flush' );
 
 
+
+
 function hiiwp_init(){
-	global $hiilite_options, $post;
+	global $hiilite_options, $post, $wp_scripts;
 	
 	require_once(dirname( __FILE__ ) . '/includes/site_variables.php');
 	
@@ -99,41 +123,47 @@ function hiiwp_init(){
 		remove_action( 'wp_head', 'wlwmanifest_link');
 		add_action( 'init', 'minqueue_init', 1 );
 		add_filter( 'style_loader_tag', 'enqueue_less_styles', 5, 2);
-		//show_admin_bar(true);
+	} else {
+		wp_deregister_script('wpb_composer_front_js');
 	}
+	
+	
 }
 add_action( 'wp_head', 'hiiwp_init' );
 
 
 add_action( 'init', 'disable_wp_emojicons' );
-function hiilite_admin_styles() {
-    wp_register_style( 'hiilite_admin_stylesheet', get_stylesheet_directory_uri(). '/css/admin-style.css' );
-    wp_enqueue_style( 'hiilite_admin_stylesheet' );
-    
-    wp_enqueue_media();
- 
-    // Registers and enqueues the required javascript.
-    wp_register_script( 'meta_uploader', get_stylesheet_directory_uri() . '/js/meta_uploader.js', array( 'jquery' ) );
-    wp_localize_script( 'meta_uploader', 'meta_image',
-        array(
-            'title' => __( 'Choose or Upload an Image', 'prfx-textdomain' ),
-            'button' => __( 'Use this image', 'prfx-textdomain' ),
-        )
-    );
-    wp_enqueue_script( 'meta_uploader' );
-}
-add_action( 'admin_enqueue_scripts', 'hiilite_admin_styles' );
 
-
-// THIS GIVES US SOME OPTIONS FOR STYLING THE ADMIN AREA
-function custom_colors() {
-	global $hiilite_options;
+if(!function_exists('hiilite_admin_styles')){
+	function hiilite_admin_styles() {
+	    wp_register_style( 'hiilite_admin_stylesheet', get_stylesheet_directory_uri(). '/css/admin-style.css' );
+	    wp_enqueue_style( 'hiilite_admin_stylesheet' );
+	    
+	    wp_enqueue_media();
+	 
+	    // Registers and enqueues the required javascript.
+	    wp_register_script( 'meta_uploader', get_stylesheet_directory_uri() . '/js/meta_uploader.js', array( 'jquery' ) );
+	    wp_localize_script( 'meta_uploader', 'meta_image',
+	        array(
+	            'title' => __( 'Choose or Upload an Image', 'prfx-textdomain' ),
+	            'button' => __( 'Use this image', 'prfx-textdomain' ),
+	        )
+	    );
+	    wp_enqueue_script( 'meta_uploader' );
+	}
+	add_action( 'admin_enqueue_scripts', 'hiilite_admin_styles' );
 	
-	require_once(dirname( __FILE__ ) . '/includes/site_variables.php');
-	echo '<style>';
-		require_once(dirname( __FILE__ ) . '/editor-style.php');
-	echo '</style>';
-	add_editor_style( 'editor-style.css' ); 
+	
+	// THIS GIVES US SOME OPTIONS FOR STYLING THE ADMIN AREA
+	function custom_colors() {
+		global $hiilite_options;
+		
+		require_once(dirname( __FILE__ ) . '/includes/site_variables.php');
+		echo '<style>';
+			require_once(dirname( __FILE__ ) . '/editor-style.php');
+		echo '</style>';
+		add_editor_style( 'editor-style.css' ); 
+	}
 }
 add_action('admin_head', 'custom_colors');
 
@@ -162,6 +192,8 @@ function register_my_menus() {
       'footer-menu' => __( 'Footer Menu' )
     )
   );
+  
+  
 }
 add_action( 'init', 'register_my_menus' );
 
@@ -326,9 +358,9 @@ function minqueue_scripts() {
 	if($wp_scripts){
 		$queue = $wp_scripts->queue;
 		foreach( $queue as $key => $handle) {
-
-			if ((isset($_REQUEST['vc_editable']) && $_REQUEST['vc_editable'] == true) || (isset($_REQUEST['wp_customize']) && $_REQUEST['wp_customize'] == 'on')){
 			
+			if ((isset($_REQUEST['vc_editable']) && $_REQUEST['vc_editable'] == true) || (isset($_REQUEST['wp_customize']) && $_REQUEST['wp_customize'] == 'on')){
+				
 			} elseif(!$hiilite_options['is_woocommerce'])  {
 				wp_deregister_script($handle); 
 			}
@@ -353,7 +385,7 @@ function minqueue_styles() {
 			$_REQUEST['wp_customize'] == 'on' )){
 			
 		} elseif(
-			//($handle != 'js_composer_front' && !is_admin()) &&
+			($handle != 'js_composer_front' && !is_admin()) &&
 			$handle != 'kirki_google_fonts' &&
 			$handle != 'vc_inline_css' &&
 			$handle != 'customize-preview' && 
@@ -469,19 +501,7 @@ function cmb2_post_metaboxes(){
 //
 // Adds the meta box to the page screen
 //
-add_action( 'add_meta_boxes', 'page_options_meta_box' );
-function page_options_meta_box()
-{
-    
-    add_meta_box(
-        'page_seo_options', // id, used as the html id att
-        __( 'SEO Options' ), // meta box title, like "Page Attributes"
-        'page_seo_options_meta_box_cb', // callback function, spits out the content
-        array('page','post','portfolio','team','menu'), // post type or page. We'll add this to pages only
-        'normal', // context (where on the screen
-        'high' // priority, where should this go in the context?
-    );
-}
+
 
 
 add_action('cmb2_admin_init', 'cmb2_blog_metaboxes');
@@ -582,56 +602,11 @@ function cmb2_portfolio_metaboxes(){
 
 
 
-
-
-
 //////////////////////////////
 //
-//	PAGE SEO OPTIONS META
+//	If HiiWP Plugin is not installed
 //
 /////////////////////////////
-
-function page_seo_options_meta_box_cb( $post )
-{
-	// $post is already set, and contains an object: the WordPress post
-    global $post;
-    $values = get_post_custom( $post->ID );
-    $page_seo_title = isset( $values['page_seo_title'][0] ) ? esc_attr( $values['page_seo_title'][0] ) : '';
-    if(isset($values['_yoast_wpseo_title'][0]) && $page_seo_title == '')$page_seo_title = $values['_yoast_wpseo_title'][0];
-    
-    $page_seo_description = isset( $values['page_seo_description'][0] ) ? esc_attr( $values['page_seo_description'][0] ) : '';
-    if(isset($values['_yoast_wpseo_title'][0]) && $page_seo_title == '')$page_seo_title = $values['_yoast_wpseo_title'][0];
-    if(isset($values['_yoast_wpseo_metadesc'][0]) && $page_seo_description == '')$page_seo_description = $values['_yoast_wpseo_metadesc'][0];
-    // We'll use this nonce field later on when saving.
-    wp_nonce_field( 'page_seo_options__meta_box_nonce', 'meta_box_nonce' );
-    ?>
-    <p>
-	<label for="page_seo_title">SEO Title</label><br>
-        <input id="page_seo_title" name="page_seo_title" maxlength="65" type="text" size="70" placeholder="%%title%% %%sep%% %%sitename%%" value="<?=$page_seo_title?>" /><br>
-        <small>The title element of a web page is meant to be an accurate and concise description of a page's content. This element is critical to both user experience and search engine optimization. It creates value in three specific areas: relevancy, browsing, and in the search engine results pages. The suggested format for SEO titles is "Primary Keyword - Secondary Keyword | Brand Name". <a href="https://moz.com/learn/seo/title-tag">More on title tags here</a></small>
-    </p>
-    
-    <p>
-        <label for="page_seo_description">Meta Description</label><br>
-        <textarea id="page_seo_description" name="page_seo_description" cols="70" rows="4" maxlength="165"><?=$page_seo_description?></textarea><br>
-        <small>Google announced in September of 2009 that neither meta descriptions nor meta keywords factor into Google's ranking algorithms for web search. Google uses meta descriptions to return results when searchers use advanced search operators to match meta tag content, as well as to pull preview snippets on search result pages, but it's important to note that meta descriptions do not to influence Google's ranking algorithms for normal web search. <a href="https://moz.com/learn/seo/meta-description">More info on Meta descriptions here</a></small>
-    </p>
-    <?php    
-}
-add_action( 'save_post', 'page_seo_options_meta_box_save',999 );
-function page_seo_options_meta_box_save( $post_id )
-{
-    // Bail if we're doing an auto save
-    if( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) return;
-     
-    // if our nonce isn't there, or we can't verify it, bail
-    if( !isset( $_POST['meta_box_nonce'] ) || !wp_verify_nonce( $_POST['meta_box_nonce'], 'page_seo_options__meta_box_nonce' ) ) return;
-    
-    $page_seo_title = isset( $_POST['page_seo_title'] )? $_POST['page_seo_title'] : '';
-    $page_seo_description = isset( $_POST['page_seo_description'] )? $_POST['page_seo_description'] : '';
-    update_post_meta( $post_id, 'page_seo_title', $page_seo_title );
-    update_post_meta( $post_id, 'page_seo_description', $page_seo_description );
-}
 
 /**
  * -----------------------------------------------------------------------------------------

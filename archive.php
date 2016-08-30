@@ -1,5 +1,6 @@
 <?php 
 get_header();
+echo '<!--Archive-->';
 get_template_part( 'templates/title' );
 if(have_posts()):
 	echo '<div class="row"><div class="container_inner"><div class="in_grid">';

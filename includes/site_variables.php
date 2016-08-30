@@ -256,20 +256,83 @@ $hiilite_options['typography_icon_custom_css']	= get_theme_mod( 'typography_icon
 	line-height: 1.6em;
 	border-radius: 2em;
 }' );
-$hiilite_options['typography_button_custom_css']	= get_theme_mod( 'typography_button_custom_css', '{
-	border:2px solid '.$hiilite_options['color_one'].';
-	background: none;
-	text-transform: uppercase;
-	color: '.$hiilite_options['color_one'].';
-	padding: 0.5em 1em;
+
+/*
+*	Default Button
+*/
+$hiilite_options['typography_button_default_font']	= get_theme_mod( 'typography_button_default_font', array(
+        'font-family'    => 'Roboto',
+        'variant'        => '400',
+        'font-size'      => '14px',
+        'line-height'    => '1.5',
+        'letter-spacing' => '0px',
+        'color'          => $hiilite_options['color_one'],
+        'text-transform' => 'uppercase',
+    ) );
+$hiilite_options['typography_button_default_background'] =  get_theme_mod( 'typography_button_default_background','none');
+$hiilite_options['typography_button_default_padding'] =  get_theme_mod('typography_button_default_padding', array(
+		'0'    => '0.5em',
+		'1'  => '1em',
+		'2' => '0.5em',
+		'3'   => '1em',
+	));
+$hiilite_options['typography_button_default_border_color'] =  get_theme_mod( 'typography_button_default_border_color', $hiilite_options['color_one']);
+$hiilite_options['typography_button_default_border_width'] =  get_theme_mod( 'typography_button_default_border_width', '2px');
+$hiilite_options['typography_button_default_border_radius'] =  get_theme_mod( 'typography_button_default_border_radius', '6px');
+$hiilite_options['typography_button_custom_css']	= get_theme_mod( 'typography_button_custom_css', '
 	margin: 1em 0;
 	text-decoration: none;
-	border-radius: 6px;
-	display: inline-block;
-}' );
+	display: inline-block;' );
 
+/*
+*	Primary Button
+*/
+$hiilite_options['typography_button_primary_font']	= get_theme_mod( 'typography_button_primary_font', array(
+        'font-family'    => 'Roboto',
+        'variant'        => '400',
+        'font-size'      => '14px',
+        'line-height'    => '1.5',
+        'letter-spacing' => '0px',
+        'color'          => '#ffffff',
+    ) );
+$hiilite_options['typography_button_primary_background'] =  get_theme_mod( 'typography_button_primary_background', $hiilite_options['color_one']);
+$hiilite_options['typography_button_primary_padding'] =  get_theme_mod('typography_button_primary_padding', array(
+		'top'    => '0.5em',
+		'right'  => '1em',
+		'bottom' => '0.5em',
+		'left'   => '1em',
+	));
+$hiilite_options['typography_button_primary_border_color'] =  get_theme_mod( 'typography_button_primary_border_color', $hiilite_options['color_one']);
+$hiilite_options['typography_button_primary_border_width'] =  get_theme_mod( 'typography_button_primary_border_width', '2px');
+$hiilite_options['typography_button_primary_border_radius'] =  get_theme_mod( 'typography_button_primary_border_radius', '6px');
+$hiilite_options['typography_button_primary_custom_css']	= get_theme_mod( 'typography_button_primary_custom_css', '' );
 
+/*
+*	Secondary Button
+*/
+$hiilite_options['typography_button_secondary_font']	= get_theme_mod( 'typography_button_secondary_font', array(
+        'font-family'    => 'Roboto',
+        'variant'        => '400',
+        'font-size'      => '14px',
+        'line-height'    => '1.5',
+        'letter-spacing' => '0px',
+        'color'          => '#ffffff',
+    ) );
+$hiilite_options['typography_button_secondary_background'] =  get_theme_mod( 'typography_button_secondary_background', $hiilite_options['color_two']);
+$hiilite_options['typography_button_secondary_padding'] =  get_theme_mod('typography_button_secondary_padding', array(
+		'top'    => '0.5em',
+		'right'  => '1em',
+		'bottom' => '0.5em',
+		'left'   => '1em',
+	));
+$hiilite_options['typography_button_secondary_border_color'] =  get_theme_mod( 'typography_button_secondary_border_color', $hiilite_options['color_two']);
+$hiilite_options['typography_button_secondary_border_width'] =  get_theme_mod( 'typography_button_secondary_border_width', '2px');
+$hiilite_options['typography_button_secondary_border_radius'] =  get_theme_mod( 'typography_button_secondary_border_radius', '6px');
+$hiilite_options['typography_button_secondary_custom_css']	= get_theme_mod( 'typography_button_secondary_custom_css', '' );
 
+/*
+*	Custom Formats
+*/
 $hiilite_options['custom_format_1']			= get_theme_mod( 'custom_format_1', '' );
 $hiilite_options['custom_format_2']			= get_theme_mod( 'custom_format_2', '' );
 $hiilite_options['custom_format_3']			= get_theme_mod( 'custom_format_3', '' );

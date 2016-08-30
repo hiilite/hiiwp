@@ -351,6 +351,20 @@ vc_map( array(
 		"icon" => "icon-wpb-ui-button",
 		"allowed_container_element" => 'vc_row',
 		"params" => array(
+			array(
+				"type" => "dropdown",
+				"holder" => "div",
+				"class" => "",
+				"heading" => "Button Type",
+				"description" => "Defined in the customizer",
+				"param_name" => "button_type",
+				"value" => array(
+					"Default" => "",
+					"Primary" => "button-primary",	
+					"Secondary" => "button-secondary",
+				),
+				'save_always' => true
+			),
 			
 			array(
 				"type" => "textfield",
@@ -366,6 +380,7 @@ vc_map( array(
 				"heading" => "Link",
 				"param_name" => "link"
 			),
+			
 			array(
 				"type" => "dropdown",
 				"holder" => "div",
@@ -377,6 +392,20 @@ vc_map( array(
 					"Blank" => "_blank",	
 					"Parent" => "_parent",
 					"Top" => "_top"	
+				),
+				'save_always' => true
+			),
+			array(
+				"type" => "dropdown",
+				"holder" => "div",
+				"class" => "",
+				"heading" => "Align",
+				"param_name" => "button_align",
+				"value" => array(
+					"Default" => "",
+					"Left" => "align-left",	
+					"Center" => "align-center",
+					"Right" => "align-right"	
 				),
 				'save_always' => true
 			),
@@ -1114,4 +1143,120 @@ if ( class_exists( 'WooCommerce' ) ) {
 	        ),
 	)));
 }
+
+
+if(class_exists('SrUtils')):
+	
+	////////////////////////////
+	//
+	//	SimplyRETS Listings
+	//
+	/////////////////////////////
+	vc_map( array(
+			"name" => "RETS Listings",
+			"base" => "sr_listings",
+			"category" => 'SimplyRETS',
+			"description" => "Show all listings from your MLS",
+			"icon" => "icon-wpb-images-carousel",
+			"allowed_container_element" => 'vc_row',
+			"params" => array(
+				array(
+					"type" => "textfield",
+					"holder" => "div",
+					"class" => "",
+					"heading" => "Agent",
+					"param_name" => "agent"
+				),
+				array(
+					"type" => "textfield",
+					"holder" => "div",
+					"class" => "",
+					"heading" => "Min Price",
+					"param_name" => "minprice"
+				),
+				array(
+					"type" => "textfield",
+					"holder" => "div",
+					"class" => "",
+					"heading" => "Min Price",
+					"param_name" => "minprice"
+				),
+			)
+	) );
+	
+	////////////////////////////
+	//
+	//	SimplyRETS Listings
+	//
+	/////////////////////////////
+	vc_map( array(
+			"name" => "RETS Search Form",
+			"base" => "sr_search_form",
+			"category" => 'SimplyRETS',
+			"description" => "Show all listings from your MLS",
+			"icon" => "icon-wpb-images-carousel",
+			"allowed_container_element" => 'vc_row',
+			"params" => array(
+				array(
+					"type" => "textfield",
+					"holder" => "div",
+					"class" => "",
+					"heading" => "Brokers",
+					"param_name" => "brokers"
+				),
+				array(
+					"type" => "textfield",
+					"holder" => "div",
+					"class" => "",
+					"heading" => "Type",
+					"param_name" => "type"
+				),
+				array(
+					"type" => "textfield",
+					"holder" => "div",
+					"class" => "",
+					"heading" => "Min Price",
+					"param_name" => "minprice"
+				),
+			)
+	) );
+	
+	////////////////////////////
+	//
+	//	SimplyRETS Listings
+	//
+	/////////////////////////////
+	vc_map( array(
+			"name" => "RETS Listings Slider",
+			"base" => "sr_listings_slider",
+			"category" => 'SimplyRETS',
+			"description" => "Show all listings from your MLS",
+			"icon" => "icon-wpb-images-carousel",
+			"allowed_container_element" => 'vc_row',
+			"params" => array(
+				array(
+					"type" => "checkbox",
+					"holder" => "div",
+					"class" => "",
+					"heading" => "Random",
+					"param_name" => "random"
+				),
+				array(
+					"type" => "textfield",
+					"holder" => "div",
+					"class" => "",
+					"heading" => "Min Price",
+					"param_name" => "minprice"
+				),
+				array(
+					"type" => "textfield",
+					"holder" => "div",
+					"class" => "",
+					"heading" => "Agent ID",
+					"param_name" => "agent"
+				),
+			)
+	) );
+
+endif;
 ?>

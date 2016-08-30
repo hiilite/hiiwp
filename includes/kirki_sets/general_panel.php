@@ -467,6 +467,7 @@ Kirki::add_field( 'hiiwp', array(
 ) );
 
 // GLOBAL SEO SETTINGS
+/*
 Kirki::add_section( 'general_section_seo', array(
     'title'          => __( 'SEO' ),
     'description'    => __( 'Define the preferred title and description Meta for the home page. Other pages should have their titles and description edited individually.' ),
@@ -516,4 +517,5 @@ Kirki::add_field( 'hiiwp', array(
 	'default'     => get_bloginfo('description'),
 	'priority'    => 1,
 ) );
+*/
 	?>

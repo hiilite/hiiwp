@@ -1,4 +1,5 @@
-<?php get_header();
+<?php 
+get_header();
 
 
 if(have_posts()):

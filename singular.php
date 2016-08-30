@@ -1,19 +1,13 @@
-<?php get_header();
-
-
+<?php
+get_header();
+echo '<!--Singular-->';
+if(get_post_type(get_the_ID()) != 'post'){
+	get_template_part( 'templates/title' );
+}
 if(have_posts()):
 	while(have_posts()):
 		the_post();
-		
-		if(!is_front_page() && !is_woocommerce()) {
-			get_template_part( 'templates/title' );
 			get_template_part('templates/singular', 'loop');
-		} else {
-			get_template_part('templates/singular', 'loop');
-		}
-		
-		
-		
 	endwhile;
 endif;
 

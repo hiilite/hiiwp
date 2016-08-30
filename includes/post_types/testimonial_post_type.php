@@ -190,6 +190,18 @@ function testimonial_post_type_init() {
 			array(
 				"type" => "textfield", 
 				"holder" => "div",
+				"heading" => "Slider Height",
+				"param_name" => "height",
+				"default"	=> "500px",
+				"value"	=> "500px",
+				"dependency" => array (
+					"element" => "is_slider",
+					"value" => array('true')
+				),
+			),
+			array(
+				"type" => "textfield", 
+				"holder" => "div",
 				"heading" => "Slider Speed",
 				"param_name" => "slider_speed",
 				"description" => "Speed in milliseconds",

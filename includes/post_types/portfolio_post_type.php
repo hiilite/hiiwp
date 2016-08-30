@@ -8,7 +8,7 @@ function portfolio_post_type_init() {
 	$tax_title = get_theme_mod( 'portfolio_tax_title', 'Work' );
 	$tax_slug = get_theme_mod( 'portfolio_tax_slug', 'work' );
 	
-	$labels = array(
+	$labels = array( 
 		'name'               => _x( $title, 'post type general name', 'hiilite' ),
 		'singular_name'      => _x( 'Piece', 'post type singular name', 'hiilite' ),
 		'menu_name'          => _x( $title, 'admin menu', 'hiilite' ),

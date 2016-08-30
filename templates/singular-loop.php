@@ -1,18 +1,26 @@
 <?php
 global $hiilite_options;
 $post_meta = get_post_meta(get_the_id());
-if(get_post_type($post) == 'portfolio'){
-	get_template_part('templates/portfolio_piece', 'loop');
-} elseif(get_post_type($post) == 'team'){
-	get_template_part('templates/team_member', 'loop');
-} elseif(get_post_type($post) == 'menu'){
-	get_template_part('templates/menu_item', 'loop');
-} elseif(is_single()) {
-	get_template_part('templates/post', 'loop');
-} else {
-	get_template_part('templates/page', 'loop');
+//echo get_post_type($post);
+switch (get_post_type($post)) {
+	case 'portfolio':
+		get_template_part('templates/portfolio_piece', 'loop');
+		break;
+	case 'team':
+		get_template_part('templates/team_member', 'loop');
+		break;
+	case 'menu':
+		get_template_part('templates/menu_item', 'loop');
+		break;
+	case 'post':
+		get_template_part('templates/post', 'loop');
+		break;
+	case 'sr-listings':
+		get_template_part('templates/page', 'loop');
+		break;
+	default:
+		get_template_part('templates/page', 'loop');
 }
-
 
 										
 ?>

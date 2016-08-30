@@ -1,6 +1,6 @@
 <?php 
 global $hiilite_options;
-if(	(!is_single() &&
+if(	(
 	(
 		$hiilite_options['subdomain'] != 'iframe' && 
 		get_post_meta(get_the_id(), 'show_page_title', true) != 'on' && 

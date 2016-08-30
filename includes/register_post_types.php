@@ -13,6 +13,7 @@ if($hiilite_options['teams_on'])		require_once HIILITE_DIR.'/includes/post_types
 //	GET PORTFOLIO TEMPLATE
 //
 //////////////////////////
+if(!function_exists('get_portfolio')):
 function get_portfolio($args = null, $options = null){
 	global $hiilite_options;
 	$hiilite_options['portfolio_show_filter'] = get_theme_mod( 'portfolio_show_filter', true );
@@ -703,8 +704,10 @@ function get_portfolio($args = null, $options = null){
 		
 		if ($in_grid) $html .= '</div>';
 		$html .= '</div>';
+		
 		$hiilite_options['portfolio_custom_css'] = $css;
-		$html .= '<meta hiicss="'.$hiilite_options['portfolio_custom_css'].'">';
+		
+		$html .= '<style>'.$hiilite_options['portfolio_custom_css'].'"</style>';
 		if($args['post_type'] == 'attachment') { 
 			$html .= '<amp-image-lightbox id="lightbox1" layout="nodisplay"><div id="closelightbox" on="tap:lightbox1.close"></div></amp-image-lightbox>';
 			$hiilite_options['portfolio_custom_css'] .= '#closelightbox{position:fixed;width:100vw;height:100vh;z-index:9999;}';
@@ -716,6 +719,7 @@ function get_portfolio($args = null, $options = null){
 	
 	return $html;
 }
+endif;
 
 
 

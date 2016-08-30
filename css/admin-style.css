@@ -6,7 +6,9 @@ Admin Styles
 h1,h2,h3,h4,h5,h6 {
 	font-family: 'Lato', "Open Sans", sans-serif;;
 }
-
+h1 {
+	border-width: 1px;
+}
 #wpadminbar>#wp-toolbar>#wp-admin-bar-root-default #wp-admin-bar-wp-logo .ab-icon {
 	background-image: url('../images/hiilite-logo-symbolmark.svg') !important;
 	background-size: contain;
@@ -35,6 +37,7 @@ h1,h2,h3,h4,h5,h6 {
 .postbox {
     box-shadow: none;
 }
+
 
 /* styling for admin menu */
  
@@ -200,4 +203,55 @@ li[id*=testimonials].customize-control,li[id*=menu].customize-control,li[id*=tea
 ul li[id*=testimonials_on].customize-control,ul li[id*=menus_on].customize-control,li[id*=teams_on].customize-control,li[id*=portfolio_on].customize-control {
     padding-top: 1em;
     margin-top: 1em;
+}
+
+
+.cmb-row.cmb-type-select.cmb-repeat-group-field {
+    width: 25%;
+    float: left;
+}
+
+.cmb-row.cmb-type-text-url.cmb-repeat-group-field.table-layout {
+    width: 50%;
+    float: left;
+}
+
+ul.cmb2-checkbox-list.cmb2-list li {
+    display: inline-block;
+    margin-right: 1em;
+}
+
+ul.cmb2-checkbox-list.cmb2-list li {
+    display: inline-block;
+    margin-right: 1em;
+}
+
+.cmb-repeat-group-wrap .cmb-th {
+    float: none;
+    width: 100% !important;
+}
+
+.cmb-repeat-group-wrap .cmb-th+.cmb-td {
+    float: none !important;
+}
+
+.cmb-repeat-group-wrap .cmb-row:not(:last-of-type) {
+    float: left;
+}
+
+.cmb-row:last-of-type, .cmb2-wrap .cmb-row:last-of-type {
+}
+
+.cmb-row.cmb-remove-field-row {
+    width: 230px;
+    float: right;
+}
+
+.postbox.cmb-row.cmb-repeatable-grouping {
+    width: 100%;
+}
+
+.cmb-row.cmb-repeat-group-field {
+    padding: 0 !important;
+    border-bottom: none !important;
 }

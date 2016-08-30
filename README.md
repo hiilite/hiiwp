@@ -14,9 +14,14 @@ The Hiilite AMP theme also employs the latest in [Structured Data Markup](https:
 ## Sites Running AMP Theme
 - [Hiilite](https://hiilite.com)
 - [Krafty Kitchen](https://kraftykitchen.ca)
+- [Free Range Tours](https://freerangetours.com/)
 - [TOPS Telecom](https://www.topstelecom.com)
 - [Skaha Lake Marina](https://skahalakemarina.com/)
 - [The Green Vanity](https://thegreenvanity.ca/)
+- [Central Okanagan Massage & Supply](http://okanaganmassage.ca/)
+- [CWSAA](https://cwsaa.org/)
+- [JetSurf Okanagan](https://jetsurfokanagan.ca/)
+- [Organic Skin Show](https://organicskinshop.ca/)
 
 
 ## No Thirdparty Plugins
@@ -33,6 +38,11 @@ Avoid SEO based plugins. The AMP theme is structured in such a way to be perfect
 This is where you can fill out all your company info that can then be distributed across the site and used as Structured Date in Google's SERP. Each field also has a shortcode attributed to it for easy distribution throughout your site content, such as using the shortcode \[business_phone\] to display the phone number. For a complete list of the shortcodes, see the "Help" tab on the Company Profile page.
 
 ## Change log
+### v0.3.0
+- Major Update, please review all your Hiilite SEO settings and re-enter any missing data.
+- Google Analytics is not connected under the Hiilite SEO menu and not through the customizer
+- SEO options in customizer have been removed and will now use the title and description in the Hiilite SEO menu
+
 ### v0.2.6
 - Numerous bug fixes and updates
 

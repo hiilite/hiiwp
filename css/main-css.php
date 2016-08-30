@@ -1,21 +1,41 @@
 <style <?php if($hiilite_options['amp']) echo 'amp-custom'; ?>>
-<?php include_once('font-awesome/css/font-awesome.min.css'); 
+<?php 
+/*$post_id = get_the_id();
+
+if(get_post_meta($post_id, 'amp', true) == 'nonamp'){
+	$hiilite_options['amp'] = false;
+} else {
+	$hiilite_options['amp'] = (!isset($hiilite_options['amp']))?get_theme_mod('amp'):false;
+}
+
+*/
+if($hiilite_options['amp']) $_amp = 'amp-'; else $_amp = '';
+include_once('font-awesome/css/font-awesome.min.css'); 
 	
-	function get_font_css($font){
-		foreach($font as $key => $value){
-			if($value != ' ' && $value != '' && $value != 'px'){
-				if($key == 'variant') echo 'font-weight:'; else echo $key.':';
-				if($value == 'regular' && $key == 'variant') echo '400;'; 
-				elseif ($value == 'italic') echo '400;font-style:italic;';
-				else echo $value.';';
-			}
+function get_font_css($font){
+	foreach($font as $key => $value){
+		if($value != ' ' && $value != '' && $value != 'px'){
+			if($key == 'variant') echo 'font-weight:'; else echo $key.':';
+			if($value == 'regular' && $key == 'variant') echo '400;'; 
+			elseif ($value == 'italic') echo '400;font-style:italic;';
+			else echo $value.';';
 		}
 	}
+}
+function get_spacing($spacing){
+	$values = '';
+	foreach($spacing as $value){
+		$values .= ' '.$value;
+	}
+	return $values;
+}
 ?>
 html {
 	<?php 
 	get_font_css($hiilite_options['default_font']);
 	?>
+	-webkit-font-smoothing: antialiased;
+    text-shadow: 1px 1px 1px rgba(0,0,0,0.004);
 }
 body {
 	margin: 0;
@@ -40,6 +60,10 @@ amp-img[layout=responsive] {
     max-width: 100%;
 }
 
+hr {
+    clear: both;
+    width: 100%;
+}
 
 /* TYPOGRAPHY */
 h1,h2,h3,h4,h5,h6,.h1,.h2 {
@@ -298,11 +322,14 @@ header.centered #main-nav {
 	<?=$hiilite_options['main_menu_links_css'];?>
 }
 
-.menu li:hover, .menu .current-menu-item {
+.menu li:hover {
 	border-radius: 4px;
 	background: <?=$hiilite_options['color_one'];?>;
 }
-.menu li:hover a, .menu .current-menu-item a {
+.menu .current-menu-item a {
+	color:<?=$hiilite_options['color_one'];?>;
+}
+.menu li:hover a {
 	color:white;
 }
 ul.sub-menu {
@@ -316,6 +343,11 @@ ul.sub-menu {
 }
 .menu li:hover > ul.sub-menu {
 	display:block;
+}
+.menu li>ul.sub-menu>li:hover>ul.sub-menu {
+    position: absolute;
+    left: 100%;
+    top: 0;
 }
 a, .button, .menu li {
 	transition:all 0.4s;
@@ -377,8 +409,18 @@ a, .button, .menu li {
 	ul.sub-menu li {
 	    display: none;
 	}
-	ul.sub-menu:hover li {
+	ul.sub-menu:hover>li {
 	    display: block;
+	}
+	.menu li>ul.sub-menu>li:hover>ul.sub-menu {
+		box-shadow: inset 0 0 1px black;
+		position: relative;
+		left: 0;
+	}
+	ul.sub-menu>li ul.sub-menu:hover>li {
+	    display: block;
+	    
+	    
 	}
 }
 
@@ -445,7 +487,6 @@ a, .button, .menu li {
 .col-12,.col-9,.col-7,.col-8,.col-6,.col-4,.col-3,.col-2,.col-1 {
     box-sizing: border-box;
     min-width: 100px;
-    margin: auto;
 }
 <?php 
 $alt_cols =	array(false,false,false,'quarter-width','third-width',false,'half-width',false,'twothird-width','threequarter-width',false,false,'full-width');
@@ -624,7 +665,33 @@ if($hiilite_options['portfolio_on']): ?>
 /* BUTTONS */
 
 .button {
-	<?php echo preg_replace('/[{}]/','',$hiilite_options['typography_button_custom_css']);?>
+	
+	<?php 
+		get_font_css($hiilite_options[ 'typography_button_default_font' ]);
+		echo 'background:'.$hiilite_options[ 'typography_button_default_background' ].';';
+		echo 'padding:'.get_spacing($hiilite_options[ 'typography_button_default_padding' ]).';';
+		echo 'border:'.$hiilite_options['typography_button_default_border_width'].' solid '.$hiilite_options['typography_button_default_border_color'].';';
+		echo 'border-radius:'.$hiilite_options[ 'typography_button_default_border_radius' ].';';
+		echo preg_replace('/[{}]/','',$hiilite_options['typography_button_custom_css']);?>
+}
+.button-primary {
+	<?php 
+		get_font_css($hiilite_options[ 'typography_button_primary_font' ]);
+		echo 'background:'.$hiilite_options[ 'typography_button_primary_background'].';';
+		echo 'padding:'.get_spacing($hiilite_options[ 'typography_button_primary_padding' ]).';';
+		echo 'border: '.$hiilite_options[ 'typography_button_primary_border_width'].' solid '.$hiilite_options['typography_button_primary_border_color'].';';
+		echo 'border-radius:'.$hiilite_options['typography_button_primary_border_radius'].';';
+		echo preg_replace('/[{}]/','',$hiilite_options['typography_button_primary_custom_css']);?>
+}
+
+.button-secondary {
+	<?php 
+		get_font_css($hiilite_options[ 'typography_button_secondary_font' ]);
+		echo 'background:'.$hiilite_options[ 'typography_button_secondary_background'].';';
+		echo 'padding:'.get_spacing($hiilite_options[ 'typography_button_secondary_padding' ]).';';
+		echo 'border: '.$hiilite_options[ 'typography_button_secondary_border_width'].' solid '.$hiilite_options['typography_button_secondary_border_color'].';';
+		echo 'border-radius:'.$hiilite_options['typography_button_secondary_border_radius'].';';
+		echo preg_replace('/[{}]/','',$hiilite_options['typography_button_secondary_custom_css']);?>
 }
 
 .fa {
@@ -817,7 +884,7 @@ input,textarea {padding: 1em;border: 1px solid gray; font-size: 1rem;}
 .menu-image-link {
     position: relative;
     display: inline-block;
-    width: 3em;
+    width: 3em; 
     height: 3em;
     margin-right: 10px;
 }
@@ -837,6 +904,15 @@ input,textarea {padding: 1em;border: 1px solid gray; font-size: 1rem;}
     height: 10em;
     z-index: 99;
     top: -3em;
+}
+
+.wpb_accordion_section h3 {
+    display: inline-block;
+    color: #333;
+    font-size: 100%;
+}
+.wpb_accordion .wpb_accordion_wrapper .wpb_accordion_header {
+    padding: 0.5em 1em;
 }
 <?php
 do_action ( 'custom_css' );
