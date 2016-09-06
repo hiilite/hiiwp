@@ -94,6 +94,13 @@ Kirki::add_field( 'hiiwp', array(
     'section'     => 'general_section_globals',
     'default'     => 'Work',
     'priority'    => 1,
+    'active_callback'	=> array(
+		array(
+			'setting'  => 'portfolio_on',
+			'operator' => '==',
+			'value'    => true,
+		),
+	),
 ) );
 Kirki::add_field( 'hiiwp', array(
     'type'        => 'text',

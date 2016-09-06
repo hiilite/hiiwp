@@ -52,6 +52,7 @@ Kirki::add_field( 'hiiwp', array(
         'font-size'      => '14px',
         'line-height'    => '1.5',
         'letter-spacing' => '0px',
+        'text-transform' => 'none',
         'color'          => get_theme_mod('color_four','#333333'),
     ),
     'priority'    => 9,
@@ -291,12 +292,12 @@ Kirki::add_field( 'hiiwp', array(
 	'type'        => 'spacing',
 	'settings'    => 'typography_button_default_padding',
 	'label'       => __( 'Button Padding (.button)', 'my_textdomain' ),
-	'section'     => 'my_section',
+	'section'     => 'typography_button_section',
 	'default'     => array(
 		'top'    => '0.5em',
+		'right'  => '1em',
 		'bottom' => '0.5em',
 		'left'   => '1em',
-		'right'  => '1em',
 	),
 	'priority'    => 1,
 ) );
@@ -381,12 +382,12 @@ Kirki::add_field( 'hiiwp', array(
 	'type'        => 'spacing',
 	'settings'    => 'typography_button_primary_padding',
 	'label'       => __( 'Button Padding (.button-primary)', 'my_textdomain' ),
-	'section'     => 'my_section',
+	'section'     => 'typography_button_section',
 	'default'     => array(
 		'top'    => '0.5em',
+		'right'  => '1em',
 		'bottom' => '0.5em',
 		'left'   => '1em',
-		'right'  => '1em',
 	),
 	'priority'    => 2,
 ) );
@@ -466,12 +467,12 @@ Kirki::add_field( 'hiiwp', array(
 	'type'        => 'spacing',
 	'settings'    => 'typography_button_secondary_padding',
 	'label'       => __( 'Button Padding (.button-secondary)', 'my_textdomain' ),
-	'section'     => 'my_section',
+	'section'     => 'typography_button_section',
 	'default'     => array(
 		'top'    => '0.5em',
+		'right'  => '1em',
 		'bottom' => '0.5em',
 		'left'   => '1em',
-		'right'  => '1em',
 	),
 	'priority'    => 3,
 ) );

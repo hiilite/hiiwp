@@ -15,15 +15,58 @@ include_once('font-awesome/css/font-awesome.min.css');
 function get_font_css($font){
 	foreach($font as $key => $value){
 		if($value != ' ' && $value != '' && $value != 'px'){
-			if($key == 'variant') echo 'font-weight:'; else echo $key.':';
-			if($value == 'regular' && $key == 'variant') echo '400;'; 
-			elseif ($value == 'italic') echo '400;font-style:italic;';
-			else echo $value.';';
+			if($key == 'variant') { 
+				echo 'font-weight:';
+				switch ($value) {
+					case 'regular':
+						echo '400';
+					break;
+					case '100italic':
+						echo '100;font-style:italic;';
+					break;
+					case '200italic':
+						echo '200;font-style:italic;';
+					break;
+					case '300italic':
+						echo '300;font-style:italic;';
+					break;
+					case '400italic':
+						echo '400;font-style:italic;';
+					break;
+					case '600italic':
+						echo '600;font-style:italic;';
+					break;
+					case '700italic':
+						echo '700;font-style:italic;';
+					break;
+					case '800italic':
+						echo '800;font-style:italic;';
+					break;
+					case '900italic':
+						echo '900;font-style:italic;';
+					break;
+					case 'italic':
+						echo '400;font-style:italic;';
+					break;
+					default:
+						echo $value.';';
+					break;
+				}
+				echo ';';
+			}
+			else { echo $key.':'.$value.';'; }
+			
+			
+			
+			
 		}
 	}
 }
 function get_spacing($spacing){
 	$values = '';
+	/*for($i = 0;$i < count($spacing);$i++){
+		$values .= ' '.$spacing[$i];
+	}*/
 	foreach($spacing as $value){
 		$values .= ' '.$value;
 	}
@@ -212,8 +255,8 @@ header.centered #main-nav {
 }
 #header_top {
 	background: <?=$hiilite_options['header_top_background_color']?>;
-	line-height: 50px;
 	<?php 
+	get_font_css($hiilite_options['header_top_font']);
 	echo ($hiilite_options['header_top_border_color'] != '')?'border-top-color:'.$hiilite_options['header_top_border_color'].';border-top-style: solid;':'';
 	echo ($hiilite_options['header_top_border_width'] != '')?'border-top-width:'.$hiilite_options['header_top_border_width'].';':''; ?>
 }
@@ -236,7 +279,6 @@ header.centered #main-nav {
 
 #main_footer {
 	<?php 
-	//print_r($hiilite_options['typography_footer_text_font']);
 	get_font_css($hiilite_options['typography_footer_text_font']);
 	
 ?>
@@ -783,14 +825,14 @@ hr.small {
 /* dynamic custom styles when an id is defined */
 
 /* SLIDER */
-<?=$_amp?>carousel.slider {
+amp-carousel.slider {
 	min-width: 100%;
 	max-height: 100vh;
 	display: block;
 	position: relative;
 }
 
-<?=$_amp?>carousel.slider .slide-text-overlay {
+amp-carousel.slider .slide-text-overlay {
 	position: absolute;
 	width: 80%;
 	top: 10%;
@@ -806,14 +848,14 @@ amp-carousel.slider amp-img img {
 }
 
 /*for when image bleeds beyond edges*/
-<?=$_amp?>carousel.slider <?=$_amp?>img {
+amp-carousel.slider <?=$_amp?>img {
 	max-height: 100%;
 	max-width: 100%;
 	min-width:100%;
 }
 
 
-<?=$_amp?>carousel.carousel {
+amp-carousel.carousel {
 	width: 100%;
 	height: 300px;
 	overflow: hidden;
@@ -830,6 +872,20 @@ amp-carousel.slider amp-img img {
 	overflow: hidden;
 }
 
+<?php
+	
+if($hiilite_options['testimonials_on']):
+	?>
+.testimonial_item {
+    padding: 0 3em;
+}
+.testimonial-slider .testimonial_content { 
+	<?php get_font_css($hiilite_options[ 'testimonials_body_font' ]); ?>
+}
+.testimonial-slider .testimonial_author {
+	<?php get_font_css($hiilite_options[ 'testimonials_author_font' ]); ?>
+}
+<?php endif ?>
 
 .text-align.center {
 	text-align: center;

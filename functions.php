@@ -67,7 +67,7 @@ require_once( dirname( __FILE__ ) . '/includes/shortcodes/amp-carousel.php');
 require_once( dirname( __FILE__ ) . '/includes/shortcodes/screen-showcase.php');
 
 /* Add with options in Custumizer */
-//require_once( dirname( __FILE__ ) . '/includes/shortcodes/author-info.php');
+require_once( dirname( __FILE__ ) . '/includes/shortcodes/author-info.php');
 
 
 

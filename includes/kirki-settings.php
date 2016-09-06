@@ -97,4 +97,7 @@ require_once 'kirki_sets/blog_section.php';
 
 // Portfolio
 require_once 'kirki_sets/portfolio_section.php';
+
+// Testimonials
+require_once 'kirki_sets/testimonial_section.php';
 ?>

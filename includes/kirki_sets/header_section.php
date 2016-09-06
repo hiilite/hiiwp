@@ -80,9 +80,8 @@ Kirki::add_field( 'hiiwp', array(
     'settings'    => 'header_top_border_width',
     'label'       => __( 'Header Top Border Thickness', 'my_textdomain' ),
     'section'     => 'header_section',
-    'default'     => '0',
+    'default'     => '0px',
     'priority'    => 4,
-    'output' => '#header_top',
 ) );
 
 Kirki::add_field( 'hiiwp', array(
@@ -136,6 +135,28 @@ Kirki::add_field( 'hiiwp', array(
 	    )),
 ) );
 
+Kirki::add_field( 'hiiwp', array(
+	'type'        => 'typography',
+	'settings'    => 'header_top_font',
+	'label'       => __( 'Header Top Font', 'my_textdomain' ),
+	'section'     => 'header_section',
+	'default'     => array(
+        'font-family'    => ' ',
+        'variant'        => ' ',
+        'font-size'      => ' ',
+        'text-transform' => 'none',
+        'line-height'    => '50px',
+        'letter-spacing' => '0px',
+        'color'          => get_theme_mod('color_four','#333333'),
+    ),
+	'priority'    => 7,
+	'required'	  => array(
+		array(
+		    'setting'  => 'header_top_left',
+			'operator' => '==',
+			'value'    => true,
+	    )),
+) );
 
 
 Kirki::add_field( 'hiiwp', array(

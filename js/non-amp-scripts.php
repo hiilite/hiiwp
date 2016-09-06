@@ -9,7 +9,7 @@
 	AMP-CAROUSEL	
 	*/
 	
-	var $carousel = $('amp-carousel[type=slides]');
+	var $carousel = $('amp-carousel.slider[type=slides]');
 	
 	var carousel_width = $carousel.attr('width'),
 		carousel_height = $carousel.attr('height'),

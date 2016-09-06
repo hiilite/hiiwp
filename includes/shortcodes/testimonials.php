@@ -42,7 +42,8 @@ function add_testimonials_shortcode( $atts ){
 	
 	// add custom classes
 	$css_classes = array(
-		'content-slider',
+		//'content-slider',
+		'testimonial-slider',
 		vc_shortcode_custom_css_class( $css ), 
 	);
 	if (vc_shortcode_custom_css_has_property( $css, array('border', 'background') )) {
@@ -74,7 +75,8 @@ function add_testimonials_shortcode( $atts ){
     if($query->have_posts()){
 	    
 	    // if slider
-	    if($hiilite_options['amp'] && $is_slider) $output .= '<amp-carousel width="1000px" height="'.$height.'" layout="responsive" type="slides" '.implode( ' ', $wrapper_attributes ).' autoplay delay="'.$slider_speed.'">';
+	    //if($hiilite_options['amp'] && $is_slider) 
+	    $output .= '<amp-carousel width="100%" height="'.$height.'" layout="responsive" type="slides" '.implode( ' ', $wrapper_attributes ).' autoplay delay="'.$slider_speed.'">';
 	    
 	    while($query->have_posts()){
 		    $query->the_post();
@@ -120,7 +122,8 @@ function add_testimonials_shortcode( $atts ){
 			$output .= '</div></div>';
 		    
 	    }
-	    if($hiilite_options['amp'] && $is_slider) $output .= '</amp-carousel>';
+	    //if($hiilite_options['amp'] && $is_slider) 
+	    $output .= '</amp-carousel>';
 	}
     
 	return $output;

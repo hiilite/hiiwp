@@ -141,6 +141,7 @@ Kirki::add_field( 'hiiwp', array(
     'priority'    => 1,
 ) );
 
+
 Kirki::add_field( 'hiiwp', array(
     'type'        => 'switch',
     'settings'    => 'blog_author_bio',

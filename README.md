@@ -22,6 +22,7 @@ The Hiilite AMP theme also employs the latest in [Structured Data Markup](https:
 - [CWSAA](https://cwsaa.org/)
 - [JetSurf Okanagan](https://jetsurfokanagan.ca/)
 - [Organic Skin Show](https://organicskinshop.ca/)
+- [The Spray Booth](https://thespraybooth.com)
 
 
 ## No Thirdparty Plugins
@@ -38,6 +39,10 @@ Avoid SEO based plugins. The AMP theme is structured in such a way to be perfect
 This is where you can fill out all your company info that can then be distributed across the site and used as Structured Date in Google's SERP. Each field also has a shortcode attributed to it for easy distribution throughout your site content, such as using the shortcode \[business_phone\] to display the phone number. For a complete list of the shortcodes, see the "Help" tab on the Company Profile page.
 
 ## Change log
+### v0.3.1
+- Added testimonial customizer
+- Updates to Heading customizer
+
 ### v0.3.0
 - Major Update, please review all your Hiilite SEO settings and re-enter any missing data.
 - Google Analytics is not connected under the Hiilite SEO menu and not through the customizer

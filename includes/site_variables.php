@@ -77,6 +77,15 @@ $hiilite_options['header_background_color']		= get_theme_mod( 'header_background
 
 $hiilite_options['header_top_border_color']		= get_theme_mod( 'header_top_border_color', '#ef5022' );
 $hiilite_options['header_top_border_width']		= get_theme_mod( 'header_top_border_width', '3px' );
+$hiilite_options['header_top_font']				= get_theme_mod( 'header_top_font', array(
+        'font-family'    => ' ',
+        'variant'        => ' ',
+        'font-size'      => ' ',
+        'line-height'    => '50px',
+        'letter-spacing' => '0px',
+        'text-transform' => ' ',
+        'color'          => ' ',
+    ) );
 
 $hiilite_options['header_in_grid']				= get_theme_mod( 'header_in_grid', true );
 
@@ -371,6 +380,32 @@ $hiilite_options['portfolio_show_post_title']	= get_theme_mod( 'portfolio_show_p
 $hiilite_options['portfolio_show_post_meta']	= get_theme_mod( 'portfolio_show_post_meta', false );
 $hiilite_options['portfolio_add_padding']	= get_theme_mod( 'portfolio_add_padding', '0px' );
 $hiilite_options['portfolio_custom_css'] = get_theme_mod( 'portfolio_custom_css', '' );
+
+
+// TESTIMONIALS
+$hiilite_options['testimonials_body_font']	= get_theme_mod( 'testimonials_body_font', array(
+        'font-family'    => ' ',
+        'variant'        => ' ',
+        'font-size'      => ' ',
+        'line-height'    => ' ',
+        'letter-spacing' => '0px', 
+        'text_transform'    => ' ',
+        'color'          => get_theme_mod('color_four','#333333'),
+        'text-align'	=> 'center',
+        'text-transform'	=> 'none',
+    ) );
+    
+$hiilite_options['testimonials_author_font']	= get_theme_mod( 'testimonials_author_font', array(
+        'font-family'    => ' ',
+        'variant'        => ' ',
+        'font-size'      => ' ',
+        'line-height'    => ' ',
+        'letter-spacing' => '0px',
+        'text_transform'    => ' ',
+        'color'          => get_theme_mod('color_four','#333333'),
+        'text-align'	=> 'center',
+        'text-transform'	=> 'none',
+    ) );
 
 
 if(class_exists( 'WooCommerce' )){
