@@ -5,6 +5,7 @@ $hiilite_options['portfolio_on'] = get_theme_mod('portfolio_on');
 $hiilite_options['teams_on'] = get_theme_mod('teams_on');
 $hiilite_options['menus_on'] = get_theme_mod('menus_on');
 $hiilite_options['testimonials_on'] = get_theme_mod('testimonials_on');
+$hiilite_options['rets_listings_on'] = get_theme_mod('rets_listings_on');
 
 
 if(class_exists( 'WooCommerce' )){
@@ -15,6 +16,10 @@ if(class_exists( 'WooCommerce' )){
 define( 'HIILITE_DIR', dirname( __FILE__ ) );
 add_filter( 'auto_update_theme', '__return_true' );
 
+
+/*
+Add Theme Supports	
+*/
 add_theme_support( 'title-tag' );
 add_theme_support( 'post-thumbnails' );
 add_theme_support( 'menus' );
@@ -22,53 +27,56 @@ add_theme_support( 'woocommerce' );
 
 add_filter( 'wp_calculate_image_srcset_meta', '__return_null' );
 
+
+/*
+Include Support Add-ons	
+*/
+if(!class_exists('ICWP_Cloudflare_Flexible_SSL')){
+	require_once( dirname( __FILE__ ) . '/addons/cloudflare-flexible-ssl.php');
+}
 if(!class_exists('Vc_Manager')){
 	require_once( dirname( __FILE__ ) . '/addons/js_composer/js_composer.php');
 }
 
-if(!class_exists('ICWP_Cloudflare_Flexible_SSL')){
-	require_once( dirname( __FILE__ ) . '/addons/cloudflare-flexible-ssl/plugin.php');
-}
-// Initialising Shortcodes
-function requireVcExtend(){
-	require_once locate_template('/extendvc/extend-vc.php');
-}
-add_action('init', 'requireVcExtend', 10);
 
-include_once( dirname( __FILE__ ) . '/includes/kirki-settings.php' );
+
+
+require_once( dirname( __FILE__ ) . '/includes/kirki-settings.php' );
 
 if(!class_exists('HiiWP')){ 
 	require_once( dirname( __FILE__ ) . '/addons/hiiwp/hiiwp.php');
 }
-if(class_exists('SrUtils')) include_once( dirname( __FILE__ ) . '/includes/rets-listings.php' );
-
+if(!class_exists('SrUtils') && $hiilite_options['rets_listings_on']){
+	//Simply Rets Plugin
+	require_once( dirname( __FILE__ ) . '/addons/simply-rets/simply-rets.php' );
+	
+	// Admin listing port type
+	require_once( dirname( __FILE__ ) . '/includes/rets-listings.php' );
+	
+	// Templete override functions
+	require_once( dirname( __FILE__ ) . '/addons/simply-rets.php' );
+}
 require_once( dirname( __FILE__ ) . '/addons/tinymce_edits/tinymce_edits.php');
 require_once( dirname( __FILE__ ) . '/addons/github-updater/github-updater.php');
-
 require_once( dirname( __FILE__ ) . '/addons/post-types-order/post-types-order.php');
 require_once( dirname( __FILE__ ) . '/addons/taxonomy-images/taxonomy-images.php');
 require_once( dirname( __FILE__ ) . '/addons/taxonomy-terms-order/taxonomy-terms-order.php');
-
-include_once( dirname( __FILE__ ) . '/includes/register_sidebars.php' );
-
-include_once( dirname( __FILE__ ) . '/includes/register_post_types.php');
-
-
-
-
-include_once( dirname( __FILE__ ) . '/includes/classes.php' );
-
-
+require_once( dirname( __FILE__ ) . '/includes/register_sidebars.php' );
+require_once( dirname( __FILE__ ) . '/includes/register_post_types.php');
+require_once( dirname( __FILE__ ) . '/includes/classes.php' );
 require_once( dirname( __FILE__ ) . '/includes/shortcodes/button.php');
 require_once( dirname( __FILE__ ) . '/includes/shortcodes/title.php');
 require_once( dirname( __FILE__ ) . '/includes/shortcodes/media-gallery.php');
 require_once( dirname( __FILE__ ) . '/includes/shortcodes/vc_empty_space.php');
 require_once( dirname( __FILE__ ) . '/includes/shortcodes/amp-carousel.php');
 require_once( dirname( __FILE__ ) . '/includes/shortcodes/screen-showcase.php');
-
-/* Add with options in Custumizer */
+require_once( dirname( __FILE__ ) . '/includes/shortcodes/calculation-table.php');
 require_once( dirname( __FILE__ ) . '/includes/shortcodes/author-info.php');
 
+/* Add with options in Custumizer */
+if(get_theme_mod( 'blog_author_bio' ) == true){
+require_once( dirname( __FILE__ ) . '/includes/shortcodes/author-info.php');
+}
 
 
 /*
@@ -81,24 +89,70 @@ function optimize_heartbeat_settings( $settings ) {
 }
 add_filter( 'heartbeat_settings', 'optimize_heartbeat_settings' );
 
-function disable_heartbeat_unless_post_edit_screen() {
-    global $pagenow;
-    if ( $pagenow != 'post.php' && $pagenow != 'post-new.php' )
-        wp_deregister_script('heartbeat');
+
+
+
+/*
+Include VC Extend file
+*/
+function requireVcExtend(){
+	require_once locate_template('/extendvc/extend-vc.php');
 }
-add_action( 'init', 'disable_heartbeat_unless_post_edit_screen', 1 );
+add_action('init', 'requireVcExtend', 10);
 
-
-
-
-// Flush rewrites on customizer save and theme update
+/*
+Flush rewrites on customizer save and theme update
+*/
 function my_rewrite_flush() { flush_rewrite_rules(); }
 add_action( 'after_switch_theme', 'my_rewrite_flush' );
 add_action( 'customize_save', 'my_rewrite_flush' );
 
 
+/*
+on INIT	
+*/
+function disable_heartbeat_unless_post_edit_screen() {
+    global $pagenow;
+    
+    if ( $pagenow != 'post.php' && $pagenow != 'post-new.php' )
+        wp_deregister_script('heartbeat');
+}
+add_action( 'init', 'disable_heartbeat_unless_post_edit_screen', 1 );
 
+// REGISTER MENU AREAS
+function register_my_menus() {
+  register_nav_menus(
+    array(
+      'header-menu' => __( 'Header Menu' ),
+      'left-menu' => __( 'Left Menu' ),
+      'right-menu' => __( 'Right Menu' ),
+      'footer-menu' => __( 'Footer Menu' )
+    )
+  );
+}
+add_action( 'init', 'register_my_menus' );
 
+// REMOVE WP EMOJIS
+function disable_wp_emojicons() {
+	
+	// all actions related to emojis
+	remove_action( 'admin_print_styles', 'print_emoji_styles' );
+	remove_action( 'wp_head', 'print_emoji_detection_script', 7 );
+	remove_action( 'admin_print_scripts', 'print_emoji_detection_script' );
+	remove_action( 'wp_print_styles', 'print_emoji_styles' );
+	remove_filter( 'wp_mail', 'wp_staticize_emoji_for_email' );
+	remove_filter( 'the_content_feed', 'wp_staticize_emoji' );
+	remove_filter( 'comment_text_rss', 'wp_staticize_emoji' );
+	
+	// filter to remove TinyMCE emojis
+	add_filter( 'tiny_mce_plugins', 'disable_emojicons_tinymce' );
+        
+}
+add_action( 'init', 'disable_wp_emojicons' );
+
+/*
+on	WP_HEAD
+*/
 function hiiwp_init(){
 	global $hiilite_options, $post, $wp_scripts;
 	
@@ -124,6 +178,7 @@ function hiiwp_init(){
 		add_action( 'init', 'minqueue_init', 1 );
 		add_filter( 'style_loader_tag', 'enqueue_less_styles', 5, 2);
 	} else {
+		wp_enqueue_script("jquery");
 		wp_deregister_script('wpb_composer_front_js');
 	}
 	
@@ -131,9 +186,33 @@ function hiiwp_init(){
 }
 add_action( 'wp_head', 'hiiwp_init' );
 
+// remove the default WordPress canonical URL function
+if( function_exists( 'rel_canonical' ) )
+{
+    remove_action( 'wp_head', 'rel_canonical' );
+}
+// REPLACE rel_canonical to load on all pages
+function rel_canonical_with_custom_tag_override()
+{
+    global $wp_the_query, $post;
+    if( !$id = $wp_the_query->get_queried_object_id() ) {
+        $link = get_permalink( $id );
+    } elseif(get_post_meta( $post->ID, 'article_canonical_link', true) != '') {
+	    $link = get_post_meta( $post->ID, 'article_canonical_link', true);
+    } else {
+	    $link = "https://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+    }
+    	
+    
+    echo "<link rel='canonical' href='" . esc_url( $link ) . "' />\n";
+}
+add_action( 'wp_head', 'rel_canonical_with_custom_tag_override' );
 
-add_action( 'init', 'disable_wp_emojicons' );
 
+
+/*
+on ADMIN_HEAD actions
+*/
 if(!function_exists('hiilite_admin_styles')){
 	function hiilite_admin_styles() {
 	    wp_register_style( 'hiilite_admin_stylesheet', get_stylesheet_directory_uri(). '/css/admin-style.css' );
@@ -168,13 +247,11 @@ if(!function_exists('hiilite_admin_styles')){
 add_action('admin_head', 'custom_colors');
 
 
-// MAKE NEXT AND PREV LINKS BUTTONS
-add_filter('next_posts_link_attributes', 'posts_link_attributes');
-add_filter('previous_posts_link_attributes', 'posts_link_attributes');
-function posts_link_attributes() {
-    return 'class="button"';
-}
 
+
+/*
+on WIDGET_INIT	
+*/
 // REMOVE COMMENT CSS FROM HEADER
 add_action( 'widgets_init', 'my_remove_recent_comments_style' );
 function my_remove_recent_comments_style() {
@@ -182,20 +259,17 @@ function my_remove_recent_comments_style() {
 	remove_action( 'wp_head', array( $wp_widget_factory->widgets['WP_Widget_Recent_Comments'], 'recent_comments_style'  ) );
 }
 
-// REGISTER MEU AREAS
-function register_my_menus() {
-  register_nav_menus(
-    array(
-      'header-menu' => __( 'Header Menu' ),
-      'left-menu' => __( 'Left Menu' ),
-      'right-menu' => __( 'Right Menu' ),
-      'footer-menu' => __( 'Footer Menu' )
-    )
-  );
-  
-  
+
+// MAKE NEXT AND PREV LINKS BUTTONS
+add_filter('next_posts_link_attributes', 'posts_link_attributes');
+add_filter('previous_posts_link_attributes', 'posts_link_attributes');
+function posts_link_attributes() {
+    return 'class="button"';
 }
-add_action( 'init', 'register_my_menus' );
+
+
+
+
 
 // MODIFIY IMAGE TAGS
 function amp_image_tags($content)
@@ -270,22 +344,7 @@ function add_defer_attribute($tag, $handle) {
 }
 
 
-// REMOVE WP EMOJIS
-function disable_wp_emojicons() {
-	
-	// all actions related to emojis
-	remove_action( 'admin_print_styles', 'print_emoji_styles' );
-	remove_action( 'wp_head', 'print_emoji_detection_script', 7 );
-	remove_action( 'admin_print_scripts', 'print_emoji_detection_script' );
-	remove_action( 'wp_print_styles', 'print_emoji_styles' );
-	remove_filter( 'wp_mail', 'wp_staticize_emoji_for_email' );
-	remove_filter( 'the_content_feed', 'wp_staticize_emoji' );
-	remove_filter( 'comment_text_rss', 'wp_staticize_emoji' );
-	
-	// filter to remove TinyMCE emojis
-	add_filter( 'tiny_mce_plugins', 'disable_emojicons_tinymce' );
-        
-}
+
 function disable_emojicons_tinymce( $plugins ) {
 	if ( is_array( $plugins ) ) {
 		return array_diff( $plugins, array( 'wpemoji' ) );
@@ -297,29 +356,9 @@ function disable_emojicons_tinymce( $plugins ) {
 
 
 
-// REPLACE rel_canonical to load on all pages
-function rel_canonical_with_custom_tag_override()
-{
-    global $wp_the_query, $post;
-    if( !$id = $wp_the_query->get_queried_object_id() ) {
-        $link = get_permalink( $id );
-    } elseif(get_post_meta( $post->ID, 'article_canonical_link', true) != '') {
-	    $link = get_post_meta( $post->ID, 'article_canonical_link', true);
-    } else {
-	    $link = "https://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
-    }
-    	
-    
-    echo "<link rel='canonical' href='" . esc_url( $link ) . "' />\n";
-}
 
-// remove the default WordPress canonical URL function
-if( function_exists( 'rel_canonical' ) )
-{
-    remove_action( 'wp_head', 'rel_canonical' );
-}
-// replace the default WordPress canonical URL function with your own
-add_action( 'wp_head', 'rel_canonical_with_custom_tag_override' );
+
+
 
 
 

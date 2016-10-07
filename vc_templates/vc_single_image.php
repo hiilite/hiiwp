@@ -61,6 +61,7 @@ if ( 'external_link' === $source ) {
 $border_color = ( '' !== $border_color ) ? ' vc_box_border_' . $border_color : '';
 
 $img = false;
+$hover_img = false;
 
 switch ( $source ) {
 	case 'media_library':
@@ -98,6 +99,15 @@ switch ( $source ) {
 			if ( ! $img && 'page' === vc_manager()->mode() ) {
 				return;
 			}
+		}
+		
+		if($hover_image) {
+			$h_img_id = preg_replace( '/[^\d]/', '', $hover_image );
+			$hover_img = wpb_getImageBySize( array(
+				'attach_id' => $h_img_id,
+				'thumb_size' => $img_size,
+				'class' => 'single_image-img hover_image-img',
+			) );
 		}
 
 		break;
@@ -179,6 +189,15 @@ if ( vc_has_class( 'prettyphoto', $el_class ) ) {
 
 $wrapperClass = 'single_image-wrapper ' . $style . ' ' . $border_color;
 $reponsive = ($atts['responsive'] == 'yes')?'layout=responsive':'';
+
+if ( $hover_image ) {
+	if($_amp!=''){
+		$hover_img['thumbnail'] = str_replace( '<img', '<amp-img '.$reponsive.' ', $hover_img['thumbnail'] );
+		$hover_img['thumbnail'] = str_replace( '/>', '></amp-img> ', $hover_img['thumbnail'] );
+	}
+	$hover_html = $hover_img['thumbnail'];
+}
+
 if ( $link ) {
 	$a_attrs['href'] = $link;
 	$a_attrs['target'] = $img_link_target;
@@ -190,16 +209,19 @@ if ( $link ) {
 		$img['thumbnail'] = str_replace( '<img', '<amp-img '.$reponsive.' ', $img['thumbnail'] );
 		$img['thumbnail'] = str_replace( '/>', '></amp-img> ', $img['thumbnail'] );
 	}
-	$html = '<a ' . vc_stringify_attributes( $a_attrs ) . ' class="' . $wrapperClass . '">' . $img['thumbnail'] . '</a>';
+	$html = '<a ' . vc_stringify_attributes( $a_attrs ) . ' class="' . $wrapperClass . '">' . $img['thumbnail'].$hover_html . '</a>';
 } else {
 	if($_amp!=''){
 		$img['thumbnail'] = str_replace( '<img', '<amp-img '.$reponsive.' ', $img['thumbnail'] );
 		$img['thumbnail'] = str_replace( '/>', '></amp-img> ', $img['thumbnail'] );
 	}
-	$html =  $img['thumbnail'];
+	$html =  $img['thumbnail'].$hover_html;
 }
 
-$class_to_filter = '  align-' . $alignment . ' ' . $this->getCSSAnimation( $css_animation );
+
+$class_to_filter = 'single-image';
+if($hover_html) $class_to_filter .= ' hover-image';
+$class_to_filter .= '  align-' . $alignment . ' ' . $this->getCSSAnimation( $css_animation );
 $class_to_filter .= vc_shortcode_custom_css_class( $css, ' ' ) . $this->getExtraClass( $el_class );
 $css_class = apply_filters( VC_SHORTCODE_CUSTOM_CSS_FILTER_TAG, $class_to_filter, $this->settings['base'], $atts );
 

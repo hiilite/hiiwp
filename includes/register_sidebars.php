@@ -10,7 +10,7 @@ function hiiwp_widgets_init() {
 	'before_title'  => '<h4 class="widgettitle">',
 	'after_title'   => '</h4>',
     ) );
-    
+     
     register_sidebar( array(
         'name' => __( 'Header Top Right', 'hiiwp' ),
         'id' => 'header_top_right',

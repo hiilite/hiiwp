@@ -1,13 +1,8 @@
 <?php
-/*
-Plugin Name: Force gzip
-Plugin URI: http://justin.wordpress.com/2010/07/13/force-gzip/
-Description: Implements gzip output compression to speed up load times. This plugin also does a check to see if browsers are incorrectly saying that they do not support GZIP when they actually do. This can speed up load times for a significant portion of users.
-Author: Justin Shreve
-Version: 1.0.1
-Author URI: http://justinshreve.com
-License: GNU General Public License 2.0 (GPL) http://www.gnu.org/licenses/gpl.html
-*/
+// don't load directly
+if ( ! defined( 'ABSPATH' ) ) {
+	die( '-1' );
+}
 
 /**
 * Force gzip

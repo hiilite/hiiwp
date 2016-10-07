@@ -1,4 +1,5 @@
 <?php
+	if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 /**
  * CMB2 Utility classes for handling multi-dimensional array data for options
  *

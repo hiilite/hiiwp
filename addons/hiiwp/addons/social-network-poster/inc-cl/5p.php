@@ -1,4 +1,5 @@
 <?php    
+	if(!defined('ABSPATH')){die('-1');}
 //## NextScripts 500Px Connection Class
 $nxs_snapAvNts[] = array('code'=>'5P', 'lcode'=>'5p', 'name'=>'500Px');
 

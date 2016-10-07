@@ -1,5 +1,5 @@
 <?php
-	
+	if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
 function company_section_text() {
 	 echo '<hr>';

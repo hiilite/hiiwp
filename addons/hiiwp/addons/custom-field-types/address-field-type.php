@@ -1,7 +1,6 @@
 <?php
+	if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 /*
- * Plugin Name: CMB2 Custom Field Type - Address
- * Description: Makes available an 'address' CMB2 Custom Field Type. Based on https://github.com/WebDevStudios/CMB2/wiki/Adding-your-own-field-types#example-4-multiple-inputs-one-field-lets-create-an-address-field
  * Author: jtsternberg
  * Author URI: http://dsgnwrks.pro
  * Version: 0.1.0

@@ -1,8 +1,6 @@
 <?php
+if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 /*
-Plugin Name: NextScripts: Social Networks Auto-Poster
-Plugin URI: http://www.nextscripts.com/social-networks-auto-poster-for-wordpress
-Description: This plugin automatically publishes posts from your blog to multiple accounts on Facebook, Twitter, and Google+ profiles and/or pages.
 Author: NextScripts
 Version: 3.6.6
 Author URI: http://www.nextscripts.com

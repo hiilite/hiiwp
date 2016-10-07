@@ -1,4 +1,5 @@
 <?php
+	if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 ////////////////////////////////////
 //
 // Add a new logo to the login page

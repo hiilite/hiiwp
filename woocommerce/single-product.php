@@ -19,7 +19,7 @@
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
 }
-
+echo '<!--SINGLE-PRODUCT-->';
 get_header( 'shop' ); ?>
 
 	<?php

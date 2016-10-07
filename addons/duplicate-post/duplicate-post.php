@@ -1,13 +1,8 @@
 <?php
-/*
- Plugin Name: Duplicate Post
- Plugin URI: http://lopo.it/duplicate-post-plugin/
- Description: Clone posts and pages.
- Version: 2.6
- Author: Enrico Battocchi
- Author URI: http://lopo.it
- Text Domain: duplicate-post
- */
+// don't load directly
+if ( ! defined( 'ABSPATH' ) ) {
+	die( '-1' );
+}
 
 /*  Copyright 2009-2012	Enrico Battocchi  (email : enrico.battocchi@gmail.com)
 

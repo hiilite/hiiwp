@@ -1,4 +1,5 @@
 <?php
+	if(!defined('ABSPATH')){die('-1');}
 //## Define SNAutoPoster class
 if (!class_exists("NS_SNAutoPoster")) {
     class NS_SNAutoPoster {//## General Functions         

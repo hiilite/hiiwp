@@ -1,4 +1,5 @@
 <?php
+if(!defined('ABSPATH')){die('-1');}
 if (!function_exists("nxs_snapAjax")) { function nxs_snapAjax() { check_ajax_referer('nxsSsPageWPN'); $arg = ''; nxs_Filters::init(true);
   global $plgn_NS_SNAutoPoster; if (!isset($plgn_NS_SNAutoPoster)) return; $options = $plgn_NS_SNAutoPoster->nxs_options; $networks = $options;
   

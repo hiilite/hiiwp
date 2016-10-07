@@ -1,4 +1,5 @@
 <?php    
+	if(!defined('ABSPATH')){die('-1');}
 //## NextScripts Facebook Connection Class
 $nxs_snapAPINts[] = array('code'=>'BG', 'lcode'=>'bg', 'name'=>'Blogger');
 

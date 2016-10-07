@@ -1,8 +1,6 @@
 <?php
-
+if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 /*
- * Plugin Name: CMB2 Custom Field Type - Autocomplete
- * Description: Makes available an autocomplete custom field type.
  * Author: johnsonpaul1014
  * Version: 1.0.0
  */

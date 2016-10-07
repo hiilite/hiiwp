@@ -1,15 +1,8 @@
 <?php
-/*
-Plugin Name: Category Order and Taxonomy Terms Order
-Plugin URI: http://www.nsp-code.com
-Description: Category Order and Taxonomy Terms Order
-Version: 1.4.7
-Author: Nsp-Code
-Author URI: http://www.nsp-code.com
-Author Email: electronice_delphi@yahoo.com
-Text Domain: taxonomy-terms-order
-Domain Path: /languages/ 
-*/
+// don't load directly
+if ( ! defined( 'ABSPATH' ) ) {
+	die( '-1' );
+}
 
 
     define('TOPATH',    dirname(__FILE__));

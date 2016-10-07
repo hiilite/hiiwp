@@ -56,6 +56,7 @@ if($hiilite_options['blog_layout'] =='boxed'){
 	}
 }
 ?>
+<!--BLOG-LOOP-->
 <article <?php post_class('row row-o-content-top blog-article'.$cols); ?> itemscope itemtype="http://schema.org/Article" id="post-<?php the_ID(); ?>" >
 	<meta itemscope itemprop="mainEntityOfPage"  itemType="https://schema.org/WebPage" itemid="<?php bloginfo('url')?>"/>
 	<?php 
@@ -100,7 +101,7 @@ if($hiilite_options['blog_layout'] =='boxed'){
 		if($hiilite_options['blog_excerpt_on']):?><p><?=get_the_excerpt(); ?></p><?php endif;
 		if($hiilite_options['blog_more_on']):?><a class="button readmore" href="<?php the_permalink() ?>">Read More</a><?php endif;?>
 	<div>
-		<?php $options = get_option('company_options'); ?>
+		<?php $options = get_option('hii_seo_settings'); ?>
 		<div itemprop="publisher" itemscope itemtype="https://schema.org/Organization">
 			<div itemprop="logo" itemscope itemtype="https://schema.org/ImageObject">
 			  <meta itemprop="url" content="<?=$options['business_logo']?>">

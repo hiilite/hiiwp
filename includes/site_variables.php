@@ -76,7 +76,7 @@ $hiilite_options['header_background_color']		= get_theme_mod( 'header_background
 
 
 $hiilite_options['header_top_border_color']		= get_theme_mod( 'header_top_border_color', '#ef5022' );
-$hiilite_options['header_top_border_width']		= get_theme_mod( 'header_top_border_width', '3px' );
+$hiilite_options['header_top_border_width']		= get_theme_mod( 'header_top_border_width', '0px' );
 $hiilite_options['header_top_font']				= get_theme_mod( 'header_top_font', array(
         'font-family'    => ' ',
         'variant'        => ' ',

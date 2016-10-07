@@ -278,7 +278,7 @@ Kirki::add_field( 'hiiwp', array(
 
 
 //////////////////
-// Menus
+// Testimonials
 Kirki::add_field( 'hiiwp', array(
 	'type'        => 'switch',
 	'settings'    => 'testimonials_on',
@@ -352,6 +352,19 @@ Kirki::add_field( 'hiiwp', array(
 			'value'    => true,
 		),
 	),
+) );
+
+
+//////////////////
+// RETS Listings
+Kirki::add_field( 'hiiwp', array(
+	'type'        => 'switch',
+	'settings'    => 'rets_listings_on',
+	'label'       => esc_attr__( 'RETS Listings On', 'hiiwp' ),
+	'section'     => 'general_section_globals',
+	'default'     => false,
+	'priority'	  => 1,
+	'description'    => __( 'Turn on Real Estate Listing functionality for connection with SimplyRETS' ),
 ) );
 
 

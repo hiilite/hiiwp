@@ -1,4 +1,5 @@
 <?php    
+	if(!defined('ABSPATH')){die('-1');}
 //## NextScripts App.net Connection Class
 $nxs_snapAvNts[] = array('code'=>'AP', 'lcode'=>'ap', 'name'=>'App.net');
 

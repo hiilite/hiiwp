@@ -546,6 +546,7 @@ function get_portfolio($args = null, $options = null){
 					$prev = 3;
 					$current = array_shift($col3);
 					$next = array(3,6);
+					$debug = '3p>6>8';
 				} 
 				
 				// cont with 3 if prev was 3
@@ -555,6 +556,7 @@ function get_portfolio($args = null, $options = null){
 					$prev = 3;
 					$current = array_shift($col3);
 					$next = array(3);
+					$debug = '3p>6>8';
 				} 
 				// cont with 3 if prev was 3
 				elseif(in_array(3, $next) && !in_array(6, $next) && !$rowstart && !$rowend){
@@ -563,6 +565,7 @@ function get_portfolio($args = null, $options = null){
 					$prev = 3;
 					$current = array_shift($col3);
 					$next = array(3,4,6,8,9,12);
+					$debug = '3p>6>8';
 				} 
 				
 				// if only 2 3s, make 6s
@@ -573,6 +576,7 @@ function get_portfolio($args = null, $options = null){
 					$current = array_shift($col3);
 					$current['col'] = 'col-6';
 					$next = array(3);
+					$debug = '3p>6>8';
 				} 
 				// if only 2 3s, make 6s
 				elseif(count($col3) == 1 && $rowstart){
@@ -582,6 +586,7 @@ function get_portfolio($args = null, $options = null){
 					$current = array_shift($col3);
 					$current['col'] = 'col-6';
 					$next = array(4,6,8,9,12);
+					$debug = '3p>6>8';
 				} 
 				//if still 8s but no 4s
 				// cont with 3 if prev was 3
@@ -592,6 +597,7 @@ function get_portfolio($args = null, $options = null){
 					$current = array_shift($col8);
 					$current['col'] = 'col-6';
 					$next = array(8);
+					$debug = '8p>6>8';
 				} 		
 				elseif(count($col8) && empty($col4) && in_array(8, $next) && $prev == 8){
 					$rowstart = false;
@@ -672,6 +678,8 @@ function get_portfolio($args = null, $options = null){
 					$current['col'] = 'col-12';
 					$next = array(3,4,6,8,9,12);
 					$debug = '6>12last';
+				} else {
+					$rowend = true;
 				}
 				
 				
@@ -696,8 +704,9 @@ function get_portfolio($args = null, $options = null){
 					}
 					$html .= '</div>';
 				
-					if ($rowend) $html .= '</div>';
+					
 				endif;
+				if ($rowend) $html .= '</div>';
 			}
 		
 		endif; // end masonry-h
@@ -707,7 +716,7 @@ function get_portfolio($args = null, $options = null){
 		
 		$hiilite_options['portfolio_custom_css'] = $css;
 		
-		$html .= '<style>'.$hiilite_options['portfolio_custom_css'].'"</style>';
+		$html .= '<style>'.$hiilite_options['portfolio_custom_css'].'</style>';
 		if($args['post_type'] == 'attachment') { 
 			$html .= '<amp-image-lightbox id="lightbox1" layout="nodisplay"><div id="closelightbox" on="tap:lightbox1.close"></div></amp-image-lightbox>';
 			$hiilite_options['portfolio_custom_css'] .= '#closelightbox{position:fixed;width:100vw;height:100vh;z-index:9999;}';

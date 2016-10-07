@@ -1,4 +1,5 @@
 <?php 
+	if(!defined('ABSPATH')){die('-1');}
 //## NXS oAuth (Scoop.it, XING, Flickr)
 if (!class_exists('nxssc_SignatureMethod')) { abstract class nxssc_SignatureMethod {
 	abstract public function signing_base($request, $consumer, $token);

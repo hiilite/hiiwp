@@ -1,4 +1,5 @@
 <?php
+	if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 //By Daniele Mte90 Scasciafratte
 //Is multicheck but with section title
 

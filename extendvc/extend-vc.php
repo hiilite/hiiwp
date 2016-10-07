@@ -835,19 +835,57 @@ vc_map( array(
 //
 /////////////////////////////
 vc_map( array(
-		"name" => "AMP Carousel",
+		"name" => "AMP Image Carousel",
 		"base" => "amp-carousel",
 		"category" => 'by Hiilite',
 		"description" => "Carousel of images",
 		"icon" => "icon-wpb-images-carousel",
 		"allowed_container_element" => 'vc_row',
 		"params" => array(
+			
 			array(
 				"type" => "attach_images",
 				"holder" => "div",
 				"class" => "",
 				"heading" => "Images",
 				"param_name" => "media_grid_images"
+			),
+			
+			array(
+				"type" => "dropdown",
+				"holder" => "div",
+				"class" => "",
+				"heading" => "Type",
+				"param_name" => "type",
+				'default'	=> 'carousel',
+				'value' => array (
+		            "Carousel" => "carousel",
+		            "Slider" => "slides",
+	            )
+			),
+			array(
+				"type" => "checkbox",
+				"holder" => "div",
+				"class" => "",
+				"heading" => "Show Thumbnails",
+				"param_name" => "thumbnails",
+				"default"	=> false,
+				"dependency" => array (
+					"element" => "type",
+					"value" => array("slides"),
+				),
+			),
+			array(
+				"type" => "textfield",
+				"holder" => "div",
+				"class" => "",
+				"heading" => "Width",
+				"param_name" => "width",
+				"default"	=> "1000",
+				"dependency" => array (
+					"element" => "type",
+					"value" => array("slides"),
+				),
 			),
 			array(
 				"type" => "textfield",
@@ -857,6 +895,12 @@ vc_map( array(
 				"param_name" => "height",
 				"default"	=> "300"
 			),
+			array(
+	            'type' => 'css_editor',
+	            'heading' => __( 'Css', 'hiiamp' ),
+	            'param_name' => 'css',
+	            'group' => __( 'Design options', 'my-text-domain' ),
+	        ),
 		)
 ) );
 
@@ -963,6 +1007,14 @@ vc_add_param( 'vc_single_image', array(
     'heading' => __( 'Banner Text', 'my-text-domain' ),
     'param_name' => 'banner_text',
 ));
+
+vc_add_param( 'vc_single_image', array(
+    'type' => 'attach_image',
+    'heading' => __( 'Hover Image', 'my-text-domain' ),
+    'description'	=> __('The hover image should be the same dimensions as the original image','hiiwp'),
+    'param_name' => 'hover_image',
+));
+vc_remove_param( "vc_single_image", "style" ); 
 
 
 
@@ -1259,4 +1311,103 @@ if(class_exists('SrUtils')):
 	) );
 
 endif;
+
+////////////////////////////
+//
+//	SimplyRETS Listings
+//
+/////////////////////////////
+vc_map( array(
+		"name" => "Calculation Table",
+		"base" => "calculation_table",
+		"category" => 'Contact',
+		"description" => "Add fields to be calculated for an average",
+		"icon" => "icon-wpb-table",
+		"allowed_container_element" => 'vc_row',
+		"params" => array(
+			array(
+				'type'	=> 'param_group',
+				'value'	=> 'Listing',
+				'heading'	=> 'Listing Row',
+				'param_name'	=> 'listings',
+				'params'	=> array(
+					array(
+						"type" => "textfield",
+						"holder" => "div",
+						"edit_field_class" => "vc_col-xs-4",
+						"heading" => "Style",
+						"param_name" => "home_style",
+					),
+					array(
+						"type" => "dropdown",
+						"holder" => "div",
+						"edit_field_class" => "vc_col-xs-1",
+						"heading" => "Beds",
+						"param_name" => "beds",
+						"value"	=> array(
+							"1" => "1",	
+							"2" => "2",	
+							"3" => "3",	
+							"4" => "4",	
+							"5" => "5",	
+							"6" => "6",	
+							"7" => "7",	
+						),
+						
+					),
+					array(
+						"type" => "dropdown",
+						"holder" => "div",
+						"edit_field_class" => "vc_col-xs-1",
+						"heading" => "Baths",
+						"param_name" => "baths",
+						"value"	=> array(
+							"1" => "1",	
+							"2" => "2",	
+							"3" => "3",	
+							"4" => "4",	
+							"5" => "5",	
+							"6" => "6",	
+							"7" => "7",	
+						),
+						
+					),
+					array(
+						"type" => "textfield",
+						"holder" => "div",
+						"edit_field_class" => "vc_col-xs-2",
+						"heading" => "Sq. Ft",
+						"param_name" => "sqft",
+					),
+					array(
+						"type" => "textfield",
+						"holder" => "div",
+						"edit_field_class" => "vc_col-xs-2",
+						"heading" => "Sold $",
+						"param_name" => "sold",
+					),
+					array(
+						"type" => "textfield",
+						"holder" => "div",
+						"edit_field_class" => "vc_col-xs-2",
+						"heading" => "Days On Market",
+						"param_name" => "dom",
+					),
+				),
+			),
+			
+		),
+		
+) );
+
+vc_add_shortcode_param( 'date', 'date_settings_field' );
+function date_settings_field( $settings, $value ) {
+   return '<div class="date_block">'
+             .'<input name="' . esc_attr( $settings['param_name'] ) . '" class="wpb_vc_param_value wpb-textinput ' .
+             esc_attr( $settings['param_name'] ) . ' ' .
+             esc_attr( $settings['type'] ) . '_field" type="date" value="' . esc_attr( $value ) . '" />' .
+             '</div>'; // This is html markup that will be outputted in content elements edit form
+}
+
+
 ?>

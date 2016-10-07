@@ -1,5 +1,6 @@
 <style <?php if($hiilite_options['amp']) echo 'amp-custom'; ?>>
 <?php 
+global $is_IE;
 /*$post_id = get_the_id();
 
 if(get_post_meta($post_id, 'amp', true) == 'nonamp'){
@@ -64,12 +65,9 @@ function get_font_css($font){
 }
 function get_spacing($spacing){
 	$values = '';
-	/*for($i = 0;$i < count($spacing);$i++){
-		$values .= ' '.$spacing[$i];
-	}*/
-	foreach($spacing as $value){
-		$values .= ' '.$value;
-	}
+
+	$values = $spacing['top'].' '.$spacing['right'].' '.$spacing['bottom'].' '.$spacing['left'];
+	
 	return $values;
 }
 ?>
@@ -146,7 +144,7 @@ for($h=1;$h<=6;$h++):
 	$font_unit = preg_replace("/[^a-zA-Z]+/", "", $hiilite_options['typography_h'.$h.'_font']['font-size']);
 	if($font_size && $font_unit){
 	echo "h$h,.h$h {";
-	echo 'font-size:'. ($fs_int[0]* 0.6).$font_unit;
+	echo 'font-size:'. ($fs_int[0]* 0.75).$font_unit;
 	echo '}';
 	}
 endfor; ?>
@@ -201,6 +199,7 @@ header#main_header {
 	align-items: center;
 	flex-wrap: wrap;
 	z-index: 9999;
+	transition: all 0.5s;
 	<?php 
 	if ($hiilite_options['header_above_content'] == false){ 
 		echo 'position:absolute;'; 
@@ -246,7 +245,25 @@ header.centered #main-nav {
 	width:100%;
 }
 
-<?php } ?>
+<?php } elseif($hiilite_options['header_type'] == 'fixed'){	?>
+header#main_header.fixed.scrolled {
+    position: fixed;
+    top: 0;
+    max-height: 3em;
+    padding: 0;
+}
+header#main_header.fixed.scrolled #logo_container img {
+    width: auto;
+    
+    max-height: 2em;
+    margin: 0.5em;
+}
+header#main_header.fixed.scrolled ~ section:first-of-type {
+    margin-top:5em !important;
+}
+<?php
+}
+?>
 
 @media (max-width:<?=$hiilite_options['grid_width'];?>){
 	.container_inner {
@@ -273,6 +290,7 @@ header.centered #main-nav {
 
 #logo_container <?=($_amp!='')?$_amp.'img':'';?> img {
     height: auto;
+    transition: all 0.5s;
 }
 
 /* FOOTER */
@@ -332,6 +350,7 @@ header.centered #main-nav {
 }
 .flex-item {
 	flex: 1 1 auto;
+	<?php if($is_IE) echo 'flex-basis: 0%';?>
 }
 
 
@@ -541,9 +560,8 @@ for($i = 12; $i>0;$i--){
 		echo ($i > 12)?'max-width:'.$perc_ratio.'em;':'max-width:100%;';
 		echo 'width:'.$perc_ratio.'%;';
 		$min_width = ($i>4)?'320':'160';
-		//echo 'min-width:'.$min_width.'px;';
 		echo 'flex:1 1 '.$perc_ratio.'%;';
-		//echo 'flex:1 1 '.(($hiilite_options['grid_width']*(($i-1)/12)) + 1).'px;';
+		if($is_IE) echo 'flex-basis: '.($perc_ratio - 5).'%;';
 	echo '}';
 } 
 ?>
@@ -749,7 +767,8 @@ if($hiilite_options['portfolio_on']): ?>
 .color_two 	{ color: <?=$hiilite_options['color_two'];?>; }
 .color_three{ color: <?=$hiilite_options['color_three'];?>; }
 .color_four { color: <?=$hiilite_options['color_four'];?>; }
-.white, .page-title h1.white { color:white; }
+.white, .page-title h1.white, 
+.white h1, .white h2, .white h3, .white h4, .white h5, .white h6, .white p { color:white; }
 .bg_color_one  { background-color: <?=$hiilite_options['color_one'];?>; }
 .bg_color_two 	{ background-color: <?=$hiilite_options['color_two'];?>; }
 .bg_color_three{ background-color: <?=$hiilite_options['color_three'];?>; }
@@ -795,6 +814,10 @@ strong.label {
 	vertical-align:bottom;
 	align-self: flex-end;
 	margin: auto auto 0 auto;
+}
+.row-o-content-bottom .container_inner {
+    margin-top: auto;
+    margin-bottom: 0;
 }
 .align-top-left {
 	vertical-align:top;
@@ -879,10 +902,10 @@ if($hiilite_options['testimonials_on']):
 .testimonial_item {
     padding: 0 3em;
 }
-.testimonial-slider .testimonial_content { 
+.testimonial_content { 
 	<?php get_font_css($hiilite_options[ 'testimonials_body_font' ]); ?>
 }
-.testimonial-slider .testimonial_author {
+.testimonial_author {
 	<?php get_font_css($hiilite_options[ 'testimonials_author_font' ]); ?>
 }
 <?php endif ?>
@@ -895,7 +918,7 @@ if($hiilite_options['testimonials_on']):
 	padding: 0;
 	list-style: none; 
 }
-input,textarea {padding: 1em;border: 1px solid gray; font-size: 1rem;}
+input,textarea {padding:0.5em 1em;border: 1px solid gray; font-size: 1rem;}
 
 .gfield {
     margin-bottom: 2em;

@@ -1,15 +1,5 @@
 <?php
-/*
-Plugin Name: CMB2 Field Type: Select2
-Plugin URI: https://github.com/mustardBees/cmb-field-select2
-GitHub Plugin URI: https://github.com/mustardBees/cmb-field-select2
-Description: Select2 field type for CMB2.
-Version: 3.0.0
-Author: Phil Wylie
-Author URI: https://www.philwylie.co.uk/
-License: GPLv2+
-*/
-
+	if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 /**
  * Class PW_CMB2_Field_Select2
  */

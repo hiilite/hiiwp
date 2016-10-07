@@ -1,4 +1,5 @@
 <?php
+	if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 /**
  * CMB2 Conditionals.
  *
@@ -11,8 +12,6 @@
  * @license     http://creativecommons.org/licenses/GPL/2.0/ GNU General Public License, version 3 or higher
  *
  * @wordpress-plugin
- * Plugin Name:       CMB2 Conditionals
- * Plugin URI:        https://github.com/jcchavezs/cmb2-conditionals
  * Description:       Plugin to establish conditional relationships between fields in a CMB2 metabox.
  * Author:            José Carlos Chávez <jcchavezs@gmail.com>
  * Author URI:        http://github.com/jcchavezs

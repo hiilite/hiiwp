@@ -1,5 +1,5 @@
 <?php
-
+if(!defined('ABSPATH')){die('-1');}
 class nxs_Filters {
     public static $posts;
     public static $posts_types;

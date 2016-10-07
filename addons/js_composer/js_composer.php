@@ -1,13 +1,4 @@
-<?php
-/*
-Plugin Name: WPBakery Visual Composer
-Plugin URI: http://vc.wpbakery.com
-Description: Drag and drop page builder for WordPress. Take full control over your WordPress site, build any layout you can imagine – no programming knowledge required.
-Version: 4.11.2
-Author: Michael M - WPBakery.com
-Author URI: http://wpbakery.com
-*/
-
+<?php 
 // don't load directly
 if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );

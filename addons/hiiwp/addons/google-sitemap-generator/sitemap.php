@@ -1,49 +1,5 @@
 <?php
-
-/*
- $Id: sitemap.php 1026247 2014-11-15 16:47:36Z arnee $
-
- Google XML Sitemaps Generator for WordPress
- ==============================================================================
-
- This generator will create a sitemaps.org compliant sitemap of your WordPress blog.
-
- For additional details like installation instructions, please check the readme.txt and documentation.txt files.
-
- Have fun!
-   Arne
-
- Info for WordPress:
- ==============================================================================
- Plugin Name: Google XML Sitemaps
- Plugin URI: http://www.arnebrachhold.de/redir/sitemap-home/
- Description: This plugin will generate a special XML sitemap which will help search engines like Google, Yahoo, Bing and Ask.com to better index your blog.
- Version: 4.0.8
- Author: Arne Brachhold
- Author URI: http://www.arnebrachhold.de/
- Text Domain: sitemap
- Domain Path: /lang
-
-
- Copyright 2005 - 2014 ARNE BRACHHOLD  (email : himself - arnebrachhold - de)
-
- This program is free software; you can redistribute it and/or modify
- it under the terms of the GNU General Public License as published by
- the Free Software Foundation; either version 2 of the License, or
- (at your option) any later version.
-
- This program is distributed in the hope that it will be useful,
- but WITHOUT ANY WARRANTY; without even the implied warranty of
- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- GNU General Public License for more details.
-
- You should have received a copy of the GNU General Public License
- along with this program; if not, write to the Free Software
- Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
- Please see license.txt for the full license.
-
-*/
+if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
 define("SM_SUPPORTFEED_URL","http://plugin-info.arnebrachhold.de/support/support_4.xml");
 

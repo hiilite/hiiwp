@@ -1,8 +1,9 @@
 <?php
 global $hiilite_options;
 
-$post_meta = get_post_meta(get_the_id());
+$post_meta = get_post_meta(get_the_id()); 
 ?>
+<!--PAGE-LOOP-->
 <article  <?php post_class('row'); ?> itemscope itemtype="http://schema.org/Article" id="post-<?php the_ID(); ?>" >
 	<meta itemscope itemprop="mainEntityOfPage"  itemType="https://schema.org/WebPage" itemid="<?php bloginfo('url')?>"/>
 	<div class="in_grid">
@@ -32,7 +33,7 @@ $post_meta = get_post_meta(get_the_id());
 				
 	the_content();
 	
-	$options = get_option('company_options'); ?>
+	$options = get_option('hii_seo_settings'); ?>
 		<div itemprop="publisher" itemscope itemtype="https://schema.org/Organization">
 			<div itemprop="logo" itemscope itemtype="https://schema.org/ImageObject">
 			  <meta itemprop="url" content="<?=$options['business_logo']?>">
@@ -45,7 +46,7 @@ $post_meta = get_post_meta(get_the_id());
 ?>
 		</div>
 	</div>
-<article><?php
+</article><?php
 
 	
 ?>

@@ -1,4 +1,5 @@
 <?php
+	if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 /*
  * Year Range field type.. two year-pickers, start and end.
  * Screenshot: http://b.ustin.co/15lKk

@@ -58,13 +58,12 @@ Kirki::add_field( 'hiiwp', array(
     'section'     => 'title_section',
     'priority'    => 7,
     'default'     => array(
-		'color'    => '',
+		'color'    => 'transparent',
 		'image'    => '',
 		'repeat'   => 'no-repeat',
 		'size'     => 'cover',
 		'attach'   => 'fixed',
 		'position' => 'left-top',
-		'opacity'  => 90,
 	),
 	'output' => '.page-title',
 ) );

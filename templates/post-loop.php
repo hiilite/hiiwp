@@ -96,9 +96,9 @@ if($hiilite_options['subdomain'] != 'iframe'):
 				
 								
 				if(is_active_sidebar('post_sidebar')){	
-				echo '<aside class="quarter-width content-box  align-top align-center">';
+				echo '<aside class="quarter-width content-box  align-top">';
 					dynamic_sidebar( 'post_sidebar' );
-				echo '</aside>';
+				echo '</aside>'; 
 				}
 			echo '</div>';
 			endif;

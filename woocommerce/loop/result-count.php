@@ -21,13 +21,13 @@
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
 }
-
+echo '<!--RESULT-COUNT-->';
 global $wp_query;
 
 if ( ! woocommerce_products_will_display() )
 	return;
 ?>
-<p class="woocommerce-result-count col-12">
+<p class="woocommerce-result-count">
 	<?php
 	$paged    = max( 1, $wp_query->get( 'paged' ) );
 	$per_page = $wp_query->get( 'posts_per_page' );

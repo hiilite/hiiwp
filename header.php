@@ -168,7 +168,7 @@ echo minify_css($body);
 						</a>
 					</div>
 
-					<?php if($hiilite_options['header_center_right_on'] && $hiilite_options['header_type'] == 'centered'){ ?>
+					<?php if($hiilite_options['header_center_right_on']){ ?>
 					<div id="header_center_right" class="align-right flex-item">
 						<?php 
 						if ( is_active_sidebar( 'header_center_right' ) ) :

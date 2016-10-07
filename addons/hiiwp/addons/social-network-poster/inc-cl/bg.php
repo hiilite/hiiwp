@@ -1,4 +1,5 @@
 <?php    
+	if(!defined('ABSPATH')){die('-1');}
 //## NextScripts Blogger  Connection Class
 $nxs_snapAvNts[] = array('code'=>'BG', 'lcode'=>'bg', 'name'=>'Blogger');
 

@@ -21,6 +21,16 @@ return array(
 			'std' => true,
 		),
 		array(
+			'type' => 'dropdown',
+			'param_name' => 'slider_type',
+			'value' => array(
+				__( 'Default', 'js_composer' ) => 'default',
+				'Angled' => 'angled',
+			),
+			'default' => 'default',
+			'heading' => __( 'Slider Type', 'js_composer' ),
+		),
+		array(
 			'type' => 'textfield',
 			'heading' => __( 'Slider Width', 'js_composer' ),
 			'param_name' => 'slider_width',
@@ -28,18 +38,18 @@ return array(
 			'description' => __( '(px) Slider is responsive, but needs a set width and height to calculate ratio for images', 'js_composer' ),
 		),
 		array(
-			'type' => 'checkbox',
-			'heading' => __( 'Full Height', 'js_composer' ),
-			'param_name' => 'slider_full_height',
-			'value'		 => 'true',
-			'description' => __( 'Set the slider to be the full height of the screen', 'js_composer' ),
-		),
-		array(
 			'type' => 'textfield',
 			'heading' => __( 'Slider Height', 'js_composer' ),
 			'param_name' => 'slider_height',
 			'value'		 => '530',
 			'description' => __( '(px) Slider is responsive, but needs a set width and height to calculate ratio for images', 'js_composer' ),
+		),
+		array(
+			'type' => 'checkbox',
+			'heading' => __( 'Full Height', 'js_composer' ),
+			'param_name' => 'slider_full_height',
+			'value'		 => false,
+			'description' => __( 'Set the slider to be the full height of the screen', 'js_composer' ),
 		),
 		array(
 			'type' => 'dropdown',

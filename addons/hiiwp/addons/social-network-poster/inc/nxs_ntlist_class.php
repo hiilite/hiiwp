@@ -1,5 +1,5 @@
 <?php
-
+if(!defined('ABSPATH')){die('-1');}
 class nxs_snapClassNT {    
     var $nt = array(); var $ntInfo = array(); var $noFuncMsg = ''; var $wp_ntwrksSaveName='NS_SNAutoPoster';
     

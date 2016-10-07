@@ -1,18 +1,11 @@
 <?php
-/*
-Plugin Name: Post Types Order
-Plugin URI: http://www.nsp-code.com
-Description: Posts Order and Post Types Objects Order using a Drag and Drop Sortable javascript capability
-Author: Nsp Code
-Author URI: http://www.nsp-code.com 
-Version: 1.8.7
-Text Domain: post-types-order
-Domain Path: /languages/
-*/
-
+	// don't load directly
+if ( ! defined( 'ABSPATH' ) ) {
+	die( '-1' );
+}
     define('CPTPATH', dirname(__FILE__));
     define('CPTURL',   get_theme_root_uri().'/hiiwp/addons/post-types-order');
-
+ 
 
     register_deactivation_hook(__FILE__, 'CPTO_deactivated');
     register_activation_hook(__FILE__, 'CPTO_activated');

@@ -1,5 +1,5 @@
 <style>
-amp-carousel[type=slides]{
+amp-carousel{
 	overflow: hidden;
 	display: block;
     position: relative;

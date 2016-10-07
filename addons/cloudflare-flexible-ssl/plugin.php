@@ -1,13 +1,8 @@
 <?php
-/*
- * Plugin Name: CloudFlare Flexible SSL
- * Plugin URI: http://icwp.io/2f
- * Description: Fix For CloudFlare Flexible SSL Redirect Loop For WordPress
- * Version: 1.2.2
- * Text Domain: cloudflare-flexible-ssl
- * Author: iControlWP
- * Author URI: http://icwp.io/2e
- */
+// don't load directly
+if ( ! defined( 'ABSPATH' ) ) {
+	die( '-1' );
+}
 
 /**
  * Copyright (c) 2016 iControlWP <support@icontrolwp.com>

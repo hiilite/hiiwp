@@ -1,14 +1,5 @@
 <?php
-/*
-Plugin Name: CMB2 Metatabs Options
-Plugin URI:  https://github.com/rogerlos/cmb2-metatabs-options
-Description: Add admin option pages with multiple metaboxes--and place those metaboxes into optional tabs. Requires CMB2.
-Version:     1.1.1
-Author:      Roger Los
-Author URI:  https://github.com/rogerlos
-Text Domain: cmb2
-License:     GPLv2 or later
- */
+if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
 if ( ! defined( 'WPINC' ) ) die;
 require 'autoloader.php';

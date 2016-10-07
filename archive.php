@@ -7,8 +7,14 @@ if(have_posts()):
 
 	while(have_posts()):
 		the_post();
+		$post_type = get_post_type(get_the_ID());
+		if ($post_type == get_theme_mod( 'testimonials_slug', 'testimonials' )){
+				get_template_part('templates/testimonial', 'loop');
+		} else {
+				get_template_part('templates/blog', 'loop');
+		}
 		
-		get_template_part('templates/blog', 'loop');
+		
 		
 		
 	endwhile;

@@ -1,16 +1,24 @@
 <?php
+/*
+	
+	TODO:
+	-	Make Title and feature image turn on by default in customizer	
+*/
 global $hiilite_options;
 $post_meta = get_post_meta(get_the_id());
 $hiilite_options['amp'] = get_theme_mod('amp');
 if($hiilite_options['amp']) $_amp = 'amp-'; else $_amp = '';
 if($hiilite_options['subdomain'] != 'iframe'):
 ?>
+<!--PORTFOLIO_PIECE-LOOP-->
 <article  <?php post_class('row'); ?> itemscope itemtype="http://schema.org/Article" id="post-<?php the_ID(); ?>" >
 	
 	<meta itemscope itemprop="mainEntityOfPage"  itemType="https://schema.org/WebPage" itemid="<?php bloginfo('url')?>"/>
 <?php
 echo '<div class="container_inner">';
-?><div class="full-width">
+$show_featureimage = false;
+if($show_featureimage):
+?><div class="full-width"> 
 	<?php
 		
 		if(has_post_thumbnail($post->id) && get_post_meta(get_the_id(), 'hide_page_feature_image', true) != 'on'): 
@@ -29,17 +37,23 @@ echo '<div class="container_inner">';
 	</figure>
 	<?php endif; ?>
 </div><?php
-echo '<div class="threequarter-width content-box  align-top">';
+	endif;
+echo '<div class="full-width  align-top">';
 	?>
 	<span itemprop="articleSection" class="labels"><?php the_category(' '); ?></span>
 	<meta itemprop="dateModified" content="<?php the_modified_date('Y-m-d'); ?>">
 	<meta itemprop="datePublished" content="<?php the_time('Y-m-d'); ?>">
 	<?php
+		
+		$show_title = false;
+		if($show_title):
 	if(is_single() && get_post_meta(get_the_id(), 'show_page_title', true) != 'on'){
 		echo '<h1 itemprop="headline">';
 		the_title();
 		echo '</h1>';
 	}
+	
+	endif;
 ?>
 
 <span itemprop="author" itemscope itemtype="https://schema.org/Person"><meta itemprop="name" content="<?php the_author_meta('display_name'); ?>"></span>
@@ -70,7 +84,7 @@ echo '<div class="threequarter-width content-box  align-top">';
 		</div>
 	<?php }
 		
-	$options = get_option('company_options'); ?>
+	$options = get_option('hii_seo_settings'); ?>
 			<div itemprop="publisher" itemscope itemtype="https://schema.org/Organization">
 				<div itemprop="logo" itemscope itemtype="https://schema.org/ImageObject">
 				  <meta itemprop="url" content="<?=$options['business_logo']?>">
@@ -83,12 +97,14 @@ echo '<div class="threequarter-width content-box  align-top">';
 		echo '</div>';
 		
 					
-		echo '<aside class="quarter-width content-box  align-top align-center">';
+		/*echo '<aside class="quarter-width content-box  align-top align-center">';
 			dynamic_sidebar( 'post_sidebar' );
-		echo '</aside>';
+		echo '</aside>';*/
 		
 echo '</div>';
 endif;
+$show_more_projects = false;
+if($show_more_projects):
 ?>
 <aside class="col-12">
 	<div class="align-center">
@@ -119,6 +135,7 @@ endif;
 	</amp-carousel>
 </aside>
 <?php
+	endif;
 /*
 if($hiilite_options['subdomain'] != 'iframe'){
 	echo '<div class="iframe-content container_inner">';

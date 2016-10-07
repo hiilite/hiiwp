@@ -799,16 +799,16 @@ function hii_seo_options_page() {
         'type'       => 'select',
         'show_names' => false,
         'options'	=> array(
-	        'facebook' => 'Facebook',
-	        'twitter' => 'Twitter',
-	        'google-plus' => 'Google+',
-	        'instagram' => 'Instagram',
-	        'youtube' => 'YouTube',
-	        'linkedIn' => 'LinkedIn',
-	        'myspace' => 'Myspace',
-	        'pinterest' => 'Pinterest',
-	        'soundcloud' => 'SoundCloud',
-	        'tumblr' => 'Tumblr',
+	        'Facebook' => 'Facebook',
+	        'Twitter' => 'Twitter',
+	        'Google+' => 'Google+',
+	        'Instagram' => 'Instagram',
+	        'YouTube' => 'YouTube',
+	        'LinkedIn' => 'LinkedIn',
+	        'Myspace' => 'Myspace',
+	        'Pinterest' => 'Pinterest',
+	        'SoundCloud' => 'SoundCloud',
+	        'Tumblr' => 'Tumblr',
         ),
     ));
     
@@ -1037,7 +1037,7 @@ function add_graph_data(){
 	$html .= '"url" : "'.get_bloginfo('url').'",';
 	if($options['business_logo']!='')$html .= '"logo" : "'.$options['business_logo'].'",';
 	if($options['business_email']!='')$html .= '"email" : "'.$options['business_email'].'",';
-	if($options['business_telephone_numbers']!='')$html .= '"telephone" : "'.$options['business_telephone_numbers'][0]['business_telephone'].'",';
+	if($options['business_telephone']!='')$html .= '"telephone" : "'.$options['business_telephone'].'",';
 	if($options['business_faxNumber']!='')$html .= '"faxNumber" : "'.$options['business_faxNumber'].'",';
 	if($options['business_description']!='')$html .= ' "description" : "'.$options['business_description'].'",';
 	if($options['business_name']!='')$html .= ' "name" : "'.$options['business_name'].'",';
@@ -1046,26 +1046,25 @@ function add_graph_data(){
 		"telephone" : "'.$options['business_telephone'].'",
 		"contactType" : "'.$options['business_contactType'].'"
 	  }],';
-	if(count($options['business_social']) > 0){
-	 $html .= '"sameAs" : [';
-	 $comma = '';
-	
+	if(isset($options['business_social'])){
+		 $html .= '"sameAs" : [';
+		 $comma = '';
 		foreach($options['business_social'] as $socialprofile):
 			$html .= $comma.'"'.$socialprofile['social_url'].'"';
 			$comma = ',';
-		endforeach;
-	
-	 $html.= ' ],';
+	endforeach;
 	}
-	$html .= '"address": {
-		"@type": "PostalAddress",';
-		if($options['business_address']['city']!='')$html .= '"addressLocality": "'.$options['business_address']['city'].'",';
-		if($options['business_address']['state']!='')$html .= '"addressRegion": "'.$options['business_address']['state'].'",';
-		if($options['business_address']['address-1']!='')$html .= '"streetAddress": "'.$options['business_address']['address-1'].'",';
-		if($options['business_address']['country']!='')$html .= '"addressCountry": "'.$options['business_address']['country'].'",';
-		if($options['business_address']['zip']!='')$html .= '"postalCode": "'.$options['business_address']['zip'].'"';
-	$html.='  }';
-
+	if (isset($options['business_address'])){
+		$html.= ' ],
+		  "address": {
+			"@type": "PostalAddress",';
+			if($options['business_address']['city']!='')$html .= '"addressLocality": "'.$options['business_address']['city'].'",';
+			if($options['business_address']['state']!='')$html .= '"addressRegion": "'.$options['business_address']['state'].'",';
+			if($options['business_address']['address-1']!='')$html .= '"streetAddress": "'.$options['business_address']['address-1'].'",';
+			if($options['business_address']['country']!='')$html .= '"addressCountry": "'.$options['business_address']['country'].'",';
+			if($options['business_address']['zip']!='')$html .= '"postalCode": "'.$options['business_address']['zip'].'"';
+		$html.='  }';
+	}
 	$html .= '}</script>';
 	echo $html;
 	
@@ -1111,7 +1110,7 @@ function add_graph_data(){
 			},';
 		endif;
 	}
-	if(count($options['business_telephone_numbers']) > 0) {
+	if(isset($options['business_telephone_numbers'])){
 		foreach($options['business_telephone_numbers'] as $number){
 			if($options['business_telephone']!='')$html .= ' "contactPoint" : [{
 			"@type" : "ContactPoint",
@@ -1121,21 +1120,19 @@ function add_graph_data(){
 		}
 	}
 	
-	if(count($options['business_openingHoursSpecification']) > 0) {
+	if(isset($options['business_openingHoursSpecification'])){
 		$html .= '"openingHoursSpecification" : [';
 		$comma = '';
 		foreach($options['business_openingHoursSpecification'] as $hourset):
-		 	
+		 
 			$html .= $comma.'{
 				    "@type": "OpeningHoursSpecification",
 				    "dayOfWeek": [';
 				$comma2 ='';
-				if(isset($hourset['dayOfWeek'])):
-					foreach($hourset['dayOfWeek'] as $key=>$day){
-						$html .= $comma2.'"'.$day.'"';
-						$comma2 =',';
-					}
-				endif;
+				foreach($hourset['dayOfWeek'] as $key=>$day){
+					$html .= $comma2.'"'.$day.'"';
+					$comma2 =',';
+				}
 				
 			$html .= '],
 				    "opens": "'.$hourset['opens'].'",
@@ -1143,27 +1140,27 @@ function add_graph_data(){
 				  }';
 			$comma = ',';
 		endforeach;
-	
 		$html .= ' ],';
 	}
-	if(count($options['business_social']) > 0) {
+	if(isset($options['business_social'])){
 		$html .= '"sameAs" : [';
 		$comma = '';
-		
 		foreach($options['business_social'] as $socialprofile):
 			$html .= $comma.'"'.$socialprofile['social_url'].'"';
 			$comma = ',';
 		endforeach;
 		$html.= ' ],';
 	}
-	$html .= '"address": {
-		"@type": "PostalAddress",';
-		if($options['business_address']['city']!='')$html .= '"addressLocality": "'.$options['business_address']['city'].'",';
-		if($options['business_address']['state']!='')$html .= '"addressRegion": "'.$options['business_address']['state'].'",';
-		if($options['business_address']['address-1']!='')$html .= '"streetAddress": "'.$options['business_address']['address-1'].'",';
-		if($options['business_address']['country']!='')$html .= '"addressCountry": "'.$options['business_address']['country'].'",';
-		if($options['business_address']['zip']!='')$html .= '"postalCode": "'.$options['business_address']['zip'].'"';
-	$html.='  }';
+	if(isset($options['business_address'])){
+		$html .= '"address": {
+			"@type": "PostalAddress",';
+			if($options['business_address']['city']!='')$html .= '"addressLocality": "'.$options['business_address']['city'].'",';
+			if($options['business_address']['state']!='')$html .= '"addressRegion": "'.$options['business_address']['state'].'",';
+			if($options['business_address']['address-1']!='')$html .= '"streetAddress": "'.$options['business_address']['address-1'].'",';
+			if($options['business_address']['country']!='')$html .= '"addressCountry": "'.$options['business_address']['country'].'",';
+			if($options['business_address']['zip']!='')$html .= '"postalCode": "'.$options['business_address']['zip'].'"';
+		$html.='  }';
+	}
 	  if($options['business_geo_latitude']!='' && $options['business_geo_longitude']!=''){$html .= ', "geo": {
 		"@type": "GeoCoordinates",
 		"latitude": "'.$options['business_geo_latitude'].'",

@@ -61,501 +61,845 @@ function hiilite_listing_init() {
 	
 }
 
-function listing_meta_box_markup($object)
-{
-	global $post;
+
+
+
+
+/*
+ * Add each meta box in call order
+ */
+ add_action('cmb2_admin_init', 'cmb2_listing_photos_metaboxes');
+ add_action('cmb2_admin_init', 'cmb2_listing_general_metaboxes');
+ add_action('cmb2_admin_init', 'cmb2_listing_property_metaboxes');
+ add_action('cmb2_admin_init', 'cmb2_listing_address_metaboxes');
+ add_action('cmb2_admin_init', 'cmb2_listing_mls_metaboxes');
+ add_action('cmb2_admin_init', 'cmb2_listing_tax_metaboxes');
+ 
+ add_action('cmb2_admin_init', 'cmb2_listing_office_metaboxes');
+ add_action('cmb2_admin_init', 'cmb2_listing_agent_metaboxes');
+ 
+ // Closed
+ add_action('cmb2_admin_init', 'cmb2_listing_coAgent_metaboxes');
+ add_action('cmb2_admin_init', 'cmb2_listing_geo_metaboxes');
+ add_action('cmb2_admin_init', 'cmb2_listing_association_metaboxes');
+ add_action('cmb2_admin_init', 'cmb2_listing_extras_metaboxes');
+
+
+function cmb2_listing_photos_metaboxes(){
+	//////////////////////////////////
+	// Generic Options Listing
+	/////////////////////////////////
+    $cmb = new_cmb2_box( array(
+        'id'            => 'listing_photos',
+        'title'         => 'Listing Photos',
+        'object_types'  => array( 'listing' ), // post type
+        'context'       => 'normal', // 'normal', 'advanced' or 'side'
+        'priority'      => 'high', // 'high', 'core', 'default' or 'low'
+        'show_names'    => true, // show field names on the left
+        'cmb_styles'    => true, // false to disable the CMB stylesheet
+        'closed'        => false, // keep the metabox closed by default
+    ) );
+    
+    $cmb->add_field( array(
+	    'name' => 'photos',
+	    'id'   => 'photos',
+	    'type' => 'file_list',
+	) );
+}
+
+
+function cmb2_listing_general_metaboxes(){
+	//////////////////////////////////
+	// Generic Options Listing
+	/////////////////////////////////
+    $cmb = new_cmb2_box( array(
+        'id'            => 'listing_options',
+        'title'         => 'Listing General',
+        'object_types'  => array( 'listing' ), // post type
+        'context'       => 'normal', // 'normal', 'advanced' or 'side'
+        'priority'      => 'high', // 'high', 'core', 'default' or 'low'
+        'show_names'    => true, // show field names on the left
+        'cmb_styles'    => true, // false to disable the CMB stylesheet
+        'closed'        => false, // keep the metabox closed by default
+    ) );
+    
+    $cmb->add_field( array(
+	    'name' => 'mlsId',
+	    'id'   => 'mlsId',
+	    'type' => 'text_small',
+	    'default' => '',
+	    'desc' => 'Not public' 
+	) );
+	$cmb->add_field( array(
+	    'name' => 'listingId',
+	    'id'   => 'listingId',
+	    'type' => 'text_small',
+	    'default' => '',
+	    'desc' => 'Visible on listing',
+	) );
+	$cmb->add_field( array(
+	    'name' => 'List Price',
+	    'id'   => 'listPrice',
+	    'type' => 'text_small',
+	    'default' => '',
+	) );
 	
-	$gallery_data = get_post_meta( $post->ID, 'gallery_data', true );
-	wp_nonce_field(basename(__FILE__), "meta-box-nonce");
+	
+	$cmb->add_field( array(
+	    'name' => 'virtualTourUrl',
+	    'id'   => 'virtualTourUrl',
+	    'type' => 'text_url',
+	    'default' => '',
+	) );
+	
+	
+	$cmb->add_field( array(
+	    'name' => 'Date Listed',
+	    'id'   => 'listDate',
+	    'type' => 'text_date',
+	    'default' => '',
+	) );
+	$cmb->add_field( array(
+	    'name' => 'Date Last Modified',
+	    'id'   => 'modified',
+	    'type' => 'text_date',
+	    'default' => '',
+	) );
+	
+	$cmb->add_field( array(
+	    'name' => 'Size',
+	    'id'   => 'property-area',
+	    'type' => 'text_small',
+	    'desc' => 'Interior Sqft',
+	) );
+	
+	$cmb->add_field( array(
+	    'name' => 'Bedrooms',
+	    'id'   => 'property-bedrooms',
+	    'type' => 'text_small',
+	) );
+	
+	$cmb->add_field( array(
+	    'name' => 'Bathrooms',
+	    'id'   => 'property-bathrooms',
+	    'type' => 'text_small',
+	) );
+	$cmb->add_field( array(
+	    'name' => 'Type',
+	    'id'   => 'property-subType',
+	    'type' => 'text_small',
+	) );
+	
+	$cmb->add_field( array(
+	    'name' => 'remarks',
+	    'id'   => 'remarks',
+	    'type' => 'textarea',
+	    'default' => '',
+	    'desc' => 'Post content will take precedence over remarks'
+	) );
+	
+	
+	
+}
 
-    ?>
-    <div id="dynamic_form">
- 
-	    <div id="field_wrap">
-	    <?php 
-	    if ( isset( $gallery_data['image_url'] ) ) 
-	    {
-	        for( $i = 0; $i < count( $gallery_data['image_url'] ); $i++ ) 
-	        {
-	        ?>
-	 
-	        <div class="field_row">
-	 
-	          <div class="field_left">
-	            <div class="form_field">
-	              <label>Image URL</label>
-	              <input type="text"
-	                     class="meta_image_url"
-	                     name="gallery[image_url][]"
-	                     value="<?php esc_html_e( $gallery_data['image_url'][$i] ); ?>"
-	              />
-	            </div>
-	          </div>
-	 
-	          <div class="field_right image_wrap">
-	            <img src="<?php esc_html_e( $gallery_data['image_url'][$i] ); ?>" height="48" width="48" />
-	          </div>
-	 
-	          <div class="field_right">
-	            <input class="button" type="button" value="Choose File" onclick="add_image(this)" /><br />
-	            <input class="button" type="button" value="Remove" onclick="remove_field(this)" />
-	          </div>
-	 
-	          <div class="clear" /></div> 
-	        </div>
-	        <?php
-	        } // endif
-	    } // endforeach
-	    ?>
-	    </div>
-	    <style type="text/css">
-      .field_left {
-        float:left;
-      }
- 
-      .field_right {
-        float:left;
-        margin-left:10px;
-      }
- 
-      .clear {
-        clear:both;
-      }
- 
-      #dynamic_form {
-        width:580px;
-      }
- 
-      #dynamic_form input[type=text] {
-        width:300px;
-      }
- 
-      #dynamic_form .field_row {
-        border:1px solid #999;
-        margin-bottom:10px;
-        padding:10px;
-      }
- 
-      #dynamic_form label {
-        padding:0 6px;
-      }
-    </style>
- 
-    <script type="text/javascript">
-        function add_image(obj) {
-            var parent=jQuery(obj).parent().parent('div.field_row');
-            var inputField = jQuery(parent).find("input.meta_image_url");
- 
-            tb_show('', 'media-upload.php?TB_iframe=true');
- 
-            window.send_to_editor = function(html) {
-                var url = jQuery(html).find('img').attr('src');
-                inputField.val(url);
-                jQuery(parent)
-                .find("div.image_wrap")
-                .html('<img src="'+url+'" height="48" width="48" />');
- 
-                // inputField.closest('p').prev('.awdMetaImage').html('<img height=120 width=120 src="'+url+'"/><p>URL: '+ url + '</p>'); 
- 
-                tb_remove();
-            };
- 
-            return false;  
-        }
- 
-        function remove_field(obj) {
-            var parent=jQuery(obj).parent().parent();
-            //console.log(parent)
-            parent.remove();
-        }
- 
-        function add_field_row() {
-            var row = jQuery('#master-row').html();
-            jQuery(row).appendTo('#field_wrap');
-        }
-    </script>
-	 
-	    <div style="display:none" id="master-row">
-	    <div class="field_row">
-	        <div class="field_left">
-	            <div class="form_field">
-	                <label>Image URL</label>
-	                <input class="meta_image_url" value="" type="text" name="gallery[image_url][]" />
-	            </div>
-	        </div>
-	        <div class="field_right image_wrap">
-	        </div> 
-	        <div class="field_right"> 
-	            <input type="button" class="button" value="Choose File" onclick="add_image(this)" />
-	            <br />
-	            <input class="button" type="button" value="Remove" onclick="remove_field(this)" /> 
-	        </div>
-	        <div class="clear"></div>
-	    </div>
-	    </div>
-	 
-	    <div id="add_field_row">
-	      <input class="button" type="button" value="Add Field" onclick="add_field_row();" />
-	    </div>
-	 
-	</div>
-
-        <div>
-	        <p>
-            	<label for="_listing[property-roof]">Roof</label>
-            	<input name="_listing[property-roof]" type="text" value="<?php echo get_post_meta($object->ID, "_listing-property-roof", true); ?>">
-	        </p>
-	        
-	        <p>
-            	<label for="_listing[property-cooling]">cooling</label>
-            	<input name="_listing[property-cooling]" type="text" value="<?php echo get_post_meta($object->ID, "_listing-property-cooling", true); ?>">
-	        </p>
-	        
-	        <p>
-            	<label for="_listing[property-style]">style</label>
-            	<input name="_listing[property-style]" type="text" value="<?php echo get_post_meta($object->ID, "_listing-property-style", true); ?>">
-	        </p>
-	        
-	        <p>
-            	<label for="_listing[property-area]">area</label>
-            	<input name="_listing[property-area]" type="text" value="<?php echo get_post_meta($object->ID, "_listing-property-area", true); ?>">
-	        </p>
-	        
-	        <p>
-            	<label for="_listing[property-bathsFull]">bathsFull</label>
-            	<input name="_listing[property-bathsFull]" type="text" value="<?php echo get_post_meta($object->ID, "_listing-property-bathsFull", true); ?>">
-	        </p>
-	        
-	        <p>
-            	<label for="_listing[property-bathsHalf]">bathsHalf</label>
-            	<input name="_listing[property-bathsHalf]" type="text" value="<?php echo get_post_meta($object->ID, "_listing-property-bathsHalf", true); ?>">
-	        </p>
-	        
-	        <p>
-            	<label for="_listing[property-stories]">stories</label>
-            	<input name="_listing[property-stories]" type="text" value="<?php echo get_post_meta($object->ID, "_listing-property-stories", true); ?>">
-	        </p>
-	        
-	        <p>
-            	<label for="_listing[property-fireplaces]">fireplaces</label>
-            	<input name="_listing[property-fireplaces]" type="text" value="<?php echo get_post_meta($object->ID, "_listing-property-fireplaces", true); ?>">
-	        </p>
-	        
-	        <p>
-            	<label for="_listing[property-flooring]">flooring</label>
-            	<input name="_listing[property-flooring]" type="text" value="<?php echo get_post_meta($object->ID, "_listing-property-flooring", true); ?>">
-	        </p>
-	        
-	        <p>
-            	<label for="_listing[property-heating]">heating</label>
-            	<input name="_listing[property-heating]" type="text" value="<?php echo get_post_meta($object->ID, "_listing-property-heating", true); ?>">
-	        </p>
-	        
-	        <p>
-            	<label for="_listing[property-bathrooms]">bathrooms</label>
-            	<input name="_listing[property-bathrooms]" type="text" value="<?php echo get_post_meta($object->ID, "_listing-property-bathrooms", true); ?>">
-	        </p>
-	        
-	        <p>
-            	<label for="_listing[property-foundation]">foundation</label>
-            	<input name="_listing[property-foundation]" type="text" value="<?php echo get_post_meta($object->ID, "_listing-property-foundation", true); ?>">
-	        </p>
-	        
-	        <p>
-            	<label for="_listing[property-laundryFeatures]">laundryFeatures</label>
-            	<input name="_listing[property-laundryFeatures]" type="text" value="<?php echo get_post_meta($object->ID, "_listing-property-laundryFeatures", true); ?>">
-	        </p>
-	        
-	        <p>
-            	<label for="_listing[property-occupantName]">occupantName</label>
-            	<input name="_listing[property-occupantName]" type="text" value="<?php echo get_post_meta($object->ID, "_listing-property-occupantName", true); ?>">
-	        </p>
-	        
-	        <p>
-            	<label for="_listing[property-lotDescription]">occupantName</label>
-            	<input name="_listing[property-lotDescription]" type="text" value="<?php echo get_post_meta($object->ID, "_listing-property-lotDescription", true); ?>">
-	        </p>
-	        
-	        <p>
-            	<label for="_listing[property-subType]">subType</label>
-            	<input name="_listing[property-subType]" type="text" value="<?php echo get_post_meta($object->ID, "_listing-property-subType", true); ?>">
-	        </p>
-	        
-	        <p>
-            	<label for="_listing[property-bedrooms]">bedrooms</label>
-            	<input name="_listing[property-bedrooms]" type="text" value="<?php echo get_post_meta($object->ID, "_listing-property-bedrooms", true); ?>">
-	        </p>
-	        
-	        <p>
-            	<label for="_listing[property-interiorFeatures]">interiorFeatures</label>
-            	<input name="_listing[property-interiorFeatures]" type="text" value="<?php echo get_post_meta($object->ID, "_listing-property-interiorFeatures", true); ?>">
-	        </p>
-	        
-	        <p>
-            	<label for="_listing[property-lotSize]">lotSize</label>
-            	<input name="_listing[property-lotSize]" type="text" value="<?php echo get_post_meta($object->ID, "_listing-property-lotSize", true); ?>">
-	        </p>
-	        
-	        <p>
-            	<label for="_listing[property-areaSource]">lotSize</label>
-            	<input name="_listing[property-areaSource]" type="text" value="<?php echo get_post_meta($object->ID, "_listing-property-areaSource", true); ?>">
-	        </p>
-	        
-	        <p>
-            	<label for="_listing[property-additionalRooms]">additionalRooms</label>
-            	<input name="_listing[property-additionalRooms]" type="text" value="<?php echo get_post_meta($object->ID, "_listing-property-additionalRooms", true); ?>">
-	        </p>
-	        
-	        <p>
-            	<label for="_listing[property-exteriorFeatures]">exteriorFeatures</label>
-            	<input name="_listing[property-exteriorFeatures]" type="text" value="<?php echo get_post_meta($object->ID, "_listing-property-exteriorFeatures", true); ?>">
-	        </p>
-	        
-	        <p>
-            	<label for="_listing[property-water]">water</label>
-            	<input name="_listing[property-water]" type="text" value="<?php echo get_post_meta($object->ID, "_listing-property-water", true); ?>">
-	        </p>
-	        
-	        <p>
-            	<label for="_listing[property-view]">view</label>
-            	<input name="_listing[property-view]" type="text" value="<?php echo get_post_meta($object->ID, "_listing-property-view", true); ?>">
-	        </p>
-	        
-	        <p>
-            	<label for="_listing[property-subdivision]">subdivision</label>
-            	<input name="_listing[property-subdivision]" type="text" value="<?php echo get_post_meta($object->ID, "_listing-property-subdivision", true); ?>">
-	        </p>
-	        
-	        <p>
-            	<label for="_listing[property-construction]">construction</label>
-            	<input name="_listing[property-construction]" type="text" value="<?php echo get_post_meta($object->ID, "_listing-property-construction", true); ?>">
-	        </p>
-	        
-	        <p>
-            	<label for="_listing[property-type]">type</label>
-            	<input name="_listing[property-type]" type="text" value="<?php echo get_post_meta($object->ID, "_listing-property-type", true); ?>">
-	        </p>
-	        
-	        <p>
-            	<label for="_listing[property-accessibility]">accessibility</label>
-            	<input name="_listing[property-accessibility]" type="text" value="<?php echo get_post_meta($object->ID, "_listing-property-accessibility", true); ?>">
-	        </p>
-	        
-	        <p>
-            	<label for="_listing[property-occupantType]">occupantType</label>
-            	<input name="_listing[property-occupantType]" type="text" value="<?php echo get_post_meta($object->ID, "_listing-property-occupantType", true); ?>">
-	        </p>
-	        
-	        <p>
-            	<label for="_listing[property-yearBuilt]">yearBuilt</label>
-            	<input name="_listing[property-yearBuilt]" type="text" value="<?php echo get_post_meta($object->ID, "_listing-property-yearBuilt", true); ?>">
-	        </p>
-	        
-	        
-	        <p>
-            	<label for="_listing[mlsId]">mlsId</label>
-            	<input name="_listing[mlsId]" type="text" value="<?=get_post_meta($object->ID, "_listing-mlsId", true)?>">
-	        </p>
-	        
-	        <p>
-            	<label for="_listing[terms]">terms</label>
-            	<input name="_listing[terms]" type="text" value="<?=get_post_meta($object->ID, "_listing-terms", true)?>">
-	        </p>
-	        
-	        <p>
-            	<label for="_listing[showingInstructions]">showingInstructions</label>
-            	<input name="_listing[showingInstructions]" type="text" value="<?=get_post_meta($object->ID, "_listing-showingInstructions", true)?>">
-	        </p>
-	        
-	        <p>
-            	<label for="_listing[office-name]">office name</label>
-            	<input name="_listing[office-name]" type="text" value="<?=get_post_meta($object->ID, "_listing-office-name", true)?>">
-	        </p>
-	        <p>
-            	<label for="_listing[office-name]">office name</label>
-            	<input name="_listing[office-name]" type="text" value="<?=get_post_meta($object->ID, "_listing-office-name", true)?>">
-	        </p>
-	        <p>
-            	<label for="_listing[office-servingName]">office servingName</label>
-            	<input name="_listing[office-servingName]" type="text" value="<?=get_post_meta($object->ID, "_listing-office-servingName", true)?>">
-	        </p>
-	        <p>
-            	<label for="_listing[office-brokerid]">office brokerid</label>
-            	<input name="_listing[office-brokerid]" type="text" value="<?=get_post_meta($object->ID, "_listing-office-brokerid", true)?>">
-	        </p>
-	        
-	        <p>
-            	<label for="_listing[leaseTerm]">leaseTerm</label>
-            	<input name="_listing[leaseTerm]" type="text" value="<?=get_post_meta($object->ID, "_listing-leaseTerm", true)?>">
-	        </p>
-	        
-	        <p>
-            	<label for="_listing[disclaimer]">disclaimer</label>
-            	<input name="_listing[disclaimer]" type="text" value="<?=get_post_meta($object->ID, "_listing-disclaimer", true)?>">
-	        </p>
-	        
-	        <p>
-            	<label for="_listing[address-crossStreet]">address crossStreet</label>
-            	<input name="_listing[address-crossStreet]" type="text" value="<?=get_post_meta($object->ID, "_listing-address-crossStreet", true)?>">
-	        </p>
-	        <p>
-            	<label for="_listing[address-state]">address state</label>
-            	<input name="_listing[address-state]" type="text" value="<?=get_post_meta($object->ID, "_listing-address-state", true)?>">
-	        </p>
-	        <p>
-            	<label for="_listing[address-country]">address country</label>
-            	<input name="_listing[address-country]" type="text" value="<?=get_post_meta($object->ID, "_listing-address-country", true)?>">
-	        </p>
-	        <p>
-            	<label for="_listing[address-postalCode]">address postalCode</label>
-            	<input name="_listing[address-postalCode]" type="text" value="<?=get_post_meta($object->ID, "_listing-address-postalCode", true)?>">
-	        </p>
-	        <p>
-            	<label for="_listing[address-streetName]">address streetName</label>
-            	<input name="_listing[address-streetName]" type="text" value="<?=get_post_meta($object->ID, "_listing-address-streetName", true)?>">
-	        </p>	
-	        <p>
-            	<label for="_listing[address-city]">address city</label>
-            	<input name="_listing[address-city]" type="text" value="<?=get_post_meta($object->ID, "_listing-address-city", true)?>">
-	        </p>
-	        <p>
-            	<label for="_listing[address-streetNumber]">address streetNumber</label>
-            	<input name="_listing[address-streetNumber]" type="text" value="<?=get_post_meta($object->ID, "_listing-address-streetNumber", true)?>">
-	        </p>
-	        <p>
-            	<label for="_listing[address-full]">address full</label>
-            	<input name="_listing[address-full]" type="text" value="<?=get_post_meta($object->ID, "_listing-address-full", true)?>">
-	        </p>
-	        <p>
-            	<label for="_listing[address-unit]">address unit</label>
-            	<input name="_listing[address-unit]" type="text" value="<?=get_post_meta($object->ID, "_listing-address-unit", true)?>">
-	        </p>
-	        
-	        <p>
-            	<label for="_listing[listDate]">listDate</label>
-            	<input name="_listing[listDate]" type="text" value="<?=get_post_meta($object->ID, "_listing-listDate", true)?>">
-	        </p>
-	        
-	        <p><label for="_listing[agent-lastName]">agent lastName</label>
-            <input name="_listing[agent-lastName]" type="text" value="<?=get_post_meta($object->ID, "_listing-agent-lastName", true)?>"></p>
-            <p><label for="_listing[agent-contact]">agent contact</label>
-            <input name="_listing[agent-contact]" type="text" value="<?=get_post_meta($object->ID, "_listing-agent-contact", true)?>"></p>
-            <p><label for="_listing[agent-firstName]">agent firstName</label>
-            <input name="_listing[agent-firstName]" type="text" value="<?=get_post_meta($object->ID, "_listing-agent-firstName", true)?>"></p>
-            <p><label for="_listing[agent-id]">agent id</label>
-            <input name="_listing[agent-id]" type="text" value="<?=get_post_meta($object->ID, "_listing-agent-id", true)?>"></p>
-            
-            <p><label for="_listing[modified]">modified</label>
-            <input name="_listing[modified]" type="text" value="<?=get_post_meta($object->ID, "_listing-modified", true)?>"></p>
-            
-            <p><label for="_listing[school-middleSchool]">school middleSchool</label>
-            <input name="_listing[school-middleSchool]" type="text" value="<?=get_post_meta($object->ID, "_listing-school-middleSchool", true)?>"></p>
-            <p><label for="_listing[school-highSchool]">school highSchool</label>
-            <input name="_listing[school-highSchool]" type="text" value="<?=get_post_meta($object->ID, "_listing-school-highSchool", true)?>"></p>
-            <p><label for="_listing[school-elementarySchool]">school elementarySchool</label>
-            <input name="_listing[school-elementarySchool]" type="text" value="<?=get_post_meta($object->ID, "_listing-school-elementarySchool", true)?>"></p>
-            <p><label for="_listing[school-district]">school district</label>
-            <input name="_listing[school-district]" type="text" value="<?=get_post_meta($object->ID, "_listing-school-district", true)?>"></p>
-            
-            <p><label for="_listing[photos]">photos</label>
-            <input name="_listing[photos]" type="text" value="<?=get_post_meta($object->ID, "_listing-photos", true)?>"></p>
-            
-            <p><label for="_listing[listPrice]">listPrice</label>
-            <input name="_listing[listPrice]" type="text" value="<?=get_post_meta($object->ID, "_listing-listPrice", true)?>"></p>
-            
-            <p><label for="_listing[listingId]">listingId</label>
-            <input name="_listing[listingId]" type="text" value="<?=get_post_meta($object->ID, "_listing-listingId", true)?>"></p>
-            
-            <p><label for="_listing[mls-status]">mls status</label>
-            <input name="_listing[mls-status]" type="text" value="<?=get_post_meta($object->ID, "_listing-mls-status", true)?>"></p>
-            <p><label for="_listing[mls-area]">mls area</label>
-            <input name="_listing[mls-area]" type="text" value="<?=get_post_meta($object->ID, "_listing-mls-area", true)?>"></p>
-            <p><label for="_listing[mls-daysOnMarket]">mls daysOnMarket</label>
-            <input name="_listing[mls-daysOnMarket]" type="text" value="<?=get_post_meta($object->ID, "_listing-mls-daysOnMarket", true)?>"></p>
-            
-            <p><label for="_listing[geo-county]">geo county</label>
-            <input name="_listing[geo-county]" type="text" value="<?=get_post_meta($object->ID, "_listing-geo-county", true)?>"></p>
-            <p><label for="_listing[geo-lat]">geo lat</label>
-            <input name="_listing[geo-lat]" type="text" value="<?=get_post_meta($object->ID, "_listing-geo-lat", true)?>"></p>
-            <p><label for="_listing[geo-lng]">geo lng</label>
-            <input name="_listing[geo-lng]" type="text" value="<?=get_post_meta($object->ID, "_listing-geo-lng", true)?>"></p>
-            <p><label for="_listing[geo-marketArea]">geo marketArea</label>
-            <input name="_listing[geo-marketArea]" type="text" value="<?=get_post_meta($object->ID, "_listing-geo-marketArea", true)?>"></p>
-            <p><label for="_listing[geo-directions]">geo directions</label>
-            <input name="_listing[geo-directions]" type="text" value="<?=get_post_meta($object->ID, "_listing-geo-directions", true)?>"></p>
-            
-            <p><label for="_listing[tax-id]">tax id</label>
-            <input name="_listing[tax-id]" type="text" value="<?=get_post_meta($object->ID, "_listing-tax-id", true)?>"></p>
-            
-            <p><label for="_listing[leaseType]">leaseType</label>
-            <input name="_listing[leaseType]" type="text" value="<?=get_post_meta($object->ID, "_listing-leaseType", true)?>"></p>
-	        
-	        <p><label for="_listing[remarks]">remarks</label>
-            <input name="_listing[remarks]" type="text" value="<?=get_post_meta($object->ID, "_listing-remarks", true)?>"></p>
-	                
-            <hr>
-
-        </div>
-    <?php  
+function cmb2_listing_property_metaboxes(){
+	//////////////////////////////////
+	// Generic Options Listing
+	/////////////////////////////////
+    $cmb = new_cmb2_box( array(
+        'id'            => 'listing_property',
+        'title'         => 'Property Details',
+        'object_types'  => array( 'listing' ), // post type
+        'context'       => 'normal', // 'normal', 'advanced' or 'side'
+        'priority'      => 'high', // 'high', 'core', 'default' or 'low'
+        'show_names'    => true, // show field names on the left
+        'cmb_styles'    => true, // false to disable the CMB stylesheet
+        'closed'        => false, // keep the metabox closed by default
+    ) );
     
+	
+	$cmb->add_field( array(
+	    'name' => 'style',
+	    'id'   => 'property-style',
+	    'type' => 'text',
+	    'desc' => 'ex: 2 Storey w/Bsmt.',
+	) );
+	
+	$cmb->add_field( array(
+	    'name' => 'Bathrooms Full',
+	    'id'   => 'property-bathsFull',
+	    'type' => 'text_small',
+	) );
+	$cmb->add_field( array(
+	    'name' => 'Bathrooms Half',
+	    'id'   => 'property-bathsHalf',
+	    'type' => 'text_small',
+	) );
+	$cmb->add_field( array(
+	    'name' => 'Stories',
+	    'id'   => 'property-stories',
+	    'type' => 'text_small',
+	) );
+	$cmb->add_field( array(
+	    'name' => 'Fireplaces',
+	    'id'   => 'property-fireplaces',
+	    'type' => 'text_small',
+	) );
+	
+	
+	$cmb->add_field( array(
+	    'name' => 'Interior Features',
+	    'id'   => 'property-interiorFeatures',
+	    'type' => 'text_small',
+	) );
+	
+	
+	$cmb->add_field( array(
+	    'name' => 'Lot Size',
+	    'id'   => 'property-lotSizeArea',
+	    'type' => 'text_small',
+	) );
+	
+	$cmb->add_field( array(
+	    'name' => 'Maintenance Fees',
+	    'id'   => 'property-maintenanceExpense',
+	    'type' => 'text_small',
+	) );
+	
+	$cmb->add_field( array(
+	    'name' => 'View',
+	    'id'   => 'property-view',
+	    'type' => 'text_small',
+	) );
+	
+	$cmb->add_field( array(
+	    'name' => 'Year Built',
+	    'id'   => 'property-yearBuilt',
+	    'type' => 'text_small',
+	) );
 }
 
-function add_listing_meta_box()
-{
-    add_meta_box("listing-meta-box", "Listing Info", "listing_meta_box_markup", "listing", "normal", "high", null);
-}
-
-add_action("add_meta_boxes", "add_listing_meta_box");
 
 
-function save_listing_meta_box($post_id, $post, $update)
-{
-    if (!isset($_POST["meta-box-nonce"]) || !wp_verify_nonce($_POST["meta-box-nonce"], basename(__FILE__)))
-        return $post_id;
-
-    if(!current_user_can("edit_post", $post_id))
-        return $post_id;
-
-    if(defined("DOING_AUTOSAVE") && DOING_AUTOSAVE)
-        return $post_id;
-
-    $slug = "listing";
-    if($slug != $post->post_type)
-        return $post_id;
 
 
-	$_listing_meta = $_POST["_listing"];
-    if(isset($_listing_meta)){
-        foreach($_listing_meta as $key => $value){
-	        update_post_meta($post_id, "_listing-".$key, $value);
-        }
-    } 
+
+function cmb2_listing_address_metaboxes(){
+	//////////////////////////////////
+	// Generic Options Listing
+	/////////////////////////////////
+    $cmb = new_cmb2_box( array(
+        'id'            => 'listing_address',
+        'title'         => 'Listing Address',
+        'object_types'  => array( 'listing' ), // post type
+        'context'       => 'normal', // 'normal', 'advanced' or 'side'
+        'priority'      => 'high', // 'high', 'core', 'default' or 'low'
+        'show_names'    => true, // show field names on the left
+        'cmb_styles'    => true, // false to disable the CMB stylesheet
+        'closed'        => false, // keep the metabox closed by default
+    ) );
     
-    if ( $_POST['gallery'] ) 
-    {
-        // Build array for saving post meta
-        $gallery_data = array();
-        for ($i = 0; $i < count( $_POST['gallery']['image_url'] ); $i++ ) 
-        {
-            if ( '' != $_POST['gallery']['image_url'][ $i ] ) 
-            {
-                $gallery_data['image_url'][]  = $_POST['gallery']['image_url'][ $i ];
-            }
-        }
- 
-        if ( $gallery_data ) 
-            update_post_meta( $post_id, 'gallery_data', $gallery_data );
-        else 
-            delete_post_meta( $post_id, 'gallery_data' );
-    } 
-    // Nothing received, all fields are empty, delete option
-    else 
-    {
-        delete_post_meta( $post_id, 'gallery_data' );
-    }
+    $cmb->add_field( array(
+	    'name' => 'Unit Number',
+	    'id'   => 'address-unit',
+	    'type' => 'text_small',
+	) );
+    $cmb->add_field( array(
+	    'name' => 'Street Number',
+	    'id'   => 'address-streetNumber',
+	    'type' => 'text_small',
+	) );
+    
+	
+	$cmb->add_field( array(
+	    'name' => 'Street Name',
+	    'id'   => 'address-streetName',
+	    'type' => 'text_small',
+	) );
+	
+	
+	$cmb->add_field( array(
+	    'name' => 'City',
+	    'id'   => 'address-city',
+	    'type' => 'text_small',
+	) );
+	$cmb->add_field( array(
+	    'name' => 'Sub Area',
+	    'id'   => 'property-subdivision',
+	    'type' => 'text_small',
+	    'desc' => 'ex: Downtown VW'
+	) );
+	
+	$cmb->add_field( array(
+	    'name' => 'Province',
+	    'id'   => 'address-state',
+	    'type' => 'text_small',
+	    'default' => 'BC',
+	) );
+	$cmb->add_field( array(
+	    'name' => 'Country',
+	    'id'   => 'address-country',
+	    'type' => 'text_small',
+	    'default' => 'Canada',
+	) );
+	
+	
+	
 }
 
-add_action("save_post", "save_listing_meta_box", 10, 3);
+
+function cmb2_listing_tax_metaboxes(){
+	//////////////////////////////////
+	// Generic Options Listing
+	/////////////////////////////////
+    $cmb = new_cmb2_box( array(
+        'id'            => 'listing_tax',
+        'title'         => 'Listing Tax',
+        'object_types'  => array( 'listing' ), // post type
+        'context'       => 'normal', // 'normal', 'advanced' or 'side'
+        'priority'      => 'high', // 'high', 'core', 'default' or 'low'
+        'show_names'    => true, // show field names on the left
+        'cmb_styles'    => true, // false to disable the CMB stylesheet
+        'closed'        => false, // keep the metabox closed by default
+    ) );
+    
+    $cmb->add_field( array(
+	    'name' => 'taxYear',
+	    'id'   => 'tax-taxYear',
+	    'type' => 'text_small',
+	) );
+	$cmb->add_field( array(
+	    'name' => 'taxAnnualAmount',
+	    'id'   => 'tax-taxAnnualAmount',
+	    'type' => 'text_small',
+	) );
+	
+}
+
+
+function cmb2_listing_office_metaboxes(){
+	//////////////////////////////////
+	// Generic Options Listing
+	/////////////////////////////////
+    $cmb = new_cmb2_box( array(
+        'id'            => 'listing_office',
+        'title'         => 'Listing Office',
+        'object_types'  => array( 'listing' ), // post type
+        'context'       => 'normal', // 'normal', 'advanced' or 'side'
+        'priority'      => 'high', // 'high', 'core', 'default' or 'low'
+        'show_names'    => true, // show field names on the left
+        'cmb_styles'    => true, // false to disable the CMB stylesheet
+        'closed'        => false, // keep the metabox closed by default
+    ) );
+    
+    $cmb->add_field( array(
+	    'name' => 'name',
+	    'id'   => 'office-name',
+	    'type' => 'text',
+	) );
+	$cmb->add_field( array(
+	    'name' => 'servingName',
+	    'id'   => 'office-servingName',
+	    'type' => 'text',
+	) );
+	$cmb->add_field( array(
+	    'name' => 'brokerid',
+	    'id'   => 'office-brokerid',
+	    'type' => 'text_small',
+	) );
+	$cmb->add_field( array(
+	    'name' => 'email',
+	    'id'   => 'office-contact-email',
+	    'type' => 'text_email',
+	) );
+	$cmb->add_field( array(
+	    'name' => 'office phone',
+	    'id'   => 'office-contact-office',
+	    'type' => 'text_small',
+	) );
+	$cmb->add_field( array(
+	    'name' => 'cell',
+	    'id'   => 'office-contact-cell',
+	    'type' => 'text_small',
+	) );
+	
+}
+
+
+function cmb2_listing_agent_metaboxes(){
+	//////////////////////////////////
+	// Generic Options Listing
+	/////////////////////////////////
+    $cmb = new_cmb2_box( array(
+        'id'            => 'listing_agent',
+        'title'         => 'Listing Agent',
+        'object_types'  => array( 'listing' ), // post type
+        'context'       => 'normal', // 'normal', 'advanced' or 'side'
+        'priority'      => 'high', // 'high', 'core', 'default' or 'low'
+        'show_names'    => true, // show field names on the left
+        'cmb_styles'    => true, // false to disable the CMB stylesheet
+        'closed'        => false, // keep the metabox closed by default
+    ) );
+    
+    $cmb->add_field( array(
+	    'name' => 'id',
+	    'id'   => 'agent-id',
+	    'type' => 'text_small',
+	) );
+    $cmb->add_field( array(
+	    'name' => 'firstName',
+	    'id'   => 'agent-crossStreet',
+	    'type' => 'text_small',
+	) );
+	$cmb->add_field( array(
+	    'name' => 'lastName',
+	    'id'   => 'agent-lastName',
+	    'type' => 'text_small',
+	) );
+	
+	$cmb->add_field( array(
+	    'name' => 'email',
+	    'id'   => 'agent-contact-email',
+	    'type' => 'text_email',
+	) );
+	$cmb->add_field( array(
+	    'name' => 'office phone',
+	    'id'   => 'agent-contact-office',
+	    'type' => 'text_small',
+	) );
+	$cmb->add_field( array(
+	    'name' => 'cell',
+	    'id'   => 'agent-contact-cell',
+	    'type' => 'text_small',
+	) );
+	
+}
+
+function cmb2_listing_coAgent_metaboxes(){
+	//////////////////////////////////
+	// Generic Options Listing
+	/////////////////////////////////
+    $cmb = new_cmb2_box( array(
+        'id'            => 'listing_coAgent',
+        'title'         => 'Listing Co-Agent',
+        'object_types'  => array( 'listing' ), // post type
+        'context'       => 'normal', // 'normal', 'advanced' or 'side'
+        'priority'      => 'high', // 'high', 'core', 'default' or 'low'
+        'show_names'    => true, // show field names on the left
+        'cmb_styles'    => true, // false to disable the CMB stylesheet
+        'closed'        => true, // keep the metabox closed by default
+    ) );
+    
+    $cmb->add_field( array(
+	    'name' => 'id',
+	    'id'   => 'coAgent-id',
+	    'type' => 'text_small',
+	) );
+    $cmb->add_field( array(
+	    'name' => 'firstName',
+	    'id'   => 'coAgent-crossStreet',
+	    'type' => 'text_small',
+	) );
+	$cmb->add_field( array(
+	    'name' => 'lastName',
+	    'id'   => 'coAgent-lastName',
+	    'type' => 'text_small',
+	) );
+	
+	$cmb->add_field( array(
+	    'name' => 'email',
+	    'id'   => 'coAgent-contact-email',
+	    'type' => 'text_email',
+	) );
+	$cmb->add_field( array(
+	    'name' => 'office phone',
+	    'id'   => 'coAgent-contact-office',
+	    'type' => 'text_small',
+	) );
+	$cmb->add_field( array(
+	    'name' => 'cell',
+	    'id'   => 'coAgent-contact-cell',
+	    'type' => 'text_small',
+	) );
+	
+}
+
+
+function cmb2_listing_mls_metaboxes(){
+	//////////////////////////////////
+	// Generic Options Listing
+	/////////////////////////////////
+    $cmb = new_cmb2_box( array(
+        'id'            => 'listing_mls',
+        'title'         => 'Listing MLS Details',
+        'object_types'  => array( 'listing' ), // post type
+        'context'       => 'normal', // 'normal', 'advanced' or 'side'
+        'priority'      => 'high', // 'high', 'core', 'default' or 'low'
+        'show_names'    => true, // show field names on the left
+        'cmb_styles'    => true, // false to disable the CMB stylesheet
+        'closed'        => false, // keep the metabox closed by default
+    ) );
+    
+	$cmb->add_field( array(
+	    'name' => 'area',
+	    'id'   => 'mls-area',
+	    'type' => 'text_small',
+	) );
+	$cmb->add_field( array(
+	    'name' => 'daysOnMarket',
+	    'id'   => 'mls-daysOnMarket',
+	    'type' => 'text_small',
+	) );
+	
+}
+
+
+function cmb2_listing_roomdimensions_metaboxes(){
+	//////////////////////////////////
+	// Generic Options Listing
+	/////////////////////////////////
+    $cmb = new_cmb2_box( array(
+        'id'            => 'listing_roomdimensions',
+        'title'         => 'Room Dimensions',
+        'object_types'  => array( 'listing' ), // post type
+        'context'       => 'normal', // 'normal', 'advanced' or 'side'
+        'priority'      => 'high', // 'high', 'core', 'default' or 'low'
+        'show_names'    => true, // show field names on the left
+        'cmb_styles'    => true, // false to disable the CMB stylesheet
+        'closed'        => false, // keep the metabox closed by default
+    ) );
+    
+    $group_field_id = $cmb->add_field( array(
+	    'id'          => 'rooms',
+	    'type'        => 'group',
+	    'description' => __( 'Add each room and its dimensions', 'hiiwp' ),
+	    'repeatable'  => true, // use false if you want non-repeatable group
+	    'options'     => array(
+	        'group_title'   => __( 'Entry {#}', 'hiiwp' ), // since version 1.1.4, {#} gets replaced by row number
+	        'add_button'    => __( 'Add Another Entry', 'hiiwp' ),
+	        'remove_button' => __( 'Remove Entry', 'hiiwp' ),
+	        'sortable'      => true, // beta
+	        // 'closed'     => true, // true to have the groups closed by default
+	    ),
+	) );
+	
+	
+	$cmb->add_group_field( $group_field_id, array(
+	    'name' => 'Room',
+	    'id'   => 'title',
+	    'type' => 'text_small',
+	    // 'repeatable' => true, // Repeatable fields are supported w/in repeatable groups (for most types)
+	) );
+	
+	$cmb->add_group_field( $group_field_id, array(
+	    'name' => 'Room',
+	    'id'   => 'dimensions',
+	    'type' => 'text_small',
+	    // 'repeatable' => true, // Repeatable fields are supported w/in repeatable groups (for most types)
+	) );
+
+
+}
+
+
+function cmb2_listing_geo_metaboxes(){
+	//////////////////////////////////
+	// Generic Options Listing
+	/////////////////////////////////
+    $cmb = new_cmb2_box( array(
+        'id'            => 'listing_geo',
+        'title'         => 'Listing GEO',
+        'object_types'  => array( 'listing' ), // post type
+        'context'       => 'normal', // 'normal', 'advanced' or 'side'
+        'priority'      => 'high', // 'high', 'core', 'default' or 'low'
+        'show_names'    => true, // show field names on the left
+        'cmb_styles'    => true, // false to disable the CMB stylesheet
+        'closed'        => true, // keep the metabox closed by default
+    ) );
+    
+    $cmb->add_field( array(
+	    'name' => 'county',
+	    'id'   => 'geo-county',
+	    'type' => 'text_small',
+	) );
+	$cmb->add_field( array(
+	    'name' => 'lat',
+	    'id'   => 'geo-lat',
+	    'type' => 'text_small',
+	) );
+	$cmb->add_field( array(
+	    'name' => 'lng',
+	    'id'   => 'geo-lng',
+	    'type' => 'text_small',
+	) );
+	$cmb->add_field( array(
+	    'name' => 'marketArea',
+	    'id'   => 'geo-marketArea',
+	    'type' => 'text_small',
+	) );
+	$cmb->add_field( array(
+	    'name' => 'directions',
+	    'id'   => 'geo-directions',
+	    'type' => 'text_small',
+	) );
+
+}
+
+
+
+
+
+function cmb2_listing_association_metaboxes(){
+	//////////////////////////////////
+	// Generic Options Listing
+	/////////////////////////////////
+    $cmb = new_cmb2_box( array(
+        'id'            => 'listing_association',
+        'title'         => 'Listing Association',
+        'object_types'  => array( 'listing' ), // post type
+        'context'       => 'normal', // 'normal', 'advanced' or 'side'
+        'priority'      => 'high', // 'high', 'core', 'default' or 'low'
+        'show_names'    => true, // show field names on the left
+        'cmb_styles'    => true, // false to disable the CMB stylesheet
+        'closed'        => true, // keep the metabox closed by default
+    ) );
+    
+    $cmb->add_field( array(
+	    'name' => 'fee',
+	    'id'   => 'association-fee',
+	    'type' => 'text_small',
+	) );
+	$cmb->add_field( array(
+	    'name' => 'name',
+	    'id'   => 'association-name',
+	    'type' => 'text_small',
+	) );
+	$cmb->add_field( array(
+	    'name' => 'amenities',
+	    'id'   => 'association-amenities',
+	    'type' => 'text_small',
+	) );
+
+
+}
+
+
+
+function cmb2_listing_extras_metaboxes(){
+	//////////////////////////////////
+	// Generic Options Listing
+	/////////////////////////////////
+    $cmb = new_cmb2_box( array(
+        'id'            => 'listing_extras',
+        'title'         => 'Listing Extras',
+        'object_types'  => array( 'listing' ), // post type
+        'context'       => 'normal', // 'normal', 'advanced' or 'side'
+        'priority'      => 'high', // 'high', 'core', 'default' or 'low'
+        'show_names'    => true, // show field names on the left
+        'cmb_styles'    => true, // false to disable the CMB stylesheet
+        'closed'        => true, // keep the metabox closed by default
+    ) );
+    
+    $cmb->add_field( array(
+	    'name' => 'terms',
+	    'id'   => 'terms',
+	    'type' => 'text_small',
+	    'default' => '',
+	) );
+	$cmb->add_field( array(
+	    'name' => 'sales',
+	    'id'   => 'sales',
+	    'type' => 'text_small',
+	    'default' => '',
+	) );
+	
+	$cmb->add_field( array(
+	    'name' => 'leaseType',
+	    'id'   => 'leaseType',
+	    'type' => 'text_small',
+	    'default' => '',
+	) );
+	$cmb->add_field( array(
+	    'name' => 'leaseTerm',
+	    'id'   => 'leaseTerm',
+	    'type' => 'text_small',
+	    'default' => '',
+	) );
+	$cmb->add_field( array(
+	    'name' => 'school',
+	    'id'   => 'school',
+	    'type' => 'text_small',
+	    'default' => '',
+	) );
+	$cmb->add_field( array(
+	    'name' => 'disclaimer',
+	    'id'   => 'disclaimer',
+	    'type' => 'textarea',
+	    'default' => 'This information is believed to be accurate, but without warranty.',
+	) );
+	$cmb->add_field( array(
+	    'name' => 'privateRemarks',
+	    'id'   => 'privateRemarks',
+	    'type' => 'textarea',
+	    'default' => '',
+	) );
+	$cmb->add_field( array(
+	    'name' => 'showingInstructions',
+	    'id'   => 'showingInstructions',
+	    'type' => 'textarea',
+	    'default' => '',
+	) );
+	
+	$cmb->add_field( array(
+	    'name' => 'roof',
+	    'id'   => 'property-roof',
+	    'type' => 'text_small',
+	) );
+	$cmb->add_field( array(
+	    'name' => 'cooling',
+	    'id'   => 'property-cooling',
+	    'type' => 'text_small',
+	) );
+	
+	$cmb->add_field( array(
+	    'name' => 'flooring',
+	    'id'   => 'property-flooring',
+	    'type' => 'text_small',
+	) );
+	$cmb->add_field( array(
+	    'name' => 'heating',
+	    'id'   => 'property-heating',
+	    'type' => 'text_small',
+	) );
+
+	$cmb->add_field( array(
+	    'name' => 'foundation',
+	    'id'   => 'property-foundation',
+	    'type' => 'text_small',
+	) );
+	$cmb->add_field( array(
+	    'name' => 'laundryFeatures',
+	    'id'   => 'property-laundryFeatures',
+	    'type' => 'text_small',
+	) );
+	$cmb->add_field( array(
+	    'name' => 'occupantName',
+	    'id'   => 'property-occupantName',
+	    'type' => 'text_small',
+	) );
+	$cmb->add_field( array(
+	    'name' => 'lotDescription',
+	    'id'   => 'property-lotDescription',
+	    'type' => 'text_small',
+	) );
+	$cmb->add_field( array(
+	    'name' => 'pool',
+	    'id'   => 'property-pool',
+	    'type' => 'text_small',
+	) );
+	$cmb->add_field( array(
+	    'name' => 'areaSource',
+	    'id'   => 'property-areaSource',
+	    'type' => 'text_small',
+	) );
+	$cmb->add_field( array(
+	    'name' => 'additionalRooms',
+	    'id'   => 'property-additionalRooms',
+	    'type' => 'text_small',
+	) );
+	$cmb->add_field( array(
+	    'name' => 'exteriorFeatures',
+	    'id'   => 'property-exteriorFeatures',
+	    'type' => 'text_small',
+	) );
+	$cmb->add_field( array(
+	    'name' => 'water',
+	    'id'   => 'property-water',
+	    'type' => 'text_small',
+	) );
+	$cmb->add_field( array(
+	    'name' => 'lotSize',
+	    'id'   => 'property-lotSize',
+	    'type' => 'text_small',
+	    'desc' => 'Total lot sqft'
+	) );
+	$cmb->add_field( array(
+	    'name' => 'crossStreet',
+	    'id'   => 'address-crossStreet',
+	    'type' => 'text_small',
+	) );
+	$cmb->add_field( array(
+	    'name' => 'postalCode',
+	    'id'   => 'address-postalCode',
+	    'type' => 'text_small',
+	) );
+	$cmb->add_field( array(
+	    'name' => 'streetNumberText',
+	    'id'   => 'address-streetNumberText',
+	    'type' => 'text_small',
+	) );
+	
+	$cmb->add_field( array(
+	    'name' => 'full',
+	    'id'   => 'address-full',
+	    'type' => 'text_small',
+	) );
+	
+	$cmb->add_field( array(
+	    'name' => 'construction',
+	    'id'   => 'property-construction',
+	    'type' => 'text_small',
+	) );
+	$cmb->add_field( array(
+	    'name' => 'lotSizeAreaUnits',
+	    'id'   => 'property-lotSizeAreaUnits',
+	    'type' => 'text_small',
+	) );
+	$cmb->add_field( array(
+	    'name' => 'type',
+	    'id'   => 'property-type',
+	    'type' => 'text_small',
+	    'default' => 'RES',
+	) );
+	$cmb->add_field( array(
+	    'name' => 'garageSpaces',
+	    'id'   => 'property-garageSpaces',
+	    'type' => 'text_small',
+	) );
+	$cmb->add_field( array(
+	    'name' => 'accessibility',
+	    'id'   => 'property-accessibility',
+	    'type' => 'text_small',
+	) );
+	$cmb->add_field( array(
+	    'name' => 'acres',
+	    'id'   => 'property-acres',
+	    'type' => 'text_small',
+	) );
+	$cmb->add_field( array(
+	    'name' => 'occupantType',
+	    'id'   => 'property-occupantType',
+	    'type' => 'text_small',
+	) );
+	
+	$cmb->add_field( array(
+	    'name' => 'originatingSystemName',
+	    'id'   => 'mls-originatingSystemName',
+	    'type' => 'text_small',
+	) );
+	
+	$cmb->add_field( array(
+	    'name' => 'status',
+	    'id'   => 'mls-status',
+	    'type' => 'text_small',
+	    'default' => 'Active'
+	) );
+	$cmb->add_field( array(
+	    'name' => 'id',
+	    'id'   => 'tax-id',
+	    'type' => 'text_small',
+	) );
+}
 
 
 
@@ -591,10 +935,17 @@ function wpdocs_my_custom_submenu_page_callback() {
 	    
 	    $_listing_arrs = null;
 	    $_listing_meta = $_POST["_listing"];
-	    
+	   
 	    if(isset($_listing_meta)){
 	        foreach($_listing_meta as $key => $value){
-		        $_listing_arrs["_listing-".$key] = $value;
+		        if(is_object($value) && $key != 'photos'){
+			        foreach($value as $key1 => $value1){
+				        $_listing_arrs[$key."-".$key1] = $value1;
+				    }
+			    } elseif($key != 'photos') {
+				    $_listing_arrs[$key] = $value;
+				}
+				
 	        }
 	    }
 	    
@@ -607,7 +958,7 @@ function wpdocs_my_custom_submenu_page_callback() {
 	        'post_type' => 'listing',
 	        'post_status' => 'pending',
 	        'meta_input' => $_listing_arrs
-	        );
+	    );
 	        
 	    
         
@@ -615,61 +966,71 @@ function wpdocs_my_custom_submenu_page_callback() {
         if($post_id = wp_insert_post( $post_information )) {
 	        
 	        
-	        ///////////////////////////////
-	        //
-	        // Add Featured Image to Post
-	        //
-	        ///////////////////////////////
-			$image_url  = $_POST['featuredImage']; // Define the image URL here
 			$upload_dir = wp_upload_dir(); // Set upload folder
-			$image_data = file_get_contents($image_url); // Get image data
-			$filename   = basename($image_url); // Create image file name
+			$new_photos = array();
 			
-			// Check folder permission and define file location
-			if( wp_mkdir_p( $upload_dir['path'] ) ) {
-			    $file = $upload_dir['path'] . '/' . $filename;
-			} else {
-			    $file = $upload_dir['basedir'] . '/' . $filename;
-			}
+	        foreach($_listing_meta['photos'] as $key => $image_url) {
+		        $image_data = file_get_contents($image_url); // Get image data
+				$filename   = basename($image_url); // Create image file name
+				
+				// Check folder permission and define file location
+				if( wp_mkdir_p( $upload_dir['path'] ) ) {
+				    $file = $upload_dir['path'] . '/' . $filename;
+				} else {
+				    $file = $upload_dir['basedir'] . '/' . $filename;
+				}
+				
+				// Create the image  file on the server
+				file_put_contents( $file, $image_data );
+				// Check image file type
+				$wp_filetype = wp_check_filetype( $filename, null );
+				
+				// Set attachment data
+				$attachment = array(
+				    'post_mime_type' => $wp_filetype['type'],
+				    'post_title'     => sanitize_file_name( $filename ),
+				    'post_content'   => '',
+				    'post_status'    => 'inherit'
+				);
+				// Create the attachment
+				$attach_id = wp_insert_attachment( $attachment, $file, $post_id );
+				
+				// Include image.php
+				require_once(ABSPATH . 'wp-admin/includes/image.php');
+				
+				// Define attachment metadata
+				$attach_data = wp_generate_attachment_metadata( $attach_id, $file );
+				
+				// Assign metadata to attachment
+				wp_update_attachment_metadata( $attach_id, $attach_data );
+				
+				$new_photos[$attach_id] = $upload_dir['url'].'/'.$filename;
+				
+				if($key == 0){
+					// And finally assign featured image to post
+					set_post_thumbnail( $post_id, $attach_id );
+				}
+	        }			
+			update_post_meta( $post_id, 'photos', $new_photos);
 			
-			// Create the image  file on the server
-			file_put_contents( $file, $image_data );
 			
-			// Check image file type
-			$wp_filetype = wp_check_filetype( $filename, null );
 			
-			// Set attachment data
-			$attachment = array(
-			    'post_mime_type' => $wp_filetype['type'],
-			    'post_title'     => sanitize_file_name( $filename ),
-			    'post_content'   => '',
-			    'post_status'    => 'inherit'
-			);
 			
-			// Create the attachment
-			$attach_id = wp_insert_attachment( $attachment, $file, $post_id );
 			
-			// Include image.php
-			require_once(ABSPATH . 'wp-admin/includes/image.php');
-			
-			// Define attachment metadata
-			$attach_data = wp_generate_attachment_metadata( $attach_id, $file );
-			
-			// Assign metadata to attachment
-			wp_update_attachment_metadata( $attach_id, $attach_data );
-			
-			// And finally assign featured image to post
-			set_post_thumbnail( $post_id, $attach_id );
 		}
 	} 
-	if(isset($_GET['mlsId']) && isset($_GET['mlsId']) && $_GET['mlsId'] != ''){
-		$mlsid = $_GET['mlsId'];
-		$remote_url = 'https://api.simplyrets.com/properties?q='.$mlsid.'&limit=50';
-	} else {
-		if(isset($_GET['offset'])) $offset = $_GET['offset']; else $offset = 0;
-		$remote_url = 'https://api.simplyrets.com/properties?limit=50&include=rooms&offset='.$offset;
-	}
 	
+	$agent = (isset($_GET['agent']) && isset($_GET['agent']) && $_GET['agent'] != '')?'&agent='.$_GET['agent']:'';
+	$brokers = (isset($_GET['brokers']) && isset($_GET['brokers']) && $_GET['brokers'] != '')?'&brokers='.$_GET['brokers']:'';
+	$mlsq = (isset($_GET['mlsId']) && isset($_GET['mlsId']) && $_GET['mlsId'] != '')?'&q='.$_GET['mlsId']:'';
+	
+	$limit = '&limit=20';
+	
+	$offset = (isset($_GET['offset']))?$_GET['offset']:$offset = 0;
+	$offset_get = ($offset != 0)?'&offset='.$offset:'';
+	
+	
+	$remote_url = 'https://api.simplyrets.com/properties?include=rooms'.$mlsq.$offset_get.$limit.$agent.$brokers;
 	
 	
     echo '<div class="wrap"><div id="icon-tools" class="icon32"></div>';
@@ -688,12 +1049,38 @@ function wpdocs_my_custom_submenu_page_callback() {
 	$context = stream_context_create($opts);
 	$file = json_decode(file_get_contents($remote_url, false, $context));
 	?>
-	<form action="">
-		<input type="hidden" value="listing" name="post_type">
-		<input  type="hidden" value="search-listings" name="page">
-		<input type="search" name="mlsId">
-		<input type="submit" value="Search" name="search">
-	</form><?php
+	<table>
+		<tr>
+			<td>
+				<form action="">
+					<input type="hidden" value="listing" name="post_type">
+					<input  type="hidden" value="search-listings" name="page">
+					<input type="search" name="mlsId">
+					<input type="submit" value="Search" name="search" class="button button-secondary">
+					
+				</form>
+			</td>
+			<td>
+				<form action="">
+					<input type="hidden" value="listing" name="post_type">
+					<input  type="hidden" value="search-listings" name="page">
+					<input  type="submit" value="Show Agents Listings" name="search" class="button button-primary">
+					<input type="hidden" name="agent" value="42460">
+				</form>
+			</td>
+			<td>
+				<form action="">
+					<input type="hidden" value="listing" name="post_type">
+					<input  type="hidden" value="search-listings" name="page">
+					<input  type="submit" value="Show Brokers Listings" name="search" class="button button-secondary">
+					<input type="hidden" name="brokers" value="2177">
+				</form>
+			</td>
+		</tr>
+	</table>
+	
+	
+	<?php
 	//if(count($file) > 1){
 	foreach($file as $property):
 	
@@ -709,7 +1096,7 @@ function wpdocs_my_custom_submenu_page_callback() {
 				 	</td>
 				 	<td>
 					 	<?php if(!post_exists($property->address->full)){ ?>
-					 	<button type="submit"><?php _e('Add as own', 'framework') ?></button>
+					 	<button type="submit" class="button button-secondary"><?php _e('Add as own', 'framework') ?></button>
 					 	<?php } ?>
 				 	</td>
 			 	</tr>
@@ -725,13 +1112,18 @@ function wpdocs_my_custom_submenu_page_callback() {
 	        foreach($property as $key => $value){
 		        if(!is_array($value) && !is_object($value)) {
 			        ?><input type="hidden" value="<?=$value?>" name="<?='_listing['.$key?>]"><?php
-		        } elseif(is_object($value) || is_array($value)) {
+		        } elseif((is_object($value) || is_array($value)) && $key !== 'photos') {
 			        foreach($value as $ok => $ov){
 				        if(!is_array($ov) && !is_object($ov)) {
 				        	?><input type="hidden" value="<?=$ov;?>" name="<?='_listing['.$key.'-'.$ok;?>]"><?php
 					    }
 			        }
-		        }
+		        }elseif($key == 'photos') {
+				    foreach($value as $ok => $ov){
+					    ?><input type="hidden" value='<?=$ov;?>' name="_listing[photos][<?=$ok?>]"><?php
+			        }
+				    
+			    }
 	        }   
 	        ?>
 		    <input type="hidden" name="submitted" id="submitted" value="true" />
@@ -741,52 +1133,6 @@ function wpdocs_my_custom_submenu_page_callback() {
 		<?php
 		echo '</div><hr>';
 	endforeach;
-	/*} else {
-		$property = $file;
-		echo '<div>';
-		?>
-		<form action="" id="primaryPostForm" method="POST">
-		 	<table>
-			 	<tr>
-				 	<td><?='<img src="'.$property->photos[0].'" width=100 height=100>';?></td>
-				 	<td><?='<span class="">'.$property->mlsId.'</span>';?><br>
-					 	<?='<span class="property_mlsId">'.$property->listingId.'</span>';?><br>
-				 		<input type="text" name="postTitle" id="postTitle" value="<?=$property->address->full?>" readonly="readonly" />
-				 	</td>
-				 	<td>
-					 	<?php if(!post_exists($property->address->full)){ ?>
-					 	<button type="submit"><?php _e('Add as own', 'framework') ?></button>
-					 	<?php } ?>
-				 	</td>
-			 	</tr>
-		 	</table>
-		 	<details>
-			 	<summary>See Data</summary>
-		 		<pre><?php print_r($property); ?></pre>
-		 	</details>
-			<input type="hidden" value="<?=$property->photos[0]?>" name="featuredImage" id="featuredImage" >
-			<input type="hidden" value="<?=$property->remarks?>" name="postContent" id="postContent" >
-	        
-	        <?php 
-	        foreach($property as $key => $value){
-		        if(!is_array($value) && !is_object($value)) {
-			        ?><input type="hidden" value="<?=$value?>" name="<?='_listing['.$key?>]"><?php
-		        } elseif(is_object($value) || is_array($value)) {
-			        foreach($value as $ok => $ov){
-				        if(!is_array($ov) && !is_object($ov)) {
-				        	?><input type="hidden" value="<?=$ov;?>" name="<?='_listing['.$key.'-'.$ok;?>]"><?php
-					    }
-			        }
-		        }
-	        }   
-	        ?>
-		    <input type="hidden" name="submitted" id="submitted" value="true" />
-		 
-		</form>
-	
-		<?php
-		echo '</div><hr>';
-	}*/
-	?><a href="?post_type=listing&page=search-listings&offset=<?=($offset - 50);?>">Prev</a> | <a href="?post_type=listing&page=search-listings&offset=<?=$offset += 50;?>">Next</a><?php
+	?><a href="?post_type=listing&page=search-listings&offset=<?=($offset - 20).$mlsq.$limit.$agent.$brokers;?>">Prev</a> | <a href="?post_type=listing&page=search-listings&offset=<?=($offset += 20).$mlsq.$limit.$agent.$brokers;?>">Next</a><?php
     echo '</div>';
 }

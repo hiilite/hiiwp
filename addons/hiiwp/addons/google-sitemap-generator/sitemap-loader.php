@@ -205,8 +205,9 @@ class GoogleSitemapGeneratorLoader {
 	public static function RegisterAdminPage() {
 		//$file = dirname(__FILE__); // Current PHP file, but can be anyone
 		//$link = str_replace( WP_CONTENT_DIR, WP_CONTENT_URL, $file );
-		add_submenu_page('hii_seo_settings', __('Hiilite SEO', 'sitemap'), __('Hiilite SEO', 'sitemap'), 'manage_options', 'hii_seo_settings');
-		add_submenu_page('hii_seo_settings', __('XML-Sitemap Generator', 'sitemap'), __('XML-Sitemap', 'sitemap'), 'manage_options', 'options-general.php?page='.self::GetBaseName(), array(__CLASS__, 'CallHtmlShowOptionsPage'));
+		
+		add_submenu_page('hii_seo_settings', __('XML-Sitemap Generator', 'hiiwp'), __('XML-Sitemap', 'hiiwp'), 'manage_options', 'options-general.php?page='.self::GetBaseName(), array(__CLASS__, 'CallHtmlShowOptionsPage'));
+		
 		add_options_page(__('XML-Sitemap Generator', 'sitemap'), __('XML-Sitemap', 'sitemap'), 'administrator', self::GetBaseName(), array(__CLASS__, 'CallHtmlShowOptionsPage'));
 	}
 	public static function RunPageSetup() {

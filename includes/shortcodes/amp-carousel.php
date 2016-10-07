@@ -4,9 +4,7 @@ function add_amp_carousel_shortcode( $atts ){
 	
 	/*
 		TODO:
-		- Add &via=@twittername to twitter link 
-		- Switch to amp-social-share once compatibility is back
-		- Pull post title and other meta from global values
+
 	*/
 	
 	$post_id = get_the_id();
@@ -21,9 +19,31 @@ function add_amp_carousel_shortcode( $atts ){
 	extract( shortcode_atts( array(
       'args'  => null,
       'height' => 300,
+      'width'	=> 1000,
+      'type'	=> 'carousel',
+      'thumbnails'	=> false,
       'media_grid_images' => null,
+      'css' => '',
     ), $atts ) );
     
+    
+    /*
+	VC CSS    
+	*/
+	$extra_class = ($type == 'slides')?'slider':'carousel';
+	$extra_class .= ($thumbnails)?' has_thumbs':'';
+    $css_classes = array(
+		$extra_class,
+		vc_shortcode_custom_css_class( $css ), 
+	);
+	if (vc_shortcode_custom_css_has_property( $css, array('border', 'background') )) {
+		$css_classes[]='';
+	}
+	$wrapper_attributes = array();
+	$css_class = preg_replace( '/\s+/', ' ', apply_filters( VC_SHORTCODE_CUSTOM_CSS_FILTER_TAG, implode( ' ', array_filter( $css_classes ) ), '.vc_custom_', $atts ) );
+	$wrapper_attributes[] = 'class="' . esc_attr( trim( $css_class ) ) . '"';
+
+		
     $args = ($args==null)?array('post_type'=>$slug,'posts_per_page'=> -1,'nopaging'=>true,'order'=>'ASC','orderby'=>'menu_order'):$args;
     if($media_grid_images != null){
 	    $args = array(
@@ -38,30 +58,51 @@ function add_amp_carousel_shortcode( $atts ){
     $query = new WP_Query($args);
     
     $output = '';
-    $output .= '<'.$_amp.'carousel height="300" layout="fixed-height" type="carousel" class="carousel">';
+    $output .= '<amp-carousel height="'.$height.'" width="'.$width.'" layout="fixed-height" type="'.$type.'" '.implode( ' ', $wrapper_attributes ).'>';
+    if(!$_amp && $type == 'carousel') $output .= '<div class="carousel-wrapper" style="white-space: nowrap; position: absolute; z-index: 1; top: 0px; left: 0px; bottom: 0px;">';
     if($args['post_type'] == 'attachment'):
+    	$count = 0;
 		foreach ( $query->posts as $attachment) :
+			$count++;
 	       $image = wp_get_attachment_image_src( $attachment->ID, 'large' );
 	       $hratio = ($height / $image[2]);
-	       $output .= '<a href="'.get_the_permalink().'">';
+	       $output .= '<a class="slide">';
 		   $output .= '<'.$_amp.'img src="'.$image[0].'" width="'.($image[1]*$hratio).'" height="'.($image[2]*$hratio).'" alt="'.get_the_title().'">';
 		   if($hiilite_options['amp']) $output .= '</amp-img>';
 		   $output .= '</a>';
 	    endforeach;
+	    if($thumbnails):
+	    	$output .= '<div class="thumbnails">';
+			$i = 0;
+			$thumb_width = 100 / $count;
+			foreach ( $query->posts as $attachment) :
+		       $image = wp_get_attachment_image_src( $attachment->ID, 'thumbnail' );
+		       $hratio = ($height / $image[2]);
+		       $output .= '<a class="thumbnail" data-img="'.$i.'" style="width:'.$thumb_width.'%">';
+			   $output .= '<'.$_amp.'img src="'.$image[0].'" width="150" height="150" alt="'.get_the_title().'">';
+			   if($hiilite_options['amp']) $output .= '</amp-img>';
+			   $output .= '</a>';
+			   $i++;
+		    endforeach;
+		    $output .= '</div>';
+		endif;
 	else:
-		
 		while($query->have_posts()):
 			$query->the_post();
 			if ( has_post_thumbnail() ) {
 				$image = wp_get_attachment_image_src( get_post_thumbnail_id( get_the_id() ), 'large' );
 				$hratio = ($height / $image[2]);
-				$output .= '<a href="'.get_the_permalink().'">';
-				$output .= '<amp-img src="'.$image[0].'" width="'.($image[1]*$hratio).'" height="'.($image[2]*$hratio).'" alt="'.get_the_title().'"></amp-img></a>';
+				$output .= '<a href="'.get_the_permalink().'" class="slide">';
+				$output .= '<'.$_amp.'img src="'.$image[0].'" width="'.($image[1]*$hratio).'" height="'.($image[2]*$hratio).'" alt="'.get_the_title().'">';
+				if($hiilite_options['amp']) $output .= '</amp-img>';
+				$output .= '</a>';
 		  	}
 		endwhile;
-		 
-	$output .= '</'.$_amp.'carousel>';
     endif;
+    
+    if(!$_amp && $type == 'carousel') $output .= '</div>';
+    $output .= '</amp-carousel>';
+    
 	return $output;
 }
 add_shortcode( 'amp-carousel', 'add_amp_carousel_shortcode' );	

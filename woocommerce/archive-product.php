@@ -19,10 +19,9 @@
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
 }
-
-get_header( 'shop' ); ?>
-
-	<?php
+echo '<!--ARCHIVE-PRODUCT-->';
+get_header( 'shop' );
+			
 		echo '<div class="row"><div class="container_inner"><div class="in_grid">';
 		echo '<div class="col-9 text-block align-top">';
 		/**
@@ -32,19 +31,7 @@ get_header( 'shop' ); ?>
 		 * @hooked woocommerce_breadcrumb - 20
 		 */
 		do_action( 'woocommerce_before_main_content' );
-	?>
 
-		<?php if ( apply_filters( 'woocommerce_show_page_title', true ) ) : ?>
-
-		<h1 class="page-title"><?php woocommerce_page_title(); ?></h1>
-				
-
-		<?php endif; 
-			
-			
-		?>
-
-		<?php
 			/**
 			 * woocommerce_archive_description hook.
 			 *

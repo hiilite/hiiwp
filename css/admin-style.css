@@ -255,3 +255,27 @@ ul.cmb2-checkbox-list.cmb2-list li {
     padding: 0 !important;
     border-bottom: none !important;
 }
+
+.cmb-row.cmb-type-text-small, 
+.cmb-row.cmb-type-text-money, 
+.cmb-row.cmb-type-text-date{
+    display: inline-block;
+    width: 25%;
+}
+.cmb-row.cmb-type-text,
+.cmb-row.cmb-type-text-url {
+    display: inline-block;
+    width: 50%;
+}
+
+.cmb-row .cmb-th {
+    width: 100% !important;
+}
+
+.cmb-row .cmb-td {
+    float: none !important;
+}
+
+.cmb2-wrap .cmb-td input.cmb2-text-small, .cmb2-wrap .cmb-td input.cmb2-timepicker {
+    width: auto;
+}

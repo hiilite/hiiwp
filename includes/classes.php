@@ -1,11 +1,7 @@
 <?php
-
-
 /**
 * Hii Shortcodes
 */
-
-
 add_filter('the_posts', 'conditionally_add_scripts_and_styles'); // the_posts gets triggered before wp_head
 function conditionally_add_scripts_and_styles($posts){
 	if (empty($posts)) return $posts;
@@ -80,5 +76,87 @@ function conditionally_add_scripts_and_styles($posts){
 	return $posts;
 }
 
+
+
+/**
+ * Add Custom Avatar Field
+ * @author Bill Erickson
+ * @link http://www.billerickson.net/wordpress-custom-avatar/
+ *
+ * @param object $user
+ */
+function be_custom_avatar_field( $user ) { ?>
+	<h3>Custom Avatar</h3>
+	 
+	<table>
+	<tr>
+	<th><label for="be_custom_avatar">Custom Avatar URL:</label></th>
+	<td>
+	<input type="text" name="be_custom_avatar" id="be_custom_avatar" value="<?php echo esc_attr( get_the_author_meta( 'be_custom_avatar', $user->ID ) ); ?>" /><br />
+	<span>Type in the URL of the image you'd like to use as your avatar. This will override your default Gravatar, or show up if you don't have a Gravatar. <br /><strong>Image should be 70x70 pixels.</strong></span>
+	</td>
+	</tr>
+	</table>
+	<?php 
+}
+add_action( 'show_user_profile', 'be_custom_avatar_field' );
+add_action( 'edit_user_profile', 'be_custom_avatar_field' );
+/**
+ * Save Custom Avatar Field
+ * @author Bill Erickson
+ * @link http://www.billerickson.net/wordpress-custom-avatar/
+ *
+ * @param int $user_id
+ */
+function be_save_custom_avatar_field( $user_id ) {
+	if ( !current_user_can( 'edit_user', $user_id ) ) { return false; }
+		update_usermeta( $user_id, 'be_custom_avatar', $_POST['be_custom_avatar'] );
+}
+add_action( 'personal_options_update', 'be_save_custom_avatar_field' );
+add_action( 'edit_user_profile_update', 'be_save_custom_avatar_field' );
+
+
+/**
+ * Use Custom Avatar if Provided
+ * @author Bill Erickson
+ * @link http://www.billerickson.net/wordpress-custom-avatar/
+ *
+ */
+function be_gravatar_filter($avatar, $id_or_email, $size, $default, $alt) {
 	
+	// If provided an email and it doesn't exist as WP user, return avatar since there can't be a custom avatar
+	$email = is_object( $id_or_email ) ? $id_or_email->comment_author_email : $id_or_email;
+	if( is_email( $email ) && ! email_exists( $email ) )
+		return $avatar;
+	
+	$custom_avatar = get_the_author_meta('be_custom_avatar');
+	if ($custom_avatar) 
+		$return = '<img src="'.$custom_avatar.'" width="'.$size.'" height="'.$size.'" alt="'.$alt.'" />';
+	elseif ($avatar) 
+		$return = $avatar;
+	else 
+		$return = '<img src="'.$default.'" width="'.$size.'" height="'.$size.'" alt="'.$alt.'" />';
+	return $return;
+}
+add_filter('get_avatar', 'be_gravatar_filter', 10, 5);
+
+
+
+/*
+ * This function takes the last comma or dot (if any) to make a clean float, ignoring thousand separator, currency or any other letter : 
+ */
+function tofloat($num) {
+    $dotPos = strrpos($num, '.');
+    //$commaPos = strrpos($num, ',');
+    $sep = ($dotPos) ? $dotPos : false;
+   
+    if (!$sep) {
+        return floatval(preg_replace("/[^0-9]/", "", $num));
+    } 
+
+    return floatval(
+        preg_replace("/[^0-9]/", "", substr($num, 0, $sep)) . '.' .
+        preg_replace("/[^0-9]/", "", substr($num, $sep+1, strlen($num)))
+    );
+}
 ?>

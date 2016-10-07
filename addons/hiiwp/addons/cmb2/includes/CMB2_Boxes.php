@@ -1,4 +1,5 @@
 <?php
+	if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
 /**
  * A CMB2 object instance registry for storing every CMB2 instance.

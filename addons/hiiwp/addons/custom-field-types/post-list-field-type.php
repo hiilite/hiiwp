@@ -1,4 +1,5 @@
 <?php
+	if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 //By Daniele Mte90 Scasciafratte
 //Based on https://github.com/WebDevStudios/CMB2-Post-Search-field
 //That field have a list separated by a comma of post id and allow to sort and remove

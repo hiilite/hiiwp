@@ -115,7 +115,7 @@ if($hiilite_options['subdomain'] != 'iframe'):
 							 echo '</div>'; } ?>
 					<?php if($hiilite_options['footer_in_grid']) { echo '</div>'; } ?>
 					<div class="full-width align-center">
-		<small>Copyright © <?=date('Y')?> <?=do_shortcode('[business_name]')?>. All rights reserved. <a href="https://hiilite.com/" target="_blank" title="Hiilite Creative Group | Web + Marketing">Web Design by Hiilite Creative Group Kelowna</a></small>
+		<small>Copyright © <?=date('Y')?> <?=do_shortcode('[business_name]')?>. All rights reserved. <a href="https://hiilite.com/" target="_blank" title="Hiilite Creative Group | Web + Marketing">Web Design by Hiilite Creative Group</a></small>
 	</div>
 <?php endif; //end iframe check ?>
 		</div>
@@ -125,7 +125,12 @@ if($hiilite_options['subdomain'] != 'iframe'):
 			
 	</div>
 	<?php wp_footer(); 
-		
+if(get_post_meta($post_id, 'amp', true) == 'nonamp'){
+	$hiilite_options['amp'] = false;
+} else {
+	$hiilite_options['amp'] = (!isset($hiilite_options['amp']))?get_theme_mod('amp'):false;
+}
+
 if(!$hiilite_options['amp']){
 	include_once('js/non-amp-scripts.php');
 }

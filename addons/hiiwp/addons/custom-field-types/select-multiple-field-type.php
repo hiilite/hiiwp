@@ -1,4 +1,5 @@
 <?php
+	if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 /**
  * CMB2 Select Multiple Custom Field Type
  * @package CMB2 Select Multiple Field Type

@@ -76,13 +76,13 @@ function add_testimonials_shortcode( $atts ){
 	    
 	    // if slider
 	    //if($hiilite_options['amp'] && $is_slider) 
-	    $output .= '<amp-carousel width="100%" height="'.$height.'" layout="responsive" type="slides" '.implode( ' ', $wrapper_attributes ).' autoplay delay="'.$slider_speed.'">';
+	    $output .= '<amp-carousel width="1000px" height="'.$height.'" layout="responsive" type="slides" '.implode( ' ', $wrapper_attributes ).' autoplay delay="'.$slider_speed.'">';
 	    
 	    while($query->have_posts()){
 		    $query->the_post();
 		    $post_id = get_the_id();
 			
-			$output .= '<div itemscope itemtype="http://schema.org/Review" class="testimonial_item row container_inner"><div class="flex-item  align-center">
+			$output .= '<div itemscope itemtype="http://schema.org/Review" class="testimonial_item slide row container_inner"><div class="flex-item  align-center">
 				  <div itemprop="itemReviewed" itemscope itemtype="http://schema.org/'.$options['business_type'].'">';
 				  
 			// image

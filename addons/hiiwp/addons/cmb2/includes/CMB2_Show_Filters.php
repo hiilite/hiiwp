@@ -1,4 +1,5 @@
 <?php
+	if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 /**
  * Show On Filters
  * Use the 'cmb2_show_on' filter to further refine the conditions
