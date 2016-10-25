@@ -1,8 +1,9 @@
 <?php
 Kirki::add_section( 'title_section', array(
     'priority'    => 5,
-    'title'       => __( 'Page Titles', 'textdomain' ),
-    'description' => __( 'Title settings', 'textdomain' ),
+    'title'       => __( 'Title', 'textdomain' ),
+    'description' => __( 'Page Title settings', 'textdomain' ),
+    'icon' => 'dashicons-feedback'
 ) );
 
 Kirki::add_field( 'hiiwp', array(
@@ -20,36 +21,31 @@ Kirki::add_field( 'hiiwp', array(
     'settings'    => 'title_height',
     'label'       => __( 'Title Height', 'my_textdomain' ),
     'section'     => 'title_section',
-    'default'     => '200px',
+    'default'     => '100px',
     'priority'    => 5,
-    'output' => '.page-title',
-    'required' => array(
-    array(
-    	'setting' => 'show_page_titles',
-    	'operator' => '==',
-    	'value'		=> true,
-    	
-    )),
+    'active_callback'	=> array(
+		array(
+			'setting'  => 'show_page_titles',
+			'operator' => '==',
+			'value'    => true,
+		),
+	),
+	'output' => array(
+		array(
+			'element'  => '.page-title',
+			'property' => 'height',
+		),
+	),
+	'js_vars' => array(
+		array(
+			'element'  => '.page-title',
+			'property' => 'height',
+		),
+	),
 ) );
 
 
-Kirki::add_field( 'hiiwp', array(
-    'type'        => 'typography',
-    'settings'    => 'title_font',
-    'label'       => esc_attr__( 'Title Style', 'kirki' ),
-    'description' => __( 'Define styles for page title' ),
-    'section'     => 'title_section',
-    'default'     => array(
-        'font-family'    => ' ',
-        'variant'        => ' ',
-        'font-size'      => ' ',
-        'line-height'    => '1.5',
-        'letter-spacing' => '0',
-        'text-transform' => ' ',
-        'color'          => ' ',
-    ),
-    'priority'    => 6,
-) );
+
 
 Kirki::add_field( 'hiiwp', array(
 	'type'        => 'background',
@@ -58,14 +54,20 @@ Kirki::add_field( 'hiiwp', array(
     'section'     => 'title_section',
     'priority'    => 7,
     'default'     => array(
-		'color'    => 'transparent',
+		'color'    => ' ',
 		'image'    => '',
 		'repeat'   => 'no-repeat',
 		'size'     => 'cover',
 		'attach'   => 'fixed',
 		'position' => 'left-top',
 	),
-	'output' => '.page-title',
+	'active_callback'	=> array(
+		array(
+			'setting'  => 'show_page_titles',
+			'operator' => '==',
+			'value'    => true,
+		),
+	),
 ) );
 
 	?>

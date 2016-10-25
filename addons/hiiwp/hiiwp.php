@@ -200,7 +200,6 @@ require_once( dirname( __FILE__ ) . '/includes/wp_login_screen.php');
 require_once( dirname( __FILE__ ) . '/includes/wp_admin_dashboard.php');
 require_once( dirname( __FILE__ ) . '/includes/shortcodes/social-profiles.php');
 require_once( dirname( __FILE__ ) . '/includes/shortcodes/social-share.php');
-require_once( dirname( __FILE__ ) . '/addons/social-network-poster/NextScripts_SNAP.php');
 require_once( dirname( __FILE__ ) . '/addons/google-analytics-dashboard-for-wp/gadwp.php');
 
 
@@ -283,7 +282,7 @@ function add_tracking_codes(){
 /*
 on WP_FOOTER
 */
-add_action('wp_footer', 'add_footer_tracking');
+add_action('wp_footer', 'add_footer_tracking', 100);
 function add_footer_tracking(){
 	$gadwp = GADWP();
 	$post_id = get_the_id();

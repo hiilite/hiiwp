@@ -56,7 +56,7 @@ if(!class_exists('SrUtils') && $hiilite_options['rets_listings_on']){
 	// Templete override functions
 	require_once( dirname( __FILE__ ) . '/addons/simply-rets.php' );
 }
-require_once( dirname( __FILE__ ) . '/addons/tinymce_edits/tinymce_edits.php');
+//require_once( dirname( __FILE__ ) . '/addons/tinymce_edits/tinymce_edits.php');
 require_once( dirname( __FILE__ ) . '/addons/github-updater/github-updater.php');
 require_once( dirname( __FILE__ ) . '/addons/post-types-order/post-types-order.php');
 require_once( dirname( __FILE__ ) . '/addons/taxonomy-images/taxonomy-images.php');
@@ -71,7 +71,6 @@ require_once( dirname( __FILE__ ) . '/includes/shortcodes/vc_empty_space.php');
 require_once( dirname( __FILE__ ) . '/includes/shortcodes/amp-carousel.php');
 require_once( dirname( __FILE__ ) . '/includes/shortcodes/screen-showcase.php');
 require_once( dirname( __FILE__ ) . '/includes/shortcodes/calculation-table.php');
-require_once( dirname( __FILE__ ) . '/includes/shortcodes/author-info.php');
 
 /* Add with options in Custumizer */
 if(get_theme_mod( 'blog_author_bio' ) == true){
@@ -179,7 +178,7 @@ function hiiwp_init(){
 		add_filter( 'style_loader_tag', 'enqueue_less_styles', 5, 2);
 	} else {
 		wp_enqueue_script("jquery");
-		wp_deregister_script('wpb_composer_front_js');
+		//wp_deregister_script('wpb_composer_front_js');
 	}
 	
 	
@@ -401,7 +400,7 @@ function minqueue_scripts() {
 			if ((isset($_REQUEST['vc_editable']) && $_REQUEST['vc_editable'] == true) || (isset($_REQUEST['wp_customize']) && $_REQUEST['wp_customize'] == 'on')){
 				
 			} elseif(!$hiilite_options['is_woocommerce'])  {
-				wp_deregister_script($handle); 
+				//wp_deregister_script($handle); 
 			}
 		}
     }
@@ -426,8 +425,8 @@ function minqueue_styles() {
 		} elseif(
 			($handle != 'js_composer_front' && !is_admin()) &&
 			$handle != 'kirki_google_fonts' &&
-			$handle != 'vc_inline_css' &&
-			$handle != 'customize-preview' && 
+			//$handle != 'vc_inline_css' &&
+			//$handle != 'customize-preview' && 
 			$handle != 'admin-bar'
 		) {
 			if(!$hiilite_options['is_woocommerce']) wp_deregister_style($handle);
@@ -774,5 +773,30 @@ add_filter('upload_mimes', 'cc_mime_types');
 
 
 
+function excerpt($limit) {
+  $excerpt = explode(' ', get_the_excerpt(), $limit);
+  if (count($excerpt)>=$limit) {
+    array_pop($excerpt);
+    $excerpt = implode(" ",$excerpt).'...';
+  } else {
+    $excerpt = implode(" ",$excerpt);
+  }	
+  $excerpt = preg_replace('`\[[^\]]*\]`','',$excerpt);
+  return $excerpt;
+}
+ 
+function content($limit) {
+  $content = explode(' ', get_the_content(), $limit);
+  if (count($content)>=$limit) {
+    array_pop($content);
+    $content = implode(" ",$content).'...';
+  } else {
+    $content = implode(" ",$content);
+  }	
+  $content = preg_replace('/\[.+\]/','', $content);
+  $content = apply_filters('the_content', $content); 
+  $content = str_replace(']]>', ']]&gt;', $content);
+  return $content;
+}
 
 ?>

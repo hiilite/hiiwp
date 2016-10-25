@@ -78,19 +78,26 @@ require_once 'kirki_sets/general_panel.php';
 require_once 'kirki_sets/logo_section.php';
 
 // HEADER 
-require_once 'kirki_sets/header_section.php';
+require_once 'kirki_sets/header_panel.php';
 
-// MENU
-require_once 'kirki_sets/menu_section.php';
-
-// TITLE
-require_once 'kirki_sets/title_section.php';
 
 // FOOTER 
 require_once 'kirki_sets/footer_section.php';
 
+// MENU
+//require_once 'kirki_sets/menu_section.php';
+
+// TITLE
+require_once 'kirki_sets/title_section.php';
+
 // TYPOGRAPHY
 require_once 'kirki_sets/typography_panel.php';
+
+// ELEMENTS
+require_once 'kirki_sets/elements_panel.php';
+
+// Sidebar
+require_once 'kirki_sets/sidebar_section.php';
 
 // BLOG
 require_once 'kirki_sets/blog_section.php';
@@ -100,4 +107,10 @@ require_once 'kirki_sets/portfolio_section.php';
 
 // Testimonials
 require_once 'kirki_sets/testimonial_section.php';
+
+// Social
+require_once 'kirki_sets/social_section.php';
+
+// Social
+require_once 'kirki_sets/404_error_page_section.php';
 ?>

@@ -1,15 +1,6 @@
 <style <?php if($hiilite_options['amp']) echo 'amp-custom'; ?>>
 <?php 
 global $is_IE;
-/*$post_id = get_the_id();
-
-if(get_post_meta($post_id, 'amp', true) == 'nonamp'){
-	$hiilite_options['amp'] = false;
-} else {
-	$hiilite_options['amp'] = (!isset($hiilite_options['amp']))?get_theme_mod('amp'):false;
-}
-
-*/
 if($hiilite_options['amp']) $_amp = 'amp-'; else $_amp = '';
 include_once('font-awesome/css/font-awesome.min.css'); 
 	
@@ -55,6 +46,21 @@ function get_font_css($font){
 				}
 				echo ';';
 			}
+			elseif ($key == 'text-align') {
+				switch ($value) {
+					case 'right':
+						echo 'margin-left:auto;';
+					break;
+					case 'center':
+						echo 'margin-left:auto;';
+						echo 'margin-right:auto;';
+					break;
+					case 'left':
+						echo 'margin-right:auto;';
+					break;
+				}
+				echo $key.':'.$value.';';
+			}
 			else { echo $key.':'.$value.';'; }
 			
 			
@@ -80,10 +86,15 @@ html {
 }
 body {
 	margin: 0;
-	background: <?=$hiilite_options['default_background_color'];?>;
 }
+<?php 
+$link_color = get_theme_mod('link_color');
+	?>
 a {
-	color:<?=$hiilite_options['typography_link_color'];?>;<?php echo preg_replace('/[{}]/','',$hiilite_options['typography_link_custom_css']); ?>
+	color:<?=$link_color['link'];?>;<?php echo preg_replace('/[{}]/','',$hiilite_options['typography_link_custom_css']); ?>
+}
+a:hover {
+	color:<?=$link_color['hover'];?>;
 }
 figure {
 	display: block;
@@ -94,6 +105,22 @@ figure {
 figure.align-center <?=$_amp?>img{
 	margin: auto;
 }
+
+figure.single-image.hover-image {
+    position: relative;
+}
+figure.single-image.hover-image .hover_image-img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    opacity: 0;
+    transition: all 0.5s;
+}
+figure.single-image.hover-image:hover .hover_image-img {
+    opacity: 1;
+}
+
 address {
 	display: inline-block;
 }
@@ -203,14 +230,7 @@ header#main_header {
 	<?php 
 	if ($hiilite_options['header_above_content'] == false){ 
 		echo 'position:absolute;'; 
-	} else {
-		echo ($hiilite_options['header_background_image'] != '')?'background-image:url('.$hiilite_options['header_background_image'].');':'';
-		echo 'background-repeat:'.$hiilite_options['header_background_repeat'].';';
-		echo 'background-size:'.$hiilite_options['header_background_size'].';';
-		echo 'background-attachment:'.$hiilite_options['header_background_attach'].';';
-		echo 'background-position:'.str_replace('-', ' ', $hiilite_options['header_background_position']).';';
-		echo 'background-color:'.$hiilite_options['header_background_color'].';';
-	}
+	} 
 	?>
 }
 <?php
@@ -270,12 +290,37 @@ header#main_header.fixed.scrolled ~ section:first-of-type {
 		padding: 0em;
 	}
 }
+<?php
+/*
+*
+*  HEADER TOP
+*
+*/	
+$header_top_colors = get_theme_mod( 'header_top_colors' );
+?>
 #header_top {
 	background: <?=$hiilite_options['header_top_background_color']?>;
+	border:0px solid;
 	<?php 
 	get_font_css($hiilite_options['header_top_font']);
-	echo ($hiilite_options['header_top_border_color'] != '')?'border-top-color:'.$hiilite_options['header_top_border_color'].';border-top-style: solid;':'';
-	echo ($hiilite_options['header_top_border_width'] != '')?'border-top-width:'.$hiilite_options['header_top_border_width'].';':''; ?>
+?>
+}
+#header_top a{
+	color:<?=$header_top_colors['link'];?>;
+}
+#header_top a:hover{
+	color:<?=$header_top_colors['hover'];?>;
+}
+<?php if(get_theme_mod('hide_top_bar_on_mobile_yesno') == true): ?>
+@media (max-width:<?=get_theme_mod('mobile_menu_switch','768px')?>){
+	#header_top {
+		display:none;
+	}
+}
+<?php endif; ?>
+
+#header_bottom {
+	border-bottom-style: solid;
 }
 
 
@@ -294,31 +339,11 @@ header#main_header.fixed.scrolled ~ section:first-of-type {
 }
 
 /* FOOTER */
-
+<?php
+$footer_top_colors = get_theme_mod('footer_top_colors');
+$footer_bottom_colors = get_theme_mod('footer_bottom_colors');	
+?>
 #main_footer {
-	<?php 
-	get_font_css($hiilite_options['typography_footer_text_font']);
-	
-?>
-} 
- 
-#main_footer .widgettitle {
-<?php 
-	get_font_css($hiilite_options['typography_footer_headings_font']);
-?>
-}
-
-#main_footer a {
-<?php 
-	get_font_css($hiilite_options['typography_footer_links_font']);
-?>
-}
-
-#main_footer ul {
-    list-style: none;
-    padding: 0;
-}
-#footer_top, #footer_page {
 	background: <?=$hiilite_options['footer_background_color'];?>;
 	<?php 
 	echo 'background-image:url('.$hiilite_options['footer_background_image'].');';
@@ -327,8 +352,50 @@ header#main_header.fixed.scrolled ~ section:first-of-type {
 	echo 'background-attachment:'.$hiilite_options['footer_background_attach'].';';
 	echo 'background-position:'.str_replace('-', ' ', $hiilite_options['footer_background_position']).';';
 	echo 'background-color:'.$hiilite_options['footer_background_color'].';';
+ 
+	get_font_css($hiilite_options['typography_footer_text_font']);
+	
+?>
+border-top-style:solid;
+} 
+ #footer_top {
+<?php 
+	if($footer_top_colors['text']) echo 'color:'.$footer_top_colors['text'];
+?>
+}
+#footer_top .widgettitle {
+<?php 
+	get_font_css($hiilite_options['typography_footer_headings_font']);
+	if($footer_top_colors['title']) echo 'color:'.$footer_top_colors['title'];
+?>
+}
+
+#footer_top a {
+<?php 
+	get_font_css($hiilite_options['typography_footer_links_font']);
+	if($footer_top_colors['link']) echo 'color:'.$footer_top_colors['link'];
+?>
+}
+#footer_top a:hover {
+<?php 
+	if($footer_top_colors['hover']) echo 'color:'.$footer_top_colors['hover'];
+?>
+}
+
+#main_footer ul {
+    list-style: none;
+    padding: 0;
+}
+#footer_top, #footer_page {
+	background: <?=$hiilite_options['footer_top_background_color'];?>;
+	<?php 
+	echo 'background-image:url('.get_theme_mod('footer_top_background_image').');';
+	echo 'background-repeat:'.get_theme_mod('footer_top_background_repeat').';';
+	echo 'background-size:'.get_theme_mod('footer_top_background_size').';';
+	echo 'background-attachment:'.get_theme_mod('footer_top_background_attach').';';
+	echo 'background-position:'.str_replace('-', ' ', get_theme_mod('footer_top_background_position')).';';
+	echo 'background-color:'.get_theme_mod('footer_top_background_color').';';
 	?>
-	padding: 1em;
 	align-content: flex-start;
 	display: flex;
 	align-items: center;
@@ -345,9 +412,25 @@ header#main_header.fixed.scrolled ~ section:first-of-type {
 }
 #footer_bottom{
 	background: <?php echo $hiilite_options['footer_bottom_background_color']; ?>;
-	color: #fff;
-	padding:1em;
+	border-top-style: solid;
+	<?php 
+	get_font_css(get_theme_mod('typography_footer_bottom_text_font'));
+	if($footer_bottom_colors['text']) echo 'color:'.$footer_bottom_colors['text']; ?>
 }
+
+
+#footer_bottom a {
+<?php 
+	if($footer_bottom_colors['link']) echo 'color:'.$footer_bottom_colors['link'];
+?>
+}
+#footer_bottom a:hover {
+<?php 
+	if($footer_bottom_colors['hover']) echo 'color:'.$footer_bottom_colors['hover'];
+?>
+}
+
+
 .flex-item {
 	flex: 1 1 auto;
 	<?php if($is_IE) echo 'flex-basis: 0%';?>
@@ -364,18 +447,21 @@ header#main_header.fixed.scrolled ~ section:first-of-type {
 	flex-wrap: wrap;
 	justify-content: flex-end;
 }
-.menu.main-menu {
-	<?php if($hiilite_options['main_menu_background_color'] != '')
-		echo 'background:'.$hiilite_options['main_menu_background_color'].';';
-	?>
 
-}
 .menu .menu-item  {
 	position: relative;
 }
-.menu .menu-item a {
+<?php 
+	
+/*
+*
+*	MENU
+*	
+*/
+$main_menu_colors = get_theme_mod('main_menu_colors');	
+?>
+#main_header .menu .menu-item a {
 	text-decoration: none;
-	padding: 1em; /*set*/
 	display:block;
 	<?php 
 	get_font_css($hiilite_options['main_menu_font']);
@@ -383,38 +469,86 @@ header#main_header.fixed.scrolled ~ section:first-of-type {
 	<?=$hiilite_options['main_menu_links_css'];?>
 }
 
-.menu li:hover {
-	border-radius: 4px;
-	background: <?=$hiilite_options['color_one'];?>;
+#main_header .menu li:hover {
+	background: <?=$main_menu_colors['hover_background'];?>;
 }
-.menu .current-menu-item a {
-	color:<?=$hiilite_options['color_one'];?>;
+#main_header .menu .current-menu-item a {
+	color:<?=$main_menu_colors['active'];?>;
 }
-.menu li:hover a {
-	color:white;
+#main_header .menu li:hover a {
+	color:<?=$main_menu_colors['hover'];?>;
 }
-ul.sub-menu {
+
+<?php
+/*
+*	SUB MENU
+*/
+$second_level_menu_colors = get_theme_mod('second_level_menu_colors');
+?>
+#main_header ul.sub-menu {
     position: absolute;
     list-style: none;
     padding: 0;
     display: none;
-    background: grey;
 	min-width: 12em;
 	z-index: 10;
 }
-.menu li:hover > ul.sub-menu {
+#main_header .menu li:hover > ul.sub-menu {
 	display:block;
 }
-.menu li>ul.sub-menu>li:hover>ul.sub-menu {
+#main_header .menu ul.sub-menu .menu-item a {
+	text-decoration: none;
+	display:block;
+	<?php 
+	get_font_css(get_theme_mod('second_level_menu_font'));
+	echo get_theme_mod('second_level_menu_links_css');
+	?>
+}
+#main_header .menu ul.sub-menu li:hover {
+	background: <?=$second_level_menu_colors['hover_background'];?>;
+}
+#main_header .menu ul.sub-menu .current-menu-item a {
+	color:<?=$second_level_menu_colors['active'];?>;
+}
+#main_header .menu ul.sub-menu li:hover a {
+	color:<?=$second_level_menu_colors['hover'];?>;
+}
+
+<?php
+/*
+*	SUB SUB MENU
+*/
+$third_level_menu_colors = get_theme_mod('third_level_menu_colors');
+?>
+#main_header .menu li>ul.sub-menu>li:hover>ul.sub-menu {
     position: absolute;
     left: 100%;
     top: 0;
 }
+#main_header .menu ul.sub-menu ul.sub-menu .menu-item a {
+	<?php 
+	get_font_css(get_theme_mod('third_level_menu_font'));
+	echo get_theme_mod('third_level_menu_links_css');
+	?>
+}
+#main_header .menu ul.sub-menu ul.sub-menu li:hover {
+	background: <?=$third_level_menu_colors['hover_background'];?>;
+}
+#main_header .menu ul.sub-menu ul.sub-menu .current-menu-item a {
+	color:<?=$third_level_menu_colors['active'];?>;
+}
+#main_header .menu ul.sub-menu ul.sub-menu li:hover a {
+	color:<?=$third_level_menu_colors['hover'];?>;
+}
+
+
+
+
 a, .button, .menu li {
 	transition:all 0.4s;
 }
 @media (max-width:<?=$hiilite_options['mobile_menu_switch'];?>){
-	nav#main-nav:before {
+	#main_header nav#main-nav:before {
 		content: '\f0c9';
 		text-align: center;
 		display: block;
@@ -424,16 +558,16 @@ a, .button, .menu li {
 		font-size: 1.5em;
 	}
 
-	nav#main-nav {
+	#main_header nav#main-nav {
 		position: relative;
 		transition:all 1s;
 		display: block;
 	}
 
-	nav#main-nav .main-menu {
+	#main_header nav#main-nav .main-menu {
 		position: relative;
 		z-index: 9999;
-		background: white;
+		background: <?=get_theme_mod( 'main_menu_background_color', 'white' )?>;
 		left: 0;
 		top: 0;
 		max-height: 0;
@@ -443,19 +577,19 @@ a, .button, .menu li {
 		overflow: auto;
 	}
 
-	.main-menu li {
+	#main_header .main-menu li {
 		width: 100%;
 		text-align: center;
 	}
 
-	nav#main-nav:hover .main-menu {
+	#main_header nav#main-nav:hover .main-menu {
 		max-height: 100vh;
 	}
-	ul.sub-menu {
+	#main_header ul.sub-menu {
 		position: relative;
 		display: block;
 	}
-	ul.sub-menu:before {
+	#main_header ul.sub-menu:before {
 	    position: absolute;
 	    content: "M";
 	    top: -3.5em;
@@ -464,21 +598,21 @@ a, .button, .menu li {
 	    font-family: FontAwesome;
 	    content: '\f055';
 	}
-	ul.sub-menu:hover:before {
+	#main_header ul.sub-menu:hover:before {
 	    content: '\f056';
 	}
-	ul.sub-menu li {
+	#main_header ul.sub-menu li {
 	    display: none;
 	}
-	ul.sub-menu:hover>li {
+	#main_header ul.sub-menu:hover>li {
 	    display: block;
 	}
-	.menu li>ul.sub-menu>li:hover>ul.sub-menu {
+	#main_header .menu li>ul.sub-menu>li:hover>ul.sub-menu {
 		box-shadow: inset 0 0 1px black;
 		position: relative;
 		left: 0;
 	}
-	ul.sub-menu>li ul.sub-menu:hover>li {
+	#main_header ul.sub-menu>li ul.sub-menu:hover>li {
 	    display: block;
 	    
 	    
@@ -893,6 +1027,29 @@ amp-carousel.carousel {
 	text-overflow: ellipsis;
 	white-space: nowrap;
 	overflow: hidden;
+}
+
+.post-grid h5 {
+	height:4em;
+	text-overflow: ellipsis;
+	overflow: hidden;
+}
+.post-grid figure {
+    position: relative;
+    padding-top:56%;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    margin-bottom: 0.5em;
+}
+
+.post-grid figure img {
+    position: absolute;
+    top: 0;
+    min-height: 100%;
+    max-width: 100%;
+    width: auto;
+    min-width: 100%;
 }
 
 <?php

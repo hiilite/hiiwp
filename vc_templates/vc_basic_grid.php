@@ -68,8 +68,6 @@ if($atts['post_type'] != 'custom'){
 	
 }
 echo '<div class="container_inner">';
-$colcount = ($hiilite_options['blog_layout'] =='masonry')?' col-count-'.$hiilite_options['blog_columns']:'';
-	echo '<div class="'.$hiilite_options['blog_layout'].$colcount.'">';
 $my_query = new WP_Query($query);
 while ( $my_query->have_posts() ) {
 	$my_query->the_post(); // Get post from query
@@ -78,12 +76,31 @@ while ( $my_query->have_posts() ) {
 	
 	$post_id = get_the_ID();
 	$post->link = get_permalink( $post_id );
-	
-	
-	get_template_part('templates/blog', 'loop');
 
+	?>
+	<div class="flex-item third-width">
+		<article class="content-box post-grid">
+			<?php 
+			if(has_post_thumbnail($post_id)): 
+				
+				$tn_id = get_post_thumbnail_id( $post_id );
+		
+				$img = wp_get_attachment_image_src( $tn_id, 'medium' );
+				$width = $img[1];
+				$height = $img[2];
+			?>
+			<figure>
+				<a href="<?=$post->link?>"><<?=$_amp?>img src='<?=$img[0];?>' layout='responsive' width='<?=$width?>' height='<?=($height)?>'><?=($_amp!='')?'</amp-img>':''?></a>
+			</figure>
+			<?php endif; ?>
+			<div class="caption">
+			<h5><a href="<?=$post->link?>"><?php the_title(); ?></a></h5>
+			<p><?php echo excerpt(25); ?></p>
+			</div>
+		</article>
+	</div>
+	<?php
 }
-echo '</div>';
 echo '</div>';
 wp_reset_postdata();
 ?>

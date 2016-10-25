@@ -1,8 +1,9 @@
 <?php
 Kirki::add_section( 'blog_section', array(
     'priority'    => 6,
-    'title'       => __( 'Blog', 'textdomain' ),
+    'title'       => __( 'Blog (beta)', 'textdomain' ),
     'description' => __( 'Blog settings', 'textdomain' ),
+    'icon' => 'dashicons-welcome-write-blog'
 ) );
 
 

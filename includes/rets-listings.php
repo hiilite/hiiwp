@@ -75,6 +75,8 @@ function hiilite_listing_init() {
  add_action('cmb2_admin_init', 'cmb2_listing_mls_metaboxes');
  add_action('cmb2_admin_init', 'cmb2_listing_tax_metaboxes');
  
+ add_action('cmb2_admin_init', 'cmb2_listing_room_dimensions_metaboxes');
+ 
  add_action('cmb2_admin_init', 'cmb2_listing_office_metaboxes');
  add_action('cmb2_admin_init', 'cmb2_listing_agent_metaboxes');
  
@@ -83,6 +85,7 @@ function hiilite_listing_init() {
  add_action('cmb2_admin_init', 'cmb2_listing_geo_metaboxes');
  add_action('cmb2_admin_init', 'cmb2_listing_association_metaboxes');
  add_action('cmb2_admin_init', 'cmb2_listing_extras_metaboxes');
+
 
 
 function cmb2_listing_photos_metaboxes(){
@@ -104,6 +107,13 @@ function cmb2_listing_photos_metaboxes(){
 	    'name' => 'photos',
 	    'id'   => 'photos',
 	    'type' => 'file_list',
+	) );
+	
+	$cmb->add_field( array(
+	    'name' => 'Floor Plan',
+	    'id'   => 'floorplan',
+	    'type' => 'file',
+	    'desc'    => 'Add a PDF or image of the floor plan',
 	) );
 }
 
@@ -277,6 +287,24 @@ function cmb2_listing_property_metaboxes(){
 	    'id'   => 'property-yearBuilt',
 	    'type' => 'text_small',
 	) );
+	
+	$cmb->add_field( array(
+	    'name' => 'Balcony/Patio',
+	    'id'   => 'property-balconyPatio',
+	    'type' => 'text_small',
+	) );
+	
+	$cmb->add_field( array(
+	    'name' => 'Parking',
+	    'id'   => 'property-parking',
+	    'type' => 'text_small',
+	) );
+	
+	$cmb->add_field( array(
+	    'name' => 'Rental Restrictions',
+	    'id'   => 'property-rentalRestrictions',
+	    'type' => 'text_small',
+	) );
 }
 
 
@@ -377,6 +405,46 @@ function cmb2_listing_tax_metaboxes(){
 }
 
 
+function cmb2_listing_room_dimensions_metaboxes(){
+	//////////////////////////////////
+	// Generic Options Listing
+	/////////////////////////////////
+    $cmb = new_cmb2_box( array(
+        'id'            => 'listing_room_dimensions',
+        'title'         => 'Listing Room Dimensions',
+        'object_types'  => array( 'listing' ), // post type
+        'context'       => 'normal', // 'normal', 'advanced' or 'side'
+        'priority'      => 'high', // 'high', 'core', 'default' or 'low'
+        'show_names'    => true, // show field names on the left
+        'cmb_styles'    => true, // false to disable the CMB stylesheet
+        'closed'        => false, // keep the metabox closed by default
+    ) );
+    
+    $group_field_id = $cmb->add_field( array(
+	    'id'          => 'property-rooms',
+	    'type'        => 'group',
+	    'description' => __( 'Add each rooms dimensions', 'hiiwp' ),
+	    // 'repeatable'  => false, // use false if you want non-repeatable group
+	    'options'     => array(
+	        'group_title'   => __( 'Room {#}', 'hiiwp' ), // since version 1.1.4, {#} gets replaced by row number
+	        'add_button'    => __( 'Add Another Room', 'hiiwp' ),
+	        'remove_button' => __( 'Remove Room', 'hiiwp' ),
+	        'sortable'      => true, // beta
+	    ),
+	) );
+
+	$cmb->add_group_field($group_field_id, array(
+	    'name' => 'Room Name',
+	    'id'   => 'type',
+	    'type' => 'text_small',
+	) );
+	$cmb->add_group_field($group_field_id, array(
+	    'name' => 'Dimensions',
+	    'id'   => 'dimensions',
+	    'type' => 'text_small',
+	) );
+}
+
 function cmb2_listing_office_metaboxes(){
 	//////////////////////////////////
 	// Generic Options Listing
@@ -424,6 +492,9 @@ function cmb2_listing_office_metaboxes(){
 	) );
 	
 }
+
+
+
 
 
 function cmb2_listing_agent_metaboxes(){

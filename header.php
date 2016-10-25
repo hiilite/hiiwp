@@ -102,7 +102,7 @@ echo minify_css($body);
 			<aside id="header_top">
 				<div class="container_inner"><div class="in_grid">
 					<?php 
-						if($hiilite_options['header_top_left']){ ?>
+						if($hiilite_options['header_top_left'] || get_theme_mod('header_top_area_yesno') == true){ ?>
 					<div id="header_top_left" class="flex-item">
 						<?php 
 						//if ( is_active_sidebar( 'header_top_left' ) ) :
@@ -111,7 +111,7 @@ echo minify_css($body);
 						?>
 					</div>
 					<?php } 
-					if($hiilite_options['header_top_right']){ ?>
+					if($hiilite_options['header_top_right'] || get_theme_mod('header_top_area_yesno') == true){ ?>
 					<div id="header_top_right" class="align-right flex-item">
 						<?php 
 						if ( is_active_sidebar( 'header_top_right' ) ) :

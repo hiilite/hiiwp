@@ -4,7 +4,7 @@ $urlParts = explode('.', $_SERVER['HTTP_HOST']);
 $hiilite_options['subdomain'] = $urlParts[0];
 // GENERAL
 $hiilite_options['default_font']				= get_theme_mod( 'default_font', array(
-        'font-family'    => 'Roboto',
+        'font-family'    => 'Raleway',
         'variant'        => '400',
         'font-size'      => '14px',
         'line-height'    => '1.5',
@@ -160,14 +160,14 @@ $hiilite_options['mobile_menu_switch']		= get_theme_mod( 'mobile_menu_switch', '
 
 // TITLE
 $hiilite_options['show_page_titles']		= get_theme_mod( 'show_page_titles', true );
-$hiilite_options['title_height']			= get_theme_mod( 'title_height', '200px' );
+$hiilite_options['title_height']			= get_theme_mod( 'title_height', '100px' );
 $hiilite_options['title_font']				= get_theme_mod( 'title_font', $hiilite_options['heading_font'] );
 $hiilite_options['title_background_image']		= get_theme_mod( 'title_background_image', '');
 $hiilite_options['title_background_repeat']	= get_theme_mod( 'title_background_repeat', 'no-repeat');
 $hiilite_options['title_background_size']	    = get_theme_mod( 'title_background_size', 'cover');
 $hiilite_options['title_background_attach']	= get_theme_mod( 'title_background_attach', 'fixed');
 $hiilite_options['title_background_position']	= get_theme_mod( 'title_background_position', 'left-top');
-$hiilite_options['title_background_color']		= get_theme_mod( 'title_background_color', '#ffffff' );
+$hiilite_options['title_background_color']		= get_theme_mod( 'title_background_color', '' );
 
 
 
@@ -270,24 +270,24 @@ $hiilite_options['typography_icon_custom_css']	= get_theme_mod( 'typography_icon
 *	Default Button
 */
 $hiilite_options['typography_button_default_font']	= get_theme_mod( 'typography_button_default_font', array(
-        'font-family'    => 'Roboto',
-        'variant'        => '400',
-        'font-size'      => '14px',
+        'font-family'    => 'inherit',
+        'variant'        => '700',
+        'font-size'      => '12px',
         'line-height'    => '1.5',
-        'letter-spacing' => '0px',
-        'color'          => $hiilite_options['color_one'],
+        'letter-spacing' => '1px',
+        'color'          => '#303030',
         'text-transform' => 'uppercase',
     ) );
 $hiilite_options['typography_button_default_background'] =  get_theme_mod( 'typography_button_default_background','none');
 $hiilite_options['typography_button_default_padding'] =  get_theme_mod('typography_button_default_padding', array(
-		'0'    => '0.5em',
-		'1'  => '1em',
-		'2' => '0.5em',
-		'3'   => '1em',
+		'top'    => '0.5em',
+		'right'  => '1.5em',
+		'bottom' => '0.5em',
+		'left'   => '1.5em',
 	));
-$hiilite_options['typography_button_default_border_color'] =  get_theme_mod( 'typography_button_default_border_color', $hiilite_options['color_one']);
+$hiilite_options['typography_button_default_border_color'] =  get_theme_mod( 'typography_button_default_border_color', '#303030');
 $hiilite_options['typography_button_default_border_width'] =  get_theme_mod( 'typography_button_default_border_width', '2px');
-$hiilite_options['typography_button_default_border_radius'] =  get_theme_mod( 'typography_button_default_border_radius', '6px');
+$hiilite_options['typography_button_default_border_radius'] =  get_theme_mod( 'typography_button_default_border_radius', '4px');
 $hiilite_options['typography_button_custom_css']	= get_theme_mod( 'typography_button_custom_css', '
 	margin: 1em 0;
 	text-decoration: none;

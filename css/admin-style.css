@@ -9,6 +9,9 @@ h1,h2,h3,h4,h5,h6 {
 h1 {
 	border-width: 1px;
 }
+li#toplevel_page_customize .wp-menu-name, li#toplevel_page_customize .wp-menu-image:before {
+    color: #2AB7C4;
+}
 #wpadminbar>#wp-toolbar>#wp-admin-bar-root-default #wp-admin-bar-wp-logo .ab-icon {
 	background-image: url('../images/hiilite-logo-symbolmark.svg') !important;
 	background-size: contain;
@@ -238,6 +241,16 @@ ul.cmb2-checkbox-list.cmb2-list li {
 .cmb-repeat-group-wrap .cmb-row:not(:last-of-type) {
     float: left;
 }
+.cmb-add-row {
+    margin: 0;
+}
+.cmb-repeat-group-wrap .cmb-repeatable-group>.cmb-row, .postbox-container .cmb-repeatable-group>.cmb-row {
+    width: 100%;
+}
+.cmb-repeat-group-wrap .cmb2-wrap>.cmb-field-list>.cmb-row, .postbox-container .cmb2-wrap>.cmb-field-list>.cmb-row {
+    padding: 1em 0 !important;
+    vertical-align: top;
+}
 
 .cmb-row:last-of-type, .cmb2-wrap .cmb-row:last-of-type {
 }
@@ -258,7 +271,8 @@ ul.cmb2-checkbox-list.cmb2-list li {
 
 .cmb-row.cmb-type-text-small, 
 .cmb-row.cmb-type-text-money, 
-.cmb-row.cmb-type-text-date{
+.cmb-row.cmb-type-text-date,
+.cmb-type-text-email{
     display: inline-block;
     width: 25%;
 }

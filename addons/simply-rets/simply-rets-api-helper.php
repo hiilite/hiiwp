@@ -850,17 +850,19 @@ HTML;
 				if(isset($term_status))$status = $term_status;
 				elseif(strtotime($listing->listDate) < strtotime('1 week ago')) $status = 'Just Listed';
 			    elseif(isset($listing->mls->area)) $status = $listing->mls->area;
-			    else $status = $listing->mls->status;
+			    else $status = $listing->mls->status; 
 			    
-		
+			    $listing_mlsid_html = ($listing_mlsid != '')?$listing_mlsid_html = ' ('.$listing_mlsid.')':'';
+				$title_html = ($listing_address != '' || $listing_subdivision != '' && $listing_city != '')?$listing_unit.' '.$listing_address.' '. $listing_subdivision.', '.$listing_city.$listing_mlsid_html:get_the_title($post_id);
+				
 				if($wp_listing = get_page_by_title($property->address->full, OBJECT, 'listing')){
 					$inner .= print_r($wp_listing, true);
 				} else {
 					$inner .= <<<HTML
 					<div class="sr-listing-slider-item small_listing_container $additional_class"> 
 						<div class="four columns alpha omega listing_thumb">
-							<a href="$link" title="$fullAddress">
-								<img src="$photo" alt="$fullAddress" title="$fullAddress" class="scale-with-grid ">
+							<a href="$link" title="$title_html">
+								<img src="$photo" alt="$title_html" title="$fullAddress" class="scale-with-grid ">
 							</a>
 							<div class="four columns alpha omega listing_info">
 								<div class="listing_remarks">
@@ -868,7 +870,7 @@ HTML;
 								</div><p>$subType | $beds Bed | $baths Bath | $area</p>
 							</div>
 						</div>
-						<h3><a href="$link" title="$fullAddress">$fullAddress ($lid)</a></h3>
+						<h3><a href="$link" title="$title_html">$title_html</a></h3>
 						<sup class="supersmall">$office</sup>
 					</div>
 HTML;

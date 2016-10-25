@@ -80,3 +80,6 @@
     margin: 0;
     display: inline-block;
 }
+span.select2 {
+    min-width: 150px;
+}

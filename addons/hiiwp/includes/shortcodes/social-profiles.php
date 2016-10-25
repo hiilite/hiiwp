@@ -1,8 +1,8 @@
 <?php
-if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
+
 
 function add_social_profiles_shortcode( $atts ){
-	$options = get_option('company_options');
+	$options = get_option('hii_seo_settings');
 	$defaults = array(
 	    'facebook'  	=> false,
 	    'twitter'  		=> false,
@@ -17,7 +17,7 @@ function add_social_profiles_shortcode( $atts ){
 		'email'			=> false,
 		"css"  			=> "",
     );
-	if($atts == '')$atts = $defaults;
+    if($atts == '')$atts = $defaults;
 	extract( shortcode_atts( $defaults, $atts ) );
 	
 	$css_classes = array(
@@ -32,10 +32,12 @@ function add_social_profiles_shortcode( $atts ){
 	$css_class = preg_replace( '/\s+/', ' ', apply_filters( VC_SHORTCODE_CUSTOM_CSS_FILTER_TAG, implode( ' ', array_filter( $css_classes ) ), '.vc_custom_', $atts ) );
 	$wrapper_attributes[] = 'class="' . esc_attr( trim( $css_class ) ) . '"';
 		
-    $output = '<div ' . implode( ' ', $wrapper_attributes ) . '>';
-	foreach($atts as $key=>$profile){
-		$bkey = isset($options['business_'.str_replace('-','',$key)])?$options['business_'.str_replace('-','',$key)]:false;
-		if($bkey) $output .= '<a href="'.$bkey.'" target="_blank"><i class="fa fa-'.$key.'"></i></a> ';
+    $output = '<div '.implode( ' ', $wrapper_attributes ).'>';
+	if(count($options['business_social']) > 0) {
+		
+		foreach($options['business_social'] as $socialprofile):
+			$output .= '<a href="'.$socialprofile['social_url'].'" target="_blank"><i class="fa fa-'.strtolower($socialprofile['social_site']).'"></i></a> ';
+		endforeach;
 	}
 	$output .= '</div>';
 	return $output;
@@ -82,7 +84,7 @@ class Social_Profiles_Widget extends WP_Widget {
 	 */
 	public function form( $instance ) {
 		// outputs the options form on admin
-		$title = ! empty( $instance['title'] ) ? $instance['title'] : __( 'Share This', 'text_domain' );
+		$title = ! empty( $instance['title'] ) ? $instance['title'] : __( '', 'text_domain' );
 		?>
 		<p>
 		<label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e( 'Title:' ); ?></label> 

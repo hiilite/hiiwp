@@ -3,6 +3,7 @@
     'priority'    => 2,
     'title'       => __( 'Logo', 'textdomain' ),
     'description' => __( 'Global settings', 'textdomain' ),
+    'icon' => 'dashicons-admin-site'
 ) );
 Kirki::add_field( 'hiiwp', array(
 	'type'        => 'image',

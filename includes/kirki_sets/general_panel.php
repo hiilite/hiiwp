@@ -8,6 +8,7 @@ Kirki::add_panel( 'general_panel', array(
     'priority'    => 1,
     'title'       => __( 'General', 'textdomain' ),
     'description' => __( 'Global settings', 'textdomain' ),
+    'icon' => 'dashicons-admin-home'
 ) );
 //////////////////////
 //
@@ -20,15 +21,6 @@ Kirki::add_section( 'general_section_globals', array(
     'panel'          => 'general_panel', // Not typically needed.
     'priority'       => 1,
     'capability'     => 'edit_theme_options'
-) );
-
-Kirki::add_field( 'hiiwp', array(
-	'type'        => 'dimension',
-	'settings'    => 'grid_width',
-	'label'       => esc_attr__( 'Grid Width', 'my_textdomain' ),
-	'section'     => 'general_section_globals',
-	'default'     => '1100px',
-	'priority'    => 1,
 ) );
 
 //////////////////
@@ -368,89 +360,317 @@ Kirki::add_field( 'hiiwp', array(
 ) );
 
 
-
-
-// COLOR PALETTE
-Kirki::add_section( 'general_section_color_palette', array(
-    'title'          => __( 'Color Palette' ),
-    'description'    => __( 'Choose the color palette for the entire site' ),
+///////////////////
+//
+// DESIGN STYLE
+//
+///////////////////
+Kirki::add_section( 'general_section_design_style', array(
+    'title'          => __( 'Design Style' ),
     'panel'          => 'general_panel', // Not typically needed.
-    'priority'       => 2,
-    'capability'     => 'edit_theme_options',
-    
+    'priority'       => 1,
+    'capability'     => 'edit_theme_options'
 ) );
+
+// Font Family
+Kirki::add_field( 'hiiwp', array(
+    'type'        => 'typography',
+    'settings'    => 'default_font',
+    'label'       => esc_attr__( 'Font Family', 'kirki' ),
+    'description'    => __( 'Choose a default Google font for your site' ),
+    'section'     => 'general_section_design_style',
+    'default'     => array(
+        'font-family'    => 'Raleway',
+        'variant'        => '400',
+        'font-size'      => '14px',
+        'line-height'    => '1.5',
+        'letter-spacing' => '0px',
+        'text-transform' => 'none',
+        'color'          => '#818181',
+    ),
+    'priority'    => 1,
+) );
+
+Kirki::add_field( 'hiiwp', array(
+	'type'        => 'switch',
+	'settings'    => 'additional_google_fonts_yesno',
+	'label'       => esc_attr__( 'Additional Google Fonts', 'hiiwp' ),
+	'section'     => 'general_section_design_style',
+	'default'     => false,
+	'priority'	  => 1,
+) );
+
+// Font Family
+Kirki::add_field( 'hiiwp', array(
+    'type'        => 'typography',
+    'settings'    => 'additional_google_font1',
+    'label'       => esc_attr__( 'Font Family', 'kirki' ),
+    'description'    => __( 'Choose additional Google font for your site' ),
+    'section'     => 'general_section_design_style',
+    'default'     => array(
+        'font-family'    => 'Serif',
+    ),
+    'priority'    => 1,
+    'active_callback'	=> array(
+		array(
+			'setting'  => 'additional_google_fonts_yesno',
+			'operator' => '==',
+			'value'    => true,
+		),
+	),
+) );
+Kirki::add_field( 'hiiwp', array(
+    'type'        => 'typography',
+    'settings'    => 'additional_google_font2',
+    'label'       => esc_attr__( 'Font Family', 'kirki' ),
+    'description'    => __( 'Choose additional Google font for your site' ),
+    'section'     => 'general_section_design_style',
+    'default'     => array(
+        'font-family'    => 'Serif',
+        'variant'        => '',
+    ),
+    'priority'    => 1,
+    'active_callback'	=> array(
+		array(
+			'setting'  => 'additional_google_fonts_yesno',
+			'operator' => '==',
+			'value'    => true,
+		),
+	),
+) );
+Kirki::add_field( 'hiiwp', array(
+    'type'        => 'typography',
+    'settings'    => 'additional_google_font3',
+    'label'       => esc_attr__( 'Font Family', 'kirki' ),
+    'description'    => __( 'Choose additional Google font for your site' ),
+    'section'     => 'general_section_design_style',
+    'default'     => array(
+        'font-family'    => 'Serif',
+        'variant'        => '',
+    ),
+    'priority'    => 1,
+    'active_callback'	=> array(
+		array(
+			'setting'  => 'additional_google_fonts_yesno',
+			'operator' => '==',
+			'value'    => true,
+		),
+	),
+) );
+Kirki::add_field( 'hiiwp', array(
+    'type'        => 'typography',
+    'settings'    => 'additional_google_font4',
+    'label'       => esc_attr__( 'Font Family', 'kirki' ),
+    'description'    => __( 'Choose additional Google font for your site' ),
+    'section'     => 'general_section_design_style',
+    'default'     => array(
+        'font-family'    => 'Serif',
+        'variant'        => '',
+    ),
+    'priority'    => 1,
+    'active_callback'	=> array(
+		array(
+			'setting'  => 'additional_google_fonts_yesno',
+			'operator' => '==',
+			'value'    => true,
+		),
+	),
+) );
+Kirki::add_field( 'hiiwp', array(
+    'type'        => 'typography',
+    'settings'    => 'additional_google_font5',
+    'label'       => esc_attr__( 'Font Family', 'kirki' ),
+    'description'    => __( 'Choose additional Google font for your site' ),
+    'section'     => 'general_section_design_style',
+    'default'     => array(
+        'font-family'    => 'Serif',
+        'variant'        => '',
+    ),
+    'priority'    => 1,
+    'active_callback'	=> array(
+		array(
+			'setting'  => 'additional_google_fonts_yesno',
+			'operator' => '==',
+			'value'    => true,
+		),
+	),
+) );
+
+
+// Color Palete
 Kirki::add_field( 'hiiwp', array(
 	'type'        => 'color',
 	'settings'    => 'color_one',
-	'label'       => __( 'Primary Color (Color 1)', 'my_textdomain' ),
-	'section'     => 'general_section_color_palette',
-	'default'     => '#ef5022',
+	'label'       => __( 'First Main Color (Color 1)', 'my_textdomain' ),
+	'description' => __('Choose the most dominant theme color'),
+	'section'     => 'general_section_design_style',
+	'default'     => '',
 	'priority'    => 1,
-	'alpha'       => true,
-	'transport'	  => 'postMessage',
 	
 ) );
 Kirki::add_field( 'hiiwp', array(
 	'type'        => 'color',
 	'settings'    => 'color_two',
-	'label'       => __( 'Secondary Color ( Color 2)', 'my_textdomain' ),
-	'section'     => 'general_section_color_palette',
-	'default'     => '#71be44',
-	'priority'    => 2,
-	'alpha'       => true,
+	'label'       => __( 'Second Main Color ( Color 2)', 'my_textdomain' ),
+	'section'     => 'general_section_design_style',
+	'description' => __('Choose the second most dominant theme color'),
+	'default'     => '',
+	'priority'    => 1,
 ) );
 Kirki::add_field( 'hiiwp', array(
 	'type'        => 'color',
 	'settings'    => 'color_three',
-	'label'       => __( 'Info Color (Color 3)', 'my_textdomain' ),
-	'section'     => 'general_section_color_palette',
-	'default'     => '#2eb6c4',
-	'priority'    => 3,
-	'alpha'       => true,
+	'label'       => __( 'Third Main Color (Color 3)', 'my_textdomain' ),
+	'description' => __('Choose the third most dominant theme color'),
+	'section'     => 'general_section_design_style',
+	'default'     => '',
+	'priority'    => 1,
 ) );
 Kirki::add_field( 'hiiwp', array(
 	'type'        => 'color',
 	'settings'    => 'color_four',
-	'label'       => __( 'Typography Color (Color 4)', 'my_textdomain' ),
-	'section'     => 'general_section_color_palette',
-	'default'     => '#555555',
-	'priority'    => 4,
-	'alpha'       => true,
+	'label'       => __( 'Fourth Main Color (Color 4)', 'my_textdomain' ),
+	'description' => __('Choose the fourth most dominant theme color'),
+	'section'     => 'general_section_design_style',
+	'default'     => '',
+	'priority'    => 1,
 ) );
 Kirki::add_field( 'hiiwp', array(
 	'type'        => 'color',
 	'settings'    => 'color_five',
-	'label'       => __( 'Text Link Color (Color 5)', 'my_textdomain' ),
-	'section'     => 'general_section_color_palette',
-	'default'     => '#8f52a0',
-	'priority'    => 5,
-	'alpha'       => true,
+	'label'       => __( 'Fifth Main Color (Color 5)', 'my_textdomain' ),
+	'description' => __('Choose the fifth most dominant theme color'),
+	'section'     => 'general_section_design_style',
+	'default'     => '',
+	'priority'    => 1,
 ) );
 Kirki::add_field( 'hiiwp', array(
 	'type'        => 'color',
 	'settings'    => 'default_background_color',
-	'label'       => __( 'Background Color', 'my_textdomain' ),
-	'section'     => 'general_section_color_palette',
-	'default'     => 'rgba(255,255,255,1)',
-	'priority'    => 6,
-	'alpha'       => true,
+	'label'       => __( 'Content Background Color', 'my_textdomain' ),
+	'description' => __('Choose the background color for page content area'),
+	'section'     => 'general_section_design_style',
+	'default'     => '#f6f6f6',
+	'priority'    => 1,
+	'transport'   => 'postMessage',
+    'output' => array(
+		array(
+			'element'  => 'body',
+			'property' => 'background-color',
+		),
+	),
+	'js_vars' => array(
+		array(
+			'element'  => 'body',
+			'property' => 'background-color',
+		),
+	),
 ) );
 
 Kirki::add_field( 'hiiwp', array(
 	'type'        => 'color',
 	'settings'    => 'secondary_background_color',
-	'label'       => __( 'Background Color', 'my_textdomain' ),
-	'section'     => 'general_section_color_palette',
-	'default'     => '#ebeef1',
-	'priority'    => 7,
-	'alpha'       => true,
+	'label'       => __( 'Box Background Color', 'my_textdomain' ),
+	'description' => __('Choose the background color for boxes that use "in grid"'),
+	'section'     => 'general_section_design_style',
+	'default'     => '#fff',
+	'priority'    => 1,
+	'transport'   => 'postMessage',
+    'output' => array(
+		array(
+			'element'  => 'section .container_inner > .in_grid',
+			'property' => 'background-color',
+		),
+	),
+	'js_vars' => array(
+		array(
+			'element'  => 'section .container_inner > .in_grid',
+			'property' => 'background-color',
+		),
+	),
+) );
+
+Kirki::add_field( 'hiiwp', array(
+	'type'        => 'color',
+	'settings'    => 'selection_color',
+	'label'       => __( 'Text Selection Color', 'my_textdomain' ),
+	'description' => __('Choose the color users see when selecting text'),
+	'section'     => 'general_section_design_style',
+	'default'     => '',
+	'priority'    => 1,
+	'transport'   => 'postMessage',
+	'output' => array(
+		array(
+			'element'  => '::selection',
+			'property' => 'background-color',
+		),
+	),
+	'js_vars' => array(
+		array(
+			'element'  => '::selection',
+			'property' => 'background-color',
+		),
+	),
+) );
+
+// Enable Overlapping Content
+/*
+Kirki::add_field( 'hiiwp', array(
+    'type'        => 'switch',
+    'settings'    => 'overlapping_content_yesno',
+    'label'       => __( 'Enable Overlapping Content', 'hiiwp' ),
+    'description' => __('Enabling this option will make content overlap title area or slider for set amount of pixels'),
+    'section'     => 'general_section_design_style',
+    'default'     => false,
+    'priority'    => 1,
+) );
+Kirki::add_field( 'hiiwp', array(
+	'type'        => 'dimension',
+	'settings'    => 'overlapping_content_amount',
+	'label'       => esc_attr__( 'Overlapping amount', 'my_textdomain' ),
+	'description' => __('Enter amount of pixels you would like content to overlap title area or slider'),
+	'section'     => 'general_section_design_style',
+	'default'     => '0px',
+	'priority'    => 1,
+	'active_callback'	=> array(
+		array(
+			'setting'  => 'overlapping_content_yesno',
+			'operator' => '==',
+			'value'    => true,
+		),
+	),
+) );
+*/
+
+// Above Header Content
+Kirki::add_field( 'hiiwp', array(
+    'type'        => 'switch',
+    'settings'    => 'header_above_content',
+    'label'       => __( 'Always put content below header', 'hiiwp' ),
+    'description' => __('Enabling this option always will put content below header'),
+    'section'     => 'general_section_design_style',
+    'default'     => true,
+    'priority'    => 1,
+) );
+
+Kirki::add_field( 'hiiwp', array(
+	'type'        => 'dimension',
+	'settings'    => 'grid_width',
+	'label'       => esc_attr__( 'Initial Width of Content', 'my_textdomain' ),
+	'description' => __('Choose the initial width of content which is in grid'),
+	'section'     => 'general_section_design_style',
+	'default'     => '1100px',
+	'priority'    => 1,
 ) );
 
 
+
+
+
+
 // GLOBAL CSS SETTINGS
-Kirki::add_section( 'general_section_custom_css', array(
-    'title'          => __( 'Custom CSS' ),
-    'description'    => __( 'Custom CSS for whole site' ),
+Kirki::add_section( 'general_section_custom_code', array(
+    'title'          => __( 'Custom Code' ),
     'panel'          => 'general_panel', // Not typically needed.
     'priority'       => 1,
     'capability'     => 'edit_theme_options'
@@ -461,7 +681,7 @@ Kirki::add_field( 'hiiwp', array(
 	'settings'    => 'custom_css',
 	'label'       => __( 'Custom CSS', 'my_textdomain' ),
 	'description' => __( 'Custom style for across the site', 'textdomain' ),
-	'section'     => 'general_section_custom_css',
+	'section'     => 'general_section_custom_code',
 	'default'     => '',
 	'priority'    => 2,
 	'choices'     => array(
@@ -476,11 +696,26 @@ Kirki::add_field( 'hiiwp', array(
 	'settings'    => 'admin_custom_css',
 	'label'       => __( 'Admin Custom CSS', 'my_textdomain' ),
 	'description' => __( 'Custom style for wp-login and admin areas', 'textdomain' ),
-	'section'     => 'general_section_custom_css',
+	'section'     => 'general_section_custom_code',
 	'default'     => '',
 	'priority'    => 2,
 	'choices'     => array(
 		'language' => 'css',
+		'theme'    => 'monokai',
+		'height'   => '100',
+	),
+) );
+
+Kirki::add_field( 'hiiwp', array(
+	'type'        => 'code',
+	'settings'    => 'custom_js',
+	'label'       => __( 'Custom JS', 'hiiwp' ),
+	'description' => __( 'Enter your custom Javascript here', 'textdomain' ),
+	'section'     => 'general_section_custom_code',
+	'default'     => '',
+	'priority'    => 2,
+	'choices'     => array(
+		'language' => 'javascript',
 		'theme'    => 'monokai',
 		'height'   => '100',
 	),

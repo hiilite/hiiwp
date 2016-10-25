@@ -1,8 +1,9 @@
 <?php
 Kirki::add_section( 'portfolio_section', array(
     'priority'    => 6,
-    'title'       => __( 'Portfolio', 'textdomain' ),
+    'title'       => __( 'Portfolio (beta)', 'textdomain' ),
     'description' => __( 'Portfolio settings', 'textdomain' ),
+    'icon' => 'dashicons-grid-view'
 ) );
 
 

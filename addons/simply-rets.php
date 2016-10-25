@@ -132,6 +132,9 @@ function get_listing_template($listing, $size, $type){
     // year built
     $listing_yearBuilt = $listing->property->yearBuilt;
     
+    // Rental Restrictions
+    $listing_rentalRestrictions = $listing->property->rentalRestrictions;
+    
     // listing id (MLS #)
     $listing_mlsid = $listing->listingId;
     
@@ -151,6 +154,9 @@ function get_listing_template($listing, $size, $type){
     $listing_rooms = $listing->property->additionalRooms;
     // view
     $listing_view = $listing->property->view;
+    
+    // balcony patio
+    $listing_balconyPatio = $listing->property->balconyPatio;
     
     // accessibility
     $listing_accessibility = $listing->property->accessibility;
@@ -221,39 +227,63 @@ function get_listing_template($listing, $size, $type){
         $listing_bathsFull = 0;
     }
 
-
+	///////////////////
+    // Room Dimensions
+    ///////////////////
     $roomsMarkup = '';
-
-    if(is_array($listing->property->rooms)) {
-
-        $rooms = $listing->property->rooms;
-
-        usort($rooms, function ($a, $b) {
-            return (is_null($a->level) OR $a->level == "") ? 1 : -1;
-        });
-
-        $roomsMarkup .= count($rooms) < 1 ? "" : "
-          <thead>
-            <tr>
-              <th colspan=\"3\"><h5>Room Details</h5></th></tr></thead>";
-
-        foreach($rooms as $room) {
-
-            if(!is_null($room->dimensions)) {
-                $roomSize = $room->dimensions;
-            } else {
-                $roomSize = "$room->length" .  " x " . "$room->width";
-            }
-            $level = $room->level;
-            $levelText = empty($level) ? '' : SrUtils::ordinalSuffix($level) . " level";
-            $roomsMarkup .= SimplyRetsApiHelper::srDetailsTable(
-                $roomSize,
-                $room->type,
-                $levelText,
-                $room->description
-            );
-        }
-    }
+	if(isset($listing->property->rooms)):
+	    if(is_array($listing->property->rooms)) {
+		   $rooms = $listing->property->rooms;
+		} else {
+			$rooms = unserialize($listing->property->rooms);
+		}
+	    usort($rooms, function ($a, $b) {
+	        return (is_null($a->level) OR $a->level == "") ? 1 : -1;
+	    });
+		
+		
+	    $roomsMarkup .= count($rooms) < 1 ? "" : "<table class='show_listing_table' width='100%'>
+	      <thead>
+	        <tr>
+	          <th colspan=\"2\"><h5>Room Dimensions</h5></th></tr></thead><tbody>";
+	
+	    foreach($rooms as $room) {
+			$room = (object) $room;
+	        if(!is_null($room->dimensions)) {
+	            $roomSize = $room->dimensions;
+	        } else {
+	            $roomSize = "$room->length" .  " x " . "$room->width";
+	        }
+	        
+	        $roomsMarkup .= "<tr class='specrow'><td class='specname'>$room->type: </td><td class='specvalue'>$room->dimensions </td></tr>";
+	    }
+	    
+	    $roomsMarkup .= count($rooms) < 1 ? "" : "</tbody></table>";
+    endif;
+    
+    
+    ///////////////////
+    // Building Details
+    ///////////////////
+    
+    $associationMarkup = '';
+    if(isset($listing->association->name)):		
+   
+	    $associationMarkup .= "<table class='show_listing_table' width='100%'>
+	      <thead>
+	        <tr>
+	          <th colspan=\"2\"><h5>Building Details</h5></th></tr></thead><tbody>";
+	
+	    $fees = isset($listing->association->fee)?'$'.$listing->association->fee:$listing_maintenanceExpense;
+	    $amenities = isset($listing->association->amenities)?$listing->association->amenities:'';
+	    $bname = isset($listing->association->name)?$listing->association->name:'';
+	    $associationMarkup .= "<tr class='specrow'><td class='specname'>Building: </td><td class='specvalue'>$bname </td></tr>";
+	    $associationMarkup .= ($fees!='')?"<tr class='specrow'><td class='specname'>Fees: </td><td class='specvalue'>$fees </td></tr>":'';
+	    $associationMarkup .= ($amenities!='')?"<tr class='specrow'><td class='specname'>Amenities: </td><td class='specvalue'>$amenities </td></tr>":'';
+	    
+	    $associationMarkup .= "</tbody></table>";
+    endif;
+    
 
 	///////////////////
     // photo gallery
@@ -270,6 +300,12 @@ function get_listing_template($listing, $size, $type){
     !empty($photos) ? $main_photo = $photos[0] : $main_photo = $dummy;
 
 
+	//////////////////
+	// floor plan
+	/////////////////
+	$floorplan     = isset($listing->floorplan)?$listing->floorplan:false;
+	
+	
     // school data
     $listing_school_district = $listing->school->district;
     // elementary school
@@ -485,12 +521,21 @@ HTML;
            if($listing_taxyear != '') $cont .= ' ('.$listing_taxyear.')';
 		   $cont .= '</p></div>'; 
 		}    
-        
+		
+    $cont .= '</div>';
+    
+    /* Extras */
+    
+    $cont .= '<div class="container_inner"><div class="sr-primary-details col-12">';
+    $cont .= ($floorplan)?"<a href='$floorplan' class='button'><i class='fa fa-home'></i> Floor Plans</a>":'';
+    $cont .= ($listingVituralTourUrl)?"<a href='$listingVituralTourUrl' class='button'><i class='fa fa-video-camera'></i> Virtual Tour</a>":'';
+    $cont .= "<a href='' class='button'><i class='fa fa-question'></i> Request Information</a>";
+    $cont .= "<span href='' class='button'>Share: <a><i</a></span>";
+    $cont .= '</div><hr>';
+    
     /* Remarks */
     $cont .= <<<HTML
-            </div>
-            <hr>
-            <div class='col-6 text-block' itemprop="description">
+            <hr><div class='col-6 text-block' itemprop="description">
             	<h3>Brought to you by Leo Wilk Personal Real Estate Corporation</h3>
             	$remarks_markup
             	<br><br>
@@ -534,6 +579,12 @@ HTML;
 	if($listing_yearBuilt != '')
 		$cont .= '<tr class="specrow"><td class="specname">year built:</td><td class="specvalue">'.$listing_yearBuilt.'</td></tr>';
 	
+	if($listing_parking != '')
+		$cont .= '<tr class="specrow"><td class="specname">parking:</td><td class="specvalue">'.$listing_parking.'</td></tr>';
+		
+	if($listing_rentalRestrictions != '')
+		$cont .= '<tr class="specrow"><td class="specname">rental restrictions:</td><td class="specvalue">'.$listing_rentalRestrictions.'</td></tr>';
+	
 	$cont .= '</tbody></table>
 		</div> <!-- end four columns -->
 		<div class="col-4">
@@ -549,11 +600,22 @@ HTML;
 		$cont .= '<tr class="specrow"><td class="specname">sqft:</td><td class="specvalue">'.$area.'</td></tr>';
 	if($listing_view != '')
 		$cont .= '<tr class="specrow"><td class="specname">view:</td><td class="specvalue">'.$listing_view.'</td></tr>';
+		
+	if($listing_balconyPatio != '')
+		$cont .= '<tr class="specrow"><td class="specname">balcony/patio:</td><td class="specvalue">'.$listing_balconyPatio.'</td></tr>';
+		
 	if($listing_fireplaces != '')
 		$cont .= '<tr class="specrow"><td class="specname">fireplaces:</td><td class="specvalue">'.$listing_fireplaces.'</td></tr>';
 	
-	$cont .= '</tbody></table>						
-		</div>
+	$cont .= '</tbody></table>';
+	
+	$cont .= $associationMarkup;
+	
+	$cont .= $roomsMarkup;
+	
+	
+	
+	$cont .= '</div>
 	</div>';
 
 	/* Map 
@@ -676,7 +738,7 @@ function get_short_listing_template($listing){
     
 	$office = $listing->office->name;
 	
-	$fullAddress = $unit.(($unit!='')?' - ':'').$streetNumber.' '.$streetName.' '.$city.', '.$subarea;
+	$fullAddress = $unit.$streetNumber.' '.$streetName.' '.$city.', '.$subarea;
     
     
 
@@ -736,7 +798,12 @@ function get_short_listing_template($listing){
     
     // Create Title
     $listing_mlsid_html = ($listing_mlsid != '')?$listing_mlsid_html = ' ('.$listing_mlsid.')':'';
-    $title_html = ($listing_address != '' || $listing_subdivision != '' && $listing_city != '')?$listing_unit.' '.$listing_address.' '. $listing_subdivision.', '.$listing_city.$listing_mlsid_html:get_the_title();
+    if($listing_address != '' || $listing_subdivision != '' && $listing_city != '')
+    	$title_html = $listing_unit.' '.$listing_address.' '. $listing_subdivision.', '.$listing_city.$listing_mlsid_html;
+    elseif($fullAddress != '' && $fullAddress != '  , ')
+    	$title_html = $fullAddress.$listing_mlsid_html;
+    else
+    	$title_html = get_the_title($post_id).$listing_mlsid_html;
      
 	if(isset($term_status))$status = $term_status;
 	elseif(strtotime($listing->listDate) < strtotime('1 week ago')) $status = 'Just Listed';
