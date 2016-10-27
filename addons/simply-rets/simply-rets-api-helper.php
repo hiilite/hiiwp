@@ -852,8 +852,14 @@ HTML;
 			    elseif(isset($listing->mls->area)) $status = $listing->mls->area;
 			    else $status = $listing->mls->status; 
 			    
+			    // Create Title
 			    $listing_mlsid_html = ($listing_mlsid != '')?$listing_mlsid_html = ' ('.$listing_mlsid.')':'';
-				$title_html = ($listing_address != '' || $listing_subdivision != '' && $listing_city != '')?$listing_unit.' '.$listing_address.' '. $listing_subdivision.', '.$listing_city.$listing_mlsid_html:get_the_title($post_id);
+			    if($listing_address != '' || $listing_subdivision != '' && $listing_city != '')
+			    	$title_html = $listing_unit.' '.$listing_address.' '. $listing_subdivision.', '.$listing_city.$listing_mlsid_html;
+			    elseif($fullAddress != '' && $fullAddress != '  , ')
+			    	$title_html = $fullAddress.$listing_mlsid_html;
+			    else
+			    	$title_html = get_the_title($post_id).$listing_mlsid_html;
 				
 				if($wp_listing = get_page_by_title($property->address->full, OBJECT, 'listing')){
 					$inner .= print_r($wp_listing, true);
