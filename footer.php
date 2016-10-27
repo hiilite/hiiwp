@@ -7,37 +7,65 @@ if($hiilite_options['subdomain'] != 'iframe'):
 
 			<!-- FOOTER -->
 			<footer id="main_footer">
-				<?php if(get_theme_mod('show_footer_top_yesno') == true): ?>
+				<?php if($hiilite_options['footer_top_col1'] || $hiilite_options['footer_top_col2'] || $hiilite_options['footer_top_col3'] || $hiilite_options['footer_top_col4']): ?>
 				<div id="footer_top">
 					<div class="container_inner">
 				<?php if($hiilite_options['footer_in_grid']) { echo '<div class="in_grid">'; } 
-				// FOOTER COLUMN 1
+				$col_count = 0;$col_count_str ='';
+				if($hiilite_options['footer_top_col1'])$col_count++;
+				if($hiilite_options['footer_top_col2'])$col_count++;
+				if($hiilite_options['footer_top_col3'])$col_count++;
+				if($hiilite_options['footer_top_col4'])$col_count++;
+				switch($col_count){
+					case 1:
+						$col_count_str = 'full-width';
+					break;
+					case 2:
+						$col_count_str = 'half-width';
+					break;
+					case 3:
+						$col_count_str = 'third-width';
+					break;
+					case 4:
+						$col_count_str = 'quarter-width';
+					break;
+				}
 				
-				if(is_array(get_theme_mod('footer_top_columns'))):
-					$footer_top_columns = get_theme_mod('footer_top_columns');
-					$col_count_str = '';
-					switch(count($footer_top_columns)){
-						case 1:
-							$col_count_str = 'col-12';
-						break;
-						case 2:
-							$col_count_str = 'col-6';
-						break;
-						case 3:
-							$col_count_str = 'col-4';
-						break;
-						case 4:
-							$col_count_str = 'col-3';
-						break;
-					}
-					foreach ($footer_top_columns as $footer_top_column) :
-						 echo '<div id="'.$footer_top_column.'" class="flex-item '.$col_count_str.' text-block">';  
-							if ( is_active_sidebar( $footer_top_column ) ) :
-								dynamic_sidebar( $footer_top_column );
-							endif; 
-						 echo '</div>'; 
-					endforeach; 
-				endif;
+				
+				
+				// FOOTER COLUMN 1
+				 if($hiilite_options['footer_top_col1'] == true) { echo '<div id="footer_column_1" class="flex-item '.$col_count_str.' text-block">';
+					if ( is_active_sidebar( 'footer_column_1' ) ) :
+						dynamic_sidebar( 'footer_column_1' );
+					endif;
+						
+					echo '</div>'; }
+						
+					// FOOTER COLUMN 2
+					if($hiilite_options['footer_top_col2']) { echo '<div id="footer_column_2" class="flex-item '.$col_count_str.' text-block">'; 
+						if ( is_active_sidebar( 'footer_column_2' ) ) :
+							dynamic_sidebar( 'footer_column_2' );
+						endif;
+					echo '</div>'; }
+					
+					
+					// FOOTER COLUMN 3	
+					if($hiilite_options['footer_top_col3']) { echo '<div id="footer_column_3" class="flex-item '.$col_count_str.' text-block">';  
+						if ( is_active_sidebar( 'footer_column_3' ) ) :
+							dynamic_sidebar( 'footer_column_3' );
+						endif; 
+
+					echo '</div>'; } 
+							
+							
+					// FOOTER COLUMN 4 
+					if($hiilite_options['footer_top_col4']) { echo '<div id="footer_column_4" class="flex-item '.$col_count_str.' text-block">';  
+						
+						if ( is_active_sidebar( 'footer_column_4' ) ) :
+							dynamic_sidebar( 'footer_column_4' );
+						endif; 
+							
+					 echo '</div>'; } 
 					 
 					 
 					 if($hiilite_options['footer_in_grid']) { echo '</div>'; } ?>
@@ -66,25 +94,28 @@ if($hiilite_options['subdomain'] != 'iframe'):
 					
 					
 					
-					if(get_theme_mod('footer_text_yesno') == true):
+					if($hiilite_options['footer_bottom_left'] || $hiilite_options['footer_bottom_center'] || $hiilite_options['footer_bottom_right']):
 				?>
-				<div id="footer_bottom"><div class="container_inner">
-					<?php 
-					if(get_theme_mod('footer_bottom_in_grid')) { echo '<div class="in_grid">'; } 
-					
-					if($footer_bottom_columns = get_theme_mod('footer_bottom_columns') && is_array(get_theme_mod('footer_bottom_columns'))):
-						foreach (get_theme_mod('footer_bottom_columns') as $footer_bottom_column) :
-							 echo '<div id="'.$footer_bottom_column.'" class="flex-item">';  
-								if ( is_active_sidebar( $footer_bottom_column ) ) :
-									dynamic_sidebar( $footer_bottom_column );
-								endif; 
-							 echo '</div>'; 
-						endforeach; 
-					endif;
-							
-					if(get_theme_mod('footer_bottom_in_grid')) { echo '</div>'; } ?></div>
+				<div id="footer_bottom">
+					<?php if($hiilite_options['footer_in_grid']) { echo '<div class="container_inner">'; } ?>
+						<?php if($hiilite_options['footer_bottom_left']) { echo '<div id="footer_bottom_left" class="flex-item align-left">';  
+							if ( is_active_sidebar( 'footer_bottom_left' ) ) :
+							dynamic_sidebar( 'footer_bottom_left' );
+						endif; 
+						 echo '</div>'; } ?>
+						<?php if($hiilite_options['footer_bottom_center']) { echo '<div id="footer_bottom_left" class="flex-item align-center">';  	
+							if ( is_active_sidebar( 'footer_bottom_center' ) ) :
+							dynamic_sidebar( 'footer_bottom_center' );
+						endif;
+						 echo '</div>'; } ?>
+						<?php if($hiilite_options['footer_bottom_right']) { echo '<div id="footer_bottom_left" class="flex-item align-right">';
+							if ( is_active_sidebar( 'footer_bottom_right' ) ) :
+							dynamic_sidebar( 'footer_bottom_right' );
+						endif;
+							 echo '</div>'; } ?>
+					<?php if($hiilite_options['footer_in_grid']) { echo '</div>'; } ?>
 					<div class="full-width align-center">
-		<small>Copyright © <?=date('Y')?> <?=do_shortcode('[business_name]')?>. All rights reserved. <a href="https://hiilite.com/" target="_blank" title="Hiilite Creative Group | Web + Marketing">Web Design by Hiilite Creative Group</a></small>
+		<small>Copyright © <?=date('Y')?> <?=do_shortcode('[business_name]')?>. All rights reserved. <a href="https://hiilite.com/" target="_blank" title="Hiilite Creative Group | Web + Marketing">Web Design by Hiilite Creative Group Kelowna</a></small>
 	</div>
 <?php endif; //end iframe check ?>
 		</div>
@@ -94,12 +125,7 @@ if($hiilite_options['subdomain'] != 'iframe'):
 			
 	</div>
 	<?php wp_footer(); 
-if(get_post_meta(get_the_ID(), 'amp', true) == 'nonamp'){
-	$hiilite_options['amp'] = false;
-} else {
-	$hiilite_options['amp'] = (!isset($hiilite_options['amp']))?get_theme_mod('amp'):false;
-}
-
+		
 if(!$hiilite_options['amp']){
 	include_once('js/non-amp-scripts.php');
 }

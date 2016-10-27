@@ -527,11 +527,12 @@ HTML;
     /* Extras */
     
     $cont .= '<div class="container_inner"><div class="sr-primary-details col-12">';
-    $cont .= ($floorplan)?"<a href='$floorplan' class='button'><i class='fa fa-home'></i> Floor Plans</a>":'';
-    $cont .= ($listingVituralTourUrl)?"<a href='$listingVituralTourUrl' class='button'><i class='fa fa-video-camera'></i> Virtual Tour</a>":'';
-    $cont .= "<a href='' class='button'><i class='fa fa-question'></i> Request Information</a>";
-    $cont .= "<span href='' class='button'>Share: <a><i</a></span>";
-    $cont .= '</div><hr>';
+    $cont .= ($floorplan)?"<a href='$floorplan' target='new' class='button'><i class='fa fa-home'></i> Floor Plans</a>":'';
+    $cont .= ($listingVituralTourUrl)?"<a href='$listingVituralTourUrl' target='new' class='button'><i class='fa fa-video-camera'></i> Virtual Tour</a>":'';
+    $cont .= "<a href='#request-information' class='button'><i class='fa fa-question'></i> Request Information</a>";
+    $cont .= "<span class='button listing_social_share'>Share: ";
+    $cont .= do_shortcode('[social-share gp="true" fa="true" tw="true" pt="true" em="true"]');
+    $cont .= '</span></div><hr>';
     
     /* Remarks */
     $cont .= <<<HTML
@@ -651,7 +652,7 @@ HTML;
 				<p class="contact_leo">Contact Leo now to learn more about this listing, or arrange a showing.</p>
 				<p class="phone_leo"><strong><a href="tel:+16047295203">604.729.5203</a></strong></p>
         	
-        	</div><div class='col-6 text-block'> 
+        	</div><div class='col-6 text-block' id='request-information'> 
     
 HTML;
     $cont .= SimplyRetsApiHelper::srContactFormDeliver();
@@ -723,7 +724,7 @@ function get_short_listing_template($listing){
     $yearBuilt          = $listing->property->yearBuilt;
 
     $addrFull = $address . ', ' . $city . ' ' . $zip;
-    $listing_USD = $listing_price == "" ? "" : '$' . number_format( $listing_price );
+    $listing_USD = '$'.number_format( tofloat($listing_price) );
     
     $subarea		= $listing->mls->area;
     $streetNumber	= $listing->address->streetNumber;

@@ -21,7 +21,7 @@ extract( $atts );
 
 
 $el_class = $this->getExtraClass( $el_class );
-$css_class = apply_filters( VC_SHORTCODE_CUSTOM_CSS_FILTER_TAG, 'wpb_accordion wpb_content_element ' . $el_class . ' not-column-inherit', $this->settings['base'], $atts );
+$css_class = apply_filters( VC_SHORTCODE_CUSTOM_CSS_FILTER_TAG, 'accordion wpb_content_element ' . $el_class . ' not-column-inherit', $this->settings['base'], $atts );
 
 
 $output = '

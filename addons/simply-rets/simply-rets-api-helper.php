@@ -646,8 +646,8 @@ HTML;
             $mls_status    = $listing->mls->status;
             $listing_remarks  = $listing->remarks;
             $listing_price = $listing->listPrice;
-            $listing_USD   = '$' . number_format( $listing_price );
-
+            $listing_USD   = '$'.number_format( tofloat($price) );
+            
             // widget title
             $address = $listing->address->full;
 
@@ -718,9 +718,9 @@ HTML;
             . ( isset( $_POST["sr-cf-email"] ) ? esc_attr( $_POST["sr-cf-email"] ) : '' ) . '" size="40" />';
         $markup .= '</p>';
         $markup .= '<p>';
-        $markup .= 'Subject (required) <br/>';
-        $markup .= '<input type="text" name="sr-cf-subject" pattern="[a-zA-Z ]+" value="'
-            . ( isset( $_POST["sr-cf-subject"] ) ? esc_attr( $_POST["sr-cf-subject"] ) : '' ) . '" size="40" />';
+        //$markup .= 'Subject (required) <br/>';
+        $markup .= '<input type="hidden" name="sr-cf-subject" pattern="[a-zA-Z ]+" value="'
+            . ( isset( $_POST["sr-cf-subject"] ) ? esc_attr( $_POST["sr-cf-subject"] ) : $listing ) . '" size="40" />';
         $markup .= '</p>';
         $markup .= '<p>';
         $markup .= 'Your Message (required) <br/>';
@@ -771,7 +771,7 @@ HTML;
         if(!empty($settings['random']) && $settings['random'] === "true") {
             shuffle($listings);
         }
-        $wp_listings = new WP_Query(array( 'post_type' => 'listing', 'posts_per_page' => 10 ));
+        $wp_listings = new WP_Query(array( 'post_type' => 'listing', 'posts_per_page' => 6 ));
         if($wp_listings->have_posts()):
 	        while($wp_listings->have_posts()):
 	        	$wp_listings->the_post();
@@ -816,7 +816,7 @@ HTML;
 				if($subType == 'SingleFamilyResidence')$subType = 'House';
 	            elseif($subType == 'Apartment')$subType = 'Condo';
 	            
-	            $priceUSD = '$' . number_format( $price );
+	            $priceUSD = '$'.number_format( tofloat($price) );
 	
 				$fullAddress = $unit.' - '.$streetNumber.' '.$streetName.' '.$city.', '.$subarea;
 	            // create link to listing
@@ -899,8 +899,8 @@ HTML;
 			if($subType == 'SingleFamilyResidence')$subType = 'House';
             elseif($subType == 'Apartment')$subType = 'Condo';
             
-            $priceUSD = '$' . number_format( $price );
-
+            $priceUSD = '$'.number_format( tofloat($price) );
+ 
 			$fullAddress = $unit.' - '.$streetNumber.' '.$streetName.' '.$city.', '.$subarea;
             // create link to listing
             $vendor = isset($settings['vendor']) ? $settings['vendor'] : '';

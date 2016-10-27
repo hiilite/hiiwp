@@ -696,7 +696,7 @@ HTML;
         ob_start();
         $settings = array();
 
-        $atts['limit'] = empty($atts['limit']) ? 8 : $atts['limit'];
+        $atts['limit'] = empty($atts['limit']) ? 6 : $atts['limit'];
 
         if ($atts['vendor']) {
             $settings['vendor'] = $atts['vendor'];
