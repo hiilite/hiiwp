@@ -11,12 +11,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 function get_listing_template($listing, $size, $type){
 	global $wp_embed;
-	// listing markup
 	
+	$cont = "";
+    
 	/*
 	 *	Check if the listing is pulling from RETS or a Wordpress post
 	 *	If its not RETS, map all fields to match RETS counterpart
 	*/
+	
 	$ret = ($type == 'rets')?true:false;
 	if(!$ret){
 		$object = new stdClass();
@@ -31,15 +33,15 @@ function get_listing_template($listing, $size, $type){
 					$object->$key1->$key2 = $value[0];
 				}
 				
-			} else {
+			} elseif(is_array($value)) {
 			    $object->$key = $value[0];
+			} else {
+				$object->$key = $value;
 			}
 		}
 		$listing = $object;
 	}
 	
-    $cont = "";
-    $br = "<br>";
     
     // Get Contact Form
     $contact_page = ($ret)?get_option('sr_contact_page'):'';
@@ -57,10 +59,13 @@ function get_listing_template($listing, $size, $type){
         return $err;
     }
 
+	/*
+     * 
+     * Set all properties
+     * 
+    */
     // internal unique id
     $listing_uid = $listing->mlsId;
-
-    // price
     $listing_price = $listing->listPrice;
     $listing_price_USD = '<span itemprop="priceCurrency" content="CAD">$</span><span itemprop="price" content="'.tofloat($listing_price).'"> '.number_format( tofloat($listing_price) ).'</span>';
     
@@ -69,140 +74,69 @@ function get_listing_template($listing, $size, $type){
     if	($subType == 'SingleFamilyResidence')	$subType = 'House';
     elseif	($subType == 'Apartment')			$subType = 'Condo';
     
-    // bedrooms
     $listing_bedrooms = $listing->property->bedrooms;
-    
-    
-    // full baths
     $listing_bathsFull = $listing->property->bathsFull;
-    
-    // half baths
     $listing_bathsHalf = $listing->property->bathsHalf;
-    
-    // total baths
     $listing_bathsTotal = ($listing->property->bathrooms != '')?$listing->property->bathrooms:($listing->property->bathsFull + $listing->property->bathsHalf);
-    
-    // stories
     $listing_stories = $listing->property->stories;
-    
-    // fireplaces
     $listing_fireplaces = $listing->property->fireplaces;
-    
-    // Long
     $listing_longitude = $listing->geo->lng;
-    
-    // Long
     $listing_lat = $listing->geo->lat;
-    
-    // mls area
     $listing_mlsarea = $listing->mls->area;
-    
-    // tax amount
     $listing_taxamount = '$' . number_format( tofloat($listing->tax->taxAnnualAmount),2 );
-    
-    // tax year
     $listing_taxyear = $listing->tax->taxYear;
-    
-    // roof
     $listing_roof = $listing->property->roof;
-    
-    // style
     $listing_style = $listing->property->style;
+    $listing_mls_status     = $listing->mls->status; // mls information ex: Active
+    $listing_interiorFeatures = $listing->property->interiorFeatures;
+    $listing_exteriorFeatures = $listing->property->exteriorFeatures;
+    $listing_yearBuilt = $listing->property->yearBuilt;
+    $listing_rentalRestrictions = $listing->property->rentalRestrictions;
+    $listing_mlsid = $listing->listingId; // listing id (MLS #)
+    $listing_heating = $listing->property->heating;
+    $listing_foundation = $listing->property->foundation;
+    $listing_laundry = $listing->property->laundryFeatures;
+    $listing_lot_descrip = $listing->property->lotDescription;
+    $listing_rooms = $listing->property->additionalRooms;
+    $listing_view = $listing->property->view;
+    $listing_balconyPatio = $listing->property->balconyPatio;
+    $listing_accessibility = $listing->property->accessibility;
+    $listing_water = $listing->property->water;
+    $listing_disclaimer  = $listing->disclaimer;
+    
+    $listing_list_date = $listing->listDate;
+    if($listing_list_date) { $list_date_formatted = date("M j, Y", strtotime($listing_list_date)); }
+    
+    $listing_modified = $listing->modified; // listing date modified
+    if($listing_modified) { $date_modified = date("M j, Y", strtotime($listing_modified)); }
+
+    $listing_lotSize = $listing->property->lotSize;
+    $listing_lotSizeArea = $listing->property->lotSizeArea;
+    $listing_lotSizeAreaUnits = $listing->property->lotSizeAreaUnits;
+    $listing_acres = $listing->property->acres;
     
     /*
 	 * ADDRESS   
 	 */
-	 // unit
     $listing_unit = ($listing->address->unit != '')?$listing->address->unit.' - ':'';
-    
-    // subdivision ex: Downtown VW
-    $listing_subdivision = $listing->property->subdivision;
-    
-    
-    
-    // mls information ex: Active
-    $listing_mls_status     = $listing->mls->status;
-    
-    // int/ext features
-    $listing_interiorFeatures = $listing->property->interiorFeatures;
-    
-    // int/ext features
-    $listing_exteriorFeatures = $listing->property->exteriorFeatures;
-    
-    // year built
-    $listing_yearBuilt = $listing->property->yearBuilt;
-    
-    // Rental Restrictions
-    $listing_rentalRestrictions = $listing->property->rentalRestrictions;
-    
-    // listing id (MLS #)
-    $listing_mlsid = $listing->listingId;
-    
-    // heating
-    $listing_heating = $listing->property->heating;
-    
-    // foundation
-    $listing_foundation = $listing->property->foundation;
-    
-    // laundry features
-    $listing_laundry = $listing->property->laundryFeatures;
-    
-    // lot description
-    $listing_lot_descrip = $listing->property->lotDescription;
-    
-    // additional rooms
-    $listing_rooms = $listing->property->additionalRooms;
-    // view
-    $listing_view = $listing->property->view;
-    
-    // balcony patio
-    $listing_balconyPatio = $listing->property->balconyPatio;
-    
-    // accessibility
-    $listing_accessibility = $listing->property->accessibility;
-    
-    // waterfront
-    $listing_water = $listing->property->water;
-    // listing meta information
-    $listing_disclaimer  = $listing->disclaimer;
-    // listing date
-    $listing_list_date = $listing->listDate;
-    if($listing_list_date) { $list_date_formatted = date("M j, Y", strtotime($listing_list_date)); }
-    // listing date modified
-    $listing_modified = $listing->modified;
-    if($listing_modified) { $date_modified = date("M j, Y", strtotime($listing_modified)); }
-    // lot size
-    $listing_lotSize = $listing->property->lotSize;
-    // lot size area
-    $listing_lotSizeArea = $listing->property->lotSizeArea;
-    // lot size area units
-    $listing_lotSizeAreaUnits = $listing->property->lotSizeAreaUnits;
-    
-    // acres
-    $listing_acres = $listing->property->acres;
-    // street address info
+    $listing_subdivision = $listing->property->subdivision; // subdivision ex: Downtown VW
     $listing_postal_code = $listing->address->postalCode;
-
     $listing_country = $listing->address->country;
-
     $listing_address = $listing->address->full;
-
     $listing_city = $listing->address->city;
-
     $listing_cross_street = $listing->address->crossStreet;
-
     $listing_state = $listing->address->state;
 
     $listing_terms = $listing->terms;
-
     $listing_lease_term = $listing->leaseTerm;
-
     $listing_lease_type = $listing->leaseType;
+   
+    $listingVituralTourUrl = $listing->virtualTourUrl;
     
     $listing_maintenanceExpense =  ($listing->property->maintenanceExpense)?'$' . number_format( tofloat($listing->property->maintenanceExpense), 2 ):'';
 
-
 	$listing_parking_description = $listing->property->parking->description;
+    
     // area
     $area = $listing->property->area == 0
           ? 'n/a'
@@ -219,13 +153,8 @@ function get_listing_template($listing, $size, $type){
         $primary_baths = 'n/a';
     }
 
-
-    if( $listing_bedrooms == null || $listing_bedrooms == "" ) {
-        $listing_bedrooms = 0;
-    }
-    if( $listing_bathsFull == null || $listing_bathsFull == "" ) {
-        $listing_bathsFull = 0;
-    }
+    if( $listing_bedrooms == null || $listing_bedrooms == "" ) $listing_bedrooms = 0;
+    if( $listing_bathsFull == null || $listing_bathsFull == "" ) $listing_bathsFull = 0;
 
 	///////////////////
     // Room Dimensions
@@ -240,8 +169,6 @@ function get_listing_template($listing, $size, $type){
 	    usort($rooms, function ($a, $b) {
 	        return (is_null($a->level) OR $a->level == "") ? 1 : -1;
 	    });
-		
-		
 	    $roomsMarkup .= count($rooms) < 1 ? "" : "<table class='show_listing_table' width='100%'>
 	      <thead>
 	        <tr>
@@ -257,7 +184,6 @@ function get_listing_template($listing, $size, $type){
 	        
 	        $roomsMarkup .= "<tr class='specrow'><td class='specname'>$room->type: </td><td class='specvalue'>$room->dimensions </td></tr>";
 	    }
-	    
 	    $roomsMarkup .= count($rooms) < 1 ? "" : "</tbody></table>";
     endif;
     
@@ -284,7 +210,7 @@ function get_listing_template($listing, $size, $type){
 	    $associationMarkup .= "</tbody></table>";
     endif;
     
-
+	
 	///////////////////
     // photo gallery
     ///////////////////
@@ -297,7 +223,7 @@ function get_listing_template($listing, $size, $type){
     $gallery_markup = $photo_gallery['markup'];
     $more_photos    = $photo_gallery['more'];
     $dummy          = RETSURL. 'assets/img/defprop.jpg';
-    !empty($photos) ? $main_photo = $photos[0] : $main_photo = $dummy;
+    !empty($photos) ? $main_photo = array_values($photos)[0] : $main_photo = $dummy;
 
 
 	//////////////////
@@ -308,11 +234,8 @@ function get_listing_template($listing, $size, $type){
 	
     // school data
     $listing_school_district = $listing->school->district;
-    // elementary school
     $listing_elementary = $listing->school->elementarySchool;
-    // middle school
     $listing_middle_school = $listing->school->middleSchool;
-    // high school
     $listing_high_school = $listing->school->highSchool;
 
     if($listing_school_district
@@ -425,33 +348,22 @@ HTML;
 	//////////////////////////////////////
     // Build details link for map marker
     /////////////////////////////////////
-    $link = SrUtils::buildDetailsLink(
-        $listing,
-        !empty($vendor) ? array("sr_vendor" => $vendor) : array()
-    );
+    if($ret){
+	    $link = SrUtils::buildDetailsLink(
+	        $listing,
+	        !empty($vendor) ? array("sr_vendor" => $vendor) : array()
+	    );
+    } else {
+	   
+	    $link = $listing->link;
+    }
 
     $addrFull = $address . ', ' . $city . ' ' . $zip;
     
     
-    
-    
-    /************************************************/
-    
-    $cont .= '<article class="sr-details"  itemscope itemtype="http://schema.org/Product">
-    	<input type="hidden" value="$listing_uid">';
-    
-    /* TITLE AREA */
+     /* TITLE AREA */
     $listing_mlsid_html = ($listing_mlsid != '')?$listing_mlsid_html = ' ('.$listing_mlsid.')':'';
-    
-	if(has_post_thumbnail(get_the_id()) && $img = wp_get_attachment_image_src( get_post_thumbnail_id( get_the_id() ), 'large' ))
-		$cont .= '<link itemprop="image" href="'.$img[0].'">';
-    
     $title_html = ($listing_address != '' || $listing_subdivision != '' && $listing_city != '')?$listing_unit.' '.$listing_address.' '. $listing_subdivision.', '.$listing_city.$listing_mlsid_html:get_the_title();
-    
-    $cont .= '<h1 class="align-center col-12" itemprop="name">'.$title_html.'</h1>';
-    
-    /* Price */
-    $cont .= '<h4 class="align-center col-12" itemprop="offers" itemscope itemtype="http://schema.org/Offer">'.$listing_price_USD.'<link itemprop="availability" href="http://schema.org/InStock" /></h4>';
     
     /*Status*/
     $terms = get_the_terms( get_the_id(), 'status' );
@@ -467,37 +379,61 @@ HTML;
     else $status = $listing->mls->status;
     
     $status_html = ( strtolower($status) == 'sold')?'<div class="sold_tag">Sold</div>':$status;
-    $cont .= '<p class="sr-details-links col-12 align-center">'.$status_html.'</p>';
     
-    /*Virtual Tour*/
-    $listingVituralTourUrl = $listing->virtualTourUrl;
-    if($listingVituralTourUrl != '') 
-    	$cont .= '<div class="video-container">'.$wp_embed->run_shortcode( '[embed width="1000"]'.$listingVituralTourUrl.'[/embed]' ).'</div>';
     
-    /*Gallery*/
-    $cont .= <<<HTML
-        $gallery_markup
-        <script>
-          if(document.getElementById('sr-fancy-gallery')) {
-              Galleria.loadTheme('$galleria_theme');
-              Galleria.configure({
-                  height: 750,
-                  width:  "100%",
-                  showinfo: false,
-                  dummy: "$dummy",
-                  lightbox: true,
-                  imageCrop: false,
-                  imageMargin: 0,
-                  fullscreenDoubleTap: true
-              });
-              Galleria.run('.sr-gallery');
-          }
-        </script>
+    
+    /********************************
+	 *
+	 * BUILD TEMPLATE 
+	 *
+	 ********************************/
+    // full, small, tiny
+    switch ($size){
+	    case 'full':
+		/************************************************/
+		$cont .= '<article class="sr-details"  itemscope itemtype="http://schema.org/Product">
+    		<input type="hidden" value="$listing_uid">';
+    
+		if(has_post_thumbnail(get_the_id()) && $img = wp_get_attachment_image_src( get_post_thumbnail_id( get_the_id() ), 'large' ))
+			$cont .= '<link itemprop="image" href="'.$img[0].'">';
+
+		$cont .= '<h1 class="align-center col-12" itemprop="name">'.$title_html.'</h1>';
+    
+	    /* Price */
+	    $cont .= '<h4 class="align-center col-12" itemprop="offers" itemscope itemtype="http://schema.org/Offer">'.$listing_price_USD.'<link itemprop="availability" href="http://schema.org/InStock" /></h4>';
+    
+    
+		$cont .= '<p class="sr-details-links col-12 align-center">'.$status_html.'</p>';
+    
+	    /*Virtual Tour*/
+	    
+	    if($listingVituralTourUrl != '') 
+    		$cont .= '<div class="video-container">'.$wp_embed->run_shortcode( '[embed width="1000"]'.$listingVituralTourUrl.'[/embed]' ).'</div>';
+    
+	    /*Gallery*/
+	    $cont .= <<<HTML
+	        $gallery_markup
+	        <script>
+	          if(document.getElementById('sr-fancy-gallery')) {
+	              Galleria.loadTheme('$galleria_theme');
+	              Galleria.configure({
+	                  height: 750,
+	                  width:  "100%",
+	                  showinfo: false,
+	                  dummy: "$dummy",
+	                  lightbox: true,
+	                  imageCrop: false,
+	                  imageMargin: 0,
+	                  fullscreenDoubleTap: true
+	              });
+	              Galleria.run('.sr-gallery');
+	          }
+	        </script>
 HTML;
 
-	/* Main Details Row */
-	$cont .= '<div class="container_inner"><div class="sr-primary-details col-12">';
-    	
+		/* Main Details Row */
+		$cont .= '<div class="container_inner"><div class="sr-primary-details col-12">';
+	    	
     	/* SQFT */
     	if($area != '')
     		$cont .= '<div class="sr-detail" id="sr-primary-details-size"><p>Size: '.$area .'<small class="sr-listing-area-sqft">SqFt</small></p></div>'; 
@@ -522,147 +458,179 @@ HTML;
 		   $cont .= '</p></div>'; 
 		}    
 		
-    $cont .= '</div>';
+		$cont .= '</div>';
     
-    /* Extras */
-    
-    $cont .= '<div class="container_inner"><div class="sr-primary-details col-12">';
-    $cont .= ($floorplan)?"<a href='$floorplan' target='new' class='button'><i class='fa fa-home'></i> Floor Plans</a>":'';
-    $cont .= ($listingVituralTourUrl)?"<a href='$listingVituralTourUrl' target='new' class='button'><i class='fa fa-video-camera'></i> Virtual Tour</a>":'';
-    $cont .= "<a href='#request-information' class='button'><i class='fa fa-question'></i> Request Information</a>";
-    $cont .= "<span class='button listing_social_share'>Share: ";
-    $cont .= do_shortcode('[social-share gp="true" fa="true" tw="true" pt="true" em="true"]');
-    $cont .= '</span></div><hr>';
-    
-    /* Remarks */
-    $cont .= <<<HTML
-            <hr><div class='col-6 text-block' itemprop="description">
-            	<h3>Brought to you by Leo Wilk Personal Real Estate Corporation</h3>
-            	$remarks_markup
-            	<br><br>
-            	<p class="addendum">Listing provided by $listing_office</p>
-            </div>
+	    /* Extras */
+	    
+	    $cont .= '<div class="container_inner"><div class="sr-primary-details col-12">';
+	    $cont .= ($floorplan)?"<a href='$floorplan' target='new' class='button'><i class='fa fa-home'></i> Floor Plans</a>":'';
+	    $cont .= ($listingVituralTourUrl)?"<a href='$listingVituralTourUrl' target='new' class='button'><i class='fa fa-video-camera'></i> Virtual Tour</a>":'';
+	    $cont .= "<a href='#request-information' class='button'><i class='fa fa-question'></i> Request Information</a>";
+	    $cont .= "<span class='button listing_social_share'>Share: ";
+	    $cont .= do_shortcode('[social-share gp="true" fa="true" tw="true" pt="true" em="true"]');
+	    $cont .= '</span></div><hr>';
+	    
+	    /* Remarks */
+	    $cont .= <<<HTML
+	            <hr><div class='col-6 text-block' itemprop="description">
+	            	<h3>Brought to you by Leo Wilk Personal Real Estate Corporation</h3>
+	            	$remarks_markup
+	            	<br><br>
+	            	<p class="addendum">Listing provided by $listing_office</p>
+	            </div>
 HTML;
  
-	/* Featured */
-	
-    $cont .= '<div class="col-6 container_inner align-top text-block"><h2 class="col-12">Features</h2>';
-    
-    if($listing_interiorFeatures != '')
-    	$cont .= '<div class="col-12">'.$listing_interiorFeatures.'</div>';
+		/* Featured */
 		
-	$cont .= '<div class="col-4"><table width="100%" class="show_listing_table"><tbody>';
-	
-	if($subType != '')
-		$cont .= '<tr class="specrow"><td class="specname">type:</td><td class="specvalue">'.$subType.'</td></tr>';
+	    $cont .= '<div class="col-6 container_inner align-top text-block"><h2 class="col-12">Features</h2>';
+	    
+	    if($listing_interiorFeatures != '')
+	    	$cont .= '<div class="col-12">'.$listing_interiorFeatures.'</div>';
+			
+		$cont .= '<div class="col-4"><table width="100%" class="show_listing_table"><tbody>';
 		
-	if($listing_style != '')
-		$cont .= '<tr class="specrow"><td class="specname">style:</td><td class="specvalue">'.$listing_style.'</td></tr>';
-	
-	if($listing_taxamount != '')
-		$cont .= '<tr class="specrow"><td class="specname">taxes:</td><td class="specvalue">'.$listing_taxamount.'</td></tr>';
+		if($subType != '')
+			$cont .= '<tr class="specrow"><td class="specname">type:</td><td class="specvalue">'.$subType.'</td></tr>';
+			
+		if($listing_style != '')
+			$cont .= '<tr class="specrow"><td class="specname">style:</td><td class="specvalue">'.$listing_style.'</td></tr>';
 		
-	if($listing_maintenanceExpense != '')
-		$cont .= '<tr class="specrow"><td class="specname">maintenance:</td><td class="specvalue">'.$listing_maintenanceExpense.'</td></tr>';
-	
-	if($listing_bedrooms != '')
-		$cont .= '<tr class="specrow"><td class="specname">bedrooms:</td><td class="specvalue">'.$listing_bedrooms.'</td></tr>';
-	
-	if($primary_baths != '')
-		$cont .= '<tr class="specrow"><td class="specname">bathrooms:</td><td class="specvalue">'.$primary_baths.'</td></tr>';
-	
-	if($listing_bathsFull != '')
-		$cont .= '<tr class="specrow"><td class="specname">full baths:</td><td class="specvalue">'.$listing_bathsFull.'</td></tr>';
-	
-	if($listing_bathsHalf != '')
-		$cont .= '<tr class="specrow"><td class="specname">half baths:</td><td class="specvalue">'.$listing_bathsHalf.'</td></tr>';
-	
-	if($listing_yearBuilt != '')
-		$cont .= '<tr class="specrow"><td class="specname">year built:</td><td class="specvalue">'.$listing_yearBuilt.'</td></tr>';
-	
-	if($listing_parking != '')
-		$cont .= '<tr class="specrow"><td class="specname">parking:</td><td class="specvalue">'.$listing_parking.'</td></tr>';
+		if($listing_taxamount != '')
+			$cont .= '<tr class="specrow"><td class="specname">taxes:</td><td class="specvalue">'.$listing_taxamount.'</td></tr>';
+			
+		if($listing_maintenanceExpense != '')
+			$cont .= '<tr class="specrow"><td class="specname">maintenance:</td><td class="specvalue">'.$listing_maintenanceExpense.'</td></tr>';
 		
-	if($listing_rentalRestrictions != '')
-		$cont .= '<tr class="specrow"><td class="specname">rental restrictions:</td><td class="specvalue">'.$listing_rentalRestrictions.'</td></tr>';
-	
-	$cont .= '</tbody></table>
-		</div> <!-- end four columns -->
-		<div class="col-4">
-			<table width="100%" class="show_listing_table">
-	        	<tbody>';
-	if($listing_interiorFeatures != '')
-		$cont .= '<tr class="specrow"><td class="specname">Interior Features:</td><td class="specvalue">'.$listing_interiorFeatures.' SqFt</td></tr>';
-	if($listing_lotSizeArea != '')
-		$cont .= '<tr class="specrow"><td class="specname">lot:</td><td class="specvalue">'.$listing_lotSizeArea.' SqFt</td></tr>';
-	if($listing_stories != '')
-		$cont .= '<tr class="specrow"><td class="specname">levels:</td><td class="specvalue">'.$listing_stories.'</td></tr>';
-	if($$area != '')
-		$cont .= '<tr class="specrow"><td class="specname">sqft:</td><td class="specvalue">'.$area.'</td></tr>';
-	if($listing_view != '')
-		$cont .= '<tr class="specrow"><td class="specname">view:</td><td class="specvalue">'.$listing_view.'</td></tr>';
+		if($listing_bedrooms != '')
+			$cont .= '<tr class="specrow"><td class="specname">bedrooms:</td><td class="specvalue">'.$listing_bedrooms.'</td></tr>';
 		
-	if($listing_balconyPatio != '')
-		$cont .= '<tr class="specrow"><td class="specname">balcony/patio:</td><td class="specvalue">'.$listing_balconyPatio.'</td></tr>';
+		if($primary_baths != '')
+			$cont .= '<tr class="specrow"><td class="specname">bathrooms:</td><td class="specvalue">'.$primary_baths.'</td></tr>';
 		
-	if($listing_fireplaces != '')
-		$cont .= '<tr class="specrow"><td class="specname">fireplaces:</td><td class="specvalue">'.$listing_fireplaces.'</td></tr>';
-	
-	$cont .= '</tbody></table>';
-	
-	$cont .= $associationMarkup;
-	
-	$cont .= $roomsMarkup;
-	
-	
-	
-	$cont .= '</div>
-	</div>';
+		if($listing_bathsFull != '')
+			$cont .= '<tr class="specrow"><td class="specname">full baths:</td><td class="specvalue">'.$listing_bathsFull.'</td></tr>';
+		
+		if($listing_bathsHalf != '')
+			$cont .= '<tr class="specrow"><td class="specname">half baths:</td><td class="specvalue">'.$listing_bathsHalf.'</td></tr>';
+		
+		if($listing_yearBuilt != '')
+			$cont .= '<tr class="specrow"><td class="specname">year built:</td><td class="specvalue">'.$listing_yearBuilt.'</td></tr>';
+		
+		if($listing_parking != '')
+			$cont .= '<tr class="specrow"><td class="specname">parking:</td><td class="specvalue">'.$listing_parking.'</td></tr>';
+			
+		if($listing_rentalRestrictions != '')
+			$cont .= '<tr class="specrow"><td class="specname">rental restrictions:</td><td class="specvalue">'.$listing_rentalRestrictions.'</td></tr>';
+		
+		$cont .= '</tbody></table>
+			</div> <!-- end four columns -->
+			<div class="col-4">
+				<table width="100%" class="show_listing_table">
+		        	<tbody>';
+		if($listing_interiorFeatures != '')
+			$cont .= '<tr class="specrow"><td class="specname">Interior Features:</td><td class="specvalue">'.$listing_interiorFeatures.' SqFt</td></tr>';
+		if($listing_lotSizeArea != '')
+			$cont .= '<tr class="specrow"><td class="specname">lot:</td><td class="specvalue">'.$listing_lotSizeArea.' SqFt</td></tr>';
+		if($listing_stories != '')
+			$cont .= '<tr class="specrow"><td class="specname">levels:</td><td class="specvalue">'.$listing_stories.'</td></tr>';
+		if($$area != '')
+			$cont .= '<tr class="specrow"><td class="specname">sqft:</td><td class="specvalue">'.$area.'</td></tr>';
+		if($listing_view != '')
+			$cont .= '<tr class="specrow"><td class="specname">view:</td><td class="specvalue">'.$listing_view.'</td></tr>';
+			
+		if($listing_balconyPatio != '')
+			$cont .= '<tr class="specrow"><td class="specname">balcony/patio:</td><td class="specvalue">'.$listing_balconyPatio.'</td></tr>';
+			
+		if($listing_fireplaces != '')
+			$cont .= '<tr class="specrow"><td class="specname">fireplaces:</td><td class="specvalue">'.$listing_fireplaces.'</td></tr>';
+		
+		$cont .= '</tbody></table>';
+		
+		$cont .= $associationMarkup;
+		
+		$cont .= $roomsMarkup;
+		
+		
+		
+		$cont .= '</div>
+			</div>';
 
-	/* Map 
-if(($listing_lat != '') && ($listing_longitude != '')){
-	$cont .= <<<HTML 
-		 <div class='col-12' id='bingmap' style="width:100%;"></div>
-		
-        <script>$lh_analytics</script>
-        
-        <script>
-        function loadMapScenario() {
-            if('$listing_lat' != ''){
-            document.getElementById('bingmap').style.height = '500px';
-            var map = new Microsoft.Maps.Map(document.getElementById('bingmap'), {
-			    credentials: 'Apx0OStf8CqqfGnh0OKPwZSV5Iudi7s6ka-fvpsbkUiqFK315pvKJY86rr9IlX-b',
-			    center: new Microsoft.Maps.Location($listing_lat, $listing_longitude),
-			});
-			var pushpin = new Microsoft.Maps.Pushpin(map.getCenter(), null);
-			map.entities.push(pushpin);
-			pushpin.setOptions({ enableHoverStyle: true, enableClickedStyle: true });
-			}
-		 }
-        </script>
-        <script type='text/javascript' src='http://www.bing.com/api/maps/mapcontrol?branch=release&callback=loadMapScenario' async defer></script>
+		/* Map 
+		if(($listing_lat != '') && ($listing_longitude != '')){
+			$cont .= <<<HTML 
+				 <div class='col-12' id='bingmap' style="width:100%;"></div>
+				
+		        <script>$lh_analytics</script>
+		        
+		        <script>
+		        function loadMapScenario() {
+		            if('$listing_lat' != ''){
+		            document.getElementById('bingmap').style.height = '500px';
+		            var map = new Microsoft.Maps.Map(document.getElementById('bingmap'), {
+					    credentials: 'Apx0OStf8CqqfGnh0OKPwZSV5Iudi7s6ka-fvpsbkUiqFK315pvKJY86rr9IlX-b',
+					    center: new Microsoft.Maps.Location($listing_lat, $listing_longitude),
+					});
+					var pushpin = new Microsoft.Maps.Pushpin(map.getCenter(), null);
+					map.entities.push(pushpin);
+					pushpin.setOptions({ enableHoverStyle: true, enableClickedStyle: true });
+					}
+				 }
+		        </script>
+		        <script type='text/javascript' src='http://www.bing.com/api/maps/mapcontrol?branch=release&callback=loadMapScenario' async defer></script>
 HTML;
-}
+		}
 */
 
-    $cont .= <<<HTML
-        	<div class='col-6 text-block'>
-        	
-				<h3>WANT TO KNOW MORE?</h3>
-				<p class="contact_leo">Contact Leo now to learn more about this listing, or arrange a showing.</p>
-				<p class="phone_leo"><strong><a href="tel:+16047295203">604.729.5203</a></strong></p>
-        	
-        	</div><div class='col-6 text-block' id='request-information'> 
-    
+	    $cont .= <<<HTML
+	        	<div class='col-6 text-block'>
+	        	
+					<h3>WANT TO KNOW MORE?</h3>
+					<p class="contact_leo">Contact Leo now to learn more about this listing, or arrange a showing.</p>
+					<p class="phone_leo"><strong><a href="tel:+16047295203">604.729.5203</a></strong></p>
+	        	
+	        	</div><div class='col-6 text-block' id='request-information'> 
+	    
 HTML;
-    $cont .= SimplyRetsApiHelper::srContactFormDeliver();
-    $cont .= $contact_markup;
-    
-    $cont .= <<<HTML
-    		</div>
-    	</div>
-    </article>
+	    $cont .= SimplyRetsApiHelper::srContactFormDeliver();
+	    $cont .= $contact_markup;
+	    
+	    $cont .= <<<HTML
+	    		</div>
+	    	</div>
+	    </article>
 HTML;
+
+	    	break;
+	    case 'small':
+	    /************************************************/
+	    
+	    	break;
+	    case 'tiny':
+	    /************************************************/
+			
+	    
+	    	$cont .= <<<HTML
+					<div class="sr-listing-slider-item small_listing_container $additional_class"> 
+						<div class="four columns alpha omega listing_thumb">
+							<a href="$link" title="$title_html">
+								<img src="$main_photo" alt="$title_html" title="$fullAddress" class="scale-with-grid ">
+							</a>
+							<div class="four columns alpha omega listing_info">
+								<div class="listing_remarks">
+									<p>$listing_price_USD</p>
+								</div><p>$subType | $beds Bed | $baths Bath | $area</p>
+							</div>
+						</div>
+						<h3><a href="$link" title="$title_html">$title_html</a></h3>
+						<sup class="supersmall">$office</sup>
+					</div>
+HTML;
+	   		break;
+    }
+   
+    
+    
+
 
 	return $cont;
 }

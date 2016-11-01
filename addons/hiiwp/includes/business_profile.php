@@ -1120,25 +1120,26 @@ function add_graph_data(){
 		}
 	}
 	
-	if(isset($options['business_openingHoursSpecification'])){
+	if(isset($options['business_openingHoursSpecification']) && is_array($options['business_openingHoursSpecification'])){
 		$html .= '"openingHoursSpecification" : [';
 		$comma = '';
 		foreach($options['business_openingHoursSpecification'] as $hourset):
-		 
-			$html .= $comma.'{
-				    "@type": "OpeningHoursSpecification",
-				    "dayOfWeek": [';
-				$comma2 ='';
-				foreach($hourset['dayOfWeek'] as $key=>$day){
-					$html .= $comma2.'"'.$day.'"';
-					$comma2 =',';
-				}
-				
-			$html .= '],
-				    "opens": "'.$hourset['opens'].'",
-				    "closes": "'.$hourset['closes'].'"
-				  }';
-			$comma = ',';
+		 	if(isset($hourset['dayOfWeek'])){
+				$html .= $comma.'{
+					    "@type": "OpeningHoursSpecification",
+					    "dayOfWeek": [';
+					$comma2 ='';
+					foreach($hourset['dayOfWeek'] as $key=>$day){
+						$html .= $comma2.'"'.$day.'"';
+						$comma2 =',';
+					}
+					
+				$html .= '],
+					    "opens": "'.$hourset['opens'].'",
+					    "closes": "'.$hourset['closes'].'"
+					  }';
+				$comma = ',';
+			}
 		endforeach;
 		$html .= ' ],';
 	}
