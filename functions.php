@@ -56,8 +56,8 @@ if(!class_exists('SrUtils') && $hiilite_options['rets_listings_on']){
 	// Templete override functions
 	require_once( dirname( __FILE__ ) . '/addons/simply-rets.php' );
 }
-//require_once( dirname( __FILE__ ) . '/addons/tinymce_edits/tinymce_edits.php');
-//require_once( dirname( __FILE__ ) . '/addons/github-updater/github-updater.php');
+
+require_once( dirname( __FILE__ ) . '/addons/tinymce_edits/tinymce_edits.php');
 require_once( dirname( __FILE__ ) . '/addons/post-types-order/post-types-order.php');
 require_once( dirname( __FILE__ ) . '/addons/taxonomy-images/taxonomy-images.php');
 require_once( dirname( __FILE__ ) . '/addons/taxonomy-terms-order/taxonomy-terms-order.php');

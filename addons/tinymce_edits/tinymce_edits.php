@@ -24,7 +24,7 @@ function myplugin_tinymce_buttons($buttons)
 function myplugin_tinymce_buttons_2($buttons)
  {
 	//Remove the format dropdown select and text color selector
-	$remove = array('alignjustify','forecolor','outdent', 'indent', 'underline');
+	$remove = array('alignjustify','outdent', 'indent', 'underline');
 
 	return array_diff($buttons,$remove);
  }
