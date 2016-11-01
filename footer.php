@@ -7,7 +7,7 @@ if($hiilite_options['subdomain'] != 'iframe'):
 
 			<!-- FOOTER -->
 			<footer id="main_footer">
-				<?php if($hiilite_options['footer_top_col1'] || $hiilite_options['footer_top_col2'] || $hiilite_options['footer_top_col3'] || $hiilite_options['footer_top_col4']): ?>
+				<?php if(get_theme_mod( 'show_footer_top_yesno', true )): ?>
 				<div id="footer_top">
 					<div class="container_inner">
 				<?php if($hiilite_options['footer_in_grid']) { echo '<div class="in_grid">'; } 

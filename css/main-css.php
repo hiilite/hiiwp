@@ -5,67 +5,69 @@ if($hiilite_options['amp']) $_amp = 'amp-'; else $_amp = '';
 include_once('font-awesome/css/font-awesome.min.css'); 
 	
 function get_font_css($font){
-	foreach($font as $key => $value){
-		if($value != ' ' && $value != '' && $value != 'px'){
-			if($key == 'variant') { 
-				echo 'font-weight:';
-				switch ($value) {
-					case 'regular':
-						echo '400';
-					break;
-					case '100italic':
-						echo '100;font-style:italic;';
-					break;
-					case '200italic':
-						echo '200;font-style:italic;';
-					break;
-					case '300italic':
-						echo '300;font-style:italic;';
-					break;
-					case '400italic':
-						echo '400;font-style:italic;';
-					break;
-					case '600italic':
-						echo '600;font-style:italic;';
-					break;
-					case '700italic':
-						echo '700;font-style:italic;';
-					break;
-					case '800italic':
-						echo '800;font-style:italic;';
-					break;
-					case '900italic':
-						echo '900;font-style:italic;';
-					break;
-					case 'italic':
-						echo '400;font-style:italic;';
-					break;
-					default:
-						echo $value.';';
-					break;
+	if(is_array($font)){
+		foreach($font as $key => $value){
+			if($value != ' ' && $value != '' && $value != 'px'){
+				if($key == 'variant') { 
+					echo 'font-weight:';
+					switch ($value) {
+						case 'regular':
+							echo '400';
+						break;
+						case '100italic':
+							echo '100;font-style:italic;';
+						break;
+						case '200italic':
+							echo '200;font-style:italic;';
+						break;
+						case '300italic':
+							echo '300;font-style:italic;';
+						break;
+						case '400italic':
+							echo '400;font-style:italic;';
+						break;
+						case '600italic':
+							echo '600;font-style:italic;';
+						break;
+						case '700italic':
+							echo '700;font-style:italic;';
+						break;
+						case '800italic':
+							echo '800;font-style:italic;';
+						break;
+						case '900italic':
+							echo '900;font-style:italic;';
+						break;
+						case 'italic':
+							echo '400;font-style:italic;';
+						break;
+						default:
+							echo $value.';';
+						break;
+					}
+					echo ';';
 				}
-				echo ';';
-			}
-			elseif ($key == 'text-align') {
-				switch ($value) {
-					case 'right':
-						echo 'margin-left:auto;';
-					break;
-					case 'center':
-						echo 'margin-left:auto;';
-						echo 'margin-right:auto;';
-					break;
-					case 'left':
-						echo 'margin-right:auto;';
-					break;
+				elseif ($key == 'text-align') {
+					switch ($value) {
+						case 'right':
+							echo 'margin-left:auto;';
+						break;
+						case 'center':
+							echo 'margin-left:auto;';
+							echo 'margin-right:auto;';
+						break;
+						case 'left':
+							echo 'margin-right:auto;';
+						break;
+					}
+					echo $key.':'.$value.';';
 				}
-				echo $key.':'.$value.';';
+				else { echo $key.':'.$value.';'; }
+				
+				
+				
+				
 			}
-			else { echo $key.':'.$value.';'; }
-			
-			
-			
-			
 		}
 	}
 }
@@ -359,6 +361,15 @@ $footer_bottom_colors = get_theme_mod('footer_bottom_colors');
 border-top-style:solid;
 } 
  #footer_top {
+	 background: <?=$hiilite_options['footer_top_background_color'];?>;
+	<?php 
+	echo 'background-image:url('.get_theme_mod('footer_top_background_image').');';
+	echo 'background-repeat:'.get_theme_mod('footer_top_background_repeat').';';
+	echo 'background-size:'.get_theme_mod('footer_top_background_size').';';
+	echo 'background-attachment:'.get_theme_mod('footer_top_background_attach').';';
+	echo 'background-position:'.str_replace('-', ' ', get_theme_mod('footer_top_background_position')).';';
+	echo 'background-color:'.get_theme_mod('footer_top_background_color').';';
+	?>
 <?php 
 	if($footer_top_colors['text']) echo 'color:'.$footer_top_colors['text'];
 ?>
@@ -387,15 +398,7 @@ border-top-style:solid;
     padding: 0;
 }
 #footer_top, #footer_page {
-	background: <?=$hiilite_options['footer_top_background_color'];?>;
-	<?php 
-	echo 'background-image:url('.get_theme_mod('footer_top_background_image').');';
-	echo 'background-repeat:'.get_theme_mod('footer_top_background_repeat').';';
-	echo 'background-size:'.get_theme_mod('footer_top_background_size').';';
-	echo 'background-attachment:'.get_theme_mod('footer_top_background_attach').';';
-	echo 'background-position:'.str_replace('-', ' ', get_theme_mod('footer_top_background_position')).';';
-	echo 'background-color:'.get_theme_mod('footer_top_background_color').';';
-	?>
+	
 	align-content: flex-start;
 	display: flex;
 	align-items: center;
@@ -437,6 +440,16 @@ border-top-style:solid;
 }
 
 
+
+<?php 
+	
+/*
+*
+*	MENU
+*	
+*/
+$main_menu_colors = get_theme_mod('main_menu_colors');	
+?>
 /* MENU */
 .menu {
 	
@@ -451,15 +464,6 @@ border-top-style:solid;
 .menu .menu-item  {
 	position: relative;
 }
-<?php 
-	
-/*
-*
-*	MENU
-*	
-*/
-$main_menu_colors = get_theme_mod('main_menu_colors');	
-?>
 #main_header .menu .menu-item a {
 	text-decoration: none;
 	display:block;
@@ -477,6 +481,10 @@ $main_menu_colors = get_theme_mod('main_menu_colors');
 }
 #main_header .menu li:hover a {
 	color:<?=$main_menu_colors['hover'];?>;
+}
+
+.right-menu {
+	justify-content: flex-start;
 }
 
 <?php
