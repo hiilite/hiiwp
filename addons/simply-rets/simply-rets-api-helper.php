@@ -9,7 +9,7 @@
 */
 
 /* Code starts here */
- 
+  
 class SimplyRetsApiHelper {
 
     public static function retrieveRetsListings( $params, $settings = NULL ) {
@@ -763,6 +763,13 @@ HTML;
     }
 
 
+/*************************
+*
+*	srListingSliderGenerator
+*	
+*	Creates carousel slider of listings
+*
+**************************/
     public static function srListingSliderGenerator( $response, $settings ) {
 	    global $post;
         $listings = $response['response'];
@@ -775,184 +782,17 @@ HTML;
         if($wp_listings->have_posts()):
 	        while($wp_listings->have_posts()):
 	        	$wp_listings->the_post();
-	        	$additional_class = '';
-	        	$l = get_post_meta(get_the_id());
+	        	$listing = get_post_meta(get_the_id());
+	        	$listing['link'] = get_the_permalink();
 	        	
-	        	$object = new stdClass();
-				foreach ($l as $key => $value)
-				{
-					if(strpos($key, '-') !== false) {
-						list($key1, $key2) = explode('-', $key);
-						if(!isset($object->$key1)) { 
-							$object->$key1 = new stdClass();
-							$object->$key1->$key2 = $value[0];
-						} else {
-							$object->$key1->$key2 = $value[0];
-						}
-						
-					} else {
-					    $object->$key = $value[0];
-					}
-				}
-				$l = $object;
+				$inner .=  get_listing_template( $listing, 'tiny');
 				
-	        	$uid     = $l->mlsId;
-	            $lid	= $l->listingId;
-	            $subarea	= $l->mls->area;
-	            $streetNumber	= $l->address->streetNumber;
-	            $streetName		= $l->address->streetName;
-	            $city 			= $l->address->city;
-	            $unit 			= $l->address->unit;
-	            $address = $l->address->full;
-	            $price   = $l->listPrice;
-	            $photos  = $l->photos;
-	            $beds    = $l->property->bedrooms;
-	            $baths   = $l->property->bathsFull;
-	            $area    = $l->property->area;
-	            $subType = $l->property->subType;
-	            $status = $l->mls->status;
-	            $office = $l->office->name;
-	
-				if($subType == 'SingleFamilyResidence')$subType = 'House';
-	            elseif($subType == 'Apartment')$subType = 'Condo';
-	            
-	            $priceUSD = '$'.number_format( tofloat($price) );
-	
-				$fullAddress = $unit.' - '.$streetNumber.' '.$streetName.' '.$city.', '.$subarea;
-	            // create link to listing
-	            $vendor = isset($settings['vendor']) ? $settings['vendor'] : '';
-	            $link = get_the_permalink();
-	
-	            if( $area == 0 ) {
-	                $area = 'na';
-	            } else {
-	                $area = number_format( $area );
-	            }
-	
-	            if( empty( $photos ) ) {
-	                $photo = RETSURL. 'assets/img/defprop.jpg';
-	            } else {
-	                $photo = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'medium');
-	                $photo = $photo[0];
-	            }
-	            
-	            
-			
-				
-				$terms = get_the_terms( get_the_id(), 'status' );
-				if(!empty($terms)){
-					foreach ( $terms as $term ) {
-		                $term_status = $term->name;
-		                $additional_class = $term->slug;
-		            }
-	            }
-				
-				if(isset($term_status))$status = $term_status;
-				elseif(strtotime($listing->listDate) < strtotime('1 week ago')) $status = 'Just Listed';
-			    elseif(isset($listing->mls->area)) $status = $listing->mls->area;
-			    else $status = $listing->mls->status; 
-			    
-			    // Create Title
-			    $listing_mlsid_html = ($listing_mlsid != '')?$listing_mlsid_html = ' ('.$listing_mlsid.')':'';
-			    if($listing_address != '' || $listing_subdivision != '' && $listing_city != '')
-			    	$title_html = $listing_unit.' '.$listing_address.' '. $listing_subdivision.', '.$listing_city.$listing_mlsid_html;
-			    elseif($fullAddress != '' && $fullAddress != '  , ')
-			    	$title_html = $fullAddress.$listing_mlsid_html;
-			    else
-			    	$title_html = get_the_title($post_id).$listing_mlsid_html;
-				
-				if($wp_listing = get_page_by_title($property->address->full, OBJECT, 'listing')){
-					$inner .= print_r($wp_listing, true);
-				} else {
-					$inner .= <<<HTML
-					<div class="sr-listing-slider-item small_listing_container $additional_class"> 
-						<div class="four columns alpha omega listing_thumb">
-							<a href="$link" title="$title_html">
-								<img src="$photo" alt="$title_html" title="$fullAddress" class="scale-with-grid ">
-							</a>
-							<div class="four columns alpha omega listing_info">
-								<div class="listing_remarks">
-									<p>$priceUSD</p>
-								</div><p>$subType | $beds Bed | $baths Bath | $area</p>
-							</div>
-						</div>
-						<h3><a href="$link" title="$title_html">$title_html</a></h3>
-						<sup class="supersmall">$office</sup>
-					</div>
-HTML;
-	        	}
 	        endwhile;
         endif;
         
-        foreach($listings as $l) {
-            $uid     = $l->mlsId;
-            $lid	= $l->listingId;
-            $subarea	= $l->mls->area;
-            $streetNumber	= $l->address->streetNumber;
-            $streetName		= $l->address->streetName;
-            $city 			= $l->address->city;
-            $unit 			= $l->address->unit;
-            $address = $l->address->full;
-            $price   = $l->listPrice;
-            $photos  = $l->photos;
-            $beds    = $l->property->bedrooms;
-            $baths   = $l->property->bathsFull;
-            $area    = $l->property->area;
-            $subType = $l->property->subType;
-            $status = $l->mls->status;
-            $office = $l->office->name;
-
-			if($subType == 'SingleFamilyResidence')$subType = 'House';
-            elseif($subType == 'Apartment')$subType = 'Condo';
-            
-            $priceUSD = '$'.number_format( tofloat($price) );
- 
-			$fullAddress = $unit.' - '.$streetNumber.' '.$streetName.' '.$city.', '.$subarea;
-            // create link to listing
-            $vendor = isset($settings['vendor']) ? $settings['vendor'] : '';
-            $link = SrUtils::buildDetailsLink(
-                $l,
-                !empty($vendor) ? array("sr_vendor" => $vendor) : array()
-            );
-
-            if( $area == 0 ) {
-                $area = 'na';
-            } else {
-                $area = number_format( $area );
-            }
-
-            if( empty( $photos ) ) {
-                $photo = RETSURL. 'assets/img/defprop.jpg';
-            } else {
-                $photo = trim($photos[0]);
-                $photo = str_replace("\\", "", $photo);
-            }
-            
-            
-			
-			
-			$sold = ($status != 'Active')?'<div class="sold_sticker_small"></div>':'';
-			if($wp_listing = get_page_by_title($property->address->full, OBJECT, 'listing')){
-				$inner .= print_r($wp_listing, true);
-			} else {
-				$inner .= <<<HTML
-				<div class="sr-listing-slider-item small_listing_container"> 
-					<div class="four columns alpha omega listing_thumb">
-						<a href="$link" title="$fullAddress">
-							<img src="$photo" alt="$fullAddress" title="$fullAddress" class="scale-with-grid ">
-						</a>
-						<div class="four columns alpha omega listing_info">
-							<div class="listing_remarks">
-								<p>$priceUSD</p>
-							</div><p>$subType | $beds Bed | $baths Bath | $area</p>
-						</div>
-						$sold
-					</div>
-					<h3><a href="$link" title="$fullAddress">$fullAddress ($lid)</a></h3>
-					<sup class="supersmall">$office</sup>
-				</div>
-HTML;
-			}
+        foreach($listings as $listing) {
+	        
+	        $inner .=  get_listing_template( $listing, 'tiny', true);
             
         }
 
@@ -994,3 +834,4 @@ HTML;
 
     }
 }
+ 
