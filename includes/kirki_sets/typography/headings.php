@@ -13,7 +13,15 @@ Kirki::add_field( 'hiiwp', array(
     'label'       => esc_attr__( 'H1 Style', 'kirki' ),
     'description' => __( 'Define styles for H1 heading' ),
     'section'     => $section,
-    'default'     => $default_h1,
+    'default'     => array(
+        'font-family'    => ' ',
+        'variant'        => ' ',
+        'font-size'      => ' ',
+        'line-height'    => ' ',
+        'letter-spacing' => '0px',
+        'text-transform' => ' ',
+        'color'          => ' ',
+    ),
     'priority'    => 1,
 ) );
 

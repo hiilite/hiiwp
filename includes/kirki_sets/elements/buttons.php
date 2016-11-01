@@ -216,7 +216,7 @@ Kirki::add_field( 'hiiwp', array(
 	'type'        => 'color',
 	'settings'    => 'typography_button_secondary_background',
 	'label'       => __( 'Background Color (.button-secondary)', 'my_textdomain' ),
-	'section'     => 'typography_button_section',
+	'section'     => $section,
 	'default'     => get_theme_mod( 'color_two', '#ef5022'),
 	'priority'    => 3,
 	'alpha'       => true,

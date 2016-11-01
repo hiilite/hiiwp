@@ -552,6 +552,7 @@ Kirki::add_field( 'hiiwp', array(
 	'section'     => 'general_section_design_style',
 	'default'     => '#f6f6f6',
 	'priority'    => 1,
+	'alpha'		  => true,
 	'transport'   => 'postMessage',
     'output' => array(
 		array(
@@ -576,6 +577,7 @@ Kirki::add_field( 'hiiwp', array(
 	'default'     => '#fff',
 	'priority'    => 1,
 	'transport'   => 'postMessage',
+	'alpha'		  => true,
     'output' => array(
 		array(
 			'element'  => 'section .container_inner > .in_grid',
