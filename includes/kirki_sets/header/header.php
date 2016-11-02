@@ -199,6 +199,36 @@ Kirki::add_field( 'hiiwp', array(
     'priority'    => 8,
 ) );
 
+Kirki::add_field( 'hiiwp', array(
+	'type'        => 'color',
+    'settings'    => 'header_bottom_background',
+    'label'       => __( 'Header Bottom Background Color', 'hiiwp' ),
+    'description' => __('Choose a background color for bottom header area'),
+    'section'     => $section,
+    'priority'    => 8,
+    'default'     => '#fff',
+    'alpha'		  => true,
+    'transport'   => 'postMessage',
+    'output' => array(
+		array(
+			'element'  => '#header_bottom',
+			'property' => 'background-color',
+		),
+	),
+	'js_vars' => array(
+		array(
+			'element'  => '#header_bottom',
+			'property' => 'background-color',
+		),
+	),
+	'required'	  => array(
+		array(
+		    'setting'  => 'header_bottom_on',
+			'operator' => '==',
+			'value'    => true,
+	    )),
+) );
+
 
 
 Kirki::add_field( 'hiiwp', array(

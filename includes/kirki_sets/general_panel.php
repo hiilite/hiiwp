@@ -574,7 +574,7 @@ Kirki::add_field( 'hiiwp', array(
 	'label'       => __( 'Box Background Color', 'my_textdomain' ),
 	'description' => __('Choose the background color for boxes that use "in grid"'),
 	'section'     => 'general_section_design_style',
-	'default'     => '#fff',
+	'default'     => '',
 	'priority'    => 1,
 	'transport'   => 'postMessage',
 	'alpha'		  => true,

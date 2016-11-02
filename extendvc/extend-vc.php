@@ -39,20 +39,20 @@ vc_remove_element("vc_toggle");
 //vc_remove_element("vc_posts_grid");
 //vc_remove_element("vc_carousel");
 //vc_remove_element("vc_cta");
-//vc_remove_element("vc_round_chart");
+//vc_remove_element("vc_round_chart"); 
 //vc_remove_element("vc_line_chart");
 vc_remove_element("vc_tta_accordion");
 vc_remove_element("vc_tta_tour");
 vc_remove_element("vc_tta_tabs");
 
-vc_remove_element('vc_basic_grid');
-vc_remove_element('vc_media_grid');
+//vc_remove_element('vc_basic_grid');
+//vc_remove_element('vc_media_grid');
 vc_remove_element('vc_masonry_grid');
 vc_remove_element('vc_masonry_media_grid');
 //vc_remove_element('vc_icon');
 vc_remove_element('vc_button2');
 //vc_remove_element("vc_custom_heading");
-//vc_remove_element("vc_btn"); 
+vc_remove_element("vc_btn"); 
 
 //vc_remove_element('vc_gallery');
 vc_remove_element('vc_separator');
