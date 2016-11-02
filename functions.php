@@ -125,7 +125,8 @@ function register_my_menus() {
       'header-menu' => __( 'Header Menu' ),
       'left-menu' => __( 'Left Menu' ),
       'right-menu' => __( 'Right Menu' ),
-      'footer-menu' => __( 'Footer Menu' )
+      'footer-menu' => __( 'Footer Menu' ),
+      'bottom-menu' => __( 'Header Bottom Menu' )
     )
   );
 }

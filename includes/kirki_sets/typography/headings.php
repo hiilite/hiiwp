@@ -21,7 +21,7 @@ Kirki::add_field( 'hiiwp', array(
         'letter-spacing' => '0px',
         'text-transform' => ' ',
         'color'          => ' ',
-    ),
+    ), 
     'priority'    => 1,
 ) );
 

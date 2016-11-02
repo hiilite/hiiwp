@@ -185,14 +185,14 @@ echo minify_css($body);
 						?></div><?php
 					} 
 					wp_nav_menu(array(
-								'menu' =>  'header-menu',
-								'container' => 'nav',
-								'container_class' => 'flex-item',
-								'container_id' => 'main-nav',
-								'items_wrap'  => '<ul id="%1s" class="%2$s main-menu">%3$s</ul>',
-								'theme_location' => 'header-menu',
-								'fallback_cb'    => false
-							)); 
+						'menu' =>  'header-menu',
+						'container' => 'nav',
+						'container_class' => 'flex-item',
+						'container_id' => 'main-nav',
+						'items_wrap'  => '<ul id="%1s" class="%2$s main-menu">%3$s</ul>',
+						'theme_location' => 'header-menu',
+						'fallback_cb'    => false
+					)); 
 					
 					if($hiilite_options['header_center_right_on'] && $hiilite_options['header_type'] == 'regular'){ 
 						wp_nav_menu(array(
@@ -207,13 +207,25 @@ echo minify_css($body);
 					} ?>
 				<?php if($hiilite_options['header_in_grid']) { echo '</div>'; } ?>
 				</div>
+			
+				<aside id="header_bottom" class="flex-item">
+					<div class="container_inner">
+						<?php if($hiilite_options['header_in_grid']) { echo '<div class="in_grid">'; } 
+						if(get_theme_mod( 'header_bottom_on', false)){ 
+							wp_nav_menu(array(
+									'menu' =>  'right-menu',
+									'container' => 'div',
+									'container_class' => 'align-center flex-item',
+									'container_id' => 'header_bottom_menu',
+									'items_wrap'  => '<ul id="%1s" class="%2$s bottom-menu">%3$s</ul>',
+									'theme_location' => 'bottom-menu',
+									'fallback_cb'    => false
+								));	
+						}
+						if($hiilite_options['header_in_grid']) { echo '</div>'; } ?>
+					</div>
+				</aside>
 			</header>
-			<aside id="header_bottom" class="flex-item">
-				<div class="container_inner">
-					<div id="header_bottom_left"></div>
-					<div id="header_bottom_right"></div>
-				</div>
-			</aside>
 			<?php endif; //end iframe check ?>
 <?php 
 if($hiilite_options['fromApp']){ echo '<div id="content_load">';}
