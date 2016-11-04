@@ -1124,7 +1124,7 @@ function add_graph_data(){
 		$html .= '"openingHoursSpecification" : [';
 		$comma = '';
 		foreach($options['business_openingHoursSpecification'] as $hourset):
-		 	if(isset($hourset['dayOfWeek'])){
+		 	if(!empty($hourset['dayOfWeek'])){
 				$html .= $comma.'{
 					    "@type": "OpeningHoursSpecification",
 					    "dayOfWeek": [';

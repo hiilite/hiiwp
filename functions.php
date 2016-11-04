@@ -800,4 +800,14 @@ function content($limit) {
   return $content;
 }
 
+function content_excerpt( $length = 55 ) {    
+    if( $post->post_excerpt ) {
+        $content = get_the_excerpt();
+    } else {
+        $content = get_the_content();
+        $content = wp_trim_words( $content , $length );
+    }
+    return $excerpt;
+}
+
 ?>
