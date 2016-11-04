@@ -50,7 +50,9 @@
 			
 			
 			if($carousel.hasClass('has_thumbs')){
-				$carousel.css({ 'margin-bottom': $carousel.find('.thumbnails').height() });
+				var $thumbheight = $carousel.find('.thumbnails').height();
+				if($thumbheight < 200){$thumbheight = 200; }
+				$carousel.css({ 'margin-bottom': $thumbheight });
 			}
 				
 			/*contentHeights = $carousel.find('.slide-text-overlay .vc_column_container').map(function() {
