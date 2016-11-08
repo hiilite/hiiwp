@@ -40,8 +40,6 @@
 				height = maxHeight + 150;
 				$carousel.height(height);
 			});
-			
-			
 		} 
 		/* standard slider */
 		else if(type == 'slides'){
