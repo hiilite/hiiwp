@@ -324,6 +324,15 @@ $header_top_colors = get_theme_mod( 'header_top_colors' );
 #header_bottom {
 	border-bottom-style: solid;
 }
+#main_header #header_bottom .menu .menu-item a{
+	<?php 
+		get_font_css(get_theme_mod( 'header_bottom_font' ));
+	?>
+}
+
+#header_bottom .bottom-menu {
+	justify-content: center;
+}
 
 
 #logo_container {
@@ -360,8 +369,10 @@ $footer_bottom_colors = get_theme_mod('footer_bottom_colors');
 ?>
 border-top-style:solid;
 } 
+
+<?php 
+if(get_theme_mod( 'show_footer_top_yesno', true )): ?>
  #footer_top {
-	 background: <?=$hiilite_options['footer_top_background_color'];?>;
 	<?php 
 	echo 'background-image:url('.get_theme_mod('footer_top_background_image').');';
 	echo 'background-repeat:'.get_theme_mod('footer_top_background_repeat').';';
@@ -374,6 +385,8 @@ border-top-style:solid;
 	if($footer_top_colors['text']) echo 'color:'.$footer_top_colors['text'];
 ?>
 }
+<?php endif; ?>
+
 #footer_top .widgettitle {
 <?php 
 	get_font_css($hiilite_options['typography_footer_headings_font']);

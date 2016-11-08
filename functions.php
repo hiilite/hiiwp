@@ -125,7 +125,8 @@ function register_my_menus() {
       'header-menu' => __( 'Header Menu' ),
       'left-menu' => __( 'Left Menu' ),
       'right-menu' => __( 'Right Menu' ),
-      'footer-menu' => __( 'Footer Menu' )
+      'footer-menu' => __( 'Footer Menu' ),
+      'bottom-menu' => __( 'Header Bottom Menu' )
     )
   );
 }
@@ -797,6 +798,16 @@ function content($limit) {
   $content = apply_filters('the_content', $content); 
   $content = str_replace(']]>', ']]&gt;', $content);
   return $content;
+}
+
+function content_excerpt( $length = 55 ) {    
+    if( $post->post_excerpt ) {
+        $content = get_the_excerpt();
+    } else {
+        $content = get_the_content();
+        $content = wp_trim_words( $content , $length );
+    }
+    return $excerpt;
 }
 
 ?>

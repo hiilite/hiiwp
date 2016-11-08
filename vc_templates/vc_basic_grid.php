@@ -71,14 +71,19 @@ echo '<div class="container_inner">';
 $my_query = new WP_Query($query);
 while ( $my_query->have_posts() ) {
 	$my_query->the_post(); // Get post from query
-		
+	
+	
+	get_template_part( 'templates/blog', 'loop' );
+	/*
 	$post = new stdClass();
 	
 	$post_id = get_the_ID();
 	$post->link = get_permalink( $post_id );
-
+	
+	$col = (isset($atts['element_width']))?$atts['element_width']:12;
+	$heading_size = get_theme_mod( 'blog_heading_size', 'h2' );
 	?>
-	<div class="flex-item third-width">
+	<div class="flex-item <?='col-'.$col;?>">
 		<article class="content-box post-grid">
 			<?php 
 			if(has_post_thumbnail($post_id)): 
@@ -94,12 +99,13 @@ while ( $my_query->have_posts() ) {
 			</figure>
 			<?php endif; ?>
 			<div class="caption">
-			<h5><a href="<?=$post->link?>"><?php the_title(); ?></a></h5>
+			<<?=$heading_size?>><a href="<?=$post->link?>"><?php the_title(); ?></a></<?=$heading_size?>>
 			<p><?php echo excerpt(25); ?></p>
 			</div>
 		</article>
 	</div>
 	<?php
+	*/
 }
 echo '</div>';
 wp_reset_postdata();
