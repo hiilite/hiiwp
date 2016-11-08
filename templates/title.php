@@ -15,7 +15,7 @@ if(get_post_meta(get_the_id(), 'page_seo_title', true) != ''){
 } elseif(get_theme_mod('site_seo_title') != '' && is_front_page()) {
 	$page_title = get_theme_mod('site_seo_title');
 } else {
-	$page_title = wp_title('|',false,'right').$brand_title;
+	$page_title = get_the_title( $post->ID);
 }
 ?>
 <div class="page-title <?php echo get_post_meta ( $post->ID, 'page_title_bg', true); ?>" >

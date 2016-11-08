@@ -292,4 +292,31 @@ Kirki::add_field( 'hiiwp', array(
         'hover'  => '',
     ),
 ) );
+
+/*
+Header Top	
+*/
+Kirki::add_field( 'hiiwp', array(
+	'type'        => 'typography',
+	'settings'    => 'header_bottom_font',
+	'label'       => __( 'Header Bottom Font', 'hiiwp' ),
+	'description' => __('Define styles for Header Bottom area'),
+	'section'     => $section,
+	'default'     => array(
+        'font-family'    => ' ',
+        'variant'        => ' ',
+        'font-size'      => ' ',
+        'text-transform' => 'none',
+        'line-height'    => '50px',
+        'letter-spacing' => '0px',
+        'color'          => ' ',
+    ),
+	'priority'    => 7,
+	'required'	  => array(
+		array(
+		    'setting'  => 'header_bottom_on',
+			'operator' => '==',
+			'value'    => true,
+	    )),
+) );
 ?>
