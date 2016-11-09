@@ -74,13 +74,6 @@ $vc_row_params = array(
 			'value' => array( __( 'Yes', 'js_composer' ) => 'yes' ),
 		),
 		array(
-			'type' => 'checkbox',
-			'heading' => __( 'iframe', 'js_composer' ),
-			'param_name' => 'in_iframe',
-			'description' => __( 'If the content contains form elements or requires javascript, it must be within an iframe. iframe content needs to be an minimum of 600px from the top of the page ', 'js_composer' ),
-			'value' => array( __( 'Yes', 'js_composer' ) => 'yes' ),
-		),
-		array(
 			'type' => 'textfield',
 			'heading' => __( 'Min Height', 'js_composer' ),
 			'param_name' => 'row_height',
