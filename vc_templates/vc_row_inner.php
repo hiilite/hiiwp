@@ -86,6 +86,26 @@ if ( ! empty( $equal_height ) ) {
 	$css_classes[] = ' row-o-equal-height';
 }
 
+if ( ! empty( $content_direction ) ) {
+	$flex_row = true;
+	$css_classes[] = ' row-o-direction-' . $content_direction;
+}
+
+if ( ! empty( $content_wrap ) ) {
+	$flex_row = true;
+	$css_classes[] = ' row-o-wrap-' . $content_wrap;
+}
+
+if ( ! empty( $justify_content ) ) {
+	$flex_row = true;
+	$css_classes[] = ' row-o-content-justify-' . $justify_content;
+}
+
+if ( ! empty( $v_align_w_content ) ) {
+	$flex_row = true;
+	$css_classes[] = ' row-o-content-align-w-' . $v_align_w_content;
+}
+
 if ( ! empty( $content_placement ) ) {
 	$flex_row = true;
 	$css_classes[] = ' row-o-content-' . $content_placement;

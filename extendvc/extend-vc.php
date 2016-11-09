@@ -92,18 +92,6 @@ $vc_row_params = array(
 			'description' => __( 'Select contents vertical position within columns.', 'js_composer' ),
 		),
 		array(
-			'type' => 'dropdown',
-			'heading' => __( 'Columns position', 'js_composer' ),
-			'param_name' => 'columns_placement',
-			'value' => array(
-				__( 'Middle', 'js_composer' ) => 'middle',
-				__( 'Top', 'js_composer' ) => 'top',
-				__( 'Bottom', 'js_composer' ) => 'bottom',
-				__( 'Stretch', 'js_composer' ) => 'stretch',
-			),
-			'description' => __( 'Select columns position within row.', 'js_composer' ),
-		),
-		array(
 			'type' => 'checkbox',
 			'heading' => __( 'Full height row?', 'js_composer' ),
 			'param_name' => 'full_height',
@@ -167,6 +155,74 @@ $vc_row_params = array(
 			'description' => __( 'Style particular content element differently - add a class name and refer to it in custom CSS.', 'js_composer' ),
 		),
 		array(
+			'type' => 'dropdown',
+			'heading' => __( 'Content direction', 'js_composer' ),
+			'param_name' => 'content_direction',
+			'value' => array(
+				__( 'Default (Left to Right)', 'js_composer' ) => 'row',
+				__( 'Reverse (Right to Left)', 'js_composer' ) => 'row-reverse',
+				__( 'Down (Top to Bottom)', 'js_composer' ) => 'column',
+				__( 'Up (Bottom to Top)', 'js_composer' ) => 'column-reverse',
+			),
+			'description' => __( 'Select direction content is laid out in the container.', 'js_composer' ),
+			'group' => __( 'Flex Options', 'js_composer' ),
+		),
+		array(
+			'type' => 'dropdown',
+			'heading' => __( 'Wrap', 'js_composer' ),
+			'param_name' => 'content_wrap',
+			'value' => array(
+				__( 'Wrap', 'js_composer' ) => 'wrap',
+				__( 'No Wrap', 'js_composer' ) => 'nowrap',
+				__( 'Reverse Wrap', 'js_composer' ) => 'wrap-reverse',
+			),
+			'description' => __( 'Select wrapping option.', 'js_composer' ),
+			'group' => __( 'Flex Options', 'js_composer' ),
+		),
+		array(
+			'type' => 'dropdown',
+			'heading' => __( 'Justify Content', 'js_composer' ),
+			'param_name' => 'justify_content',
+			'value' => array(
+				__( 'Start', 'js_composer' ) => 'flex-start',
+				__( 'End', 'js_composer' ) => 'flex-end',
+				__( 'Center', 'js_composer' ) => 'center',
+				__( 'Full Width - Space Between', 'js_composer' ) => 'space-between',
+				__( 'Full Width - Space Around', 'js_composer' ) => 'space-around',
+			),
+			'description' => __( 'Select content justification within container.', 'js_composer' ),
+			'group' => __( 'Flex Options', 'js_composer' ),
+		),
+		array(
+			'type' => 'dropdown',
+			'heading' => __( 'Columns position', 'js_composer' ),
+			'param_name' => 'columns_placement',
+			'value' => array(
+				__( 'Middle', 'js_composer' ) => 'middle',
+				__( 'Top', 'js_composer' ) => 'top',
+				__( 'Bottom', 'js_composer' ) => 'bottom',
+				__( 'Stretch', 'js_composer' ) => 'stretch',
+				__( 'Baseline', 'js_composer' ) => 'baseline',
+			),
+			'description' => __( 'Select columns position within row.', 'js_composer' ),
+			'group' => __( 'Flex Options', 'js_composer' ),
+		),
+		array(
+			'type' => 'dropdown',
+			'heading' => __( 'Vertically Justify Wrapped Content', 'js_composer' ),
+			'param_name' => 'v_align_w_content',
+			'value' => array(
+				__( 'Top', 'js_composer' ) => 'flex-start',
+				__( 'Bottom', 'js_composer' ) => 'flex-end',
+				__( 'Middle', 'js_composer' ) => 'center',
+				__( 'Stretch', 'js_composer' ) => 'stretch',
+				__( 'Full Height - Space Between', 'js_composer' ) => 'space-between',
+				__( 'Full Height - Space Around', 'js_composer' ) => 'space-around',
+			),
+			'description' => __( 'Vertically justify wrapped content within the container.', 'js_composer' ),
+			'group' => __( 'Flex Options', 'js_composer' ),
+		),
+		array(
 			'type' => 'css_editor',
 			'heading' => __( 'CSS box', 'js_composer' ),
 			'param_name' => 'css',
@@ -184,6 +240,93 @@ vc_map( array(
 	'js_view' => 'VcRowView',
 ));
 
+////////////////////////////
+//
+//	INNER ROW
+//
+////////////////////////////
+
+$vc_row_inner_params = array(
+
+		array(
+			'type' => 'dropdown',
+			'heading' => __( 'Content direction', 'js_composer' ),
+			'param_name' => 'content_direction',
+			'value' => array(
+				__( 'Default (Left to Right)', 'js_composer' ) => 'row',
+				__( 'Reverse (Right to Left)', 'js_composer' ) => 'row-reverse',
+				__( 'Down (Top to Bottom)', 'js_composer' ) => 'column',
+				__( 'Up (Bottom to Top)', 'js_composer' ) => 'column-reverse',
+			),
+			'description' => __( 'Select direction content is laid out in the container.', 'js_composer' ),
+			'group' => __( 'Flex Options', 'js_composer' ),
+		),
+		array(
+			'type' => 'dropdown',
+			'heading' => __( 'Wrap', 'js_composer' ),
+			'param_name' => 'content_wrap',
+			'value' => array(
+				__( 'Wrap', 'js_composer' ) => 'wrap',
+				__( 'No Wrap', 'js_composer' ) => 'nowrap',
+				__( 'Reverse Wrap', 'js_composer' ) => 'wrap-reverse',
+			),
+			'description' => __( 'Select wrapping option.', 'js_composer' ),
+			'group' => __( 'Flex Options', 'js_composer' ),
+		),
+		array(
+			'type' => 'dropdown',
+			'heading' => __( 'Justify Content', 'js_composer' ),
+			'param_name' => 'justify_content',
+			'value' => array(
+				__( 'Start', 'js_composer' ) => 'flex-start',
+				__( 'End', 'js_composer' ) => 'flex-end',
+				__( 'Center', 'js_composer' ) => 'center',
+				__( 'Full Width - Space Between', 'js_composer' ) => 'space-between',
+				__( 'Full Width - Space Around', 'js_composer' ) => 'space-around',
+			),
+			'description' => __( 'Select content justification within container.', 'js_composer' ),
+			'group' => __( 'Flex Options', 'js_composer' ),
+		),
+		array(
+			'type' => 'dropdown',
+			'heading' => __( 'Columns position', 'js_composer' ),
+			'param_name' => 'columns_placement',
+			'value' => array(
+				__( 'Middle', 'js_composer' ) => 'middle',
+				__( 'Top', 'js_composer' ) => 'top',
+				__( 'Bottom', 'js_composer' ) => 'bottom',
+				__( 'Stretch', 'js_composer' ) => 'stretch',
+				__( 'Baseline', 'js_composer' ) => 'baseline',
+			),
+			'description' => __( 'Select columns position within row.', 'js_composer' ),
+			'group' => __( 'Flex Options', 'js_composer' ),
+		),
+		array(
+			'type' => 'dropdown',
+			'heading' => __( 'Vertically Justify Wrapped Content', 'js_composer' ),
+			'param_name' => 'v_align_w_content',
+			'value' => array(
+				__( 'Top', 'js_composer' ) => 'flex-start',
+				__( 'Bottom', 'js_composer' ) => 'flex-end',
+				__( 'Middle', 'js_composer' ) => 'center',
+				__( 'Stretch', 'js_composer' ) => 'stretch',
+				__( 'Full Height - Space Between', 'js_composer' ) => 'space-between',
+				__( 'Full Height - Space Around', 'js_composer' ) => 'space-around',
+			),
+			'description' => __( 'Vertically justify wrapped content within the container.', 'js_composer' ),
+			'group' => __( 'Flex Options', 'js_composer' ),
+		));
+vc_map( array(
+	'name' => __( 'Inner Row' , 'js_composer' ),
+	"base" => "vc_row_inner",
+	'is_container' => true,
+	'icon' => 'icon-wpb-row',
+	'show_settings_on_create' => false,
+	'category' => __( 'Content', 'js_composer' ),
+	'description' => __( 'Place content elements inside the row', 'js_composer' ),
+	'params' => $vc_row_params,
+	'js_view' => 'VcRowInnerView',
+));
 ////////////////////////////
 //
 //	Title
