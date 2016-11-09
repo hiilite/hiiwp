@@ -8,6 +8,11 @@ if($hiilite_options['amp']) $_amp = 'amp-'; else $_amp = '';
 // Create Title
 $article_title = '';
 
+if(isset($atts)) {
+	$hiilite_options['blog_columns'] = isset($atts['element_width'])?(string)$atts['element_width']:$hiilite_options['blog_columns'];
+	$hiilite_options['blog_layout'] = 'boxed';
+}
+
 $article_title .= '<span itemprop="author" itemscope itemtype="https://schema.org/Person">';
 if($hiilite_options['blog_meta_on']):
 	$article_title .= '<small><address class="post_author">';
