@@ -943,7 +943,7 @@ function output_structured_data(){
 	} else {
 		$page_image = $options['business_logo'];
 	}
-	
+	 
 		
 	?>
 	<meta property="op:markup_version" content="v1.0">
