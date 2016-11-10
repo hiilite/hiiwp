@@ -178,6 +178,13 @@ for($h=1;$h<=6;$h++):
 	}
 endfor; ?>
 }
+
+p {
+<?php	
+	get_font_css(get_theme_mod( 'text_font' ));
+	echo 'margin-bottom:'.get_theme_mod( 'text_margin' ).';';
+?>
+}
 .clearfix:before,
 .clearfix:after {
 	content: " ";
