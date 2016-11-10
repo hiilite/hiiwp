@@ -1096,10 +1096,23 @@ if($hiilite_options['testimonials_on']):
 	padding: 0;
 	list-style: none; 
 }
-input,textarea {padding:0.5em 1em;border: 1px solid gray; font-size: 1rem;}
-
+input,textarea,select {padding:1em; border: 1px solid rgba(203, 203, 203, 1); font-size: 1rem;}
+.ginput_complex {
+	
+}
+.ginput_full {
+    width: 100%;
+}
 .gfield {
     margin-bottom: 2em;
+}
+.gform_wrapper input:not([type=radio]):not([type=checkbox]):not([type=submit]):not([type=button]):not([type=image]):not([type=file]) {
+	padding:1em;
+}
+.gform_wrapper .chosen-container-single .chosen-single,.gform_wrapper.gf_browser_chrome .ginput_complex .ginput_right select, .gform_wrapper.gf_browser_chrome .ginput_complex select {
+	height: 3.4em;
+    margin-top: 0;
+    line-height: 3; 
 }
 
 .gfield span label { 
