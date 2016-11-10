@@ -1191,6 +1191,18 @@ input,textarea,select {padding:1em; border: 1px solid rgba(203, 203, 203, 1); fo
 .wpb_accordion .wpb_accordion_wrapper .wpb_accordion_header {
     padding: 0.5em 1em;
 }
+
+/*
+TRIBE EVENTS	
+*/
+.tribe-events-cost.col-3.align-right {
+    font-size: 3em;
+}
+.tribe-events-event-meta .tribe-events-meta-group {
+    min-width: 33.3333%;
+    max-width: 340px;
+    width: 100%;
+}
 <?php
 do_action ( 'custom_css' );
 echo $hiilite_options['custom_css'];
