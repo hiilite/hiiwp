@@ -52,7 +52,7 @@ vc_remove_element('vc_masonry_media_grid');
 //vc_remove_element('vc_icon');
 vc_remove_element('vc_button2');
 //vc_remove_element("vc_custom_heading");
-vc_remove_element("vc_btn"); 
+vc_remove_element("vc_btn");  
 
 //vc_remove_element('vc_gallery');
 vc_remove_element('vc_separator');
@@ -71,13 +71,6 @@ $vc_row_params = array(
 			'heading' => __( 'In Grid?', 'js_composer' ),
 			'param_name' => 'in_grid',
 			'description' => __( 'If checked contents of row will stay in grid width', 'js_composer' ),
-			'value' => array( __( 'Yes', 'js_composer' ) => 'yes' ),
-		),
-		array(
-			'type' => 'checkbox',
-			'heading' => __( 'iframe', 'js_composer' ),
-			'param_name' => 'in_iframe',
-			'description' => __( 'If the content contains form elements or requires javascript, it must be within an iframe. iframe content needs to be an minimum of 600px from the top of the page ', 'js_composer' ),
 			'value' => array( __( 'Yes', 'js_composer' ) => 'yes' ),
 		),
 		array(
