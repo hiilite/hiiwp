@@ -73,7 +73,7 @@ while ( $my_query->have_posts() ) {
 	$my_query->the_post(); // Get post from query
 	
 	
-	get_template_part( 'templates/blog', 'loop' );
+	include(locate_template( 'templates/blog-loop.php' ));
 	/*
 	$post = new stdClass();
 	

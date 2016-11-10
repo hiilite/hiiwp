@@ -1103,10 +1103,23 @@ if($hiilite_options['testimonials_on']):
 	padding: 0;
 	list-style: none; 
 }
-input,textarea {padding:0.5em 1em;border: 1px solid gray; font-size: 1rem;}
-
+input,textarea,select {padding:1em; border: 1px solid rgba(203, 203, 203, 1); font-size: 1rem;}
+.ginput_complex {
+	
+}
+.ginput_full {
+    width: 100%;
+}
 .gfield {
     margin-bottom: 2em;
+}
+.gform_wrapper input:not([type=radio]):not([type=checkbox]):not([type=submit]):not([type=button]):not([type=image]):not([type=file]) {
+	padding:1em;
+}
+.gform_wrapper .chosen-container-single .chosen-single,.gform_wrapper.gf_browser_chrome .ginput_complex .ginput_right select, .gform_wrapper.gf_browser_chrome .ginput_complex select {
+	height: 3.4em;
+    margin-top: 0;
+    line-height: 3; 
 }
 
 .gfield span label { 
@@ -1177,6 +1190,18 @@ input,textarea {padding:0.5em 1em;border: 1px solid gray; font-size: 1rem;}
 }
 .wpb_accordion .wpb_accordion_wrapper .wpb_accordion_header {
     padding: 0.5em 1em;
+}
+
+/*
+TRIBE EVENTS	
+*/
+.tribe-events-cost.col-3.align-right {
+    font-size: 3em;
+}
+.tribe-events-event-meta .tribe-events-meta-group {
+    min-width: 33.3333%;
+    max-width: 340px;
+    width: 100%;
 }
 <?php
 do_action ( 'custom_css' );
