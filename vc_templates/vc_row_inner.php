@@ -117,8 +117,13 @@ if ( ! empty( $flex_row ) ) {
 if ( ! empty( $background_palette )) {
 	$css_classes[] =  ' '.$background_palette;
 }
+if ( ! empty( $align_item )) {
+	$flex_row = true;
+	$css_classes[] = ' item-align-' . $align_item;
+	$test = '1';
+}
 
-
+$css_classes[] = 'flex-item';
 
 $css_class = preg_replace( '/\s+/', ' ', apply_filters( VC_SHORTCODE_CUSTOM_CSS_FILTER_TAG, implode( ' ', array_filter( $css_classes ) ), $this->settings['base'], $atts ) );
 $wrapper_attributes[] = 'class="' . esc_attr( trim( $css_class ) ) . '"';
