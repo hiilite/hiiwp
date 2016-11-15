@@ -227,6 +227,104 @@ table td {
 .row_reverse {
 	flex-direction: row-reverse;
 }
+.row-o-direction-row>.container_inner, .flex-container.row-o-direction-row, .row-o-direction-row .vc_column-inner .wpb_wrapper.flex-container {
+	flex-direction: row !important;
+}
+.row-o-direction-row-reverse>.container_inner, .flex-container.row-o-direction-row-reverse, .row-o-direction-row-reverse .vc_column-inner .wpb_wrapper.flex-container {
+	flex-direction: row-reverse !important;
+}
+.row-o-direction-column>.container_inner, .flex-container.row-o-direction-column, .row-o-direction-column .vc_column-inner .wpb_wrapper.flex-container {
+	flex-direction: column !important;
+}
+.row-o-direction-column-reverse>.container_inner, .flex-container.row-o-direction-column-reverse, .row-o-direction-column-reverse .vc_column-inner .wpb_wrapper.flex-container {
+	flex-direction: column-reverse !important;
+}
+.row-o-wrap-nowrap>.container_inner, .flex-container.row-o-wrap-nowrap, .row-o-wrap-nowrap .vc_column-inner .wpb_wrapper.flex-container {
+	flex-wrap: nowrap !important;
+}
+.row-o-wrap-wrap>.container_inner, .flex-container.row-o-wrap-wrap, .row-o-wrap-wrap .vc_column-inner .wpb_wrapper.flex-container {
+	flex-wrap: wrap !important;
+}
+.row-o-wrap-wrap-reverse>.container_inner, .flex-container.row-o-wrap-wrap-reverse, .rrow-o-wrap-wrap-reverse .vc_column-inner .wpb_wrapper.flex-container {
+	flex-wrap: wrap-reverse !important;
+}
+.row-o-content-justify-flex-start>.container_inner, .flex-container.row-o-content-justify-flex-start, .row-o-content-justify-flex-start .vc_column-inner .wpb_wrapper.flex-container {
+	justify-content: flex-start !important;
+}
+.row-o-content-justify-flex-end>.container_inner, .flex-container.row-o-content-justify-flex-end, .row-o-content-justify-flex-end .vc_column-inner .wpb_wrapper.flex-container {
+	justify-content: flex-end !important;
+}
+.row-o-content-justify-center>.container_inner, .flex-container.row-o-content-justify-center, .row-o-content-justify-center .vc_column-inner .wpb_wrapper.flex-container {
+	justify-content: center !important;
+}
+.row-o-content-justify-space-between>.container_inner, .flex-container.row-o-content-justify-space-between, .row-o-content-justify-space-between .vc_column-inner .wpb_wrapper.flex-container {
+	justify-content: space-between !important;
+}
+.row-o-content-justify-space-around>.container_inner, .flex-container.row-o-content-justify-space-around, .row-o-content-justify-space-around .vc_column-inner .wpb_wrapper.flex-container {
+	justify-content: space-around !important;
+}
+.vc_row-o-columns-top>.container_inner, .flex-container.vc_row-o-columns-top, .vc_row-o-columns-top .vc_column-inner .wpb_wrapper.flex-container {
+	align-items: flex-start !important;
+}
+.vc_row-o-columns-bottom>.container_inner, .flex-container.vc_row-o-columns-bottom, .vc_row-o-columns-bottom .vc_column-inner .wpb_wrapper.flex-container {
+	align-items: flex-end !important;
+}
+.vc_row-o-columns-middle>.container_inner, .flex-container.vc_row-o-columns-middle, .vc_row-o-columns-middle .vc_column-inner .wpb_wrapper.flex-container {
+	align-items: center !important;
+}
+.vc_row-o-columns-stretch>.container_inner, .flex-container.vc_row-o-columns-stretch, .vc_row-o-columns-stretch .vc_column-inner .wpb_wrapper.flex-container {
+	align-items: stretch !important;
+}
+.vc_row-o-columns-baseline>.container_inner, .flex-container.vc_row-o-columns-baseline, .vc_row-o-columns-baseline .vc_column-inner .wpb_wrapper.flex-container {
+	align-items: baseline !important;
+}
+.row-o-content-align-w-flex-start>.container_inner, .flex-container.row-o-content-align-w-flex-start, .row-o-content-align-w-flex-start .vc_column-inner .wpb_wrapper.flex-container {
+	align-content: flex-start !important;
+}
+.row-o-content-align-w-flex-end>.container_inner, .flex-container.row-o-content-align-w-flex-end, .row-o-content-align-w-flex-end .vc_column-inner .wpb_wrapper.flex-container {
+	align-content: flex-end !important;
+}
+.row-o-content-align-w-center>.container_inner, .flex-container.row-o-content-align-w-center, .row-o-content-align-w-center .vc_column-inner .wpb_wrapper.flex-container {
+	align-content: center;
+}
+.row-o-content-align-w-stretch>.container_inner, .flex-container.row-o-content-align-w-stretch, .row-o-content-align-w-stretch .vc_column-inner .wpb_wrapper.flex-container {
+	align-content: stretch !important;
+}
+.row-o-content-align-w-space-between>.container_inner, .flex-container.row-o-content-align-w-space-between, .row-o-content-align-w-space-between .vc_column-inner .wpb_wrapper.flex-container {
+	align-content: space-between !important;
+}
+.row-o-content-align-w-space-around>.container_inner, .flex-container.row-o-content-align-w-space-around, .row-o-content-align-w-space-around .vc_column-inner .wpb_wrapper.flex-container {
+	align-content: space-around !important;
+}
+
+/* Background Images */
+.bg-img-pos-lt {
+	background-position: left top;
+}
+.bg-img-pos-lc {
+	background-position: left center;
+}
+.bg-img-pos-lb {
+	background-position: left bottom;
+}
+.bg-img-pos-rt {
+	background-position: right top;
+}
+.bg-img-pos-rc {
+	background-position: right center;
+}
+.bg-img-pos-rb {
+	background-position: right bottom;
+}
+.bg-img-pos-ct {
+	background-position: center top;
+}
+.bg-img-pos-cc {
+	background-position: center center;
+}
+.bg-img-pos-cb {
+	background-position: center bottom;
+}
 
 /* HEADER */
 header#main_header {
@@ -453,12 +551,34 @@ if(get_theme_mod( 'show_footer_top_yesno', true )): ?>
 ?>
 }
 
-
+.flex-container {
+	display: flex;
+	flex-wrap:wrap;
+	width: 100%;
+	box-sizing: border-box;
+}
 .flex-item {
 	flex: 1 1 auto;
 	<?php if($is_IE) echo 'flex-basis: 0%';?>
 }
-
+.flex-item.item-align-auto, .wpb_column.item-align-auto {
+	align-self:auto;
+}
+.flex-item.item-align-start, .wpb_column.item-align-start {
+	align-self:flex-start;
+}
+.flex-item.item-align-end, .wpb_column.item-align-end {
+	align-self:flex-end;
+}
+.flex-item.item-align-center, .wpb_column.item-align-center {
+	align-self:center;
+}
+.flex-item.item-align-stretch, .wpb_column.item-align-stretch {
+	align-self:stretch;
+}
+.flex-item.item-align-baseline, .wpb_column.item-align-baseline {
+	align-self:baseline;
+}
 
 
 <?php 
