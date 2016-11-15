@@ -75,10 +75,14 @@ if ( ! empty( $full_width ) ) {
 
 if ( ! empty( $full_height ) ) {
 	$css_classes[] = ' row-o-full-height';
-	if ( ! empty( $columns_placement ) ) {
+	/*if ( ! empty( $columns_placement ) ) {
 		$flex_row = true;
 		$css_classes[] = ' vc_row-o-columns-' . $columns_placement;
-	}
+	}*/
+}
+if ( ! empty( $columns_placement ) ) {
+	$flex_row = true;
+	$css_classes[] = ' vc_row-o-columns-' . $columns_placement;
 }
 
 if ( ! empty( $equal_height ) ) {
@@ -120,10 +124,13 @@ if ( ! empty( $background_palette )) {
 if ( ! empty( $align_item )) {
 	$flex_row = true;
 	$css_classes[] = ' item-align-' . $align_item;
-	$test = '1';
+}
+if ( ! empty( $bg_img_pos )) {
+	$flex_row = true;
+	$css_classes[] = ' bg-img-pos-' . $bg_img_pos;
 }
 
-$css_classes[] = 'flex-item';
+
 
 $css_class = preg_replace( '/\s+/', ' ', apply_filters( VC_SHORTCODE_CUSTOM_CSS_FILTER_TAG, implode( ' ', array_filter( $css_classes ) ), $this->settings['base'], $atts ) );
 $wrapper_attributes[] = 'class="' . esc_attr( trim( $css_class ) ) . '"';

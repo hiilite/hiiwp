@@ -117,8 +117,18 @@ if ( ! empty( $flex_row ) ) {
 if ( ! empty( $background_palette )) {
 	$css_classes[] =  ' '.$background_palette;
 }
-$iframeheight = !empty($atts['row_height'])?$atts['row_height']:'100vh';
+if ( ! empty( $align_item )) {
+	$flex_row = true;
+	$css_classes[] = ' item-align-' . $align_item;
+}
+if ( ! empty( $bg_img_pos )) {
+	$flex_row = true;
+	$css_classes[] = ' bg-img-pos-' . $bg_img_pos;
+}
 
+
+
+$iframeheight = !empty($atts['row_height'])?$atts['row_height']:'100vh';
 
 
 $css_class = preg_replace( '/\s+/', ' ', apply_filters( VC_SHORTCODE_CUSTOM_CSS_FILTER_TAG, implode( ' ', array_filter( $css_classes ) ), $this->settings['base'], $atts ) );
