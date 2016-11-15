@@ -32,7 +32,7 @@ $el_class = $full_height = $parallax_speed_bg = $parallax_speed_video = $full_wi
 $output = $after_output = '';
 $atts = vc_map_get_attributes( $this->getShortcode(), $atts );
 extract( $atts );
-
+ 
 wp_enqueue_script( 'wpb_composer_front_js' );
 
 
@@ -86,6 +86,26 @@ if ( ! empty( $equal_height ) ) {
 	$css_classes[] = ' row-o-equal-height';
 }
 
+if ( ! empty( $content_direction ) ) {
+	$flex_row = true;
+	$css_classes[] = ' row-o-direction-' . $content_direction;
+}
+
+if ( ! empty( $content_wrap ) ) {
+	$flex_row = true;
+	$css_classes[] = ' row-o-wrap-' . $content_wrap;
+}
+
+if ( ! empty( $justify_content ) ) {
+	$flex_row = true;
+	$css_classes[] = ' row-o-content-justify-' . $justify_content;
+}
+
+if ( ! empty( $v_align_w_content ) ) {
+	$flex_row = true;
+	$css_classes[] = ' row-o-content-align-w-' . $v_align_w_content;
+}
+
 if ( ! empty( $content_placement ) ) {
 	$flex_row = true;
 	$css_classes[] = ' row-o-content-' . $content_placement;
@@ -97,8 +117,18 @@ if ( ! empty( $flex_row ) ) {
 if ( ! empty( $background_palette )) {
 	$css_classes[] =  ' '.$background_palette;
 }
-$iframeheight = !empty($atts['row_height'])?$atts['row_height']:'100vh';
+if ( ! empty( $align_item )) {
+	$flex_row = true;
+	$css_classes[] = ' item-align-' . $align_item;
+}
+if ( ! empty( $bg_img_pos )) {
+	$flex_row = true;
+	$css_classes[] = ' bg-img-pos-' . $bg_img_pos;
+}
 
+
+
+$iframeheight = !empty($atts['row_height'])?$atts['row_height']:'100vh';
 
 
 $css_class = preg_replace( '/\s+/', ' ', apply_filters( VC_SHORTCODE_CUSTOM_CSS_FILTER_TAG, implode( ' ', array_filter( $css_classes ) ), $this->settings['base'], $atts ) );
