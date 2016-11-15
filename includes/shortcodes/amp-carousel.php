@@ -64,7 +64,7 @@ function add_amp_carousel_shortcode( $atts ){
     	$count = 0;
 		foreach ( $query->posts as $attachment) :
 			$count++;
-	       $image = wp_get_attachment_image_src( $attachment->ID, 'large' );
+	       $image = wp_get_attachment_image_src( $attachment->ID, 'full' );
 	       $hratio = ($height / $image[2]);
 	       $output .= '<a class="slide">';
 		   $output .= '<'.$_amp.'img src="'.$image[0].'" width="'.($image[1]*$hratio).'" height="'.($image[2]*$hratio).'" alt="'.get_the_title().'">';

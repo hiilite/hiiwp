@@ -75,15 +75,39 @@ if ( ! empty( $full_width ) ) {
 
 if ( ! empty( $full_height ) ) {
 	$css_classes[] = ' row-o-full-height';
-	if ( ! empty( $columns_placement ) ) {
+	/*if ( ! empty( $columns_placement ) ) {
 		$flex_row = true;
 		$css_classes[] = ' vc_row-o-columns-' . $columns_placement;
-	}
+	}*/
+}
+if ( ! empty( $columns_placement ) ) {
+	$flex_row = true;
+	$css_classes[] = ' vc_row-o-columns-' . $columns_placement;
 }
 
 if ( ! empty( $equal_height ) ) {
 	$flex_row = true;
 	$css_classes[] = ' row-o-equal-height';
+}
+
+if ( ! empty( $content_direction ) ) {
+	$flex_row = true;
+	$css_classes[] = ' row-o-direction-' . $content_direction;
+}
+
+if ( ! empty( $content_wrap ) ) {
+	$flex_row = true;
+	$css_classes[] = ' row-o-wrap-' . $content_wrap;
+}
+
+if ( ! empty( $justify_content ) ) {
+	$flex_row = true;
+	$css_classes[] = ' row-o-content-justify-' . $justify_content;
+}
+
+if ( ! empty( $v_align_w_content ) ) {
+	$flex_row = true;
+	$css_classes[] = ' row-o-content-align-w-' . $v_align_w_content;
 }
 
 if ( ! empty( $content_placement ) ) {
@@ -96,6 +120,14 @@ if ( ! empty( $flex_row ) ) {
 }
 if ( ! empty( $background_palette )) {
 	$css_classes[] =  ' '.$background_palette;
+}
+if ( ! empty( $align_item )) {
+	$flex_row = true;
+	$css_classes[] = ' item-align-' . $align_item;
+}
+if ( ! empty( $bg_img_pos )) {
+	$flex_row = true;
+	$css_classes[] = ' bg-img-pos-' . $bg_img_pos;
 }
 
 
