@@ -9,14 +9,11 @@ if(	(
 $post_meta = get_post_meta(get_the_id());
 
 // Page Title
-$brand_title = (get_theme_mod('brand_seo_title')!='')?get_theme_mod('brand_seo_title'):get_bloginfo('title');
-if(get_post_meta(get_the_id(), 'page_seo_title', true) != ''){
-	$page_title = get_post_meta(get_the_id(), 'page_seo_title', true);
-} elseif(get_theme_mod('site_seo_title') != '' && is_front_page()) {
-	$page_title = get_theme_mod('site_seo_title');
+if(is_home() || is_archive(  )){
+	$page_title = get_wp_title('');
 } else {
-	$page_title = get_the_title( $post->ID);
-}
+	$page_title = get_the_title( get_the_id( ));
+} 
 ?>
 <div class="page-title <?php echo get_post_meta ( $post->ID, 'page_title_bg', true); ?>" >
 	<div class="container_inner">
