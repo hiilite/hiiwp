@@ -810,4 +810,8 @@ function content_excerpt( $length = 55 ) {
     return $excerpt;
 }
 
+function get_wp_title( $separator = ' ', $seplocation = 'left' ) {	
+	$separator = apply_filters('timber_wp_title_seperator', $separator);	
+	return trim(wp_title($separator, false, $seplocation));	
+}	
 ?>
