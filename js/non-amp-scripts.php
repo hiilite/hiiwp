@@ -170,10 +170,10 @@
 				
 				$next_button.on('click', function(){ 
 					if($carousel.find('.slide.on').index() < (length - 1)) {
-						$carousel.find('.slide.on').fadeOut(500).removeClass('on').next().addClass('on').fadeIn(500, function(){});
+						$carousel.find('.slide.on').fadeOut(500).removeClass('on').next().fadeIn(500, function(){ $(this).addClass('on');});
 					} else {
 						$carousel.find('.slide.on').fadeOut(500).removeClass('on');
-						$carousel.find('.slide:eq(0)').addClass('on').fadeIn(500, function(){});
+						$carousel.find('.slide:eq(0)').fadeIn(500, function(){ $(this).addClass('on'); });
 
 					}
 				});
