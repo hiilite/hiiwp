@@ -550,7 +550,7 @@ Kirki::add_field( 'hiiwp', array(
 	'label'       => __( 'Content Background Color', 'my_textdomain' ),
 	'description' => __('Choose the background color for page content area'),
 	'section'     => 'general_section_design_style',
-	'default'     => '#f6f6f6',
+	'default'     => '',
 	'priority'    => 1,
 	'alpha'		  => true,
 	'transport'   => 'postMessage',
