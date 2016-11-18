@@ -167,9 +167,10 @@ function get_portfolio($args = null, $options = null){
 	    //////////////////////////	
 	    
 		else:
-	    	if($portfolio_layout != 'masonry-h'){
-		    	$html .= '<div class="container_inner">';
-	    	} 
+	    	if($portfolio_layout == 'masonry') { 
+		    	$html .= '<div class="row masonry col-count-'.$portfolio_columns.'">';
+		    	$css .= '.masonry article {padding:'.$add_padding.';}';
+		    }
 			while($query->have_posts()):
 				$query->the_post();
 				
@@ -216,7 +217,7 @@ function get_portfolio($args = null, $options = null){
 						    elseif($imgs[$i]['isolate'] == 'align-bottom-right')$padding .= $minpad.' 0 0 '.$minpad;
 						    $padding .= ';';
 					    endif;
-					    
+					     
 					    $background_color = ($imgs[$i]['background_color'] != '')?'background:'.$imgs[$i]['background_color'].';':'';
 					    
 					    $css .= '#pfi'.get_the_id().'{flex:'.$ratio.';'.$background_color.$padding.'}';
@@ -293,7 +294,7 @@ function get_portfolio($args = null, $options = null){
 					}
 					
 					//get_template_part('templates/portfolio', 'loop');
-					$html .= '<article class="row row-o-content-top blog-article flex-item '.$cols.'" id="post-'.get_the_id().'" >
+					$html .= '<article class="row row-o-content-top flex-item" id="post-'.get_the_id().'" >
 					<meta itemscope itemprop="mainEntityOfPage"  itemType="https://schema.org/WebPage" itemid="'.get_bloginfo('url').'"/>';
 					
 					if($portfolio_title_pos == 'title-above') { 
@@ -308,16 +309,16 @@ function get_portfolio($args = null, $options = null){
 						$width = $img[1];
 						$height = $img[2];
 					
-						$html .='<figure class="flex-item col-6">
+						$html .='<figure class="flex-item">
 							<a href="'.get_the_permalink().'"><'.$_amp.'img src="'.$img[0].'" layout="responsive" width='.$width.' height='.$height.'>';
 						$html .= ($_amp!='')?'</amp-img>':'';
 						$html .= '</a></figure>';
 					endif;
-	
-					$html .= '<div class="flex-item content-box';
-					$html .= ($portfolio_image_pos=='image-left')?' col-6':' col-12';
-					$html .= '">';
-					$html .= '<meta itemprop="datePublished" content="'.get_the_time('Y-m-d').'">
+					
+						$html .= '<div class="flex-item';
+						$html .= ($portfolio_image_pos=='image-left')?' col-6':' col-12';
+						$html .= '">';
+						$html .= '<meta itemprop="datePublished" content="'.get_the_time('Y-m-d').'">
 						<meta itemprop="dateModified" content="'.get_the_modified_date('Y-m-d').'">';
 					
 					if($portfolio_title_pos == 'title-below') { 
@@ -417,6 +418,7 @@ function get_portfolio($args = null, $options = null){
 			$rowstart = true;
 			$rowend = true;
 			$rowdirection = false;
+			$html .= $ratio;
 			for($k=0;$k<$i;$k++){
 				$current = null;
 				
@@ -690,7 +692,7 @@ function get_portfolio($args = null, $options = null){
 				if(!isset($current['isolate'])) $current['isolate'] ='';
 				if(isset($current['id'])):
 					$html .= '<div id="pfi'.$current['id'].'" class="flex-item '.$current['col'].' '.$current['isolate'].'">';
-					//$html .= $debug;
+					$html .= $debug;
 					if($args['post_type'] != 'attachment') $html .= '<a href="'.$current['href'].'">';
 					$html .= '<amp-img src="'.$current['src'].'" layout="responsive" width="'.$current['width'].'" height="'.$current['height'].'"';
 					if($args['post_type'] == 'attachment') $html .= ' on="tap:lightbox1" role="button" ';

@@ -164,7 +164,7 @@ Kirki::add_field( 'hiiwp', array(
     'section'     => $section,
     'priority'    => 6,
     'default'     => array(
-		'color'    => '#262626',
+		'color'    => ' ',
 		'image'    => '',
 		'repeat'   => 'no-repeat',
 		'size'     => 'cover',
@@ -304,7 +304,8 @@ Kirki::add_field( 'hiiwp', array(
     'section'     => $section,
     'default'     => 'color_one',
     'priority'    => 8,
-    'default'	 => '#c8c8c8',
+    'default'	 => ' ',
+    'alpha'		  => true,
    'active_callback'	=> array(
 		array(
 			'setting'  => 'footer_text_yesno',
