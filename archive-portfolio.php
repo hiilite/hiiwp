@@ -1,6 +1,7 @@
 <?php 
 get_header();
 get_template_part( 'templates/title' );
+
 $port_args = array(
 		'show_post_meta'  	=> get_theme_mod( 'portfolio_show_post_meta', false ),
 	    'show_post_title'  	=> get_theme_mod( 'portfolio_show_post_title', false ),

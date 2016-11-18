@@ -172,6 +172,13 @@ if( $my_query->have_posts() ) :
 
 echo '</aside>';
 
+
+if($hiilite_options['blog_comments']):
+	echo '<div class="container_inner">';
+		comments_template();
+	echo '</div>';
+endif;
+
 //end related Posts
 endif;
 	/*
