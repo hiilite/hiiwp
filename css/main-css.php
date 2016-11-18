@@ -1151,6 +1151,9 @@ amp-carousel.slider .slide-text-overlay amp-fit-text {
 amp-carousel.slider amp-img img {
     height: auto;
 }
+amp-carousel[type=slides] .slide {
+	transition: none;
+}
 
 /*for when image bleeds beyond edges*/
 amp-carousel.slider <?=$_amp?>img {
