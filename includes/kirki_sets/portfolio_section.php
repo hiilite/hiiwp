@@ -7,8 +7,6 @@ Kirki::add_section( 'portfolio_section', array(
 ) );
 
 
-
-
 Kirki::add_field( 'hiiwp', array(
 	'type'        => 'radio-image',
     'settings'    => 'portfolio_layout',

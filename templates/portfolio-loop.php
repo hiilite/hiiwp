@@ -30,5 +30,5 @@ if($hiilite_options['amp']) $_amp = 'amp-'; else $_amp = '';
 	<div>
 </article>
 <?php
-	
+
 ?>

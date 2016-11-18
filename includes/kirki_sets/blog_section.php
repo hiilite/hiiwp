@@ -7,8 +7,6 @@ Kirki::add_section( 'blog_section', array(
 ) );
 
 
-
-
 Kirki::add_field( 'hiiwp', array(
 	'type'        => 'radio-image',
     'settings'    => 'blog_layout',

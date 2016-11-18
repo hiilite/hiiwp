@@ -4,7 +4,6 @@ $post_meta = get_post_meta(get_the_id());
 $hiilite_options['amp'] = get_theme_mod('amp');
 if($hiilite_options['amp']) $_amp = 'amp-'; else $_amp = '';
 
-
 // Create Title
 $article_title = '';
 

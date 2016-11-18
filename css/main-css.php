@@ -4,6 +4,7 @@ global $is_IE;
 if($hiilite_options['amp']) $_amp = 'amp-'; else $_amp = '';
 include_once('font-awesome/css/font-awesome.min.css'); 
 	
+	
 function get_font_css($font){
 	if(is_array($font)){
 		foreach($font as $key => $value){

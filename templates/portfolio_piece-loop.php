@@ -1,6 +1,6 @@
 <?php
 /*
-	
+
 	TODO:
 	-	Make Title and feature image turn on by default in customizer	
 */

@@ -42,7 +42,7 @@ if($hiilite_options['subdomain'] != 'iframe'):
 			</header>
 			<?php
 			echo '<div class="threequarter-width content-box  align-top">';
-	
+
 		
 		if(has_post_thumbnail($post->id) && get_post_meta( $post->ID, 'hide_page_feature_image', true) != 'on' ): 
 				

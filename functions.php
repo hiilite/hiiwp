@@ -7,7 +7,6 @@ $hiilite_options['menus_on'] = get_theme_mod('menus_on');
 $hiilite_options['testimonials_on'] = get_theme_mod('testimonials_on');
 $hiilite_options['rets_listings_on'] = get_theme_mod('rets_listings_on');
 
-
 if(class_exists( 'WooCommerce' )){
 	$hiilite_options['is_woocommerce'] = (is_woocommerce())?true:false;
 } else {

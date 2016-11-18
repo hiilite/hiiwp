@@ -7,6 +7,7 @@ $colcount = ($hiilite_options['blog_layout'] =='masonry')?' col-count-'.$hiilite
 if ( is_active_sidebar( 'blog_sidebar' ) ) $colcount .= ' col-9';
 
 
+
 if(have_posts()):
 	echo '<section class="row" id="home_blog_loop"><div class="container_inner in_grid">';
 	echo '<div class="in_grid '.$hiilite_options['blog_layout'].$colcount.'">';

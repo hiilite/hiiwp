@@ -29,7 +29,6 @@ $hiilite_options['secondary_background_color']	= get_theme_mod( 'secondary_backg
 $hiilite_options['grid_width']					= get_theme_mod( 'grid_width', '1100px');
 $hiilite_options['custom_css']					= get_theme_mod( 'custom_css', '' ); 
 
-
 $hiilite_options['analytics_id']				= get_theme_mod( 'analytics_id', '');
 $hiilite_options['brand_seo_title']				= get_theme_mod( 'brand_seo_title', get_bloginfo('title'));
 $hiilite_options['site_seo_title']				= get_theme_mod( 'site_seo_title', '');
