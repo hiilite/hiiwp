@@ -146,6 +146,21 @@ Kirki::add_field( 'hiiwp', array(
     'priority'    => 1,
 ) );
 Kirki::add_field( 'hiiwp', array(
+    'type'        => 'number',
+    'settings'    => 'blog_excerpt_length',
+    'label'       => __( 'Excerpt Word Length', 'my_textdomain' ),
+    'section'     => 'blog_section',
+    'default'     => '55',
+    'priority'    => 1,
+    'active_callback'	=> array(
+	    array(
+		    'setting'	=> 'blog_excerpt_on',
+		    'operator'	=> '==',
+		    'value'	=> true,
+	    ),
+    ),
+) );
+Kirki::add_field( 'hiiwp', array(
     'type'        => 'switch',
     'settings'    => 'blog_more_on',
     'label'       => __( 'Show More Button', 'my_textdomain' ),

@@ -112,7 +112,7 @@ if($hiilite_options['blog_layout'] =='boxed'){
 			echo $article_title;
 		
 		}
-		if($hiilite_options['blog_excerpt_on']):?><p><?=content_excerpt(); ?></p><?php endif;
+		if($hiilite_options['blog_excerpt_on']):?><p><?=content_excerpt($hiilite_options['blog_excerpt_length']); ?></p><?php endif;
 		if($hiilite_options['blog_more_on']):?><a class="button readmore" href="<?php the_permalink() ?>"><?=$hiilite_options['blog_more_text'];?></a><?php endif;?>
 	<div>
 		<?php $options = get_option('hii_seo_settings'); ?>
