@@ -12,7 +12,7 @@ Kirki::add_field( 'hiiwp', array(
     'description' => __( 'Define styles for paragraph text' ),
     'section'     => $section,
     'default'     => array(
-        'font-family'    => 'Serif',
+        'font-family'    => ' ',
         'variant'        => ' ',
         'font-size'      => ' ',
         'line-height'    => ' ',

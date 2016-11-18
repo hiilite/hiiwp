@@ -1,11 +1,13 @@
 <?php 
 global $hiilite_options;
 get_header();
+get_template_part( 'templates/title' );
 
 $colcount = ($hiilite_options['blog_layout'] =='masonry')?' col-count-'.$hiilite_options['blog_columns']:'';
 if ( is_active_sidebar( 'blog_sidebar' ) ) $colcount .= ' col-9';
+
+
 if(have_posts()):
-get_template_part( 'templates/title' );
 	echo '<section class="row" id="home_blog_loop"><div class="container_inner in_grid">';
 	echo '<div class="in_grid '.$hiilite_options['blog_layout'].$colcount.'">';
 
