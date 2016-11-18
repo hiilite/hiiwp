@@ -298,32 +298,32 @@ table td {
 }
 
 /* Background Images */
-.bg-img-pos-lt {
-	background-position: left top;
+body .bg-img-pos-lt {
+	background-position: left top !important;
 }
-.bg-img-pos-lc {
-	background-position: left center;
+body .bg-img-pos-lc {
+	background-position: left center !important;
 }
-.bg-img-pos-lb {
-	background-position: left bottom;
+body .bg-img-pos-lb {
+	background-position: left bottom !important;
 }
-.bg-img-pos-rt {
-	background-position: right top;
+body .bg-img-pos-rt {
+	background-position: right top !important;
 }
-.bg-img-pos-rc {
-	background-position: right center;
+body .bg-img-pos-rc {
+	background-position: right center !important;
 }
-.bg-img-pos-rb {
-	background-position: right bottom;
+body .bg-img-pos-rb {
+	background-position: right bottom !important;
 }
-.bg-img-pos-ct {
-	background-position: center top;
+body .bg-img-pos-ct {
+	background-position: center top !important;
 }
-.bg-img-pos-cc {
-	background-position: center center;
+body .bg-img-pos-cc {
+	background-position: center center !important;
 }
-.bg-img-pos-cb {
-	background-position: center bottom;
+body .bg-img-pos-cb {
+	background-position: center bottom !important;
 }
 
 /* HEADER */
@@ -474,6 +474,13 @@ $footer_bottom_colors = get_theme_mod('footer_bottom_colors');
 ?>
 border-top-style:solid;
 } 
+
+#main_footer h1,#main_footer h2,#main_footer h3,#main_footer h4,#main_footer h5,#main_footer h6 {
+	<?php get_font_css($hiilite_options['typography_footer_headings_font']); ?>
+}
+#main_footer a {
+	<?php get_font_css($hiilite_options['typography_footer_links_font']); ?>
+}
 
 <?php 
 if(get_theme_mod( 'show_footer_top_yesno', true )): ?>
