@@ -103,8 +103,8 @@ echo '<div class="full-width  align-top">';
 		
 echo '</div>';
 endif;
-$show_more_projects = false;
-if($show_more_projects):
+$hiilite_options['show_more_projects'] = false;
+if($hiilite_options['show_more_projects']):
 ?>
 <aside class="col-12">
 	<div class="align-center">
@@ -113,7 +113,7 @@ if($show_more_projects):
 	<?php
 	$slug = get_theme_mod( 'portfolio_slug', 'portfolio' );
 	$args = array('post_type'=>$slug,'posts_per_page'=> -1,'nopaging'=>true,'order'=>'ASC','orderby'=>'menu_order');
-	
+	echo '<pre>'.print_r($args,true).'</pre>';
 	$query = new WP_Query($args);
 	?>
 	
@@ -135,7 +135,15 @@ if($show_more_projects):
 	</amp-carousel>
 </aside>
 <?php
-	endif;
+	
+endif;
+
+if($hiilite_options['portfolio_comments']):
+	echo '<div class="container_inner">';
+		comments_template();
+	echo '</div>';
+endif;
+	
 /*
 if($hiilite_options['subdomain'] != 'iframe'){
 	echo '<div class="iframe-content container_inner">';
