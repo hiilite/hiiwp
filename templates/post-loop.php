@@ -42,7 +42,7 @@ if($hiilite_options['subdomain'] != 'iframe'):
 			</header>
 			<?php
 			echo '<div class="threequarter-width content-box  align-top">';
-	
+
 		
 		if(has_post_thumbnail($post->id) && get_post_meta( $post->ID, 'hide_page_feature_image', true) != 'on' ): 
 				
@@ -171,6 +171,13 @@ if( $my_query->have_posts() ) :
 	endif;
 
 echo '</aside>';
+
+
+if($hiilite_options['blog_comments']):
+	echo '<div class="container_inner">';
+		comments_template();
+	echo '</div>';
+endif;
 
 //end related Posts
 endif;

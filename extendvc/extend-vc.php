@@ -1619,7 +1619,6 @@ vc_map( array(
 	),
 	'category' => __( 'Content', 'js_composer' ),
 	'description' => __( 'Section for Tabs, Tours, Accordions.', 'js_composer' ),
-	'params' => $params,
 	'js_view' => 'VcBackendTtaSectionView',
 	'custom_markup' => '
 		<div class="vc_tta-panel-heading">

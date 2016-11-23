@@ -4,6 +4,7 @@ global $is_IE;
 if($hiilite_options['amp']) $_amp = 'amp-'; else $_amp = '';
 include_once('font-awesome/css/font-awesome.min.css'); 
 	
+	
 function get_font_css($font){
 	if(is_array($font)){
 		foreach($font as $key => $value){
@@ -911,6 +912,20 @@ for($i = 12; $i>0;$i--){
 .blog-article figure {
 	padding: 0 2em;
 }
+
+/*.Pagination */
+.pagination ul {
+	list-style:none;
+}
+.pagination ul li {
+	display:inline-block;
+}
+.pagination ul li a.button, .pagination ul li .button-dis  {
+	padding: 0.5em 1em;
+	margin-left:0.5em;
+	margin-right:0.5em;
+}
+
 <?php if($hiilite_options['blog_layout'] == 'boxed'): ?>
 .boxed .blog-article h4 {
     overflow: hidden;
@@ -1042,7 +1057,10 @@ if($hiilite_options['portfolio_on']): ?>
 		echo 'border-radius:'.$hiilite_options['typography_button_secondary_border_radius'].';';
 		echo preg_replace('/[{}]/','',$hiilite_options['typography_button_secondary_custom_css']);?>
 }
-
+.button-dis { 
+	border: 2px solid #989898;
+	color: #989898;
+}
 .fa {
 	<?php echo preg_replace('/[{}]/','',$hiilite_options['typography_icon_custom_css']);?>
 }
