@@ -29,7 +29,6 @@ $hiilite_options['secondary_background_color']	= get_theme_mod( 'secondary_backg
 $hiilite_options['grid_width']					= get_theme_mod( 'grid_width', '1100px');
 $hiilite_options['custom_css']					= get_theme_mod( 'custom_css', '' ); 
 
-
 $hiilite_options['analytics_id']				= get_theme_mod( 'analytics_id', '');
 $hiilite_options['brand_seo_title']				= get_theme_mod( 'brand_seo_title', get_bloginfo('title'));
 $hiilite_options['site_seo_title']				= get_theme_mod( 'site_seo_title', '');
@@ -362,11 +361,18 @@ $hiilite_options['blog_image_pos']		= get_theme_mod( 'blog_image_pos', 'image-le
 $hiilite_options['blog_title_pos']		= get_theme_mod( 'blog_title_pos', 'title-below' );
 $hiilite_options['blog_title_on']		= get_theme_mod( 'blog_title_on', true );
 $hiilite_options['blog_heading_size']	= get_theme_mod( 'blog_heading_size', 'h2' );
+$hiilite_options['blog_dateline_pos']	= get_theme_mod( 'blog_dateline_pos', 'date-above' );
 $hiilite_options['blog_cats_on']		= get_theme_mod( 'blog_cats_on', true );
 $hiilite_options['blog_meta_on']		= get_theme_mod( 'blog_meta_on', true );
 $hiilite_options['blog_excerpt_on']		= get_theme_mod( 'blog_excerpt_on', true );
+$hiilite_options['blog_excerpt_length']	= get_theme_mod( 'blog_excerpt_length', '55' );
 $hiilite_options['blog_more_on']		= get_theme_mod( 'blog_more_on', true );
+$hiilite_options['blog_more_text']		= get_theme_mod( 'blog_more_text', 'Read More' );
+$hiilite_options['blog_pag_on']			= get_theme_mod( 'blog_pag_on', true );
+$hiilite_options['blog_pag_type']		= get_theme_mod( 'blog_pag_type', 'option-1' );
+$hiilite_options['blog_sidebar_on']			= get_theme_mod( 'blog_sidebar_on', true );
 $hiilite_options['blog_author_bio']		= get_theme_mod( 'blog_author_bio', false );
+$hiilite_options['blog_comments']		= get_theme_mod( 'blog_comments', true );
 $hiilite_options['blog_related_articles']		= get_theme_mod( 'blog_related_articles', true );
 
 
