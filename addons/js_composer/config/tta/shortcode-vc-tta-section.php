@@ -43,6 +43,15 @@ if ( $include_icon_params ) {
 
 $params = array_merge( array(
 	array(
+		'type' => 'checkbox',
+		'heading' => __( 'Active', 'js_composer' ),
+		'param_name' => 'active',
+		'description' => __( 'If unchecked, slide will not be displayed', 'js_composer' ),
+		'value' => 'true',
+		'default' => 'true',
+		'save_always' => true,
+	),
+	array(
 		'type' => 'textfield',
 		'param_name' => 'title',
 		'heading' => __( 'Title', 'js_composer' ),
