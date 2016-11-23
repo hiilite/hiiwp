@@ -34,6 +34,7 @@ function get_portfolio($args = null, $options = null){
 		'portfolio_title_pos'=> get_theme_mod( 'portfolio_title_pos', 'title-below' ),
 		'portfolio_heading_size'=> get_theme_mod( 'portfolio_heading_size', 'h2' ),
 		'portfolio_excerpt_on'=> get_theme_mod( 'portfolio_excerpt_on', false ),
+		'portfolio_excerpt_length'=> get_theme_mod( 'portfolio_excerpt_length', '55' ),
 		'portfolio_more_on'=> get_theme_mod( 'portfolio_more_on', false ),
 		'css_class'		=> '',
 
@@ -324,7 +325,7 @@ function get_portfolio($args = null, $options = null){
 					if($portfolio_title_pos == 'title-below') { 
 						$html .= $article_title;
 					}
-					if($portfolio_excerpt_on)$html .= '<p>'.get_the_excerpt().'</p>';
+					if($portfolio_excerpt_on)$html .= '<p>'.content_excerpt($portfolio_excerpt_length).'</p>';
 					if($portfolio_more_on)$html .='<a class="button" href="'.get_the_permalink().'">Read More</a>';
 					$html .= '<div></article>';
 				else: // else if not masonry-h
@@ -400,7 +401,7 @@ function get_portfolio($args = null, $options = null){
 					if($portfolio_title_pos == 'title-below') { 
 						$html .= $article_title;
 					}
-					if($portfolio_excerpt_on)$html .= '<p>'.get_the_excerpt().'</p>';
+					if($portfolio_excerpt_on)$html .= '<p>'.content_excerpt($portfolio_excerpt_length).'</p>';
 					if($portfolio_more_on)$html .='<a class="button" href="'.get_the_permalink().'">Read More</a>';
 					$html .= '<div></article>';
 				endif; // end if not masonry-h

@@ -7,6 +7,7 @@ $colcount = ($hiilite_options['blog_layout'] =='masonry')?' col-count-'.$hiilite
 if ( is_active_sidebar( 'blog_sidebar' ) ) $colcount .= ' col-9';
 
 
+
 if(have_posts()):
 	echo '<section class="row" id="home_blog_loop"><div class="container_inner in_grid">';
 	echo '<div class="in_grid '.$hiilite_options['blog_layout'].$colcount.'">';
@@ -16,15 +17,24 @@ if(have_posts()):
 		get_template_part('templates/blog', 'loop');
 	endwhile;
 	
-		echo '<div class="pagination in_grid content-box">';
-			echo '<div class="align-left flex-item col-6">';
-			previous_posts_link();
-			echo '</div><div class="align-right flex-item col-6">';
-			next_posts_link();
-		echo '</div></div>';
+	if($hiilite_options['blog_pag_on']):
+		if($hiilite_options['blog_pag_type'] == 'option-2'):
+			echo '<div class="pagination in_grid content-box">';
+				echo '<div class="align-center flex-item col-6">';
+				numeric_posts_nav();
+			echo '</div></div>';
+		else:
+			echo '<div class="pagination in_grid content-box">';
+				echo '<div class="align-left flex-item col-6">';
+				previous_posts_link();
+				echo '</div><div class="align-right flex-item col-6">';
+				next_posts_link();
+			echo '</div></div>';
+		endif;
+	endif;
 	
 	echo '</div>'; //end in_grid
-	if ( is_active_sidebar( 'blog_sidebar' ) ) :
+	if ( is_active_sidebar( 'blog_sidebar' ) && $hiilite_options['blog_sidebar_on'] ) :
 	echo '<aside class="col-3 content-box  align-top">';
 		if(!dynamic_sidebar( 'blog_sidebar' ))
 	echo '</aside>';

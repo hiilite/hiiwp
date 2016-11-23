@@ -4,7 +4,6 @@ $post_meta = get_post_meta(get_the_id());
 $hiilite_options['amp'] = get_theme_mod('amp');
 if($hiilite_options['amp']) $_amp = 'amp-'; else $_amp = '';
 
-
 // Create Title
 $article_title = '';
 
@@ -15,35 +14,45 @@ if(isset($atts)) {
 
 $article_title .= '<span itemprop="author" itemscope itemtype="https://schema.org/Person">';
 if($hiilite_options['blog_meta_on']):
-	$article_title .= '<small><address class="post_author">';
-	$article_title .= '<a itemprop="author" itemscope itemtype="https://schema.org/Person" class="post_author_link" href="'.get_author_posts_url( get_the_author_meta( 'ID' ) ).'"><span itemprop="name">';
-	$article_title .= get_the_author_meta('display_name'); 
-	$article_title .= '</span></a> | </address> <time class="time op-published" datetime="';
-	$article_title .= get_the_time('c');
-	$article_title .= '">';
-	$article_title .= '<span class="date">';
-	$article_title .= get_the_time('d F, Y');
-	$article_title .= ' </span>';
+	$dateline .= '<small><address class="post_author">';
+	$dateline .= '<a itemprop="author" itemscope itemtype="https://schema.org/Person" class="post_author_link" href="'.get_author_posts_url( get_the_author_meta( 'ID' ) ).'"><span itemprop="name">';
+	$dateline .= get_the_author_meta('display_name'); 
+	$dateline .= '</span></a> | </address> <time class="time op-published" datetime="';
+	$dateline .= get_the_time('c');
+	$dateline .= '">';
+	$dateline .= '<span class="date">';
+	$dateline .= get_the_time('d F, Y');
+	$dateline .= ' </span>';
 	//$article_title .= get_the_time('h:i a')
-	$article_title .= '</time></small>';
+	$dateline .= '</time></small>';
 else:
-	$article_title .= '<meta itemprop="name" content="'.get_the_author_meta('display_name').'">';
+	$dateline .= '<meta itemprop="name" content="'.get_the_author_meta('display_name').'">';
 endif;
 $article_title .= '</span>';
 
 if($hiilite_options['blog_cats_on']):
-	$article_title .= '<span itemprop="articleSection" class="labels">'.get_the_category_list(' ').'</span>';
+	$article_cat .= '<span itemprop="articleSection" class="labels">'.get_the_category_list(' ').'</span>';
 else:
 	$categories = get_the_category();$cats ='';
 	foreach($categories as $cat){
 		$cats .= $cat->name;
 	}
-	$article_title .= '<meta itemprop="articleSection" content="'.$cats.'">';
+	$article_cat .= '<meta itemprop="articleSection" content="'.$cats.'">';
 endif;
 
 if($hiilite_options['blog_title_on']) {
 	$article_title .= '<'.$hiilite_options['blog_heading_size'].'><a href="'.get_the_permalink().'">'.get_the_title().'</a></'.$hiilite_options['blog_heading_size'].'>';
 } 
+
+if($hiilite_options['blog_cats_on']):
+	$dateline = $dateline.$article_cat;
+endif;
+
+if($hiilite_options['blog_dateline_pos'] == 'date-above'):
+	$article_title = $dateline.$article_title;
+else:
+	$article_title = $article_title.$dateline;
+endif;
 
 
 $cols = '';
@@ -103,8 +112,8 @@ if($hiilite_options['blog_layout'] =='boxed'){
 			echo $article_title;
 		
 		}
-		if($hiilite_options['blog_excerpt_on']):?><p><?=content_excerpt(); ?></p><?php endif;
-		if($hiilite_options['blog_more_on']):?><a class="button readmore" href="<?php the_permalink() ?>">Read More</a><?php endif;?>
+		if($hiilite_options['blog_excerpt_on']):?><p><?=content_excerpt($hiilite_options['blog_excerpt_length']); ?></p><?php endif;
+		if($hiilite_options['blog_more_on']):?><a class="button readmore" href="<?php the_permalink() ?>"><?=$hiilite_options['blog_more_text'];?></a><?php endif;?>
 	<div>
 		<?php $options = get_option('hii_seo_settings'); ?>
 		<div itemprop="publisher" itemscope itemtype="https://schema.org/Organization">
