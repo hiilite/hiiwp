@@ -7,6 +7,7 @@
 	<?php endif; ?>
 <?php endif; ?>
 
+
 <?php if($comments) : ?>
 	<ol class="full-width flex-item">
   	<?php foreach($comments as $comment) : ?>

@@ -7,8 +7,6 @@ Kirki::add_section( 'portfolio_section', array(
 ) );
 
 
-
-
 Kirki::add_field( 'hiiwp', array(
 	'type'        => 'radio-image',
     'settings'    => 'portfolio_layout',
@@ -167,6 +165,21 @@ Kirki::add_field( 'hiiwp', array(
     'section'     => 'portfolio_section',
     'default'     => false,
     'priority'    => 1,
+) );
+Kirki::add_field( 'hiiwp', array(
+    'type'        => 'number',
+    'settings'    => 'portfolio_excerpt_length',
+    'label'       => __( 'Excerpt Word Length', 'my_textdomain' ),
+    'section'     => 'portfolio_section',
+    'default'     => '55',
+    'priority'    => 1,
+    'active_callback'	=> array(
+	    array(
+		    'setting'	=> 'blog_excerpt_on',
+		    'operator'	=> '==',
+		    'value'	=> true,
+	    ),
+    ),
 ) );
 Kirki::add_field( 'hiiwp', array(
     'type'        => 'switch',
