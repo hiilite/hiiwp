@@ -1,11 +1,37 @@
 <?php
-Kirki::add_section( 'blog_section', array(
+//////////////////////
+//
+//	BLOG PANEL
+//
+//////////////////////
+
+Kirki::add_panel( 'blog_panel', array(
     'priority'    => 6,
     'title'       => __( 'Blog (beta)', 'textdomain' ),
     'description' => __( 'Blog settings', 'textdomain' ),
-    'icon' => 'dashicons-welcome-write-blog'
+    'icon' => 'dashicons-welcome-write-blog',
+) );
+//////////////////////
+//
+//	BLOG SECTIONS
+//
+//////////////////////
+Kirki::add_section( 'blog_section', array(
+    'priority'    => 1,
+    'title'       => __( 'Blog Role', 'textdomain' ),
+    'description' => __( 'Blog role settings', 'textdomain' ),
+    'panel'       => 'blog_panel',
 ) );
 
+
+Kirki::add_section( 'blog_single_section', array(
+    'priority'    => 2,
+    'title'       => __( 'Blog Single', 'textdomain' ),
+    'description' => __( 'Single post settings', 'textdomain' ),
+    'panel'       => 'blog_panel',   
+) );
+//////////////////////
+//////////////////////
 
 Kirki::add_field( 'hiiwp', array(
 	'type'        => 'radio-image',
@@ -224,7 +250,7 @@ Kirki::add_field( 'hiiwp', array(
     'type'        => 'switch',
     'settings'    => 'blog_author_bio',
     'label'       => __( 'Show Author Bio', 'my_textdomain' ),
-    'section'     => 'blog_section',
+    'section'     => 'blog_single_section',
     'default'     => false,
     'priority'    => 1,
 ) );
@@ -233,7 +259,7 @@ Kirki::add_field( 'hiiwp', array(
     'type'        => 'switch',
     'settings'    => 'blog_related_articles',
     'label'       => __( 'Show Related Articles', 'my_textdomain' ),
-    'section'     => 'blog_section',
+    'section'     => 'blog_single_section',
     'default'     => true,
     'priority'    => 1,
 ) );
@@ -241,7 +267,7 @@ Kirki::add_field( 'hiiwp', array(
     'type'        => 'switch',
     'settings'    => 'blog_comments',
     'label'       => __( 'Show Comments', 'my_textdomain' ),
-    'section'     => 'blog_section',
+    'section'     => 'blog_single_section',
     'default'     => true,
     'priority'    => 1,
 ) );

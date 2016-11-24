@@ -384,6 +384,8 @@ $hiilite_options['portfolio_show_filter']	= get_theme_mod( 'portfolio_show_filte
 $hiilite_options['portfolio_in_grid']	= get_theme_mod( 'portfolio_in_grid', false );
 $hiilite_options['portfolio_show_post_title']	= get_theme_mod( 'portfolio_show_post_title', false );
 $hiilite_options['portfolio_show_post_meta']	= get_theme_mod( 'portfolio_show_post_meta', false );
+$hiilite_options['portfolio_comments']	= get_theme_mod( 'portfolio_comments', false );
+$hiilite_options['show_more_projects']	= get_theme_mod( 'show_more_projects', false );
 $hiilite_options['portfolio_add_padding']	= get_theme_mod( 'portfolio_add_padding', '0px' );
 $hiilite_options['portfolio_custom_css'] = get_theme_mod( 'portfolio_custom_css', '' );
 

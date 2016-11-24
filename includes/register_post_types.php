@@ -26,6 +26,7 @@ function get_portfolio($args = null, $options = null){
 	extract( shortcode_atts( array(
 	    'show_post_meta'  	=> get_theme_mod( 'portfolio_show_post_meta', false ),
 	    'show_post_title'  	=> get_theme_mod( 'portfolio_show_post_title', false ),
+	    'portfolio_show_author_date'  	=> get_theme_mod( 'portfolio_show_author_date', false ),
 	    'in_grid'			=> get_theme_mod( 'portfolio_in_grid', false ),
 	    'add_padding'		=> get_theme_mod( 'portfolio_add_padding', '0px' ),
 	    'portfolio_layout'	=> get_theme_mod( 'portfolio_layout', false ),
@@ -36,6 +37,7 @@ function get_portfolio($args = null, $options = null){
 		'portfolio_excerpt_on'=> get_theme_mod( 'portfolio_excerpt_on', false ),
 		'portfolio_excerpt_length'=> get_theme_mod( 'portfolio_excerpt_length', '55' ),
 		'portfolio_more_on'=> get_theme_mod( 'portfolio_more_on', false ),
+		'portfolio_more_text'=> get_theme_mod( 'portfolio_more_text', 'Read On' ),
 		'css_class'		=> '',
 
     ), $options ) );
@@ -73,6 +75,7 @@ function get_portfolio($args = null, $options = null){
 	    
 	    if($args['post_type'] == 'attachment'):
 		    if($portfolio_layout == 'masonry') $html .= '<div class="row masonry col-count-'.$portfolio_columns.'">';
+		    if($portfolio_layout == 'full-width') $html .= '<div class="row masonry col-count-12">';
 		    $css .= '.masonry article{padding:'.$add_padding.';}';
 		    foreach ( $query->posts as $attachment) :
 	        	$image = wp_get_attachment_image_src( $attachment->ID, 'large' );
@@ -261,21 +264,23 @@ function get_portfolio($args = null, $options = null){
 					if($show_post_title) {
 						$article_title .= '<'.$portfolio_heading_size.'><a href="'.get_the_permalink().'">'.get_the_title().'</a></'.$portfolio_heading_size.'>';
 					} 
-					$article_title .= '<span itemprop="author" itemscope itemtype="https://schema.org/Person">';
-					if($show_post_meta):
-						$article_title .= '<small><address class="post_author">';
-						$article_title .= '<a itemprop="author" itemscope itemtype="https://schema.org/Person" class="post_author_link" href="'.get_author_posts_url( get_the_author_meta( 'ID' ) ).'"><span itemprop="name">';
-						$article_title .= get_the_author_meta('display_name'); 
-						$article_title .= '</span></a></address> | <time class="time op-published" datetime="';
-						$article_title .= get_the_time('c');
-						$article_title .= '">';
-						$article_title .= '<span class="date">';
-						$article_title .= get_the_time('F j, Y');
-						$article_title .= ' </span>'.get_the_time('h:i a').'</time></small>';
-					else:
-						$article_title .= '<meta itemprop="name" content="'.get_the_author_meta('display_name').'">';
-					endif;
-					$article_title .= '</span>';
+					if($portfolio_show_author_date) {
+						$article_title .= '<span itemprop="author" itemscope itemtype="https://schema.org/Person">';
+						if($show_post_meta):
+							$article_title .= '<small><address class="post_author">';
+							$article_title .= '<a itemprop="author" itemscope itemtype="https://schema.org/Person" class="post_author_link" href="'.get_author_posts_url( get_the_author_meta( 'ID' ) ).'"><span itemprop="name">';
+							$article_title .= get_the_author_meta('display_name'); 
+							$article_title .= '</span></a></address> | <time class="time op-published" datetime="';
+							$article_title .= get_the_time('c');
+							$article_title .= '">';
+							$article_title .= '<span class="date">';
+							$article_title .= get_the_time('F j, Y');
+							$article_title .= ' </span>'.get_the_time('h:i a').'</time></small>';
+						else:
+							$article_title .= '<meta itemprop="name" content="'.get_the_author_meta('display_name').'">';
+						endif;
+						$article_title .= '</span>';
+					}
 					
 					$cols = '';
 					
@@ -326,7 +331,7 @@ function get_portfolio($args = null, $options = null){
 						$html .= $article_title;
 					}
 					if($portfolio_excerpt_on)$html .= '<p>'.content_excerpt($portfolio_excerpt_length).'</p>';
-					if($portfolio_more_on)$html .='<a class="button" href="'.get_the_permalink().'">Read More</a>';
+					if($portfolio_more_on)$html .='<a class="button" href="'.get_the_permalink().'">'.$portfolio_more_text.'</a>';
 					$html .= '<div></article>';
 				else: // else if not masonry-h
 				
@@ -337,21 +342,23 @@ function get_portfolio($args = null, $options = null){
 					if($show_post_title) {
 						$article_title .= '<'.$portfolio_heading_size.'><a href="'.get_the_permalink().'">'.get_the_title().'</a></'.$portfolio_heading_size.'>';
 					} 
-					$article_title .= '<span itemprop="author" itemscope itemtype="https://schema.org/Person">';
-					if($show_post_meta):
-						$article_title .= '<small><address class="post_author">';
-						$article_title .= '<a itemprop="author" itemscope itemtype="https://schema.org/Person" class="post_author_link" href="'.get_author_posts_url( get_the_author_meta( 'ID' ) ).'"><span itemprop="name">';
-						$article_title .= get_the_author_meta('display_name'); 
-						$article_title .= '</span></a></address> | <time class="time op-published" datetime="';
-						$article_title .= get_the_time('c');
-						$article_title .= '">';
-						$article_title .= '<span class="date">';
-						$article_title .= get_the_time('F j, Y');
-						$article_title .= ' </span>'.get_the_time('h:i a').'</time></small>';
-					else:
-						$article_title .= '<meta itemprop="name" content="'.get_the_author_meta('display_name').'">';
-					endif;
-					$article_title .= '</span>';
+					if($portfolio_show_author_date) {
+						$article_title .= '<span itemprop="author" itemscope itemtype="https://schema.org/Person">';
+						if($show_post_meta):
+							$article_title .= '<small><address class="post_author">';
+							$article_title .= '<a itemprop="author" itemscope itemtype="https://schema.org/Person" class="post_author_link" href="'.get_author_posts_url( get_the_author_meta( 'ID' ) ).'"><span itemprop="name">';
+							$article_title .= get_the_author_meta('display_name'); 
+							$article_title .= '</span></a></address> | <time class="time op-published" datetime="';
+							$article_title .= get_the_time('c');
+							$article_title .= '">';
+							$article_title .= '<span class="date">';
+							$article_title .= get_the_time('F j, Y');
+							$article_title .= ' </span>'.get_the_time('h:i a').'</time></small>';
+						else:
+							$article_title .= '<meta itemprop="name" content="'.get_the_author_meta('display_name').'">';
+						endif;
+						$article_title .= '</span>';
+					}
 					
 					$cols = '';
 					
@@ -402,7 +409,7 @@ function get_portfolio($args = null, $options = null){
 						$html .= $article_title;
 					}
 					if($portfolio_excerpt_on)$html .= '<p>'.content_excerpt($portfolio_excerpt_length).'</p>';
-					if($portfolio_more_on)$html .='<a class="button" href="'.get_the_permalink().'">Read More</a>';
+					if($portfolio_more_on)$html .='<a class="button" href="'.get_the_permalink().'">'.$portfolio_more_text.'</a>';
 					$html .= '<div></article>';
 				endif; // end if not masonry-h
 				
