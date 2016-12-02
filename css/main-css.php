@@ -1352,6 +1352,37 @@ TRIBE EVENTS
     width: 100%;
 }
 <?php
+/*	
+WP USER MANAGER	
+*/
+if(class_exists('WP_User_Manager')):
+	?>
+	.wpum-profile-card .wpum-profile-img {
+	    position: relative;
+	    left: 0;
+	    border-radius: 0;
+	    margin-left: 0;
+	    top: 0;
+	}
+	.wpum-profile-card .wpum-profile-img img {
+	    border-radius: 0;
+	    box-shadow: none;
+	    padding: 0;
+	    background-color: none;
+	    border: none;
+	}
+	.wpum-profile-card {
+		text-align: left;
+		box-shadow: none;
+		border: none;
+		padding: 0;
+	}
+	
+	
+	<?php
+endif;
+	
+	
 do_action ( 'custom_css' );
 echo $hiilite_options['custom_css'];
 echo $hiilite_options['portfolio_custom_css'];
