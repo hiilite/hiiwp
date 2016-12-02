@@ -913,7 +913,11 @@ for($i = 12; $i>0;$i--){
 	padding: 0 2em;
 }
 
-/*.Pagination */
+/*
+*
+*	Pagination 
+*
+*/
 .pagination ul {
 	list-style:none;
 }
@@ -1026,7 +1030,11 @@ if($hiilite_options['portfolio_on']): ?>
 
 
 
-/* BUTTONS */
+/* 
+*
+*	BUTTONS 
+*
+*/
 
 .button {
 	
@@ -1065,10 +1073,33 @@ if($hiilite_options['portfolio_on']): ?>
 	<?php echo preg_replace('/[{}]/','',$hiilite_options['typography_icon_custom_css']);?>
 }
 
-.custom_format_1 <?=$hiilite_options['custom_format_1'];?>
-.custom_format_2 <?=$hiilite_options['custom_format_2'];?>
-.custom_format_3 <?=$hiilite_options['custom_format_3'];?>
+.custom_format_1 { <?=$hiilite_options['custom_format_1'];?> }
+.custom_format_2 { <?=$hiilite_options['custom_format_2'];?> }
+.custom_format_3 { <?=$hiilite_options['custom_format_3'];?> }
 
+
+/*
+*
+*	WIDGETS
+*
+*/
+.widget {
+	<?php get_font_css(get_theme_mod( 'sidebar_widget_text_font' )); ?>
+}
+.widgettitle {
+	<?php get_font_css(get_theme_mod( 'sidebar_widget_title_font' )); ?>
+}
+.widget a {
+	<?php	get_font_css(get_theme_mod( 'sidebar_widget_link_font' ));	?>
+}
+.widget ul {
+	list-style: none;
+	padding: 0;
+}
+.widget ul ul{
+	list-style: none;
+	padding-left: 1em;
+}
 /* Re coloring*/
 .color_one  { color: <?=$hiilite_options['color_one'];?>; }
 .color_two 	{ color: <?=$hiilite_options['color_two'];?>; }
@@ -1341,7 +1372,9 @@ input,textarea,select {padding:1em; border: 1px solid rgba(203, 203, 203, 1); fo
 }
 
 /*
-TRIBE EVENTS	
+*
+*	TRIBE EVENTS	
+*
 */
 .tribe-events-cost.col-3.align-right {
     font-size: 3em;

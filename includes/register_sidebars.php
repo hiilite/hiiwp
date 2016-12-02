@@ -1,6 +1,16 @@
 <?php
 add_action( 'widgets_init', 'hiiwp_widgets_init' );
 function hiiwp_widgets_init() {
+	register_sidebar( array(
+        'name' => __( 'Blog Sidebar', 'hiiwp' ),
+        'id' => 'blog_sidebar',
+        'description' => __( 'Shows in the right sidebar of the blog page', 'hiilite' ),
+        'before_widget' => '<div id="%1$s" class="flex-item %2$s">',
+	'after_widget'  => '</div>',
+	'before_title'  => '<h4 class="widgettitle">',
+	'after_title'   => '</h4>',
+    ) );
+    
     register_sidebar( array(
         'name' => __( 'Header Top Left', 'hiiwp' ),
         'id' => 'header_top_left',
@@ -56,7 +66,7 @@ function hiiwp_widgets_init() {
         'name' => __( 'Footer Column 1', 'hiiwp' ),
         'id' => 'footer_column_1',
         'description' => __( 'Footer Column 1', 'theme-slug' ),
-        'before_widget' => '<div id="%1$s" class="flex-item %2$s">',
+        'before_widget' => '<div id="%1$s" class="flex-item  %2$s">',
 	'after_widget'  => '</div>',
 	'before_title'  => '<h4 class="widgettitle">',
 	'after_title'   => '</h4>',
@@ -66,7 +76,7 @@ function hiiwp_widgets_init() {
         'name' => __( 'Footer Column 2', 'hiiwp' ),
         'id' => 'footer_column_2',
         'description' => __( 'Footer Column 2', 'theme-slug' ),
-        'before_widget' => '<div id="%1$s" class="flex-item %2$s">',
+        'before_widget' => '<div id="%1$s" class="flex-item  %2$s">',
 	'after_widget'  => '</div>',
 	'before_title'  => '<h4 class="widgettitle">',
 	'after_title'   => '</h4>',
@@ -122,21 +132,13 @@ function hiiwp_widgets_init() {
 	'after_title'   => '</h4>',
     ) );
     
-    register_sidebar( array(
-        'name' => __( 'Blog Sidebar', 'hiiwp' ),
-        'id' => 'blog_sidebar',
-        'description' => __( 'Shows in the right sidebar of the blog page', 'hiilite' ),
-        'before_widget' => '<div id="%1$s" class="flex-item %2$s">',
-	'after_widget'  => '</div>',
-	'before_title'  => '<h4 class="widgettitle">',
-	'after_title'   => '</h4>',
-    ) );
+    
     
     register_sidebar( array(
         'name' => __( 'Single Post Sidebar', 'hiiwp' ),
         'id' => 'post_sidebar',
         'description' => __( 'Shows in the right sidebar of a post', 'hiilite' ),
-        'before_widget' => '<div id="%1$s" class="flex-item %2$s">',
+        'before_widget' => '<div id="%1$s" class="flex-item widget %2$s">',
 	'after_widget'  => '</div>',
 	'before_title'  => '<h4 class="widgettitle">',
 	'after_title'   => '</h4>',
@@ -146,7 +148,18 @@ function hiiwp_widgets_init() {
         'name' => __( 'Post Bottom', 'hiiwp' ),
         'id' => 'post_bottom',
         'description' => __( 'Shows at the bottom of a post', 'hiilite' ),
-        'before_widget' => '<div id="%1$s" class="flex-item %2$s">',
+        'before_widget' => '<div id="%1$s" class="flex-item widget %2$s">',
+	'after_widget'  => '</div>',
+	'before_title'  => '<h4 class="widgettitle">',
+	'after_title'   => '</h4>',
+    ) );
+    
+    
+    register_sidebar( array(
+        'name' => __( 'Custom Sidebar', 'hiiwp' ),
+        'id' => 'custom_sidebar_1',
+        'description' => __( 'Use within visual composer using the Widgitized Sidebar element', 'hiilite' ),
+        'before_widget' => '<div id="%1$s" class="flex-item widget %2$s">',
 	'after_widget'  => '</div>',
 	'before_title'  => '<h4 class="widgettitle">',
 	'after_title'   => '</h4>',
