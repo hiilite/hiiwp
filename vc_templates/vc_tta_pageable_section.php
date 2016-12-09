@@ -62,5 +62,5 @@ $output .= '<div class="slide-text-overlay">
                 ';
 $output .= $this->getTemplateVariable( 'content' );
 $output .= '</div></div>';
-$output .= '<pre>'.print_r($atts,true).'</pre>';
+//$output .= '<pre>'.print_r($atts,true).'</pre>';
 echo $output;
