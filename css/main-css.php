@@ -99,6 +99,13 @@ a {
 a:hover {
 	color:<?=$link_color['hover'];?>;
 }
+h1 a, h2 a, h3 a, h4 a, h5 a, h6 a {
+	color: #303030;
+    transition: color .1s linear;
+}
+.blog-article .post_author a {
+    color: #bebebe;
+}
 figure {
 	display: block;
 	margin: auto;
