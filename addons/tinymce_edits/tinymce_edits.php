@@ -12,8 +12,8 @@ global $hiilite_options;
  //	REMOVE BUTTONS
  //
  ///////////////
-add_filter('mce_buttons','myplugin_tinymce_buttons');
-add_filter('mce_buttons_2','myplugin_tinymce_buttons_2');
+//add_filter('mce_buttons','myplugin_tinymce_buttons');
+//add_filter('mce_buttons_2','myplugin_tinymce_buttons_2');
 function myplugin_tinymce_buttons($buttons)
  {
 	//Remove the format dropdown select and text color selector
@@ -37,7 +37,7 @@ function myplugin_tinymce_buttons_2($buttons)
 //
 ///////////////
 add_filter( "mce_external_plugins", "hii_mce_buttons_plugin" );
-add_filter( 'mce_buttons', 'hii_register_mce_buttons' );
+//add_filter( 'mce_buttons', 'hii_register_mce_buttons' );
 add_filter( 'mce_buttons_2', 'hii_register_mce_buttons_2' );
 function hii_register_mce_buttons( $buttons ) {
 	array_push( $buttons, 'AlignLeft' );
