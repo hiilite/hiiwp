@@ -1,4 +1,7 @@
 <?php
+/* 
+// TODO: Add WP Custom CSS support	
+*/
 global $hiilite_options;
 $hiilite_options['amp'] = get_theme_mod('amp');
 $hiilite_options['portfolio_on'] = get_theme_mod('portfolio_on');
@@ -30,9 +33,14 @@ add_filter( 'wp_calculate_image_srcset_meta', '__return_null' );
 /*
 Include Support Add-ons	
 */
+
+/* BUG: Cloudflare_Flexible_SSL Locks you out of admin in WP 4.7
+*/
+/*
 if(!class_exists('ICWP_Cloudflare_Flexible_SSL')){
 	require_once( dirname( __FILE__ ) . '/addons/cloudflare-flexible-ssl.php');
 }
+*/
 if(!class_exists('Vc_Manager')){
 	require_once( dirname( __FILE__ ) . '/addons/js_composer/js_composer.php');
 }

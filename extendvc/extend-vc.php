@@ -39,7 +39,7 @@ vc_remove_element("vc_toggle");
 //vc_remove_element("vc_posts_grid");
 //vc_remove_element("vc_carousel");
 //vc_remove_element("vc_cta");
-//vc_remove_element("vc_round_chart"); 
+//vc_remove_element("vc_round_chart");
 //vc_remove_element("vc_line_chart");
 vc_remove_element("vc_tta_accordion");
 vc_remove_element("vc_tta_tour");
@@ -270,7 +270,13 @@ vc_map( array(
 ////////////////////////////
 
 $vc_row_inner_params = array(
-
+		array(
+			'type' => 'checkbox',
+			'heading' => __( 'In Grid?', 'js_composer' ),
+			'param_name' => 'in_grid',
+			'description' => __( 'If checked contents of row will stay in grid width', 'js_composer' ),
+			'value' => array( __( 'Yes', 'js_composer' ) => 'yes' ),
+		),
 		array(
 			'type' => 'textfield',
 			'heading' => __( 'Min Height', 'js_composer' ),
@@ -1927,12 +1933,6 @@ if ( class_exists( 'WooCommerce' ) ) {
 		"icon" => get_bloginfo('template_url')."/images/icons/woocommerce.svg",
 		"allowed_container_element" => 'vc_row',
 		"params" => array(
-			array(
-	            'type' => 'textfield',
-	            'heading' => __( 'Products Per Page', 'my-text-domain' ),
-	            'param_name' => 'per_page',
-	            'default' => '12',
-	        ),
 	        array(
 	            'type' => 'textfield',
 	            'heading' => __( 'Columns', 'my-text-domain' ),

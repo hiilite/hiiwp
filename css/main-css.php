@@ -99,6 +99,13 @@ a {
 a:hover {
 	color:<?=$link_color['hover'];?>;
 }
+h1 a, h2 a, h3 a, h4 a, h5 a, h6 a {
+	color: #303030;
+    transition: color .1s linear;
+}
+.blog-article .post_author a {
+    color: #bebebe;
+}
 figure {
 	display: block;
 	margin: auto;
@@ -1195,10 +1202,10 @@ amp-carousel.slider {
 
 amp-carousel.slider .slide-text-overlay {
 	position: absolute;
-	width: 80%;
-	top: 10%;
+	width: 100%;
+	/*top: 10%;
 	left: 10%;
-	height: 80%;
+	height: 80%;*/
 	<?php echo (isset($slider_slide_styles))?$slider_slide_styles:'';?>
 }
 amp-carousel.slider .slide-text-overlay amp-fit-text {

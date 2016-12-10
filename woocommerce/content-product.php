@@ -61,9 +61,9 @@ if ( empty( $product ) || ! $product->is_visible() ) {
             <h3 itemprop="name"><?php the_title(); ?></h3>
 
             <?php ?>
-                <div class="separator after-title-spearator small center"></div>
-            <?php  ?>
-
+            <div class="separator after-title-spearator small center"></div>
+            <span class="description"><?php  the_excerpt(); ?></span>
+            
             <?php
                 /**
                  * woocommerce_after_shop_loop_item_title hook
