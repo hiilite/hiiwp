@@ -1933,12 +1933,6 @@ if ( class_exists( 'WooCommerce' ) ) {
 		"icon" => get_bloginfo('template_url')."/images/icons/woocommerce.svg",
 		"allowed_container_element" => 'vc_row',
 		"params" => array(
-			array(
-	            'type' => 'textfield',
-	            'heading' => __( 'Products Per Page', 'my-text-domain' ),
-	            'param_name' => 'per_page',
-	            'default' => '12',
-	        ),
 	        array(
 	            'type' => 'textfield',
 	            'heading' => __( 'Columns', 'my-text-domain' ),
