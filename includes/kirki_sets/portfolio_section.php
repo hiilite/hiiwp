@@ -5,7 +5,7 @@
 //
 //////////////////////
 Kirki::add_panel( 'portfolio_panel', array(
-    'priority'    => 6,
+    'priority'    => 7,
     'title'       => __( 'Portfolio (beta)', 'textdomain' ),
     'description' => __( 'Portfolio settings', 'textdomain' ),
     'icon' => 'dashicons-grid-view',
