@@ -1164,10 +1164,10 @@ amp-carousel.slider {
 
 amp-carousel.slider .slide-text-overlay {
 	position: absolute;
-	width: 80%;
-	top: 10%;
+	width: 100%;
+	/*top: 10%;
 	left: 10%;
-	height: 80%;
+	height: 80%;*/
 	<?php echo (isset($slider_slide_styles))?$slider_slide_styles:'';?>
 }
 amp-carousel.slider .slide-text-overlay amp-fit-text {
