@@ -799,13 +799,21 @@ function content($limit) {
   return $content;
 }
 
-function content_excerpt( $length = 55 ) {    
-    if( $post->post_excerpt ) {
-        $excerpt = get_the_excerpt();
-    } else {
-        $content = get_the_content();
-        $excerpt = wp_trim_words( $content , $length );
-    }
+function content_excerpt( $length = 55 ) { 
+	$exc = get_the_excerpt();
+	if($exc == NULL || strlen($exc) <= 0)
+	{   
+	    if( $post->post_excerpt ) {
+	        $excerpt = get_the_excerpt();
+	    } else {
+	        $content = get_the_content();
+	        $excerpt = wp_trim_words( $content , $length );
+	    }
+	}
+	else
+	{
+		$excerpt = $exc;
+	}
     return $excerpt;
 }
 
@@ -886,5 +894,8 @@ function numeric_posts_nav() {
 	echo '</ul></div>' . "\n";
 
 }
+
+/* Add usport for custom event list template */
+add_filter( 'FHEE__EED_Event_Archive__template_include__allow_custom_selected_template', '__return_true' );
 
 ?>

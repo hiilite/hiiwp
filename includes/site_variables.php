@@ -389,6 +389,9 @@ $hiilite_options['show_more_projects']	= get_theme_mod( 'show_more_projects', fa
 $hiilite_options['portfolio_add_padding']	= get_theme_mod( 'portfolio_add_padding', '0px' );
 $hiilite_options['portfolio_custom_css'] = get_theme_mod( 'portfolio_custom_css', '' );
 
+// EVENT
+$hiilite_options['blog_date_style'] = get_theme_mod( 'blog_date_style', '' );
+
 
 // TESTIMONIALS
 $hiilite_options['testimonials_body_font']	= get_theme_mod( 'testimonials_body_font', array(
