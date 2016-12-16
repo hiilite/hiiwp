@@ -39,6 +39,9 @@ Avoid SEO based plugins. The AMP theme is structured in such a way to be perfect
 This is where you can fill out all your company info that can then be distributed across the site and used as Structured Date in Google's SERP. Each field also has a shortcode attributed to it for easy distribution throughout your site content, such as using the shortcode \[business_phone\] to display the phone number. For a complete list of the shortcodes, see the "Help" tab on the Company Profile page.
 
 ## Change log
+### v0.3.4
+- Fixes and minor updates
+
 ### v0.3.3
 - Updates to Kirki integration
 - major revamp of Customizer
