@@ -78,7 +78,12 @@ require_once( dirname( __FILE__ ) . '/includes/shortcodes/vc_empty_space.php');
 require_once( dirname( __FILE__ ) . '/includes/shortcodes/amp-carousel.php');
 require_once( dirname( __FILE__ ) . '/includes/shortcodes/screen-showcase.php');
 require_once( dirname( __FILE__ ) . '/includes/shortcodes/calculation-table.php');
-
+/*	
+WP USER MANAGER	
+*/
+if(class_exists('WP_User_Manager')):
+	require_once( dirname( __FILE__ ) . '/includes/shortcodes/wpum.php');
+endif;
 /* Add with options in Custumizer */
 if(get_theme_mod( 'blog_author_bio' ) == true){
 require_once( dirname( __FILE__ ) . '/includes/shortcodes/author-info.php');
@@ -894,5 +899,6 @@ function numeric_posts_nav() {
 	echo '</ul></div>' . "\n";
 
 }
+
 
 ?>

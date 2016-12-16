@@ -15,8 +15,8 @@ if(have_posts()):
 		the_post();
 		the_content();
 	endwhile;
-endif;
-echo get_theme_mod( 'portfolio_layout', 'h-masonry' ) . get_theme_mod( 'portfolio_columns');
+endif; 
+//echo get_theme_mod( 'portfolio_layout', 'h-masonry' ) . get_theme_mod( 'portfolio_columns');
 $portfolio = get_portfolio(null, array(
 		'show_post_meta'  	=> get_theme_mod( 'portfolio_show_post_meta', false ),
 	    'show_post_title'  	=> get_theme_mod( 'portfolio_show_post_title', false ),

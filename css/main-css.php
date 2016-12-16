@@ -1202,10 +1202,10 @@ amp-carousel.slider {
 
 amp-carousel.slider .slide-text-overlay {
 	position: absolute;
-	width: 80%;
-	top: 10%;
+	width: 100%;
+	/*top: 10%;
 	left: 10%;
-	height: 80%;
+	height: 80%;*/
 	<?php echo (isset($slider_slide_styles))?$slider_slide_styles:'';?>
 }
 amp-carousel.slider .slide-text-overlay amp-fit-text {
@@ -1392,6 +1392,37 @@ input,textarea,select {padding:1em; border: 1px solid rgba(203, 203, 203, 1); fo
     width: 100%;
 }
 <?php
+/*	
+WP USER MANAGER	
+*/
+if(class_exists('WP_User_Manager')):
+	?>
+	.wpum-profile-card .wpum-profile-img {
+	    position: relative;
+	    left: 0;
+	    border-radius: 0;
+	    margin-left: 0;
+	    top: 0;
+	}
+	.wpum-profile-card .wpum-profile-img img {
+	    border-radius: 0;
+	    box-shadow: none;
+	    padding: 0;
+	    background-color: none;
+	    border: none;
+	}
+	.wpum-profile-card {
+		text-align: left;
+		box-shadow: none;
+		border: none;
+		padding: 0;
+	}
+	
+	
+	<?php
+endif;
+	
+	
 do_action ( 'custom_css' );
 echo $hiilite_options['custom_css'];
 echo $hiilite_options['portfolio_custom_css'];
