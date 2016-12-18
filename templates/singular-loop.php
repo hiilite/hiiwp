@@ -1,7 +1,6 @@
 <?php
 global $hiilite_options;
 $post_meta = get_post_meta(get_the_id());
-//echo get_post_type($post);
 switch (get_post_type($post)) {
 	case get_theme_mod( 'portfolio_slug', 'portfolio' ):
 		get_template_part('templates/portfolio_piece', 'loop');

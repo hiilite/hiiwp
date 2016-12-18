@@ -47,7 +47,7 @@ Kirki::add_field( 'hiiwp', array(
 	'label'       => __( 'Header Top Background Color', 'hiiwp' ),
 	'description' => __('Choose a background color for Header Top area'),
 	'section'     => $section,
-	'default'     => '',
+	'default'     => '#f8f8f8',
 	'priority'    => 7,
 	'alpha'       => true,
 	'required'	  => array(

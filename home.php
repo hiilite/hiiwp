@@ -34,12 +34,8 @@ if(have_posts()):
 	endif;
 	
 	echo '</div>'; //end in_grid
-	if ( is_active_sidebar( 'blog_sidebar' ) && $hiilite_options['blog_sidebar_on'] ) :
-	echo '<aside class="col-3 content-box  align-top">';
-		if(!dynamic_sidebar( 'blog_sidebar' ))
-	echo '</aside>';
-	endif;
-						
+	
+	do_action( 'hii_blog_sidebar' );					
 	
 	echo '</div></section>';
 

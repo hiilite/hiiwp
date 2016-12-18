@@ -10,11 +10,22 @@ Kirki::add_field( 'hiiwp', array(
 	'type'        => 'image',
 	'settings'    => 'main_logo',
 	'label'       => __( 'Main Logo', 'my_textdomain' ),
-	'description' => __( 'This is the control description', 'my_textdomain' ),
+	'description' => __( 'Choose a default logo image to display', 'my_textdomain' ),
 	'section'     => $section,
 	'default'     => get_template_directory_uri().'/images/logoNormal@2x.png',
 	'priority'    => 1,
 ) );
+
+Kirki::add_field( 'hiiwp', array(
+	'type'        => 'switch',
+	'settings'    => 'hide_logo',
+	'label'       => __( 'Hide Logo in Header', 'my_textdomain' ),
+	'description' => __( 'Hide the logo in the header.', 'my_textdomain' ),
+	'section'     => $section,
+	'default'     => false,
+	'priority'    => 1,
+) );
+
 Kirki::add_field( 'hiiwp', array(
 	'type'        => 'slider',
 	'settings'    => 'logo_size_mod',
@@ -26,6 +37,20 @@ Kirki::add_field( 'hiiwp', array(
 		'min'  => '0',
 		'max'  => '200',
 		'step' => '1',
+	),
+	'active_callback'    => array(
+		array(
+			'setting'  => 'main_logo',
+			'operator' => '!=',
+			'value'    => false,
+		),
+	),
+	'active_callback'    => array(
+		array(
+			'setting'  => 'hide_logo',
+			'operator' => '!=',
+			'value'    => true,
+		),
 	),
 ) );
 
@@ -46,6 +71,13 @@ Kirki::add_field( 'hiiwp', array(
 			'setting'  => 'main_logo',
 			'operator' => '!=',
 			'value'    => false,
+		),
+	),
+	'active_callback'    => array(
+		array(
+			'setting'  => 'hide_logo',
+			'operator' => '!=',
+			'value'    => true,
 		),
 	),
 ) );

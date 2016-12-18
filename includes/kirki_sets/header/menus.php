@@ -50,6 +50,70 @@ Kirki::add_field( 'hiiwp', array(
 ) );
 
 Kirki::add_field( 'hiiwp', array(
+    'type'        => 'typography',
+    'settings'    => 'main_menu_align',
+    'label'       => esc_attr__( 'Main Menu Alignment', 'kirki' ),
+    'description' => __( 'Change the text align of the main menu' ),
+    'section'     => $section,
+    'default'     => array(
+        'text-align'          => 'right',
+    ), 
+    'priority'    => 1,
+) );
+
+Kirki::add_field( 'hiiwp', array(
+    'type'        => 'typography',
+    'settings'    => 'left_menu_align',
+    'label'       => esc_attr__( 'Left Menu Alignment', 'kirki' ),
+    'description' => __( 'Change the text align of the left menu' ),
+    'section'     => $section,
+    'default'     => array(
+        'text-align'          => 'right',
+    ), 
+    'priority'    => 1,
+    'required'	  => array(
+		array(
+		    'setting'  => 'header_center_left_on',
+			'operator' => '==',
+			'value'    => true,
+	    )),
+) );
+Kirki::add_field( 'hiiwp', array(
+    'type'        => 'typography',
+    'settings'    => 'right_menu_align',
+    'label'       => esc_attr__( 'Right Menu Alignment', 'kirki' ),
+    'description' => __( 'Change the text align of the right menu' ),
+    'section'     => $section,
+    'default'     => array(
+        'text-align'          => 'left',
+    ), 
+    'priority'    => 1,
+    'required'	  => array(
+		array(
+		    'setting'  => 'header_center_right_on',
+			'operator' => '==',
+			'value'    => true,
+	    )),
+) );
+Kirki::add_field( 'hiiwp', array(
+    'type'        => 'typography',
+    'settings'    => 'bottom_menu_align',
+    'label'       => esc_attr__( 'Bottom Menu Alignment', 'kirki' ),
+    'description' => __( 'Change the text align of the bottom menu' ),
+    'section'     => $section,
+    'default'     => array(
+        'text-align'          => 'center',
+    ), 
+    'priority'    => 1,
+    'required'	  => array(
+		array(
+		    'setting'  => 'header_bottom_on',
+			'operator' => '==',
+			'value'    => true,
+	    )),
+) );
+
+Kirki::add_field( 'hiiwp', array(
     'type'        => 'dimension',
     'settings'    => 'mobile_menu_switch',
     'label'       => __( 'Mobile Menu Switch', 'my_textdomain' ),
