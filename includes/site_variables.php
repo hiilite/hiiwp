@@ -148,6 +148,7 @@ $hiilite_options['main_menu_font']			= get_theme_mod( 'main_menu_font', array(
 												    'variant'        => '400',
 												    'font-size'      => '14px',
 												    'line-height'    => '1.5',
+												    'text-transform' => 'None',
 												    'letter-spacing' => '0',
 												    'color'          => '#333333',
 												) );

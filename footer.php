@@ -1,13 +1,17 @@
 <?php
 global $hiilite_options;
-if($hiilite_options['fromApp']) echo '</div>';
-if(!$hiilite_options['subpage']):
-if($hiilite_options['subdomain'] != 'iframe'):
+
+do_action( 'hii_after_content' );
+
 ?>			
 
 			<!-- FOOTER -->
 			<footer id="main_footer">
-				<?php if(get_theme_mod( 'show_footer_top_yesno', true )): ?>
+<?php if(is_customize_preview()) echo '<div class="customizer_quick_links"><button class="customizer-edit" data-control=\'{"name":"footer_background_color"}\'>Edit Footer</button><button class="customizer-edit font-edit" data-control=\'{"name":"typography_footer_headings_font"}\'>Footer Fonts</button></div>';?>
+				<?php 
+					do_action ( 'hii_footer' );
+					
+					if(get_theme_mod( 'show_footer_top_yesno', true )): ?>
 				<div id="footer_top">
 					<div class="container_inner">
 				<?php if($hiilite_options['footer_in_grid']) { echo '<div class="in_grid">'; } 
@@ -96,7 +100,7 @@ if($hiilite_options['subdomain'] != 'iframe'):
 					
 					if($hiilite_options['footer_bottom_left'] || $hiilite_options['footer_bottom_center'] || $hiilite_options['footer_bottom_right']):
 				?>
-				<div id="footer_bottom">
+					<div id="footer_bottom">
 					<?php if($hiilite_options['footer_in_grid']) { echo '<div class="container_inner">'; } ?>
 						<?php if($hiilite_options['footer_bottom_left']) { echo '<div id="footer_bottom_left" class="flex-item align-left">';  
 							if ( is_active_sidebar( 'footer_bottom_left' ) ) :
@@ -114,14 +118,14 @@ if($hiilite_options['subdomain'] != 'iframe'):
 						endif;
 							 echo '</div>'; } ?>
 					<?php if($hiilite_options['footer_in_grid']) { echo '</div>'; } ?>
-					<div class="full-width align-center">
-		<small>Copyright © <?=date('Y')?> <?=do_shortcode('[business_name]')?>. All rights reserved. <a href="https://hiilite.com/" target="_blank" title="Hiilite Creative Group | Web + Marketing">Web Design by Hiilite Creative Group Kelowna</a></small>
-	</div>
-<?php endif; //end iframe check ?>
-		</div>
+						<div class="full-width align-center">
+							<small>Copyright © <?=date('Y')?> <?=do_shortcode('[business_name]')?>. All rights reserved. <a href="https://hiilite.com/" target="_blank" title="Hiilite Creative Group | Web + Marketing">Web Design by Hiilite Creative Group Kelowna</a></small>
+						</div>
+					</div>
 				</div>
 				<?php endif; //end footer bottom  ?>
 			</footer>
+<?php do_action( 'hii_after_footer' ); ?>
 			
 	</div>
 	<?php wp_footer(); 
@@ -133,4 +137,3 @@ if(!$hiilite_options['amp']){
 	
 </body>
 </html>
-<?php endif; // end if subpage ?>

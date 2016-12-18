@@ -68,6 +68,7 @@ require_once( dirname( __FILE__ ) . '/addons/tinymce_edits/tinymce_edits.php');
 require_once( dirname( __FILE__ ) . '/addons/post-types-order/post-types-order.php');
 require_once( dirname( __FILE__ ) . '/addons/taxonomy-images/taxonomy-images.php');
 require_once( dirname( __FILE__ ) . '/addons/taxonomy-terms-order/taxonomy-terms-order.php');
+require_once( dirname( __FILE__ ) . '/includes/widgets.php' );
 require_once( dirname( __FILE__ ) . '/includes/register_sidebars.php' );
 require_once( dirname( __FILE__ ) . '/includes/register_post_types.php');
 require_once( dirname( __FILE__ ) . '/includes/classes.php' );
@@ -163,7 +164,7 @@ function disable_wp_emojicons() {
 add_action( 'init', 'disable_wp_emojicons' );
 
 /*
-on	WP_HEAD
+//	note: wp_head
 */
 function hiiwp_init(){
 	global $hiilite_options, $post, $wp_scripts;
@@ -189,21 +190,56 @@ function hiiwp_init(){
 		remove_action( 'wp_head', 'wlwmanifest_link');
 		add_action( 'init', 'minqueue_init', 1 );
 		add_filter( 'style_loader_tag', 'enqueue_less_styles', 5, 2);
+		
+		echo '<style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 1s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 1s steps(1,end) 0s 1 normal both;animation:-amp-start 1s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>'; 
+	
 	} else {
 		wp_enqueue_script("jquery");
-		//wp_deregister_script('wpb_composer_front_js');
+		wp_enqueue_script( 'instantclick',  get_template_directory_uri().'/js/vender/instantclick.min.js', array(), false, true);
+
 	}
-	
-	
 }
 add_action( 'wp_head', 'hiiwp_init' );
+
+/*
+//	note: wp_footer
+*/
+function hiiwp_footer(){
+	echo '<script data-no-instant>InstantClick.init();</script>';
+}
+add_action('wp_footer', 'hiiwp_footer', 100);
+
+/*
+//	note: customize_preview_init
+*/
+function tuts_customize_preview_js() {
+    wp_enqueue_script( 'tuts_customizer_preview', get_template_directory_uri() . '/js/customizer-preview.js', array( 'customize-preview' ), null, true );
+}
+add_action( 'customize_preview_init', 'tuts_customize_preview_js' );
+ 
+/*
+//	note: customize_controls_enqueue_scripts
+*/
+function tuts_customize_control_js() {
+    wp_enqueue_script( 'tuts_customizer_control', get_template_directory_uri() . '/js/customizer-control.js', array( 'customize-controls', 'jquery' ), null, true );
+}
+add_action( 'customize_controls_enqueue_scripts', 'tuts_customize_control_js' );
+
+
 
 // remove the default WordPress canonical URL function
 if( function_exists( 'rel_canonical' ) )
 {
     remove_action( 'wp_head', 'rel_canonical' );
 }
-// REPLACE rel_canonical to load on all pages
+
+/*
+//	note: action: rel_canonical_with_custom_tag_override
+ *
+ *	Override the rel=canonical tag to always show site url
+ *
+ *	REPLACE rel_canonical to load on all pages	
+ */
 function rel_canonical_with_custom_tag_override()
 {
     global $wp_the_query, $post;
