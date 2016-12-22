@@ -195,7 +195,6 @@ function hiiwp_init(){
 	
 	} else {
 		wp_enqueue_script("jquery");
-		wp_enqueue_script( 'instantclick',  get_template_directory_uri().'/js/vender/instantclick.min.js', array(), false, true);
 
 	}
 }
@@ -205,7 +204,7 @@ add_action( 'wp_head', 'hiiwp_init' );
 //	note: wp_footer
 */
 function hiiwp_footer(){
-	echo '<script data-no-instant>InstantClick.init();</script>';
+	
 }
 add_action('wp_footer', 'hiiwp_footer', 100);
 
