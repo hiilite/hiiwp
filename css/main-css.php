@@ -1146,17 +1146,8 @@ if($hiilite_options['portfolio_on']): ?>
 .bg_white { background-color:white; }
 
 .label, .labels a{
-	background: rgba(128,128,128,0.4);
 	padding: 0.3em;
-	color: white;
 	font-size: 0.7em;
-	
-}
-.labels a{
-	background: <?=$hiilite_options['color_one'];?>;
-}
-strong.label {
-	background: <?=$hiilite_options['color_two'];?>;
 }
 
 /*
