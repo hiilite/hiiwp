@@ -84,10 +84,10 @@ Kirki::add_field( 'hiiwp', array(
 Kirki::add_field( 'hiiwp', array(
 	'type'        => 'code',
 	'settings'    => 'typography_icon_custom_css',
-	'label'       => __( 'Icon Custom CSS (.fa)', 'my_textdomain' ),
+	'label'       => __( 'Icon Custom CSS', 'my_textdomain' ),
 	'description' => __( 'Custom style all font-awesome icons', 'textdomain' ),
 	'section'     => $section,
-	'default'     => '{
+	'default'     => '.fa-style-round {
 	background: '.get_theme_mod( 'color_one', '#ef5022').';
 	display: inline-block;
 	width: 1.6em;
@@ -95,6 +95,32 @@ Kirki::add_field( 'hiiwp', array(
 	color: white;
 	line-height: 1.6em;
 	border-radius: 2em;
+}
+.fa-style-square {
+	background: '.get_theme_mod( 'color_one', '#ef5022').';
+	display: inline-block;
+	width: 1.6em;
+	text-align: center;
+	color: white;
+	line-height: 1.6em;
+	border-radius: 0.2em;
+}
+.fa-style-circle {
+	color: '.get_theme_mod( 'color_one', '#ef5022').';
+	display: inline-block;
+	width: 1.6em;
+	text-align: center;
+	line-height: 1.6em;
+	border-radius: 2em;
+	border:1px solid '.get_theme_mod( 'color_one', '#ef5022').';
+}
+.fa-style-no-bg {
+	color: '.get_theme_mod( 'color_one', '#ef5022').';
+	font-size:1.6em;
+	display: inline-block;
+	width: 1.6em;
+	text-align: center;
+	line-height: 1.6em;
 }',
 	'priority'    => 1,
 	'choices'     => array(

@@ -83,7 +83,7 @@ require_once 'kirki_sets/header_panel.php';
 
 // FOOTER 
 require_once 'kirki_sets/footer_section.php';
-
+ 
 // MENU
 //require_once 'kirki_sets/menu_section.php';
 
@@ -114,6 +114,11 @@ require_once 'kirki_sets/event_section.php';
 // Social
 require_once 'kirki_sets/social_section.php';
 
-// Social
+// 404
 require_once 'kirki_sets/404_error_page_section.php';
+
+if(class_exists( 'WooCommerce' )) {
+	// Woocommerce
+	require_once 'kirki_sets/woocommerce_panel.php';
+}
 ?>

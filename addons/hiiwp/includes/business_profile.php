@@ -801,7 +801,7 @@ function hii_seo_options_page() {
         'options'	=> array(
 	        'Facebook' => 'Facebook',
 	        'Twitter' => 'Twitter',
-	        'Google+' => 'Google+',
+	        'Google-plus' => 'Google Plus',
 	        'Instagram' => 'Instagram',
 	        'YouTube' => 'YouTube',
 	        'LinkedIn' => 'LinkedIn',

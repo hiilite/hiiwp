@@ -99,6 +99,13 @@ a {
 a:hover {
 	color:<?=$link_color['hover'];?>;
 }
+h1 a, h2 a, h3 a, h4 a, h5 a, h6 a {
+	color: #303030;
+    transition: color .1s linear;
+}
+.blog-article .post_author a {
+    color: #bebebe;
+}
 figure {
 	display: block;
 	margin: auto;
@@ -913,7 +920,11 @@ for($i = 12; $i>0;$i--){
 	padding: 0 2em;
 }
 
-/*.Pagination */
+/*
+*
+*	Pagination 
+*
+*/
 .pagination ul {
 	list-style:none;
 }
@@ -1026,7 +1037,11 @@ if($hiilite_options['portfolio_on']): ?>
 
 
 
-/* BUTTONS */
+/* 
+*
+*	BUTTONS 
+*
+*/
 
 .button {
 	
@@ -1061,14 +1076,40 @@ if($hiilite_options['portfolio_on']): ?>
 	border: 2px solid #989898;
 	color: #989898;
 }
-.fa {
-	<?php echo preg_replace('/[{}]/','',$hiilite_options['typography_icon_custom_css']);?>
+
+/*.fa {
+<?php echo preg_replace('/[{}]/','',$hiilite_options['typography_icon_custom_css']);?>
+}*/
+
+<?=$hiilite_options['typography_icon_custom_css'];?>
+
+.custom_format_1 { <?=$hiilite_options['custom_format_1'];?> }
+.custom_format_2 { <?=$hiilite_options['custom_format_2'];?> }
+.custom_format_3 { <?=$hiilite_options['custom_format_3'];?> }
+
+
+/*
+*
+*	WIDGETS
+*
+*/
+.widget {
+	<?php get_font_css(get_theme_mod( 'sidebar_widget_text_font' )); ?>
 }
-
-.custom_format_1 <?=$hiilite_options['custom_format_1'];?>
-.custom_format_2 <?=$hiilite_options['custom_format_2'];?>
-.custom_format_3 <?=$hiilite_options['custom_format_3'];?>
-
+.widgettitle {
+	<?php get_font_css(get_theme_mod( 'sidebar_widget_title_font' )); ?>
+}
+.widget a {
+	<?php	get_font_css(get_theme_mod( 'sidebar_widget_link_font' ));	?>
+}
+.widget ul {
+	list-style: none;
+	padding: 0;
+}
+.widget ul ul{
+	list-style: none;
+	padding-left: 1em;
+}
 /* Re coloring*/
 .color_one  { color: <?=$hiilite_options['color_one'];?>; }
 .color_two 	{ color: <?=$hiilite_options['color_two'];?>; }
@@ -1164,10 +1205,10 @@ amp-carousel.slider {
 
 amp-carousel.slider .slide-text-overlay {
 	position: absolute;
-	width: 80%;
-	top: 10%;
+	width: 100%;
+	/*top: 10%;
 	left: 10%;
-	height: 80%;
+	height: 80%;*/
 	<?php echo (isset($slider_slide_styles))?$slider_slide_styles:'';?>
 }
 amp-carousel.slider .slide-text-overlay amp-fit-text {
@@ -1341,7 +1382,9 @@ input,textarea,select {padding:1em; border: 1px solid rgba(203, 203, 203, 1); fo
 }
 
 /*
-TRIBE EVENTS	
+*
+*	TRIBE EVENTS	
+*
 */
 .tribe-events-cost.col-3.align-right {
     font-size: 3em;
@@ -1352,6 +1395,37 @@ TRIBE EVENTS
     width: 100%;
 }
 <?php
+/*	
+WP USER MANAGER	
+*/
+if(class_exists('WP_User_Manager')):
+	?>
+	.wpum-profile-card .wpum-profile-img {
+	    position: relative;
+	    left: 0;
+	    border-radius: 0;
+	    margin-left: 0;
+	    top: 0;
+	}
+	.wpum-profile-card .wpum-profile-img img {
+	    border-radius: 0;
+	    box-shadow: none;
+	    padding: 0;
+	    background-color: none;
+	    border: none;
+	}
+	.wpum-profile-card {
+		text-align: left;
+		box-shadow: none;
+		border: none;
+		padding: 0;
+	}
+	
+	
+	<?php
+endif;
+	
+	
 do_action ( 'custom_css' );
 echo $hiilite_options['custom_css'];
 echo $hiilite_options['portfolio_custom_css'];

@@ -1,4 +1,7 @@
 <?php
+/* 
+// TODO: Add WP Custom CSS support	
+*/
 global $hiilite_options;
 $hiilite_options['amp'] = get_theme_mod('amp');
 $hiilite_options['portfolio_on'] = get_theme_mod('portfolio_on');
@@ -30,9 +33,14 @@ add_filter( 'wp_calculate_image_srcset_meta', '__return_null' );
 /*
 Include Support Add-ons	
 */
+
+/* BUG: Cloudflare_Flexible_SSL Locks you out of admin in WP 4.7
+*/
+/*
 if(!class_exists('ICWP_Cloudflare_Flexible_SSL')){
 	require_once( dirname( __FILE__ ) . '/addons/cloudflare-flexible-ssl.php');
 }
+*/
 if(!class_exists('Vc_Manager')){
 	require_once( dirname( __FILE__ ) . '/addons/js_composer/js_composer.php');
 }
@@ -70,7 +78,12 @@ require_once( dirname( __FILE__ ) . '/includes/shortcodes/vc_empty_space.php');
 require_once( dirname( __FILE__ ) . '/includes/shortcodes/amp-carousel.php');
 require_once( dirname( __FILE__ ) . '/includes/shortcodes/screen-showcase.php');
 require_once( dirname( __FILE__ ) . '/includes/shortcodes/calculation-table.php');
-
+/*	
+WP USER MANAGER	
+*/
+if(class_exists('WP_User_Manager')):
+	require_once( dirname( __FILE__ ) . '/includes/shortcodes/wpum.php');
+endif;
 /* Add with options in Custumizer */
 if(get_theme_mod( 'blog_author_bio' ) == true){
 require_once( dirname( __FILE__ ) . '/includes/shortcodes/author-info.php');
@@ -897,5 +910,6 @@ function numeric_posts_nav() {
 
 /* Add usport for custom event list template */
 add_filter( 'FHEE__EED_Event_Archive__template_include__allow_custom_selected_template', '__return_true' );
+
 
 ?>
