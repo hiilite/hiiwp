@@ -14,7 +14,7 @@ Kirki::add_section( $section, array(
 
 
 
-//////////////////////
+
 //////////////////////
 
 Kirki::add_field( 'hiiwp', array(

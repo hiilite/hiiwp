@@ -1236,7 +1236,8 @@ vc_map( array(
 				"param_name" => "icon_style",
 				"description" => "Select the social icon style",
 				"value" => array(
-					"Round Background" => "default",
+					"Theme Default" => "default",
+					"Round Background" => "round",
 					"Square Background" => "square",
 					"Inside Circle" => "circle",
 					"No Background" => "no-bg",

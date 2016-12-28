@@ -39,8 +39,7 @@ function add_social_profiles_shortcode( $atts ){
 	if(count($options['business_social']) > 0) {
 		foreach($options['business_social'] as $socialprofile):
 			
-			if($atts['icon_style'] == '')$atts['icon_style'] = 'round';
-			$style = $atts['icon_style'];
+			if($atts['icon_style'] != '')$style = $atts['icon_style'];
 				
 			$output .= '<a href="'.$socialprofile['social_url'].'" target="_blank"><i class="fa fa-'.strtolower($socialprofile['social_site']).' fa-style-'.$style.'"></i></a> ';
 		endforeach;
