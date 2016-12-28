@@ -15,8 +15,10 @@ function add_social_profiles_shortcode( $atts ){
 	    'tripadvisor'	=> false,
 		'yelp'			=> false,
 		'email'			=> false,
+		'icon_style'	=> "round",
 		"css"  			=> "",
     );
+        
     if($atts == '')$atts = $defaults;
 	extract( shortcode_atts( $defaults, $atts ) );
 	
@@ -33,18 +35,19 @@ function add_social_profiles_shortcode( $atts ){
 	$wrapper_attributes[] = 'class="' . esc_attr( trim( $css_class ) ) . '"';
 		
     $output = '<div '.implode( ' ', $wrapper_attributes ).'>';
+    
 	if(count($options['business_social']) > 0) {
-		
 		foreach($options['business_social'] as $socialprofile):
-			$output .= '<a href="'.$socialprofile['social_url'].'" target="_blank"><i class="fa fa-'.strtolower($socialprofile['social_site']).'"></i></a> ';
+			
+			if($atts['icon_style'] != '')$style = $atts['icon_style'];
+				
+			$output .= '<a href="'.$socialprofile['social_url'].'" target="_blank"><i class="fa fa-'.strtolower($socialprofile['social_site']).' fa-style-'.$style.'"></i></a> ';
 		endforeach;
 	}
 	$output .= '</div>';
 	return $output;
 }
 add_shortcode( 'social-profiles', 'add_social_profiles_shortcode' );
-
-
 
 
 class Social_Profiles_Widget extends WP_Widget {

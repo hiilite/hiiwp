@@ -8,7 +8,6 @@ if(have_posts()):
 		
 		the_content();
 		
-		
 	endwhile;
 endif;
 

@@ -1228,7 +1228,21 @@ vc_map( array(
 		"icon" => "icon-wpb-flickr",
 		"allowed_container_element" => 'vc_row',
 		"params" => array(
-			
+			array(
+				"type" => "dropdown",
+				"holder" => "div",
+				"class" => "",
+				"heading" => "Icon Style",
+				"param_name" => "icon_style",
+				"description" => "Select the social icon style",
+				"value" => array(
+					"Theme Default" => "default",
+					"Round Background" => "round",
+					"Square Background" => "square",
+					"Inside Circle" => "circle",
+					"No Background" => "no-bg",
+				)
+			),
 			array(
 				"type" => "checkbox",
 				"holder" => "div",
