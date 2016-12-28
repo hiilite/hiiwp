@@ -1256,6 +1256,8 @@ amp-carousel.carousel {
 .relatedposts .relatedarticle {
 	max-width: 200px;
 	overflow: hidden;
+	display: inline-block;
+	padding: 10px;
 }
 .relatedposts .relatedarticle p {
 	max-width: 200px;
