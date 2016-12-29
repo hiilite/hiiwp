@@ -5,30 +5,29 @@ $hiilite_options['amp'] = get_theme_mod('amp');
 if($hiilite_options['amp']) $_amp = 'amp-'; else $_amp = '';
 
 // Create Title
-$article_title = $dateline = $article_cat = '';
+$article_title = '';
 
 if(isset($atts)) {
 	$hiilite_options['blog_columns'] = isset($atts['element_width'])?(string)$atts['element_width']:$hiilite_options['blog_columns'];
 	$hiilite_options['blog_layout'] = 'boxed';
 }
 
-$article_title .= '<span itemprop="author" itemscope itemtype="https://schema.org/Person">';
-if($hiilite_options['blog_meta_on']):
-	$dateline .= '<small><address class="post_author">';
-	$dateline .= '<a itemprop="author" itemscope itemtype="https://schema.org/Person" class="post_author_link" href="'.get_author_posts_url( get_the_author_meta( 'ID' ) ).'"><span itemprop="name">';
-	$dateline .= get_the_author_meta('display_name'); 
-	$dateline .= '</span></a> | </address> <time class="time op-published" datetime="';
-	$dateline .= get_the_time('c');
-	$dateline .= '">';
-	$dateline .= '<span class="date">';
-	$dateline .= get_the_time('d F, Y');
-	$dateline .= ' </span>';
-	//$article_title .= get_the_time('h:i a')
-	$dateline .= '</time></small>';
-else:
-	$dateline .= '<meta itemprop="name" content="'.get_the_author_meta('display_name').'">';
-endif;
-$article_title .= '</span>';
+$event_date = $post->EE_Event->first_datetime(); 
+$event_date = $event_date->start_date();
+$event_date = strtotime($event_date);
+if($hiilite_options['blog_date_style'] == 'date-full')
+{
+	$event_date = date('F d,Y',$event_date);	
+}
+elseif($hiilite_options['blog_date_style'] == 'date-abr')
+{
+	$event_date = date('M d,Y', $event_date);	
+}
+elseif($hiilite_options['blog_date_style'] == 'date-myd')
+{
+	$event_date = date('m/d/Y', $event_date);	
+}
+$event_date = '<div class="event_date">'.$event_date.'</div>';
 
 if($hiilite_options['blog_cats_on']):
 	$article_cat .= '<span itemprop="articleSection" class="labels">'.get_the_category_list(' ').'</span>';
@@ -49,9 +48,9 @@ if($hiilite_options['blog_cats_on']):
 endif;
 
 if($hiilite_options['blog_dateline_pos'] == 'date-above'):
-	$article_title = $dateline.$article_title;
+	$article_title = $event_date.$article_title;
 else:
-	$article_title = $article_title.$dateline;
+	$article_title = $article_title.$event_date;
 endif;
 
 
@@ -69,11 +68,9 @@ if($hiilite_options['blog_layout'] =='boxed'){
 		break;		
 	}
 }
-do_action( 'hii_before_blog_loop' );
-
-if(is_customize_preview()) echo '<div class="customizer_quick_links"><button class="customizer-edit" data-control=\'{"name":"blog_layout"}\'>Blog List</button></div>';?>
+?>
 <!--BLOG-LOOP-->
-<article <?php post_class('row blog-article'.$cols); ?> itemscope itemtype="http://schema.org/Article" id="post-<?php the_ID(); ?>" >
+<article <?php post_class('row row-o-content-top blog-article'.$cols); ?> itemscope itemtype="http://schema.org/Article" id="post-<?php the_ID(); ?>" >
 	<meta itemscope itemprop="mainEntityOfPage"  itemType="https://schema.org/WebPage" itemid="<?php bloginfo('url')?>"/>
 	<?php 
 	if($hiilite_options['blog_title_pos'] == 'title-above') { 
@@ -129,5 +126,5 @@ if(is_customize_preview()) echo '<div class="customizer_quick_links"><button cla
 
 </article>
 <?php
-do_action( 'hii_after_blog_loop' );	
+	
 ?>

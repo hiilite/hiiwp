@@ -1103,9 +1103,28 @@ if($hiilite_options['portfolio_on']): ?>
 	border: 2px solid #989898;
 	color: #989898;
 }
-.fa { <?php 
-	echo preg_replace('/[{}]/','',$hiilite_options['typography_icon_custom_css']);?>
+
+<?=$hiilite_options['typography_icon_custom_css'];?>
+
+.fa {
+	background: <?=get_theme_mod( 'color_one', '#ef5022'); ?>;
+	display: inline-block;
+	width: 1.6em;
+	text-align: center;
+	color: white;
+	line-height: 1.6em;
+	border-radius: 2em;
 }
+
+.fa {
+	<?php get_font_css(get_theme_mod('icon_settings')); ?>
+	<?php get_font_css(get_theme_mod('icon_settings_bg')); ?>
+	border:<?=get_theme_mod('icon_settings_border'); ?> solid;
+	border-radius:<?=get_theme_mod('icon_settings_border_r'); ?>;
+	width:1.6em;
+}
+
+<?=$hiilite_options['typography_icon_custom_css'];?>
 
 .custom_format_1 { <?=$hiilite_options['custom_format_1'];?> }
 .custom_format_2 { <?=$hiilite_options['custom_format_2'];?> }
@@ -1256,6 +1275,8 @@ amp-carousel.carousel {
 .relatedposts .relatedarticle {
 	max-width: 200px;
 	overflow: hidden;
+	display: inline-block;
+	padding: 10px;
 }
 .relatedposts .relatedarticle p {
 	max-width: 200px;

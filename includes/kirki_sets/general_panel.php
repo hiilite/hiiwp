@@ -346,6 +346,82 @@ Kirki::add_field( 'hiiwp', array(
 	),
 ) );
 
+//////////////////
+// Events
+Kirki::add_field( 'hiiwp', array(
+	'type'        => 'switch',
+	'settings'    => 'events_on',
+	'label'       => esc_attr__( 'Events On (Beta)', 'my_textdomain' ),
+	'section'     => 'general_section_globals',
+	'default'     => false,
+	'priority'	  => 1,
+	'description'    => __( 'Turn on the events post type. Currently only works with Event Espresso.' ),
+) );
+
+Kirki::add_field( 'hiiwp', array(
+    'type'        => 'text',
+    'settings'    => 'events_title',
+    'label'       => __( 'Events Title', 'my_textdomain' ),
+    'description'    => __('Re-title the menus for the event post-type'),
+    'section'     => 'general_section_globals',
+    'default'     => 'Events',
+    'priority'    => 1,
+    'active_callback'	=> array(
+		array(
+			'setting'  => 'events_on',
+			'operator' => '==',
+			'value'    => true,
+		),
+	),
+) );
+Kirki::add_field( 'hiiwp', array(
+    'type'        => 'text',
+    'settings'    => 'events_slug',
+    'label'       => __( 'Events Slug', 'my_textdomain' ),
+    'description'    => __('Change the url slug used for the events post-type'),
+    'section'     => 'general_section_globals',
+    'default'     => 'events',
+    'priority'    => 1,
+    'active_callback'	=> array(
+		array(
+			'setting'  => 'events_on',
+			'operator' => '==',
+			'value'    => true,
+		),
+	),
+) );
+Kirki::add_field( 'hiiwp', array(
+    'type'        => 'text',
+    'settings'    => 'events_tax_title',
+    'label'       => __( 'Events Taxonomy Title', 'my_textdomain' ),
+    'description'    => __('Change the menu title of the events taxonomy'),
+    'section'     => 'general_section_globals',
+    'default'     => 'Events Categories',
+    'priority'    => 1,
+    'active_callback'	=> array(
+		array(
+			'setting'  => 'events_on',
+			'operator' => '==',
+			'value'    => true,
+		),
+	),
+) );
+Kirki::add_field( 'hiiwp', array(
+    'type'        => 'text',
+    'settings'    => 'events_tax_slug',
+    'label'       => __( 'Events Taxonomy Slug', 'my_textdomain' ),
+    'description'    => __('Change the url slug used for the events taxonomy'),
+    'section'     => 'general_section_globals',
+    'default'     => 'events_category',
+    'priority'    => 1,
+    'active_callback'	=> array(
+		array(
+			'setting'  => 'events_on',
+			'operator' => '==',
+			'value'    => true,
+		),
+	),
+) );
 
 //////////////////
 // RETS Listings

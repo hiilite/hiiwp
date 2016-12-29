@@ -1037,15 +1037,18 @@ function add_graph_data(){
 	$html .= '"url" : "'.get_bloginfo('url').'",';
 	if($options['business_logo']!='')$html .= '"logo" : "'.$options['business_logo'].'",';
 	if($options['business_email']!='')$html .= '"email" : "'.$options['business_email'].'",';
-	if($options['business_telephone']!='')$html .= '"telephone" : "'.$options['business_telephone'].'",';
 	if($options['business_faxNumber']!='')$html .= '"faxNumber" : "'.$options['business_faxNumber'].'",';
 	if($options['business_description']!='')$html .= ' "description" : "'.$options['business_description'].'",';
 	if($options['business_name']!='')$html .= ' "name" : "'.$options['business_name'].'",';
-	if($options['business_telephone']!='')$html .= ' "contactPoint" : [{
-		"@type" : "ContactPoint",
-		"telephone" : "'.$options['business_telephone'].'",
-		"contactType" : "'.$options['business_contactType'].'"
-	  }],';
+	if(isset($options['business_telephone_numbers'])){
+		foreach($options['business_telephone_numbers'] as $number){
+			if($number['business_telephone']!='')$html .= ' "contactPoint" : [{
+			"@type" : "ContactPoint",
+			"telephone" : "'.$number['business_telephone'].'",
+			"contactType" : "'.$number['business_contactType'].'"
+			}],';
+		}
+	}
 	if(isset($options['business_social'])){
 		 $html .= '"sameAs" : [';
 		 $comma = '';
@@ -1079,8 +1082,18 @@ function add_graph_data(){
 	$html .= '"url" : "'.get_bloginfo('url').'",';
 	 
 	if($options['business_logo']!='')$html .= '"logo" : "'.$options['business_logo'].'",';
+	if($options['business_logo']!='')$html .= '"image" : "'.$options['business_logo'].'",';
 	if($options['business_email']!='')$html .= '"email" : "'.$options['business_email'].'",';
-	if($options['business_telephone']!='')$html .= '"telephone" : "'.$options['business_telephone'].'",';
+	if(isset($options['business_telephone_numbers'])){
+		foreach($options['business_telephone_numbers'] as $number){
+			if($number['business_telephone']!='')$html .= ' "contactPoint" : [{
+			"@type" : "ContactPoint",
+			"telephone" : "'.$number['business_telephone'].'",
+			"contactType" : "'.$number['business_contactType'].'"
+			}],';
+		}
+	}
+	$html .= '"priceRange" : "$$$",';
 	if($options['business_faxNumber']!='')$html .= '"faxNumber" : "'.$options['business_faxNumber'].'",';
 	if($options['business_description']!='')$html .= ' "description" : "'.$options['business_description'].'",';
 	if($options['business_name']!='')$html .= ' "name" : "'.$options['business_name'].'",';
@@ -1111,8 +1124,10 @@ function add_graph_data(){
 		endif;
 	}
 	if(isset($options['business_telephone_numbers'])){
+		if($options['business_telephone_numbers'][0]['business_telephone']!='')$html .= '"telephone" : "'.$options['business_telephone_numbers'][0]['business_telephone'].'",';
 		foreach($options['business_telephone_numbers'] as $number){
-			if($options['business_telephone']!='')$html .= ' "contactPoint" : [{
+			
+			if($number['business_telephone']!='')$html .= ' "contactPoint" : [{
 			"@type" : "ContactPoint",
 			"telephone" : "'.$number['business_telephone'].'",
 			"contactType" : "'.$number['business_contactType'].'"
