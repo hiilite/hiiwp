@@ -7,8 +7,8 @@
 
 Kirki::add_panel( 'event_panel', array(
     'priority'    => 6,
-    'title'       => __( 'Event (beta)', 'textdomain' ),
-    'description' => __( 'Event settings', 'textdomain' ),
+    'title'       => __( 'Event (beta)', 'hiiwp' ),
+    'description' => __( 'Event settings', 'hiiwp' ),
     'icon' => 'dashicons-welcome-write-blog',
 ) );
 //////////////////////
@@ -18,16 +18,16 @@ Kirki::add_panel( 'event_panel', array(
 //////////////////////
 Kirki::add_section( 'event_section', array(
     'priority'    => 1,
-    'title'       => __( 'Event Role', 'textdomain' ),
-    'description' => __( 'Event role settings', 'textdomain' ),
+    'title'       => __( 'Event Role', 'hiiwp' ),
+    'description' => __( 'Event role settings', 'hiiwp' ),
     'panel'       => 'event_panel',
 ) );
 
 
 Kirki::add_section( 'event_single_section', array(
     'priority'    => 2,
-    'title'       => __( 'Single Event Page', 'textdomain' ),
-    'description' => __( 'Single event page settings', 'textdomain' ),
+    'title'       => __( 'Single Event Page', 'hiiwp' ),
+    'description' => __( 'Single event page settings', 'hiiwp' ),
     'panel'       => 'event_panel',   
 ) );
 //////////////////////
@@ -36,7 +36,7 @@ Kirki::add_section( 'event_single_section', array(
 Kirki::add_field( 'hiiwp', array(
 	'type'        => 'radio-image',
     'settings'    => 'blog_layout',
-    'label'       => __( 'Event Layout', 'my_textdomain' ),
+    'label'       => __( 'Event Layout', 'hiiwp' ),
     'section'     => 'event_section',
     'default'     => 'full-width',
     'description' => 'Select the layout type for your events',
@@ -52,7 +52,7 @@ Kirki::add_field( 'hiiwp', array(
 Kirki::add_field( 'hiiwp', array(
 	'type'        => 'radio-buttonset',
 	'settings'    => 'blog_columns',
-	'label'       => esc_attr__( 'Columns', 'my_textdomain' ),
+	'label'       => esc_attr__( 'Columns', 'hiiwp' ),
 	'section'     => 'event_section',
 	'default'     => '2',
 	'priority'    => 1,
@@ -73,7 +73,7 @@ Kirki::add_field( 'hiiwp', array(
 Kirki::add_field( 'hiiwp', array(
 	'type'        => 'radio-image',
     'settings'    => 'blog_image_pos',
-    'label'       => __( 'Image Position', 'my_textdomain' ),
+    'label'       => __( 'Image Position', 'hiiwp' ),
     'section'     => 'event_section',
     'default'     => 'image-left',
     'description' => 'Select position of the image',
@@ -88,7 +88,7 @@ Kirki::add_field( 'hiiwp', array(
 Kirki::add_field( 'hiiwp', array(
 	'type'        => 'radio-image',
     'settings'    => 'blog_title_pos',
-    'label'       => __( 'Title Position', 'my_textdomain' ),
+    'label'       => __( 'Title Position', 'hiiwp' ),
     'section'     => 'event_section',
     'default'     => 'title-below',
     'description' => 'Select position of the title',
@@ -104,7 +104,7 @@ Kirki::add_field( 'hiiwp', array(
 Kirki::add_field( 'hiiwp', array(
     'type'        => 'switch',
     'settings'    => 'blog_title_on',
-    'label'       => __( 'Show Title', 'my_textdomain' ),
+    'label'       => __( 'Show Title', 'hiiwp' ),
     'section'     => 'event_section',
     'default'     => true,
     'priority'    => 1,
@@ -113,7 +113,7 @@ Kirki::add_field( 'hiiwp', array(
 Kirki::add_field( 'hiiwp', array(
 	'type'        => 'radio-buttonset',
 	'settings'    => 'blog_heading_size',
-	'label'       => esc_attr__( 'Title Size', 'my_textdomain' ),
+	'label'       => esc_attr__( 'Title Size', 'hiiwp' ),
 	'section'     => 'event_section',
 	'default'     => 'h2',
 	'priority'    => 1,
@@ -136,7 +136,7 @@ Kirki::add_field( 'hiiwp', array(
 Kirki::add_field( 'hiiwp', array(
 	'type'        => 'radio-image',
     'settings'    => 'blog_dateline_pos',
-    'label'       => __( 'Event Date Position', 'my_textdomain' ),
+    'label'       => __( 'Event Date Position', 'hiiwp' ),
     'section'     => 'event_section',
     'default'     => 'date-above',
     'description' => 'Select position of the event date',
@@ -150,22 +150,22 @@ Kirki::add_field( 'hiiwp', array(
 Kirki::add_field( 'hiiwp', array(
 	'type'        => 'radio',
     'settings'    => 'blog_date_style',
-    'label'       => __( 'Event Date Format', 'my_textdomain' ),
+    'label'       => __( 'Event Date Format', 'hiiwp' ),
     'section'     => 'event_section',
     'default'     => 'date-full',
     'description' => 'Select date format',
     'priority'    => 1,
     'multiple'    => 1,
     'choices'     => array(
-	    'date-full' => esc_attr__( 'Full Date (January 01, 2016)', my_textdomain),
-	    'date-abr' => esc_attr__( 'Abbreviated Date (Jan 01, 2016)', my_textdomain),
-	    'date-myd' => esc_attr__( 'Month/Day/Year (01/20/2016)', my_textdomain),
+	    'date-full' => esc_attr__( 'Full Date (January 01, 2016)', 'hiiwp'),
+	    'date-abr' => esc_attr__( 'Abbreviated Date (Jan 01, 2016)', 'hiiwp'),
+	    'date-myd' => esc_attr__( 'Month/Day/Year (01/20/2016)', 'hiiwp'),
     ),
 ) );
 Kirki::add_field( 'hiiwp', array(
     'type'        => 'switch',
     'settings'    => 'blog_cats_on',
-    'label'       => __( 'Show Category', 'my_textdomain' ),
+    'label'       => __( 'Show Category', 'hiiwp' ),
     'section'     => 'event_section',
     'default'     => true,
     'priority'    => 1,
@@ -173,7 +173,7 @@ Kirki::add_field( 'hiiwp', array(
 Kirki::add_field( 'hiiwp', array(
     'type'        => 'switch',
     'settings'    => 'blog_meta_on',
-    'label'       => __( 'Show Meta Information', 'my_textdomain' ),
+    'label'       => __( 'Show Meta Information', 'hiiwp' ),
     'section'     => 'event_section',
     'default'     => true,
     'priority'    => 1,
@@ -181,7 +181,7 @@ Kirki::add_field( 'hiiwp', array(
 Kirki::add_field( 'hiiwp', array(
     'type'        => 'switch',
     'settings'    => 'blog_excerpt_on',
-    'label'       => __( 'Show Excerpt', 'my_textdomain' ),
+    'label'       => __( 'Show Excerpt', 'hiiwp' ),
     'section'     => 'event_section',
     'default'     => true,
     'priority'    => 1,
@@ -189,7 +189,7 @@ Kirki::add_field( 'hiiwp', array(
 Kirki::add_field( 'hiiwp', array(
     'type'        => 'number',
     'settings'    => 'blog_excerpt_length',
-    'label'       => __( 'Excerpt Word Length', 'my_textdomain' ),
+    'label'       => __( 'Excerpt Word Length', 'hiiwp' ),
     'section'     => 'event_section',
     'default'     => '55',
     'priority'    => 1,
@@ -204,7 +204,7 @@ Kirki::add_field( 'hiiwp', array(
 Kirki::add_field( 'hiiwp', array(
     'type'        => 'switch',
     'settings'    => 'blog_more_on',
-    'label'       => __( 'Show More Button', 'my_textdomain' ),
+    'label'       => __( 'Show More Button', 'hiiwp' ),
     'section'     => 'event_section',
     'default'     => true,
     'priority'    => 1,
@@ -212,7 +212,7 @@ Kirki::add_field( 'hiiwp', array(
 Kirki::add_field( 'hiiwp', array(
     'type'        => 'text',
     'settings'    => 'blog_more_text',
-    'label'       => __( 'Show More Button Text', 'my_textdomain' ),
+    'label'       => __( 'Show More Button Text', 'hiiwp' ),
     'section'     => 'event_section',
     'default'     => esc_attr__( 'Read More'),
     'priority'    => 1,
@@ -227,7 +227,7 @@ Kirki::add_field( 'hiiwp', array(
 Kirki::add_field( 'hiiwp', array(
     'type'        => 'switch',
     'settings'    => 'blog_pag_on',
-    'label'       => __( 'Show Pagination', 'my_textdomain' ),
+    'label'       => __( 'Show Pagination', 'hiiwp' ),
     'section'     => 'event_section',
     'default'     => true,
     'priority'    => 1,
@@ -235,12 +235,12 @@ Kirki::add_field( 'hiiwp', array(
 Kirki::add_field( 'hiiwp', array(
     'type'        => 'select',
     'settings'    => 'blog_pag_type',
-    'label'       => __( 'Show Pagination', 'my_textdomain' ),
+    'label'       => __( 'Show Pagination', 'hiiwp' ),
     'section'     => 'event_section',
     'default'     => 'option-1',
     'choices'	  => array(
-	    'option-1' => esc_attr__( 'Prev/Next', my_textdomain),
-	    'option-2' => esc_attr__( 'Numbered', my_textdomain),
+	    'option-1' => esc_attr__( 'Prev/Next', 'hiiwp'),
+	    'option-2' => esc_attr__( 'Numbered', 'hiiwp'),
     ),
     'priority'    => 1,
     'active_callback'	=> array(
@@ -255,7 +255,7 @@ Kirki::add_field( 'hiiwp', array(
 Kirki::add_field( 'hiiwp', array(
     'type'        => 'switch',
     'settings'    => 'blog_comments',
-    'label'       => __( 'Show Comments', 'my_textdomain' ),
+    'label'       => __( 'Show Comments', 'hiiwp' ),
     'section'     => 'event_single_section',
     'default'     => true,
     'priority'    => 1,

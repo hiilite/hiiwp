@@ -5,7 +5,7 @@ $hiilite_options['amp'] = get_theme_mod('amp');
 if($hiilite_options['amp']) $_amp = 'amp-'; else $_amp = '';
 
 // Create Title
-$article_title = '';
+$article_title = $dateline = $article_cat = '';
 
 if(isset($atts)) {
 	$hiilite_options['blog_columns'] = isset($atts['element_width'])?(string)$atts['element_width']:$hiilite_options['blog_columns'];
