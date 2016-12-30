@@ -1,10 +1,11 @@
 <?php
 $section = 'footer_section';
+$options = get_option('hii_seo_settings');
 
 Kirki::add_section( $section, array(
     'priority'    => 4,
     'title'       => __( 'Footer', 'textdomain' ),
-    'description' => __( 'footer settings', 'textdomain' ),
+    'description' => __( 'Footer settings', 'textdomain' ),
     'icon' => 'dashicons-download'
 ) );
 
@@ -216,6 +217,44 @@ Kirki::add_field( 'hiiwp', array(
 	),
 ) );
 
+
+
+
+/*
+	
+	FOOTER PAGE
+	
+*/
+Kirki::add_field( 'hiiwp', array(
+    'type'        => 'switch',
+    'settings'    => 'footer_page_on',
+    'label'       => __( 'Use Footer Page (beta)', 'my_textdomain' ),
+    'description'  => __( 'Enable to use a pages content as the footer', 'my_textdomain' ),
+    'section'     => $section,
+    'default'     => false,
+    'priority'    => 7,
+) );
+
+Kirki::add_field( 'hiiwp', array(
+	'type'        => 'dropdown-pages',
+	'settings'    => 'footer_page_content',
+	'label'       => __( 'Footer Content Page (beta)', 'my_textdomain' ),
+	'description'  => __( 'Select the page to use as the footer for the site', 'my_textdomain' ),
+	'section'     => $section,
+	'default'     => false,
+	'priority'    => 7,
+	'required'	  => array(
+		array(
+		    'setting'  => 'footer_page_on',
+			'operator' => '==',
+			'value'    => true,
+	    )),
+) );
+
+
+
+
+
 /*
 	
 	FOOTER BOTTOM
@@ -423,36 +462,23 @@ Kirki::add_field( 'hiiwp', array(
 	),
 ) );
 
-
-/*
-	
-	FOOTER PAGE
-	
-*/
 Kirki::add_field( 'hiiwp', array(
-    'type'        => 'switch',
-    'settings'    => 'footer_page_on',
-    'label'       => __( 'Use Footer Page (beta)', 'my_textdomain' ),
-    'description'  => __( 'Enable to use a pages content as the footer', 'my_textdomain' ),
-    'section'     => $section,
-    'default'     => false,
-    'priority'    => 9,
-) );
-
-Kirki::add_field( 'hiiwp', array(
-	'type'        => 'dropdown-pages',
-	'settings'    => 'footer_page_content',
-	'label'       => __( 'Footer Content Page (beta)', 'my_textdomain' ),
-	'description'  => __( 'Select the page to use as the footer for the site', 'my_textdomain' ),
+	'type'        => 'textarea',
+	'settings'    => 'footer_bottom_copyright_text',
+	'label'       => __( 'Copyright Text', 'hiiwp' ),
+	'description' => __('Change the copy right text in the footer bottom'),
 	'section'     => $section,
-	'default'     => false,
-	'priority'    => 9,
-	'required'	  => array(
+	'default'     => '<small>Copyright © '.date('Y').' '.$options['business_name'].' All rights reserved. <a href="https://hiilite.com/" target="_blank" title="Hiilite Creative Group | Web + Marketing">Web Design by Hiilite Creative Group Kelowna</a></small>',
+	'priority'    => 8,
+    'active_callback'	=> array(
 		array(
-		    'setting'  => 'footer_page_on',
+			'setting'  => 'footer_text_yesno',
 			'operator' => '==',
 			'value'    => true,
-	    )),
+		),
+	),
 ) );
+
+
 
 	?>

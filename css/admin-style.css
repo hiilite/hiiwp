@@ -298,3 +298,10 @@ ul.cmb2-checkbox-list.cmb2-list li {
 .wp-full-overlay-main {
 	background-color: white;
 }
+.customize-control.customize-control-select {
+    display: inline-block !important;
+    width: 46%;
+    float: left;
+    clear: none;
+    margin-right: 2%;
+}  
