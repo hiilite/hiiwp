@@ -895,6 +895,24 @@ vc_map( array(
 	'params' => $vc_column_inner_params,
 	'js_view' => 'VcColumnView',
 ));
+
+
+////////////////////////////
+//
+//	AMP-SLIDER
+//
+////////////////////////////
+$vc_row_params = array(
+		array(
+			'type' => 'checkbox',
+			'heading' => __( 'Active', 'js_composer' ),
+			'param_name' => 'active',
+			'description' => __( 'If unchecked, slide will not be displayed', 'js_composer' ),
+			'value' => array( __( 'Yes', 'js_composer' ) => 'yes' ),
+		)
+	);
+vc_add_param('vc_tta_section', $vc_row_params);
+
 ////////////////////////////
 //
 //	Title

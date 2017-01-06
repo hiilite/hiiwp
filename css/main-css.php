@@ -849,7 +849,7 @@ a, .button, .menu li {
 		echo 'background-color:'.$hiilite_options['title_background_color'].';';
 	}
 	?>
-	height: <?=$hiilite_options['title_height'];?>; /*set*/
+	min-height: <?=$hiilite_options['title_height'];?>; /*set*/
 	display: flex;
 }
 .page-title h1 {
