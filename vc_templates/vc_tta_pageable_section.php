@@ -10,6 +10,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @var $this WPBakeryShortCode_VC_Tta_Section
  */
 $post_id = get_the_id();
+$atts = vc_map_get_attributes( $this->getShortcode(), $atts );
 if($atts['active'] == true):
 	if(get_post_meta($post_id, 'amp', true) == 'nonamp'){
 		$hiilite_options['amp'] = false;
@@ -19,7 +20,6 @@ if($atts['active'] == true):
 	if($hiilite_options['amp']) $_amp = ''; else $_amp = '';
 	
 	$css = $el_class = '';
-	$atts = vc_map_get_attributes( $this->getShortcode(), $atts );
 	$this->resetVariables( $atts, $content );
 	
 	WPBakeryShortCode_VC_Tta_Section::$self_count ++;

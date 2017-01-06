@@ -897,21 +897,7 @@ vc_map( array(
 ));
 
 
-////////////////////////////
-//
-//	AMP-SLIDER
-//
-////////////////////////////
-$vc_row_params = array(
-		array(
-			'type' => 'checkbox',
-			'heading' => __( 'Active', 'js_composer' ),
-			'param_name' => 'active',
-			'description' => __( 'If unchecked, slide will not be displayed', 'js_composer' ),
-			'value' => array( __( 'Yes', 'js_composer' ) => 'yes' ),
-		)
-	);
-vc_add_param('vc_tta_section', $vc_row_params);
+
 
 ////////////////////////////
 //
@@ -1672,46 +1658,53 @@ vc_map( array(
 	'default_content' => '',
 	'params' => array(
 		array(
-		'type' => 'textfield',
-		'param_name' => 'title',
-		'heading' => __( 'Title', 'js_composer' ),
-		'description' => __( 'Enter section title (Note: you can leave it empty).', 'js_composer' ),
-	),
-	array(
-		'type' => 'attach_image',
-		'heading' => __( 'Slide Image', 'js_composer' ),
-		'param_name' => 'image',
-		'value' => '',
-		'description' => __( 'Select image from media library.', 'js_composer' ),
-	),
-	array(
-		'type' => 'dropdown',
-		'heading' => __( 'Image Position', 'js_composer' ),
-		'param_name' => 'bg_img_pos',
-		'value' => array(
-			__( 'Default', 'js_composer' ) => '',
-			__( 'Left Top', 'js_composer' ) => 'lt',
-			__( 'Left Center', 'js_composer' ) => 'lc',
-			__( 'Left Bottom', 'js_composer' ) => 'lb',
-			__( 'Right Top', 'js_composer' ) => 'rt',
-			__( 'Right Center', 'js_composer' ) => 'rc',
-			__( 'Right Bottom', 'js_composer' ) => 'rb',
-			__( 'Center Top', 'js_composer' ) => 'ct',
-			__( 'Center Center', 'js_composer' ) => 'cc',
-			__( 'Center Bottom', 'js_composer' ) => 'cb',
+			'type' => 'checkbox',
+			'heading' => __( 'Active', 'js_composer' ),
+			'param_name' => 'active',
+			'description' => __( 'If unchecked, slide will not be displayed', 'js_composer' ),
+			'value' => array( __( 'Yes', 'js_composer' ) => 'yes' ),
 		),
-		'description' => __( 'Positioning of image.', 'js_composer' ),
-	),	
-	array(
-		'type' => 'el_id',
-		'param_name' => 'tab_id',
-		'settings' => array(
-			'auto_generate' => true,
+		array(
+			'type' => 'textfield',
+			'param_name' => 'title',
+			'heading' => __( 'Title', 'js_composer' ),
+			'description' => __( 'Enter section title (Note: you can leave it empty).', 'js_composer' ),
 		),
-		'heading' => __( 'Section ID', 'js_composer' ),
-		'description' => __( 'Enter section ID (Note: make sure it is unique and valid according to <a href="%s" target="_blank">w3c specification</a>).', 'js_composer' ),
+		array(
+			'type' => 'attach_image',
+			'heading' => __( 'Slide Image', 'js_composer' ),
+			'param_name' => 'image',
+			'value' => '',
+			'description' => __( 'Select image from media library.', 'js_composer' ),
+		),
+		array(
+			'type' => 'dropdown',
+			'heading' => __( 'Image Position', 'js_composer' ),
+			'param_name' => 'bg_img_pos',
+			'value' => array(
+				__( 'Default', 'js_composer' ) => '',
+				__( 'Left Top', 'js_composer' ) => 'lt',
+				__( 'Left Center', 'js_composer' ) => 'lc',
+				__( 'Left Bottom', 'js_composer' ) => 'lb',
+				__( 'Right Top', 'js_composer' ) => 'rt',
+				__( 'Right Center', 'js_composer' ) => 'rc',
+				__( 'Right Bottom', 'js_composer' ) => 'rb',
+				__( 'Center Top', 'js_composer' ) => 'ct',
+				__( 'Center Center', 'js_composer' ) => 'cc',
+				__( 'Center Bottom', 'js_composer' ) => 'cb',
+			),
+			'description' => __( 'Positioning of image.', 'js_composer' ),
+			),	
+		array(
+			'type' => 'el_id',
+			'param_name' => 'tab_id',
+			'settings' => array(
+				'auto_generate' => true,
+			),
+			'heading' => __( 'Section ID', 'js_composer' ),
+			'description' => __( 'Enter section ID (Note: make sure it is unique and valid according to <a href="%s" target="_blank">w3c specification</a>).', 'js_composer' ),
+		),
 	),
-),
 ) );
 
 
