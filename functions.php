@@ -91,7 +91,7 @@ endif;
 GRAVITY FORMS	
 */
 if(class_exists('GFForms')):
-	require_once( dirname( __FILE__ ) . '/addons/gravityforms.php');
+	//require_once( dirname( __FILE__ ) . '/addons/gravityformsrangeslider/rangeslider.php');
 endif;
 
 
