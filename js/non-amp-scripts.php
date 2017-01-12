@@ -343,6 +343,19 @@
 	  if (scroll >= 100) sticky.addClass('scrolled');
 	  else sticky.removeClass('scrolled');
 	});
+	
+	/* Update main nav to include full URL for anchored links when not on homepage */
+	<?php if (!is_home()): ?>
+	$('#main-nav ul li a').each(function() {
+		var url = $(this).attr('href');
+		var home = window.location.origin;
+		if (url.indexOf("#") >= 0)
+		{
+			url = home+url;
+			$(this).attr('href',url);
+		}
+	});
+	<?php endif; ?>
     
 });})(jQuery);	
 	

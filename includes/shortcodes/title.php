@@ -11,8 +11,13 @@ if (!function_exists('hii_title')) {
 	        "color"		=> "",
 	        "size" 		=> "h1",
 	        "css"  		=> "",
-	        "align"		=> ""
+	        "align"		=> "",
+	        "link"		=> "",
+	        "class"		=> "",
+	        "id"		=> ""
         );
+        
+        $test = $args;
 
         extract(shortcode_atts($args, $atts));
         //init variables
@@ -34,12 +39,45 @@ if (!function_exists('hii_title')) {
 		$wrapper_attributes[] = 'class="' . esc_attr( trim( $css_class ) ) . '"';
 		
 
-        if($color != ""){
-            $button_styles .= 'class="'.$color.'" ';
+        if($class != ""){
+	        $css_class = $css_class.' '.$class;
         }
-
-        $html .=  '<div ' . implode( ' ', $wrapper_attributes ) . '><'.$size.' '.$button_styles.'>'.$text.'</'.$size.'></div>';
-
+        $button_styles .= 'class="'.$css_class.'" ';
+        
+	    if($id != ""){
+	    	$button_styles .= 'id="'.$id.'" ';
+	    }
+		$html .= $font_container_data;
+		$html .= '<pre>'.print_r($font_container,true).'</pre>';
+		
+        $html .=  '<div ' . implode( ' ', $wrapper_attributes ) . '>';
+        
+        if($link != "")
+        {
+	    	$html .= '<a href="'.$link.'">';    
+	    }
+	    
+	    if($color != "" || $font != "")
+	    {
+		    if($color != "")
+		    {
+				$c = "color:".$color;    
+			}
+			if($font != "")
+		    {
+				$f = "font-family:".$font;    
+			}
+			
+		    $style = "style='".$c." ".$f."'";
+		}
+	    
+        $html .= '<'.$size.' '.$button_styles.'>'.$text.'</'.$size.'></div>';
+		
+		if($link != "")
+        {
+	    	$html .= '</a>';    
+	    }
+	    
         return $html;
     }
 }

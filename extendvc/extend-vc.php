@@ -918,48 +918,61 @@ vc_map( array(
 				"heading" => "Text",
 				"param_name" => "text",
 			),
+			/*array(
+                'type' => 'google_fonts',
+                'param_name' => 'google_fonts',
+                'value' => '',
+                'font_family:'.rawurlencode('Exo:100,100italic,200,200italic,300,300italic,regular,italic,500,500italic,600,600italic,700,700italic,800,800italic,900,900italic').'|font_style:'.rawurlencode('900bold italic:900:italic'),
+                'settings' => array(
+                    'fields'=>array(
+                        'font_family'=>'Abril Fatface:regular',
+     'Exo:100,100italic,200,200italic,300,300italic,regular,italic,500,500italic,600,600italic,700,700italic,800,800italic,900,900italic',
+                        'font_style'=>'400 regular:400:normal',                        'font_family_description' => __('Select font family.','js_composer'),
+                        'font_style_description' => __('Select font styling.','js_composer')
+                  )
+                ),
+                'description' => __( 'Description for this group', 'js_composer' ), 
+            ),*/
 			array(
-				"type" => "dropdown",
+		        'type' => 'font_container',
+		        'param_name' => 'font_container',
+		        'value'=>'',
+		        'settings'=>array(
+		            'fields'=>array(
+		                'tag'=>'h2',
+		                'text_align',
+		                'font_size',
+		                'line_height',
+		                'color',
+		
+		                'tag_description' => __('Select element tag.','js_composer'),
+		                'text_align_description' => __('Select text alignment.','js_composer'),
+		                'font_size_description' => __('Enter font size.','js_composer'),
+		                'line_height_description' => __('Enter line height.','js_composer'),
+		                'color_description' => __('Select color for your element.','js_composer'),
+		            ),
+		        ),
+		    ),
+			array(
+				"type" => "textfield",
 				"holder" => "div",
 				"class" => "",
-				"heading" => "Size",
-				"param_name" => "size",
-				"value" => array(
-					"h1" => "h1",
-                    "h2" => "h2",
-					"h3" => "h3",	
-					"h4" => "h4",
-					"h5" => "h5",
-					"h6" => "h6"
-				)
+				"heading" => "Link",
+				"param_name" => "link"
 			),
 			array(
-				"type" => "dropdown",
+				"type" => "textfield",
 				"holder" => "div",
 				"class" => "",
-				"heading" => "Color",
-				"param_name" => "color",
-				"value" => array(
-					"Default" => "",
-                    "Color 1" => "color_one",
-					"Color 2" => "color_two",	
-					"Color 3" => "color_three",
-					"Color 4" => "color_four",
-					"White" => "white"
-				)
+				"heading" => "Class",
+				"param_name" => "class"
 			),
 			array(
-				"type" => "dropdown",
+				"type" => "textfield",
 				"holder" => "div",
 				"class" => "",
-				"heading" => "Align",
-				"param_name" => "align",
-				"value" => array(
-					"None" => "",
-					"Center" => "align-center",
-                    "Left" => "align-left",
-					"Right" => "align-right"
-				)
+				"heading" => "ID",
+				"param_name" => "id"
 			),
 			array(
 	            'type' => 'css_editor',
