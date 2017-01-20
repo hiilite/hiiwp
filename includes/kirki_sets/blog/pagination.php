@@ -1,5 +1,10 @@
 <?php
 $section = 'pagination_section';
+//////////////////////
+//
+//	BLOG SECTIONS
+//
+//////////////////////	
 Kirki::add_section( $section, array(
     'priority'    => 5,
     'title'       => __( 'Pagination', 'hiiwp' ),
@@ -7,6 +12,7 @@ Kirki::add_section( $section, array(
     'panel'       => 'blog_panel',
 ) );
 
+//////////////////////
 Kirki::add_field( 'hiiwp', array(
     'type'        => 'switch',
     'settings'    => 'blog_pag_on',

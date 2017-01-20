@@ -12,9 +12,6 @@ Kirki::add_section( $section, array(
     'panel'       => 'blog_panel',
 ) );
 
-
-
-
 //////////////////////
 
 Kirki::add_field( 'hiiwp', array(
@@ -194,7 +191,6 @@ Kirki::add_field( 'hiiwp', array(
     ),
 ) );
 
-
 Kirki::add_field( 'hiiwp', array(
     'type'        => 'switch',
     'settings'    => 'blog_sidebar_on',
@@ -202,33 +198,5 @@ Kirki::add_field( 'hiiwp', array(
     'section'     => $section,
     'default'     => true,
     'priority'    => 1,
-) );
-
-Kirki::add_field( 'hiiwp', array(
-    'type'        => 'switch',
-    'settings'    => 'blog_author_bio',
-    'label'       => __( 'Show Author Bio', 'my_textdomain' ),
-    'section'     => 'blog_single_section',
-    'default'     => false,
-    'priority'    => 1,
-) );
-
-Kirki::add_field( 'hiiwp', array(
-    'type'        => 'switch',
-    'settings'    => 'blog_related_articles',
-    'label'       => __( 'Show Related Articles', 'my_textdomain' ),
-    'section'     => 'blog_single_section',
-    'default'     => true,
-    'priority'    => 1,
-) );
-Kirki::add_field( 'hiiwp', array(
-    'type'        => 'switch',
-    'settings'    => 'blog_comments',
-    'label'       => __( 'Show Comments', 'my_textdomain' ),
-    'section'     => 'blog_single_section',
-    'default'     => true,
-    'priority'    => 1,
-) );
-
-	
+) );	
 ?>

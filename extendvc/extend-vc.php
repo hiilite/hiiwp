@@ -1329,6 +1329,13 @@ vc_map( array(
 				"type" => "checkbox",
 				"holder" => "div",
 				"class" => "",
+				"heading" => "Zomato",
+				"param_name" => "zomato"
+			),
+			array(
+				"type" => "checkbox",
+				"holder" => "div",
+				"class" => "",
 				"heading" => "Email",
 				"param_name" => "email"
 			),

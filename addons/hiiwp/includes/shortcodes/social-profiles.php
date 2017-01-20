@@ -14,6 +14,7 @@ function add_social_profiles_shortcode( $atts ){
 	    'youtube'		=> false,
 	    'tripadvisor'	=> false,
 		'yelp'			=> false,
+		'zomato'		=> false,
 		'email'			=> false,
 		'icon_style'	=> "round",
 		"css"  			=> "",
