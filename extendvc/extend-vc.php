@@ -918,7 +918,21 @@ vc_map( array(
 				"heading" => "Text",
 				"param_name" => "text",
 			),
-			/*array(
+			array(
+		        'type' => 'font_container',
+		        'param_name' => 'font_container',
+		        'value'=>'',
+		        'settings'=>array(
+		            'fields'=>array(
+		                'tag'=>'h2',
+		                'color',
+		
+		                'tag_description' => __('Select element tag.','js_composer'),
+		                'color_description' => __('Select color for your element.','js_composer'),
+		            ),
+		        ),
+		    ),
+			array(
                 'type' => 'google_fonts',
                 'param_name' => 'google_fonts',
                 'value' => '',
@@ -932,27 +946,7 @@ vc_map( array(
                   )
                 ),
                 'description' => __( 'Description for this group', 'js_composer' ), 
-            ),*/
-			array(
-		        'type' => 'font_container',
-		        'param_name' => 'font_container',
-		        'value'=>'',
-		        'settings'=>array(
-		            'fields'=>array(
-		                'tag'=>'h2',
-		                'text_align',
-		                'font_size',
-		                'line_height',
-		                'color',
-		
-		                'tag_description' => __('Select element tag.','js_composer'),
-		                'text_align_description' => __('Select text alignment.','js_composer'),
-		                'font_size_description' => __('Enter font size.','js_composer'),
-		                'line_height_description' => __('Enter line height.','js_composer'),
-		                'color_description' => __('Select color for your element.','js_composer'),
-		            ),
-		        ),
-		    ),
+            ),
 			array(
 				"type" => "textfield",
 				"holder" => "div",

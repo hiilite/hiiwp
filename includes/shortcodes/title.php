@@ -9,7 +9,8 @@ if (!function_exists('hii_title')) {
         $args = array(
 	        "text" 		=> "",
 	        "color"		=> "",
-	        "size" 		=> "h1",
+	        "tag" 		=> "h1",
+	        "size"		=> "",
 	        "css"  		=> "",
 	        "align"		=> "",
 	        "link"		=> "",
@@ -17,12 +18,26 @@ if (!function_exists('hii_title')) {
 	        "id"		=> ""
         );
         
-        $test = $args;
 
         extract(shortcode_atts($args, $atts));
         //init variables
         $html  = "";
         $button_styles  = "";
+        
+        $font_container = explode('|',$atts['font_container']);
+        $tag = str_replace('tag:','',$font_container[0]);
+        $color = str_replace('%23','#',$font_container[1]).';';
+        
+        
+        $google_fonts = explode('|',$atts['google_fonts']);
+        $font_family = explode('%3A', $google_fonts[0]);
+        $font_family = str_replace('font_family','font-family', $font_family[0]);
+        $font_family = str_replace('%20',' ',$font_family).';';
+        
+        $font_style = explode('%3A', $google_fonts[1]);
+        $font_style = str_replace('$font_style','font-style', $font_style[0]);
+        $font_style = str_replace('%20',' ',$font_style).';';
+
 
 		$css_classes = array(
 			'text-block',
@@ -48,7 +63,6 @@ if (!function_exists('hii_title')) {
 	    	$button_styles .= 'id="'.$id.'" ';
 	    }
 		$html .= $font_container_data;
-		$html .= '<pre>'.print_r($font_container,true).'</pre>';
 		
         $html .=  '<div ' . implode( ' ', $wrapper_attributes ) . '>';
         
@@ -57,21 +71,25 @@ if (!function_exists('hii_title')) {
 	    	$html .= '<a href="'.$link.'">';    
 	    }
 	    
-	    if($color != "" || $font != "")
+	    if($color != "" || $font_family != "")
 	    {
 		    if($color != "")
 		    {
-				$c = "color:".$color;    
+				$c = $color;    
 			}
-			if($font != "")
+			if($font_family != "")
 		    {
-				$f = "font-family:".$font;    
+				$ff = $font_family;    
+			}
+			if($font_style != "")
+		    {
+				$fs = $font_style;    
 			}
 			
-		    $style = "style='".$c." ".$f."'";
+		    $style = "style='".$c." ".$ff." ".$fs."'";
 		}
 	    
-        $html .= '<'.$size.' '.$button_styles.'>'.$text.'</'.$size.'></div>';
+        $html .= '<'.$tag.' '.$button_styles.' '.$style.'>'.$text.'</'.$tag.'></div>';
 		
 		if($link != "")
         {

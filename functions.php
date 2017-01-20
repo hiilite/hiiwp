@@ -492,8 +492,6 @@ function minqueue_styles() {
     }
 }
 
-
-
 function enqueue_less_styles($tag, $handle) {
     global $wp_styles;
     //if(is_admin()){
