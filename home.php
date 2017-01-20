@@ -11,7 +11,7 @@ if ( is_active_sidebar( 'blog_sidebar' ) ) $colcount .= ' col-9';
 if(have_posts()):
 	echo '<section class="row" id="home_blog_loop"><div class="container_inner in_grid">';
 	echo '<div class="in_grid '.$hiilite_options['blog_layout'].$colcount.'">';
-echo '<pre>'.print_r(get_theme_mod( 'icon_settings' ),true).'</pre>';
+
 	while(have_posts()):
 		the_post();
 		get_template_part('templates/blog', 'loop');
