@@ -117,6 +117,7 @@ function add_testimonials_shortcode( $atts ){
 				  
 			// publisher info
 			$output .= '<div itemprop="publisher" itemscope itemtype="http://schema.org/Organization"><meta itemprop="name" content="'.$options['business_name'].'"></div>';
+
 			
 			//End item
 			$output .= '</div></div>';
