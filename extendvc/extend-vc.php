@@ -932,21 +932,30 @@ vc_map( array(
 		            ),
 		        ),
 		    ),
-			/*array(
+		    array(
+				'type' => 'checkbox',
+				'heading' => __( 'Use a Google Font?', 'js_composer' ),
+				'param_name' => 'use_google_font',
+				'description' => __( 'Override the default font and select from a list of Google Fonts.', 'js_composer' ),
+				'value' => array( __( 'Yes', 'js_composer' ) => 'true' ),
+			),
+			array(
                 'type' => 'google_fonts',
                 'param_name' => 'google_fonts',
-                'value' => '',
+                'value' => __( 'Default value', 'text-domain' ),
                 'font_family:'.rawurlencode('Exo:100,100italic,200,200italic,300,300italic,regular,italic,500,500italic,600,600italic,700,700italic,800,800italic,900,900italic').'|font_style:'.rawurlencode('900bold italic:900:italic'),
                 'settings' => array(
                     'fields'=>array(
-                        'font_family'=>'Abril Fatface:regular',
-     'Exo:100,100italic,200,200italic,300,300italic,regular,italic,500,500italic,600,600italic,700,700italic,800,800italic,900,900italic',
-                        'font_style'=>'400 regular:400:normal',                        'font_family_description' => __('Select font family.','js_composer'),
+	                    'font_family_description' => __('Select font family.','js_composer'),
                         'font_style_description' => __('Select font styling.','js_composer')
                   )
                 ),
                 'description' => __( 'Description for this group', 'js_composer' ), 
-            ),*/
+                "dependency" => array (
+					"element" => "use_google_font",
+					"value" => "true"
+				),
+            ),
 			array(
 				"type" => "textfield",
 				"holder" => "div",

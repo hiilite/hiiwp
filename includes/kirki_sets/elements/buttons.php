@@ -29,14 +29,35 @@ $button_font = $default_font;
 $button_font['color']	= get_theme_mod( 'color_one', '#303030');
 $button_font['text-transform'] = 'uppercase';
 $button_font['text-align']	= 'center';
+
+
 Kirki::add_field( 'hiiwp', array(
+    'type'        => 'typography',
+    'settings'    => 'typography_button_default_font',
+    'label'       => esc_attr__( 'Default Button Font (.button)', 'kirki' ),
+    'section'     => $section,
+    'default'     => array(
+        'font-family'    => $button_font,
+        'font-size'      => '1em',
+        'line-height'    => '1.5em',
+        'letter-spacing' => '0px',
+        'text-align'	 => $button_font['text-align'],
+        'text-transform' => $button_font['text-transform'],
+        'color'          => $button_font['color'],
+    ), 
+    'priority'    => 1,
+) );
+
+
+
+/*Kirki::add_field( 'hiiwp', array(
     'type'        => 'typography',
     'settings'    => 'typography_button_default_font',
     'label'       => esc_attr__( 'Default Button Font (.button)', 'kirki' ),
     'section'     => $section,
     'default'     => $button_font,
     'priority'    => 1,
-) );
+) );*/
 Kirki::add_field( 'hiiwp', array(
 	'type'        => 'color',
 	'settings'    => 'typography_button_default_background',
@@ -119,14 +140,32 @@ Kirki::add_field( 'hiiwp', array(
     'priority'    => 1,
 ) );
 $button_font['color']	= '#ffffff';
+
 Kirki::add_field( 'hiiwp', array(
+    'type'        => 'typography',
+    'settings'    => 'typography_button_primary_font',
+    'label'       => esc_attr__( 'Primary Button Font (.button-primary)', 'kirki' ),
+    'section'     => $section,
+    'default'     => array(
+        'font-family'    => $button_font,
+        'font-size'      => '1em',
+        'line-height'    => '1.5em',
+        'letter-spacing' => '0px',
+        'text-align'	 => $button_font['text-align'],
+        'text-transform' => $button_font['text-transform'],
+        'color'          => $button_font['color'],
+    ), 
+    'priority'    => 2,
+) );
+
+/*Kirki::add_field( 'hiiwp', array(
     'type'        => 'typography',
     'settings'    => 'typography_button_primary_font',
     'label'       => esc_attr__( 'Primary Button Font (.button-primary)', 'kirki' ),
     'section'     => $section,
     'default'     => $button_font,
     'priority'    => 2,
-) );
+) );*/
 Kirki::add_field( 'hiiwp', array(
 	'type'        => 'color',
 	'settings'    => 'typography_button_primary_background',
@@ -204,14 +243,32 @@ Kirki::add_field( 'hiiwp', array(
     'priority'    => 3,
 ) );
 $button_font['color']	= '#ffffff';
+
 Kirki::add_field( 'hiiwp', array(
     'type'        => 'typography',
     'settings'    => 'typography_button_secondary_font',
-    'label'       => esc_attr__( 'Primary Button Font (.button-secondary)', 'kirki' ),
+    'label'       => esc_attr__( 'Secondary Button Font (.button-secondary)', 'kirki' ),
+    'section'     => $section,
+    'default'     => array(
+        'font-family'    => $button_font,
+        'font-size'      => '1em',
+        'line-height'    => '1.5em',
+        'letter-spacing' => '0px',
+        'text-align'	 => $button_font['text-align'],
+        'text-transform' => $button_font['text-transform'],
+        'color'          => $button_font['color'],
+    ), 
+    'priority'    => 1,
+) );
+
+/*Kirki::add_field( 'hiiwp', array(
+    'type'        => 'typography',
+    'settings'    => 'typography_button_secondary_font',
+    'label'       => esc_attr__( 'Secondary Button Font (.button-secondary)', 'kirki' ),
     'section'     => $section,
     'default'     => $button_font,
     'priority'    => 3,
-) );
+) );*/
 Kirki::add_field( 'hiiwp', array(
 	'type'        => 'color',
 	'settings'    => 'typography_button_secondary_background',
