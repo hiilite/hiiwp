@@ -5,7 +5,7 @@ $section = 'blog_single_section';
 //	BLOG SECTIONS
 //
 //////////////////////	
-	Kirki::add_section( 'blog_single_section', array(
+Kirki::add_section( 'blog_single_section', array(
     'priority'    => 2,
     'title'       => __( 'Blog Single', 'textdomain' ),
     'description' => __( 'Single post settings', 'textdomain' ),
@@ -15,7 +15,7 @@ $section = 'blog_single_section';
 /////////////////////
 Kirki::add_field( 'hiiwp', array(
     'type'        => 'switch',
-    'settings'    => 'blog_author_bio',
+    'settings'    => 'blog_author_bio_show',
     'label'       => __( 'Show Author Bio', 'my_textdomain' ),
     'section'     => $section,
     'default'     => false,
@@ -24,7 +24,7 @@ Kirki::add_field( 'hiiwp', array(
 
 Kirki::add_field( 'hiiwp', array(
     'type'        => 'switch',
-    'settings'    => 'blog_related_articles',
+    'settings'    => 'blog_rel_articles',
     'label'       => __( 'Show Related Articles', 'my_textdomain' ),
     'section'     => $section,
     'default'     => true,
@@ -32,7 +32,7 @@ Kirki::add_field( 'hiiwp', array(
 ) );
 Kirki::add_field( 'hiiwp', array(
     'type'        => 'switch',
-    'settings'    => 'blog_comments',
+    'settings'    => 'blog_comments_show',
     'label'       => __( 'Show Comments', 'my_textdomain' ),
     'section'     => $section,
     'default'     => true,

@@ -356,25 +356,25 @@ $hiilite_options['h6_color']					= '#635d5d';
 
 
 // BLOG
-$hiilite_options['blog_layout']			= get_theme_mod( 'blog_layout', 'full-width' );
-$hiilite_options['blog_columns']		= get_theme_mod( 'blog_columns', '' );
-$hiilite_options['blog_image_pos']		= get_theme_mod( 'blog_image_pos', 'image-left' );
-$hiilite_options['blog_title_pos']		= get_theme_mod( 'blog_title_pos', 'title-below' );
-$hiilite_options['blog_title_on']		= get_theme_mod( 'blog_title_on', true );
-$hiilite_options['blog_heading_size']	= get_theme_mod( 'blog_heading_size', 'h2' );
-$hiilite_options['blog_dateline_pos']	= get_theme_mod( 'blog_dateline_pos', 'date-above' );
-$hiilite_options['blog_cats_on']		= get_theme_mod( 'blog_cats_on', true );
-$hiilite_options['blog_meta_on']		= get_theme_mod( 'blog_meta_on', true );
-$hiilite_options['blog_excerpt_on']		= get_theme_mod( 'blog_excerpt_on', true );
-$hiilite_options['blog_excerpt_length']	= get_theme_mod( 'blog_excerpt_length', '55' );
-$hiilite_options['blog_more_on']		= get_theme_mod( 'blog_more_on', true );
-$hiilite_options['blog_more_text']		= get_theme_mod( 'blog_more_text', 'Read More' );
-$hiilite_options['blog_pag_on']			= get_theme_mod( 'blog_pag_on', true );
-$hiilite_options['blog_pag_type']		= get_theme_mod( 'blog_pag_type', 'option-1' );
-$hiilite_options['blog_sidebar_on']			= get_theme_mod( 'blog_sidebar_on', true );
-$hiilite_options['blog_author_bio']		= get_theme_mod( 'blog_author_bio', false );
-$hiilite_options['blog_comments']		= get_theme_mod( 'blog_comments', true );
-$hiilite_options['blog_related_articles']		= get_theme_mod( 'blog_related_articles', true );
+$hiilite_options['blog_layouts']			= get_theme_mod( 'blog_layouts', 'full-width' );
+$hiilite_options['blog_col']		= get_theme_mod( 'blog_col', '' );
+$hiilite_options['blog_img_pos']		= get_theme_mod( 'blog_img_pos', 'image-left' );
+$hiilite_options['blog_title_position']		= get_theme_mod( 'blog_title_position', 'title-below' );
+$hiilite_options['blog_title_show']		= get_theme_mod( 'blog_title_show', true );
+$hiilite_options['blog_heading_tag']	= get_theme_mod( 'blog_heading_tag', 'h2' );
+$hiilite_options['blog_date_pos']	= get_theme_mod( 'blog_date_pos', 'date-above' );
+$hiilite_options['blog_cats_show']		= get_theme_mod( 'blog_cats_show', true );
+$hiilite_options['blog_meta_show']		= get_theme_mod( 'blog_meta_show', true );
+$hiilite_options['blog_excerpt_show']		= get_theme_mod( 'blog_excerpt_show', true );
+$hiilite_options['blog_excerpt_len']	= get_theme_mod( 'blog_excerpt_len', '55' );
+$hiilite_options['blog_more_show']		= get_theme_mod( 'blog_more_show', true );
+$hiilite_options['blog_more_ex']		= get_theme_mod( 'blog_more_ex', 'Read More' );
+$hiilite_options['blog_pag_show']			= get_theme_mod( 'blog_pag_show', true );
+$hiilite_options['blog_pag_style']		= get_theme_mod( 'blog_pag_style', 'option-1' );
+$hiilite_options['blog_sidebar_show']			= get_theme_mod( 'blog_sidebar_show', true );
+$hiilite_options['blog_author_bio_show']		= get_theme_mod( 'blog_author_bio_show', false );
+$hiilite_options['blog_comments_show']		= get_theme_mod( 'blog_comments_show', true );
+$hiilite_options['blog_rel_articles']		= get_theme_mod( 'blog_rel_articles', true );
 
 
 // PORTFOLIO

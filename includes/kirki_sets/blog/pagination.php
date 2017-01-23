@@ -6,7 +6,7 @@ $section = 'pagination_section';
 //
 //////////////////////	
 Kirki::add_section( $section, array(
-    'priority'    => 5,
+    'priority'    => 3,
     'title'       => __( 'Pagination', 'hiiwp' ),
     'description' => __( 'Pagination styles', 'hiiwp' ),
     'panel'       => 'blog_panel',
@@ -15,7 +15,7 @@ Kirki::add_section( $section, array(
 //////////////////////
 Kirki::add_field( 'hiiwp', array(
     'type'        => 'switch',
-    'settings'    => 'blog_pag_on',
+    'settings'    => 'blog_pag_show',
     'label'       => __( 'Pagination', 'hiiwp' ),
     'description' => __('Enabling this option will display pagination on bottom of Blog List','hiiwp'),
     'section'     => $section,
@@ -24,7 +24,7 @@ Kirki::add_field( 'hiiwp', array(
 ) );
 Kirki::add_field( 'hiiwp', array(
     'type'        => 'select',
-    'settings'    => 'blog_pag_type',
+    'settings'    => 'blog_pag_style',
     'label'       => __( 'Pagination Type', 'hiiwp' ),
     'section'     => $section,
     'default'     => 'option-1',
@@ -35,7 +35,7 @@ Kirki::add_field( 'hiiwp', array(
     'priority'    => 1,
     'active_callback'	=> array(
 	    array(
-		    'setting'	=> 'blog_pag_on',
+		    'setting'	=> 'blog_pag_show',
 		    'operator'	=> '==',
 		    'value'	=> true,
 	    ),
