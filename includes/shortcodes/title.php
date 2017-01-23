@@ -71,17 +71,17 @@ if (!function_exists('hii_title')) {
 	    	$html .= '<a href="'.$link.'">';    
 	    }
 	    
-	    if($color != "" || $font_family != "")
+	    if($color != ";" || $font_family != ";")
 	    {
-		    if($color != "")
+		    if($color != ";")
 		    {
 				$c = $color;    
 			}
-			if($font_family != "")
+			if($font_family != ";")
 		    {
 				$ff = $font_family;    
 			}
-			if($font_style != "")
+			if($font_style != ";")
 		    {
 				$fs = $font_style;    
 			}

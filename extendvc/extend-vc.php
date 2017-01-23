@@ -932,7 +932,7 @@ vc_map( array(
 		            ),
 		        ),
 		    ),
-			array(
+			/*array(
                 'type' => 'google_fonts',
                 'param_name' => 'google_fonts',
                 'value' => '',
@@ -946,7 +946,7 @@ vc_map( array(
                   )
                 ),
                 'description' => __( 'Description for this group', 'js_composer' ), 
-            ),
+            ),*/
 			array(
 				"type" => "textfield",
 				"holder" => "div",
