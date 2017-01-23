@@ -24,8 +24,16 @@ if (!function_exists('hii_title')) {
         $html  = "";
         $button_styles  = "";
         
+        /*$html .= "<pre>".print_r($args,true)."</pre>";
+        $html .= "<pre>".print_r($atts,true)."</pre>";*/
+        
         $font_container = explode('|',$atts['font_container']);
         $tag = str_replace('tag:','',$font_container[0]);
+        if((!isset($tag) || $tag == NULL) && isset($size))
+        {
+	        $tag = $size;
+	    }
+        $size = $tag;
         $color = str_replace('%23','#',$font_container[1]).';';
         
         
@@ -89,7 +97,7 @@ if (!function_exists('hii_title')) {
 		    $style = "style='".$c." ".$ff." ".$fs."'";
 		}
 	    
-        $html .= '<'.$tag.' '.$button_styles.' '.$style.'>'.$text.'</'.$tag.'></div>';
+        $html .= '<'.$size.' '.$button_styles.' '.$style.'>'.$text.'</'.$size.'></div>';
 		
 		if($link != "")
         {
