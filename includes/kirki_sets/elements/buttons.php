@@ -37,7 +37,7 @@ Kirki::add_field( 'hiiwp', array(
     'label'       => esc_attr__( 'Default Button Font (.button)', 'kirki' ),
     'section'     => $section,
     'default'     => array(
-        'font-family'    => $button_font,
+        'font-family'    => 'Lato',
         'font-size'      => '1em',
         'line-height'    => '1.5em',
         'letter-spacing' => '0px',
@@ -147,7 +147,7 @@ Kirki::add_field( 'hiiwp', array(
     'label'       => esc_attr__( 'Primary Button Font (.button-primary)', 'kirki' ),
     'section'     => $section,
     'default'     => array(
-        'font-family'    => $button_font,
+        'font-family'    => 'Lato',
         'font-size'      => '1em',
         'line-height'    => '1.5em',
         'letter-spacing' => '0px',
@@ -250,7 +250,7 @@ Kirki::add_field( 'hiiwp', array(
     'label'       => esc_attr__( 'Secondary Button Font (.button-secondary)', 'kirki' ),
     'section'     => $section,
     'default'     => array(
-        'font-family'    => $button_font,
+        'font-family'    => 'Lato',
         'font-size'      => '1em',
         'line-height'    => '1.5em',
         'letter-spacing' => '0px',
@@ -258,7 +258,7 @@ Kirki::add_field( 'hiiwp', array(
         'text-transform' => $button_font['text-transform'],
         'color'          => $button_font['color'],
     ), 
-    'priority'    => 1,
+    'priority'    => 3,
 ) );
 
 /*Kirki::add_field( 'hiiwp', array(

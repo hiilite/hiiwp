@@ -956,6 +956,18 @@ vc_map( array(
 					"value" => "true"
 				),
             ),
+            array(
+				'type' => 'dropdown',
+				'heading' => __( 'Align Title', 'js_composer' ),
+				'param_name' => 'align',
+				'value' => array(
+					__( 'Default', 'js_composer' ) => '',
+					__( 'Left', 'js_composer' ) => 'align-left',
+					__( 'Center', 'js_composer' ) => 'align-center',
+					__( 'Right', 'js_composer' ) => 'align-right',
+				),
+				'description' => __( 'Select content position within columns.', 'js_composer' ),
+			),
 			array(
 				"type" => "textfield",
 				"holder" => "div",
