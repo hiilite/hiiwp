@@ -35,8 +35,15 @@ if(have_posts()):
 
 	
 	echo '</div>'; //end in_grid
-	
-	if ( $hiilite_options['blog_sidebar_show'] == true ) echo "<div id='blog-sidebar'>".dynamic_sidebar( 'blog_sidebar' )."</div>";
+	?>
+	<div id="blog-sidebar">
+		<?php
+		if ( $hiilite_options['blog_sidebar_show'] == true ) :
+			dynamic_sidebar( 'blog_sidebar' );
+		endif;
+		?>
+	</div>
+	<?php
 	
 	/*do_action( 'hii_blog_sidebar' );*/			
 	
