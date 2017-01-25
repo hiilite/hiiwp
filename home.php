@@ -4,7 +4,8 @@ get_header();
 get_template_part( 'templates/title' );
 
 $colcount = ($hiilite_options['blog_layouts'] =='masonry')?' col-count-'.$hiilite_options['blog_col']:'';
-if ( is_active_sidebar( 'blog_sidebar' ) ) $colcount .= ' col-9';
+if ( $hiilite_options['blog_sidebar_show'] == true ) $colcount .= ' col-9';
+
 
 
 if(have_posts()):
@@ -35,7 +36,9 @@ if(have_posts()):
 	
 	echo '</div>'; //end in_grid
 	
-	do_action( 'hii_blog_sidebar' );					
+	if ( $hiilite_options['blog_sidebar_show'] == true ) echo "<div id='blog-sidebar'>".dynamic_sidebar( 'blog_sidebar' )."</div>";
+	
+	/*do_action( 'hii_blog_sidebar' );*/			
 	
 	echo '</div></section>';
 

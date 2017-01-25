@@ -807,6 +807,7 @@ function hii_seo_options_page() {
 	        'LinkedIn' => 'LinkedIn',
 	        'Myspace' => 'Myspace',
 	        'Pinterest' => 'Pinterest',
+	        'Houzz' => 'Houzz',
 	        'SoundCloud' => 'SoundCloud',
 	        'Tumblr' => 'Tumblr',
         ),
