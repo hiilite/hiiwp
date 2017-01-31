@@ -184,16 +184,16 @@ if($hiilite_options['blog_rel_articles'] == true):
 	endif;
 	
 	echo '</aside>';
-	
-	
-	if($hiilite_options['blog_comments_show']):
+
+
+//end related Posts
+endif;
+
+if($hiilite_options['blog_comments_show']):
 		echo '<div class="container_inner">';
 			comments_template();
 		echo '</div>';
 	endif;
-
-//end related Posts
-endif;
 ?>
 	</div>
 </article>
