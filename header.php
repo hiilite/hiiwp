@@ -123,7 +123,11 @@ echo minify_css($body);
 			<!-- HEADER -->
 			<header id="main_header" class="<?=$hiilite_options['header_type'];?>">
 <?php if(is_customize_preview()) echo '<div class="customizer_quick_links"><button class="customizer-edit" data-control=\'{ "name":"header_in_grid" }\'>Edit Header</button><button class="customizer-edit font-edit" data-control=\'{ "name":"main_menu_font" }\'>Header & Menu Fonts</button></div>'; ?>
-				<div class="container_inner"><?php 
+				<div class="container_inner">
+					<hgroup style="display: none;">
+						<h1><?=$page_title?></h1>
+					</hgroup>
+					<?php 
 				if($hiilite_options['header_in_grid']) { echo '<div class="in_grid">'; }
 				
 					if($hiilite_options['header_center_left_on']){ ?>
@@ -142,12 +146,14 @@ echo minify_css($body);
 						?></div><?php
 					} 
 					
+					
 					if(get_theme_mod('hide_logo') != true):
 						?><div id="logo_container" class="<?php if($hiilite_options['header_center_right_on'] && !$hiilite_options['header_center_left_on']){ echo 'align-left';} ?>">
 <?php if(is_customize_preview()) echo '<div class="customizer_quick_links"><button class="customizer-edit" data-control=\'{"name":"main_logo"}\'>Edit Logo</button></div>';?>
-
+		
+							
 							<a href="<?php bloginfo('url'); ?>">
-								<<?=$_amp?>img src="<?=$hiilite_options['main_logo'];?>" width="<?=$hiilite_options['logo_width'];?>" height="<?=$hiilite_options['logo_height'];?>"><?=($_amp!='')?'</amp-img>':'';?>
+								<<?=$_amp?>img src="<?=$hiilite_options['main_logo'];?>" width="<?=$hiilite_options['logo_width'];?>" alt="<?=$page_title?>" height="<?=$hiilite_options['logo_height'];?>"><?=($_amp!='')?'</amp-img>':'';?>
 							</a>
 						</div><?php 
 					endif;
