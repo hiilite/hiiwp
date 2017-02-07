@@ -41,7 +41,7 @@ vc_remove_element("vc_toggle");
 //vc_remove_element("vc_cta");
 //vc_remove_element("vc_round_chart");
 //vc_remove_element("vc_line_chart");
-vc_remove_element("vc_tta_accordion");
+//vc_remove_element("vc_tta_accordion");
 vc_remove_element("vc_tta_tour");
 vc_remove_element("vc_tta_tabs");
 
