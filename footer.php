@@ -18,7 +18,7 @@ do_action( 'hii_after_content' );
 		if($hiilite_options['footer_in_grid']) { echo '<div class="in_grid">'; } 
 	
 	
-		$footer_top_columns = get_theme_mod( 'footer_top_columns' );
+		$footer_top_columns = get_theme_mod( 'footer_top_columns', 1);
 		$col_count_str ='';
 		switch(count($footer_top_columns)){
 			case 1:
@@ -81,7 +81,7 @@ do_action( 'hii_after_content' );
 		if(get_theme_mod('footer_bottom_in_grid')) { echo '<div class="in_grid">'; }
 		
 		
-		$footer_bottom_columns = get_theme_mod( 'footer_bottom_columns' );
+		$footer_bottom_columns = get_theme_mod( 'footer_bottom_columns', 1);
 		$col_count_str ='';
 		switch(count($footer_bottom_columns)){
 			case 1:

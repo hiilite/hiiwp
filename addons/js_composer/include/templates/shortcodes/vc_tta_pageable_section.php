@@ -29,7 +29,7 @@ $output = '';
 
 $output .= '<div class="slide ' . esc_attr( $this->getElementClasses() ) . '"';
 $output .= ' id="' . esc_attr( $this->getTemplateVariable( 'tab_id' ) ) . '">';
-$output .= '<amp-img src="'.$src.'" width="'.$slide_width.'" height="'.$slide_height.'"  layout="responsive"></amp-img>';
+$output .= '<img src="'.$src.'" width="'.$slide_width.'" height="'.$slide_height.'"  layout="responsive">';
 $output .= '<div class="slide-text-overlay">
 				';
 $output .= $this->getTemplateVariable( 'content' );
