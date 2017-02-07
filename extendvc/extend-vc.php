@@ -41,7 +41,7 @@ vc_remove_element("vc_toggle");
 //vc_remove_element("vc_cta");
 //vc_remove_element("vc_round_chart");
 //vc_remove_element("vc_line_chart");
-vc_remove_element("vc_tta_accordion");
+//vc_remove_element("vc_tta_accordion");
 vc_remove_element("vc_tta_tour");
 vc_remove_element("vc_tta_tabs");
 
@@ -919,47 +919,75 @@ vc_map( array(
 				"param_name" => "text",
 			),
 			array(
-				"type" => "dropdown",
-				"holder" => "div",
-				"class" => "",
-				"heading" => "Size",
-				"param_name" => "size",
-				"value" => array(
-					"h1" => "h1",
-                    "h2" => "h2",
-					"h3" => "h3",	
-					"h4" => "h4",
-					"h5" => "h5",
-					"h6" => "h6"
-				)
+		        'type' => 'font_container',
+		        'param_name' => 'font_container',
+		        'value'=>'',
+		        'settings'=>array(
+		            'fields'=>array(
+		                'tag'=>'h2',
+		                'color',
+		
+		                'tag_description' => __('Select element tag.','js_composer'),
+		                'color_description' => __('Select color for your element.','js_composer'),
+		            ),
+		        ),
+		    ),
+		    array(
+				'type' => 'checkbox',
+				'heading' => __( 'Use a Google Font?', 'js_composer' ),
+				'param_name' => 'use_google_font',
+				'description' => __( 'Override the default font and select from a list of Google Fonts.', 'js_composer' ),
+				'value' => array( __( 'Yes', 'js_composer' ) => 'true' ),
 			),
 			array(
-				"type" => "dropdown",
-				"holder" => "div",
-				"class" => "",
-				"heading" => "Color",
-				"param_name" => "color",
-				"value" => array(
-					"Default" => "",
-                    "Color 1" => "color_one",
-					"Color 2" => "color_two",	
-					"Color 3" => "color_three",
-					"Color 4" => "color_four",
-					"White" => "white"
-				)
+                'type' => 'google_fonts',
+                'param_name' => 'google_fonts',
+                'value' => __( 'Default value', 'text-domain' ),
+                'font_family:'.rawurlencode('Exo:100,100italic,200,200italic,300,300italic,regular,italic,500,500italic,600,600italic,700,700italic,800,800italic,900,900italic').'|font_style:'.rawurlencode('900bold italic:900:italic'),
+                'settings' => array(
+                    'fields'=>array(
+	                    'font_family_description' => __('Select font family.','js_composer'),
+                        'font_style_description' => __('Select font styling.','js_composer')
+                  )
+                ),
+                'description' => __( 'Description for this group', 'js_composer' ), 
+                "dependency" => array (
+					"element" => "use_google_font",
+					"value" => "true"
+				),
+            ),
+            array(
+				'type' => 'dropdown',
+				'heading' => __( 'Align Title', 'js_composer' ),
+				'param_name' => 'align',
+				'value' => array(
+					__( 'Default', 'js_composer' ) => '',
+					__( 'Left', 'js_composer' ) => 'align-left',
+					__( 'Center', 'js_composer' ) => 'align-center',
+					__( 'Right', 'js_composer' ) => 'align-right',
+				),
+				'description' => __( 'Select content position within columns.', 'js_composer' ),
 			),
 			array(
-				"type" => "dropdown",
+				"type" => "textfield",
 				"holder" => "div",
 				"class" => "",
-				"heading" => "Align",
-				"param_name" => "align",
-				"value" => array(
-					"None" => "",
-					"Center" => "align-center",
-                    "Left" => "align-left",
-					"Right" => "align-right"
-				)
+				"heading" => "Link",
+				"param_name" => "link"
+			),
+			array(
+				"type" => "textfield",
+				"holder" => "div",
+				"class" => "",
+				"heading" => "Class",
+				"param_name" => "class"
+			),
+			array(
+				"type" => "textfield",
+				"holder" => "div",
+				"class" => "",
+				"heading" => "ID",
+				"param_name" => "id"
 			),
 			array(
 	            'type' => 'css_editor',
@@ -1082,6 +1110,30 @@ vc_map( array(
 				"heading" => "Text",
 				"param_name" => "text"
 			),
+			array(
+				'type' => 'checkbox',
+				'heading' => __( 'Use a Google Font?', 'js_composer' ),
+				'param_name' => 'use_google_font',
+				'description' => __( 'Override the default font and select from a list of Google Fonts.', 'js_composer' ),
+				'value' => array( __( 'Yes', 'js_composer' ) => 'true' ),
+			),
+			array(
+                'type' => 'google_fonts',
+                'param_name' => 'google_fonts',
+                'value' => __( 'Default value', 'text-domain' ),
+                'font_family:'.rawurlencode('Exo:100,100italic,200,200italic,300,300italic,regular,italic,500,500italic,600,600italic,700,700italic,800,800italic,900,900italic').'|font_style:'.rawurlencode('900bold italic:900:italic'),
+                'settings' => array(
+                    'fields'=>array(
+	                    'font_family_description' => __('Select font family.','js_composer'),
+                        'font_style_description' => __('Select font styling.','js_composer')
+                  )
+                ),
+                'description' => __( 'Description for this group', 'js_composer' ), 
+                "dependency" => array (
+					"element" => "use_google_font",
+					"value" => "true"
+				),
+            ),
 			array(
 				"type" => "textfield",
 				"holder" => "div",
@@ -1317,6 +1369,13 @@ vc_map( array(
 				"class" => "",
 				"heading" => "Yelp",
 				"param_name" => "yelp"
+			),
+			array(
+				"type" => "checkbox",
+				"holder" => "div",
+				"class" => "",
+				"heading" => "Zomato",
+				"param_name" => "zomato"
 			),
 			array(
 				"type" => "checkbox",

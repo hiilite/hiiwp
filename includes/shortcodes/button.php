@@ -24,6 +24,33 @@ function add_button_shortcode( $atts ){
 		$text_align,
 		vc_shortcode_custom_css_class( $css ), 
 	); 
+	
+	$google_fonts = explode('|',$atts['google_fonts']);
+    $font_family = explode('%3A', $google_fonts[0]);
+    $font_family = str_replace('font_family','font-family', $font_family[0]);
+    $font_family = str_replace('%20',' ',$font_family).';';
+    
+    $font_style = explode('%3A', $google_fonts[1]);
+    $font_style = str_replace('$font_style','font-style', $font_style[0]);
+    $font_style = str_replace('%20',' ',$font_style).';';
+    
+    if($color != ";" || $font_family != ";")
+    {
+	    if($color != ";")
+	    {
+			$c = $color;    
+		}
+		if($font_family != ";")
+	    {
+			$ff = $font_family;    
+		}
+		if($font_style != ";")
+	    {
+			$fs = $font_style;    
+		}
+		
+	    $style = "style='".$c." ".$ff." ".$fs."'";
+	}
   
 	if (vc_shortcode_custom_css_has_property( $css, array('border', 'background') )) {
 		$css_classes[]='';
@@ -35,7 +62,7 @@ function add_button_shortcode( $atts ){
 	$wrapper_attributes[] = 'class="' . esc_attr( trim( $css_class ) ) . '"';
 	$align_start = ($button_align != '')?'<div class="'.$button_align.'">':'';
 	$align_end = ($button_align != '')?'</div>':'';
-	return $align_start."<a ".implode( ' ', $wrapper_attributes )." id='{$button_id}' href='{$link}' target={$target}>{$text} {$style}</a>".$align_end;
+	return $align_start."<a ".implode( ' ', $wrapper_attributes )." id='{$button_id}' href='{$link}' target={$target} {$style}>{$text}</a>".$align_end;
 }
 add_shortcode( 'button', 'add_button_shortcode' );
 	

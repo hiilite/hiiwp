@@ -9,8 +9,10 @@ if(	(
 	$post_meta = get_post_meta(get_the_id());
 	
 	// Page Title
-	if(is_home() || is_archive(  )){
+	if(is_front_page() || is_archive(  )){
 		$page_title = get_wp_title('');
+	} elseif(is_home()) {
+		$page_title = get_the_title( get_option('page_for_posts', true) );
 	} else {
 		$page_title = get_the_title( get_the_id( ));
 	} 

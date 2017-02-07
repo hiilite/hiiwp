@@ -75,9 +75,9 @@ function add_testimonials_shortcode( $atts ){
     if($query->have_posts()){
 	    
 	    // if slider
-	    //if($hiilite_options['amp'] && $is_slider) 
-	    $output .= '<amp-carousel width="1000px" height="'.$height.'" layout="responsive" type="slides" '.implode( ' ', $wrapper_attributes ).' autoplay delay="'.$slider_speed.'">';
-	    
+	    if($is_slider):
+	    	$output .= '<amp-carousel width="1000px" height="'.$height.'" layout="responsive" type="slides" '.implode( ' ', $wrapper_attributes ).' autoplay delay="'.$slider_speed.'">';
+	    endif;
 	    while($query->have_posts()){
 		    $query->the_post();
 		    $post_id = get_the_id();
@@ -117,13 +117,15 @@ function add_testimonials_shortcode( $atts ){
 				  
 			// publisher info
 			$output .= '<div itemprop="publisher" itemscope itemtype="http://schema.org/Organization"><meta itemprop="name" content="'.$options['business_name'].'"></div>';
+
 			
 			//End item
 			$output .= '</div></div>';
 		    
 	    }
-	    //if($hiilite_options['amp'] && $is_slider) 
-	    $output .= '</amp-carousel>';
+	    if($is_slider):
+	    	$output .= '</amp-carousel>';
+	    endif;
 	}
     
 	return $output;

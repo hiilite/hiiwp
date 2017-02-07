@@ -24,7 +24,7 @@ if($hiilite_options['amp']) $_amp = 'amp-'; else $_amp = '';
 		<div class="container_inner">
 			<header class="full-width content-box">
 <?php
-if($hiilite_options['blog_cats_on']):
+if($hiilite_options['blog_cats_show']):
 	echo '<span itemprop="articleSection" class="labels">'.get_the_category_list(' ').'</span>';
 else:
 	$categories = get_the_category();$cats ='';
@@ -114,7 +114,7 @@ $options = get_option('hii_seo_settings'); ?>
 echo '</div>';
 
 
-if($hiilite_options['blog_related_articles'] == true):
+if($hiilite_options['blog_rel_articles'] == true):
 	/////////////////////////
 	//
 	//	RELATED POSTS
@@ -184,16 +184,16 @@ if($hiilite_options['blog_related_articles'] == true):
 	endif;
 	
 	echo '</aside>';
-	
-	
-	if($hiilite_options['blog_comments']):
+
+
+//end related Posts
+endif;
+
+if($hiilite_options['blog_comments_show']):
 		echo '<div class="container_inner">';
 			comments_template();
 		echo '</div>';
 	endif;
-
-//end related Posts
-endif;
 ?>
 	</div>
 </article>

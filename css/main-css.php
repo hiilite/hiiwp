@@ -422,6 +422,14 @@ header#main_header.fixed.scrolled ~ section:first-of-type {
 }
 <?php
 endif;
+
+if($hiilite_options['header_bottom_on'] == true) : ?>
+
+#header_bottom_left, #header_bottom_right {
+	width:50%;	
+}
+<?php
+endif;
 ?>
 
 @media (max-width:<?=$hiilite_options['grid_width'];?>){

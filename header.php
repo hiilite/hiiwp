@@ -198,21 +198,23 @@ echo minify_css($body);
 				</div>
 				<?php if($hiilite_options['header_bottom_on']): ?>
 				<aside id="header_bottom" class="flex-item">
-					<div class="container_inner"><?php 
-						if($hiilite_options['header_in_grid']) { echo '<div class="in_grid">'; } 
-						//if(get_theme_mod( 'header_bottom_on', false)){ 
-							wp_nav_menu(array(
-									'menu' =>  'right-menu',
-									'container' => 'div',
-									'container_class' => 'align-center flex-item',
-									'container_id' => 'header_bottom_menu',
-									'items_wrap'  => '<ul id="%1s" class="%2$s bottom-menu">%3$s</ul>',
-									'theme_location' => 'bottom-menu',
-									'fallback_cb'    => false
-								));	
-						//}
-						if($hiilite_options['header_in_grid']) { echo '</div>'; } ?>
+					<div class="container_inner">
+						<div id="header_bottom_left">
+							<?php
+							if ( is_active_sidebar( 'header_bottom_left' ) ) :
+								dynamic_sidebar( 'header_bottom_left' );
+							endif;
+							?>
+						</div>
+						<div id="header_bottom_right">
+							<?php
+							if ( is_active_sidebar( 'header_bottom_right' ) ) :
+								dynamic_sidebar( 'header_bottom_right' );
+							endif;
+							?>
+						</div>
 					</div>
+				</aside>
 				</aside>
 				<?php endif; ?>
 			</header><?php
