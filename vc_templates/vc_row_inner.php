@@ -135,6 +135,7 @@ if ( ! empty( $bg_img_pos )) {
 $css_class = preg_replace( '/\s+/', ' ', apply_filters( VC_SHORTCODE_CUSTOM_CSS_FILTER_TAG, implode( ' ', array_filter( $css_classes ) ), $this->settings['base'], $atts ) );
 $wrapper_attributes[] = 'class="' . esc_attr( trim( $css_class ) ) . '"';
 
+$para = '';
 if($parallax){
 	$para = "style='background-attachment:fixed;'";
 }

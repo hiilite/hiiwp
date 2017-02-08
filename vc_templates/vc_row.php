@@ -134,6 +134,7 @@ $css_class = preg_replace( '/\s+/', ' ', apply_filters( VC_SHORTCODE_CUSTOM_CSS_
 $wrapper_attributes[] = 'class="' . esc_attr( trim( $css_class ) ) . '"';
 if(!empty($atts['row_height']))$wrapper_attributes[] = 'style="min-height:' . $atts['row_height'] . '"';
 
+$para = '';
 if($parallax){
 	$para = "style='background-attachment:fixed;'";
 }
