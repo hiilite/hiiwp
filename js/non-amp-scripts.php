@@ -52,12 +52,10 @@
 		var $carousel = $(this),
 			width = ($carousel.attr('width') != undefined)?$carousel.attr('width'):1000,
 			height = ($carousel.attr('height') != undefined)?$carousel.attr('height'):500,
-			ratio = height / width,
+			ratio = height.replace('px','') / width.replace('px',''),
 			length = $carousel.find('.slide').length,
 			delay = ($carousel.attr('height') != undefined)?$carousel.attr('delay'):false,
 			type = $carousel.attr('type');
-			
-			
 		
 		/* testimonial slider */
 		if($carousel.hasClass('testimonial-slider')){
@@ -67,8 +65,7 @@
 			
 			var maxHeight = Math.max.apply(null, elementHeights);
 			/*height = maxHeight + 100;*/
-			height = width * ratio;
-			  
+			height = width.replace('px','') * ratio;
 			width = '100%';
 			
 			$(window).on('resize',function(){
@@ -78,7 +75,7 @@
 				
 				maxHeight = Math.max.apply(null, elementHeights);
 				/*height = maxHeight + 150;*/
-				height = width * ratio;
+				height = width.replace('px','') * ratio;
 				
 				$carousel.height(height);
 			});
@@ -335,7 +332,7 @@
 	*/
 	$('.vc_tta-panel-heading h4 a').click( function() {
 		console.log($(this).html());
-		$(this).parents('.vc_tta-panel-heading').siblings('.vc_tta-panel-body').toggle(500);
+		$(this).parents('.vc_tta-panel-heading').siblings('.vc_tta-panel-body').slideToggle(500);
 	});
 	
 	

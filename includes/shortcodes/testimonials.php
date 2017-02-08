@@ -71,7 +71,7 @@ function add_testimonials_shortcode( $atts ){
 	} else {
 		$query = new WP_Query(array('post_type' => $testimonials_slug));
 	}
-    
+
     if($query->have_posts()){
 	    
 	    // if slider

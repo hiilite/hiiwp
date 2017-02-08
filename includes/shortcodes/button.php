@@ -46,7 +46,16 @@ function add_button_shortcode( $atts ){
 		}
 		if($font_style != ";")
 	    {
-			$fs = $font_style;    
+			$font_style = explode(' ',$font_style);
+			    if(isset($font_style[2]))
+			    {
+					$f_style = str_replace('regular','normal',$font_style[2]);    
+				}
+				else
+				{
+					$f_style = str_replace('regular','normal',$font_style[1]).';';
+				}
+				$fs = 'font-weight:'. str_replace('font_style:','',$font_style[0]).'; font-style:'.$f_style;    
 		}
 		
 	    $style = "style='".$c." ".$ff." ".$fs."'";
