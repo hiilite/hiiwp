@@ -129,9 +129,9 @@ $vc_row_params = array(
 			'heading' => __( 'Parallax', 'js_composer' ),
 			'param_name' => 'parallax',
 			'value' => array(__( 'Yes', 'js_composer' ) => 'yes'),
-			'description' => __( 'Add parallax type background for row.', 'js_composer' ),
+			'description' => __( 'Make row background image parallax. (Must set a Background image in Design Options tab.)', 'js_composer' ),
 		),
-		array(
+		/*array(
 			'type' => 'attach_image',
 			'heading' => __( 'Image', 'js_composer' ),
 			'param_name' => 'parallax_image',
@@ -141,7 +141,7 @@ $vc_row_params = array(
 				'element' => 'parallax',
 				'not_empty' => true,
 			),
-		),
+		),*/
 		array(
 			'type' => 'el_id',
 			'heading' => __( 'Row ID', 'js_composer' ),
