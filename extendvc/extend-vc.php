@@ -1257,7 +1257,7 @@ vc_map( array(
 				"heading" => "Text Align",
 				"param_name" => "text_align",
 				"value" => array(
-					"" => "",
+					"Default" => "",
 					"Left" => "align-left",	
 					"Right" => "align-right",
 					"Center" => "align-center"
@@ -1721,6 +1721,13 @@ vc_map( array(
 			'heading' => __( 'Active', 'js_composer' ),
 			'param_name' => 'active',
 			'description' => __( 'If unchecked, slide will not be displayed', 'js_composer' ),
+			'value' => array( __( 'Yes', 'js_composer' ) => 'yes' ),
+		),
+		array(
+			'type' => 'checkbox',
+			'heading' => __( 'Show on page load', 'js_composer' ),
+			'param_name' => 'show_tab',
+			'description' => __( 'The content will start out visible', 'js_composer' ),
 			'value' => array( __( 'Yes', 'js_composer' ) => 'yes' ),
 		),
 		array(

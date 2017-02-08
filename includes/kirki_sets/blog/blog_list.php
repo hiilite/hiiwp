@@ -31,6 +31,15 @@ Kirki::add_field( 'hiiwp', array(
 ) );
 
 Kirki::add_field( 'hiiwp', array(
+    'type'        => 'switch',
+    'settings'    => 'blog_full_width',
+    'label'       => __( 'Make Blog Roll Full Width', 'my_textdomain' ),
+    'section'     => $section,
+    'default'     => false,
+    'priority'    => 1,
+) );
+
+Kirki::add_field( 'hiiwp', array(
 	'type'        => 'radio-buttonset',
 	'settings'    => 'blog_col',
 	'label'       => esc_attr__( 'Columns', 'my_textdomain' ),

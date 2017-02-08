@@ -789,7 +789,7 @@ a, .button, .menu li {
 		position: relative;
 		display: block;
 	}
-	#main_header ul.sub-menu:before {
+	#main_header ul.sub-menu:before, #main_header ul.plus:before  {
 	    position: absolute;
 	    content: "M";
 	    top: -3.5em;
@@ -798,8 +798,11 @@ a, .button, .menu li {
 	    font-family: FontAwesome;
 	    content: '\f055';
 	}
-	#main_header ul.sub-menu:hover:before {
+	#main_header ul.sub-menu:hover:before, #main_header ul.minus:before {
 	    content: '\f056';
+	}
+	#main_header ul.plus:before  {
+		content: '\f055' !important;
 	}
 	#main_header ul.sub-menu li {
 	    display: none;
@@ -1278,6 +1281,13 @@ amp-carousel.carousel {
 	width: 100%;
 	height: 300px;
 	overflow: hidden;
+}
+
+amp-carousel.slider .hide {
+	display:none;	
+}
+amp-carousel.slider .show {
+	display:block;	
 }
 
 .relatedposts .relatedarticle {

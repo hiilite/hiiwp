@@ -17,12 +17,21 @@ function add_social_share_shortcode( $atts ){
       'tw'	=> false,
       'pt'	=> false,
       'li'	=> false,
+      'em'	=> false,
+      'text_align' => '',
       'css'	=> ''
    ), $atts ) );
    
-  
+   	if (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off') 
+   	{ 
+	  $protocol = "https://"; 
+	} 
+	else 
+	{ 
+		$protocol = "http://"; 
+	}	
    
-   $permalink = 'https://'.$_SERVER["HTTP_HOST"].$_SERVER["REQUEST_URI"];
+   $permalink = $protocol.$_SERVER["HTTP_HOST"].$_SERVER["REQUEST_URI"];
    
    
    	$css_classes = array(
@@ -33,7 +42,7 @@ function add_social_share_shortcode( $atts ){
 	}
 	$wrapper_attributes = array();
 	$css_class = preg_replace( '/\s+/', ' ', apply_filters( VC_SHORTCODE_CUSTOM_CSS_FILTER_TAG, implode( ' ', array_filter( $css_classes ) ), '.vc_custom_', $atts ) );
-	$wrapper_attributes[] = 'class="' . esc_attr( trim( $css_class ) ) . '"';
+	$wrapper_attributes[] = 'class="' . esc_attr( trim( $css_class ) ) . ' '.$text_align.'"';
    // Page Image
    $post_id = get_the_id();
 	if(has_post_thumbnail($post_id)){
@@ -77,6 +86,11 @@ function add_social_share_shortcode( $atts ){
 	
 	if($li) $output .= '<a title="Share On LinkedIn" target="_blank" href="http://www.linkedin.com/shareArticle?url='.$permalink.'"><i class="fa fa-linkedin"></i></a>  ';
 	if($pt) $output .= '<a title="Share On Pinterest" target="_blank" href="https://pinterest.com/pin/create/bookmarklet/?media='.$page_image.'&url='.$permalink.'&description='.$page_title.'"><i class="fa fa-pinterest"></i></a>  ';
+	
+	
+	
+	if($em) $output .= '<a href="mailto:?subject=Check it out&amp;body='.$permalink.'"
+   title="Share By Email"><i class="fa fa-envelope"></i></a>';
 	
 	
 	/*

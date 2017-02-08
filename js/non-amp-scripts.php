@@ -1,10 +1,49 @@
 <script>
 (function($){$(document).ready(function(){
 	
-	$('#main-nav').on('click tap', function(){
+	/*$('#main-nav').on('click tap', function(){
 		$(this).trigger("mouseover");
-	});
+	});*/
 	
+	/* Fix Mobile Menu not closing */
+	var before = window.getComputedStyle(
+			document.querySelector('#main-nav'), ':before'
+		).getPropertyValue('content');
+
+	if(before != '')
+	{
+		$('#main-nav ul:first-child').slideToggle(1);
+		$('#main-nav').on('click tap', function(){
+			$('#main-nav ul:first-child').slideToggle(700);
+		});
+	
+		$("#main-nav ul li ul li").css('display', 'none');
+		$("#main-nav ul li ul li ul li").css('display', 'none');
+		
+		$("#main-nav ul li ul").on('click tap',function(e){  
+	
+	        if($(this).children('li').css('display') == 'block')
+	        {
+		        $(this).removeClass('minus');
+		        $(this).addClass('plus');
+	        	$(this).children('li').css('display', 'none');
+	        }
+	        else
+	        {
+		        $(this).removeClass('plus');
+		        $(this).addClass('minus');
+		        $(this).children('li').css('display', 'block');
+		        
+		    }
+		    return false;
+	    });
+	}
+	
+	$( window ).resize(function() {
+		$("#main-nav ul li ul li").removeClass('plus');
+		$("#main-nav ul li ul li").removeClass('minus');
+		$("#main-nav ul li ul li").css('display', 'none');
+	});
 	 
 	/*
 	AMP-CAROUSEL carousel	
@@ -27,7 +66,8 @@
 			}).get();
 			
 			var maxHeight = Math.max.apply(null, elementHeights);
-			height = maxHeight + 100;
+			/*height = maxHeight + 100;*/
+			height = width * ratio;
 			  
 			width = '100%';
 			
@@ -37,7 +77,9 @@
 				}).get();
 				
 				maxHeight = Math.max.apply(null, elementHeights);
-				height = maxHeight + 150;
+				/*height = maxHeight + 150;*/
+				height = width * ratio;
+				
 				$carousel.height(height);
 			});
 		} 
@@ -288,7 +330,13 @@
 		}
 	});
 			
-	
+	/*
+	ACCORDION
+	*/
+	$('.vc_tta-panel-heading h4 a').click( function() {
+		console.log($(this).html());
+		$(this).parents('.vc_tta-panel-heading').siblings('.vc_tta-panel-body').toggle(500);
+	});
 	
 	
 	/*

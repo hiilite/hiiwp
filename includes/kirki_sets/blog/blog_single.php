@@ -15,6 +15,14 @@ Kirki::add_section( 'blog_single_section', array(
 /////////////////////
 Kirki::add_field( 'hiiwp', array(
     'type'        => 'switch',
+    'settings'    => 'single_full',
+    'label'       => __( 'Make Single Posts Full Width', 'my_textdomain' ),
+    'section'     => $section,
+    'default'     => false,
+    'priority'    => 1,
+) );
+Kirki::add_field( 'hiiwp', array(
+    'type'        => 'switch',
     'settings'    => 'blog_author_bio_show',
     'label'       => __( 'Show Author Bio', 'my_textdomain' ),
     'section'     => $section,

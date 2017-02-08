@@ -357,6 +357,7 @@ $hiilite_options['h6_color']					= '#635d5d';
 
 // BLOG
 $hiilite_options['blog_layouts']			= get_theme_mod( 'blog_layouts', 'full-width' );
+$hiilite_options['blog_full_width']			= get_theme_mod( 'blog_full_width', false );
 $hiilite_options['blog_col']		= get_theme_mod( 'blog_col', '' );
 $hiilite_options['blog_img_pos']		= get_theme_mod( 'blog_img_pos', 'image-left' );
 $hiilite_options['blog_title_position']		= get_theme_mod( 'blog_title_position', 'title-below' );
@@ -375,6 +376,7 @@ $hiilite_options['blog_sidebar_show']			= get_theme_mod( 'blog_sidebar_show', tr
 $hiilite_options['blog_author_bio_show']		= get_theme_mod( 'blog_author_bio_show', false );
 $hiilite_options['blog_comments_show']		= get_theme_mod( 'blog_comments_show', true );
 $hiilite_options['blog_rel_articles']		= get_theme_mod( 'blog_rel_articles', true );
+$hiilite_options['single_full']			= get_theme_mod( 'single_full', false );
 
 
 // PORTFOLIO
