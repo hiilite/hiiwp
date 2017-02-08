@@ -108,7 +108,7 @@ $vc_row_params = array(
 			'value' => array( __( 'Yes', 'js_composer' ) => 'yes' ),
 		),
 		
-		array(
+		/*array(
 			'type' => 'dropdown',
 			'heading' => __( 'Background Color', 'js_composer' ),
 			'param_name' => 'background_palette',
@@ -122,7 +122,7 @@ $vc_row_params = array(
 			),
 			'std' => '0',
 			'description' => __( 'Select from your predefined theme colors', 'js_composer' ),
-		),
+		),*/
 		
 		array(
 			'type' => 'checkbox',
@@ -161,8 +161,8 @@ $vc_row_params = array(
 			'value' => array(
 				__( 'Default (Left to Right)', 'js_composer' ) => 'row',
 				__( 'Reverse (Right to Left)', 'js_composer' ) => 'row-reverse',
-				__( 'Down (Top to Bottom)', 'js_composer' ) => 'column',
-				__( 'Up (Bottom to Top)', 'js_composer' ) => 'column-reverse',
+				/*__( 'Down (Top to Bottom)', 'js_composer' ) => 'column',
+				__( 'Up (Bottom to Top)', 'js_composer' ) => 'column-reverse',*/
 			),
 			'description' => __( 'Select direction content is laid out in the container.', 'js_composer' ),
 			'group' => __( 'Flex Options', 'js_composer' ),
@@ -180,7 +180,7 @@ $vc_row_params = array(
 			'description' => __( 'Select wrapping option.', 'js_composer' ),
 			'group' => __( 'Flex Options', 'js_composer' ),
 		),
-		array(
+		/*array(
 			'type' => 'dropdown',
 			'heading' => __( 'Justify Content', 'js_composer' ),
 			'param_name' => 'justify_content',
@@ -194,7 +194,7 @@ $vc_row_params = array(
 			),
 			'description' => __( 'Select content justification within container.', 'js_composer' ),
 			'group' => __( 'Flex Options', 'js_composer' ),
-		),
+		),*/
 		array(
 			'type' => 'dropdown',
 			'heading' => __( 'Columns position', 'js_composer' ),
@@ -210,7 +210,7 @@ $vc_row_params = array(
 			'description' => __( 'Select columns position within row.', 'js_composer' ),
 			'group' => __( 'Flex Options', 'js_composer' ),
 		),
-		array(
+		/*array(
 			'type' => 'dropdown',
 			'heading' => __( 'Vertically Justify Wrapped Content', 'js_composer' ),
 			'param_name' => 'v_align_w_content',
@@ -225,7 +225,7 @@ $vc_row_params = array(
 			),
 			'description' => __( 'Vertically justify wrapped content within the container.', 'js_composer' ),
 			'group' => __( 'Flex Options', 'js_composer' ),
-		),
+		),*/
 		array(
 			'type' => 'css_editor',
 			'heading' => __( 'CSS box', 'js_composer' ),
@@ -310,7 +310,7 @@ $vc_row_inner_params = array(
 			'value' => array( __( 'Yes', 'js_composer' ) => 'yes' ),
 		),
 		
-		array(
+		/*array(
 			'type' => 'dropdown',
 			'heading' => __( 'Background Color', 'js_composer' ),
 			'param_name' => 'background_palette',
@@ -324,7 +324,7 @@ $vc_row_inner_params = array(
 			),
 			'std' => '0',
 			'description' => __( 'Select from your predefined theme colors', 'js_composer' ),
-		),
+		),*/
 		
 		array(
 			'type' => 'checkbox',
@@ -363,8 +363,8 @@ $vc_row_inner_params = array(
 			'value' => array(
 				__( 'Default (Left to Right)', 'js_composer' ) => 'row',
 				__( 'Reverse (Right to Left)', 'js_composer' ) => 'row-reverse',
-				__( 'Down (Top to Bottom)', 'js_composer' ) => 'column',
-				__( 'Up (Bottom to Top)', 'js_composer' ) => 'column-reverse',
+				/*__( 'Down (Top to Bottom)', 'js_composer' ) => 'column',
+				__( 'Up (Bottom to Top)', 'js_composer' ) => 'column-reverse',*/
 			),
 			'description' => __( 'Select direction content is laid out in the container.', 'js_composer' ),
 			'group' => __( 'Flex Options', 'js_composer' ),
@@ -382,7 +382,7 @@ $vc_row_inner_params = array(
 			'description' => __( 'Select wrapping option.', 'js_composer' ),
 			'group' => __( 'Flex Options', 'js_composer' ),
 		),
-		array(
+		/*array(
 			'type' => 'dropdown',
 			'heading' => __( 'Justify Content', 'js_composer' ),
 			'param_name' => 'justify_content',
@@ -396,7 +396,7 @@ $vc_row_inner_params = array(
 			),
 			'description' => __( 'Select content justification within container.', 'js_composer' ),
 			'group' => __( 'Flex Options', 'js_composer' ),
-		),
+		),*/
 		array(
 			'type' => 'dropdown',
 			'heading' => __( 'Columns position', 'js_composer' ),
@@ -412,7 +412,7 @@ $vc_row_inner_params = array(
 			'description' => __( 'Select columns position within row.', 'js_composer' ),
 			'group' => __( 'Flex Options', 'js_composer' ),
 		),
-		array(
+		/*array(
 			'type' => 'dropdown',
 			'heading' => __( 'Vertically Justify Wrapped Content', 'js_composer' ),
 			'param_name' => 'v_align_w_content',
@@ -427,8 +427,8 @@ $vc_row_inner_params = array(
 			),
 			'description' => __( 'Vertically justify wrapped content within the container.', 'js_composer' ),
 			'group' => __( 'Flex Options', 'js_composer' ),
-		),
-		array(
+		),*/
+		/*array(
 			'type' => 'dropdown',
 			'heading' => __( 'Align Row', 'js_composer' ),
 			'param_name' => 'align_item',
@@ -443,7 +443,7 @@ $vc_row_inner_params = array(
 			),
 			'description' => __( 'Align inner row within the container.', 'js_composer' ),
 			'group' => __( 'Flex Options', 'js_composer' ),
-		),
+		),*/
 		array(
 			'type' => 'css_editor',
 			'heading' => __( 'CSS box', 'js_composer' ),
