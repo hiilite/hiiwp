@@ -592,7 +592,7 @@ $vc_column_params = array(
 					"value" => "yes"
 				),
 		),
-		array(
+		/*array(
 			'type' => 'dropdown',
 			'heading' => __( 'Justify Content', 'js_composer' ),
 			'param_name' => 'justify_content',
@@ -610,8 +610,8 @@ $vc_column_params = array(
 					"element" => "is_flex",
 					"value" => "yes"
 				),
-		),
-		array(
+		),*/
+		/*array(
 			'type' => 'dropdown',
 			'heading' => __( 'Content position', 'js_composer' ),
 			'param_name' => 'columns_placement',
@@ -629,8 +629,8 @@ $vc_column_params = array(
 					"element" => "is_flex",
 					"value" => "yes"
 				),
-		),
-		array(
+		),*/
+		/*array(
 			'type' => 'dropdown',
 			'heading' => __( 'Vertically Justify Wrapped Content', 'js_composer' ),
 			'param_name' => 'v_align_w_content',
@@ -649,7 +649,7 @@ $vc_column_params = array(
 					"element" => "is_flex",
 					"value" => "yes"
 				),
-		),
+		),*/
 		array(
 			'type' => 'css_editor',
 			'heading' => __( 'CSS box', 'js_composer' ),
@@ -783,7 +783,7 @@ $vc_column_inner_params = array(
 					"value" => "yes"
 				),
 		),
-		array(
+		/*array(
 			'type' => 'dropdown',
 			'heading' => __( 'Wrap', 'js_composer' ),
 			'param_name' => 'content_wrap',
@@ -799,8 +799,8 @@ $vc_column_inner_params = array(
 					"element" => "is_flex",
 					"value" => "yes"
 				),
-		),
-		array(
+		),*/
+		/*array(
 			'type' => 'dropdown',
 			'heading' => __( 'Justify Content', 'js_composer' ),
 			'param_name' => 'justify_content',
@@ -818,8 +818,8 @@ $vc_column_inner_params = array(
 					"element" => "is_flex",
 					"value" => "yes"
 				),
-		),
-		array(
+		),*/
+		/*array(
 			'type' => 'dropdown',
 			'heading' => __( 'Content position', 'js_composer' ),
 			'param_name' => 'columns_placement',
@@ -837,8 +837,8 @@ $vc_column_inner_params = array(
 					"element" => "is_flex",
 					"value" => "yes"
 				),
-		),
-		array(
+		),*/
+		/*array(
 			'type' => 'dropdown',
 			'heading' => __( 'Vertically Justify Wrapped Content', 'js_composer' ),
 			'param_name' => 'v_align_w_content',
@@ -857,7 +857,7 @@ $vc_column_inner_params = array(
 					"element" => "is_flex",
 					"value" => "yes"
 				),
-		),
+		),*/
 		array(
 			'type' => 'css_editor',
 			'heading' => __( 'CSS box', 'js_composer' ),

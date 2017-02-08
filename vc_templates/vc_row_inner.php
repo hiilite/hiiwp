@@ -135,12 +135,16 @@ if ( ! empty( $bg_img_pos )) {
 $css_class = preg_replace( '/\s+/', ' ', apply_filters( VC_SHORTCODE_CUSTOM_CSS_FILTER_TAG, implode( ' ', array_filter( $css_classes ) ), $this->settings['base'], $atts ) );
 $wrapper_attributes[] = 'class="' . esc_attr( trim( $css_class ) ) . '"';
 
-$output .= '<section ' . implode( ' ', $wrapper_attributes ) . '>';
+if($parallax){
+	$para = "style='background-attachment:fixed;'";
+}
 
-if($parallax_image){
+$output .= '<section ' . implode( ' ', $wrapper_attributes ) . ' '.$para.'>';
+
+/*if($parallax_image){
 	$para_img = wp_get_attachment_image_src($parallax_image,'large');
 	$output .= '<amp-img src="'.$para_img[0].'"  width="'.$para_img[1].'" height="'.$para_img[2].'" class="parallax-image"></amp-img>';
-}
+}*/
 
 $output .= '<div class="container_inner">';
 $output .= (!empty($atts['in_grid']) && ($hiilite_options['subdomain'] != 'iframe' && empty($atts['in_iframe'])))?'<div class="in_grid">':'';

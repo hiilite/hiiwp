@@ -26,6 +26,8 @@ $css_classes = array(
 	$this->getExtraClass( $el_class ),
 	'wpb_column',
 	'vc_column_container',
+	'flex-item',
+	$atts['content_alignment'],
 	$width,
 );
 
