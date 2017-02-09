@@ -969,6 +969,9 @@ endfor;
 .text-block {
 	padding: 1em;
 }
+.text-block .text-block {
+ 	padding:0;
+}
 
 .author_details <?=$_amp?>img {
 	margin-right: 1em; 

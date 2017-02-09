@@ -1723,13 +1723,13 @@ vc_map( array(
 			'description' => __( 'If unchecked, slide will not be displayed', 'js_composer' ),
 			'value' => array( __( 'Yes', 'js_composer' ) => 'yes' ),
 		),
-		array(
+		/*array(
 			'type' => 'checkbox',
 			'heading' => __( 'Show on page load', 'js_composer' ),
 			'param_name' => 'show_tab',
 			'description' => __( 'The content will start out visible', 'js_composer' ),
 			'value' => array( __( 'Yes', 'js_composer' ) => 'yes' ),
-		),
+		),*/
 		array(
 			'type' => 'textfield',
 			'param_name' => 'title',

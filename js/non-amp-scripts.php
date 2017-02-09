@@ -1,50 +1,53 @@
 <script>
 (function($){$(document).ready(function(){
-	
+
 	/*$('#main-nav').on('click tap', function(){
 		$(this).trigger("mouseover");
 	});*/
 	
 	/* Fix Mobile Menu not closing */
-	var before = window.getComputedStyle(
-			document.querySelector('#main-nav'), ':before'
-		).getPropertyValue('content');
-
-	if(before != '')
+	if($('#main-nav').length)
 	{
-		$('#main-nav ul:first-child').slideToggle(1);
-		$('#main-nav').on('click tap', function(){
-			$('#main-nav ul:first-child').slideToggle(700);
-		});
-	
-		$("#main-nav ul li ul li").css('display', 'none');
-		$("#main-nav ul li ul li ul li").css('display', 'none');
+		var before = window.getComputedStyle(
+				document.querySelector('#main-nav'), ':before'
+			).getPropertyValue('content');
+
+		if(before != '')
+		{
+			$('#main-nav ul:first-child').slideToggle(1);
+			$('#main-nav').on('click tap', function(){
+				$('#main-nav ul:first-child').slideToggle(700);
+			});
 		
-		$("#main-nav ul li ul").on('click tap',function(e){  
-	
-	        if($(this).children('li').css('display') == 'block')
-	        {
-		        $(this).removeClass('minus');
-		        $(this).addClass('plus');
-	        	$(this).children('li').css('display', 'none');
-	        }
-	        else
-	        {
-		        $(this).removeClass('plus');
-		        $(this).addClass('minus');
-		        $(this).children('li').css('display', 'block');
-		        
-		    }
-		    return false;
-	    });
+			$("#main-nav ul li ul li").css('display', 'none');
+			$("#main-nav ul li ul li ul li").css('display', 'none');
+			
+			$("#main-nav ul li ul").on('click tap',function(e){  
+		
+		        if($(this).children('li').css('display') == 'block')
+		        {
+			        $(this).removeClass('minus');
+			        $(this).addClass('plus');
+		        	$(this).children('li').css('display', 'none');
+		        }
+		        else
+		        {
+			        $(this).removeClass('plus');
+			        $(this).addClass('minus');
+			        $(this).children('li').css('display', 'block');
+			        
+			    }
+			    return false;
+		    });
+		}
+
+		$( window ).resize(function() {
+			$("#main-nav ul li ul li").removeClass('plus');
+			$("#main-nav ul li ul li").removeClass('minus');
+			$("#main-nav ul li ul li").css('display', 'none');
+		});
 	}
 	
-	$( window ).resize(function() {
-		$("#main-nav ul li ul li").removeClass('plus');
-		$("#main-nav ul li ul li").removeClass('minus');
-		$("#main-nav ul li ul li").css('display', 'none');
-	});
-	 
 	/*
 	AMP-CAROUSEL carousel	
 	*/
@@ -52,13 +55,14 @@
 		var $carousel = $(this),
 			width = ($carousel.attr('width') != undefined)?$carousel.attr('width'):1000,
 			height = ($carousel.attr('height') != undefined)?$carousel.attr('height'):500,
-			ratio = height.replace('px','') / width.replace('px',''),
+			ratio = height / width,
 			length = $carousel.find('.slide').length,
 			delay = ($carousel.attr('height') != undefined)?$carousel.attr('delay'):false,
 			type = $carousel.attr('type');
-		
+			
 		/* testimonial slider */
 		if($carousel.hasClass('testimonial-slider')){
+			ratio = height.replace('px','') / width.replace('px','');
 			var elementHeights = $carousel.find('[itemprop=reviewBody]').map(function() {
 			    return $(this).height();
 			}).get();
@@ -204,7 +208,7 @@
 			}
 			/* SLIDES */
 			else if(type == 'slides'){
-				
+
 				$carousel.find('.slide:first-child').show().addClass('on').siblings('.slide').hide().removeClass('on');
 				
 				$next_button.on('click', function(){ 
