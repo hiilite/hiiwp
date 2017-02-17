@@ -39,7 +39,7 @@
 			    }
 			    return false;
 		    });
-		}
+		} 
 
 		$( window ).resize(function() {
 			$("#main-nav ul li ul li").removeClass('plus');
@@ -68,8 +68,13 @@
 			}).get();
 			
 			var maxHeight = Math.max.apply(null, elementHeights);
+<<<<<<< HEAD
 			/*height = maxHeight + 100;*/
 			height = width.replace('px','') * ratio;
+=======
+			height = maxHeight;
+			  
+>>>>>>> petervigilante
 			width = '100%';
 			
 			$(window).on('resize',function(){
@@ -87,7 +92,7 @@
 		/* standard slider */
 		else if(type == 'slides'){
 			width = $carousel.parent().width();
-			height = width * ratio;
+			//height = width * ratio;
 			
 			
 			if($carousel.hasClass('has_thumbs')){
@@ -96,21 +101,27 @@
 				$carousel.css({ 'margin-bottom': $thumbheight });
 			}
 				
-			/*contentHeights = $carousel.find('.slide-text-overlay .vc_column_container').map(function() {
-				    return $(this).height();
+			contentHeights = $carousel.find('.slide-text-overlay').map(function() {
+				    return $(this).outerHeight();
 				}).get();
 			maxContentHeight = Math.max.apply(null, contentHeights);
-			//height = (maxContentHeight + ($carousel.position().top));
+			if(height < maxContentHeight) {
+				height = (maxContentHeight);
+			}
+			
 			//console.log(maxContentHeight, $carousel.position().top);*/
 			$(window).on('resize',function(){
 				width = $carousel.parent().width();
-				height = width * ratio;
+				//height = width * ratio;
 				
 				
-				/*contentHeights = $carousel.find('.slide-text-overlay .vc_column_container').map(function() {
-				    return $(this).height();
+				contentHeights = $carousel.find('.slide-text-overlay').map(function() {
+				    return $(this).outerHeight();
 				}).get();
-				//maxContentHeight = Math.max.apply(null, contentHeights);*/
+				maxContentHeight = Math.max.apply(null, contentHeights);
+				console.log(maxContentHeight);
+				height = (maxContentHeight);
+				
 				$carousel.width(width);
 				$carousel.height(height);
 				
