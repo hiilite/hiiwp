@@ -68,13 +68,9 @@
 			}).get();
 			
 			var maxHeight = Math.max.apply(null, elementHeights);
-<<<<<<< HEAD
-			/*height = maxHeight + 100;*/
-			height = width.replace('px','') * ratio;
-=======
+			
 			height = maxHeight;
 			  
->>>>>>> petervigilante
 			width = '100%';
 			
 			$(window).on('resize',function(){
@@ -83,9 +79,7 @@
 				}).get();
 				
 				maxHeight = Math.max.apply(null, elementHeights);
-				/*height = maxHeight + 150;*/
-				height = width.replace('px','') * ratio;
-				
+				height = maxHeight;				
 				$carousel.height(height);
 			});
 		} 
