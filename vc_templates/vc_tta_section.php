@@ -9,20 +9,21 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @var $content - shortcode content
  * @var $this WPBakeryShortCode_VC_Tta_Section
  */
+
 $atts = vc_map_get_attributes( $this->getShortcode(), $atts );
 $this->resetVariables( $atts, $content );
 WPBakeryShortCode_VC_Tta_Section::$self_count ++;
 WPBakeryShortCode_VC_Tta_Section::$section_info[] = $atts;
 $isPageEditable = vc_is_page_editable();
 
-if($atts['show_tab'] == 'yes')
+/*if($atts['show_tab'] == 'yes')
 {
 	$show = 'show';	
 }
 else
 {
 	$show = 'hide';
-}
+}*/
 
 $output = '';
 
@@ -42,5 +43,6 @@ if ( $isPageEditable ) {
 }
 $output .= '</div>';
 $output .= '</div>';
+
 
 echo $output;

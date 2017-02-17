@@ -345,10 +345,54 @@
 	/*
 	ACCORDION
 	*/
-	$('.vc_tta-panel-heading h4 a').click( function() {
-		console.log($(this).html());
-		$(this).parents('.vc_tta-panel-heading').siblings('.vc_tta-panel-body').slideToggle(500);
-	});
+	
+	/* Check if Deatils and Summery are supported */
+	var isDetailsSupported = (function(doc) {
+	var el = doc.createElement('details');
+	var fake;
+	var root;
+	var diff;
+	if (!('open' in el)) {
+		return false;
+	}
+	root = doc.body || (function() {
+		var de = doc.documentElement;
+		fake = true;
+		return de.insertBefore(doc.createElement('body'), de.firstElementChild || de.firstChild);
+	}());
+	el.innerHTML = '<summary>a</summary>b';
+	el.style.display = 'block';
+	root.appendChild(el);
+	diff = el.offsetHeight;
+	el.open = true;
+	diff = diff != el.offsetHeight;
+	root.removeChild(el);
+	if (fake) {
+		root.parentNode.removeChild(root);
+	}
+		return diff;
+	}(document));
+
+	/* If not supported, use JS */
+	if (!isDetailsSupported) {
+		/* set to show, tabse with attr of OPEN */
+		$('.wpb_accordion_section').each(function() {
+			if($(this).attr('open'))
+			{
+				$(this).children('.wpb_accordion_content').show()
+			}
+			else
+			{
+				$(this).children('.wpb_accordion_content').hide();
+			}	
+		});
+		
+		/* on click, toggle tab */
+		$('.wpb_accordion_header').click( function() {
+			console.log('test');
+			$(this).siblings('.wpb_accordion_content').slideToggle(500);
+		});
+	}
 	
 	
 	/*

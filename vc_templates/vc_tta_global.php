@@ -32,7 +32,7 @@ $prepareContent = $this->getTemplateVariable( 'content' );
 $class_to_filter = $this->getTtaGeneralClasses();
 $class_to_filter .= vc_shortcode_custom_css_class( $css, ' ' ) . $this->getExtraClass( $el_class );
 
-
+$slider_type = '';
 $wrapper_attributes = array();
 $css_classes = array(
 	'slider',
@@ -41,7 +41,15 @@ $css_classes = array(
 //$css_class = apply_filters( VC_SHORTCODE_CUSTOM_CSS_FILTER_TAG, $class_to_filter, $this->settings['base'], $atts );
 $css_class = preg_replace( '/\s+/', ' ', apply_filters( VC_SHORTCODE_CUSTOM_CSS_FILTER_TAG, implode( ' ', array_filter( $css_classes ) ), $this->settings['base'], $atts ) );
 
-$wrapper_attributes[] = 'class="' . esc_attr( trim( $css_class ) ) . '"';
+
+if(isset($atts['shape']) && $atts['shape'] != '')
+{
+	$wrapper_attributes[] = 'class="' . esc_attr( trim( $css_class ) ) . ' ' . $atts['shape'] . ' ' . $atts['c_align'] . '"';
+}
+else
+{
+	$wrapper_attributes[] = 'class="' . esc_attr( trim( $css_class ) ) . '"';
+}
 
 if($_amp){
 	$output = '<amp-carousel ' . implode( ' ', $wrapper_attributes ) . '
@@ -50,6 +58,10 @@ if($_amp){
 					  height="'.$atts['slider_height'].'"
 					  type="slides"';
 	$output .= ($atts['autoplay'] != 'none')?' autoplay delay="'.$atts['autoplay'].'000">':'>';
+	if(isset($atts['title']) && $atts['title'] != '')
+	{
+		$output .= '<strong>'.$atts['title'].'</strong>';
+	}
 	$output .= $prepareContent;
 	$output .= '</amp-carousel>';
 } else {
@@ -59,8 +71,13 @@ if($_amp){
 					  height="'.$atts['slider_height'].'"
 					  type="slides"';
 	$output .= ($atts['autoplay'] != 'none')?' autoplay delay="'.$atts['autoplay'].'000">':'>';
+	if(isset($atts['title']) && $atts['title'] != '')
+	{
+		$output .= '<strong>'.$atts['title'].'</strong>';
+	}
 	$output .= $prepareContent;
 	$output .= '</amp-carousel>';
+	$output .= '<pre>'.print_r($atts,true).'</pre>';
 }
 
 echo $output;

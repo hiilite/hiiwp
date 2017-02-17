@@ -19,7 +19,7 @@ if($hiilite_options['amp']) $_amp = 'amp-'; else $_amp = '';
 
 ?>
 <article <?php post_class('row'); ?> itemscope itemtype="http://schema.org/Article" id="post-<?php the_ID(); ?>" >
-	<div class="<?php if($hiilite_options['single_full'] == true) { echo 'in_grid'; } ?>">
+	<div class="<?php if($hiilite_options['single_full'] == false) { echo 'in_grid'; } ?>">
 		<meta itemscope itemprop="mainEntityOfPage"  itemType="https://schema.org/WebPage" itemid="<?php bloginfo('url')?>"/>
 		<div class="container_inner">
 			<header class="full-width content-box">

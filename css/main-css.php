@@ -1322,6 +1322,30 @@ amp-carousel.slider .show {
 	display:block;	
 }
 
+amp-carousel.rounded .vc_tta-panel-heading {
+	border-radius: 6px;
+	padding: 0.3em 0.5em;	
+}
+amp-carousel.round .vc_tta-panel-heading {
+	border-radius: 2em;
+	padding: 0.3em 0.5em;
+}
+amp-carousel.square .vc_tta-panel-heading {
+	border-radius: 0;
+	padding: 0.3em 0.5em;
+}
+
+amp-carousel.left .vc_tta-panel-heading {
+	text-align:left;
+}
+amp-carousel.center .vc_tta-panel-heading {
+	text-align:center;
+}
+amp-carousel.right .vc_tta-panel-heading {
+	text-align:right;
+}
+
+
 .relatedposts .relatedarticle {
 	max-width: 200px;
 	overflow: hidden;
