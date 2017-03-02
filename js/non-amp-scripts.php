@@ -113,7 +113,6 @@
 				    return $(this).outerHeight();
 				}).get();
 				maxContentHeight = Math.max.apply(null, contentHeights);
-				console.log(maxContentHeight);
 				height = (maxContentHeight);
 				
 				$carousel.width(width);
@@ -383,7 +382,6 @@
 		
 		/* on click, toggle tab */
 		$('.wpb_accordion_header').click( function() {
-			console.log('test');
 			$(this).siblings('.wpb_accordion_content').slideToggle(500);
 		});
 	}
