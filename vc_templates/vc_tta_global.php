@@ -77,7 +77,6 @@ if($_amp){
 	}
 	$output .= $prepareContent;
 	$output .= '</amp-carousel>';
-	$output .= '<pre>'.print_r($atts,true).'</pre>';
 }
 
 echo $output;
