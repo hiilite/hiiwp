@@ -22,7 +22,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 ?>
 <tr class="shipping">
-	<th><?php echo wp_kses_post( $package_name ); ?><br><small>FREE shipping with orders of $100 or more! </small></th>
+	<th><?php echo wp_kses_post( $package_name ); ?></th>
 	<td data-title="<?php echo esc_attr( $package_name ); ?>">
 		<?php if ( 1 < count( $available_methods ) ) : ?>
 			<ul id="shipping_method">
