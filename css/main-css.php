@@ -811,9 +811,31 @@ a, .button, .menu li {
 		text-align: center;
 	}
 
-	#main_header nav#main-nav:hover .main-menu {
+	/*#main_header nav#main-nav:hover .main-menu {
 		max-height: 100vh;
+	}*/
+	nav#main-nav .show {
+		max-height:100vh !important;	
 	}
+
+	nav#main-nav .hide {
+		max-height:0;	
+	}
+	
+	nav#main-nav ul li ul.show, nav#main-nav ul li ul li ul.show {
+		max-height:100vh !important;	
+	}
+
+	nav#main-nav ul li ul.hide, nav#main-nav ul li ul li ul.hide {
+		max-height:0 !important;	
+	}
+	nav#main-nav ul li ul.show li, nav#main-nav ul li ul li ul.show li {
+		display:block;	
+	}
+	nav#main-nav ul li ul.hide li, nav#main-nav ul li ul li ul.hide li {
+		display:none !important;	
+	}
+	
 	#main_header ul.sub-menu {
 		position: relative;
 		display: block;

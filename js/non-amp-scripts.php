@@ -1,52 +1,45 @@
 <script>
 (function($){$(document).ready(function(){
 
-	/*$('#main-nav').on('click tap', function(){
-		$(this).trigger("mouseover");
-	});*/
-	
-	/* Fix Mobile Menu not closing */
-	if($('#main-nav').length)
-	{
-		var before = window.getComputedStyle(
-				document.querySelector('#main-nav'), ':before'
-			).getPropertyValue('content');
-
-		if(before != '')
+	/* Mobile Menu */
+	$('#main-nav ul.menu').addClass('hide');
+	$('#main-nav ul .sub-menu').addClass('hide');
+	$('#main-nav').on('click tap', function(e){
+		//$(this).trigger("mouseover");
+		
+		if(e.target === this)
 		{
-			$('#main-nav ul:first-child').slideToggle(1);
-			$('#main-nav').on('click tap', function(){
-				$('#main-nav ul:first-child').slideToggle(700);
-			});
+			if($('#main-nav ul.menu').hasClass('hide'))
+			{
+				$('#main-nav ul.menu').removeClass('hide');
+				$('#main-nav ul.menu').addClass('show');
+	
+			}
+			else
+			{
+				$('#main-nav ul.menu').removeClass('show');
+				$('#main-nav ul.menu').addClass('hide');
+			}
+		}
+	});
+	
+	$('#main-nav ul .sub-menu').on('click tap', function(e){
 		
-			$("#main-nav ul li ul li").css('display', 'none');
-			$("#main-nav ul li ul li ul li").css('display', 'none');
-			
-			$("#main-nav ul li ul").on('click tap',function(e){  
-		
-		        if($(this).children('li').css('display') == 'block')
-		        {
-			        $(this).removeClass('minus');
-			        $(this).addClass('plus');
-		        	$(this).children('li').css('display', 'none');
-		        }
-		        else
-		        {
-			        $(this).removeClass('plus');
-			        $(this).addClass('minus');
-			        $(this).children('li').css('display', 'block');
-			        
-			    }
-			    return false;
-		    });
-		} 
-
-		$( window ).resize(function() {
-			$("#main-nav ul li ul li").removeClass('plus');
-			$("#main-nav ul li ul li").removeClass('minus');
-			$("#main-nav ul li ul li").css('display', 'none');
-		});
-	}
+		if(e.target === this)
+		{
+			if($('#main-nav ul .sub-menu').hasClass('hide'))
+			{
+				$('#main-nav ul .sub-menu').removeClass('hide');
+				$('#main-nav ul .sub-menu').addClass('show');
+	
+			}
+			else
+			{
+				$('#main-nav ul .sub-menu').removeClass('show');
+				$('#main-nav ul .sub-menu').addClass('hide');
+			}
+		}
+	});
 	
 	/*
 	AMP-CAROUSEL carousel	
