@@ -2,6 +2,7 @@
 if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
 }
+
 require_once vc_path_dir( 'SHORTCODES_DIR', 'vc-media-grid.php' );
 
 class WPBakeryShortCode_VC_Masonry_Media_Grid extends WPBakeryShortCode_VC_Media_Grid {

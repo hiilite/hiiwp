@@ -4,6 +4,7 @@
 @import "../modules/vc_table.less";
 // pixel icons
 @import "pixel_icons.less";
+@import "../../fonts/vc_icons/init.less";
 
 //Helper classes
 .vc_txt_align_ {
@@ -64,7 +65,8 @@
 .wpb_text_column p:last-child,
 .wpb_text_column *:last-child,
 #content .wpb_text_column p:last-child, /* for twenty ten theme */
-#content .wpb_text_column *:last-child /* for twenty ten theme */ {
+#content .wpb_text_column *:last-child /* for twenty ten theme */
+{
   margin-bottom: 0;
 }
 
@@ -83,31 +85,10 @@ ul.wpb_thumbnails-fluid > li,
   margin-bottom: @vc_margin_bottom_gold;
 }
 
-.vc_row {
-  &.vc_row-no-padding {
-    .vc_column-inner {
-      padding-left: 0;
-      padding-right: 0;
-    }
-  }
-  &[data-vc-full-width] {
-    .transition(opacity 0.5s ease);
-    overflow: hidden; /** Fix overflow **/
-    &.vc_hidden {
-      opacity: 0;
-    }
-  }
-}
-.vc_row-no-padding {
-  .vc_inner {
-    margin-left: 0;
-    margin-right: 0;
-  }
-}
-
 @import "../lib/parallax.less";
-@import "../lib/vc_row.less";
-@import "../lib/frontend_vc_row.less";
+@import "../shortcodes/vc_row.less";
+@import "../shortcodes/vc_section.less";
+@import "../shortcodes/frontend_vc_row.less";
 
 @import "../shortcodes/vc_social_btns.less";
 @import "../shortcodes/vc_toggle.less";
@@ -132,7 +113,6 @@ ul.wpb_thumbnails-fluid > li,
 @import "../shortcodes/vc_icon_element.less";
 @import "../shortcodes/vc_charts.less";
 @import "../shortcodes/vc_zoom.less";
-@import "../shortcodes/vc_tta.less";
 @import "../shortcodes/vc_pagination.less";
 @import "../shortcodes/vc_basic_grid/vc_grid.less";
 

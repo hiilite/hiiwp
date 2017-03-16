@@ -1,11 +1,24 @@
 <?php
+if ( ! defined( 'ABSPATH' ) ) {
+	die( '-1' );
+}
+
 $vc_layout_sub_controls = array(
-	array( 'link_post', __( 'Link to post', 'js_composer' ) ),
-	array( 'no_link', __( 'No link', 'js_composer' ) ),
-	array( 'link_image', __( 'Link to bigger image', 'js_composer' ) ),
+	array(
+		'link_post',
+		__( 'Link to post', 'js_composer' ),
+	),
+	array(
+		'no_link',
+		__( 'No link', 'js_composer' ),
+	),
+	array(
+		'link_image',
+		__( 'Link to bigger image', 'js_composer' ),
+	),
 );
 return array(
-	'name' => __( 'Posts Grid', 'js_composer' ),
+	'name' => __( 'Old Posts Grid', 'js_composer' ),
 	'base' => 'vc_posts_grid',
 	'content_element' => false,
 	'deprecated' => '4.4',
@@ -24,7 +37,10 @@ return array(
 			'param_name' => 'loop',
 			'value' => 'size:10|order_by:date',
 			'settings' => array(
-				'size' => array( 'hidden' => false, 'value' => 10 ),
+				'size' => array(
+					'hidden' => false,
+					'value' => 10,
+				),
 				'order_by' => array( 'value' => 'date' ),
 			),
 			'description' => __( 'Create WordPress loop, to populate content from your site.', 'js_composer' ),
@@ -33,7 +49,13 @@ return array(
 			'type' => 'dropdown',
 			'heading' => __( 'Columns count', 'js_composer' ),
 			'param_name' => 'grid_columns_count',
-			'value' => array( 6, 4, 3, 2, 1 ),
+			'value' => array(
+				6,
+				4,
+				3,
+				2,
+				1,
+			),
 			'std' => 3,
 			'admin_label' => true,
 			'description' => __( 'Select columns count.', 'js_composer' ),
@@ -63,10 +85,16 @@ return array(
 							'excerpt',
 							__( 'Teaser/Excerpt', 'js_composer' ),
 						),
-						array( 'text', __( 'Full content', 'js_composer' ) ),
+						array(
+							'text',
+							__( 'Full content', 'js_composer' ),
+						),
 					),
 				),
-				array( 'link', __( 'Read more link', 'js_composer' ) ),
+				array(
+					'link',
+					__( 'Read more link', 'js_composer' ),
+				),
 			),
 		),
 		array(

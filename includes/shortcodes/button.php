@@ -13,8 +13,10 @@ function add_button_shortcode( $atts ){
       'css'	=> '',
       'button_id'	=> '',
       'button_align'	=> '',
+      'color'			=> '',
+      'use_google_font' => false
    );
-//   print_r($atts);
+   //print_r($atts);
    extract( shortcode_atts( $args, $atts ) );
    
    $css_classes = array(
@@ -24,41 +26,42 @@ function add_button_shortcode( $atts ){
 		$text_align,
 		vc_shortcode_custom_css_class( $css ), 
 	); 
-	
-	$google_fonts = explode('|',$atts['google_fonts']);
-    $font_family = explode('%3A', $google_fonts[0]);
-    $font_family = str_replace('font_family','font-family', $font_family[0]);
-    $font_family = str_replace('%20',' ',$font_family).';';
-    
-    $font_style = explode('%3A', $google_fonts[1]);
-    $font_style = str_replace('$font_style','font-style', $font_style[0]);
-    $font_style = str_replace('%20',' ',$font_style).';';
-    
-    if($color != ";" || $font_family != ";")
-    {
-	    if($color != ";")
+	if(isset($use_google_font) && $use_google_font != false){
+		$google_fonts = explode('|',$atts['google_fonts']);
+	    $font_family = explode('%3A', $google_fonts[0]);
+	    $font_family = str_replace('font_family','font-family', $font_family[0]);
+	    $font_family = str_replace('%20',' ',$font_family).';';
+	    
+	    $font_style = explode('%3A', $google_fonts[1]);
+	    $font_style = str_replace('$font_style','font-style', $font_style[0]);
+	    $font_style = str_replace('%20',' ',$font_style).';';
+   
+	    if($color != ";" || isset($font_family))
 	    {
-			$c = $color;    
+		    if($color != ";")
+		    {
+				$c = $color;    
+			}
+			if($font_family != ";")
+		    {
+				$ff = $font_family;    
+			}
+			if($font_style != ";")
+		    {
+				$font_style = explode(' ',$font_style);
+				    if(isset($font_style[2]))
+				    {
+						$f_style = str_replace('regular','normal',$font_style[2]);    
+					}
+					else
+					{
+						$f_style = str_replace('regular','normal',$font_style[1]).';';
+					}
+					$fs = 'font-weight:'. str_replace('font_style:','',$font_style[0]).'; font-style:'.$f_style;    
+			}
+			
+		    $style = "style='".$c." ".$ff." ".$fs."'";
 		}
-		if($font_family != ";")
-	    {
-			$ff = $font_family;    
-		}
-		if($font_style != ";")
-	    {
-			$font_style = explode(' ',$font_style);
-			    if(isset($font_style[2]))
-			    {
-					$f_style = str_replace('regular','normal',$font_style[2]);    
-				}
-				else
-				{
-					$f_style = str_replace('regular','normal',$font_style[1]).';';
-				}
-				$fs = 'font-weight:'. str_replace('font_style:','',$font_style[0]).'; font-style:'.$f_style;    
-		}
-		
-	    $style = "style='".$c." ".$ff." ".$fs."'";
 	}
   
 	if (vc_shortcode_custom_css_has_property( $css, array('border', 'background') )) {

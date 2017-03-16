@@ -447,8 +447,8 @@ class WPBMap {
 		if ( isset( self::$sc[ $name ], self::$sc[ $name ]['params'] ) && is_array( self::$sc[ $name ]['params'] ) ) {
 			foreach ( self::$sc[ $name ]['params'] as $index => $param ) {
 				if ( $param['param_name'] == $attribute_name ) {
-					array_splice( self::$sc[ $name ]['params'], $index, 1 );
-
+					unset( self::$sc[ $name ]['params'][ $index ] );
+					self::$sc[ $name ]['params'] = array_merge( self::$sc[ $name ]['params'] ); // fix indexes
 					return true;
 				}
 			}
@@ -520,6 +520,7 @@ class WPBMap {
 				if ( $param['param_name'] == $attribute['param_name'] ) {
 					$replaced = true;
 					self::$sc[ $name ]['params'][ $index ] = $attribute;
+					break;
 				}
 			}
 			if ( false === $replaced ) {
@@ -566,6 +567,7 @@ class WPBMap {
 				if ( $param['param_name'] == $attribute['param_name'] ) {
 					$replaced = true;
 					self::$sc[ $name ]['params'][ $index ] = array_merge( $param, $attribute );
+					break;
 				}
 			}
 
@@ -650,6 +652,9 @@ class WPBMap {
 				self::modify( $name, $key, $value );
 			}
 		} else {
+			if ( is_array( $value ) ) {
+				$value = array_merge( $value ); // fix indexes
+			}
 			self::$sc[ $name ][ $setting_name ] = $value;
 			visual_composer()->updateShortcodeSetting( $name, $setting_name, $value );
 		}
@@ -672,7 +677,7 @@ class WPBMap {
 	}
 
 	/**
-	 * Sorting method for WPBMap::generateUserData method. Called by usort php function.
+	 * Sorting method for WPBMap::generateUserData method. Called by uasort php function.
 	 * @deprecated - use Vc_Sort::sortByKey since 4.4
 	 * @static
 	 *
@@ -753,6 +758,8 @@ class WPBMap {
 		self::$sc[ $tag ]['base'] = $tag;
 		self::$init_elements[ $tag ] = true;
 		vc_mapper()->callElementActivities( $tag );
+
+		return true;
 	}
 
 	/**

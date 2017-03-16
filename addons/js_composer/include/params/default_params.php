@@ -108,6 +108,18 @@ function vc_checkbox_form_field( $settings, $value ) {
 	return $output;
 }
 
+add_filter( 'vc_map_get_param_defaults', 'vc_checkbox_param_defaults', 10, 2 );
+function vc_checkbox_param_defaults( $value, $param ) {
+	if ( 'checkbox' === $param['type'] ) {
+		$value = '';
+		if ( isset( $param['std'] ) ) {
+			$value = $param['std'];
+		}
+	}
+
+	return $value;
+}
+
 /**
  * Checkbox shortcode attribute type generator.
  *
@@ -176,20 +188,6 @@ function vc_taxonomies_form_field( $settings, $value ) {
 	}
 
 	return $output;
-}
-
-/**
- * @deprecated 4.9
- *
- * @param $settings
- * @param $value
- *
- * @since 4.4
- * @return string
- */
-function vc_taxomonies_form_field( $settings, $value ) {
-	_deprecated_function( 'vc_taxomonies_form_field', '4.9 (will be removed in 4.11)' );
-	return vc_taxonomies_form_field( $settings, $value );
 }
 
 /**
@@ -308,10 +306,10 @@ function vc_attach_images_form_field( $settings, $value, $tag, $single = false )
 	$output .= '</div>';
 	if ( true === $single ) {
 		$output .= '<a class="gallery_widget_add_images" href="#" use-single="true" title="'
-		           . __( 'Add image', 'js_composer' ) . '">' . __( 'Add image', 'js_composer' ) . '</a>'; //class: button
+		           . __( 'Add image', 'js_composer' ) . '"><i class="vc-composer-icon vc-c-icon-add"></i>' . __( 'Add image', 'js_composer' ) . '</a>'; //class: button
 	} else {
 		$output .= '<a class="gallery_widget_add_images" href="#" title="'
-		           . __( 'Add images', 'js_composer' ) . '">' . __( 'Add images', 'js_composer' ) . '</a>'; //class: button
+		           . __( 'Add images', 'js_composer' ) . '"><i class="vc-composer-icon vc-c-icon-add"></i>' . __( 'Add images', 'js_composer' ) . '</a>'; //class: button
 	}
 
 	return $output;

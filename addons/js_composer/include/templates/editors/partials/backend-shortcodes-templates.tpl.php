@@ -2,8 +2,9 @@
 if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
 }
+
 global $current_user;
-get_currentuserinfo();
+wp_get_current_user();
 require_once vc_path_dir( 'AUTOLOAD_DIR', 'class-vc-settings-presets.php' );
 
 if ( vc_user_access()->part( 'presets' )->can()->get() ) {

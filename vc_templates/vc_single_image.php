@@ -39,7 +39,7 @@ if($hiilite_options['amp'] != false) $_amp = 'amp-'; else $_amp = '';
  * Shortcode class
  * @var $this WPBakeryShortCode_VC_Single_image
  */
-$title = $source = $image = $custom_src = $onclick = $img_size = $external_img_size =
+$title = $source = $image = $custom_src = $onclick = $img_size = $external_img_size = $hover_html =
 $caption = $img_link_large = $link = $img_link_target = $alignment = $el_class = $css_animation = $style = $external_style = $border_color = $css = '';
 $atts = vc_map_get_attributes( $this->getShortcode(), $atts );
 extract( $atts );
@@ -188,7 +188,7 @@ if ( vc_has_class( 'prettyphoto', $el_class ) ) {
 }
 
 $wrapperClass = 'single_image-wrapper ' . $style . ' ' . $border_color;
-$reponsive = ($atts['responsive'] == 'yes')?'layout=responsive':'';
+$reponsive = (isset($atts['responsive']) && $atts['responsive'] == 'yes')?'layout=responsive':'';
 
 if ( $hover_image ) {
 	if($_amp!=''){

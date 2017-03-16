@@ -43,26 +43,10 @@ if ( $include_icon_params ) {
 
 $params = array_merge( array(
 	array(
-		'type' => 'checkbox',
-		'heading' => __( 'Active', 'js_composer' ),
-		'param_name' => 'active',
-		'description' => __( 'If unchecked, slide will not be displayed', 'js_composer' ),
-		'value' => 'true',
-		'default' => 'true',
-		'save_always' => true,
-	),
-	array(
 		'type' => 'textfield',
 		'param_name' => 'title',
 		'heading' => __( 'Title', 'js_composer' ),
 		'description' => __( 'Enter section title (Note: you can leave it empty).', 'js_composer' ),
-	),
-	array(
-		'type' => 'attach_image',
-		'heading' => __( 'Slide Image', 'js_composer' ),
-		'param_name' => 'image',
-		'value' => '',
-		'description' => __( 'Select image from media library.', 'js_composer' ),
 	),
 	array(
 		'type' => 'el_id',
@@ -83,7 +67,7 @@ $params = array_merge( array(
 	) );
 
 return array(
-	'name' => __( 'Slide', 'js_composer' ),
+	'name' => __( 'Section', 'js_composer' ),
 	'base' => 'vc_tta_section',
 	'icon' => 'icon-wpb-ui-tta-section',
 	'allowed_container_element' => 'vc_row',

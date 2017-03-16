@@ -1178,15 +1178,10 @@ if($hiilite_options['portfolio_on']): ?>
 	text-align: center;
 	color: white;
 	line-height: 1.6em;
-	border-radius: 2em;
-}
-
-.fa {
+	border-radius: <?=get_theme_mod('icon_settings_border_r', '2em'); ?>;
+	border:<?=get_theme_mod('icon_settings_border', '0px'); ?> solid;
 	<?php get_font_css(get_theme_mod('icon_settings')); ?>
 	<?php get_font_css(get_theme_mod('icon_settings_bg')); ?>
-	border:<?=get_theme_mod('icon_settings_border'); ?> solid;
-	border-radius:<?=get_theme_mod('icon_settings_border_r'); ?>;
-	width:1.6em;
 }
 
 <?=$hiilite_options['typography_icon_custom_css'];?>

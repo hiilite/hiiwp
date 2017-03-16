@@ -4,6 +4,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
+ * @deprecated
  * Shortcode attributes
  * @var $atts
  * @var $title

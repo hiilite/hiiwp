@@ -14,7 +14,7 @@ $atts = $this->getAttributes( $atts );
 
 $styles = $this->getStyles( $atts['el_class'], $atts['css'], $atts['google_fonts_data'], $atts['font_container_data'], $atts );
 
-if ( !empty( $atts['link'] ) ) {
+if ( ! empty( $atts['link'] ) ) {
 	$atts['link'] = 'post_author';
 	$link_html = vc_gitem_create_link( $atts );
 }
@@ -28,7 +28,10 @@ $content = '{{ post_author }}';
 if ( ! empty( $link_html ) ) {
 	$content = '<' . $link_html . '>' . $content . '</a>';
 }
-$css_class = array( $styles['css_class'], 'vc_gitem-post-data' );
+$css_class = array(
+	$styles['css_class'],
+	'vc_gitem-post-data',
+);
 $css_class[] = 'vc_gitem-post-data-source-post_author';
 if ( $use_custom_fonts && ! empty( $atts['google_fonts_data'] ) && isset( $atts['google_fonts_data']['values']['font_family'] ) ) {
 	wp_enqueue_style( 'vc_google_fonts_' . vc_build_safe_css_class( $atts['google_fonts_data']['values']['font_family'] ), '//fonts.googleapis.com/css?family=' . $atts['google_fonts_data']['values']['font_family'] . $subsets );

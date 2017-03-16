@@ -85,7 +85,7 @@ class WPBakeryShortCode_VC_Custom_heading extends WPBakeryShortCode {
 			'google_fonts' => $google_fonts,
 			'font_container' => $font_container,
 			'el_class' => $el_class,
-			'css' => $css,
+			'css' => isset( $css ) ? $css : '',
 			'link' => ( 0 === strpos( $link, '|' ) ) ? false : $link,
 			'font_container_data' => $font_container_data,
 			'google_fonts_data' => $google_fonts_data,

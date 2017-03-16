@@ -7,19 +7,23 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Shortcode attributes
  * @var $atts
  * @var $el_class
+ * @var $el_id
  * @var $content - shortcode content
  * Shortcode class
  * @var $this WPBakeryShortCode_VC_Wp_Text
  */
-$el_class = '';
+$el_class = $el_id = '';
 $output = '';
 $atts = vc_map_get_attributes( $this->getShortcode(), $atts );
 $atts['filter'] = true; //Hack to make sure that <p> added
 extract( $atts );
 
 $el_class = $this->getExtraClass( $el_class );
-
-$output = '<div class="vc_wp_text wpb_content_element' . esc_attr( $el_class ) . '">';
+$wrapper_attributes = array();
+if ( ! empty( $el_id ) ) {
+	$wrapper_attributes[] = 'id="' . esc_attr( $el_id ) . '"';
+}
+$output = '<div ' . implode( ' ', $wrapper_attributes ) . ' class="vc_wp_text wpb_content_element' . esc_attr( $el_class ) . '">';
 $type = 'WP_Widget_Text';
 $args = array();
 if ( strlen( $content ) > 0 ) {

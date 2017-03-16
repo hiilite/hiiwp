@@ -2,6 +2,7 @@
 if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
 }
+
 require_once vc_path_dir( 'CORE_DIR', 'access/abstract-class-vc-access.php' );
 
 /**
@@ -70,11 +71,12 @@ class Vc_Role_Access_Controller extends Vc_Access {
 	 *
 	 * @param bool $value
 	 *
-	 * @return bool
+	 * @return $this
 	 */
 	public function setState( $value = true ) {
-		$this->getRole() && $this->getRole()
-		                         ->add_cap( $this->getStateKey(), $value );
+		$this->getRole() && $this->getRole()->add_cap( $this->getStateKey(), $value );
+
+		return $this;
 	}
 
 	/**

@@ -2,6 +2,7 @@
 if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
 }
+
 require_once vc_path_dir( 'EDITORS_DIR', 'popups/class-vc-templates-panel-editor.php' );
 require_once vc_path_dir( 'PARAMS_DIR', 'vc_grid_item/class-vc-grid-item.php' );
 
@@ -11,8 +12,14 @@ class Vc_Templates_Editor_Grid_Item extends Vc_Templates_Panel_Editor {
 	protected $default_templates = array(); // this prevents for loading default templates
 
 	public function __construct() {
-		add_filter( 'vc_templates_render_category', array( &$this, 'renderTemplateBlock' ), 10, 2 );
-		add_filter( 'vc_templates_render_template', array( &$this, 'renderTemplateWindowGrid' ), 10, 2 );
+		add_filter( 'vc_templates_render_category', array(
+			&$this,
+			'renderTemplateBlock',
+		), 10, 2 );
+		add_filter( 'vc_templates_render_template', array(
+			&$this,
+			'renderTemplateWindowGrid',
+		), 10, 2 );
 	}
 
 	public function renderTemplateBlock( $category ) {
@@ -86,11 +93,11 @@ class Vc_Templates_Editor_Grid_Item extends Vc_Templates_Panel_Editor {
 				<button type="button" class="vc_general vc_ui-control-button" title="$addTemplateTitle"
 					 	data-template-handler=""
 						data-vc-ui-element="template-title">
-					<i class="vc_ui-icon-pixel vc_ui-icon-pixel-control-add-dark"></i>
+					<i class="vc-composer-icon vc-c-icon-add"></i>
 				</button>
 				<button type="button" class="vc_general vc_ui-control-button" title="$previewTemplateTitle"
 					data-vc-preview-handler data-vc-container=".vc_ui-list-bar" data-vc-target="[data-template_id=$templateId]">
-					<i class="vc_ui-icon-pixel vc_ui-preview-icon"></i>
+					<i class="vc-composer-icon vc-c-icon-arrow_drop_down"></i>
 				</button>
 			</div>
 HTML;
@@ -126,6 +133,7 @@ HTML;
 		if ( $post && Vc_Grid_Item_Editor::postType() == $post->post_type ) {
 			return $post->post_content;
 		}
+
 		return '';
 	}
 
@@ -144,7 +152,8 @@ HTML;
 				$category_templates[] = array(
 					'unique_id' => $template_id,
 					'name' => $template_data['name'],
-					'type' => 'grid_templates', // for rendering in backend/frontend with ajax
+					'type' => 'grid_templates',
+					// for rendering in backend/frontend with ajax
 				);
 			}
 			$arr_category['templates'] = $category_templates;
@@ -170,16 +179,15 @@ HTML;
 			$data[] = $arr_category;
 		}
 
-
 		// To get any other 3rd "Custom template" - do this by hook filter 'vc_get_all_templates'
-		return apply_filters( 'vc_get_all_templates', $data );
+		return apply_filters( 'vc_grid_get_all_templates', $data );
 	}
 
 	protected function getCustomTemplateList() {
 		$list = array();
 		$templates = get_posts( array(
 			'post_type' => Vc_Grid_Item_Editor::postType(),
-			'numberposts' => - 1
+			'numberposts' => - 1,
 		) );
 		foreach ( $templates as $template ) {
 			$id = $template->ID;

@@ -30,7 +30,8 @@ class Vc_ParamAnimation {
 	/**
 	 * Define available animation effects
 	 * @since 4.4
-	 * vc_filter: vc_param_animation_style_list - to override animation styles array
+	 * vc_filter: vc_param_animation_style_list - to override animation styles
+	 *     array
 	 * @return array
 	 */
 	protected function animationStyles() {
@@ -457,7 +458,7 @@ class Vc_ParamAnimation {
 	public function __construct( $settings, $value ) {
 		$this->settings = $settings;
 		$this->value = $value;
-		wp_register_style( 'animate-css', vc_asset_url( 'lib/bower/animate-css/animate.min.css' ), array(), WPB_VC_VERSION, false );
+		wp_register_style( 'animate-css', vc_asset_url( 'lib/bower/animate-css/animate.min.css' ), array(), WPB_VC_VERSION );
 	}
 
 	/**
@@ -472,6 +473,9 @@ class Vc_ParamAnimation {
 		$styles = $this->animationStyles();
 		if ( isset( $this->settings['settings']['type'] ) ) {
 			$styles = $this->groupStyleByType( $styles, $this->settings['settings']['type'] );
+		}
+		if ( isset( $this->settings['settings']['custom'] ) && is_array( $this->settings['settings']['custom'] ) ) {
+			$styles = array_merge( $styles, $this->settings['settings']['custom'] );
 		}
 
 		if ( is_array( $styles ) && ! empty( $styles ) ) {
@@ -498,12 +502,7 @@ class Vc_ParamAnimation {
 		}
 
 		$output .= '</div>'; // Close Row
-		$output .= '<input name="' .
-		           $this->settings['param_name'] .
-		           '" class="wpb_vc_param_value  ' .
-		           $this->settings['param_name'] . ' ' .
-		           $this->settings['type'] . '_field" type="hidden" value="' . $this->value . '" ' .
-		           ' />';
+		$output .= '<input name="' . $this->settings['param_name'] . '" class="wpb_vc_param_value  ' . $this->settings['param_name'] . ' ' . $this->settings['type'] . '_field" type="hidden" value="' . $this->value . '" ' . ' />';
 
 		return $output;
 	}
@@ -517,7 +516,8 @@ class Vc_ParamAnimation {
  * @param string $value - parameter value
  * @param string $tag - shortcode tag
  *
- * vc_filter: vc_animation_style_render_filter - filter to override editor form field output
+ * vc_filter: vc_animation_style_render_filter - filter to override editor form
+ *     field output
  *
  * @since 4.4
  * @return mixed|void rendered template for params in edit form

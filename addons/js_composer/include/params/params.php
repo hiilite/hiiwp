@@ -78,6 +78,7 @@ class WpbakeryShortcodeParams {
 	}
 
 	/**
+	 * @deprecated 4.4 - TODO check for usage
 	 * @not used
 	 * @since 4.2
 	 */
@@ -204,7 +205,7 @@ function vc_add_shortcode_param( $name, $form_field_callback, $script_url = null
  * @return bool
  */
 function add_shortcode_param( $name, $form_field_callback, $script_url = null ) {
-	// _deprecated_function( 'add_shortcode_param', '4.4 (will be removed in 4.10)', 'vc_add_shortcode_param' );
+	_deprecated_function( 'add_shortcode_param', '4.4 (will be removed in 5.1)', 'vc_add_shortcode_param' );
 
 	return vc_add_shortcode_param( $name, $form_field_callback, $script_url );
 }
@@ -222,7 +223,7 @@ function add_shortcode_param( $name, $form_field_callback, $script_url = null ) 
  * @return mixed|string - returns html which will be render in hook
  */
 function do_shortcode_param_settings_field( $name, $param_settings, $param_value, $tag ) {
-	// _deprecated_function( 'do_shortcode_param_settings_field', '4.4 (will be removed in 4.10)', 'vc_do_shortcode_param_settings_field' );
+	_deprecated_function( 'do_shortcode_param_settings_field', '4.4 (will be removed in 5.1)', 'vc_do_shortcode_param_settings_field' );
 
 	return vc_do_shortcode_param_settings_field( $name, $param_settings, $param_value, $tag );
 }
@@ -251,7 +252,7 @@ function vc_do_shortcode_param_settings_field( $name, $param_settings, $param_va
  * @deprecated 4.8
  */
 function vc_generate_dependencies_attributes( $settings ) {
-	// _deprecated_function( 'vc_generate_dependencies_attributes', '4.8 (will be removed in 4.10)' );
+	_deprecated_function( 'vc_generate_dependencies_attributes', '4.8 (will be removed in 5.1)' );
 
 	return '';
 }

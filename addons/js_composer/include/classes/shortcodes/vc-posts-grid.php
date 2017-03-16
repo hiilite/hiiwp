@@ -138,7 +138,7 @@ class WPBakeryShortCode_VC_Posts_Grid extends WPBakeryShortCode {
 			$this->loadPrettyPhoto();
 			// actually fixes relations if more prettyphoto added on page
 			if ( ! $this->pretty_rel_random ) {
-				$this->pretty_rel_random = ' rel="prettyPhoto[rel-' . get_the_ID() . '-' . rand() . ']"';
+				$this->pretty_rel_random = ' data-rel="prettyPhoto[rel-' . get_the_ID() . '-' . rand() . ']"';
 			}
 			$output .= '<a href="' . $post->image_link . '" class="' . $css_class . ' prettyphoto"' . $this->pretty_rel_random . ' ' . $this->link_target . ' title="' . $post->title_attribute . '">' . $content . '</a>';
 		} else {

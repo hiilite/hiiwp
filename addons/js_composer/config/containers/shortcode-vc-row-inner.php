@@ -1,4 +1,8 @@
 <?php
+if ( ! defined( 'ABSPATH' ) ) {
+	die( '-1' );
+}
+
 return array(
 	'name' => __( 'Inner Row', 'js_composer' ),
 	//Inner Row
@@ -10,26 +14,17 @@ return array(
 	'description' => __( 'Place content elements inside the inner row', 'js_composer' ),
 	'params' => array(
 		array(
-			'type' => 'checkbox',
-			'heading' => __( 'In Grid?', 'js_composer' ),
-			'param_name' => 'in_grid',
-			'description' => __( 'If checked contents of row will stay in grid width', 'js_composer' ),
-			'value' => array( __( 'Yes', 'js_composer' ) => 'yes' ),
+			'type' => 'el_id',
+			'heading' => __( 'Row ID', 'js_composer' ),
+			'param_name' => 'el_id',
+			'description' => sprintf( __( 'Enter optional row ID. Make sure it is unique, and it is valid as w3c specification: %s (Must not have spaces)', 'js_composer' ), '<a target="_blank" href="http://www.w3schools.com/tags/att_global_id.asp">' . __( 'link', 'js_composer' ) . '</a>' ),
 		),
-		array(
-			'type' => 'checkbox',
-			'heading' => __( 'iframe', 'js_composer' ),
-			'param_name' => 'in_iframe',
-			'description' => __( 'If the content contains form elements or requires javascript, it must be within an iframe. iframe content needs to be an minimum of 600px from the top of the page ', 'js_composer' ),
-			'value' => array( __( 'Yes', 'js_composer' ) => 'yes' ),
-		),
-		
 		array(
 			'type' => 'checkbox',
 			'heading' => __( 'Equal height', 'js_composer' ),
 			'param_name' => 'equal_height',
 			'description' => __( 'If checked columns will be set to equal height.', 'js_composer' ),
-			'value' => array( __( 'Yes', 'js_composer' ) => 'yes' )
+			'value' => array( __( 'Yes', 'js_composer' ) => 'yes' ),
 		),
 		array(
 			'type' => 'dropdown',
@@ -42,6 +37,35 @@ return array(
 				__( 'Bottom', 'js_composer' ) => 'bottom',
 			),
 			'description' => __( 'Select content position within columns.', 'js_composer' ),
+		),
+		array(
+			'type' => 'dropdown',
+			'heading' => __( 'Columns gap', 'js_composer' ),
+			'param_name' => 'gap',
+			'value' => array(
+				'0px' => '0',
+				'1px' => '1',
+				'2px' => '2',
+				'3px' => '3',
+				'4px' => '4',
+				'5px' => '5',
+				'10px' => '10',
+				'15px' => '15',
+				'20px' => '20',
+				'25px' => '25',
+				'30px' => '30',
+				'35px' => '35',
+			),
+			'std' => '0',
+			'description' => __( 'Select gap between columns in row.', 'js_composer' ),
+		),
+		array(
+			'type' => 'checkbox',
+			'heading' => __( 'Disable row', 'js_composer' ),
+			'param_name' => 'disable_element',
+			// Inner param name.
+			'description' => __( 'If checked the row won\'t be visible on the public side of your website. You can switch it back any time.', 'js_composer' ),
+			'value' => array( __( 'Yes', 'js_composer' ) => 'yes' ),
 		),
 		array(
 			'type' => 'textfield',

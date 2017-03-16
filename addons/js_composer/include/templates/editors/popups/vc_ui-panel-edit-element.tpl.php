@@ -4,20 +4,22 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 ?>
 <div class="vc_ui-font-open-sans vc_ui-panel-window vc_media-xs vc_ui-panel"
-     data-vc-panel=".vc_ui-panel-header-header" data-vc-ui-element="panel-edit-element" id="vc_ui-panel-edit-element">
+	data-vc-panel=".vc_ui-panel-header-header" data-vc-ui-element="panel-edit-element" id="vc_ui-panel-edit-element">
 	<div class="vc_ui-panel-window-inner">
 		<?php
 		$controls = array(
 			'minimize',
 			'close',
 		);
-		if ( vc_user_access()->part( 'presets' )->can()->get() ) {
-			$controls = array(
-				array( 'template' => 'editors/partials/vc_ui-presets-dropdown.tpl.php' ),
-				'minimize',
-				'close',
-			);
+		// TODO: Check || ! empty( $list_presets ) || ! empty( $list_vendor_presets )
+		if ( vc_user_access()->part( 'presets' )->can()->get() || vc_user_access()->part( 'templates' )->can()->get() ) {
+			$controls = array_merge( array(
+				'settings' => array(
+					'template' => 'editors/partials/vc_ui-settings-dropdown.tpl.php',
+				),
+			), $controls );
 		}
+
 		vc_include_template( 'editors/popups/vc_ui-header.tpl.php', array(
 			'title' => __( 'Page settings', 'js_composer' ),
 			'controls' => $controls,

@@ -1,4 +1,8 @@
 <?php
+if ( ! defined( 'ABSPATH' ) ) {
+	die( '-1' );
+}
+
 return array(
 	'name' => __( 'Posts Slider', 'js_composer' ),
 	'base' => 'vc_posts_slider',
@@ -61,7 +65,10 @@ return array(
 			'description' => __( 'Select source to use for description (Note: some sliders do not support it).', 'js_composer' ),
 			'dependency' => array(
 				'element' => 'type',
-				'value' => array( 'flexslider_fade', 'flexslider_slide' ),
+				'value' => array(
+					'flexslider_fade',
+					'flexslider_slide',
+				),
 			),
 		),
 		array(
@@ -143,6 +150,12 @@ return array(
 				__( 'Ascending', 'js_composer' ) => 'ASC',
 			),
 			'description' => sprintf( __( 'Select ascending or descending order. More at %s.', 'js_composer' ), '<a href="http://codex.wordpress.org/Class_Reference/WP_Query#Order_.26_Orderby_Parameters" target="_blank">WordPress codex page</a>' ),
+		),
+		array(
+			'type' => 'el_id',
+			'heading' => __( 'Element ID', 'js_composer' ),
+			'param_name' => 'el_id',
+			'description' => sprintf( __( 'Enter element ID (Note: make sure it is unique and valid according to <a href="%s" target="_blank">w3c specification</a>).', 'js_composer' ), 'http://www.w3schools.com/tags/att_global_id.asp' ),
 		),
 		array(
 			'type' => 'textfield',

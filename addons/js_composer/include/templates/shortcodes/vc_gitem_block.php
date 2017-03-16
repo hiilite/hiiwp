@@ -21,8 +21,8 @@ extract( $atts );
 if ( ! empty( $background_color ) ) {
 	$background_color = ' vc_bg-' . $background_color;
 }
-echo '<div class="vc_gitem-block' . $background_color
-	. ( strlen( $el_class ) > 0 ? ' ' . $el_class : '' )
-	. ' vc_gitem-float-' . $float
+echo '<div class="vc_gitem-block' . esc_attr( $background_color )
+	. ( strlen( $el_class ) > 0 ? ' ' . esc_attr( $el_class ) : '' )
+	. ' vc_gitem-float-' . esc_attr( $float )
 	. '">'
 	. do_shortcode( $content ) . '</div>';

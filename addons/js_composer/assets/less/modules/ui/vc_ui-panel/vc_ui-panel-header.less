@@ -74,12 +74,16 @@
     margin: 0;
     padding: 0;
     // buttons with icons
-    .vc_ui-icon-pixel-close,
-    .vc_ui-icon-pixel-minimize {
-      margin: 5px;
+    .vc-composer-icon {
+      font-size: 26px;
     }
-    .vc_ui-icon-pixel-cog {
+    .vc-c-icon-close,
+    .vc-c-icon-minimize {
+      //margin: 5px;
+    }
+    .vc-c-icon-cog {
       margin: 3px;
+      font-size: 24px;
     }
   }
 }
@@ -130,21 +134,23 @@
       height: 24px;
       width: 24px;
       content: '';
-      background: transparent url(../vc/editors/ui/vc_ui-header-graphics/vc_ui-icon-pixel-search.png) 0 0 no-repeat;
       display: block;
-      opacity: .5;
       position: absolute;
       left: 6px;
-      top: 50%;
-      transform: translateY(-50%);
-      transition-property: opacity;
+      top: 0;
+      bottom: 0;
+      margin: auto;
+      transition-property: color;
       transition-duration: @vcui-panel-header-transition-duration;
       transition-timing-function: ease-in-out;
       cursor: pointer;
+      color: #BFC2C8;
+      font-size: 22px;
     }
+
     input[type=search]:focus + label {
-      opacity: 1;
       cursor: default;
+      color: #7F8591;
     }
   }
 }

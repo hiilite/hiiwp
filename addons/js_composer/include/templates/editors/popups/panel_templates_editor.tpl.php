@@ -5,7 +5,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * @deprecated 4.4
  */
-// _deprecated_file( 'panel_templates_editor.tpl.php', '4.4 (will be removed in 4.10)', 'panel_templates.tpl.php', ' will be removed in 4.9' );
+_deprecated_file( 'panel_templates_editor.tpl.php', '4.4 (will be removed in 5.1)', 'editors/popups/vc_ui-panel-templates.tpl.php', ' will be removed in 5.1' );
 ?>
 <div id="vc_templates-editor" class="vc_panel vc_templates-editor" style="display: none;">
 	<div class="vc_panel-heading">

@@ -76,12 +76,7 @@ class Vc_Settings_Preset {
 					return false;
 				}
 
-				self::saveSettingsPreset(
-					$preset['shortcode'],
-					$preset['title'],
-					json_encode( $preset['params'] ),
-					true
-				);
+				self::saveSettingsPreset( $preset['shortcode'], $preset['title'], json_encode( $preset['params'] ), true );
 			}
 		}
 
@@ -332,13 +327,14 @@ class Vc_Settings_Preset {
 		}
 
 		ob_start();
-		vc_include_template(
-			apply_filters( 'vc_render_settings_preset_popup', 'editors/partials/settings_presets_popup.tpl.php' ),
-			array(
-				'list_presets' => array( $list_presets, $list_vendor_presets ),
+		vc_include_template( apply_filters( 'vc_render_settings_preset_popup', 'editors/partials/settings_presets_popup.tpl.php' ), array(
+				'list_presets' => array(
+					$list_presets,
+					$list_vendor_presets,
+				),
 				'default_id' => $default_id,
-			)
-		);
+				'shortcode_name' => $shortcode_name,
+			) );
 
 		$html = ob_get_clean();
 

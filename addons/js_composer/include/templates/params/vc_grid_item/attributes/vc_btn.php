@@ -19,6 +19,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @var $title
  * @var $button_block
  * @var $el_class
+ * @var $el_id
  * @var $outline_custom_color
  * @var $outline_custom_hover_background
  * @var $outline_custom_hover_text
@@ -108,9 +109,12 @@ $link_output = '';
 if ( $use_link ) {
 	$link_output = vc_gitem_create_link_real( $atts, $post, 'vc_general vc_btn3 ' . trim( $button_class ), $title );
 }
+$wrapper_attributes = array();
+if ( ! empty( $el_id ) ) {
+	$wrapper_attributes[] = 'id="' . esc_attr( $el_id ) . '"';
+}
 $output = '<div class="'
-	. esc_attr( trim( $css_class ) )
-	. ' vc_btn3-' . esc_attr( $align ) . '">';
+	. esc_attr( trim( $css_class ) ) . ' vc_btn3-' . esc_attr( $align ) . '" ' . implode( ' ', $wrapper_attributes ) . '>';
 if ( preg_match( '/href=\"[^\"]+/', $link_output ) ) :
 	$output .= '<' . $link_output . ' ' . $inline_css . ' ' . $attributes . '>' . $button_html . '</a>';
 elseif ( 'load-more-grid' === $link ) :

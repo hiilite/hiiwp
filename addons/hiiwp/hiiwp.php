@@ -178,14 +178,14 @@ class HiiWP {
          // This will run when the plugin is deactivated, use to delete the database
     }
     
-    public static function activation_redirect(){         
+    public static function activation_redirect(){     
 	    exit( wp_redirect( admin_url( 'admin.php?page=admin.php?page=about_hii_seo' ) ) );
     }
     
 }
 
 
-add_action( 'activated_plugin', array('HiiWP','activation_redirect' ));
+//add_action( 'activated_plugin', array('HiiWP','activation_redirect' ));
 
 
 

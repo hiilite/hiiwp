@@ -1,3 +1,144 @@
+09.03.2017 - ver 5.1
+   Added: Element Id for all elements
+   Added: Image size control for Grid Builder media elements
+   Update: Grid Builder Backend editor style user interface
+   Update: List of available Google Fonts
+   Fix: getJSON backward compatibility for jQuery
+   Fix: vcIcon font family
+   Fix: postDeactivate redirect url
+   Fix: Extra isset check in case if vc_remove_param
+   Fix: Not all child categories are displayed in the drop-down
+   Fix: Autocomplete param sorting
+   Fix: Shortcode mapper and shortcodes with dashes
+   Fix: Can not read property of 'IndexOf'
+   Fix: Custom CSS textarea height
+   Fix: Missing scrollbar for view preset
+   Fix: Fix vc_gitem_template_attribute_post_image_url warning for array_merge
+   Fix: Box-shadow and borders for twenty-seventeen
+   Fix: Media query for added css files
+   Fix: Increase gap in edit form for google fonts
+   Fix: Hiding all "Tabs" in tab module still displays active item
+   Fix: php 7.1 compatibility issues
+   Fix: Section save as template option
+
+17.11.2016 - ver 5.0.1
+   Improved: Auto update process on hostings with wrong chmod on /tmp directory
+   Fixed: CSS Animation "none" works differently on save
+   Fixed: Prettyphoto jumps up on closing in firefox
+   Fixed: Section in template breaks
+   Fixed: Warning for array_merge in vc_gitem_template_attribute_post_image_url
+
+09.11.2016 - ver 5.0
+   Added: Visual Composer Template Library with downloadable templates
+   Added: Section element to combine rows
+   Added: Material icon set to icon libraries
+   Added: Animate CSS animations
+   Added: template saving for section and row
+   Update: all elements has CSS animation attribute
+   Update: UI of element preset saving
+   Update: editor controls with retina friendly icon set
+   Update: IE8-9 support files removed
+   Update: compatibility with Ninja Forms
+   Update: less.js version update for better performance
+   Update: activation/deactivation mechanism
+   Update: iconpicker performance
+   Fix: php notice for default post type
+   Fix: php notices for post save
+   Fix: autocomplete element removing indexes
+   Fix: warning foreach for acf grid shortcodes
+   Fix: activation state on multisite
+   Fix: custom heading google fonts loading
+   Deprecated: class license methods in favor of 4.8
+   Deprecated: droppable and draggable methods in javascript for rows
+
+07.09.2016 - ver 4.12.1
+   Fixed: backend editor loading - getContent in case if #content doesn't exists
+   Fixed: Grid item background image URL quoting
+   Fixed: Entypo icons
+   Fixed: Templates preview element icons
+   Fixed: Remove extra next/prev buttons for prettyPhoto
+   Fixed: Lightbox in firefox
+   Fixed: Empty content welcome block for latest woocommerce
+   Fixed: Hook into the YoastSEO:ready event directly.
+   Fixed: Disable scrollTo when autoplay enabled
+   Fixed: PrettyPhoto is-single hover controls
+   Fixed: Grid Item ajax response rendering when no posts found
+   Updated: Make old names for deprecated elements
+   Updated: Old buttons and CTA removed from add element list
+   Updated: FontAwesome to 4.6.3
+
+08.06.2016 - ver 4.12
+   - Added: Set default templates for post types
+   - Added: Option to disable/hide row
+   - Added: ’nofollow’ attribute option for links
+   - Added: onclick action option for links
+   - Improved: CSS file loading
+   - Improved: Custom Heading added to Toggle(Faq)
+   - Improved: Compatibility with qTranslate X and Polylang
+   - Improved: French translation files
+   - Fixed: White line in grid on mac chrome
+   - Fixed: vc_vendor for Yoast
+   - Fixed: Post grid and post masonry grid settings
+   - Fixed: Lightbox prettyPhoto JS
+   - Fixed: Shortcode mapper default value
+   - Fixed: Server resource control
+   - Fixed: textarea_raw_html in param_group
+   - Fixed: Image doubling in masonry grid
+   - Fixed: Locale file for Japanese
+   - Fixed: Contact Form 7 search by title
+   - Fixed: Version display on Welcome page
+   - Fixed: Equal Height on IE11
+   - Fixed: ‘js_composer_front.min.js and Masonry component
+   - Fixed: Ability to disable accordion scroll
+   - Fixed: ‘Add Template’ and WPML conflict
+   - Fixed: Autocomplete field
+   - Fixed: PrettyPhoto navigation in Image Carousel
+   - Fixed: Loop builder in grid
+   - Fixed: Woo Commerce product settings
+   
+15.04.2016 - ver 4.11.2.1
+   - # is properly escaped for updated jQuery
+
+07.04.2016 - ver 4.11.2
+   - Added: Compatibility with WP 4.5
+   - Added: Filter for database query limits
+   - Improved: Input Sanitization
+   - Improved: TGMPA compatibility
+   - Improved: Pageable Container Back button behavior
+   - Improved: vc_siteAttachedImages now uses get_posts instead of direct query
+   - Improved: Ordering by meta key in grid elements
+   - Improved: loop param work with multiple taxonomies selection
+   - Fixed: Google maps scroll behavior
+   - Fixed: Initial loading for Masonry Media Grid
+   - Fixed: Advanced Custom Fields vendor initialization
+   - Fixed: Post Grid filter taxonomy names collapsing
+
+16.03.2016 - ver 4.11.1
+   - Fixed: WPML + Image selection is working again
+   - Fixed: vc_remove_param() + Custom WP Theme Front-end editor broke Text block
+
+10.03.2016 - ver 4.11
+   - Added: New predefined templates added
+   - Added: Mono Social icons added to icon library list
+   - Added: 'All' text in grid element filters can be modified in param window
+   - Added: Gradient button style for buttons
+   - Added: Grid element initial loading controls (including 'Disable' option)
+   - Added: TweetMe Button content element params description added
+   - Update: WordPress 4.5 compatibility added
+   - Update: Additional element description in Backend editor
+   - Update: Video background autoplay on mobile devices
+   - Update: Refactor grid params array system
+   - Update: In some cases relative path to admin-ajax.php returned 404, replaced with full path
+   - Fixed: Russian language adds new content tab
+   - Fixed: Content display on video background in IE10
+   - Fixed: wp_get_attachment_url work with arg
+   - Fixed: php7 array slice indexes
+   - Fixed: '_self' attribute fix in CTA and button
+   - Fixed: get_currentuserinfo() updated
+   - Fixed: Full height row and iteration issue
+   - Fixed: ACF foreach warning fixed
+   - Fixed: Link stripping from images added from "Add Media"
+
 5.02.2016 - ver 4.10
 	- Added: Compatibility with option to add ACF to page
 	- Added: Video width and alignment controls

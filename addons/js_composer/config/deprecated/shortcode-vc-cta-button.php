@@ -1,12 +1,17 @@
 <?php
+if ( ! defined( 'ABSPATH' ) ) {
+	die( '-1' );
+}
+
 $colors_arr = vc_colors_arr();
 $icons_arr = vc_icons_arr();
 $size_arr = vc_size_arr();
 return array(
-	'name' => __( 'Call to Action', 'js_composer' ),
+	'name' => __( 'Old Call to Action', 'js_composer' ),
 	'base' => 'vc_cta_button',
 	'icon' => 'icon-wpb-call-to-action',
 	'deprecated' => '4.5',
+	'content_element' => false,
 	'category' => __( 'Content', 'js_composer' ),
 	'description' => __( 'Catch visitors attention with CTA block', 'js_composer' ),
 	'params' => array(

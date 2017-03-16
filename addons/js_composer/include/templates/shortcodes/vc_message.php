@@ -10,6 +10,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  *
  * @var $atts
  * @var $el_class
+ * @var $el_id
  * @var $message_box_style
  * @var $style
  * @var $color
@@ -22,7 +23,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Shortcode class
  * @var $this WPBakeryShortCode_VC_Message
  */
-$el_class = $message_box_color = $message_box_style = $style = $css = $color = $css_animation = $icon_type = '';
+$el_class = $el_id = $message_box_color = $message_box_style = $style = $css = $color = $css_animation = $icon_type = '';
 $icon_fontawesome = $icon_linecons = $icon_openiconic = $icon_typicons = $icon_entypo = '';
 $defaultIconClass = 'fa fa-adjust';
 $atts = $this->convertAttributesToMessageBox2( $atts );
@@ -85,8 +86,12 @@ switch ( $color ) {
 if ( 'pixelicons' !== $icon_type ) {
 	vc_icon_element_fonts_enqueue( $icon_type );
 }
+$wrapper_attributes = array();
+if ( ! empty( $el_id ) ) {
+	$wrapper_attributes[] = 'id="' . esc_attr( $el_id ) . '"';
+}
 ?>
-<div class="<?php echo esc_attr( $css_class ); ?>">
+<div class="<?php echo esc_attr( $css_class ); ?>" <?php echo implode( ' ', $wrapper_attributes ); ?>>
 	<div class="vc_message_box-icon"><i class="<?php echo esc_attr( $iconClass ); ?>"></i>
 	</div><?php echo wpb_js_remove_wpautop( $content, true );
 	?></div>

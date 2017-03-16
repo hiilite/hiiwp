@@ -2,7 +2,8 @@
 if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
 }
-// _deprecated_file( 'class-vc-vendors-manager.php', '4.4 (will be removed in 4.10)', 'autoload logic', ' will be removed in 4.9' );
+
+_deprecated_file( 'class-vc-vendors-manager.php', '4.4 (will be removed in 5.1)', 'autoload logic', ' will be removed in 5.1' );
 
 /**
  * Vendors manager to load required classes and functions to work with VC.
@@ -19,7 +20,7 @@ class Vc_Vendors_Manager {
 	 * @deprecated 4.4
 	 */
 	function __construct() {
-		// _deprecated_function( 'Vc_Vendors_Manager::__construct', '4.4 (will be removed in 4.10)', 'autoload logic' );
+		_deprecated_function( 'Vc_Vendors_Manager::__construct', '4.4 (will be removed in 5.1)', 'autoload logic' );
 		add_action( 'vc_before_init_base', array( &$this, 'init' ) );
 	}
 
@@ -27,7 +28,7 @@ class Vc_Vendors_Manager {
 	 * @deprecated 4.4
 	 */
 	public function init() {
-		// _deprecated_function( 'Vc_Vendors_Manager::init', '4.4 (will be removed in 4.10)', 'autoload logic' );
+		_deprecated_function( 'Vc_Vendors_Manager::init', '4.4 (will be removed in 5.1)', 'autoload logic' );
 
 		require_once vc_path_dir( 'VENDORS_DIR', '_autoload.php' );
 		$this->load();
@@ -39,7 +40,7 @@ class Vc_Vendors_Manager {
 	 * @param Vc_Vendor_Interface $vendor
 	 */
 	public function add( Vc_Vendor_Interface $vendor ) {
-		// _deprecated_function( 'Vc_Vendors_Manager::add', '4.4 (will be removed in 4.10)', 'autoload logic' );
+		_deprecated_function( 'Vc_Vendors_Manager::add', '4.4 (will be removed in 5.1)', 'autoload logic' );
 
 		$this->vendors[] = $vendor;
 	}
@@ -48,7 +49,7 @@ class Vc_Vendors_Manager {
 	 * @deprecated 4.4
 	 */
 	public function load() {
-		// _deprecated_function( 'Vc_Vendors_Manager::load', '4.4 (will be removed in 4.10)', 'autoload logic' );
+		_deprecated_function( 'Vc_Vendors_Manager::load', '4.4 (will be removed in 5.1)', 'autoload logic' );
 
 		foreach ( $this->vendors as $vendor ) {
 			/**

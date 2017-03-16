@@ -7,6 +7,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Shortcode attributes
  * @var $title
  * @var $el_class
+ * @var $el_id
  * @var $type
  * @var $style
  * @var $legend
@@ -15,10 +16,11 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @var $x_values
  * @var $values
  * @var $css
+ * @var $css_animation
  * Shortcode class
  * @var $this WPBakeryShortCode_Vc_Line_Chart
  */
-$el_class = $title = $type = $legend = $style = $tooltips = $animation = $x_values = $values = $css = '';
+$el_class = $el_id = $title = $type = $legend = $style = $tooltips = $animation = $x_values = $values = $css = $css_animation = '';
 $atts = vc_map_get_attributes( $this->getShortcode(), $atts );
 extract( $atts );
 
@@ -92,7 +94,7 @@ foreach ( $base_colors['active'] as $name => $color ) {
 wp_enqueue_script( 'vc_line_chart' );
 
 $class_to_filter = 'vc_chart vc_line-chart wpb_content_element';
-$class_to_filter .= vc_shortcode_custom_css_class( $css, ' ' ) . $this->getExtraClass( $el_class );
+$class_to_filter .= vc_shortcode_custom_css_class( $css, ' ' ) . $this->getExtraClass( $el_class ) . $this->getCSSAnimation( $css_animation );
 $css_class = apply_filters( VC_SHORTCODE_CUSTOM_CSS_FILTER_TAG, $class_to_filter, $this->settings['base'], $atts );
 
 $options = array();
@@ -179,7 +181,9 @@ if ( $legend ) {
 	$legend_html = '<ul class="vc_chart-legend">' . $legend_html . '</ul>';
 	$canvas_html = '<div class="vc_chart-with-legend">' . $canvas_html . '</div>';
 }
-
+if ( ! empty( $el_id ) ) {
+	$options[] = 'id="' . esc_attr( $el_id ) . '"';
+}
 $output = '
 <div class="' . esc_attr( $css_class ) . '" ' . implode( ' ', $options ) . '>
 	' . $title . '

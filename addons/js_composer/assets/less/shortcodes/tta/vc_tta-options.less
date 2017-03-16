@@ -213,6 +213,7 @@
       -ms-flex: 0 0 auto;
       flex: 0 0 auto;
       margin-top: 0;
+      margin-left: 0;
       //.vc_non_responsive must be exactly same as @media below
       .vc_non_responsive &,
       .vc_tta-o-non-responsive & {
@@ -220,16 +221,39 @@
         display: -webkit-flex;
         display: -ms-flexbox;
         display: flex;
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+        -webkit-flex-direction: column;
+        -ms-flex-direction: column;
+        flex-direction: column;
       }
       @media (min-width: @vc_tta-breakpoint) {
         display: -webkit-box;
         display: -webkit-flex;
         display: -ms-flexbox;
         display: flex;
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+        -webkit-flex-direction: column;
+        -ms-flex-direction: column;
+        flex-direction: column;
       }
     }
     .vc_tta-tabs-list {
       overflow: hidden;
+      .vc_non_responsive &,
+      .vc_tta-o-non-responsive & {
+        -webkit-box-flex: 1;
+        -webkit-flex-grow: 1;
+        -ms-flex-positive: 1;
+        flex-grow: 1;
+      }
+      @media (min-width: @vc_tta-breakpoint) {
+        -webkit-box-flex: 1;
+        -webkit-flex-grow: 1;
+        -ms-flex-positive: 1;
+        flex-grow: 1;
+      }
     }
     .vc_tta-tab {
       display: block;
@@ -321,6 +345,7 @@
       -ms-flex: 0 0 auto;
       flex: 0 0 auto;
       margin-top: 0;
+      margin-right: 0;
       //.vc_non_responsive must be exactly same as @media below
       .vc_non_responsive &,
       .vc_tta-o-non-responsive & {
@@ -328,16 +353,39 @@
         display: -webkit-flex;
         display: -ms-flexbox;
         display: flex;
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+        -webkit-flex-direction: column;
+        -ms-flex-direction: column;
+        flex-direction: column;
       }
       @media (min-width: @vc_tta-breakpoint) {
         display: -webkit-box;
         display: -webkit-flex;
         display: -ms-flexbox;
         display: flex;
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+        -webkit-flex-direction: column;
+        -ms-flex-direction: column;
+        flex-direction: column;
       }
     }
     .vc_tta-tabs-list {
       overflow: hidden;
+      .vc_non_responsive &,
+      .vc_tta-o-non-responsive & {
+        -webkit-box-flex: 1;
+        -webkit-flex-grow: 1;
+        -ms-flex-positive: 1;
+        flex-grow: 1;
+      }
+      @media (min-width: @vc_tta-breakpoint) {
+        -webkit-box-flex: 1;
+        -webkit-flex-grow: 1;
+        -ms-flex-positive: 1;
+        flex-grow: 1;
+      }
     }
     .vc_tta-tab {
       display: block;

@@ -26,5 +26,5 @@ function vc_vc_link_form_field( $settings, $value ) {
  * @return array
  */
 function vc_build_link( $value ) {
-	return vc_parse_multi_attribute( $value, array( 'url' => '', 'title' => '', 'target' => '' ) );
+	return vc_parse_multi_attribute( $value, array( 'url' => '', 'title' => '', 'target' => '', 'rel' => '' ) );
 }

@@ -9,8 +9,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @var $atts
  *
  */
-VcShortcodeAutoloader::getInstance()
-                     ->includeClass( 'WPBakeryShortCode_VC_Gitem_Post_Categories' );
+VcShortcodeAutoloader::getInstance()->includeClass( 'WPBakeryShortCode_VC_Gitem_Post_Categories' );
 
 $categories = get_the_category();
 
@@ -47,6 +46,3 @@ $output .= implode( $separator, $data );
 $output .= '</div>';
 
 return $output;
-
-
-

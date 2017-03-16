@@ -2,6 +2,7 @@
 if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
 }
+
 ?>
 <div id="vc_multi-properties-panel" class="vc_panel">
 	<div class="vc_panel-heading">

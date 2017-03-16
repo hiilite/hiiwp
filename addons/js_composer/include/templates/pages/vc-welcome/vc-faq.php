@@ -62,7 +62,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<div class="vc_col-xs-4">
 			<h4><a target="_blank" href="http://go.wpbakery.com/vc-how-tos">Visual Composer "How To's"</a></h4>
 
-			<p>In this section you will find a quick tips in form of video tutorials on how to operate with Visual Composer.</p>
+			<p>In this section, you will find quick tips in form of video tutorials on how to operate with Visual Composer.</p>
 		</div>
 
 		<div class="vc_col-xs-4">

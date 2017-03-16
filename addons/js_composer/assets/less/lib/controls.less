@@ -128,9 +128,52 @@
   }
 }
 
+// Section controls
+
+.vc_vc_section {
+  .vc_section.vc_section-has-fill {
+    padding-top: 62px;
+  }
+  .vc_section-has-fill ~ .vc_controls-container > .vc_controls-out-tl {
+    top: 1px !important;
+  }
+  > .vc_controls {
+    > .vc_controls-out-tl {
+      left: -17px;
+      top: -61px;
+    }
+  }
+  &.vc_empty {
+    > .vc_controls {
+      > .vc_controls-out-tl {
+        top: -29px;
+      }
+    }
+  }
+  > [data-vc-full-width="true"] {
+    ~ .vc_controls {
+      > .vc_controls-out-tl {
+        top: -29px;
+      }
+    }
+    > .vc_vc_row {
+      padding-left: 15px;
+      padding-right: 15px;
+    }
+  }
+  > .vc_parallax {
+    ~ .vc_controls {
+      > .vc_controls-out-tl {
+        top: -29px;
+      }
+    }
+  }
+}
+
 // Single Control button
 .vc_control-btn {
   display: inline-block;
+  position: relative;
   vertical-align: middle !important;
   border: none !important;
   -webkit-box-shadow: none !important;
@@ -146,6 +189,39 @@
   .vc_btn-content {
     &:hover {
       background-color: @vc_control_hover_color;
+    }
+  }
+
+  .vc-composer-icon {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    font-size: 18px;
+    color: #F2F2F2;
+    position: relative;
+
+    &::before {
+      font-family: 'VC-Icons' !important;
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      .translate(-50%, -50%);
+    }
+  }
+
+  .vc-c-icon-delete_empty {
+    font-size: 20px;
+  }
+
+  .vc-c-icon-add{
+    font-size: 24px;
+  }
+}
+
+.vc_controls-dark {
+  .vc_control-btn {
+    .vc-composer-icon {
+      color: #868686;
     }
   }
 }
@@ -179,40 +255,20 @@
 .vc_element-move, .vc_child-element-move {
   .vc_btn-content {
     cursor: move !important;
-    background-image: url(../vc/fe/move.png) !important;
-    background-position: 10px center !important;
-    background-repeat: no-repeat;
     padding-left: 30px !important;
     &:hover {
       background-color: @vc_control_hover_color;
     }
   }
+  .vc-c-icon-dragndrop {
+    position: absolute;
+    top: 50%;
+    left: 15px;
+    .translate(-50%, -50%);
+  }
 }
 
 // Control icons variations
-.vc_control-btn-prepend,
-.vc_control-btn-append {
-  .icon, .vc_icon {
-    background-position: 0 -16px;
-  }
-  .vc_controls-dark & {
-    .icon, .vc_icon {
-      background-position: -16px -16px;
-    }
-  }
-}
-
-.vc_control-btn-layout {
-  .icon, .vc_icon {
-    background-position: 0 -80px;
-  }
-  .vc_controls-dark & {
-    .icon, .vc_icon {
-      background-position: -16px -80px;
-    }
-  }
-}
-
 .vc_control-btn-append {
   position: relative;
   top: 19px;
@@ -249,51 +305,18 @@
   }
 }
 
-.vc_control-btn-edit {
-  .icon, .vc_icon {
-    background-position: 0 -32px;
-  }
-  .vc_controls-dark & {
-    .icon, .vc_icon {
-      background-position: -16px -32px;
-    }
-  }
-}
-
-.vc_control-btn-clone {
-  .icon, .vc_icon {
-    background-position: 0 -48px;
-  }
-  .vc_controls-dark & {
-    .icon, .vc_icon {
-      background-position: -16px -48px;
-    }
-  }
-}
-
-.vc_control-btn-delete {
-  .icon, .vc_icon {
-    background-position: 0 -64px;
-  }
-  .vc_controls-dark & {
-    .icon, .vc_icon {
-      background-position: -16px -64px;
-    }
-  }
-}
 
 .vc_control-btn-switcher {
   overflow-x: hidden;
   width: 24px;
   .transition(width 0.5s);
-  .icon, .vc_icon {
-    width: 10px;
-    background-image: url(../vc/fe/expand.gif);
-    background-position: center center;
-  }
   display: inline-block;
   &-disable-switcher {
     display: none !important;
+  }
+
+  .vc-composer-icon {
+    width: 10px;
   }
 }
 
@@ -377,6 +400,22 @@
       > :first-child {
         .vc_btn-content {
           .border-left-radius(@vc_border_radius);
+        }
+      }
+    }
+    > .element-vc_section {
+      .vc_btn-content {
+        background-color: @vc_controls_parent_background;
+        border-color: @vc_controls_parent_border;
+      }
+      .vc_control-btn {
+        .vc_btn-content {
+          background-color: @vc_controls_parent_background;
+          border-color: @vc_controls_parent_border;
+          &:hover {
+            background-color: @vc_controls_parent_background_hover;
+            border-color: @vc_controls_parent_border_hover;
+          }
         }
       }
     }

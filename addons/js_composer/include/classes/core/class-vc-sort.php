@@ -5,7 +5,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 /**
  * Sort array values by key, default key is 'weight'
- * Used in usort() function.
+ * Used in uasort() function.
  * For fix equal weight problem used $this->data array_search
  *
  * @since 4.4
@@ -59,9 +59,9 @@ class Vc_Sort {
 	 */
 	public function sortByKey( $key = 'weight' ) {
 		$this->key = $key;
-		usort( $this->data, array( &$this, '_key' ) );
+		uasort( $this->data, array( &$this, '_key' ) );
 
-		return $this->data;
+		return array_merge( $this->data ); // reset array keys to 0..N
 	}
 
 	/**

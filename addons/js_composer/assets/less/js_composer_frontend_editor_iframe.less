@@ -12,7 +12,7 @@ html.js_active {
 }
 
 .vc_catcher {
-  background-color: #E8ECB8
+  background-color: #e8ecb8
 }
 
 .vc_empty-placeholder {
@@ -48,20 +48,32 @@ html.js_active {
     @media (max-width: @screen-xs-max) {
       .vc_frontend-editor-invisibility-settings;
     }
+    .vc_hidden-xs {
+      .opacity(1);
+    }
   }
   .vc_hidden-sm {
     @media (min-width: @screen-sm-min) and (max-width: @screen-sm-max) {
       .vc_frontend-editor-invisibility-settings;
+    }
+    .vc_hidden-sm {
+      .opacity(1);
     }
   }
   .vc_hidden-md {
     @media (min-width: @screen-md-min) and (max-width: @screen-md-max) {
       .vc_frontend-editor-invisibility-settings;
     }
+    .vc_hidden-md {
+      .opacity(1);
+    }
   }
   .vc_hidden-lg {
     @media (min-width: @screen-lg-min) {
       .vc_frontend-editor-invisibility-settings;
+    }
+    .vc_hidden-lg {
+      .opacity(1);
     }
   }
   &.vc_non_responsive {

@@ -15,21 +15,21 @@ function vc_page_settings_build() {
 	}
 	$tabs = vc_settings()->getTabs();
 	foreach ( $tabs as $slug => $title ) {
-		$has_access = vc_user_access()
-			->part( 'settings' )
-			->can( $slug . '-tab' )
-			->get();
+		$has_access = vc_user_access()->part( 'settings' )->can( $slug . '-tab' )->get();
 
 		if ( $has_access ) {
 			$page = add_submenu_page( VC_PAGE_MAIN_SLUG, $title, $title, 'manage_options', $slug, 'vc_page_settings_render' );
-			add_action( 'load-' . $page, array( vc_settings(), 'adminLoad', ) );
+			add_action( 'load-' . $page, array(
+				vc_settings(),
+				'adminLoad',
+			) );
 		}
 	}
 	do_action( 'vc_page_settings_build' );
 }
 
 function vc_page_settings_admin_init() {
-	vc_settings()->initAdmin(); // TODO: fix_roles, this actions is needed for simple user, but inside have extra hooks that should be checked
+	vc_settings()->initAdmin();
 }
 
 add_action( 'vc_menu_page_build', 'vc_page_settings_build' );
@@ -41,5 +41,3 @@ function vc_settings_enqueue_js() {
 	// enqueue accordion in vc-roles page only
 	wp_enqueue_script( 'vc_accordion_script' );
 }
-
-

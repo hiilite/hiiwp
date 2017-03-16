@@ -1,7 +1,10 @@
 <?php
+if ( ! defined( 'ABSPATH' ) ) {
+	die( '-1' );
+}
 
 return array(
-	'name' => __( 'Post Carousel', 'js_composer' ),
+	'name' => __( 'Old Post Carousel', 'js_composer' ),
 	'base' => 'vc_carousel',
 	'content_element' => false,
 	'deprecated' => '4.4',

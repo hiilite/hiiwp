@@ -25,7 +25,7 @@
     transition-duration: .2s;
     transition-timing-function: ease-in-out;
     position: absolute;
-    z-index: 100;
+    z-index: 120;
     top: 100%;
     left: 0;
     box-shadow: 0 0 5px rgba(0, 0, 0, .1);
@@ -38,20 +38,27 @@
   }
   .vc_ui-list-bar-item-trigger {
     width: @vc-ui-list-bar-item-trigger-width;
+    flex: 1;
+
+    &[disabled] {
+      cursor: not-allowed;
+      background: #f5f5f5;
+      color: #bbbaba;
+    }
   }
 }
 
 .vc_ui-settings-button {
-  .vc_ui-icon-pixel-check {
+  .vc-c-icon-check {
     display: none;
   }
 
   &.vc_done {
-    .vc_ui-icon-pixel-check {
+    .vc-c-icon-check {
       display: inline-block;
     }
 
-    .vc_ui-icon-pixel-cog {
+    .vc-c-icon-cog {
       display: none;
     }
   }

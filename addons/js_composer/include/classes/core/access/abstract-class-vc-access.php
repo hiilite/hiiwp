@@ -74,8 +74,8 @@ abstract class Vc_Access {
 	 * Call die() function with message if access is invalid.
 	 *
 	 * @param string $message
-	 *
 	 * @return $this
+	 * @throws \Exception
 	 */
 	public function validateDie( $message = '' ) {
 		$result = $this->getValidAccess();

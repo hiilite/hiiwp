@@ -1,21 +1,26 @@
 <?php
-require_once "vc-icon-element.php";
+if ( ! defined( 'ABSPATH' ) ) {
+	die( '-1' );
+}
+
+require_once 'vc-icon-element.php';
 $icon_params = vc_icon_element_params();
 /* Separator (Divider)
 ---------------------------------------------------------- */
 $icons_params = vc_map_integrate_shortcode( $icon_params, 'i_', __( 'Icon', 'js_composer' ), array(
-		'exclude' => array(
-			'align',
-			'css',
-			'el_class',
-			'link',
-			'css_animation',
-		),
-		// we need only type, icon_fontawesome, icon_blabla..., NOT color and etc
-	), array(
-		'element' => 'add_icon',
-		'value' => 'true',
-	) );
+	'exclude' => array(
+		'align',
+		'css',
+		'el_class',
+		'el_id',
+		'link',
+		'css_animation',
+	),
+	// we need only type, icon_fontawesome, icon_blabla..., NOT color and etc
+), array(
+	'element' => 'add_icon',
+	'value' => 'true',
+) );
 
 // populate integrated vc_icons params.
 if ( is_array( $icons_params ) && ! empty( $icons_params ) ) {
@@ -110,6 +115,13 @@ return array(
 			'param_name' => 'el_width',
 			'value' => getVcShared( 'separator widths' ),
 			'description' => __( 'Separator element width in percents.', 'js_composer' ),
+		),
+		vc_map_add_css_animation(),
+		array(
+			'type' => 'el_id',
+			'heading' => __( 'Element ID', 'js_composer' ),
+			'param_name' => 'el_id',
+			'description' => sprintf( __( 'Enter element ID (Note: make sure it is unique and valid according to <a href="%s" target="_blank">w3c specification</a>).', 'js_composer' ), 'http://www.w3schools.com/tags/att_global_id.asp' ),
 		),
 		array(
 			'type' => 'textfield',

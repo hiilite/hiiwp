@@ -1,16 +1,9 @@
 <?php
-global $hiilite_options;
+global $hiilite_options, $post;
 $post_meta = get_post_meta(get_the_id());
-$hiilite_options['amp'] = get_theme_mod('amp');
-if($hiilite_options['amp']) $_amp = 'amp-'; else $_amp = '';
-
+echo '<!--BLOG-LOOP-->';
 // Create Title
 $article_title = $dateline = $article_cat = '';
-
-if(isset($atts)) {
-	$hiilite_options['blog_col'] = isset($atts['element_width'])?(string)$atts['element_width']:$hiilite_options['blog_col'];
-	$hiilite_options['blog_layouts'] = 'boxed';
-}
 
 $article_title .= '<span itemprop="author" itemscope itemtype="https://schema.org/Person">';
 if($hiilite_options['blog_meta_show']):
@@ -101,7 +94,7 @@ if(is_customize_preview()) echo '<div class="customizer_quick_links"><button cla
 		<meta itemprop="url" content="<?=$img_src;?>">
 		<meta itemprop="width" content="<?=$width;?>">
 		<meta itemprop="height" content="<?=$height;?>">
-		<a href="<?=get_the_permalink()?>"><<?=$_amp?>img src='<?=$img_src;?>' layout='responsive' width='<?=$width?>' height='<?=$height?>'><?=($_amp!='')?'</amp-img>':''?></a>
+		<a href="<?=get_the_permalink()?>"><img src='<?=$img_src;?>' layout='responsive' width='<?=$width?>' height='<?=$height?>'></a>
 		<?php
 	echo '</figure>'; ?>
 	<div class="flex-item <?=($hiilite_options['blog_img_pos']=='image-left')?'col-6':'col-12'; ?> content-box" >

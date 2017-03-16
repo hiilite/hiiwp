@@ -16,32 +16,36 @@ class Vc_Vendor_AdvancedCustomFields implements Vc_Vendor_Interface {
 	 * @since 4.3.3
 	 */
 	public function load() {
+		if ( did_action( 'vc-vendor-acf-load' ) ) {
+			return;
+		}
 		/**
 		 * Action when backend editor is rendering
 		 * @see Vc_Backend_Editor::renderEditor wp-content/plugins/js_composer/include/classes/editors/class-vc-backend-editor.php
 		 */
 		add_action( 'vc_backend_editor_render', array(
-			&$this,
-			'enqueueJs',
-		) );
+				$this,
+				'enqueueJs',
+			) );
 
 		/**
 		 * Action when frontend editor is rendering
 		 * @see Vc_Frontend_Editor::renderEditor wp-content/plugins/js_composer/include/classes/editors/class-vc-frontend-editor.php
 		 */
 		add_action( 'vc_frontend_editor_render', array(
-			&$this,
-			'enqueueJs',
-		) );
+				$this,
+				'enqueueJs',
+			) );
 		add_filter( 'vc_grid_item_shortcodes', array(
-			&$this,
-			'mapGridItemShortcodes',
-		) );
-
+				$this,
+				'mapGridItemShortcodes',
+			) );
 		add_action( 'vc_after_mapping', array(
-			&$this,
-			'mapEditorsShortcodes',
-		) );
+				$this,
+				'mapEditorsShortcodes',
+			) );
+
+		do_action( 'vc-vendor-acf-load', $this );
 	}
 
 	/**
@@ -49,10 +53,7 @@ class Vc_Vendor_AdvancedCustomFields implements Vc_Vendor_Interface {
 	 * @since 4.3.3
 	 */
 	public function enqueueJs() {
-		wp_enqueue_script( 'vc_vendor_acf',
-			vc_asset_url( 'js/vendors/advanced_custom_fields.js' ),
-			array( 'jquery' ), '1.0', true
-		);
+		wp_enqueue_script( 'vc_vendor_acf', vc_asset_url( 'js/vendors/advanced_custom_fields.js' ), array( 'jquery' ), '1.0', true );
 	}
 
 	public function mapGridItemShortcodes( array $shortcodes ) {

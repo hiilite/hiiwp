@@ -1,13 +1,18 @@
 <?php
+if ( ! defined( 'ABSPATH' ) ) {
+	die( '-1' );
+}
+
 $colors_arr = vc_colors_arr();
 $size_arr = vc_size_arr();
 $icons_arr = vc_icons_arr();
 return array(
-	'name' => __( 'Button', 'js_composer' ) . ' 1',
+	'name' => __( 'Old Button', 'js_composer' ) . ' 1',
 	'base' => 'vc_button',
 	'icon' => 'icon-wpb-ui-button',
 	'category' => __( 'Content', 'js_composer' ),
 	'deprecated' => '4.5',
+	'content_element' => false,
 	'description' => __( 'Eye catching button', 'js_composer' ),
 	'params' => array(
 		array(

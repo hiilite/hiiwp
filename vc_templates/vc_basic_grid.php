@@ -16,7 +16,7 @@ if($hiilite_options['amp']) $_amp = 'amp-'; else $_amp = '';
  
  // TESTING
 $this->post_id = false;
-$css = $el_class = '';
+$css = $grid = $el_class = '';
 $posts = $filter_terms = array();
 $this->buildAtts( $atts, $content );
 
@@ -63,49 +63,55 @@ if($atts['post_type'] != 'custom'){
 	$query = array(
 		'post_type' => $atts['post_type'],
 		'posts_per_page' => isset($atts['max_items'])?$atts['max_items']:10,
-		'tax_query'	=> $taxquery,
+		'tax_query'	=> isset($taxquery)?$taxquery:'',
 	);
 	
+} else {
+	parse_str(html_entity_decode($atts['custom_query']), $query);
 }
-echo '<div class="container_inner">';
-$my_query = new WP_Query($query);
-while ( $my_query->have_posts() ) {
-	$my_query->the_post(); // Get post from query
+if(isset($atts)) {
+	$hiilite_options['blog_layouts'] = (isset($atts['blog_layouts']) && $atts['blog_layouts'] != '')?$atts['blog_layouts']:$hiilite_options['blog_layouts'];
+	$hiilite_options['blog_col'] = isset($atts['element_width'])?(string)$atts['element_width']:3;
+	$hiilite_options['blog_img_pos'] = isset($atts['blog_img_pos'])?(string)$atts['blog_img_pos']:$hiilite_options['blog_img_pos'];
+	$hiilite_options['blog_title_show'] = isset($atts['blog_title_show'])?$atts['blog_title_show']:$hiilite_options['blog_title_show'];
+	$hiilite_options['blog_title_position'] = isset($atts['blog_title_position'])?$atts['blog_title_position']:$hiilite_options['blog_title_position'];
+	$hiilite_options['blog_heading_tag'] = isset($atts['blog_heading_tag'])?$atts['blog_heading_tag']:$hiilite_options['blog_heading_tag'];
+	$hiilite_options['blog_cats_show'] = isset($atts['blog_cats_show'])?$atts['blog_cats_show']:$hiilite_options['blog_cats_show'];
+	$hiilite_options['blog_meta_show'] = isset($atts['blog_meta_show'])?$atts['blog_cats_show']:$hiilite_options['blog_meta_show'];
+	$hiilite_options['blog_excerpt_show'] = isset($atts['blog_excerpt_show'])?$atts['blog_cats_show']:$hiilite_options['blog_excerpt_show'];
+	$hiilite_options['blog_excerpt_len'] = isset($atts['blog_excerpt_len'])?$atts['blog_excerpt_len']:$hiilite_options['blog_excerpt_len'];
+	$hiilite_options['blog_more_show'] = isset($atts['blog_more_show'])?$atts['blog_more_show']:$hiilite_options['blog_more_show'];
 	
+	
+	switch ($hiilite_options['blog_col']) {
+		case '6': 
+			$hiilite_options['blog_col'] = '2'; 
+		break;
+		case '4': 
+			$hiilite_options['blog_col'] = '3'; 
+		break;
+		case '3': 
+			$hiilite_options['blog_col'] = '4'; 
+		break;
+		case '2': 
+			$hiilite_options['blog_col'] = '6'; 
+		break;
+		case '1': 
+			$hiilite_options['blog_col'] = '12'; 
+		break;		
+	}
+}
+
+$colcount = ($hiilite_options['blog_layouts'] =='masonry')?' col-count-'.$hiilite_options['blog_col']:'';
+
+echo '<div class="container_inner '.$grid.' '.$hiilite_options['blog_layouts'].$colcount.'">';
+
+$bg_query = new WP_Query($query);
+while ( $bg_query->have_posts() ) {
+	$bg_query->the_post(); // Get post from query
 	
 	include(locate_template( 'templates/blog-loop.php' ));
-	/*
-	$post = new stdClass();
-	
-	$post_id = get_the_ID();
-	$post->link = get_permalink( $post_id );
-	
-	$col = (isset($atts['element_width']))?$atts['element_width']:12;
-	$heading_size = get_theme_mod( 'blog_heading_size', 'h2' );
-	?>
-	<div class="flex-item <?='col-'.$col;?>">
-		<article class="content-box post-grid">
-			<?php 
-			if(has_post_thumbnail($post_id)): 
-				
-				$tn_id = get_post_thumbnail_id( $post_id );
-		
-				$img = wp_get_attachment_image_src( $tn_id, 'medium' );
-				$width = $img[1];
-				$height = $img[2];
-			?>
-			<figure>
-				<a href="<?=$post->link?>"><<?=$_amp?>img src='<?=$img[0];?>' layout='responsive' width='<?=$width?>' height='<?=($height)?>'><?=($_amp!='')?'</amp-img>':''?></a>
-			</figure>
-			<?php endif; ?>
-			<div class="caption">
-			<<?=$heading_size?>><a href="<?=$post->link?>"><?php the_title(); ?></a></<?=$heading_size?>>
-			<p><?php echo excerpt(25); ?></p>
-			</div>
-		</article>
-	</div>
-	<?php
-	*/
+
 }
 echo '</div>';
 wp_reset_postdata();

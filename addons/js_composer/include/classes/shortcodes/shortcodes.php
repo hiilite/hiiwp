@@ -492,23 +492,7 @@ if ( ! class_exists( 'WPBakeryShortCode' ) ) {
 				$content = wpautop( stripslashes( $content ) );
 			}
 			$shortcode_attributes = array( 'width' => '1/1' );
-			if ( isset( $this->settings['params'] ) && is_array( $this->settings['params'] ) ) {
-				foreach ( $this->settings['params'] as $param ) {
-					if ( 'content' !== $param['param_name'] ) {
-						if ( isset( $param['value'] ) ) {
-							$value = $param['value'];
-						} else {
-							$value = '';
-						}
-
-						$shortcode_attributes[ $param['param_name'] ] = $value;
-					} elseif ( 'content' === $param['param_name'] && null === $content ) {
-						$content = isset( $param['value'] ) ? $param['value'] : '';
-					}
-				}
-			}
-			$atts = shortcode_atts( $shortcode_attributes, $atts );
-			extract( $atts );
+			$atts = vc_map_get_attributes( $this->shortcode, $atts ) + $shortcode_attributes;
 			$this->atts = $atts;
 			$elem = $this->getElementHolder( $width );
 			if ( isset( $this->settings['custom_markup'] ) && '' !== $this->settings['custom_markup'] ) {
@@ -655,9 +639,10 @@ if ( ! class_exists( 'WPBakeryShortCode' ) ) {
 		 */
 		public function getCSSAnimation( $css_animation ) {
 			$output = '';
-			if ( '' !== $css_animation ) {
+			if ( '' !== $css_animation && 'none' !== $css_animation ) {
 				wp_enqueue_script( 'waypoints' );
-				$output = ' wpb_animate_when_almost_visible wpb_' . $css_animation;
+				wp_enqueue_style( 'animate-css' );
+				$output = ' wpb_animate_when_almost_visible wpb_' . $css_animation . ' ' . $css_animation;
 			}
 
 			return $output;
@@ -956,7 +941,11 @@ if ( ! class_exists( 'WPBakeryShortCode' ) ) {
 						'`{`',
 						'`}`',
 						'``',
-					), array( '[', ']', '"' ), $val );
+					), array(
+						'[',
+						']',
+						'"',
+					), $val );
 				}
 			}
 
@@ -976,7 +965,6 @@ if ( ! class_exists( 'WPBakeryShortCode' ) ) {
 		 *      {{ content }}
 		 *      {{ title }}
 		 *      {{ container-class }}
-		 *      {{ params }}
 		 *
 		 * Possible keys:
 		 *  {{
@@ -1018,7 +1006,9 @@ if ( ! class_exists( 'WPBakeryShortCode' ) ) {
 							}
 							break;
 						}
-						case 'params': {
+						/*
+						 * not really work. there is not $atts and no dynamically updated.
+						 case 'params': {
 							$inner = '';
 							if ( isset( $this->settings['params'] ) && is_array( $this->settings['params'] ) ) {
 								foreach ( $this->settings['params'] as $param ) {
@@ -1034,7 +1024,7 @@ if ( ! class_exists( 'WPBakeryShortCode' ) ) {
 							}
 							$markup = str_replace( $match[0], $inner, $markup );
 							break;
-						}
+						}*/
 						case 'editor_controls': {
 							$markup = str_replace( $match[0], $this->getColumnControls( $this->settings( 'controls' ) ), $markup );
 							break;
@@ -1056,17 +1046,10 @@ if ( ! class_exists( 'WPBakeryShortCode' ) ) {
 		 * @return string
 		 */
 		protected function paramsHtmlHolders( $atts ) {
-			extract( $atts );
 			$inner = '';
 			if ( isset( $this->settings['params'] ) && is_array( $this->settings['params'] ) ) {
 				foreach ( $this->settings['params'] as $param ) {
-					$param_value = isset( ${$param['param_name']} ) ? ${$param['param_name']} : '';
-					if ( is_array( $param_value ) ) {
-						// Get first element from the array
-						reset( $param_value );
-						$first_key = key( $param_value );
-						$param_value = is_null( $first_key ) ? '' : $param_value[ $first_key ];
-					}
+					$param_value = isset( $atts[ $param['param_name'] ] ) ? $atts[ $param['param_name'] ] : '';
 					$inner .= $this->singleParamHtmlHolder( $param, $param_value );
 				}
 			}
@@ -1113,7 +1096,7 @@ if ( ! class_exists( 'WPBakeryShortCodesContainer' ) ) {
 		public function mainHtmlBlockParams( $width, $i ) {
 			$sortable = ( vc_user_access_check_shortcode_all( $this->shortcode ) ? 'wpb_sortable' : $this->nonDraggableClass );
 
-			return 'data-element_type="' . $this->settings['base'] . '" class="wpb_' . $this->settings['base'] . ' ' . $sortable . ' wpb_content_holder vc_shortcodes_container"' . $this->customAdminBlockParams();
+			return 'data-element_type="' . $this->settings['base'] . '" class="wpb_' . $this->settings['base'] . ' ' . $sortable . '' . ( ! empty( $this->settings['class'] ) ? ' ' . $this->settings['class'] : '' ) . ' wpb_content_holder vc_shortcodes_container"' . $this->customAdminBlockParams();
 		}
 
 		/**
@@ -1150,11 +1133,11 @@ if ( ! class_exists( 'WPBakeryShortCodesContainer' ) ) {
 				$control_title = sprintf( __( 'Prepend to this %s', 'js_composer' ), strtolower( $this->settings( 'name' ) ) );
 			}
 
-			$controls_move = '<a class="vc_control column_move" data-vc-control="move" href="#" title="' . sprintf( __( 'Move this %s', 'js_composer' ), strtolower( $this->settings( 'name' ) ) ) . '"><span class="vc_icon"></span></a>';
-			$controls_add = '<a class="vc_control column_add" data-vc-control="add" href="#" title="' . $control_title . '"><span class="vc_icon"></span></a>';
-			$controls_edit = '<a class="vc_control column_edit" data-vc-control="edit" href="#" title="' . sprintf( __( 'Edit this %s', 'js_composer' ), strtolower( $this->settings( 'name' ) ) ) . '"><span class="vc_icon"></span></a>';
-			$controls_clone = '<a class="vc_control column_clone" data-vc-control="clone" href="#" title="' . sprintf( __( 'Clone this %s', 'js_composer' ), strtolower( $this->settings( 'name' ) ) ) . '"><span class="vc_icon"></span></a>';
-			$controls_delete = '<a class="vc_control column_delete" data-vc-control="delete" href="#" title="' . sprintf( __( 'Delete this %s', 'js_composer' ), strtolower( $this->settings( 'name' ) ) ) . '"><span class="vc_icon"></span></a>';
+			$controls_move = '<a class="vc_control column_move vc_column-move" data-vc-control="move" href="#" title="' . sprintf( __( 'Move this %s', 'js_composer' ), strtolower( $this->settings( 'name' ) ) ) . '"><i class="vc-composer-icon vc-c-icon-dragndrop"></i></a>';
+			$controls_add = '<a class="vc_control column_add" data-vc-control="add" href="#" title="' . $control_title . '"><i class="vc-composer-icon vc-c-icon-add"></i></a>';
+			$controls_edit = '<a class="vc_control column_edit" data-vc-control="edit" href="#" title="' . sprintf( __( 'Edit this %s', 'js_composer' ), strtolower( $this->settings( 'name' ) ) ) . '"><i class="vc-composer-icon vc-c-icon-mode_edit"></i></a>';
+			$controls_clone = '<a class="vc_control column_clone" data-vc-control="clone" href="#" title="' . sprintf( __( 'Clone this %s', 'js_composer' ), strtolower( $this->settings( 'name' ) ) ) . '"><i class="vc-composer-icon vc-c-icon-content_copy"></i></a>';
+			$controls_delete = '<a class="vc_control column_delete" data-vc-control="delete" href="#" title="' . sprintf( __( 'Delete this %s', 'js_composer' ), strtolower( $this->settings( 'name' ) ) ) . '"><i class="vc-composer-icon vc-c-icon-delete_empty"></i></a>';
 			$controls_full = $controls_move . $controls_add . $controls_edit . $controls_clone . $controls_delete;
 
 			$editAccess = vc_user_access_check_shortcode_edit( $this->shortcode );
@@ -1304,8 +1287,7 @@ if ( ! class_exists( 'WPBakeryShortCodeFishBones' ) ) {
 
 			$class_name = $this->settings( 'php_class_name' ) ? $this->settings( 'php_class_name' ) : 'WPBakeryShortCode_' . $this->settings( 'base' );
 
-			$autoloaded_dependencies = VcShortcodeAutoloader::getInstance()
-			                                                ->includeClass( $class_name );
+			$autoloaded_dependencies = VcShortcodeAutoloader::getInstance()->includeClass( $class_name );
 
 			if ( ! $autoloaded_dependencies ) {
 				$file = vc_path_dir( 'SHORTCODES_DIR', str_replace( '_', '-', $this->settings( 'base' ) ) . '.php' );
@@ -1328,7 +1310,8 @@ if ( ! class_exists( 'WPBakeryShortCodeFishBones' ) ) {
 		 *
 		 * @since 4.9
 		 *
-		 * @return  WPBakeryShortCodeFishBones|
+		 * @param $tag
+		 * @return \WPBakeryShortCodeFishBones
 		 */
 		public static function getElementClass( $tag ) {
 			$settings = WPBMap::getShortCode( $tag );
@@ -1336,8 +1319,7 @@ if ( ! class_exists( 'WPBakeryShortCodeFishBones' ) ) {
 
 			$class_name = ! empty( $settings['php_class_name'] ) ? $settings['php_class_name'] : 'WPBakeryShortCode_' . $tag;
 
-			$autoloaded_dependencies = VcShortcodeAutoloader::getInstance()
-			                                                ->includeClass( $class_name );
+			$autoloaded_dependencies = VcShortcodeAutoloader::getInstance()->includeClass( $class_name );
 
 			if ( ! $autoloaded_dependencies ) {
 				$file = vc_path_dir( 'SHORTCODES_DIR', str_replace( '_', '-', $tag ) . '.php' );
@@ -1436,8 +1418,7 @@ final class Vc_Shortcodes_Manager {
 
 		$class_name = ! empty( $settings['php_class_name'] ) ? $settings['php_class_name'] : 'WPBakeryShortCode_' . $tag;
 
-		$autoloaded_dependencies = VcShortcodeAutoloader::getInstance()
-		                                                ->includeClass( $class_name );
+		$autoloaded_dependencies = VcShortcodeAutoloader::getInstance()->includeClass( $class_name );
 
 		if ( ! $autoloaded_dependencies ) {
 			$file = vc_path_dir( 'SHORTCODES_DIR', str_replace( '_', '-', $tag ) . '.php' );
@@ -1466,8 +1447,7 @@ final class Vc_Shortcodes_Manager {
 	 * @return string
 	 */
 	public function template( $content = '' ) {
-		return $this->getElementClass( $this->tag )
-		            ->contentAdmin( array(), $content );
+		return $this->getElementClass( $this->tag )->contentAdmin( array(), $content );
 	}
 
 	/**

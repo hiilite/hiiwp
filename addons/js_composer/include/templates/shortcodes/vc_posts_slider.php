@@ -21,11 +21,12 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @var $orderby
  * @var $order
  * @var $el_class
+ * @var $el_id
  * @var $css
  * Shortcode class
  * @var $this WPBakeryShortCode_VC_Posts_slider
  */
-$title = $type = $count = $interval = $slides_content = $slides_title = $link = $custom_links = $thumb_size = $posttypes = $posts_in = $categories = $order = $orderby = $el_class = $css = '';
+$title = $type = $count = $interval = $slides_content = $slides_title = $link = $custom_links = $thumb_size = $posttypes = $posts_in = $categories = $order = $orderby = $el_class = $el_id = $css = '';
 $link_image_start = '';
 $atts = vc_map_get_attributes( $this->getShortcode(), $atts );
 extract( $atts );
@@ -131,7 +132,7 @@ $query_args['order'] = $order;
 // Run query
 $my_query = new WP_Query( $query_args );
 
-$pretty_rel_random = ' rel="prettyPhoto[rel-' . get_the_ID() . '-' . rand() . ']"';
+$pretty_rel_random = ' data-rel="prettyPhoto[rel-' . get_the_ID() . '-' . rand() . ']"';
 if ( 'custom_link' === $link ) {
 	$custom_links = explode( ',', $custom_links );
 }
@@ -212,8 +213,12 @@ $class_to_filter = 'wpb_gallery wpb_posts_slider wpb_content_element';
 $class_to_filter .= vc_shortcode_custom_css_class( $css, ' ' ) . $this->getExtraClass( $el_class );
 $css_class = apply_filters( VC_SHORTCODE_CUSTOM_CSS_FILTER_TAG, $class_to_filter, $this->settings['base'], $atts );
 
+$wrapper_attributes = array();
+if ( ! empty( $el_id ) ) {
+	$wrapper_attributes[] = 'id="' . esc_attr( $el_id ) . '"';
+}
 $output = '
-	<div class="' . esc_attr( $css_class ) . '">
+	<div class="' . esc_attr( $css_class ) . '" ' . implode( ' ', $wrapper_attributes ) . '>
 		<div class="wpb_wrapper">
 			' . wpb_widget_title( array( 'title' => $title, 'extraclass' => 'wpb_posts_slider_heading' ) ) . '
 			<div class="wpb_gallery_slides' . $type . '" data-interval="' . $interval . '"' . $flex_fx . '>' . $teasers . '</div>

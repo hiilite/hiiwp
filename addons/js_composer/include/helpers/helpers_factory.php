@@ -375,15 +375,15 @@ function vc_shortcode_custom_css_has_property( $subject, $property, $strict = fa
 		if ( is_array( $property ) ) {
 			foreach ( $property as $prop ) {
 				$pos = strpos( $val[0], $prop );
-				$full = ( $strict ) ? ( $pos === 0 && strlen( $val[0] ) === strlen( $prop ) ) : true;
-				if ( $pos !== false && $full ) {
+				$full = ( $strict ) ? ( 0 === $pos && strlen( $val[0] ) === strlen( $prop ) ) : true;
+				if ( false !== $pos && $full ) {
 					$new_styles[] = $val;
 				}
 			}
 		} else {
 			$pos = strpos( $val[0], $property );
-			$full = ( $strict ) ? ( $pos === 0 && strlen( $val[0] ) === strlen( $property ) ) : true;
-			if ( $pos !== false && $full ) {
+			$full = ( $strict ) ? ( 0 === $pos && strlen( $val[0] ) === strlen( $property ) ) : true;
+			if ( false !== $pos && $full ) {
 				$new_styles[] = $val;
 			}
 		}
@@ -407,6 +407,7 @@ function vc_plugin_name() {
  *
  * @param $filename
  *
+ * @param bool $partial
  * @return bool|mixed|string
  */
 function vc_file_get_contents( $filename, $partial = false ) {
@@ -519,16 +520,16 @@ function vc_check_post_type( $type ) {
 	}
 	$valid = apply_filters( 'vc_check_post_type_validation', null, $type );
 	if ( is_null( $valid ) ) {
+		if ( is_multisite() && is_super_admin() ) {
+			return true;
+		}
 		$state = vc_user_access()->part( 'post_types' )->getState();
 		if ( null === $state ) {
 			return in_array( $type, vc_default_editor_post_types() );
 		} else if ( true === $state && ! in_array( $type, vc_default_editor_post_types() ) ) {
 			$valid = false;
 		} else {
-			$valid = vc_user_access()
-				->part( 'post_types' )
-				->can( $type )
-				->get();
+			$valid = vc_user_access()->part( 'post_types' )->can( $type )->get();
 		}
 	}
 
@@ -539,17 +540,11 @@ function vc_user_access_check_shortcode_edit( $shortcode ) {
 	$do_check = apply_filters( 'vc_user_access_check-shortcode_edit', null, $shortcode );
 
 	if ( is_null( $do_check ) ) {
-		$state_check = vc_user_access()
-			->part( 'shortcodes' )
-			->checkStateAny( true, 'edit', null )
-			->get();
+		$state_check = vc_user_access()->part( 'shortcodes' )->checkStateAny( true, 'edit', null )->get();
 		if ( $state_check ) {
 			return true;
 		} else {
-			return vc_user_access()
-				->part( 'shortcodes' )
-				->canAny( $shortcode . '_all', $shortcode . '_edit' )
-				->get();
+			return vc_user_access()->part( 'shortcodes' )->canAny( $shortcode . '_all', $shortcode . '_edit' )->get();
 		}
 	} else {
 		return $do_check;
@@ -560,11 +555,7 @@ function vc_user_access_check_shortcode_all( $shortcode ) {
 	$do_check = apply_filters( 'vc_user_access_check-shortcode_all', null, $shortcode );
 
 	if ( is_null( $do_check ) ) {
-		return vc_user_access()
-			->part( 'shortcodes' )
-			->checkStateAny( true, 'custom', null )
-			->can( $shortcode . '_all' )
-			->get();
+		return vc_user_access()->part( 'shortcodes' )->checkStateAny( true, 'custom', null )->can( $shortcode . '_all' )->get();
 	} else {
 		return $do_check;
 	}

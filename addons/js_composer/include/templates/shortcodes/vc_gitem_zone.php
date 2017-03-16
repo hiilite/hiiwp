@@ -14,12 +14,13 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @var $url
  * @var $height_mode
  * @var $featured_image
+ * @var $img_size
  * @var $render
  * @var $content - shortcode content
  * Shortcode class
  * @var $this WPBakeryShortCode_VC_Gitem_Zone
  */
-$el_class = $css = $position = $bgimage = $height = $link = $url = $height_mode = $featured_image = $render = '';
+$el_class = $css = $position = $bgimage = $height = $link = $url = $height_mode = $featured_image = $img_size = $render = $rel = '';
 
 $css_style = $css_style_mini = '';
 $image_block = $image = '';
@@ -58,10 +59,8 @@ if ( 'custom' === $height_mode ) {
 		. ( strlen( $height_mode ) > 0 ? ' vc-gitem-zone-height-mode-auto-' . $height_mode : '' );
 }
 if ( 'yes' === $featured_image ) {
-	$css_style .= '{{ post_image_background_image_css }}';
-	$image = '<img src="{{ post_image_url'
-		. ( false !== $background_image_css_editor ? ':' . rawurlencode( $background_image_css_editor ) . '' : '' )
-		. ' }}" class="vc_gitem-zone-img" alt="{{ post_image_alt }}">';
+	$css_style .= '{{ post_image_background_image_css' . ':' . $img_size . ' }}';
+	$image = '<img src="{{ post_image_url' . ( false !== $background_image_css_editor ? ':' . rawurlencode( $background_image_css_editor ) . '' : ':' ) . ':' . $img_size . ' }}" class="vc_gitem-zone-img" alt="{{ post_image_alt }}">';
 } elseif ( false !== $background_image_css_editor ) {
 	$image = '<img src="' . esc_attr( $background_image_css_editor ) . '" class="vc_gitem-zone-img" alt="{{ post_image_alt }}">';
 }
@@ -74,9 +73,13 @@ if ( strlen( $link ) > 0 && 'none' !== $link ) {
 		           . ' data-vc-target="' . esc_attr( trim($link_s['target']) ) . '"'
 		           . ' title="' . esc_attr( $link_s['title'] ) . '"';
 		*/
+		$rel = '';
+		if ( ! empty( $link_s['rel'] ) ) {
+			$rel = ' rel="' . esc_attr( trim( $link_s['rel'] ) ) . '"';
+		}
 		$image_block = '<a href="' . esc_attr( $link_s['url'] ) . '" title="'
 			. esc_attr( $link_s['title'] ) . '" target="' . esc_attr( trim( $link_s['target'] ) )
-			. '" class="vc_gitem-link vc-zone-link"></a>';
+			. '" class="vc_gitem-link vc-zone-link"' . $rel . '></a>';
 	} elseif ( 'post_link' === $link ) {
 		$image_block = '<a href="{{ post_link_url }}" title="{{ post_title }}" class="vc_gitem-link vc-zone-link"></a>';
 	} elseif ( 'post_author' === $link ) {
@@ -85,7 +88,7 @@ if ( strlen( $link ) > 0 && 'none' !== $link ) {
 		$image_block = '<a href="{{ post_image_url }}" title="{{ post_title }}" class="vc_gitem-link vc-zone-link"></a>';
 	} elseif ( 'image_lightbox' === $link ) {
 		if ( ! isset( $this->prettyphoto_rel ) ) {
-			$this->prettyphoto_rel = ' rel="prettyPhoto[rel-' . get_the_ID() . '-' . rand() . ']"';
+			$this->prettyphoto_rel = ' data-rel="prettyPhoto[rel-' . get_the_ID() . '-' . rand() . ']"';
 		}
 		$image_block .= '<a href="{{ post_image_url }}" title="{{ post_title }}" ' . $this->prettyphoto_rel . ' data-vc-gitem-zone="prettyphotoLink" class="vc_gitem-link prettyphoto vc-zone-link vc-prettyphoto-link"></a>';
 	}

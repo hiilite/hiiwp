@@ -15,7 +15,7 @@ if(class_exists( 'WooCommerce' )){
 } else {
 	$hiilite_options['is_woocommerce'] = false;
 }
-define( 'HIILITE_DIR', dirname( __FILE__ ) );
+if(!defined('HIILITE_DIR')) define( 'HIILITE_DIR', dirname( __FILE__ ) );
 add_filter( 'auto_update_theme', '__return_true' );
 
 
@@ -79,6 +79,7 @@ require_once( dirname( __FILE__ ) . '/includes/shortcodes/vc_empty_space.php');
 require_once( dirname( __FILE__ ) . '/includes/shortcodes/amp-carousel.php');
 require_once( dirname( __FILE__ ) . '/includes/shortcodes/screen-showcase.php');
 require_once( dirname( __FILE__ ) . '/includes/shortcodes/calculation-table.php');
+require_once( dirname( __FILE__ ) . '/includes/shortcodes/icon_text.php');
 
 /*	
 WP USER MANAGER	
@@ -300,8 +301,9 @@ if(!function_exists('hiilite_admin_styles')){
 		echo '</style>';
 		add_editor_style( 'editor-style.css' ); 
 	}
+	add_action('admin_head', 'custom_colors');
 }
-add_action('admin_head', 'custom_colors');
+
 
 
 

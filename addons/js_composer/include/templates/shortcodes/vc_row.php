@@ -1,11 +1,8 @@
 <?php
-global $hiilite_options;
-$post_meta = get_post_meta(get_the_id());
 if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
 }
-$hiilite_options['amp'] = get_theme_mod('amp');
-if($hiilite_options['amp']) $_amp = 'amp-'; else $_amp = '';
+
 /**
  * Shortcode attributes
  * @var $atts
@@ -25,35 +22,47 @@ if($hiilite_options['amp']) $_amp = 'amp-'; else $_amp = '';
  * @var $parallax_speed_bg
  * @var $parallax_speed_video
  * @var $content - shortcode content
+ * @var $css_animation
  * Shortcode class
  * @var $this WPBakeryShortCode_VC_Row
  */
-$el_class = $full_height = $parallax_speed_bg = $parallax_speed_video = $full_width = $equal_height = $flex_row = $columns_placement = $content_placement = $parallax = $parallax_image = $css = $el_id = $video_bg = $video_bg_url = $video_bg_parallax = '';
+$el_class = $full_height = $parallax_speed_bg = $parallax_speed_video = $full_width = $equal_height = $flex_row = $columns_placement = $content_placement = $parallax = $parallax_image = $css = $el_id = $video_bg = $video_bg_url = $video_bg_parallax = $css_animation = '';
+$disable_element = '';
 $output = $after_output = '';
 $atts = vc_map_get_attributes( $this->getShortcode(), $atts );
 extract( $atts );
 
 wp_enqueue_script( 'wpb_composer_front_js' );
 
-
-$el_class = $this->getExtraClass( $el_class );
+$el_class = $this->getExtraClass( $el_class ) . $this->getCSSAnimation( $css_animation );
 
 $css_classes = array(
-	'row',
+	'vc_row',
+	'wpb_row',
+	//deprecated
+	'vc_row-fluid',
 	$el_class,
 	vc_shortcode_custom_css_class( $css ),
 );
 
-if (vc_shortcode_custom_css_has_property( $css, array('border', 'background') ) || $video_bg || $parallax) {
-	$css_classes[]='vc_row-has-fill';
+if ( 'yes' === $disable_element ) {
+	if ( vc_is_page_editable() ) {
+		$css_classes[] = 'vc_hidden-lg vc_hidden-xs vc_hidden-sm vc_hidden-md';
+	} else {
+		return '';
+	}
 }
 
-if ($parallax) {
-	$css_classes[]='vc_row-parallax';
+if ( vc_shortcode_custom_css_has_property( $css, array(
+		'border',
+		'background',
+	) ) || $video_bg || $parallax
+) {
+	$css_classes[] = 'vc_row-has-fill';
 }
 
-if (!empty($atts['gap'])) {
-	$css_classes[] = 'vc_column-gap-'.$atts['gap'];
+if ( ! empty( $atts['gap'] ) ) {
+	$css_classes[] = 'vc_column-gap-' . $atts['gap'];
 }
 
 $wrapper_attributes = array();
@@ -68,71 +77,80 @@ if ( ! empty( $full_width ) ) {
 		$wrapper_attributes[] = 'data-vc-stretch-content="true"';
 	} elseif ( 'stretch_row_content_no_spaces' === $full_width ) {
 		$wrapper_attributes[] = 'data-vc-stretch-content="true"';
-		$css_classes[] = 'row-no-padding';
+		$css_classes[] = 'vc_row-no-padding';
 	}
-	$after_output .= '<div class="row-full-width"></div>';
+	$after_output .= '<div class="vc_row-full-width vc_clearfix"></div>';
 }
 
 if ( ! empty( $full_height ) ) {
-	$css_classes[] = ' row-o-full-height';
+	$css_classes[] = 'vc_row-o-full-height';
 	if ( ! empty( $columns_placement ) ) {
 		$flex_row = true;
-		$css_classes[] = ' vc_row-o-columns-' . $columns_placement;
+		$css_classes[] = 'vc_row-o-columns-' . $columns_placement;
+		if ( 'stretch' === $columns_placement ) {
+			$css_classes[] = 'vc_row-o-equal-height';
+		}
 	}
 }
 
 if ( ! empty( $equal_height ) ) {
 	$flex_row = true;
-	$css_classes[] = ' row-o-equal-height';
+	$css_classes[] = 'vc_row-o-equal-height';
 }
 
 if ( ! empty( $content_placement ) ) {
 	$flex_row = true;
-	$css_classes[] = ' row-o-content-' . $content_placement;
+	$css_classes[] = 'vc_row-o-content-' . $content_placement;
 }
 
 if ( ! empty( $flex_row ) ) {
-	$css_classes[] = ' row-flex';
+	$css_classes[] = 'vc_row-flex';
 }
-if ( ! empty( $background_palette )) {
-	$css_classes[] =  ' '.$background_palette;
+
+$has_video_bg = ( ! empty( $video_bg ) && ! empty( $video_bg_url ) && vc_extract_youtube_id( $video_bg_url ) );
+
+$parallax_speed = $parallax_speed_bg;
+if ( $has_video_bg ) {
+	$parallax = $video_bg_parallax;
+	$parallax_speed = $parallax_speed_video;
+	$parallax_image = $video_bg_url;
+	$css_classes[] = 'vc_video-bg-container';
+	wp_enqueue_script( 'vc_youtube_iframe_api_js' );
 }
-$iframeheight = !empty($atts['row_height'])?$atts['row_height']:'100vh';
 
+if ( ! empty( $parallax ) ) {
+	wp_enqueue_script( 'vc_jquery_skrollr_js' );
+	$wrapper_attributes[] = 'data-vc-parallax="' . esc_attr( $parallax_speed ) . '"'; // parallax speed
+	$css_classes[] = 'vc_general vc_parallax vc_parallax-' . $parallax;
+	if ( false !== strpos( $parallax, 'fade' ) ) {
+		$css_classes[] = 'js-vc_parallax-o-fade';
+		$wrapper_attributes[] = 'data-vc-parallax-o-fade="on"';
+	} elseif ( false !== strpos( $parallax, 'fixed' ) ) {
+		$css_classes[] = 'js-vc_parallax-o-fixed';
+	}
+}
 
-
-$css_class = preg_replace( '/\s+/', ' ', apply_filters( VC_SHORTCODE_CUSTOM_CSS_FILTER_TAG, implode( ' ', array_filter( $css_classes ) ), $this->settings['base'], $atts ) );
+if ( ! empty( $parallax_image ) ) {
+	if ( $has_video_bg ) {
+		$parallax_image_src = $parallax_image;
+	} else {
+		$parallax_image_id = preg_replace( '/[^\d]/', '', $parallax_image );
+		$parallax_image_src = wp_get_attachment_image_src( $parallax_image_id, 'full' );
+		if ( ! empty( $parallax_image_src[0] ) ) {
+			$parallax_image_src = $parallax_image_src[0];
+		}
+	}
+	$wrapper_attributes[] = 'data-vc-parallax-image="' . esc_attr( $parallax_image_src ) . '"';
+}
+if ( ! $parallax && $has_video_bg ) {
+	$wrapper_attributes[] = 'data-vc-video-bg="' . esc_attr( $video_bg_url ) . '"';
+}
+$css_class = preg_replace( '/\s+/', ' ', apply_filters( VC_SHORTCODE_CUSTOM_CSS_FILTER_TAG, implode( ' ', array_filter( array_unique( $css_classes ) ) ), $this->settings['base'], $atts ) );
 $wrapper_attributes[] = 'class="' . esc_attr( trim( $css_class ) ) . '"';
 
-$output .= '<section ' . implode( ' ', $wrapper_attributes ) . '>';
-
-if($parallax_image){
-	$para_img = wp_get_attachment_image_src($parallax_image,'large');
-	$output .= '<amp-img src="'.$para_img[0].'"  width="'.$para_img[1].'" height="'.$para_img[2].'" class="parallax-image"></amp-img>';
-}
-
-$output .= '<div class="container_inner">';
-$output .= (!empty($atts['in_grid']) && ($hiilite_options['subdomain'] != 'iframe' && empty($atts['in_iframe'])))?'<div class="in_grid">':'';
-
-if(!empty($atts['in_iframe']) && $hiilite_options['subdomain'] != 'iframe' && $hiilite_options['amp']){
-	$output .= !empty($atts['in_iframe'])?'<div class="iframe-content">':'';
-	$output .= '<amp-iframe src="https://iframe.'.$_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"].'" frameborder="0" height="'.$iframeheight.'" width="100vw" sandbox="allow-scripts allow-same-origin allow-forms allow-top-navigation allow-popups"></amp-iframe>';
-	$output .= !empty($atts['in_iframe'])?'</div>':'';
-
-} elseif($hiilite_options['subdomain'] == 'iframe' && !empty($atts['in_iframe']) ) {
-	$output .= '<div class="container_inner">';
-	$output .= !empty($atts['in_grid'])?'<div class="in_grid">':'';
-	$output .= wpb_js_remove_wpautop( $content );
-	$output .= '</div>';
-	$output .= '</div>';
-} elseif($hiilite_options['subdomain'] == 'iframe' && empty($atts['in_iframe'])) {
-	$output .= '';
-	return ;
-} else {
-	$output .= wpb_js_remove_wpautop( $content );
-}
-$output .= (!empty($atts['in_grid']) && ($hiilite_options['subdomain'] != 'iframe' && empty($atts['in_iframe'])))?'</div>':'';
-$output .= '</div></section>';
+$output .= '<div ' . implode( ' ', $wrapper_attributes ) . '>';
+$output .= wpb_js_remove_wpautop( $content );
+$output .= '</div>';
 $output .= $after_output;
 
 echo $output;

@@ -1,4 +1,8 @@
 <?php
+if ( ! defined( 'ABSPATH' ) ) {
+	die( '-1' );
+}
+
 return array(
 	'name' => __( 'Separator', 'js_composer' ),
 	'base' => 'vc_separator',
@@ -28,17 +32,6 @@ return array(
 			'description' => __( 'Select separator alignment.', 'js_composer' ),
 		),
 		array(
-			'type' => 'dropdown',
-			'heading' => __( 'Size', 'js_composer' ),
-			'param_name' => 'size',
-			'value' => array(
-				__( 'Small', 'js_composer' ) => 'small',
-				__( 'Medium', 'js_composer' ) => 'medium',
-				__( 'Full Width', 'js_composer' ) => 'full',
-			),
-			'description' => __( 'Select separator size.', 'js_composer' ),
-		),
-		array(
 			'type' => 'colorpicker',
 			'heading' => __( 'Custom Border Color', 'js_composer' ),
 			'param_name' => 'accent_color',
@@ -61,6 +54,20 @@ return array(
 			'param_name' => 'border_width',
 			'value' => getVcShared( 'separator border widths' ),
 			'description' => __( 'Select border width (pixels).', 'js_composer' ),
+		),
+		array(
+			'type' => 'dropdown',
+			'heading' => __( 'Element width', 'js_composer' ),
+			'param_name' => 'el_width',
+			'value' => getVcShared( 'separator widths' ),
+			'description' => __( 'Select separator width (percentage).', 'js_composer' ),
+		),
+		vc_map_add_css_animation(),
+		array(
+			'type' => 'el_id',
+			'heading' => __( 'Element ID', 'js_composer' ),
+			'param_name' => 'el_id',
+			'description' => sprintf( __( 'Enter element ID (Note: make sure it is unique and valid according to <a href="%s" target="_blank">w3c specification</a>).', 'js_composer' ), 'http://www.w3schools.com/tags/att_global_id.asp' ),
 		),
 		array(
 			'type' => 'textfield',

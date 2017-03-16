@@ -2,6 +2,7 @@
 if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
 }
+
 VcShortcodeAutoloader::getInstance()->includeClass( 'WPBakeryShortCode_VC_Tta_Accordion' );
 
 class WPBakeryShortCode_VC_Tta_Section extends WPBakeryShortCode_VC_Tta_Accordion {
@@ -134,6 +135,9 @@ class WPBakeryShortCode_VC_Tta_Section extends WPBakeryShortCode_VC_Tta_Accordio
 
 	/**
 	 * Section param active
+	 * @param $atts
+	 * @param $content
+	 * @return bool|null
 	 */
 	public function getParamSectionIsActive( $atts, $content ) {
 		if ( is_object( self::$tta_base_shortcode ) ) {

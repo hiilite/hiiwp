@@ -11,6 +11,7 @@
 
 // Navigation bar
 @vc_navbar_sprite_left_position: -60px;
+@vc_navbar_icon_color: #4F5C64;
 @vc_navbar_background_color: #FCFCFC;
 @vc_navbar_icon_btn_color: #F5F5F5;
 @vc_navbar_border_color: #F5F5F5;
@@ -24,12 +25,11 @@
 // Edit form for shortcode
 @import "popups/panel_edit_form.less";
 
+// Template library
+@import "popups/panel_template_library";
+
 // Templates editor
 @import "modules/ui/vc_ui-panel-templates.less";
-// Post settings
-@import "popups/panel_post_settings.less";
-// Edit row layout
-@import "popups/panel_edit_layout.less";
 // Teaser box for posts wused by Post grid and post carusel
 @import "modules/vc_teaser_box.less";
 #vc_settings-title-container {
@@ -139,11 +139,21 @@
   @media (max-width: @screen-xs-max) {
     .vc_backend-editor-invisibility-settings;
   }
+  .vc_hidden-xs {
+    > * {
+      .opacity(1) !important;
+    }
+  }
 }
 
 .vc_hidden-sm {
   @media (min-width: @screen-sm-min) and (max-width: @screen-sm-max) {
     .vc_backend-editor-invisibility-settings;
+  }
+  .vc_hidden-sm {
+    > * {
+      .opacity(1) !important;
+    }
   }
 }
 
@@ -151,11 +161,21 @@
   @media (min-width: @screen-md-min) and (max-width: @screen-md-max) {
     .vc_backend-editor-invisibility-settings;
   }
+  .vc_hidden-md {
+    > * {
+      .opacity(1) !important;
+    }
+  }
 }
 
 .vc_hidden-lg {
   @media (min-width: @screen-lg-min) {
     .vc_backend-editor-invisibility-settings;
+  }
+  .vc_hidden-lg {
+    > * {
+      .opacity(1) !important;
+    }
   }
 }
 

@@ -5,7 +5,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 $tab = preg_replace( '/^vc\-/', '', $page->getSlug() );
 $use_custom = get_option( vc_settings()->getFieldPrefix() . 'use_custom' );
 $css = ( ( 'color' === $tab ) && $use_custom ) ? ' color_enabled' : '';
-$dev_environment = Vc_License::isDevEnvironment();
+$dev_environment = vc_license()->isDevEnvironment();
 $license_key = vc_license()->getLicenseKey();
 
 $classes = 'vc_settings-tab-content vc_settings-tab-content-active ' . esc_attr( $css );
@@ -19,17 +19,17 @@ $classes = 'vc_settings-tab-content vc_settings-tab-content-active ' . esc_attr(
 	<div class="updated vc_updater-result-message">
 		<p>
 			<strong>
-				<?php _e( 'It is optional to activate license on localhost development environment. You can still activate license on localhost to receive plugin updates.', 'js_composer' ) ?>
+				<?php _e( 'It is optional to activate license on localhost development environment. You can still activate license on localhost to receive plugin updates and get access to template library.', 'js_composer' ) ?>
 			</strong>
 		</p>
 	</div>
 <?php endif ?>
 
 <form action="options.php"
-      method="post"
-      id="vc_settings-<?php echo $tab ?>"
-      data-vc-ui-element="settings-tab-<?php echo $tab ?>"
-      class="<?php echo $classes ?>"
+	method="post"
+	id="vc_settings-<?php echo $tab ?>"
+	data-vc-ui-element="settings-tab-<?php echo $tab ?>"
+	class="<?php echo $classes ?>"
 	<?php echo apply_filters( 'vc_setting-tab-form-' . $tab, '' ) ?>
 >
 
@@ -41,8 +41,8 @@ $classes = 'vc_settings-tab-content vc_settings-tab-content-active ' . esc_attr(
 				<th scope="row"><?php _e( 'Guide tours', 'js_composer' ) ?></th>
 				<td>
 					<a href="#" class="button vc_pointers-reset-button"
-					   id="vc_settings-vc-pointers-reset"
-					   data-vc-done-txt="<?php _e( 'Done', 'js_composer' ) ?>"><?php _e( 'Reset', 'js_composer' ) ?></a>
+						id="vc_settings-vc-pointers-reset"
+						data-vc-done-txt="<?php _e( 'Done', 'js_composer' ) ?>"><?php _e( 'Reset', 'js_composer' ) ?></a>
 
 					<p
 						class="description indicator-hint"><?php _e( 'Guide tours are shown in VC editors to help you to start working with editors. You can see them again by clicking button above.', 'js_composer' ) ?></p>
@@ -64,7 +64,7 @@ $classes = 'vc_settings-tab-content vc_settings-tab-content-active ' . esc_attr(
 	<?php endif ?>
 
 	<input type="hidden" name="vc_action" value="vc_action-<?php echo $tab; ?>"
-	       id="vc_settings-<?php echo $tab; ?>-action"/>
+		id="vc_settings-<?php echo $tab; ?>-action"/>
 
 	<?php if ( 'color' === $tab ) : ?>
 		<a href="#" class="button vc_restore-button" id="vc_settings-color-restore-default">
@@ -75,8 +75,7 @@ $classes = 'vc_settings-tab-content vc_settings-tab-content-active ' . esc_attr(
 	<?php if ( 'updater' === $tab ) : ?>
 
 		<div class="vc_settings-activation-deactivation">
-			<?php if ( vc_license()->isActivated() ): ?>
-
+			<?php if ( vc_license()->isActivated() ) : ?>
 				<p>
 					<?php echo __( 'You have activated Visual Composer version which allows you to access all the customer benefits. Thank you for choosing Visual Composer as your page builder. If you do not wish to use Visual Composer on this WordPress site you can deactivate your license below.', 'js_composer' ) ?>
 				</p>
@@ -93,13 +92,13 @@ $classes = 'vc_settings-tab-content vc_settings-tab-content-active ' . esc_attr(
 					</button>
 
 					<img src="<?php echo get_admin_url() ?>/images/wpspin_light.gif" class="vc_updater-spinner"
-					     id="vc_updater-spinner" width="16" height="16" alt="spinner"/>
+						id="vc_updater-spinner" width="16" height="16" alt="spinner"/>
 				</p>
 
-			<?php else: ?>
+			<?php else : ?>
 
 				<p>
-					<?php echo __( 'In order to receive all benefits of Visual Composer you need to activate your copy of plugin. By activating Visual Composer license you will unlock premium options - <strong>direct plugin updates</strong> and <strong>access to official support.</strong>', 'js_composer' ) ?>
+					<?php echo __( 'In order to receive all benefits of Visual Composer, you need to activate your copy of the plugin. By activating Visual Composer license you will unlock premium options - <strong>direct plugin updates</strong>, access to <strong>template library</strong> and <strong>official support.</strong>', 'js_composer' ) ?>
 				</p>
 
 				<br/>
@@ -114,11 +113,11 @@ $classes = 'vc_settings-tab-content vc_settings-tab-content-active ' . esc_attr(
 					</button>
 
 					<img src="<?php echo get_admin_url() ?>/images/wpspin_light.gif" class="vc_updater-spinner"
-					     id="vc_updater-spinner" width="16" height="16" alt="spinner"/>
+						id="vc_updater-spinner" width="16" height="16" alt="spinner"/>
 				</p>
 
 				<p class="description">
-					<?php echo sprintf( __( 'Don\'t have valid license yet? <a href="%s" target="_blank">Purchase Visual Composer license</a>.', 'js_composer' ), esc_url( 'http://bit.ly/vcomposer' ) ) ?>
+					<?php echo sprintf( __( 'Don\'t have direct license yet? <a href="%s" target="_blank">Purchase Visual Composer license</a>.', 'js_composer' ), esc_url( 'http://bit.ly/vcomposer' ) ) ?>
 				</p>
 
 			<?php endif ?>

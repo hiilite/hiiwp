@@ -47,8 +47,8 @@ $class_to_filter .= vc_shortcode_custom_css_class( $css, ' ' );
 $css_class = apply_filters( VC_SHORTCODE_CUSTOM_CSS_FILTER_TAG, $class_to_filter, $this->settings['base'], $atts );
 
 ?>
-<div <?php echo isset( $el_id ) && ! empty( $el_id ) ? "id='" . esc_attr( $el_id ) . "'" : ''; ?> class="<?php echo esc_attr( $css_class ); ?>">
-	<div class="vc_toggle_title"><?php echo apply_filters( 'wpb_toggle_heading', '<h4>' . esc_html( $title ) . '</h4>', array(
+<div <?php echo isset( $el_id ) && ! empty( $el_id ) ? 'id="' . esc_attr( $el_id ) . '"' : ''; ?> class="<?php echo esc_attr( $css_class ); ?>">
+	<div class="vc_toggle_title"><?php echo apply_filters( 'wpb_toggle_heading', $this->getHeading( $atts ), array(
 			'title' => $title,
 			'open' => $open,
 		) ); ?><i class="vc_toggle_icon"></i></div>

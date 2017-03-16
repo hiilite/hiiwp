@@ -1,4 +1,8 @@
 <?php
+if ( ! defined( 'ABSPATH' ) ) {
+	die( '-1' );
+}
+
 return array(
 	'name' => __( 'Single Image', 'js_composer' ),
 	'base' => 'vc_single_image',
@@ -6,6 +10,12 @@ return array(
 	'category' => __( 'Content', 'js_composer' ),
 	'description' => __( 'Simple image with CSS animation', 'js_composer' ),
 	'params' => array(
+		array(
+			'type' => 'textfield',
+			'heading' => __( 'Widget title', 'js_composer' ),
+			'param_name' => 'title',
+			'description' => __( 'Enter text used as widget title (Note: located above content element).', 'js_composer' ),
+		),
 		array(
 			'type' => 'dropdown',
 			'heading' => __( 'Image source', 'js_composer' ),
@@ -28,6 +38,7 @@ return array(
 				'element' => 'source',
 				'value' => 'media_library',
 			),
+			'admin_label' => true,
 		),
 		array(
 			'type' => 'textfield',
@@ -38,24 +49,21 @@ return array(
 				'element' => 'source',
 				'value' => 'external_link',
 			),
+			'admin_label' => true,
 		),
 		array(
 			'type' => 'textfield',
 			'heading' => __( 'Image size', 'js_composer' ),
 			'param_name' => 'img_size',
-			'value' => 'full',
+			'value' => 'thumbnail',
 			'description' => __( 'Enter image size (Example: "thumbnail", "medium", "large", "full" or other sizes defined by theme). Alternatively enter size in pixels (Example: 200x100 (Width x Height)).', 'js_composer' ),
 			'dependency' => array(
 				'element' => 'source',
-				'value' => array( 'media_library', 'featured_image' ),
+				'value' => array(
+					'media_library',
+					'featured_image',
+				),
 			),
-		),
-		array(
-			'type' => 'checkbox',
-			'heading' => __( 'Responsive', 'js_composer' ),
-			'param_name' => 'responsive',
-			'description' => __( 'Make the image responsive within its container (will scale small images up)', 'js_composer' ),
-			'value' => array( __( 'Yes', 'js_composer' ) => 'yes' ),
 		),
 		array(
 			'type' => 'textfield',
@@ -86,7 +94,10 @@ return array(
 			'value' => array( __( 'Yes', 'js_composer' ) => 'yes' ),
 			'dependency' => array(
 				'element' => 'source',
-				'value' => array( 'media_library', 'featured_image' ),
+				'value' => array(
+					'media_library',
+					'featured_image',
+				),
 			),
 		),
 		array(
@@ -108,7 +119,10 @@ return array(
 			'description' => __( 'Select image display style.', 'js_comopser' ),
 			'dependency' => array(
 				'element' => 'source',
-				'value' => array( 'media_library', 'featured_image' ),
+				'value' => array(
+					'media_library',
+					'featured_image',
+				),
 			),
 		),
 		array(
@@ -191,8 +205,18 @@ return array(
 			'value' => vc_target_param_list(),
 			'dependency' => array(
 				'element' => 'onclick',
-				'value' => array( 'custom_link', 'img_link_large' ),
+				'value' => array(
+					'custom_link',
+					'img_link_large',
+				),
 			),
+		),
+		vc_map_add_css_animation(),
+		array(
+			'type' => 'el_id',
+			'heading' => __( 'Element ID', 'js_composer' ),
+			'param_name' => 'el_id',
+			'description' => sprintf( __( 'Enter element ID (Note: make sure it is unique and valid according to <a href="%s" target="_blank">w3c specification</a>).', 'js_composer' ), 'http://www.w3schools.com/tags/att_global_id.asp' ),
 		),
 		array(
 			'type' => 'textfield',

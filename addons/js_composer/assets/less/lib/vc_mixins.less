@@ -121,7 +121,6 @@
   border-radius: @radius;
 }
 
-
 // COMPONENT MIXINS
 // --------------------------------------------------
 
@@ -177,7 +176,8 @@
 
 .vc_frontend-editor-invisibility-settings {
   display: block !important;
-  .vc_controls {
+  .opacity(.5);
+  .vc_controls, &.vc_section + .vc_controls, &.vc_section + .vc_row-full-width + .vc_controls {
     .vc_btn-content {
       background-color: #CCC !important;
       border-color: #CCC !important;
@@ -186,9 +186,17 @@
         border-color: #b3b3b3 !important;
       }
     }
+    .vc_control-btn-append:before {
+      border-bottom-color: #CCC !important;
+    }
+    .vc_control-btn-append:hover:before {
+      border-bottom-color: #b3b3b3 !important;
+    }
   }
-  > :first-child {
-    .opacity(.5);
+  &.vc_section + .vc_controls, &.vc_section + .vc_row-full-width + .vc_controls {
+    .vc_btn-content {
+      .opacity(.5);
+    }
   }
 }
 
@@ -211,10 +219,35 @@
 
 .vc-empty {
   outline: 1px dotted @vc_border_color;
-  background: transparent url('../vc/empty_row.png') no-repeat center center;
   min-height: 50px;
+  position: relative;
   cursor: pointer;
   .box-sizing(border-box);
+
+  &:after {
+    font-family: 'VC-Icons' !important;
+    speak: none;
+    font-style: normal;
+    font-weight: bold;
+    font-variant: normal;
+    text-transform: none;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    content: "\e145";
+    color: #848C92;
+    font-size: 28px;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    z-index: 0;
+    height: 30px;
+    width: 30px;
+    line-height: 30px;
+    text-align: center;
+    position: absolute;
+  }
 }
 
 .vc_bg_color_variants(@color) {

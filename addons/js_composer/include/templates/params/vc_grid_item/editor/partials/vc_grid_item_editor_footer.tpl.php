@@ -39,7 +39,7 @@ if ( vc_user_access()->part( 'presets' )->can()->get() ) {
 			<div class="inner" style="width: 80px; height: 80px; overflow: hidden;text-align: center;">
 				<img rel="{{ id }}" src="<# if(sizes && sizes.thumbnail) { #>{{ sizes.thumbnail.url }}<# } else {#>{{ url }}<# } #>"/>
 			</div>
-			<a href="#" class="vc_icon-remove"></a>
+			<a href="#" class="vc_icon-remove"><i class="vc-composer-icon vc-c-icon-close"></i></a>
 		</li>
 	</script>
 <?php foreach ( WpbMap_Grid_Item::getShortCodes() as $sc_base => $el ) :  ?>

@@ -13,7 +13,7 @@ function vc_init_vendor_gravity_forms() {
 	include_once( ABSPATH . 'wp-admin/includes/plugin.php' ); // Require plugin.php to use is_plugin_active() below
 	if ( is_plugin_active( 'gravityforms/gravityforms.php' ) || class_exists( 'RGForms' ) || class_exists( 'RGFormsModel' ) ) {
 		// Call on map
-		add_action( 'vc_after_set_mode', 'vc_vendor_gravityforms_load' );
+		add_action( 'vc_after_init', 'vc_vendor_gravityforms_load' );
 	} // if gravityforms active
 }
 

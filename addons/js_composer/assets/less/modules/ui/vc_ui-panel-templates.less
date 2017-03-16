@@ -32,8 +32,15 @@
     padding-right: @vcui-panel-content-padding-horizontal;
   }
   .vc_ui-control-button {
-    padding-left: .3em;
-    padding-right: .3em;
+    padding-left: .2em;
+    padding-right: .2em;
+    .vc-composer-icon {
+      font-size: 20px;
+
+      &.vc-c-icon-add {
+        font-size: 24px;
+      }
+    }
     .vc_ui-wp-spinner {
       margin: 0;
       height: 16px;
@@ -102,6 +109,9 @@
   .vc_active {
     .vc_ui-preview-icon {
       &:extend(.vc_ui-icon-pixel-control-triangle-asc-dark all);
+    }
+    .vc-c-icon-arrow_drop_down {
+      &:extend(.vc-c-icon-arrow_drop_up all);
     }
   }
 }

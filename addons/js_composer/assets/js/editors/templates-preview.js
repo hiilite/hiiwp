@@ -134,10 +134,9 @@
 				 view.$el.find( '.vc_control.column_move' ).remove();
 				 view.$el.find( '.vc_color-helper' ).css( 'right', '0' );*/
 				view.$el.find( '.vc_control-btn.vc_element-name.vc_element-move .vc_btn-content' ).attr( 'style',
-					'background:none !important;' +
-					'background-image:none !important;' +
 					'cursor:pointer !important;' +
 					'padding-left: 10px !important;' );
+				view.$el.find( '.vc_control-btn.vc_element-name.vc_element-move .vc_btn-content .vc-c-icon-dragndrop' ).hide();
 				//view.$el.find( '.vc_controls.vc_controls-visible.bottom-controls' ).remove();
 				if ( 'vc_gitem' === view.model.get( 'shortcode' ) ) {
 					view.$el.find( '.vc_gitem-add-c-col:not(.vc_zone-added)' ).remove()

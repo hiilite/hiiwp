@@ -89,7 +89,6 @@ function vc_attachment_filter_field( $form_fields, $post ) {
  * Optional _POST params:
  * - array filters: mapped array of ids and filters to apply
  *
- * @return string json
  */
 function vc_media_editor_add_image() {
 	vc_user_access()

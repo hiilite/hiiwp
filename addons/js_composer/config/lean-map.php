@@ -1,4 +1,7 @@
 <?php
+if ( ! defined( 'ABSPATH' ) ) {
+	die( '-1' );
+}
 /**
  * WPBakery Visual Composer Shortcodes settings Lazy mapping
  *
@@ -11,6 +14,7 @@ vc_lean_map( 'vc_row_inner', null, $vc_config_path . '/containers/shortcode-vc-r
 vc_lean_map( 'vc_column', null, $vc_config_path . '/containers/shortcode-vc-column.php' );
 vc_lean_map( 'vc_column_inner', null, $vc_config_path . '/containers/shortcode-vc-column-inner.php' );
 vc_lean_map( 'vc_column_text', null, $vc_config_path . '/content/shortcode-vc-column-text.php' );
+vc_lean_map( 'vc_section', null, $vc_config_path . '/containers/shortcode-vc-section.php' );
 vc_lean_map( 'vc_icon', null, $vc_config_path . '/content/shortcode-vc-icon.php' );
 vc_lean_map( 'vc_separator', null, $vc_config_path . '/content/shortcode-vc-separator.php' );
 vc_lean_map( 'vc_text_separator', null, $vc_config_path . '/content/shortcode-vc-text-separator.php' );
@@ -91,29 +95,23 @@ if ( is_admin() ) {
 		Vc_Shortcodes_Manager::getInstance(),
 		'buildShortcodesAssets',
 	), 1 );
+	add_action( 'vc-render-templates-preview-template', array(
+		Vc_Shortcodes_Manager::getInstance(),
+		'buildShortcodesAssets',
+	), 1 );
 } elseif ( vc_is_page_editable() ) {
 	add_action( 'wp_head', array(
 		Vc_Shortcodes_Manager::getInstance(),
 		'buildShortcodesAssetsForEditable',
 	) ); // @todo where these icons are used in iframe?
 }
-// @todo define custom
+
+/**
+ * @deprecated 4.12
+ * @return mixed|void
+ */
 function vc_add_css_animation() {
-	return array(
-		'type' => 'dropdown',
-		'heading' => __( 'CSS Animation', 'js_composer' ),
-		'param_name' => 'css_animation',
-		'admin_label' => true,
-		'value' => array(
-			__( 'No', 'js_composer' ) => '',
-			__( 'Top to bottom', 'js_composer' ) => 'top-to-bottom',
-			__( 'Bottom to top', 'js_composer' ) => 'bottom-to-top',
-			__( 'Left to right', 'js_composer' ) => 'left-to-right',
-			__( 'Right to left', 'js_composer' ) => 'right-to-left',
-			__( 'Appear from center', 'js_composer' ) => 'appear',
-		),
-		'description' => __( 'Select type of animation for element to be animated when it "enters" the browsers viewport (Note: works only in modern browsers).', 'js_composer' ),
-	);
+	return vc_map_add_css_animation();
 }
 
 function vc_target_param_list() {

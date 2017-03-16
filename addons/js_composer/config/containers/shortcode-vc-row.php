@@ -1,37 +1,29 @@
 <?php
+if ( ! defined( 'ABSPATH' ) ) {
+	die( '-1' );
+}
+
 return array(
-	'name' => __( 'Row' , 'js_composer' ),
+	'name' => __( 'Row', 'js_composer' ),
 	'is_container' => true,
 	'icon' => 'icon-wpb-row',
 	'show_settings_on_create' => false,
 	'category' => __( 'Content', 'js_composer' ),
+	'class' => 'vc_main-sortable-element',
 	'description' => __( 'Place content elements inside the row', 'js_composer' ),
 	'params' => array(
 		array(
-			'type' => 'checkbox',
-			'heading' => __( 'In Grid?', 'js_composer' ),
-			'param_name' => 'in_grid',
-			'description' => __( 'If checked contents of row will stay in grid width', 'js_composer' ),
-			'value' => array( __( 'Yes', 'js_composer' ) => 'yes' ),
-		),
-		array(
-			'type' => 'checkbox',
-			'heading' => __( 'iframe', 'js_composer' ),
-			'param_name' => 'in_iframe',
-			'description' => __( 'If the content contains form elements or requires javascript, it must be within an iframe. iframe content needs to be an minimum of 600px from the top of the page ', 'js_composer' ),
-			'value' => array( __( 'Yes', 'js_composer' ) => 'yes' ),
-		),
-		array(
-			'type' => 'textfield',
-			'heading' => __( 'Custom Row Height', 'js_composer' ),
-			'param_name' => 'row_height',
-			'description' => __( '', 'js_composer' ),
-			'dependency' => array(
-				'element' => 'in_iframe',
-				'not_empty' => true,
+			'type' => 'dropdown',
+			'heading' => __( 'Row stretch', 'js_composer' ),
+			'param_name' => 'full_width',
+			'value' => array(
+				__( 'Default', 'js_composer' ) => '',
+				__( 'Stretch row', 'js_composer' ) => 'stretch_row',
+				__( 'Stretch row and content', 'js_composer' ) => 'stretch_row_content',
+				__( 'Stretch row and content (no paddings)', 'js_composer' ) => 'stretch_row_content_no_spaces',
 			),
+			'description' => __( 'Select stretching options for row and content (Note: stretched may not work properly if parent container has "overflow: hidden" CSS property).', 'js_composer' ),
 		),
-		/*
 		array(
 			'type' => 'dropdown',
 			'heading' => __( 'Columns gap', 'js_composer' ),
@@ -52,7 +44,7 @@ return array(
 			),
 			'std' => '0',
 			'description' => __( 'Select gap between columns in row.', 'js_composer' ),
-		),*/
+		),
 		array(
 			'type' => 'checkbox',
 			'heading' => __( 'Full height row?', 'js_composer' ),
@@ -60,7 +52,6 @@ return array(
 			'description' => __( 'If checked row will be set to full height.', 'js_composer' ),
 			'value' => array( __( 'Yes', 'js_composer' ) => 'yes' ),
 		),
-		
 		array(
 			'type' => 'dropdown',
 			'heading' => __( 'Columns position', 'js_composer' ),
@@ -97,29 +88,12 @@ return array(
 			'description' => __( 'Select content position within columns.', 'js_composer' ),
 		),
 		array(
-			'type' => 'dropdown',
-			'heading' => __( 'Background Color', 'js_composer' ),
-			'param_name' => 'background_palette',
-			'value' => array(
-				'None' => '',
-				'Color One' => 'bg_color_one',
-				'Color Two' => 'bg_color_two',
-				'Color Three' => 'bg_color_three',
-				'Color Four' => 'bg_color_four',
-				'White' => 'bg_white',
-			),
-			'std' => '0',
-			'description' => __( 'Select from your predefined theme colors', 'js_composer' ),
-		),
-		/*
-		array(
 			'type' => 'checkbox',
 			'heading' => __( 'Use video background?', 'js_composer' ),
 			'param_name' => 'video_bg',
 			'description' => __( 'If checked, video will be used as row background.', 'js_composer' ),
 			'value' => array( __( 'Yes', 'js_composer' ) => 'yes' ),
 		),
-		
 		array(
 			'type' => 'textfield',
 			'heading' => __( 'YouTube link', 'js_composer' ),
@@ -132,7 +106,6 @@ return array(
 				'not_empty' => true,
 			),
 		),
-		
 		array(
 			'type' => 'dropdown',
 			'heading' => __( 'Parallax', 'js_composer' ),
@@ -148,13 +121,20 @@ return array(
 				'not_empty' => true,
 			),
 		),
-		*/
 		array(
-			'type' => 'checkbox',
+			'type' => 'dropdown',
 			'heading' => __( 'Parallax', 'js_composer' ),
 			'param_name' => 'parallax',
-			'value' => array(__( 'Yes', 'js_composer' ) => 'yes'),
-			'description' => __( 'Add parallax type background for row.', 'js_composer' ),
+			'value' => array(
+				__( 'None', 'js_composer' ) => '',
+				__( 'Simple', 'js_composer' ) => 'content-moving',
+				__( 'With fade', 'js_composer' ) => 'content-moving-fade',
+			),
+			'description' => __( 'Add parallax type background for row (Note: If no image is specified, parallax will use background image from Design Options).', 'js_composer' ),
+			'dependency' => array(
+				'element' => 'video_bg',
+				'is_empty' => true,
+			),
 		),
 		array(
 			'type' => 'attach_image',
@@ -167,7 +147,6 @@ return array(
 				'not_empty' => true,
 			),
 		),
-		/*
 		array(
 			'type' => 'textfield',
 			'heading' => __( 'Parallax speed', 'js_composer' ),
@@ -189,12 +168,21 @@ return array(
 				'element' => 'parallax',
 				'not_empty' => true,
 			),
-		),*/
+		),
+		vc_map_add_css_animation( false ),
 		array(
 			'type' => 'el_id',
 			'heading' => __( 'Row ID', 'js_composer' ),
 			'param_name' => 'el_id',
 			'description' => sprintf( __( 'Enter row ID (Note: make sure it is unique and valid according to <a href="%s" target="_blank">w3c specification</a>).', 'js_composer' ), 'http://www.w3schools.com/tags/att_global_id.asp' ),
+		),
+		array(
+			'type' => 'checkbox',
+			'heading' => __( 'Disable row', 'js_composer' ),
+			'param_name' => 'disable_element',
+			// Inner param name.
+			'description' => __( 'If checked the row won\'t be visible on the public side of your website. You can switch it back any time.', 'js_composer' ),
+			'value' => array( __( 'Yes', 'js_composer' ) => 'yes' ),
 		),
 		array(
 			'type' => 'textfield',

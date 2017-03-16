@@ -7,6 +7,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Shortcode attributes
  * @var $title
  * @var $el_class
+ * @var $el_id
  * @var $type
  * @var $style
  * @var $legend
@@ -17,10 +18,11 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @var $stroke_width
  * @var $values
  * @var $css
+ * @var $css_animation
  * Shortcode class
  * @var $this WPBakeryShortCode_Vc_Round_Chart
  */
-$el_class = $title = $type = $style = $legend = $animation = $tooltips = $stroke_color = $stroke_width = $values = $css = $custom_stroke_color = '';
+$el_class = $el_id = $title = $type = $style = $legend = $animation = $tooltips = $stroke_color = $stroke_width = $values = $css = $css_animation = $custom_stroke_color = '';
 $atts = vc_map_get_attributes( $this->getShortcode(), $atts );
 extract( $atts );
 
@@ -94,7 +96,7 @@ foreach ( $base_colors['active'] as $name => $color ) {
 wp_enqueue_script( 'vc_round_chart' );
 
 $class_to_filter = 'vc_chart vc_round-chart wpb_content_element';
-$class_to_filter .= vc_shortcode_custom_css_class( $css, ' ' ) . $this->getExtraClass( $el_class );
+$class_to_filter .= vc_shortcode_custom_css_class( $css, ' ' ) . $this->getExtraClass( $el_class ) . $this->getCSSAnimation( $css_animation );
 $css_class = apply_filters( VC_SHORTCODE_CUSTOM_CSS_FILTER_TAG, $class_to_filter, $this->settings['base'], $atts );
 
 $options = array();
@@ -108,7 +110,7 @@ if ( ! empty( $tooltips ) ) {
 }
 
 if ( ! empty( $animation ) ) {
-	$options[] = 'data-vc-animation="' . $animation . '"';
+	$options[] = 'data-vc-animation="' . esc_attr( $animation ) . '"';
 }
 
 if ( ! empty( $stroke_color ) ) {
@@ -122,11 +124,11 @@ if ( ! empty( $stroke_color ) ) {
 		$color = $base_colors['normal'][ $stroke_color ];
 	}
 
-	$options[] = 'data-vc-stroke-color="' . $color . '"';
+	$options[] = 'data-vc-stroke-color="' . esc_attr( $color ) . '"';
 }
 
 if ( ! empty( $stroke_width ) ) {
-	$options[] = 'data-vc-stroke-width="' . $stroke_width . '"';
+	$options[] = 'data-vc-stroke-width="' . esc_attr( $stroke_width ) . '"';
 }
 
 $values = (array) vc_param_group_parse_atts( $values );
@@ -172,7 +174,9 @@ if ( $legend ) {
 	$legend_html = '<ul class="vc_chart-legend">' . $legend_html . '</ul>';
 	$canvas_html = '<div class="vc_chart-with-legend">' . $canvas_html . '</div>';
 }
-
+if ( ! empty( $el_id ) ) {
+	$options[] = 'id="' . esc_attr( $el_id ) . '"';
+}
 $output = '
 <div class="' . esc_attr( $css_class ) . '" ' . implode( ' ', $options ) . '>
 	' . $title . '

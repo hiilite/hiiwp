@@ -16,11 +16,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 					<div class="vc_col-sm-12 vc_column vc_layout-panel-switcher">
 						<div class="wpb_element_label"><?php _e( 'Row layout', 'js_composer' ) ?></div>
 						<?php foreach ( $vc_row_layouts as $layout ) :  ?>
-							<a data-vc-ui-element="button-layout" class="vc_layout-btn <?php echo $layout['icon_class']
-							                                   . '" data-cells="' . $layout['cells']
+							<a data-vc-ui-element="button-layout" class="vc_layout-btn" <?php echo 'data-cells="' . $layout['cells']
 							                                   . '" data-cells-mask="' . $layout['mask']
-							                                   . '" title="' . $layout['title'] ?>"><span
-									class="icon"></span></a>
+							                                   . '" title="' . $layout['title'] ?>">
+								<i class="vc-composer-icon vc-c-icon-<?php echo $layout['icon_class'] ?>"></i>
+							</a>
 						<?php endforeach ?>
 						<span
 							class="vc_description vc_clearfix"><?php _e( 'Select row layout from predefined options.', 'js_composer' ); ?></span>

@@ -102,7 +102,7 @@ if ( ! class_exists( 'WPBakeryVisualComposerCssEditor' ) ) {
 			           . '    <div class="vc_background-style"><select name="background_style" class="vc_background-style">' . $this->getBackgroundStyleOptions() . '</select></div>'
 			           . '    <label>' . __( 'Box controls', 'js_composer' ) . '</label>'
 			           . '    <label class="vc_checkbox"><input type="checkbox" name="simply" class="vc_simplify" value=""> ' . __( 'Simplify controls', 'js_composer' ) . '</label>'
-			           			           . '</div>';
+			           . '</div>';
 			$output .= '<input name="' . $this->setting( 'param_name' ) . '" class="wpb_vc_param_value  ' . $this->setting( 'param_name' ) . ' ' . $this->setting( 'type' ) . '_field" type="hidden" value="' . esc_attr( $this->value() ) . '"/>';
 			$output .= '</div><div class="vc_clearfix"></div>';
 			$output .= '<script type="text/html" id="vc_css-editor-image-block">'
@@ -110,7 +110,7 @@ if ( ! class_exists( 'WPBakeryVisualComposerCssEditor' ) ) {
 			           . '  <div class="inner" style="width: 80px; height: 80px; overflow: hidden;text-align: center;">'
 			           . '    <img src="{{ img.url }}?id={{ img.id }}" data-image-id="{{ img.id }}" class="vc_ce-image<# if (!_.isUndefined(img.css_class)) {#> {{ img.css_class }}<# }#>">'
 			           . '  </div>'
-			           . '  <a href="#" class="vc_icon-remove"></a>'
+			           . '  <a href="#" class="vc_icon-remove"><i class="vc-composer-icon vc-c-icon-close"></i></a>'
 			           . '</li>'
 			           . '</script>';
 
@@ -123,7 +123,7 @@ if ( ! class_exists( 'WPBakeryVisualComposerCssEditor' ) ) {
 		function getBackgroundImageControl() {
 			return apply_filters( 'vc_css_editor_background_image_control', '<ul class="vc_image">'
 				. '</ul>'
-			. '<a href="#" class="vc_add-image">' . __( 'Add image', 'js_composer' ) . '</a>' );
+			. '<a href="#" class="vc_add-image"><i class="vc-composer-icon vc-c-icon-add"></i>' . __( 'Add image', 'js_composer' ) . '</a>' );
 		}
 
 		/**
@@ -241,6 +241,7 @@ function vc_css_editor_form_field( $settings, $value ) {
 	$css_editor = new WPBakeryVisualComposerCssEditor();
 	$css_editor->settings( $settings );
 	$css_editor->value( $value );
+
 	return $css_editor->render();
 
 }

@@ -4,52 +4,27 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 return array(
-	'name' => __( 'AMP Slider', 'js_composer' ),
+	'name' => __( 'Pageable Container', 'js_composer' ),
 	'base' => 'vc_tta_pageable',
 	'icon' => 'icon-wpb-ui-pageable',
 	'is_container' => true,
-	'show_settings_on_create' => true,
+	'show_settings_on_create' => false,
 	'as_parent' => array(
 		'only' => 'vc_tta_section',
 	),
-	'category' => __( 'by Hiilite', 'js_composer' ),
-	'description' => __( 'AMP Slideshow carousel', 'js_composer' ),
+	'category' => __( 'Content', 'js_composer' ),
+	'description' => __( 'Pageable content container', 'js_composer' ),
 	'params' => array(
+		array(
+			'type' => 'textfield',
+			'param_name' => 'title',
+			'heading' => __( 'Widget title', 'js_composer' ),
+			'description' => __( 'Enter text used as widget title (Note: located above content element).', 'js_composer' ),
+		),
 		array(
 			'type' => 'hidden',
 			'param_name' => 'no_fill_content_area',
 			'std' => true,
-		),
-		array(
-			'type' => 'dropdown',
-			'param_name' => 'slider_type',
-			'value' => array(
-				__( 'Default', 'js_composer' ) => 'default',
-				'Angled' => 'angled',
-			),
-			'default' => 'default',
-			'heading' => __( 'Slider Type', 'js_composer' ),
-		),
-		array(
-			'type' => 'textfield',
-			'heading' => __( 'Slider Width', 'js_composer' ),
-			'param_name' => 'slider_width',
-			'value'		 => '1100',
-			'description' => __( '(px) Slider is responsive, but needs a set width and height to calculate ratio for images', 'js_composer' ),
-		),
-		array(
-			'type' => 'textfield',
-			'heading' => __( 'Slider Height', 'js_composer' ),
-			'param_name' => 'slider_height',
-			'value'		 => '530',
-			'description' => __( '(px) Slider is responsive, but needs a set width and height to calculate ratio for images', 'js_composer' ),
-		),
-		array(
-			'type' => 'checkbox',
-			'heading' => __( 'Full Height', 'js_composer' ),
-			'param_name' => 'slider_full_height',
-			'value'		 => false,
-			'description' => __( 'Set the slider to be the full height of the screen', 'js_composer' ),
 		),
 		array(
 			'type' => 'dropdown',
@@ -61,10 +36,6 @@ return array(
 				'3' => '3',
 				'4' => '4',
 				'5' => '5',
-				'6' => '6',
-				'7' => '7',
-				'8' => '8',
-				'9' => '9',
 				'10' => '10',
 				'20' => '20',
 				'30' => '30',
@@ -75,6 +46,59 @@ return array(
 			'std' => 'none',
 			'heading' => __( 'Autoplay', 'js_composer' ),
 			'description' => __( 'Select auto rotate for pageable in seconds (Note: disabled by default).', 'js_composer' ),
+		),
+		array(
+			'type' => 'textfield',
+			'param_name' => 'active_section',
+			'heading' => __( 'Active section', 'js_composer' ),
+			'value' => 1,
+			'description' => __( 'Enter active section number (Note: to have all sections closed on initial load enter non-existing number).', 'js_composer' ),
+		),
+		array(
+			'type' => 'dropdown',
+			'param_name' => 'pagination_style',
+			'value' => array(
+				__( 'None', 'js_composer' ) => '',
+				__( 'Square Dots', 'js_composer' ) => 'outline-square',
+				__( 'Radio Dots', 'js_composer' ) => 'outline-round',
+				__( 'Point Dots', 'js_composer' ) => 'flat-round',
+				__( 'Fill Square Dots', 'js_composer' ) => 'flat-square',
+				__( 'Rounded Fill Square Dots', 'js_composer' ) => 'flat-rounded',
+			),
+			'heading' => __( 'Pagination style', 'js_composer' ),
+			'description' => __( 'Select pagination style.', 'js_composer' ),
+			'std' => 'outline-round',
+		),
+		array(
+			'type' => 'dropdown',
+			'param_name' => 'pagination_color',
+			'value' => getVcShared( 'colors-dashed' ),
+			'heading' => __( 'Pagination color', 'js_composer' ),
+			'description' => __( 'Select pagination color.', 'js_composer' ),
+			'param_holder_class' => 'vc_colored-dropdown',
+			'std' => 'grey',
+			'dependency' => array(
+				'element' => 'pagination_style',
+				'not_empty' => true,
+			),
+		),
+		array(
+			'type' => 'dropdown',
+			'param_name' => 'tab_position',
+			'value' => array(
+				__( 'Top', 'js_composer' ) => 'top',
+				__( 'Bottom', 'js_composer' ) => 'bottom',
+			),
+			'std' => 'bottom',
+			'heading' => __( 'Pagination position', 'js_composer' ),
+			'description' => __( 'Select pageable navigation position.', 'js_composer' ),
+		),
+		vc_map_add_css_animation(),
+		array(
+			'type' => 'el_id',
+			'heading' => __( 'Element ID', 'js_composer' ),
+			'param_name' => 'el_id',
+			'description' => sprintf( __( 'Enter element ID (Note: make sure it is unique and valid according to <a href="%s" target="_blank">w3c specification</a>).', 'js_composer' ), 'http://www.w3schools.com/tags/att_global_id.asp' ),
 		),
 		array(
 			'type' => 'textfield',
@@ -104,8 +128,8 @@ return array(
 	</div>
 </div>',
 	'default_content' => '
-[vc_tta_section title="' . sprintf( '%s %d', __( 'Slide', 'js_composer' ), 1 ) . '"][/vc_tta_section]
-[vc_tta_section title="' . sprintf( '%s %d', __( 'Slide', 'js_composer' ), 2 ) . '"][/vc_tta_section]
+[vc_tta_section title="' . sprintf( '%s %d', __( 'Section', 'js_composer' ), 1 ) . '"][/vc_tta_section]
+[vc_tta_section title="' . sprintf( '%s %d', __( 'Section', 'js_composer' ), 2 ) . '"][/vc_tta_section]
 	',
 	'admin_enqueue_js' => array(
 		vc_asset_url( 'lib/vc_tabs/vc-tabs.min.js' ),

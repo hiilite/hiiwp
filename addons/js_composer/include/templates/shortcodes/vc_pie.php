@@ -8,16 +8,18 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @var $atts
  * @var $title
  * @var $el_class
+ * @var $el_id
  * @var $value
  * @var $units
  * @var $color
  * @var $custom_color
  * @var $label_value
  * @var $css
+ * @var $css_animation
  * Shortcode class
  * @var $this WPBakeryShortCode_Vc_Pie
  */
-$title = $el_class = $value = $units = $color = $custom_color = $label_value = $css = '';
+$title = $el_class = $el_id = $value = $units = $color = $custom_color = $label_value = $css = $css_animation = '';
 $atts = $this->convertOldColorsToNew( $atts );
 $atts = vc_map_get_attributes( $this->getShortcode(), $atts );
 extract( $atts );
@@ -55,10 +57,14 @@ if ( ! $color ) {
 }
 
 $class_to_filter = 'vc_pie_chart wpb_content_element';
-$class_to_filter .= vc_shortcode_custom_css_class( $css, ' ' ) . $this->getExtraClass( $el_class );
+$class_to_filter .= vc_shortcode_custom_css_class( $css, ' ' ) . $this->getExtraClass( $el_class ) . $this->getCSSAnimation( $css_animation );
 $css_class = apply_filters( VC_SHORTCODE_CUSTOM_CSS_FILTER_TAG, $class_to_filter, $this->settings['base'], $atts );
 
-$output = '<div class= "' . esc_attr( $css_class ) . '" data-pie-value="' . esc_attr( $value ) . '" data-pie-label-value="' . esc_attr( $label_value ) . '" data-pie-units="' . esc_attr( $units ) . '" data-pie-color="' . esc_attr( $color ) . '">';
+$wrapper_attributes = array();
+if ( ! empty( $el_id ) ) {
+	$wrapper_attributes[] = 'id="' . esc_attr( $el_id ) . '"';
+}
+$output = '<div ' . implode( ' ', $wrapper_attributes ) . ' class= "' . esc_attr( $css_class ) . '" data-pie-value="' . esc_attr( $value ) . '" data-pie-label-value="' . esc_attr( $label_value ) . '" data-pie-units="' . esc_attr( $units ) . '" data-pie-color="' . esc_attr( $color ) . '">';
 $output .= '<div class="wpb_wrapper">';
 $output .= '<div class="vc_pie_wrapper">';
 $output .= '<span class="vc_pie_chart_back" style="border-color: ' . esc_attr( $color ) . '"></span>';

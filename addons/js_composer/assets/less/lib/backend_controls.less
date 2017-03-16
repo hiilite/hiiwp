@@ -50,7 +50,10 @@
   border-radius: 2px 2px 0 0;
   border: 1px solid transparent;
   padding: 0;
-  cursor: pointer;
+  text-decoration: none;
+  color: #888888;
+  font-size: 18px;
+
   &.column_add, .vc-controls-add {
     .vc_icon {
       background-position: -16px -16px;
@@ -82,7 +85,8 @@
     float: left;
   }
   &:hover {
-    .vc_icon {
+    color: #888888;
+    .vc-composer-icon {
       .opacity(0.7);
     }
   }
@@ -107,12 +111,38 @@
     float: left;
     margin-left: 1px;
   }
+
+  .vc-c-icon-add,
+  .vc-c-icon-delete_empty,
+  .vc-c-icon-content_copy {
+    position: relative;
+    font-size: 24px;
+    display: inline-block;
+    width: 18px;
+    height: 18px;
+
+    &::before {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      .translate(-50%, -50%);
+    }
+  }
+
+  .vc-c-icon-delete_empty {
+    font-size: 20px;
+  }
+
+  .vc-c-icon-content_copy {
+    font-size: 18px;
+  }
+
   .vc_row_layouts, .vc_control-row-layout {
     display: block;
     height: 16px;
     overflow: hidden;
     float: left;
-    padding: 0px 0px 6px 0;
+    padding: 3px 0 5px 4px;
     text-align: left;
     margin-left: 1px;
     background: #e6e6e6;
@@ -125,7 +155,8 @@
       width: auto;
       height: auto;
       position: absolute;
-      left: 34px;
+      left: 36px;
+      z-index: 1;
       a {
         display: inline-block;
         &:hover,
@@ -136,21 +167,32 @@
     }
   }
   .vc_control-set-column {
-    background-image: url(../vc/row_layouts/1.gif);
-    background-position: center center;
-    background-repeat: no-repeat;
+    //background-image: url(../vc/row_layouts/1.gif);
+    //background-position: center center;
+    //background-repeat: no-repeat;
     display: none;
     border: none;
     width: 32px;
     height: 20px;
     background-color: transparent;
     cursor: pointer;
+    font-size: 12px;
+    color: #A0A0A0;
+    position: relative;
     &:active {
       outline: none;
     }
     &.vc_active {
       background-color: transparent;
     }
+
+    .vc-composer-icon {
+      position: absolute;
+      top: 50%;
+      left: 15px;
+      .translate(-50%, -50%);
+    }
+
     &.custom_columns {
       background-image: none;
       border-bottom: 1px dotted;
@@ -160,6 +202,11 @@
       margin: 0 3px;
       padding: 4px 0 0 0;
       width: auto;
+      color: #0073aa;
+
+      &:hover {
+        color: #00a0d2;
+      }
     }
 
     &.l_12_12 {
@@ -231,6 +278,27 @@
     margin-right: 3px;
     background-size: cover;
     border-radius: 8px;
+  }
+}
+
+.wpb_vc_section {
+  padding-bottom: 30px;
+  > .vc_controls-row {
+
+  }
+
+  > .wpb_element_wrapper {
+    padding: 25px 30px 0;
+    margin: 0 -15px;
+    border-top: 1px solid #e6e6e6;
+  }
+
+  .vc_section-bottom-controls {
+    text-align: center;
+    border-bottom: 1px solid #e6e6e6;
+    padding-bottom: 40px;
+    margin-left: -15px;
+    margin-right: -15px;
   }
 }
 

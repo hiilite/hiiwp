@@ -1,6 +1,10 @@
 <?php
+if ( ! defined( 'ABSPATH' ) ) {
+	die( '-1' );
+}
+
 return array(
-	'name' => __( 'Section', 'js_composer' ),
+	'name' => __( 'Old Section', 'js_composer' ),
 	'base' => 'vc_accordion_tab',
 	'allowed_container_element' => 'vc_row',
 	'is_container' => true,

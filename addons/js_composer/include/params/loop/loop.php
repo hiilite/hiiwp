@@ -157,7 +157,7 @@ class VcLoopQueryBuilder {
 	protected function parse_tax_query( $value ) {
 		$terms = $this->stringToArray( $value );
 		if ( empty( $this->args['tax_query'] ) ) {
-			$this->args['tax_query'] = array( 'relation' => 'OR' );
+			$this->args['tax_query'] = array( 'relation' => 'AND' );
 		}
 		$negative_term_list = array();
 		foreach ( $terms as $term ) {
@@ -165,14 +165,34 @@ class VcLoopQueryBuilder {
 				$negative_term_list[] = abs( $term );
 			}
 		}
-		$terms = get_terms( VcLoopSettings::getTaxonomies(), array( 'include' => array_map( 'abs', $terms ) ) );
+
+		$not_in = array();
+		$in = array();
+
+		$terms = get_terms( VcLoopSettings::getTaxonomies(),
+			array( 'include' => array_map( 'abs', $terms ) ) );
 		foreach ( $terms as $t ) {
-			$operator = in_array( (int) $t->term_id, $negative_term_list ) ? 'NOT IN' : 'IN';
+			if ( in_array( (int) $t->term_id, $negative_term_list ) ) {
+				$not_in[ $t->taxonomy ][] = $t->term_id;
+			} else {
+				$in[ $t->taxonomy ][] = $t->term_id;
+			}
+		}
+
+		foreach ( $in as $taxonomy => $terms ) {
 			$this->args['tax_query'][] = array(
 				'field' => 'term_id',
-				'taxonomy' => $t->taxonomy,
-				'terms' => $t->term_id,
-				'operator' => $operator,
+				'taxonomy' => $taxonomy,
+				'terms' => $terms,
+				'operator' => 'IN',
+			);
+		}
+		foreach ( $not_in as $taxonomy => $terms ) {
+			$this->args['tax_query'][] = array(
+				'field' => 'term_id',
+				'taxonomy' => $taxonomy,
+				'terms' => $terms,
+				'operator' => 'NOT IN',
 			);
 		}
 	}
@@ -803,7 +823,10 @@ class VcLoopSuggestions {
 		}
 		$tags = get_terms( VcLoopSettings::getTaxonomies(), $args );
 		foreach ( $tags as $tag ) {
-			$this->content[] = array( 'value' => $tag->term_id, 'name' => $tag->name );
+			$this->content[] = array(
+				'value' => $tag->term_id,
+				'name' => $tag->name . ' (' . $tag->taxonomy . ')',
+			);
 		}
 	}
 

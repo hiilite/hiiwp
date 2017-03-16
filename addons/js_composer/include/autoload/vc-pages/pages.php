@@ -22,7 +22,7 @@ function vc_page_css_enqueue() {
  * @return Vc_Pages_Group
  */
 function vc_pages_group_build( $slug, $title, $tab = '' ) {
-	global $vc_page_welcome_tabs;
+	$vc_page_welcome_tabs = vc_get_page_welcome_tabs();
 	require_once vc_path_dir( 'CORE_DIR', 'class-vc-page.php' );
 	require_once vc_path_dir( 'CORE_DIR', 'class-vc-pages-group.php' );
 	// Create page.
@@ -62,6 +62,9 @@ function vc_menu_page_build() {
 }
 
 function vc_network_menu_page_build() {
+	if ( ! vc_is_network_plugin() ) {
+		return;
+	}
 	if ( vc_user_access()
 			->wpAny( 'manage_options' )
 			->part( 'settings' )

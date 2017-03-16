@@ -2,11 +2,13 @@
 if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
 }
+
 /** @var $editor Vc_Frontend_Editor */
-global $menu, $submenu, $parent_file, $post_ID, $post, $post_type;
+global $menu, $submenu, $parent_file, $post_ID, $post, $post_type, $post_type_object;
 $post_ID = $editor->post_id;
 $post = $editor->post;
 $post_type = $post->post_type;
+$post_type_object = get_post_type_object( $post_type );
 $post_title = trim( $post->post_title );
 $nonce_action = $nonce_action = 'update-post_' . $editor->post_id;
 $user_ID = isset( $editor->current_user ) && isset( $editor->current_user->ID ) ? (int) $editor->current_user->ID : 0;

@@ -6,10 +6,16 @@ button.vc_btn {
   cursor: pointer;
   display: inline-block;
   text-decoration: none !important;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
   &,
   &:hover,
   &:focus {
     border: 1px solid transparent;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
   }
   // @padding-vertical; @padding-horizontal; @font-size; @line-height; @border-radius
   .button-size(@vc_btn_padding_vertical; @vc_btn_padding_horizontal; 100%; 20px; 4px);

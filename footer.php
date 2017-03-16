@@ -18,39 +18,40 @@ do_action( 'hii_after_content' );
 		if($hiilite_options['footer_in_grid']) { echo '<div class="in_grid">'; } 
 	
 	
-		$footer_top_columns = get_theme_mod( 'footer_top_columns', 1);
-		$col_count_str ='';
-		switch(count($footer_top_columns)){
-			case 1:
-				$col_count_str = 'col-12';
-			break;
-			case 2:
-				$col_count_str = 'col-6';
-			break;
-			case 3:
-				$col_count_str = 'col-4';
-			break;
-			case 4:
-				$col_count_str = 'col-3';
-			break;
-		}
+		$footer_top_columns = get_theme_mod( 'footer_top_columns');
+		if(is_array($footer_top_columns) && count($footer_top_columns) > 0):
+			$col_count_str ='';
+			switch(count($footer_top_columns)){
+				case 1:
+					$col_count_str = 'col-12';
+				break;
+				case 2:
+					$col_count_str = 'col-6';
+				break;
+				case 3:
+					$col_count_str = 'col-4';
+				break;
+				case 4:
+					$col_count_str = 'col-3';
+				break;
+			}
+			
+			
+			
+			// FOOTER TOP COLUMN
 		
+			foreach($footer_top_columns as $footer_top_column):
+			 	echo '<div id="'.$footer_top_column.'" class="flex-item '.$col_count_str.' text-block">';
+				if ( is_active_sidebar( $footer_top_column ) ) :
+					dynamic_sidebar( $footer_top_column );
+				endif;
+				echo '</div>';
+				 
 		
-		
-		// FOOTER TOP COLUMN
-	
-		foreach($footer_top_columns as $footer_top_column):
-		 	echo '<div id="'.$footer_top_column.'" class="flex-item '.$col_count_str.' text-block">';
-			if ( is_active_sidebar( $footer_top_column ) ) :
-				dynamic_sidebar( $footer_top_column );
-			endif;
-			echo '</div>';
-			 
-	
-		endforeach;
-		 if($hiilite_options['footer_in_grid']) { echo '</div>'; } 
-		echo '</div></div>';
-		
+			endforeach;
+			 if($hiilite_options['footer_in_grid']) { echo '</div>'; } 
+			echo '</div></div>';
+		endif;//end footer top columns
 	endif; //end footer top 
 		
 		
@@ -74,35 +75,35 @@ do_action( 'hii_after_content' );
 		
 		
 		
-	if(get_theme_mod('footer_text_yesno')):
 
 		echo '<div id="footer_bottom"><div class="container_inner">';
 	
 		if(get_theme_mod('footer_bottom_in_grid')) { echo '<div class="in_grid">'; }
 		
 		
-		$footer_bottom_columns = get_theme_mod( 'footer_bottom_columns', 1);
-		$col_count_str ='';
-		switch(count($footer_bottom_columns)){
-			case 1:
-				$col_count_str = 'col-12';
-			break;
-			case 2:
-				$col_count_str = 'col-6';
-			break;
-			case 3:
-				$col_count_str = 'col-4';
-			break;
+		$footer_bottom_columns = get_theme_mod( 'footer_bottom_columns');
+		if($footer_bottom_columns != false) {
+			$col_count_str ='';
+			switch(count($footer_bottom_columns)){
+				case 1:
+					$col_count_str = 'col-12';
+				break;
+				case 2:
+					$col_count_str = 'col-6';
+				break;
+				case 3:
+					$col_count_str = 'col-4';
+				break;
+			}
+	
+			foreach($footer_bottom_columns as $footer_bottom_column):
+			 	echo '<div id="'.$footer_bottom_column.'" class="flex-item '.$col_count_str.' text-block">';
+				if ( is_active_sidebar( $footer_bottom_column ) ) :
+					dynamic_sidebar( $footer_bottom_column );
+				endif;
+				echo '</div>';
+			endforeach;
 		}
-
-		foreach($footer_bottom_columns as $footer_bottom_column):
-		 	echo '<div id="'.$footer_bottom_column.'" class="flex-item '.$col_count_str.' text-block">';
-			if ( is_active_sidebar( $footer_bottom_column ) ) :
-				dynamic_sidebar( $footer_bottom_column );
-			endif;
-			echo '</div>';
-		endforeach;
-		
 		if(get_theme_mod('footer_bottom_in_grid')) { echo '</div>'; }
 		 
 		?>
@@ -111,8 +112,7 @@ do_action( 'hii_after_content' );
 			</div>
 		</div>
 	</div>
-	<?php 
-	endif; //end footer bottom  ?>
+	<?php  ?>
 </footer>
 <?php do_action( 'hii_after_footer' ); ?>
 			

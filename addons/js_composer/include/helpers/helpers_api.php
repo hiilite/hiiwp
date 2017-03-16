@@ -1,8 +1,8 @@
 <?php
-
 if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
 }
+
 /**
  * Lean map shortcodes
  *
@@ -36,7 +36,7 @@ function vc_map( $attributes ) {
  * @deprecated, use vc_map instead
  */
 function wpb_map( $attributes ) {
-	// _deprecated_function( 'wpb_map', '4.2 (will be removed in 4.10)', 'vc_map' );
+	_deprecated_function( 'wpb_map', '4.2 (will be removed in 5.1)', 'vc_map' );
 
 	vc_map( $attributes );
 }
@@ -58,7 +58,7 @@ function vc_remove_element( $shortcode ) {
  * @deprecated use vc_remove_element instead
  */
 function wpb_remove( $shortcode ) {
-	// _deprecated_function( 'wpb_remove', '4.2 (will be removed in 4.10)', 'vc_remove_element' );
+	_deprecated_function( 'wpb_remove', '4.2 (will be removed in 5.1)', 'vc_remove_element' );
 
 	vc_remove_element( $shortcode );
 }
@@ -101,7 +101,7 @@ function vc_add_params( $shortcode, $attributes ) {
  * @deprecated
  */
 function wpb_add_param( $shortcode, $attributes ) {
-	// _deprecated_function( 'wpb_add_param', '4.2 (will be removed in 4.10)', 'vc_add_param' );
+	_deprecated_function( 'wpb_add_param', '4.2 (will be removed in 5.1)', 'vc_add_param' );
 
 	vc_add_param( $shortcode, $attributes );
 }
@@ -150,7 +150,7 @@ if ( ! function_exists( 'vc_set_as_theme' ) ) {
 	/**
 	 * Sets plugin as theme plugin.
 	 *
-	 * @param bool $disable_updater - If value is true disables auto updater options.
+	 * @internal param bool $disable_updater - If value is true disables auto updater options.
 	 *
 	 * @since 4.2
 	 */
@@ -216,7 +216,6 @@ if ( ! function_exists( ( 'vc_editor_set_post_types' ) ) ) {
 	 *
 	 * @param array $post_types
 	 *
-	 * @return array
 	 */
 	function vc_editor_set_post_types( array $post_types ) {
 		vc_manager()->setEditorPostTypes( $post_types );
@@ -266,7 +265,7 @@ if ( ! function_exists( 'vc_set_template_dir' ) ) {
 	 * @param string - full directory path to new template directory with trailing slash
 	 */
 	function vc_set_template_dir( $dir ) {
-		// _deprecated_function( 'vc_set_template_dir', '4.2 (will be removed in 4.10)', 'vc_set_shortcodes_templates_dir' );
+		_deprecated_function( 'vc_set_template_dir', '4.2 (will be removed in 5.1)', 'vc_set_shortcodes_templates_dir' );
 
 		vc_set_shortcodes_templates_dir( $dir );
 	}
@@ -541,20 +540,53 @@ function vc_map_integrate_parse_atts( $base_shortcode, $integrated_shortcode, $a
 
 function vc_map_add_css_animation( $label = true ) {
 	$data = array(
-		'type' => 'dropdown',
+		'type' => 'animation_style',
 		'heading' => __( 'CSS Animation', 'js_composer' ),
 		'param_name' => 'css_animation',
 		'admin_label' => $label,
-		'value' => array(
-			__( 'No', 'js_composer' ) => '',
-			__( 'Top to bottom', 'js_composer' ) => 'top-to-bottom',
-			__( 'Bottom to top', 'js_composer' ) => 'bottom-to-top',
-			__( 'Left to right', 'js_composer' ) => 'left-to-right',
-			__( 'Right to left', 'js_composer' ) => 'right-to-left',
-			__( 'Appear from center', 'js_composer' ) => 'appear',
+		'value' => '',
+		'settings' => array(
+			'type' => 'in',
+			'custom' => array(
+				array(
+					'label' => __( 'Default', 'js_composer' ),
+					'values' => array(
+						__( 'Top to bottom', 'js_composer' ) => 'top-to-bottom',
+						__( 'Bottom to top', 'js_composer' ) => 'bottom-to-top',
+						__( 'Left to right', 'js_composer' ) => 'left-to-right',
+						__( 'Right to left', 'js_composer' ) => 'right-to-left',
+						__( 'Appear from center', 'js_composer' ) => 'appear',
+					),
+				),
+			),
 		),
 		'description' => __( 'Select type of animation for element to be animated when it "enters" the browsers viewport (Note: works only in modern browsers).', 'js_composer' ),
 	);
+
+	/*
+
+			array(
+				'label' => __( 'Slide Exits', 'js_composer' ),
+				'values' => array(
+					__( 'slideOutDown', 'js_composer' ) => array(
+						'value' => 'slideOutDown',
+						'type' => 'out',
+					),
+					__( 'slideOutLeft', 'js_composer' ) => array(
+						'value' => 'slideOutLeft',
+						'type' => 'out',
+					),
+					__( 'slideOutRight', 'js_composer' ) => array(
+						'value' => 'slideOutRight',
+						'type' => 'out',
+					),
+					__( 'slideOutUp', 'js_composer' ) => array(
+						'value' => 'slideOutUp',
+						'type' => 'out',
+					),
+				),
+			)
+	 */
 
 	return apply_filters( 'vc_map_add_css_animation', $data, $label );
 }
@@ -592,38 +624,53 @@ function vc_map_get_defaults( $tag ) {
 	$shortcode = vc_get_shortcode( $tag );
 	$params = array();
 	if ( is_array( $shortcode ) && isset( $shortcode['params'] ) && ! empty( $shortcode['params'] ) ) {
-		foreach ( $shortcode['params'] as $param ) {
-			if ( isset( $param['param_name'] ) && 'content' !== $param['param_name'] ) {
-				$value = '';
-				if ( isset( $param['std'] ) ) {
-					$value = $param['std'];
-				} elseif ( isset( $param['value'] ) && 'checkbox' !== $param['type'] ) {
-					if ( is_array( $param['value'] ) ) {
-						$value = current( $param['value'] );
-						if ( is_array( $value ) ) {
-							// in case if two-dimensional array provided (vc_basic_grid)
-							$value = current( $value );
-						}
-						// return first value from array (by default)
-					} else {
-						$value = $param['value'];
-					}
-				}
-				$params[ $param['param_name'] ] = $value;
-			}
-		}
+		$params = vc_map_get_params_defaults( $shortcode['params'] );
 	}
 
 	return $params;
 }
 
 /**
+ * @param $params
+ *
+ * @since 4.12
+ * @return array
+ */
+function vc_map_get_params_defaults( $params ) {
+	$resultParams = array();
+	foreach ( $params as $param ) {
+		if ( isset( $param['param_name'] ) && 'content' !== $param['param_name'] ) {
+			$value = '';
+			if ( isset( $param['std'] ) ) {
+				$value = $param['std'];
+			} elseif ( isset( $param['value'] ) ) {
+				if ( is_array( $param['value'] ) ) {
+					$value = current( $param['value'] );
+					if ( is_array( $value ) ) {
+						// in case if two-dimensional array provided (vc_basic_grid)
+						$value = current( $value );
+					}
+					// return first value from array (by default)
+				} else {
+					$value = $param['value'];
+				}
+			}
+			$resultParams[ $param['param_name'] ] = apply_filters( 'vc_map_get_param_defaults', $value, $param );
+		}
+	}
+
+	return $resultParams;
+}
+
+/**
  * @param $tag - shortcode tag3
  * @param $atts - shortcode attributes
  *
- * @return array - return merged values with provided attributes ( 'a'=>1,'b'=>2 + 'b'=>3,'c'=>4 --> 'a'=>1,'b'=>3 )
+ * @return array - return merged values with provided attributes (
+ *     'a'=>1,'b'=>2 + 'b'=>3,'c'=>4 --> 'a'=>1,'b'=>3 )
  *
- * @see vc_shortcode_attribute_parse - return union of provided attributes ( 'a'=>1,'b'=>2 + 'b'=>3,'c'=>4 --> 'a'=>1,
+ * @see vc_shortcode_attribute_parse - return union of provided attributes (
+ *     'a'=>1,'b'=>2 + 'b'=>3,'c'=>4 --> 'a'=>1,
  *     'b'=>3, 'c'=>4 )
  */
 function vc_map_get_attributes( $tag, $atts = array() ) {
@@ -637,7 +684,7 @@ function vc_map_get_attributes( $tag, $atts = array() ) {
  * @since 4.3
  */
 function new_vc() {
-	// _deprecated_function( 'new_vc', '4.7 (will be removed in 4.10)', 'vc_frontend_editor' );
+	_deprecated_function( 'new_vc', '4.7 (will be removed in 5.1)', 'vc_frontend_editor' );
 
 	return vc_frontend_editor();
 }

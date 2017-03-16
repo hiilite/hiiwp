@@ -2,6 +2,7 @@
 if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
 }
+
 if ( ! defined( 'VC_IS_TEMPLATE_PREVIEW' ) ) {
 	define( 'VC_IS_TEMPLATE_PREVIEW', true );
 }

@@ -4,8 +4,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 class WPBakeryShortCode_VC_Gitem extends WPBakeryShortCodesContainer {
-	
-	
 	public function contentAdmin( $atts, $content = null ) {
 		/**
 		 * @var string @el_class - comes

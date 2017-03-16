@@ -236,8 +236,7 @@ add_action( 'vc_after_init', array(
 ) );
 
 if ( 'vc_edit_form' === vc_post_param( 'action' ) ) {
-	VcShortcodeAutoloader::getInstance()
-	                     ->includeClass( 'WPBakeryShortCode_VC_Basic_Grid' );
+	VcShortcodeAutoloader::getInstance()->includeClass( 'WPBakeryShortCode_VC_Basic_Grid' );
 
 	add_filter( 'vc_edit_form_fields_attributes_vc_basic_grid', array(
 		'WPBakeryShortCode_VC_Basic_Grid',

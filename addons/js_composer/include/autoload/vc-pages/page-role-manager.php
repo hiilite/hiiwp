@@ -20,7 +20,9 @@ function vc_settings_tabs_vc_roles( $tabs ) {
 	return $tabs;
 }
 
-add_filter( 'vc_settings_tabs', 'vc_settings_tabs_vc_roles' );
+if ( ! is_network_admin() ) {
+	add_filter( 'vc_settings_tabs', 'vc_settings_tabs_vc_roles' );
+}
 
 function vc_settings_render_tab_vc_roles() {
 	return 'pages/vc-settings/tab-vc-roles.php';

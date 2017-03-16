@@ -5,12 +5,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 $groups = function_exists( 'acf_get_field_groups' ) ? acf_get_field_groups() : apply_filters( 'acf/get_field_groups', array() );
 $groups_param_values = $fields_params = array();
-foreach ( $groups as $group ) {
+foreach ( (array) $groups as $group ) {
 	$id = isset( $group['id'] ) ? 'id' : ( isset( $group['ID'] ) ? 'ID' : 'id' );
 	$groups_param_values[ $group['title'] ] = $group[ $id ];
 	$fields = function_exists( 'acf_get_fields' ) ? acf_get_fields( $group[ $id ] ) : apply_filters( 'acf/field_group/get_fields', array(), $group[ $id ] );
 	$fields_param_value = array();
-	foreach ( $fields as $field ) {
+	foreach ( (array) $fields as $field ) {
 		$fields_param_value[ $field['label'] ] = (string) $field['key'];
 	}
 	$fields_params[] = array(

@@ -1,4 +1,8 @@
 <?php
+if ( ! defined( 'ABSPATH' ) ) {
+	die( '-1' );
+}
+
 return array(
 	'name' => 'WP ' . __( 'RSS' ),
 	'base' => 'vc_wp_rss',
@@ -46,7 +50,7 @@ return array(
 				17,
 				18,
 				19,
-				20
+				20,
 			),
 			'description' => __( 'Select how many items to display.', 'js_composer' ),
 			'admin_label' => true,
@@ -61,6 +65,12 @@ return array(
 				__( 'Display item date?', 'js_composer' ) => 'show_date',
 			),
 			'description' => __( 'Select display options for RSS feeds.', 'js_composer' ),
+		),
+		array(
+			'type' => 'el_id',
+			'heading' => __( 'Element ID', 'js_composer' ),
+			'param_name' => 'el_id',
+			'description' => sprintf( __( 'Enter element ID (Note: make sure it is unique and valid according to <a href="%s" target="_blank">w3c specification</a>).', 'js_composer' ), 'http://www.w3schools.com/tags/att_global_id.asp' ),
 		),
 		array(
 			'type' => 'textfield',

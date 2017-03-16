@@ -1,9 +1,14 @@
 <?php
+if ( ! defined( 'ABSPATH' ) ) {
+	die( '-1' );
+}
+
 return array(
-	'name' => __( 'Call to Action Button', 'js_composer' ) . ' 2',
+	'name' => __( 'Old Call to Action Button', 'js_composer' ) . ' 2',
 	'base' => 'vc_cta_button2',
 	'icon' => 'icon-wpb-call-to-action',
 	'deprecated' => '4.5',
+	'content_element' => false,
 	'category' => array( __( 'Content', 'js_composer' ) ),
 	'description' => __( 'Catch visitors attention with CTA block', 'js_composer' ),
 	'params' => array(

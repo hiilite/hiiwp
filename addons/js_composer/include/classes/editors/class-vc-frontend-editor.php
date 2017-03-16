@@ -157,6 +157,7 @@ class Vc_Frontend_Editor implements Vc_Editor_Interface {
 	 */
 	public function buildEditablePage() {
 		! defined( 'CONCATENATE_SCRIPTS' ) && define( 'CONCATENATE_SCRIPTS', false );
+		visual_composer()->shared_templates->init();
 		add_filter( 'the_title', array(
 			&$this,
 			'setEmptyTitlePlaceholder',
@@ -201,10 +202,7 @@ class Vc_Frontend_Editor implements Vc_Editor_Interface {
 	}
 
 	public static function frontendEditorEnabled() {
-		return self::inlineEnabled() && vc_user_access()
-			->part( 'frontend_editor' )
-			->can()
-			->get();
+		return self::inlineEnabled() && vc_user_access()->part( 'frontend_editor' )->can()->get();
 	}
 
 	/**
@@ -346,6 +344,7 @@ class Vc_Frontend_Editor implements Vc_Editor_Interface {
 	 *
 	 */
 	function setPost() {
+		global $post;
 		$this->post = get_post(); // fixes #1342 if no get/post params set
 		$this->post_id = vc_get_param( 'post_id' );
 		if ( vc_post_param( 'post_id' ) ) {
@@ -517,9 +516,9 @@ class Vc_Frontend_Editor implements Vc_Editor_Interface {
 			'templatera',
 			'vc_grid_item',
 		) ) && vc_user_access()->wpAny( array(
-				'edit_post',
-				$post_id,
-			) )->get() && vc_check_post_type( $type );
+			'edit_post',
+			$post_id,
+		) )->get() && vc_check_post_type( $type );
 	}
 
 	/**
@@ -624,9 +623,7 @@ class Vc_Frontend_Editor implements Vc_Editor_Interface {
 				die( apply_filters( 'vc_frontend_editor_load_shortcode_ajax_output', $output ) );
 			} elseif ( 'vc_frontend_load_template' === $action ) {
 				$this->setPost();
-				visual_composer()
-					->templatesPanelEditor()
-					->renderFrontendTemplate();
+				visual_composer()->templatesPanelEditor()->renderFrontendTemplate();
 			} else if ( '' !== $action ) {
 				do_action( 'vc_front_load_page_' . esc_attr( vc_post_param( 'action' ) ) );
 			}
@@ -684,7 +681,7 @@ class Vc_Frontend_Editor implements Vc_Editor_Interface {
 							$shortcode['string'] = preg_replace( '/\]/', '][vc_container_anchor]', $shortcode['string'], 1 );
 						}
 						$output .= '<div class="vc_element"' . self::cleanStyle() . ' data-shortcode-controls="' . esc_attr( json_encode( $shortcode_obj->shortcodeClass()
-						                                                                                                                                ->getControlsList() ) ) . '" data-container="' . $is_container . '" data-model-id="' . $shortcode['id'] . '">' . $this->wrapperStart() . do_shortcode( stripslashes( $shortcode['string'] ) ) . $this->wrapperEnd() . '</div>';
+								->getControlsList() ) ) . '" data-container="' . $is_container . '" data-model-id="' . $shortcode['id'] . '">' . $this->wrapperStart() . do_shortcode( stripslashes( $shortcode['string'] ) ) . $this->wrapperEnd() . '</div>';
 						$output .= '</div>';
 					}
 				}
@@ -778,7 +775,7 @@ class Vc_Frontend_Editor implements Vc_Editor_Interface {
 	}
 
 	public function registerCss() {
-		wp_register_style( 'ui-custom-theme', vc_asset_url( 'css/ui-custom-theme/jquery-ui-less.custom.min.css' ), false, WPB_VC_VERSION, false );
+		wp_register_style( 'ui-custom-theme', vc_asset_url( 'css/ui-custom-theme/jquery-ui-less.custom.min.css' ), false, WPB_VC_VERSION );
 		wp_register_style( 'animate-css', vc_asset_url( 'lib/bower/animate-css/animate.min.css' ), false, WPB_VC_VERSION, 'screen' );
 		wp_register_style( 'font-awesome', vc_asset_url( 'lib/bower/font-awesome/css/font-awesome.min.css' ), false, WPB_VC_VERSION, 'screen' );
 
@@ -903,7 +900,7 @@ class Vc_Frontend_Editor implements Vc_Editor_Interface {
 			$shortcode = array(
 				'tag' => $s,
 				'attrs_query' => $found[3][ $index ],
-				'attrs' => shortcode_parse_atts( $found[3][ $index ] ),
+				'attrs' => (array) shortcode_parse_atts( $found[3][ $index ] ),
 				'id' => $id,
 				'parent_id' => $parent_id,
 			);
@@ -930,7 +927,7 @@ class Vc_Frontend_Editor implements Vc_Editor_Interface {
 		$shortcode = apply_filters( 'vc_frontend_editor_to_string', $shortcode, $shortcode_obj );
 
 		$output = ( '<div class="vc_element" data-tag="' . $shortcode['tag'] . '" data-shortcode-controls="' . esc_attr( json_encode( $shortcode_obj->shortcodeClass()
-		                                                                                                                                            ->getControlsList() ) ) . '" data-model-id="' . $shortcode['id'] . '"' . self::cleanStyle() . '>' . $this->wrapperStart() . '[' . $shortcode['tag'] . ' ' . $shortcode['attrs_query'] . ']' . ( $is_container ? '[vc_container_anchor]' . $this->parseShortcodesString( $content, $is_container, $shortcode['id'] ) : do_shortcode( $content ) ) . '[/' . $shortcode['tag'] . ']' . $this->wrapperEnd() . '</div>' );
+				->getControlsList() ) ) . '" data-model-id="' . $shortcode['id'] . '"' . self::cleanStyle() . '>' . $this->wrapperStart() . '[' . $shortcode['tag'] . ' ' . $shortcode['attrs_query'] . ']' . ( $is_container ? '[vc_container_anchor]' . $this->parseShortcodesString( $content, $is_container, $shortcode['id'] ) : do_shortcode( $content ) ) . '[/' . $shortcode['tag'] . ']' . $this->wrapperEnd() . '</div>' );
 
 		return $output;
 	}

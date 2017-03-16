@@ -21,12 +21,16 @@ $css_class = apply_filters( VC_SHORTCODE_CUSTOM_CSS_FILTER_TAG, $class_to_filter
 
 $link = 'class="' . esc_attr( $css_class ) . '"';
 $target = '';
+$rel = '';
 if ( isset( $atts['link'] ) ) {
 	$css_class .= ' vc_gitem-link';
 	if ( 'custom' === $atts['link'] && ! empty( $atts['url'] ) ) {
 		$vc_link = vc_build_link( $atts['url'] );
 		if ( strlen( $vc_link['target'] ) ) {
 			$target = ' target="' . esc_attr( $vc_link['target'] ) . '"';
+		}
+		if ( strlen( $vc_link['rel'] ) ) {
+			$rel = ' rel="' . esc_attr( $vc_link['rel'] ) . '"';
 		}
 		$link = 'href="' . esc_attr( $vc_link['url'] ) . '" class="' . esc_attr( $css_class ) . '"';
 	} elseif ( 'post_link' === $atts['link'] ) {
@@ -38,13 +42,12 @@ if ( isset( $atts['link'] ) ) {
 	}
 }
 
-$link = apply_filters( 'vc_gitem_post_data_get_link_link', 'a ' . $link, $atts, $css_class )
-		. apply_filters( 'vc_gitem_post_data_get_link_target', $target, $atts );
+$link = apply_filters( 'vc_gitem_post_data_get_link_link', 'a ' . $link, $atts, $css_class ) . apply_filters( 'vc_gitem_post_data_get_link_target', $target, $atts ) . apply_filters( 'vc_gitem_post_data_get_link_rel', $rel, $atts );
 
 if ( $align ) {
 	$wrapper_css_class .= ' vc_button-2-align-' . $align;
 }
 ?>
 <div class="<?php echo esc_attr( $wrapper_css_class ) ?>">
-	<?php echo '<' . $link . $target . '>' . $title . '</a>' ?>
+	<?php echo '<' . $link . $target . $rel . '>' . $title . '</a>' ?>
 </div>

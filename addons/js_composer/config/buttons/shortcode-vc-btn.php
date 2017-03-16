@@ -1,5 +1,7 @@
 <?php
-
+if ( ! defined( 'ABSPATH' ) ) {
+	die( '-1' );
+}
 /**
  * New button implementation
  * array_merge is needed due to merging other shortcode data into params.
@@ -10,12 +12,12 @@ $pixel_icons = vc_pixel_icons();
 require_once vc_path_dir( 'CONFIG_DIR', 'content/vc-icon-element.php' );
 
 $icons_params = vc_map_integrate_shortcode( vc_icon_element_params(), 'i_', '', array(
-		'include_only_regex' => '/^(type|icon_\w*)/',
-		// we need only type, icon_fontawesome, icon_blabla..., NOT color and etc
-	), array(
-		'element' => 'add_icon',
-		'value' => 'true',
-	) );
+	'include_only_regex' => '/^(type|icon_\w*)/',
+	// we need only type, icon_fontawesome, icon_blabla..., NOT color and etc
+), array(
+	'element' => 'add_icon',
+	'value' => 'true',
+) );
 // populate integrated vc_icons params.
 if ( is_array( $icons_params ) && ! empty( $icons_params ) ) {
 	foreach ( $icons_params as $key => $param ) {
@@ -60,7 +62,78 @@ $params = array_merge( array(
 			__( '3d', 'js_composer' ) => '3d',
 			__( 'Custom', 'js_composer' ) => 'custom',
 			__( 'Outline custom', 'js_composer' ) => 'outline-custom',
+			__( 'Gradient', 'js_composer' ) => 'gradient',
+			__( 'Gradient Custom', 'js_composer' ) => 'gradient-custom',
 		),
+	),
+	array(
+		'type' => 'dropdown',
+		'heading' => __( 'Gradient Color 1', 'js_composer' ),
+		'param_name' => 'gradient_color_1',
+		'description' => __( 'Select first color for gradient.', 'js_composer' ),
+		'param_holder_class' => 'vc_colored-dropdown vc_btn3-colored-dropdown',
+		'value' => getVcShared( 'colors-dashed' ),
+		'std' => 'turquoise',
+		'dependency' => array(
+			'element' => 'style',
+			'value' => array( 'gradient' ),
+		),
+		'edit_field_class' => 'vc_col-sm-6',
+	),
+	array(
+		'type' => 'dropdown',
+		'heading' => __( 'Gradient Color 2', 'js_composer' ),
+		'param_name' => 'gradient_color_2',
+		'description' => __( 'Select second color for gradient.', 'js_composer' ),
+		'param_holder_class' => 'vc_colored-dropdown vc_btn3-colored-dropdown',
+		'value' => getVcShared( 'colors-dashed' ),
+		'std' => 'blue',
+		// must have default color grey
+		'dependency' => array(
+			'element' => 'style',
+			'value' => array( 'gradient' ),
+		),
+		'edit_field_class' => 'vc_col-sm-6',
+	),
+	array(
+		'type' => 'colorpicker',
+		'heading' => __( 'Gradient Color 1', 'js_composer' ),
+		'param_name' => 'gradient_custom_color_1',
+		'description' => __( 'Select first color for gradient.', 'js_composer' ),
+		'param_holder_class' => 'vc_colored-dropdown vc_btn3-colored-dropdown',
+		'value' => '#dd3333',
+		'dependency' => array(
+			'element' => 'style',
+			'value' => array( 'gradient-custom' ),
+		),
+		'edit_field_class' => 'vc_col-sm-4',
+	),
+	array(
+		'type' => 'colorpicker',
+		'heading' => __( 'Gradient Color 2', 'js_composer' ),
+		'param_name' => 'gradient_custom_color_2',
+		'description' => __( 'Select second color for gradient.', 'js_composer' ),
+		'param_holder_class' => 'vc_colored-dropdown vc_btn3-colored-dropdown',
+		'value' => '#eeee22',
+		'dependency' => array(
+			'element' => 'style',
+			'value' => array( 'gradient-custom' ),
+		),
+		'edit_field_class' => 'vc_col-sm-4',
+	),
+	array(
+		'type' => 'colorpicker',
+		'heading' => __( 'Button Text Color', 'js_composer' ),
+		'param_name' => 'gradient_text_color',
+		'description' => __( 'Select button text color.', 'js_composer' ),
+		'param_holder_class' => 'vc_colored-dropdown vc_btn3-colored-dropdown',
+		'value' => '#ffffff',
+		// must have default color grey
+		'dependency' => array(
+			'element' => 'style',
+			'value' => array( 'gradient-custom' ),
+		),
+		'edit_field_class' => 'vc_col-sm-4',
 	),
 	array(
 		'type' => 'colorpicker',
@@ -71,7 +144,7 @@ $params = array_merge( array(
 			'element' => 'style',
 			'value' => array( 'custom' ),
 		),
-		'edit_field_class' => 'vc_col-sm-6 vc_column',
+		'edit_field_class' => 'vc_col-sm-6',
 		'std' => '#ededed',
 	),
 	array(
@@ -83,7 +156,7 @@ $params = array_merge( array(
 			'element' => 'style',
 			'value' => array( 'custom' ),
 		),
-		'edit_field_class' => 'vc_col-sm-6 vc_column',
+		'edit_field_class' => 'vc_col-sm-6',
 		'std' => '#666',
 	),
 	array(
@@ -95,7 +168,7 @@ $params = array_merge( array(
 			'element' => 'style',
 			'value' => array( 'outline-custom' ),
 		),
-		'edit_field_class' => 'vc_col-sm-4 vc_column',
+		'edit_field_class' => 'vc_col-sm-4',
 		'std' => '#666',
 	),
 	array(
@@ -107,7 +180,7 @@ $params = array_merge( array(
 			'element' => 'style',
 			'value' => array( 'outline-custom' ),
 		),
-		'edit_field_class' => 'vc_col-sm-4 vc_column',
+		'edit_field_class' => 'vc_col-sm-4',
 		'std' => '#666',
 	),
 	array(
@@ -119,7 +192,7 @@ $params = array_merge( array(
 			'element' => 'style',
 			'value' => array( 'outline-custom' ),
 		),
-		'edit_field_class' => 'vc_col-sm-4 vc_column',
+		'edit_field_class' => 'vc_col-sm-4',
 		'std' => '#fff',
 	),
 	array(
@@ -159,6 +232,8 @@ $params = array_merge( array(
 			'value_not_equal_to' => array(
 				'custom',
 				'outline-custom',
+				'gradient',
+				'gradient-custom',
 			),
 		),
 	),
@@ -236,10 +311,32 @@ $params = array_merge( array(
 	), array(
 		vc_map_add_css_animation( true ),
 		array(
+			'type' => 'el_id',
+			'heading' => __( 'Element ID', 'js_composer' ),
+			'param_name' => 'el_id',
+			'description' => sprintf( __( 'Enter element ID (Note: make sure it is unique and valid according to <a href="%s" target="_blank">w3c specification</a>).', 'js_composer' ), 'http://www.w3schools.com/tags/att_global_id.asp' ),
+		),
+		array(
 			'type' => 'textfield',
 			'heading' => __( 'Extra class name', 'js_composer' ),
 			'param_name' => 'el_class',
 			'description' => __( 'Style particular content element differently - add a class name and refer to it in custom CSS.', 'js_composer' ),
+		),
+		array(
+			'type' => 'checkbox',
+			'heading' => __( 'Advanced on click action', 'js_composer' ),
+			'param_name' => 'custom_onclick',
+			'description' => __( 'Insert inline onclick javascript action.', 'js_composer' ),
+		),
+		array(
+			'type' => 'textfield',
+			'heading' => __( 'On click code', 'js_composer' ),
+			'param_name' => 'custom_onclick_code',
+			'description' => __( 'Enter onclick action code.', 'js_composer' ),
+			'dependency' => array(
+				'element' => 'custom_onclick',
+				'not_empty' => true,
+			),
 		),
 		array(
 			'type' => 'css_editor',
@@ -247,7 +344,8 @@ $params = array_merge( array(
 			'param_name' => 'css',
 			'group' => __( 'Design Options', 'js_composer' ),
 		),
-	) );
+	)
+);
 /**
  * @class WPBakeryShortCode_VC_Btn
  */

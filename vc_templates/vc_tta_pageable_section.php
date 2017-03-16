@@ -57,12 +57,9 @@ if($atts['active'] == true):
 	
 	$output = '';
 	$output .= '<div ' . implode( ' ', $wrapper_attributes ) . ' style="background:url('.$src.'); background-size:cover;">';
-	//$output .= '<'.$_amp.'img src="'.$src.'" width="'.$slide_width.'" class="slider-background" height="'.$slide_height.'"  layout="responsive">';
-	//$output .= ($_amp!='')?'</amp-img>':'';
 	$output .= '<div class="slide-text-overlay">
 	                ';
 	$output .= $this->getTemplateVariable( 'content' );
 	$output .= '</div></div>';
-	//$output .= '<pre>'.print_r($atts,true).'</pre>';
 	echo $output;
 endif;

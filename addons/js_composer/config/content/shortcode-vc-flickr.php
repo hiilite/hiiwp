@@ -1,4 +1,8 @@
 <?php
+if ( ! defined( 'ABSPATH' ) ) {
+	die( '-1' );
+}
+
 return array(
 	'base' => 'vc_flickr',
 	'name' => __( 'Flickr Widget', 'js_composer' ),
@@ -56,6 +60,13 @@ return array(
 				__( 'Random', 'js_composer' ) => 'random',
 			),
 			'description' => __( 'Select photo display order.', 'js_composer' ),
+		),
+		vc_map_add_css_animation(),
+		array(
+			'type' => 'el_id',
+			'heading' => __( 'Element ID', 'js_composer' ),
+			'param_name' => 'el_id',
+			'description' => sprintf( __( 'Enter element ID (Note: make sure it is unique and valid according to <a href="%s" target="_blank">w3c specification</a>).', 'js_composer' ), 'http://www.w3schools.com/tags/att_global_id.asp' ),
 		),
 		array(
 			'type' => 'textfield',

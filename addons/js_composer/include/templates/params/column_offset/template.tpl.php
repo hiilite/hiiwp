@@ -2,6 +2,10 @@
 if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
 }
+/**
+ * @var $param Vc_Column_Offset
+ * @var $sizes Vc_Column_Offset::$size_types
+ */
 ?>
 <div class="vc_column-offset" data-column-offset="true">
 	<?php if ( '1' === vc_settings()->get( 'not_responsive_css' ) ) :  ?>
@@ -32,7 +36,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<?php foreach ( $sizes as $key => $size ) :  ?>
 			<tr class="vc_size-<?php echo $key ?>">
 				<td class="vc_screen-size vc_screen-size-<?php echo $key ?>">
-					<span class="vc_icon" title="<?php echo $size ?>"></span>
+					<span title="<?php echo $size ?>"><i class="vc-composer-icon vc-c-icon-layout-<?php echo $key ?>"></i></span>
 				</td>
 				<td>
 					<?php echo $param->offsetControl( $key ) ?>

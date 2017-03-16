@@ -1,4 +1,8 @@
 <?php
+if ( ! defined( 'ABSPATH' ) ) {
+	die( '-1' );
+}
+
 return array(
 	'name' => __( 'Progress Bar', 'js_composer' ),
 	'base' => 'vc_progress_bar',
@@ -142,6 +146,13 @@ return array(
 				__( 'Add stripes', 'js_composer' ) => 'striped',
 				__( 'Add animation (Note: visible only with striped bar).', 'js_composer' ) => 'animated',
 			),
+		),
+		vc_map_add_css_animation(),
+		array(
+			'type' => 'el_id',
+			'heading' => __( 'Element ID', 'js_composer' ),
+			'param_name' => 'el_id',
+			'description' => sprintf( __( 'Enter element ID (Note: make sure it is unique and valid according to <a href="%s" target="_blank">w3c specification</a>).', 'js_composer' ), 'http://www.w3schools.com/tags/att_global_id.asp' ),
 		),
 		array(
 			'type' => 'textfield',

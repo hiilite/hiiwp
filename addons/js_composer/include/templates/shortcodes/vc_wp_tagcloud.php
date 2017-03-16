@@ -9,17 +9,21 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @var $title
  * @var $taxonomy
  * @var $el_class
+ * @var $el_id
  * Shortcode class
  * @var $this WPBakeryShortCode_VC_Wp_Tagcloud
  */
-$title = $taxonomy = $el_class = '';
+$title = $taxonomy = $el_class = $el_id = '';
 $output = '';
 $atts = vc_map_get_attributes( $this->getShortcode(), $atts );
 extract( $atts );
 
 $el_class = $this->getExtraClass( $el_class );
-
-$output = '<div class="vc_wp_tagcloud wpb_content_element' . esc_attr( $el_class ) . '">';
+$wrapper_attributes = array();
+if ( ! empty( $el_id ) ) {
+	$wrapper_attributes[] = 'id="' . esc_attr( $el_id ) . '"';
+}
+$output = '<div ' . implode( ' ', $wrapper_attributes ) . ' class="vc_wp_tagcloud wpb_content_element' . esc_attr( $el_class ) . '">';
 $type = 'WP_Widget_Tag_Cloud';
 $args = array();
 global $wp_widget_factory;

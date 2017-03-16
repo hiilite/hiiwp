@@ -23,7 +23,7 @@ class Vc_Navbar_Grid_Item extends Vc_Navbar {
 	 */
 	public function getControlTemplates() {
 		return '<li><a href="javascript:;" class="vc_icon-btn vc_templates-button vc_navbar-border-right"  id="vc_templates-editor-button" title="'
-		. __( 'Templates', 'js_composer' ) . '"></a></li>';
+		. __( 'Templates', 'js_composer' ) . '"><i class="vc-composer-icon vc-c-icon-add_template"></i></a></li>';
 	}
 
 	public function getControlPreviewTemplate() {
@@ -35,7 +35,7 @@ class Vc_Navbar_Grid_Item extends Vc_Navbar {
 	public function getControlEdit() {
 		return '<li class="vc_pull-right">'
 		       . '<a data-vc-navbar-control="edit" class="vc_icon-btn vc_post-settings" title="'
-		       . __( 'Grid element settings', 'js_composer' ) . '">'
+		       . __( 'Grid element settings', 'js_composer' ) . '"><i class="vc-composer-icon vc-c-icon-cog"></i>'
 		       . '</a>'
 		       . '</li>';
 	}

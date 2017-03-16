@@ -62,11 +62,11 @@ function vc_gitem_post_data_get_link_target_woocommerce( $link, $atts ) {
  *
  * @param $link
  * @param $atts
+ * @param $post
  * @param string $css_class
- *
+ * @return string
  * @since 4.5
  *
- * @return string
  */
 function vc_gitem_post_data_get_link_real_link_woocommerce( $link, $atts, $post, $css_class = '' ) {
 	if ( isset( $atts['link'] ) && 'woo_add_to_card' === $atts['link'] ) {

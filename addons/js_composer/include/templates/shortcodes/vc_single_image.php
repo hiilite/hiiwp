@@ -2,18 +2,6 @@
 if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
 }
-global $hiilite_options;
-$post_id = get_the_id();
-$post_object = get_post( $post_id );
-
-if(get_post_meta($post_id, 'amp', true) == 'nonamp'){
-	$hiilite_options['amp'] = false;
-} else {
-	$hiilite_options['amp'] = (!isset($hiilite_options['amp']))?get_theme_mod('amp'):$hiilite_options['amp'];
-}
-if($hiilite_options['amp'] != false) $_amp = 'amp-'; else $_amp = '';
-
-
 
 /**
  * Shortcode attributes
@@ -31,6 +19,7 @@ if($hiilite_options['amp'] != false) $_amp = 'amp-'; else $_amp = '';
  * @var $img_link_target
  * @var $alignment
  * @var $el_class
+ * @var $el_id
  * @var $css_animation
  * @var $style
  * @var $external_style
@@ -40,7 +29,7 @@ if($hiilite_options['amp'] != false) $_amp = 'amp-'; else $_amp = '';
  * @var $this WPBakeryShortCode_VC_Single_image
  */
 $title = $source = $image = $custom_src = $onclick = $img_size = $external_img_size =
-$caption = $img_link_large = $link = $img_link_target = $alignment = $el_class = $css_animation = $style = $external_style = $border_color = $css = '';
+$caption = $img_link_large = $link = $img_link_target = $alignment = $el_class = $el_id = $css_animation = $style = $external_style = $border_color = $css = '';
 $atts = vc_map_get_attributes( $this->getShortcode(), $atts );
 extract( $atts );
 
@@ -90,7 +79,7 @@ switch ( $source ) {
 		$img = wpb_getImageBySize( array(
 			'attach_id' => $img_id,
 			'thumb_size' => $img_size,
-			'class' => 'single_image-img',
+			'class' => 'vc_single_image-img',
 		) );
 
 		// don't show placeholder in public version if post doesn't have featured image
@@ -109,7 +98,7 @@ switch ( $source ) {
 		$custom_src = $custom_src ? esc_attr( $custom_src ) : $default_src;
 
 		$img = array(
-			'thumbnail' => '<'.$_amp.'img class="single_image-img" ' . $hwstring . ' src="' . $custom_src . '" />',
+			'thumbnail' => '<img class="vc_single_image-img" ' . $hwstring . ' src="' . $custom_src . '" />',
 		);
 		break;
 
@@ -118,11 +107,15 @@ switch ( $source ) {
 }
 
 if ( ! $img ) {
-	$img['thumbnail'] = '<'.$_amp.'img class="img-placeholder single_image-img" src="' . $default_src . '" />';
+	$img['thumbnail'] = '<img class="vc_img-placeholder vc_single_image-img" src="' . $default_src . '" />';
 }
 
 $el_class = $this->getExtraClass( $el_class );
 
+// backward compatibility
+if ( vc_has_class( 'prettyphoto', $el_class ) ) {
+	$onclick = 'link_image';
+}
 
 // backward compatibility. will be removed in 4.7+
 if ( ! empty( $atts['img_link'] ) ) {
@@ -151,6 +144,25 @@ switch ( $onclick ) {
 
 		break;
 
+	case 'link_image':
+		wp_enqueue_script( 'prettyphoto' );
+		wp_enqueue_style( 'prettyphoto' );
+
+		$a_attrs['class'] = 'prettyphoto';
+		$a_attrs['data-rel'] = 'prettyPhoto[rel-' . get_the_ID() . '-' . rand() . ']';
+
+		// backward compatibility
+		if ( vc_has_class( 'prettyphoto', $el_class ) ) {
+			// $link is already defined
+		} elseif ( 'external_link' === $source ) {
+			$link = $custom_src;
+		} else {
+			$link = wp_get_attachment_image_src( $img_id, 'large' );
+			$link = $link[0];
+		}
+
+		break;
+
 	case 'custom_link':
 		// $link is already defined
 		break;
@@ -167,7 +179,7 @@ switch ( $onclick ) {
 			}
 		}
 
-		if($_amp!='')$img['thumbnail'] = str_replace( '<img', '<amp-img data-vc-zoom="' . $large_img_src . '" ', $img['thumbnail'] );
+		$img['thumbnail'] = str_replace( '<img ', '<img data-vc-zoom="' . $large_img_src . '" ', $img['thumbnail'] );
 
 		break;
 }
@@ -177,8 +189,8 @@ if ( vc_has_class( 'prettyphoto', $el_class ) ) {
 	$el_class = vc_remove_class( 'prettyphoto', $el_class );
 }
 
-$wrapperClass = 'single_image-wrapper ' . $style . ' ' . $border_color;
-$reponsive = ($atts['responsive'] == 'yes')?'layout=responsive':'';
+$wrapperClass = 'vc_single_image-wrapper ' . $style . ' ' . $border_color;
+
 if ( $link ) {
 	$a_attrs['href'] = $link;
 	$a_attrs['target'] = $img_link_target;
@@ -186,20 +198,12 @@ if ( $link ) {
 		$wrapperClass .= ' ' . $a_attrs['class'];
 		unset( $a_attrs['class'] );
 	}
-	if($_amp!=''){
-		$img['thumbnail'] = str_replace( '<img', '<amp-img '.$reponsive.' ', $img['thumbnail'] );
-		$img['thumbnail'] = str_replace( '/>', '></amp-img> ', $img['thumbnail'] );
-	}
 	$html = '<a ' . vc_stringify_attributes( $a_attrs ) . ' class="' . $wrapperClass . '">' . $img['thumbnail'] . '</a>';
 } else {
-	if($_amp!=''){
-		$img['thumbnail'] = str_replace( '<img', '<amp-img '.$reponsive.' ', $img['thumbnail'] );
-		$img['thumbnail'] = str_replace( '/>', '></amp-img> ', $img['thumbnail'] );
-	}
-	$html =  $img['thumbnail'];
+	$html = '<div class="' . $wrapperClass . '">' . $img['thumbnail'] . '</div>';
 }
 
-$class_to_filter = '  align-' . $alignment . ' ' . $this->getCSSAnimation( $css_animation );
+$class_to_filter = 'wpb_single_image wpb_content_element vc_align_' . $alignment . ' ' . $this->getCSSAnimation( $css_animation );
 $class_to_filter .= vc_shortcode_custom_css_class( $css, ' ' ) . $this->getExtraClass( $el_class );
 $css_class = apply_filters( VC_SHORTCODE_CUSTOM_CSS_FILTER_TAG, $class_to_filter, $this->settings['base'], $atts );
 
@@ -215,10 +219,17 @@ if ( in_array( $source, array( 'media_library', 'featured_image' ) ) && 'yes' ==
 if ( 'yes' === $add_caption && '' !== $caption ) {
 	$html .= '<figcaption class="vc_figure-caption">' . esc_html( $caption ) . '</figcaption>';
 }
+$wrapper_attributes = array();
+if ( ! empty( $el_id ) ) {
+	$wrapper_attributes[] = 'id="' . esc_attr( $el_id ) . '"';
+}
 $output = '
-		<figure class="' . esc_attr( trim( $css_class ) ) . '">
+	<div ' . implode( ' ', $wrapper_attributes ) . ' class="' . esc_attr( trim( $css_class ) ) . '">
+		' . wpb_widget_title( array( 'title' => $title, 'extraclass' => 'wpb_singleimage_heading' ) ) . '
+		<figure class="wpb_wrapper vc_figure">
 			' . $html . '
 		</figure>
+	</div>
 ';
 
 echo $output;

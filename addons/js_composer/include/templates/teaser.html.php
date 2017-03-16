@@ -2,6 +2,7 @@
 if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
 }
+
 ?>
 <script type="text/html" id="vc_teaser-button">
 	<div class="vc_teaser-checkbox">

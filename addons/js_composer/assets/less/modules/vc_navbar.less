@@ -63,14 +63,23 @@
     padding: 28px 30px;
     cursor: pointer;
     outline: 0;
-    background: transparent url(@vc_navbar_sprite) @vc_navbar_sprite_left_position 0;
+    background: transparent;
     transition: background-color @vcui-navbar-transition-duration @vcui-navbar-transition-function;
-
+    position: relative;
+    font-size: 26px;
     &:hover {
       background-color: @vc_navbar_icon_btn_color;
     }
     &:focus {
       background-color: transparent;
+    }
+
+    .vc-composer-icon {
+      color: @vc_navbar_icon_color;
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      .translate(-50%, -50%);
     }
   }
   .vc_open {
@@ -88,33 +97,13 @@
     }
   }
   .vc_back-button {
-    background-image: none;
+    font-size: 26px;
     padding: 20px 23px;
-    // background-position: @vc_navbar_sprite_left_position -165px;
-    &::before {
-      height: 14px;
-      width: 14px;
-      font-size: 14px;
-      content: '';
-      display: inline-block;
-      vertical-align: baseline;
-      background: transparent url(../vc/editors/ui/vc_ui-icon-pixel/vc_ui-sprite.png) no-repeat  -5px -29px;;
-      line-height: 1;
-    }
-  }
-
-  .vc_templates-button {
-    background-position: @vc_navbar_sprite_left_position -55px;
   }
   .vc_post-settings {
-    position: relative;
-    background-position: @vc_navbar_sprite_left_position -110px;
-  }
-  .vc_fullscreen-button {
-    background-position: @vc_navbar_sprite_left_position -222px;
+    font-size: 24px;
   }
   .vc_windowed-button {
-    background-position: @vc_navbar_sprite_left_position -282px;
     display: none;
   }
   .vc_badge-custom-css {
@@ -127,6 +116,7 @@
     font-weight: normal;
     border-radius: 4px;
     padding: 2px 3px;
+    z-index: 1;
   }
   .vc_save-backend {
     display: none;
@@ -139,6 +129,7 @@
   }
   .vc_dropdown {
     position: relative;
+    font-size: 18px;
     .vc_dropdown-toggle {
       transition: background-color @vcui-navbar-transition-duration @vcui-navbar-transition-function;
       cursor: default;
@@ -147,19 +138,10 @@
       height: 56px;
       line-height: 16px;
       padding: 19px;
-      .vc_icon {
-        display: inline-block;
-        vertical-align: middle;
-        width: 20px;
-        height: 16px;
-        background-color: transparent;
-        background-position: left center;
-        background-repeat: no-repeat;
-      }
-      .vc_caret {
-        .caret();
-        vertical-align: middle;
-      }
+      text-decoration: none;
+    }
+    .vc_current-layout-icon {
+      color: #FFFFFF;
     }
     .vc_dropdown-list {
       display: none;
@@ -177,12 +159,19 @@
       }
       a {
         display: block;
+        color: #FFFFFF;
+        text-decoration: none;
         transition: background-color @vcui-navbar-transition-duration @vcui-navbar-transition-function;
         background-color: transparent;
-        background-position: center center;
-        background-repeat: no-repeat;
         width: 68px;
         height: 37px;
+        position: relative;
+        &::before {
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          .translate(-50%, -50%);
+        }
         &:hover {
           background-color: #124979;
         }
@@ -198,21 +187,6 @@
       .vc_dropdown-list {
         display: block;
       }
-    }
-    .default {
-      background-image: url(../vc/fe/screen_sizes/laptop.png);
-    }
-    .landscape-tablets {
-      background-image: url(../vc/fe/screen_sizes/ipad_h.png);
-    }
-    .portrait-tablets {
-      background-image: url(../vc/fe/screen_sizes/ipad_v.png);
-    }
-    .landscape-smartphones {
-      background-image: url(../vc/fe/screen_sizes/iphone_h.png);
-    }
-    .portrait-smartphones {
-      background-image: url(../vc/fe/screen_sizes/iphone_v.png);
     }
   }
 }

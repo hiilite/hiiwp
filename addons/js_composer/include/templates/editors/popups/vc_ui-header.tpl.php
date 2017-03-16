@@ -9,12 +9,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 	data-vc-ui-element="panel-heading">
 	<div class="vc_ui-panel-header">
 		<div class="vc_ui-panel-header-controls">
-			<?php foreach ( $controls as $control ) :  ?>
+			<?php foreach ( $controls as $key => $control ) :  ?>
 				<?php if ( is_array( $control ) && isset( $control['template'] ) ) :  ?>
 					<?php vc_include_template( $control['template'], isset( $control['variables'] ) ? $control['variables'] : array() ) ?>
 				<?php else : ?>
 					<button type="button" class="vc_general vc_ui-control-button vc_ui-<?php echo esc_attr( $control ) ?>-button" data-vc-ui-element="button-<?php echo esc_attr( $control ) ?>">
-						<i class="vc_ui-icon-pixel vc_ui-icon-pixel-<?php echo esc_attr( $control ) ?>"> </i></button>
+						<i class="vc-composer-icon vc-c-icon-<?php echo esc_attr( $control ) ?>"></i></button>
 				<?php endif ?>
 			<?php endforeach; ?>
 		</div>
