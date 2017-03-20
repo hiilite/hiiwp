@@ -231,26 +231,15 @@ function add_tracking_codes(){
 	
 	
 	
-	
-
-	if($hiilite_options['amp']) { ?>
-		<script async custom-element="amp-carousel" src="https://cdn.ampproject.org/v0/amp-carousel-0.1.js"></script>
-		<script async custom-element="amp-lightbox" src="https://cdn.ampproject.org/v0/amp-lightbox-0.1.js"></script>
-		<script async custom-element="amp-image-lightbox" src="https://cdn.ampproject.org/v0/amp-image-lightbox-0.1.js"></script>
-		<script async custom-element="amp-iframe" src="https://cdn.ampproject.org/v0/amp-iframe-0.1.js"></script>
-		<script async custom-element="amp-analytics" src="https://cdn.ampproject.org/v0/amp-analytics-0.1.js"></script>
-		<script async src="https://cdn.ampproject.org/v0.js"></script>
-	<?php 
-	} else { 
+	$file = dirname(__FILE__); // Current PHP file, but can be anyone
+	$link = str_replace( WP_CONTENT_DIR, WP_CONTENT_URL, $file );
+	if((get_theme_mod('analytics_id') != '')) { 
 		$gadwp = GADWP();
 		$profile_info = GADWP_Tools::get_selected_profile($gadwp->config->options['ga_dash_profile_list'], $gadwp->config->options['ga_dash_tableid_jail']);
 		$tracking_id = (isset($profile_info[2]))?$profile_info[2]:get_theme_mod('analytics_id');
-		$file = dirname(__FILE__); // Current PHP file, but can be anyone
-		$link = str_replace( WP_CONTENT_DIR, WP_CONTENT_URL, $file );
+		
+		
 	?>
-		<script type="text/javascript">
-		(function(a,e,c,f,g,b,d){var h={ak:"123456789",cl:"_ABcDEFg12hI34567jK"};a[c]=a[c]||function(){(a[c].q=a[c].q||[]).push(arguments)};a[f]||(a[f]=h.ak);b=e.createElement(g);b.async=1;b.src="//www.gstatic.com/wcm/loader.js";d=e.getElementsByTagName(g)[0];d.parentNode.insertBefore(b,d);a._googWcmGet=function(b,d,e){a[c](2,b,h,d,null,new Date,e)}})(window,document,"_googWcmImpl","_googWcmAk","script");
-		</script>
 		<script>
 		window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
 		ga('create', '<?=$tracking_id?>', 'auto');
@@ -267,8 +256,6 @@ function add_tracking_codes(){
 		ga('send', 'pageview');
 		
 		</script>
-		<script async src='https://www.google-analytics.com/analytics.js'></script>
-		<script async src='<?=$link?>/js/vender/autotrack.js'></script>
 <?php 
 	}
 	$options = get_option('hii_seo_settings');
@@ -277,90 +264,13 @@ function add_tracking_codes(){
 		echo $options['business_custom_tracking_code'];
 		echo '</script>';
 	}
-}
-
-/*
-on WP_FOOTER
-*/
-add_action('wp_footer', 'add_footer_tracking', 100);
-function add_footer_tracking(){
-	$gadwp = GADWP();
-	$post_id = get_the_id();
-	$post_object = get_post( $post_id );
-	$options = get_option('hii_seo_settings');
-	if(get_post_meta($post_id, 'amp', true) == 'nonamp'){
-		$hiilite_options['amp'] = false;
-	} else {
-		$hiilite_options['amp'] = (!isset($hiilite_options['amp']))?get_theme_mod('amp'):false;
-	}
-	
-	$profile_info = GADWP_Tools::get_selected_profile($gadwp->config->options['ga_dash_profile_list'], $gadwp->config->options['ga_dash_tableid_jail']);
-	
-	//var_dump($profile_info);
-	
-	$tracking_id = (isset($profile_info[2]))?$profile_info[2]:get_theme_mod('analytics_id');
-	
-	if($hiilite_options['amp']) { 
 	?>
-	<amp-analytics type="googleanalytics" id="analytics1">
-			<script type="application/json">
-			{
-			  "vars": {
-			    "account": "<?=$tracking_id?>" 
-			  },
-			  "triggers": {
-			    "trackPageview": { 
-			      "on": "visible",
-			      "request": "pageview"
-			    },
-			    "trackClickOnPhone" : {
-			      "on": "click",
-			      "selector": "a[href*=tel]",
-			      "request": "event",
-			      "vars": {
-			        "eventCategory": "Contact Links",
-			        "eventAction": "user-phoned"
-			      }
-			    },
-			    "trackClickOnEmail" : {
-			      "on": "click",
-			      "selector": "a[href*=mailto]",
-			      "request": "event",
-			      "vars": {
-			        "eventCategory": "Contact Links",
-			        "eventAction": "user-emailed"
-			      }
-			    }
-			  }
-			}
-			</script>
-		</amp-analytics>
+	<script async src='https://www.google-analytics.com/analytics.js'></script>
+	<script async src='<?=$link?>/js/vender/autotrack.js'></script>
 	<?php
-	} else {
-		?>
-		<script>
-			
-		(function($){
-		
-			function trackingLink($this, type){
-				var href = $this.html();
-				return "ga('send', 'event', 'Contact Links', '"+type+"','"+href+"')";
-			}
-			
-			$('[href*=mail]').attr("onclick", function(){
-				return trackingLink($(this), "user-emailed");
-			}).addClass('email');
-			$('[href*=tel]').attr("onclick", function(){
-				return trackingLink($(this), "user-phoned");
-			}).addClass('number');
-			_googWcmGet('number', '<?=$options['business_telephone_numbers'][0]['business_telephone']?>');
-				
-		})(jQuery);
-
-		</script>
-		<?php
-	}
 }
+
+
 
 /*
 on ADMIN_MENU	

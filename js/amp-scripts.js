@@ -1,4 +1,3 @@
-<script>
 (function($){$(document).ready(function(){
 
 	/* Mobile Menu */
@@ -56,8 +55,8 @@
 		/* testimonial slider */
 		if($carousel.hasClass('testimonial-slider')){
 			ratio = height.replace('px','') / width.replace('px','');
-			var elementHeights = $carousel.find('[itemprop=reviewBody]').map(function() {
-			    return $(this).height();
+			var elementHeights = $carousel.find('.flex-item').map(function() {
+			    return $(this).outerHeight();
 			}).get();
 			
 			var maxHeight = Math.max.apply(null, elementHeights);
@@ -67,8 +66,8 @@
 			width = '100%';
 			
 			$(window).on('resize',function(){
-				elementHeights = $carousel.find('[itemprop=reviewBody]').map(function() {
-				    return $(this).height();
+				elementHeights = $carousel.find('.flex-item').map(function() {
+				    return $(this).outerHeight();
 				}).get();
 				
 				maxHeight = Math.max.apply(null, elementHeights);
@@ -428,19 +427,5 @@
 	  else sticky.removeClass('scrolled');
 	});
 	
-	/* Update main nav to include full URL for anchored links when not on homepage */
-	<?php if (!is_home()): ?>
-	$('.menu li a').each(function() {
-		var url = $(this).attr('href');
-		var home = window.location.origin;
-		if (url.indexOf("#") >= 0)
-		{
-			url = home+url;
-			$(this).attr('href',url);
-		}
-	});
-	<?php endif; ?>
     
-});})(jQuery);	
-	
-</script>
+});})(jQuery);

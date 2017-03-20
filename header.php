@@ -68,16 +68,9 @@ function sanitize_output($buffer) {
 wp_head(); 
 	
 
-//ob_start();
 include_once('css/main-css.php');
+include_once('css/non-amp-css.php');
 
-if(!$hiilite_options['amp']){
-	include_once('css/non-amp-css.php');
-	$body = $maincss = ob_get_clean();
-} else {
-	$body = str_replace("!important", "", $maincss);
-}
-echo minify_css($body);
 
  ?></head>
 <body <?php body_class(); ?>>

@@ -117,12 +117,7 @@ do_action( 'hii_after_content' );
 <?php do_action( 'hii_after_footer' ); ?>
 			
 	</div>
-	<?php wp_footer(); 
-		
-if(!$hiilite_options['amp']){
-	include_once('js/non-amp-scripts.php');
-}
-	?>
+	<?php wp_footer(); ?>
 	
 </body>
 </html>

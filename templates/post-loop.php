@@ -30,7 +30,7 @@ else:
 	$categories = get_the_category();$cats ='';
 	foreach($categories as $cat){
 		$cats .= $cat->name;
-	}
+	} 
 	echo '<meta itemprop="articleSection" content="'.$cats.'">';
 endif;
 ?>

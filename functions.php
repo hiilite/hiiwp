@@ -33,14 +33,6 @@ add_filter( 'wp_calculate_image_srcset_meta', '__return_null' );
 /*
 Include Support Add-ons	
 */
-
-/* BUG: Cloudflare_Flexible_SSL Locks you out of admin in WP 4.7
-*/
-/*
-if(!class_exists('ICWP_Cloudflare_Flexible_SSL')){
-	require_once( dirname( __FILE__ ) . '/addons/cloudflare-flexible-ssl.php');
-}
-*/
 if(!class_exists('Vc_Manager')){
 	require_once( dirname( __FILE__ ) . '/addons/js_composer/js_composer.php');
 }
@@ -182,42 +174,13 @@ function hiiwp_init(){
 	
 	require_once(dirname( __FILE__ ) . '/includes/site_variables.php');
 	
-	if(isset($post->ID) && get_post_meta($post->ID, 'amp', true) == 'nonamp'){
-		$hiilite_options['amp'] = false;
-	} else {
-		$hiilite_options['amp'] = get_theme_mod('amp');
-	}
+	wp_enqueue_script("jquery");
+	wp_enqueue_script('amp-scripts', get_template_directory_uri().'/js/amp-scripts.js','jquery', array( 'jquery' ), '0.0.1', true);	
+	add_filter('script_loader_tag', 'add_defer_attribute', 10, 2);
 
-	// AMP FIXES
-	if($hiilite_options['amp']){
-		add_filter('widget_text', 'amp_image_tags');
-		add_filter( 'the_content', 'amp_image_tags', 10);
-		add_filter( 'post_thumbnail_html', 'amp_image_tags',100);
-		add_filter('script_loader_tag', 'add_defer_attribute', 10, 2);
-		
-		remove_action( 'wp_head', 'rsd_link' );
-		remove_action( 'wp_head', 'rest_output_link_wp_head', 10 );
-		remove_action( 'wp_head', 'wp_oembed_add_discovery_links', 10 );
-		remove_action( 'wp_head', 'wlwmanifest_link');
-		add_action( 'init', 'minqueue_init', 1 );
-		add_filter( 'style_loader_tag', 'enqueue_less_styles', 5, 2);
-		
-		echo '<style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 1s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 1s steps(1,end) 0s 1 normal both;animation:-amp-start 1s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>'; 
-	
-	} else {
-		wp_enqueue_script("jquery");
-
-	}
 }
 add_action( 'wp_head', 'hiiwp_init' );
 
-/*
-//	note: wp_footer
-*/
-function hiiwp_footer(){
-	
-}
-add_action('wp_footer', 'hiiwp_footer', 100);
 
 /*
 //	note: customize_preview_init
@@ -389,17 +352,8 @@ function amp_image_tags($content)
 
 // ADD DEFER TO SCRIPT TAGS
 function add_defer_attribute($tag, $handle) {
-	global $hiilite_options;
-	$urlParts = explode('.', $_SERVER['HTTP_HOST']);
-	$hiilite_options['subdomain'] = $urlParts[0];
-	if($hiilite_options['subdomain'] != 'iframe'){
-		
-    	if(is_admin()) return $tag;
-		
-		return str_replace( ' src', ' defer="defer" src', $tag );
-    } else {
-	    return $tag;
-    }
+	if(is_admin()) return $tag;
+	return str_replace( ' src', ' defer=defer src', $tag );
 }
 
 
@@ -415,30 +369,6 @@ function disable_emojicons_tinymce( $plugins ) {
 
 
 
-
-
-
-
-
-
-function minqueue_init () {
-	global $hiilite_options;
-	global $post;
-	if(is_admin() || get_post_meta($post->ID, 'amp', true) == 'nonamp' || get_theme_mod('amp') == false){
-		return;
-	} 
-	// Run the minifier
-	$urlParts = explode('.', $_SERVER['HTTP_HOST']);
-	$hiilite_options['subdomain'] = $urlParts[0];
-	if($hiilite_options['subdomain'] != 'iframe'){
-		add_action( 'wp_print_scripts', 'minqueue_scripts', 100 );
-		add_action( 'wp_footer', 'minqueue_scripts', 5 );
-		add_action( 'wp_print_styles', 'minqueue_styles', 100 );
-	} else {
-		wp_enqueue_script('jquery');
-	}
-	
-}
 	
 function minqueue_scripts() {
 	global $wp_scripts, $hiilite_options;
@@ -711,7 +641,7 @@ function cmb2_portfolio_metaboxes(){
  */
 // HTML Minifier
 function minify_html($input) {
-    if(trim($input) === "") return $input;
+   if(trim($input) === "") return $input;
     // Remove extra white-space(s) between HTML attribute(s)
     $input = preg_replace_callback('#<([^\/\s<>!]+)(?:\s+([^<>]*?)\s*|\s*)(\/?)>#s', function($matches) {
         return '<' . $matches[1] . preg_replace('#([^\s=]+)(\=([\'"]?)(.*?)\3)?(\s+|$)#s', ' $1$2', $matches[2]) . $matches[3] . '>';
