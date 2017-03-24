@@ -5,7 +5,7 @@ if (!function_exists('hii_title')) {
     function hii_title($atts, $content = null) {
         global $qode_options_proya;
 
-		$html = $button_styles = $el_class = $width = $css = $offset = $font_container_data = $font_family = $font_style = $f_style = $output = '';
+		$html = $maxw = $c = $ff = $button_styles = $fs = $el_class = $width = $css = $offset = $font_container_data = $font_family = $font_style = $f_style = $output = '';
         $args = array(
 	        "text" 		=> "",
 	        "color"		=> "",
@@ -16,7 +16,8 @@ if (!function_exists('hii_title')) {
 	        "link"		=> "",
 	        "class"		=> "",
 	        "id"		=> "",
-	        "font_container" => ""
+	        "font_container" => "",
+	        "max_width"	=> ""
         );
         
 
@@ -62,14 +63,10 @@ if (!function_exists('hii_title')) {
         if($class != ""){
 	        $css_class = $css_class.' '.$class;
         }
-        $button_styles .= 'class="'.$css_class.'" ';
         
-	    if($id != ""){
-	    	$button_styles .= 'id="'.$id.'" ';
-	    }
 		$html .= $font_container_data;
-		
-        $html .=  '<div ' . implode( ' ', $wrapper_attributes ) . '>';
+		if($atts['max_width'] != ''){ $maxw = ' style="max-width:'.$atts['max_width'].';"';}
+        $html .=  '<div ' . implode( ' ', $wrapper_attributes ) . $maxw. '>';
         
         if($link != "")
         {
@@ -100,10 +97,11 @@ if (!function_exists('hii_title')) {
 				$fs = 'font-weight:'. str_replace('font_style:','',$font_style[0]).'; '.$f_style;   
 			}
 			
-		    $style = "style='".$c." ".$ff." ".$fs."'";
 		}
+		
+	    $style = " style='".$c.$ff.$fs."'";
 	    
-        $html .= '<'.$size.' '.$button_styles.' '.$style.'>'.$text.'</'.$size.'></div>';
+        $html .= '<'.$size.$style.'>'.$text.'</'.$size.'></div>';
 		
 		if($link != "")
         {
