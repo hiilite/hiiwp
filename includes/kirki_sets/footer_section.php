@@ -294,7 +294,6 @@ Kirki::add_field( 'hiiwp', array(
     'label'       => __( 'Footer Bottom Columns', 'my_textdomain' ),
     'description'  => __( 'Choose which columns show for Footer Bottom area', 'my_textdomain' ),
     'section'     => $section,
-    'default'     => true,
     'priority'    => 8,
     'choices'     => array(
 		'footer_bottom_left' => esc_attr__( 'Left', 'my_textdomain' ),

@@ -30,12 +30,6 @@ add_theme_support( 'woocommerce' );
 add_filter( 'wp_calculate_image_srcset_meta', '__return_null' );
 
 
-/*
-Include Support Add-ons	
-*/
-if(!class_exists('Vc_Manager')){
-	require_once( dirname( __FILE__ ) . '/addons/js_composer/js_composer.php');
-}
 
 
 
@@ -57,9 +51,6 @@ if(!class_exists('SrUtils') && $hiilite_options['rets_listings_on']){
 }
 
 require_once( dirname( __FILE__ ) . '/addons/tinymce_edits/tinymce_edits.php');
-require_once( dirname( __FILE__ ) . '/addons/post-types-order/post-types-order.php');
-require_once( dirname( __FILE__ ) . '/addons/taxonomy-images/taxonomy-images.php');
-require_once( dirname( __FILE__ ) . '/addons/taxonomy-terms-order/taxonomy-terms-order.php');
 require_once( dirname( __FILE__ ) . '/includes/widgets.php' );
 require_once( dirname( __FILE__ ) . '/includes/register_sidebars.php' );
 require_once( dirname( __FILE__ ) . '/includes/register_post_types.php');
@@ -72,6 +63,20 @@ require_once( dirname( __FILE__ ) . '/includes/shortcodes/amp-carousel.php');
 require_once( dirname( __FILE__ ) . '/includes/shortcodes/screen-showcase.php');
 require_once( dirname( __FILE__ ) . '/includes/shortcodes/calculation-table.php');
 require_once( dirname( __FILE__ ) . '/includes/shortcodes/icon_text.php');
+
+
+/*
+Include Support Add-ons	
+*/
+if(class_exists('Vc_Manager')){
+	/*
+	Include VC Extend file
+	*/
+	add_action('init', 'requireVcExtend', 10);
+}
+function requireVcExtend(){
+	require_once locate_template('/extendvc/extend-vc.php');
+}
 
 /*	
 WP USER MANAGER	
@@ -107,13 +112,7 @@ add_filter( 'heartbeat_settings', 'optimize_heartbeat_settings' );
 
 
 
-/*
-Include VC Extend file
-*/
-function requireVcExtend(){
-	require_once locate_template('/extendvc/extend-vc.php');
-}
-add_action('init', 'requireVcExtend', 10);
+
 
 /*
 Flush rewrites on customizer save and theme update

@@ -947,24 +947,6 @@ vc_add_param( 'vc_basic_grid',  array(
 				"type" => "dropdown",
 				"holder" => "div",
 				"class" => "",
-				"heading" => "Title Size",
-				"param_name" => "blog_heading_tag",
-				'group' => 'Item Design',
-				
-				"value" => array(
-						__( 'Theme Default', 'js_composer' ) => '',
-						"H1" => "h1",
-						"H2" => "h2",
-						"H3" => "h3",
-						"H4" => "h4",
-						"H5" => "h5",
-						"H6" => "h6",
-					)
-				));
-vc_add_param( 'vc_basic_grid',  array(
-				"type" => "dropdown",
-				"holder" => "div",
-				"class" => "",
 				"heading" => "Title Position",
 				"param_name" => "blog_title_position",
 				'group' => 'Item Design',
@@ -984,8 +966,8 @@ vc_add_param( 'vc_basic_grid',  array(
 				'group' => 'Item Design',
 				'value' => array(
 						__( 'Theme Default', 'js_composer' ) => '',
-						__( 'On', 'js_composer' ) => 1,
-						__( 'Off', 'js_composer' ) => 0,
+						__( 'On', 'js_composer' ) => true,
+						__( 'Off', 'js_composer' ) => false,
 						
 					)
 				));
@@ -998,8 +980,8 @@ vc_add_param( 'vc_basic_grid',  array(
 				'group' => 'Item Design',
 				'value' => array(
 						__( 'Theme Default', 'js_composer' ) => '',
-						__( 'On', 'js_composer' ) => 1,
-						__( 'Off', 'js_composer' ) => 0,
+						__( 'On', 'js_composer' ) => true,
+						__( 'Off', 'js_composer' ) => false,
 						
 					)
 				));
@@ -1012,8 +994,8 @@ vc_add_param( 'vc_basic_grid',  array(
 				'group' => 'Item Design',
 				'value' => array(
 						__( 'Theme Default', 'js_composer' ) => '',
-						__( 'On', 'js_composer' ) => 1,
-						__( 'Off', 'js_composer' ) => 0,
+						__( 'On', 'js_composer' ) => true,
+						__( 'Off', 'js_composer' ) => false,
 						
 					)
 				));
@@ -1035,8 +1017,8 @@ vc_add_param( 'vc_basic_grid',  array(
 				'group' => 'Item Design',
 				'value' => array(
 						__( 'Theme Default', 'js_composer' ) => '',
-						__( 'On', 'js_composer' ) => 1,
-						__( 'Off', 'js_composer' ) => 0,
+						__( 'On', 'js_composer' ) => true,
+						__( 'Off', 'js_composer' ) => false,
 						
 					)
 				));
@@ -1150,392 +1132,6 @@ vc_map( array(
 				'group' => __( 'Design options', 'my-text-domain' ),
 			),
 		)
-) );
-
-
-
-////////////////////////////
-//
-//	ICON TEXT
-//
-/////////////////////////////
-vc_map( array(
-		"name" => "Icon With Text",
-		"base" => "icon_text",
-		"icon" => "extended-custom-icon-qode icon-wpb-icon_text",
-		"category" => 'by QODE',
-		"allowed_container_element" => 'vc_row',
-		"params" =>  array(
-                array(
-                    "type" => "dropdown",
-                    "holder" => "div",
-                    "class" => "",
-                    "heading" => "Box type",
-                    "param_name" => "box_type",
-                    "value" => array(
-                        "Normal" => "normal",
-                        "Icon in a box" => "icon_in_a_box"
-                    ),
-					'save_always' => true,
-                    "description" => ""
-                ),
-                array(
-                    "type" => "colorpicker",
-                    "holder" => "div",
-                    "class" => "",
-                    "heading" => "Box Border Color",
-                    "param_name" => "box_border_color",
-                    "description" => "",
-                    "dependency" => Array('element' => "box_type", 'value' => array('icon_in_a_box'))
-                ),
-                array(
-                    "type" => "colorpicker",
-                    "holder" => "div",
-                    "class" => "",
-                    "heading" => "Box Background Color",
-                    "param_name" => "box_background_color",
-                    "description" => "",
-                    "dependency" => Array('element' => "box_type", 'value' => array('icon_in_a_box'))
-                ),
-
-            array(
-                "type" => "attach_image",
-                "holder" => "div",
-                "class" => "",
-                "heading" => "Image",
-                "param_name" => "image"
-            ),
-			array(
-				"type" => "dropdown",
-				"holder" => "div",
-				"class" => "",
-				"heading" => "Icon Type",
-				"param_name" => "icon_type",
-				"value" => array(
-					"Normal" => "normal",
-					"Circle" => "circle",
-					"Square" => "square"	
-				),
-				'save_always' => true,
-				"description" => ""
-			),
-            array(
-                "type" => "dropdown",
-                "holder" => "div",
-                "class" => "",
-                "heading" => "Icon/Image Position",
-                "param_name" => "icon_position",
-                "value" => array(
-                    "Top" => "top",
-                    "Left" => "left",
-                    "Left From Title" => "left_from_title",
-                    "Right" => "right"
-                ),
-				'save_always' => true,
-                "description" => "Icon Position (only for normal box type)",
-                "dependency" => Array('element' => "box_type", 'value' => array('normal'))
-            ),
-            array(
-                "type" => "textfield",
-                "holder" => "div",
-                "class" => "",
-                "heading" => "Icon Margin",
-                "param_name" => "icon_margin",
-                "value" => "",
-                "description" => "Margin should be set in a top right bottom left format",
-                "dependency" => array('element' => "icon_position", 'value' => array('top'))
-            ),
-			array(
-				"type" => "dropdown",
-				"holder" => "div",
-				"class" => "",
-				"heading" => "Icon Size",
-				"param_name" => "icon_size",
-				"value" => array(
-					"Tiny" => "fa-lg",
-					"Small" => "fa-2x",
-					"Medium" => "fa-3x",	
-					"Large" => "fa-4x",
-					"Very Large" => "fa-5x"	
-				),
-				'save_always' => true,
-				"description" => ""
-			),
-            array(
-                "type" => "dropdown",
-                "holder" => "div",
-                "class" => "",
-                "heading" => "Use Custom Icon Size",
-                "param_name" => "use_custom_icon_size",
-                "value" => array(
-                    "No" => "no",
-                    "Yes" => "yes"
-                ),
-				'save_always' => true,
-                "description" => __("Select Yes if you want to use custom icon size and margin")
-            ),
-			array(
-				"type" => "textfield",
-				"holder" => "div",
-				"class" => "",
-				"heading" => "Custom Icon Size (px)",
-				"param_name" => "custom_icon_size",
-				"value" => "",
-                "description" => __("Enter just number, omit px"),
-                "dependency" => array('element' => "use_custom_icon_size", 'value' => array('yes'))
-			),
-			array(
-				"type" => "textfield",
-				"holder" => "div",
-				"class" => "",
-				"heading" => "Custom Icon Size inside a circle or square (px)",
-				"param_name" => "custom_icon_size_inner",
-				"value" => "",
-				"description" => __("Enter just number, omit px. Applied only for circle or square icon type"),
-				"dependency" => array('element' => 'use_custom_icon_size', 'value' => array('yes'))
-			),
-            array(
-                "type" => "textfield",
-                "holder" => "div",
-                "class" => "",
-                "heading" => "Custom Icon Margin (px)",
-                "param_name" => "custom_icon_margin",
-                "value" => "",
-                "description" => __("Spacing between icon and text (for left icon/margin position). Enter just number, omit px"),
-                "dependency" => array('element' => "use_custom_icon_size", 'value' => array('yes'))
-            ),
-			array(
-				"type" => "colorpicker",
-				"holder" => "div",
-				"class" => "",
-				"heading" => "Icon Border Color",
-				"param_name" => "icon_border_color",
-				"description" => "Only for Square and Circle type",
-				"dependency" => Array('element' => "icon_type", 'value' => array('square','circle'))
-			),
-			array(
-				"type" => "colorpicker",
-				"holder" => "div",
-				"class" => "",
-				"heading" => "Icon Color",
-				"param_name" => "icon_color",
-				"description" => ""
-			),
-			array(
-				"type" => "colorpicker",
-				"holder" => "div",
-				"class" => "",
-				"heading" => "Icon Hover Color",
-				"param_name" => "icon_hover_color",
-				"description" => ""
-			),
-			array(
-				"type" => "colorpicker",
-				"holder" => "div",
-				"class" => "",
-				"heading" => "Icon Background Color",
-				"param_name" => "icon_background_color",
-				"description" => "Icon Background Color (only for square and circle icon type)",
-				"dependency" => Array('element' => "icon_type", 'value' => array('square','circle'))
-			),
-			array(
-				"type" => "colorpicker",
-				"holder" => "div",
-				"class" => "",
-				"heading" => "Icon Hover Background Color",
-				"param_name" => "icon_hover_background_color",
-				"description" => "Icon Hover Background Color (only for square and circle icon type)",
-				"dependency" => Array('element' => "icon_type", 'value' => array('square','circle'))
-			),
-            array(
-                "type" => "dropdown",
-                "holder" => "div",
-                "class" => "",
-                "heading" => "Icon Animation",
-                "param_name" => "icon_animation",
-                "value" => array(
-                    "No" => "",
-                    "Yes" => "q_icon_animation"
-                ),
-                "description" => ""
-            ),
-            array(
-                "type" => "textfield",
-                "holder" => "div",
-                "class" => "",
-                "heading" => "Icon Animation Delay (ms)",
-                "param_name" => "icon_animation_delay",
-                "value" => "",
-                "description" => "",
-                "dependency" => Array('element' => "icon_animation", 'value' => array('q_icon_animation'))
-            ),
-			array(
-				"type" => "textfield",
-				"holder" => "div",
-				"class" => "",
-				"heading" => "Title",
-				"param_name" => "title",
-				"value" => ""
-			),
-            array(
-				"type" => "dropdown",
-				"class" => "",
-				"heading" => "Title Tag",
-				"param_name" => "title_tag",
-				"value" => array(
-                    ""   => "",
-					"h2" => "h2",
-					"h3" => "h3",
-					"h4" => "h4",	
-					"h5" => "h5",	
-					"h6" => "h6",	
-				),
-				"description" => ""
-            ),
-            array(
-				"type" => "colorpicker",
-				"holder" => "div",
-				"class" => "",
-				"heading" => "Title Color",
-				"param_name" => "title_color",
-				"description" => ""
-			),
-			array(
-				"type" => "dropdown",
-				"class" => "",
-				"heading" => "Title Font Weight",
-				"param_name" => "title_font_weight",
-				"value" => array(
-					"Default" 			=> "",
-					"Thin 100"			=> "100",
-					"Extra-Light 200" 	=> "200",
-					"Light 300"			=> "300",
-					"Regular 400"		=> "400",
-					"Medium 500"		=> "500",
-					"Semi-Bold 600"		=> "600",
-					"Bold 700"			=> "700",
-					"Extra-Bold 800"	=> "800",
-					"Ultra-Bold 900"	=> "900"
-					),
-				"description" => ""
-			),
-            array(
-                "type" => "dropdown",
-                "holder" => "div",
-                "class" => "",
-                "heading" => "Separator",
-                "param_name" => "separator",
-                "value" => array(
-                    "No" => "no",
-                    "Yes" => "yes"
-                ),
-                'save_always' => true,
-                "description" => ""
-            ),
-            array(
-                "type" => "colorpicker",
-                "holder" => "div",
-                "class" => "",
-                "heading" => "Separator Color",
-                "param_name" => "separator_color",
-                "description" => "",
-                "dependency" => Array('element' => "separator", 'value' => array('yes'))
-            ),
-            array(
-                "type" => "textfield",
-                "holder" => "div",
-                "class" => "",
-                "heading" => "Separator Top Margin",
-                "param_name" => "separator_top_margin",
-                "value" => ""
-            ),
-            array(
-                "type" => "textfield",
-                "holder" => "div",
-                "class" => "",
-                "heading" => "Separator Bottom Margin",
-                "param_name" => "separator_bottom_margin",
-                "value" => ""
-            ),
-            array(
-                "type" => "textfield",
-                "holder" => "div",
-                "class" => "",
-                "heading" => "Separator Width",
-                "param_name" => "separator_width",
-                "value" => ""
-            ),
-			array(
-				"type" => "textfield",
-				"holder" => "div",
-				"class" => "",
-				"heading" => "Text",
-				"param_name" => "text",
-				"value" => ""
-			),
-            array(
-				"type" => "colorpicker",
-				"holder" => "div",
-				"class" => "",
-				"heading" => "Text Color",
-				"param_name" => "text_color",
-				"description" => ""
-			),
-			array(
-				"type" => "textfield",
-				"holder" => "div",
-				"class" => "",
-				"heading" => "Link",
-				"param_name" => "link",
-				"value" => "",
-				"dependency" => Array('element' => "box_type", 'value' => array('normal'))
-			),
-			array(
-				"type" => "textfield",
-				"holder" => "div",
-				"class" => "",
-				"heading" => "Link Text",
-				"param_name" => "link_text",
-				"value" => "",
-				"dependency" => Array('element' => "box_type", 'value' => array('normal'))
-			),
-            array(
-				"type" => "colorpicker",
-				"holder" => "div",
-				"class" => "",
-				"heading" => "Link Color",
-				"param_name" => "link_color",
-				"description" => "",
-				"dependency" => Array('element' => "box_type", 'value' => array('normal'))
-			),
-			array(
-				"type" => "dropdown",
-				"class" => "",
-				"heading" => "Target",
-				"param_name" => "target",
-				"value" => array(
-                    ""   => "",
-					"Self" => "_self",
-					"Blank" => "_blank",
-					"Parent" => "_parent",
-				),
-				"description" => "",
-				"dependency" => Array('element' => "box_type", 'value' => array('normal'))
-            ),
-			array(
-				"type" => "dropdown",
-				"holder" => "div",
-				"class" => "",
-				"heading" => "Link Icon",
-				"param_name" => "link_icon",
-				"value" => array(
-					'' => '',
-					'Yes' => 'yes',
-					'No' => 'no'
-				)
-			)
-        )
-		
 ) );
 
 

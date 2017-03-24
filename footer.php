@@ -76,13 +76,13 @@ do_action( 'hii_after_content' );
 		
 		
 
-		echo '<div id="footer_bottom"><div class="container_inner">';
+		echo '<div id="footer_bottom" class="container_inner">';
 	
 		if(get_theme_mod('footer_bottom_in_grid')) { echo '<div class="in_grid">'; }
 		
 		
-		$footer_bottom_columns = get_theme_mod( 'footer_bottom_columns');
-		if($footer_bottom_columns != false) {
+		$footer_bottom_columns = get_theme_mod( 'footer_bottom_columns', false);
+		if(is_array($footer_bottom_columns)) {
 			$col_count_str ='';
 			switch(count($footer_bottom_columns)){
 				case 1:
@@ -104,13 +104,25 @@ do_action( 'hii_after_content' );
 				echo '</div>';
 			endforeach;
 		}
+		
+		
+		wp_nav_menu(array(
+						'menu' =>  'footer-menu',
+						'container' => 'nav',
+						'container_class' => 'flex-item',
+						'container_id' => 'main-nav',
+						'items_wrap'  => '<ul id="%1s" class="%2$s main-menu">%3$s</ul>',
+						'theme_location' => 'footer-menu',
+						'fallback_cb'    => false
+					)); 
+		
 		if(get_theme_mod('footer_bottom_in_grid')) { echo '</div>'; }
 		 
 		?>
 			<div class="full-width align-center">
-				<?php echo get_theme_mod('footer_bottom_copyright_text'); ?>
+				<?php echo get_theme_mod('footer_bottom_copyright_text', '<small>Copyright © '.date('Y').'  All rights reserved. <a href="https://hiilite.com/" target="_blank" title="Hiilite Creative Group | Web + Marketing">Web Design by Hiilite Creative Group Kelowna</a></small>'); ?>
 			</div>
-		</div>
+		
 	</div>
 	<?php  ?>
 </footer>

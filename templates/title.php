@@ -16,8 +16,9 @@ if(	(
 	} else {
 		$page_title = get_the_title( get_the_id( ));
 	} 
+	$page_bg_img = (get_post_meta ( $post->ID, 'title_background_image', false))?get_post_meta ( $post->ID, 'title_background_image'):false;
 	?>
-	<div class="page-title <?php echo get_post_meta ( $post->ID, 'page_title_bg', true); ?>" >
+	<div class="page-title <?php echo get_post_meta ( $post->ID, 'page_title_bg', true); ?>" <?=($page_bg_img)?'style="background-image:url('.$page_bg_img[0].');"':'';?>>
 <?php if(is_customize_preview()) echo '<div class="customizer_quick_links"><button class="customizer-edit" data-control=\'{"name":"show_page_titles"}\'>Page Titles</button><button class="customizer-edit font-edit" data-control=\'{"name":"title_font"}\'>Page Titles</button></div>';?>
 		<div class="container_inner">
 			<div class="in_grid content-box">

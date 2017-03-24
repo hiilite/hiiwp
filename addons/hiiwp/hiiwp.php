@@ -178,14 +178,165 @@ class HiiWP {
          // This will run when the plugin is deactivated, use to delete the database
     }
     
-    public static function activation_redirect(){     
-	    exit( wp_redirect( admin_url( 'admin.php?page=admin.php?page=about_hii_seo' ) ) );
+    public static function activation_redirect($plugin){    
+	    if( $plugin == plugin_basename( __FILE__ ) ) {     
+	    	exit( wp_redirect( admin_url( 'admin.php?page=admin.php?page=about_hii_seo' ) ) );
+	    }
     }
+    
+    
+    /**
+	 * Register the required plugins for this theme.
+	 *
+	 * The variable passed to tgmpa_register_plugins() should be an array of plugin
+	 * arrays.
+	 *
+	 * This function is hooked into tgmpa_init, which is fired within the
+	 * TGM_Plugin_Activation class constructor.
+	 */
+	public static function hiilite_register_required_plugins() {
+	
+	    /**
+	     * Array of plugin arrays. Required keys are name and slug.
+	     * If the source is NOT from the .org repo, then source is also required.
+	     */
+	    $plugins = array(
+	
+	        // This is an example of how to include a plugin pre-packaged with a theme.
+	        array(
+	            'name'               => 'Backup Buddy', // The plugin name.
+	            'slug'               => 'backupbuddy', // The plugin slug (typically the folder name).
+	            'source'             => dirname(__FILE__) . '/Plugin-Activation/plugins/backupbuddy-6.5.0.3.zip', // The plugin source.
+	            'required'           => false, // If false, the plugin is only 'recommended' instead of required.
+	            'force_activation'   => false, // If true, plugin is activated upon theme activation and cannot be deactivated until theme switch.
+	            'force_deactivation' => false, // If true, plugin is deactivated upon theme switch, useful for theme-specific plugins
+	        ),
+			array(
+	            'name'               => 'WPBakery Visual Composer', // The plugin name.
+	            'slug'               => 'js_composer', // The plugin slug (typically the folder name).
+	            'source'             => dirname(__FILE__) . '/Plugin-Activation/plugins/js_composer.zip', // The plugin source.
+	            'required'           => false, // If false, the plugin is only 'recommended' instead of required.
+	            'force_activation'   => false, // If true, plugin is activated upon theme activation and cannot be deactivated until theme switch.
+	            'force_deactivation' => false, // If true, plugin is deactivated upon theme switch, useful for theme-specific plugins.
+	        ),
+			array(
+	            'name'               => 'Gravity Forms',
+	            'slug'               => 'gravityforms', 
+	            'source'             => dirname(__FILE__) . '/Plugin-Activation/plugins/gravityforms.zip',
+	            'required'           => false, 
+	            'force_activation'   => false, 
+	            'force_deactivation' => false, 
+	        ),
+	        array(
+	            'name'      => 'Imsanity',
+	            'slug'      => 'imsanity',
+	            'required'  => false,
+	        ),
+	        array(
+	            'name'      => 'Duplicate Post',
+	            'slug'      => 'duplicate-post',
+	            'required'  => false,
+	        ),
+	        array(
+	            'name'      => 'Post Types Order',
+	            'slug'      => 'post-types-order',
+	            'required'  => false,
+	        ),
+	        array(
+	            'name'      => 'Category Order and Taxonomy Terms Order',
+	            'slug'      => 'taxonomy-terms-order',
+	            'required'  => false,
+	        ),
+			array(
+	            'name'      => 'Facebook Conversion Pixel',
+	            'slug'      => 'facebook-conversion-pixel',
+	            'required'  => false,
+	        ),
+	        array(
+	            'name'      => 'WP Fastest Cache',
+	            'slug'      => 'wp-fastest-cache',
+	            'required'  => false,
+	        ),
+			array(
+	            'name'      => 'Gravity Forms Google Analytics Event Tracking',
+	            'slug'      => 'gravity-forms-google-analytics-event-tracking',
+	            'required'  => false,
+	        ),
+			array(
+	            'name'      => 'Sucuri Security - Auditing, Malware Scanner and Security Hardening',
+	            'slug'      => 'sucuri-scanner',
+	            'required'  => false,
+	        ),
+			array(
+	            'name'      => 'Loginizer',
+	            'slug'      => 'loginizer',
+	            'required'  => false,
+	        ),
+	        array(
+	            'name'      => 'Cloudflare',
+	            'slug'      => 'cloudflare',
+	            'required'  => false,
+	        ),
+	        array(
+	            'name'      => 'SSL Insecure Content Fixer',
+	            'slug'      => 'ssl-insecure-content-fixer',
+	            'required'  => false,
+	        ),
+	        array(
+	            'name'      => 'Loginizer',
+	            'slug'      => 'loginizer',
+	            'required'  => false,
+	        ),
+	    );
+	
+	    /**
+	     * Array of configuration settings. Amend each line as needed.
+	     * If you want the default strings to be available under your own theme domain,
+	     * leave the strings uncommented.
+	     * Some of the strings are added into a sprintf, so see the comments at the
+	     * end of each line for what each argument will be.
+	     */
+	    $config = array(
+	        'default_path' => '',                      // Default absolute path to pre-packaged plugins.
+	        'menu'         => 'tgmpa-install-plugins', // Menu slug.
+	        'has_notices'  => true,                    // Show admin notices or not.
+	        'dismissable'  => true,                    // If false, a user cannot dismiss the nag message.
+	        'dismiss_msg'  => '',                      // If 'dismissable' is false, this message will be output at top of nag.
+	        'is_automatic' => true,                   // Automatically activate plugins after installation or not.
+	        'message'      => '',                      // Message to output right before the plugins table.
+	        'strings'      => array(
+	            'page_title'                      => __( 'Install HiiWP Recommended Plugins', 'tgmpa' ),
+	            'menu_title'                      => __( 'Install HiiWP Plugins', 'tgmpa' ),
+	            'installing'                      => __( 'Installing HiiWP Plugin: %s', 'tgmpa' ), // %s = plugin name.
+	            'oops'                            => __( 'Something went wrong with the plugin API.', 'tgmpa' ),
+	            'notice_can_install_required'     => _n_noop( 'This theme requires the following plugin: %1$s.', 'This theme requires the following plugins: %1$s.' ), // %1$s = plugin name(s).
+	            'notice_can_install_recommended'  => _n_noop( 'This theme recommends the following plugin: %1$s.', 'This theme recommends the following plugins: %1$s.' ), // %1$s = plugin name(s).
+	            'notice_cannot_install'           => _n_noop( 'Sorry, but you do not have the correct permissions to install the %s plugin. Contact the administrator of this site for help on getting the plugin installed.', 'Sorry, but you do not have the correct permissions to install the %s plugins. Contact the administrator of this site for help on getting the plugins installed.' ), // %1$s = plugin name(s).
+	            'notice_can_activate_required'    => _n_noop( 'The following required plugin is currently inactive: %1$s.', 'The following required plugins are currently inactive: %1$s.' ), // %1$s = plugin name(s).
+	            'notice_can_activate_recommended' => _n_noop( 'The following recommended plugin is currently inactive: %1$s.', 'The following recommended plugins are currently inactive: %1$s.' ), // %1$s = plugin name(s).
+	            'notice_cannot_activate'          => _n_noop( 'Sorry, but you do not have the correct permissions to activate the %s plugin. Contact the administrator of this site for help on getting the plugin activated.', 'Sorry, but you do not have the correct permissions to activate the %s plugins. Contact the administrator of this site for help on getting the plugins activated.' ), // %1$s = plugin name(s).
+	            'notice_ask_to_update'            => _n_noop( 'The following plugin needs to be updated to its latest version to ensure maximum compatibility with this theme: %1$s.', 'The following plugins need to be updated to their latest version to ensure maximum compatibility with this theme: %1$s.' ), // %1$s = plugin name(s).
+	            'notice_cannot_update'            => _n_noop( 'Sorry, but you do not have the correct permissions to update the %s plugin. Contact the administrator of this site for help on getting the plugin updated.', 'Sorry, but you do not have the correct permissions to update the %s plugins. Contact the administrator of this site for help on getting the plugins updated.' ), // %1$s = plugin name(s).
+	            'install_link'                    => _n_noop( 'Begin installing plugin', 'Begin installing plugins' ),
+	            'activate_link'                   => _n_noop( 'Begin activating plugin', 'Begin activating plugins' ),
+	            'return'                          => __( 'Return to Required Plugins Installer', 'tgmpa' ),
+	            'plugin_activated'                => __( 'Plugin activated successfully.', 'tgmpa' ),
+	            'complete'                        => __( 'All plugins installed and activated successfully. %s', 'tgmpa' ), // %s = dashboard link.
+	            'nag_type'                        => 'updated' // Determines admin notice type - can only be 'updated', 'update-nag' or 'error'.
+	        )
+	    ); 
+	
+	    tgmpa( $plugins, $config );
+	
+	}
+	
+	
+
     
 }
 
 
-//add_action( 'activated_plugin', array('HiiWP','activation_redirect' ));
+add_action( 'activated_plugin', array('HiiWP','activation_redirect' ));
 
 
 
@@ -201,8 +352,10 @@ require_once( dirname( __FILE__ ) . '/includes/wp_admin_dashboard.php');
 require_once( dirname( __FILE__ ) . '/includes/shortcodes/social-profiles.php');
 require_once( dirname( __FILE__ ) . '/includes/shortcodes/social-share.php');
 require_once( dirname( __FILE__ ) . '/addons/google-analytics-dashboard-for-wp/gadwp.php');
+require_once( dirname( __FILE__ ) . '/Plugin-Activation/class-tgm-plugin-activation.php');
 
 
+add_action( 'tgmpa_register', array('HiiWP','hiilite_register_required_plugins' ));
 
 
 /*
@@ -231,15 +384,26 @@ function add_tracking_codes(){
 	
 	
 	
-	$file = dirname(__FILE__); // Current PHP file, but can be anyone
-	$link = str_replace( WP_CONTENT_DIR, WP_CONTENT_URL, $file );
-	if((get_theme_mod('analytics_id') != '')) { 
+	
+
+	if($hiilite_options['amp']) { ?>
+		<script async custom-element="amp-carousel" src="https://cdn.ampproject.org/v0/amp-carousel-0.1.js"></script>
+		<script async custom-element="amp-lightbox" src="https://cdn.ampproject.org/v0/amp-lightbox-0.1.js"></script>
+		<script async custom-element="amp-image-lightbox" src="https://cdn.ampproject.org/v0/amp-image-lightbox-0.1.js"></script>
+		<script async custom-element="amp-iframe" src="https://cdn.ampproject.org/v0/amp-iframe-0.1.js"></script>
+		<script async custom-element="amp-analytics" src="https://cdn.ampproject.org/v0/amp-analytics-0.1.js"></script>
+		<script async src="https://cdn.ampproject.org/v0.js"></script>
+	<?php 
+	} else { 
 		$gadwp = GADWP();
 		$profile_info = GADWP_Tools::get_selected_profile($gadwp->config->options['ga_dash_profile_list'], $gadwp->config->options['ga_dash_tableid_jail']);
 		$tracking_id = (isset($profile_info[2]))?$profile_info[2]:get_theme_mod('analytics_id');
-		
-		
+		$file = dirname(__FILE__); // Current PHP file, but can be anyone
+		$link = str_replace( WP_CONTENT_DIR, WP_CONTENT_URL, $file );
 	?>
+		<script type="text/javascript">
+		(function(a,e,c,f,g,b,d){var h={ak:"123456789",cl:"_ABcDEFg12hI34567jK"};a[c]=a[c]||function(){(a[c].q=a[c].q||[]).push(arguments)};a[f]||(a[f]=h.ak);b=e.createElement(g);b.async=1;b.src="//www.gstatic.com/wcm/loader.js";d=e.getElementsByTagName(g)[0];d.parentNode.insertBefore(b,d);a._googWcmGet=function(b,d,e){a[c](2,b,h,d,null,new Date,e)}})(window,document,"_googWcmImpl","_googWcmAk","script");
+		</script>
 		<script>
 		window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
 		ga('create', '<?=$tracking_id?>', 'auto');
@@ -256,6 +420,8 @@ function add_tracking_codes(){
 		ga('send', 'pageview');
 		
 		</script>
+		<script async src='https://www.google-analytics.com/analytics.js'></script>
+		<script async src='<?=$link?>/js/vender/autotrack.js'></script>
 <?php 
 	}
 	$options = get_option('hii_seo_settings');
@@ -264,13 +430,95 @@ function add_tracking_codes(){
 		echo $options['business_custom_tracking_code'];
 		echo '</script>';
 	}
-	?>
-	<script async src='https://www.google-analytics.com/analytics.js'></script>
-	<script async src='<?=$link?>/js/vender/autotrack.js'></script>
-	<?php
 }
 
+/*
+on WP_FOOTER
+*/
+add_action('wp_footer', 'add_footer_tracking', 100);
+function add_footer_tracking(){
+	$gadwp = GADWP();
+	$post_id = get_the_id();
+	$post_object = get_post( $post_id );
+	$options = get_option('hii_seo_settings');
+	if(get_post_meta($post_id, 'amp', true) == 'nonamp'){
+		$hiilite_options['amp'] = false;
+	} else {
+		$hiilite_options['amp'] = (!isset($hiilite_options['amp']))?get_theme_mod('amp'):false;
+	}
+	
+	$profile_info = GADWP_Tools::get_selected_profile($gadwp->config->options['ga_dash_profile_list'], $gadwp->config->options['ga_dash_tableid_jail']);
+	
+	//var_dump($profile_info);
+	
+	$tracking_id = (isset($profile_info[2]))?$profile_info[2]:get_theme_mod('analytics_id');
+	
+	if($hiilite_options['amp']) { 
+	?>
+	<amp-analytics type="googleanalytics" id="analytics1">
+			<script type="application/json">
+			{
+			  "vars": {
+			    "account": "<?=$tracking_id?>" 
+			  },
+			  "triggers": {
+			    "trackPageview": { 
+			      "on": "visible",
+			      "request": "pageview"
+			    },
+			    "trackClickOnPhone" : {
+			      "on": "click",
+			      "selector": "a[href*=tel]",
+			      "request": "event",
+			      "vars": {
+			        "eventCategory": "Contact Links",
+			        "eventAction": "user-phoned"
+			      }
+			    },
+			    "trackClickOnEmail" : {
+			      "on": "click",
+			      "selector": "a[href*=mailto]",
+			      "request": "event",
+			      "vars": {
+			        "eventCategory": "Contact Links",
+			        "eventAction": "user-emailed"
+			      }
+			    }
+			  }
+			}
+			</script>
+		</amp-analytics>
+	<?php
+	} else {
+		?>
+		<script>
+			
+		document.onreadystatechange = function() {
+		
+			function trackingLink($this, type){
+				var href = $this.innerHTML;
+				return "ga('send', 'event', 'Contact Links', '"+type+"','"+href+"')";
+			}
+			
+			var maillink = document.querySelectorAll('[href*=mail]'),
+				phonelink = document.querySelectorAll('[href*=tel]');
+			for (var i=0; i < maillink.length; i++) {
+				maillink[i].onclick = function(){
+					return trackingLink(this, "user-emailed");
+				};
+			}
+			for (var i=0; i < phonelink.length; i++) {
+				phonelink[i].onclick = function(){
+					return trackingLink(this, "user-phoned");
+				};
+			}
+				
+		};
 
+		</script>
+		<?php
+	}
+}
 
 /*
 on ADMIN_MENU	

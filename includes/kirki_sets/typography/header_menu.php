@@ -62,13 +62,13 @@ Kirki::add_field( 'hiiwp', array(
 	'transport'   => 'postMessage',
     'output' => array(
 		array(
-			'element'  => '#main_header .menu .menu-item a',
+			'element'  => '.menu .menu-item a',
 			'property' => 'padding',
 		),
 	),
 	'js_vars' => array(
 		array(
-			'element'  => '#main_header .menu .menu-item a',
+			'element'  => '.menu .menu-item a',
 			'property' => 'padding',
 		),
 	),

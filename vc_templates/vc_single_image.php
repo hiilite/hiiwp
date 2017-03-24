@@ -6,15 +6,6 @@ global $hiilite_options;
 $post_id = get_the_id();
 $post_object = get_post( $post_id );
 
-if(get_post_meta($post_id, 'amp', true) == 'nonamp'){
-	$hiilite_options['amp'] = false;
-} else {
-	$hiilite_options['amp'] = (!isset($hiilite_options['amp']))?get_theme_mod('amp'):$hiilite_options['amp'];
-}
-if($hiilite_options['amp'] != false) $_amp = 'amp-'; else $_amp = '';
-
-
-
 /**
  * Shortcode attributes
  * @var $atts
@@ -39,8 +30,8 @@ if($hiilite_options['amp'] != false) $_amp = 'amp-'; else $_amp = '';
  * Shortcode class
  * @var $this WPBakeryShortCode_VC_Single_image
  */
-$title = $source = $image = $custom_src = $onclick = $img_size = $external_img_size = $hover_html =
-$caption = $img_link_large = $link = $img_link_target = $alignment = $el_class = $css_animation = $style = $external_style = $border_color = $css = '';
+$title = $source = $image = $custom_src = $onclick = $img_size = $external_img_size =
+$caption = $img_link_large = $link = $img_link_target = $alignment = $el_class = $css_animation = $style = $external_style = $border_color = $hover_html = $css = '';
 $atts = vc_map_get_attributes( $this->getShortcode(), $atts );
 extract( $atts );
 
@@ -119,7 +110,7 @@ switch ( $source ) {
 		$custom_src = $custom_src ? esc_attr( $custom_src ) : $default_src;
 
 		$img = array(
-			'thumbnail' => '<'.$_amp.'img class="single_image-img" ' . $hwstring . ' src="' . $custom_src . '" />',
+			'thumbnail' => '<img class="single_image-img" ' . $hwstring . ' src="' . $custom_src . '" />',
 		);
 		break;
 
@@ -128,7 +119,7 @@ switch ( $source ) {
 }
 
 if ( ! $img ) {
-	$img['thumbnail'] = '<'.$_amp.'img class="img-placeholder single_image-img" src="' . $default_src . '" />';
+	$img['thumbnail'] = '<img class="img-placeholder single_image-img" src="' . $default_src . '" />';
 }
 
 $el_class = $this->getExtraClass( $el_class );
@@ -177,8 +168,6 @@ switch ( $onclick ) {
 			}
 		}
 
-		if($_amp!='')$img['thumbnail'] = str_replace( '<img', '<amp-img data-vc-zoom="' . $large_img_src . '" ', $img['thumbnail'] );
-
 		break;
 }
 
@@ -188,13 +177,9 @@ if ( vc_has_class( 'prettyphoto', $el_class ) ) {
 }
 
 $wrapperClass = 'single_image-wrapper ' . $style . ' ' . $border_color;
-$reponsive = (isset($atts['responsive']) && $atts['responsive'] == 'yes')?'layout=responsive':'';
 
 if ( $hover_image ) {
-	if($_amp!=''){
-		$hover_img['thumbnail'] = str_replace( '<img', '<amp-img '.$reponsive.' ', $hover_img['thumbnail'] );
-		$hover_img['thumbnail'] = str_replace( '/>', '></amp-img> ', $hover_img['thumbnail'] );
-	}
+	
 	$hover_html = $hover_img['thumbnail'];
 }
 
@@ -205,16 +190,8 @@ if ( $link ) {
 		$wrapperClass .= ' ' . $a_attrs['class'];
 		unset( $a_attrs['class'] );
 	}
-	if($_amp!=''){
-		$img['thumbnail'] = str_replace( '<img', '<amp-img '.$reponsive.' ', $img['thumbnail'] );
-		$img['thumbnail'] = str_replace( '/>', '></amp-img> ', $img['thumbnail'] );
-	}
 	$html = '<a ' . vc_stringify_attributes( $a_attrs ) . ' class="' . $wrapperClass . '">' . $img['thumbnail'].$hover_html . '</a>';
 } else {
-	if($_amp!=''){
-		$img['thumbnail'] = str_replace( '<img', '<amp-img '.$reponsive.' ', $img['thumbnail'] );
-		$img['thumbnail'] = str_replace( '/>', '></amp-img> ', $img['thumbnail'] );
-	}
 	$html =  $img['thumbnail'].$hover_html;
 }
 

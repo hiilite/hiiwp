@@ -18,11 +18,9 @@ $hiilite_options['amp'] = get_theme_mod('amp');
 if($hiilite_options['amp']) $_amp = 'amp-'; else $_amp = '';
 
 ?>
-<article <?php post_class('row'); ?> itemscope itemtype="http://schema.org/Article" id="post-<?php the_ID(); ?>" >
-	<div class="<?php if($hiilite_options['single_full'] == false) { echo 'in_grid'; } ?>">
-		<meta itemscope itemprop="mainEntityOfPage"  itemType="https://schema.org/WebPage" itemid="<?php bloginfo('url')?>"/>
-		<div class="container_inner">
-			<header class="full-width content-box">
+<!--POST-LOOP-->
+<article <?php post_class('row blog-article'); ?> itemscope itemtype="http://schema.org/Article" id="post-<?php the_ID(); ?>" >
+	<header class="page-title <?php echo get_post_meta ( $post->ID, 'page_title_bg', true); ?>">
 <?php
 if($hiilite_options['blog_cats_show']):
 	echo '<span itemprop="articleSection" class="labels">'.get_the_category_list(' ').'</span>';
@@ -30,29 +28,43 @@ else:
 	$categories = get_the_category();$cats ='';
 	foreach($categories as $cat){
 		$cats .= $cat->name;
-	} 
+	}
 	echo '<meta itemprop="articleSection" content="'.$cats.'">';
 endif;
-?>
+?>		<div class="container_inner">
+			<div class="in_grid content-box">
+				
 				<meta itemprop="datePublished" content="<?php the_time('Y-m-d'); ?>">
 				<meta itemprop="dateModified" content="<?php the_modified_date('Y-m-d'); ?>">
 				<meta itemprop="headline" content="<?php the_title(); ?>"><?php
 				if(is_single() && get_post_meta(get_the_id(), 'show_page_title', true) != 'on'){
-					echo '<h1>'.get_the_title().'</h1>';
+					echo '<a class="back_to_blog" href="'.get_permalink( get_option( 'page_for_posts' ) ).'">Back to blog</a><br>';
+					echo '<h1 class="col-12">'.get_the_title().'</h1>';
 				}
-				?><small>
-				<address class="post_author">
-					<a itemprop="author" itemscope itemtype="https://schema.org/Person" class="post_author_link" href="<?php echo get_author_posts_url( get_the_author_meta( 'ID' ) ); ?>">
-						<span itemprop="name"><?php the_author_meta('display_name'); ?></span>
-					</a>
-				</address> 
-				<time class="time op-published" datetime="<?php the_time('c'); ?>"><span class="date"><?php the_time('F j, Y'); ?></span> <?php the_time('h:i a'); ?></time></small>
-			</header>
+				?>
+				<small>
+					<address class="post_author">
+						<a itemprop="author" itemscope itemtype="https://schema.org/Person" class="post_author_link" href="<?php echo get_author_posts_url( get_the_author_meta( 'ID' ) ); ?>">
+							<span itemprop="name"><?php the_author_meta('display_name'); ?></span>
+						</a>
+					</address> 
+					<time class="time op-published" datetime="<?php the_time('c'); ?>">
+						<span class="date"><?php the_time('F j, Y'); ?></span> <?php the_time('h:i a'); ?>
+					</time>
+				</small>
+			</div>
+		</div>
+	</header>
+	
+	<div class="<?php if($hiilite_options['single_full'] == false) { echo 'in_grid'; } ?>">
+		<meta itemscope itemprop="mainEntityOfPage"  itemType="https://schema.org/WebPage" itemid="<?php bloginfo('url')?>"/>
+		<div class="container_inner">
+			
 			<?php
 			echo '<div class="threequarter-width content-box  align-top">';
 
 		
-if(has_post_thumbnail($post->id) && get_post_meta( $post->ID, 'hide_page_feature_image', true) != 'on' ): 
+if(has_post_thumbnail($post->id) && (get_theme_mod( 'blog_show_featured_image', true ) && get_post_meta( $post->ID, 'hide_page_feature_image', true) != 'on')): 
 		
 	$tn_id = get_post_thumbnail_id( $post->ID );
 

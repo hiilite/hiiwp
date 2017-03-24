@@ -53,9 +53,8 @@ function sanitize_output($buffer) {
     $buffer = preg_replace($search, $replace, $buffer);
     return $buffer;
 } 
-//ob_start("sanitize_output");
 ?><!doctype html>
-<html <?php if(isset($hiilite_options['amp'])) echo 'amp'; ?> lang="en">
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="description" content="<?=$page_description?>">
@@ -69,7 +68,6 @@ wp_head();
 	
 
 include_once('css/main-css.php');
-include_once('css/non-amp-css.php');
 
 
  ?></head>

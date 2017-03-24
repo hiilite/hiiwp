@@ -78,7 +78,6 @@
 		/* standard slider */
 		else if(type == 'slides'){
 			width = $carousel.parent().width();
-			//height = width * ratio;
 			
 			
 			if($carousel.hasClass('has_thumbs')){
@@ -87,7 +86,7 @@
 				$carousel.css({ 'margin-bottom': $thumbheight });
 			}
 				
-			contentHeights = $carousel.find('.slide-text-overlay').map(function() {
+			contentHeights = $carousel.find('.flex-item').map(function() {
 				    return $(this).outerHeight();
 				}).get();
 			maxContentHeight = Math.max.apply(null, contentHeights);
@@ -95,18 +94,17 @@
 				height = (maxContentHeight);
 			}
 			
-			//console.log(maxContentHeight, $carousel.position().top);*/
 			$(window).on('resize',function(){
 				width = $carousel.parent().width();
-				//height = width * ratio;
 				
 				
-				contentHeights = $carousel.find('.slide-text-overlay').map(function() {
+				contentHeights = $carousel.find('.flex-item').map(function() {
 				    return $(this).outerHeight();
 				}).get();
 				maxContentHeight = Math.max.apply(null, contentHeights);
-				height = (maxContentHeight);
-				
+				if(height < maxContentHeight) {
+					height = (maxContentHeight);
+				}
 				$carousel.width(width);
 				$carousel.height(height);
 				

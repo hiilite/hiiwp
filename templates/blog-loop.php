@@ -1,5 +1,5 @@
 <?php
-global $hiilite_options, $post;
+global $hiilite_options;
 $post_meta = get_post_meta(get_the_id());
 echo '<!--BLOG-LOOP-->';
 // Create Title

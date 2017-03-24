@@ -5,7 +5,7 @@ if (!function_exists('hii_title')) {
     function hii_title($atts, $content = null) {
         global $qode_options_proya;
 
-		$el_class = $width = $css = $offset = ''; $output = '';
+		$html = $button_styles = $el_class = $width = $css = $offset = $font_container_data = $font_family = $font_style = $f_style = $output = '';
         $args = array(
 	        "text" 		=> "",
 	        "color"		=> "",
@@ -15,18 +15,14 @@ if (!function_exists('hii_title')) {
 	        "align"		=> "",
 	        "link"		=> "",
 	        "class"		=> "",
-	        "id"		=> ""
+	        "id"		=> "",
+	        "font_container" => ""
         );
         
 
         extract(shortcode_atts($args, $atts));
         //init variables
-        $html  = "";
-        $button_styles  = "";
-        
-        /*$html .= "<pre>".print_r($args,true)."</pre>";
-        $html .= "<pre>".print_r($atts,true)."</pre>";*/
-        
+ 
         $font_container = explode('|',$atts['font_container']);
         $tag = str_replace('tag:','',$font_container[0]);
         if((!isset($tag) || $tag == NULL) && isset($size))
@@ -34,18 +30,19 @@ if (!function_exists('hii_title')) {
 	        $tag = $size;
 	    }
         $size = $tag;
-        $color = str_replace('%23','#',$font_container[1]).';';
         
+        $color = (isset($font_container[1]))?str_replace('%23','#',$font_container[1]).';':';';
         
-        $google_fonts = explode('|',$atts['google_fonts']);
-        $font_family = explode('%3A', $google_fonts[0]);
-        $font_family = str_replace('font_family','font-family', $font_family[0]);
-        $font_family = str_replace('%20',' ',$font_family).';';
-        
-        $font_style = explode('%3A', $google_fonts[1]);
-        $font_style = str_replace('$font_style','font-style', $font_style[0]);
-        $font_style = str_replace('%20',' ',$font_style).';';
-
+        if(isset($atts['google_fonts'])) {
+	        $google_fonts = explode('|',$atts['google_fonts']);
+	        $font_family = explode('%3A', $google_fonts[0]);
+	        $font_family = str_replace('font_family','font-family', $font_family[0]);
+	        $font_family = str_replace('%20',' ',$font_family).';';
+	        
+	        $font_style = explode('%3A', $google_fonts[1]);
+	        $font_style = str_replace('$font_style','font-style', $font_style[0]);
+	        $font_style = str_replace('%20',' ',$font_style).';';
+        }
 
 		$css_classes = array(
 			'text-block',
@@ -94,13 +91,13 @@ if (!function_exists('hii_title')) {
 			    $font_style = explode(' ',$font_style);
 			    if(isset($font_style[2]))
 			    {
-					$f_style = str_replace('regular','normal',$font_style[2]);    
+					$f_style = 'font-style:'.str_replace('regular','normal',$font_style[2]);    
 				}
-				else
+				elseif(isset($font_style[1]))
 				{
-					$f_style = str_replace('regular','normal',$font_style[1]).';';
+					$f_style = 'font-style:'.str_replace('regular','normal',$font_style[1]).';';
 				}
-				$fs = 'font-weight:'. str_replace('font_style:','',$font_style[0]).'; font-style:'.$f_style;   
+				$fs = 'font-weight:'. str_replace('font_style:','',$font_style[0]).'; '.$f_style;   
 			}
 			
 		    $style = "style='".$c." ".$ff." ".$fs."'";

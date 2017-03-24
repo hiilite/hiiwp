@@ -9,7 +9,8 @@ $hiilite_options['default_font']				= get_theme_mod( 'default_font', array(
         'font-size'      => '14px',
         'line-height'    => '1.5',
         'letter-spacing' => '0px',
-        'color'          => '#333333',
+        'text-transform' => 'none',
+        'color'          => '#818181',
     ) );
 $hiilite_options['heading_font']				= get_theme_mod( 'heading_font', array(
         'font-family'    => 'Roboto',
@@ -240,7 +241,7 @@ $hiilite_options['typography_footer_headings_font']				= get_theme_mod( 'typogra
         'variant'        => ' ',
         'font-size'      => ' ',
         'line-height'    => ' ',
-        'letter-spacing' => '0',
+        'letter-spacing' => ' ',
         'text-transform' => ' ',
         'color'          => ' ',
     ) );

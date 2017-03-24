@@ -23,17 +23,6 @@ Kirki::add_section( 'general_section_globals', array(
     'capability'     => 'edit_theme_options'
 ) );
 
-//////////////////
-// Make AMP
-Kirki::add_field( 'hiiwp', array(
-	'type'        => 'switch',
-	'settings'    => 'amp',
-	'label'       => esc_attr__( 'Make AMP Site', 'my_textdomain' ),
-	'section'     => 'general_section_globals',
-	'default'     => false,
-	'priority'	  => 1,
-	'description'    => __( 'Make whole site AMP compatible. This means no external CSS or JS is allowed, so many plugins will not work. Any forms must be loaded in an iframe (can be done in row options) and be 75% or 600px from the top of the page. No in tag CSS is allowed, and no use of !important in custom CSS. all image and other embedded elements are converted to there amp counterparts' ),
-) );
 
 //////////////////
 // Portfolio
@@ -720,16 +709,7 @@ Kirki::add_field( 'hiiwp', array(
 ) );
 */
 
-// Above Header Content
-Kirki::add_field( 'hiiwp', array(
-    'type'        => 'switch',
-    'settings'    => 'header_above_content',
-    'label'       => __( 'Always put content below header', 'hiiwp' ),
-    'description' => __('Enabling this option always will put content below header'),
-    'section'     => 'general_section_design_style',
-    'default'     => true,
-    'priority'    => 1,
-) );
+
 
 Kirki::add_field( 'hiiwp', array(
 	'type'        => 'dimension',
