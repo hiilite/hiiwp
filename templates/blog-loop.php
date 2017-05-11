@@ -108,7 +108,13 @@ if(is_customize_preview()) echo '<div class="customizer_quick_links"><button cla
 		
 		}
 		if($hiilite_options['blog_excerpt_show']):?><p><?=content_excerpt($hiilite_options['blog_excerpt_len']); ?></p><?php endif;
-		if($hiilite_options['blog_more_show']):?><a class="button readmore" href="<?php the_permalink() ?>"><?=$hiilite_options['blog_more_ex'];?></a><?php endif;?>
+		if($hiilite_options['blog_more_show']):
+			$more_button_class = get_theme_mod( 'blog_more_type', 'button' );
+			$more_button_class .= ($more_button_class != 'link' && $more_button_class != 'button')?' button readmore':' readmore';
+			?>
+			<a class="<?=$more_button_class;?>" href="<?php the_permalink() ?>"><?=$hiilite_options['blog_more_ex'];?></a><?php 
+				
+		endif;?>
 	<div>
 		<?php $options = get_option('hii_seo_settings'); ?>
 		<div itemprop="publisher" itemscope itemtype="https://schema.org/Organization">

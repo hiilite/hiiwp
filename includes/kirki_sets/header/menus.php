@@ -31,11 +31,25 @@ Kirki::add_field( 'hiiwp', array(
 		),
 	),
 ) );
-
 Kirki::add_field( 'hiiwp', array(
 	'type'        => 'color',
 	'settings'    => 'main_menu_background_color',
-	'label'       => __( 'Mobile Menu Background Color', 'my_textdomain' ),
+	'label'       => __( 'Main Menu Background Color', 'hiiwp' ),
+	'description' => __('Choose color for the main menu background'),
+	'section'     => $section,
+	'default'     => '',
+	'priority'    => 7,
+	'output' => array(
+		array(
+			'element'  => 'nav#main-nav',
+			'property' => 'background-color',
+		),
+	),
+) );
+Kirki::add_field( 'hiiwp', array(
+	'type'        => 'color',
+	'settings'    => 'moblie_menu_background_color',
+	'label'       => __( 'Mobile Menu Background Color', 'hiiwp' ),
 	'description' => __('Choose color for mobile menu background'),
 	'section'     => $section,
 	'default'     => '',

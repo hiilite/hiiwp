@@ -10,7 +10,7 @@ if($hiilite_options['teams_on'])		require_once HIILITE_DIR.'/includes/post_types
 if($hiilite_options['events_on'])		require_once HIILITE_DIR.'/includes/post_types/event_post_type.php';
 */
 
-
+ 
 //////////////////////////
 //
 //	GET PORTFOLIO TEMPLATE

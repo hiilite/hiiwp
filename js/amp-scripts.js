@@ -52,6 +52,8 @@
 			delay = ($carousel.attr('height') != undefined)?$carousel.attr('delay'):false,
 			type = $carousel.attr('type');
 			
+		
+			
 		/* testimonial slider */
 		if($carousel.hasClass('testimonial-slider')){
 			ratio = height.replace('px','') / width.replace('px','');
@@ -64,6 +66,8 @@
 			height = maxHeight;
 			  
 			width = '100%';
+			
+			$carousel.height(height);
 			
 			$(window).on('resize',function(){
 				elementHeights = $carousel.find('.flex-item').map(function() {
@@ -85,20 +89,20 @@
 				if($thumbheight < 200){$thumbheight = 200; }
 				$carousel.css({ 'margin-bottom': $thumbheight });
 			}
-				
-			contentHeights = $carousel.find('.flex-item').map(function() {
-				    return $(this).outerHeight();
+			
+			contentHeights = $carousel.find('.slide-text-overlay').map(function() {
+				    return $(this).outerHeight(); 
 				}).get();
 			maxContentHeight = Math.max.apply(null, contentHeights);
 			if(height < maxContentHeight) {
 				height = (maxContentHeight);
 			}
-			
+						
 			$(window).on('resize',function(){
 				width = $carousel.parent().width();
 				
 				
-				contentHeights = $carousel.find('.flex-item').map(function() {
+				contentHeights = $carousel.find('.slide-text-overlay').map(function() {
 				    return $(this).outerHeight();
 				}).get();
 				maxContentHeight = Math.max.apply(null, contentHeights);
@@ -115,6 +119,7 @@
 		} 
 		/* carousel */
 		else {
+			width = $carousel.parent().width(); 
 			$(window).on('resize',function(){
 				width = $carousel.parent().width();
 				$carousel.width(width);
@@ -376,7 +381,6 @@
 		});
 	}
 	
-	
 	/*
 	GA LINK TRACKING
 	*/
@@ -427,3 +431,6 @@
 	
     
 });})(jQuery);
+
+
+

@@ -14,7 +14,7 @@ add_action('init',                  array('SimplyRetsCustomPostPages', 'srRegist
 add_filter('comments_template',     array('SimplyRetsCustomPostPages', 'srClearComments'));
 add_filter('single_template',       array('SimplyRetsCustomPostPages', 'srLoadPostTemplate'));
 add_filter('the_content',           array('SimplyRetsCustomPostPages', 'srPostDefaultContent'));
-add_filter('the_posts',             array('SimplyRetsCustomPostPages', 'srCreateDynamicPost'));
+//add_filter('the_posts',             array('SimplyRetsCustomPostPages', 'srCreateDynamicPost'));
 add_action('add_meta_boxes',        array('SimplyRetsCustomPostPages', 'postFilterMetaBox'));
 add_action('add_meta_boxes',        array('SimplyRetsCustomPostPages', 'postTemplateMetaBox'));
 add_action('save_post',             array('SimplyRetsCustomPostPages', 'postFilterMetaBoxSave'));
@@ -89,8 +89,8 @@ class SimplyRetsCustomPostPages {
 		$rules = array(
             'listings/([^&]+)/([^&]+)/([^&]+)/([^&]+)/([^&]+)/?$'
             => 'index.php?sr-listings=sr-single&sr_city=$matches[1]&sr_state=$matches[2]&sr_zip=$matches[3]&listing_title=$matches[4]&listing_id=$matches[5]',
-			"listings/(.*)/(.*)?$"
-                => "index.php?sr-listings=sr-single&listing_id=$matches[1]&listing_title=$matches[2]"
+			'listings/(.*)/(.*)?$'
+                => 'index.php?sr-listings=sr-single&listing_id=$matches[1]&listing_title=$matches[2]'
 		);
         return $incoming + $rules;
     }
@@ -145,7 +145,7 @@ class SimplyRetsCustomPostPages {
             'labels'          => $labels,
             'description'     => 'SimplyRETS property listings pages',
             'query_var'       => true,
-            'menu_positions'  => '15',
+            'menu_positions'  => '50',
             'capability_type' => 'page',
             'hierarchical'    => true,
             'taxonomies'      => array(),
@@ -494,19 +494,27 @@ class SimplyRetsCustomPostPages {
                 $default_templates = $page_template;
             }
         }
-
+		
         $new_template = locate_template( $default_templates, false );
         return $new_template;
     }
 
 
     public static function srPostDefaultContent( $content ) {
+	    global $RETS_feedType;
+	    
         require_once( RETSPATH . 'simply-rets-api-helper.php');
+        
         $post_type = get_post_type();
         $page_name = get_query_var('sr-listings');
         $sr_post_type = 'sr-listings';
-
-        if (get_query_var('listing_id') != NULL AND get_query_var('listing_title') != NULL) {
+        
+		if($RETS_feedType == 'ddf' && get_query_var('listing_id') != NULL){
+			$listing_id = get_query_var('listing_id');
+			$content .= SimplyRetsApiHelper::retrieveListingDetails( $listing_id );
+            return $content;
+		}
+        elseif (get_query_var('listing_id') != NULL AND get_query_var('listing_title') != NULL) {
 
             $listing_id = get_query_var('listing_id');
             $vendor     = get_query_var('sr_vendor', '');
@@ -756,7 +764,7 @@ class SimplyRetsCustomPostPages {
             // saved for this post
             $listings_content = SimplyRetsApiHelper::retrieveRetsListings( $listing_params );
             $content = $content . $listings_content;
-
+			
             return $content;
         }
         return $content;

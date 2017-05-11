@@ -9,21 +9,24 @@
 
 /* Code starts here */
 
-add_action("wp_loaded", array("SrAdminSettings", "createDemoPage"));
-add_action("admin_notices", array("SrAdminSettings", "adminMessages"));
+//add_action("wp_loaded", array("SrAdminSettings", "createDemoPage"));
+//add_action("admin_notices", array("SrAdminSettings", "adminMessages"));
+add_action( 'cmb2_admin_init', array( "SrAdminSettings", 'hii_rets_options_page') );
 
 class SrAdminSettings {
 
-  function add_to_admin_menu() {
-      add_options_page('SimplyRETS Settings'
-                       , 'SimplyRETS'
+
+  public static function add_to_admin_menu() {
+      add_options_page('RETS Listings Settings'
+                       , 'RETS Listings'
                        , 'manage_options'
                        , 'simplyrets-admin.php'
                        , array('SrAdminSettings', 'sr_admin_page')
       );
   }
 
-  function register_admin_settings() {
+  public static function register_admin_settings() {
+	  //Simply RETS Settings
       register_setting('sr_admin_settings', 'sr_api_name');
       register_setting('sr_admin_settings', 'sr_api_key');
       register_setting('sr_admin_settings', 'sr_contact_page');
@@ -39,42 +42,297 @@ class SrAdminSettings {
       register_setting('sr_admin_settings', 'sr_search_map_position');
       register_setting('sr_admin_settings', 'sr_permalink_structure');
       register_setting('sr_admin_settings', 'sr_google_api_key');
+      
+      //DDF Settings
+      register_setting('sr_admin_settings', 'rets_username');
+      register_setting('sr_admin_settings', 'rets_password');
+      register_setting('sr_admin_settings', 'rets_url');
+      
+      
   }
+  
+  /*
+	*
+	*	func: hii_seo_options_page
+	*	
+	* 	Initiate the Hiilite SEO Options Page	
+	*
+	*/
+	
+	public static function hii_rets_options_page() {
 
-  public static function adminMessages () {
-      $page_created = get_option("sr_demo_page_created", false);
-      $show_msg     = get_option("sr_show_admin_message", true);
+		/*
+		*
+		*	MAIN HIILITE SEO SETTING PAGE
+		*	
+		* 	Hiilite SEO Options Page	
+		*
+		*/
+		// the options key fields will be saved under
+		$opt_key = 'hii_rets_settings';
+		
+		// the show_on parameter for configuring the CMB2 box, this is critical!
+	    $show_on = array( 'key' => 'options-page', 'value' => array( $opt_key ) );
+	    
+	    // an array to hold our boxes
+	    $boxes = array();
+	
+	    // an array to hold some tabs
+	    $tabs = array();
+	    
+	    /*
+		 *
+		 *	Main TAB
+		 *
+		 */
+	    $cmb = new_cmb2_box( array(
+	        'id'        => 'rets_settings',
+	        'title'     => __( 'RETS Settings', 'cmb2' ),
+	        'show_on'   => $show_on,
+	    ));
+	    
+	    $cmb->add_field( array(
+	        'name'       => __( 'Feed', 'cmb2' ),
+	        'desc'       => __( 'Where will you be getting your RETS data?', 'cmb2' ),
+	        'id'         => 'rets_feed',
+	        'type'       => 'radio_inline',
+	        'options' => array(
+		        'simplyrets' => __( 'SimplyRETS', 'cmb2' ),
+		        'ddf'   => __( 'DirectDataFeed', 'cmb2' ),
+		        'none'     => __( 'None', 'cmb2' ),
+		    ),
+		    'default' => 'none',
+	    )); 
+	    	    
+	    $cmb->object_type( 'options-page' );
+	    $boxes[] = $cmb;
+	    
+	    
+	    /*
+		 *
+		 *	SimplyRETS TAB
+		 *
+		 */
+		 
+		 //
+		 //	Account Credentials BOX
+		 //
+	    $cmb = new_cmb2_box( array(
+	        'id'        => 'simplyrets_settings',
+	        'title'     => __( 'Account Credentials ', 'cmb2' ),
+	        'show_on'   => $show_on,
+	    ));
+	    
+	    
+	    $cmb->add_field( array(
+	        'name'       => __( 'API Key', 'cmb2' ),
+	        'id'         => 'sr_api_name',
+	        'type'       => 'text_small',
+	    ));
+	    $cmb->add_field( array(
+	        'name'       => __( 'API Secret', 'cmb2' ),
+	        'id'         => 'sr_api_key',
+	        'type'       => 'text_small',
+	    ));
+	    
+	    $cmb->object_type( 'options-page' );
+	    $boxes[] = $cmb;
+	    
+	    //
+		 //	Single Listing Page BOX
+		 //
+	    $cmb = new_cmb2_box( array(
+	        'id'        => 'simplyrets_single_listing_settings',
+	        'title'     => __( 'Single Listing Page Settings', 'cmb2' ),
+	        'show_on'   => $show_on,
+	    ));
+	   
+	    
+	    $cmb->add_field( array(
+	        'name'       => __( 'Contact Form Lead Capture', 'cmb2' ),
+	        'desc'		 => __('Enable Contact Form Lead Capture on single listing pages?', 'cmb2'),
+	        'id'         => 'sr_show_leadcapture',
+	        'type'       => 'checkbox',
+	    ));
+	    $cmb->add_field( array(
+	        'name'       => __( 'Send Lead Capture forms submissions to:', 'cmb2' ),
+	        'id'         => 'sr_leadcapture_recipient',
+	        'type'       => 'text_email',
+	    ));
+	    
+	    $cmb->add_field( array(
+		    'name'    => 'Show/Hide Fields',
+		    'id'      => 'sr_show',
+		    'type'    => 'multicheck',
+		    'options' => array(
+		        'sr_show_listingmeta' => 'Hide Listing Meta Information fields from property details?',
+		        'sr_show_agent_contact' => 'Do not show Agent and Office phone number and email address (names are still shown).',
+		        'sr_show_listing_remarks' => 'Hide Listing Remarks (description) field from property details?',
+		        'sr_additional_rooms' => 'Show additional room details?',
+		    ),
+		) );
+		
+		$cmb->add_field( array(
+		    'name'             => 'Image Gallery Settings',
+		    'id'               => 'sr_listing_gallery',
+		    'type'             => 'radio',
+		    'show_option_none' => true,
+		    'options'          => array(
+		        'fancy' => __( 'Fancy Gallery', 'cmb2' ),
+		        'classic'   => __( 'Classic Gallery', 'cmb2' ),
+		    ),
+		) );
+		
+		$cmb->add_field( array(
+		    'name'             => 'Permalink Structure',
+		    'desc'			 => __('If you\'re using Wordpress\' pretty permalinks, we have a few different options you can choose from for single listing pages.', 'cmb2'),
+		    'id'               => 'sr_permalink_structure',
+		    'type'             => 'radio',
+		    'show_option_none' => true,
+		    'options'          => array(
+		        'pretty' => __( ' Basic Pretty Links (Ex: "/listings/{id}/{address})', 'cmb2' ),
+		        'pretty_extra'   => __( 'Pretty Links Extra (Ex: "/listings/{city}/{state}/{zip}/{address}/{id}', 'cmb2' ),
+		        'query_string'   => __( ' Query String Links (Ex: "/?sr-listings=sr-single&address={address}&listing_id={id}")', 'cmb2' ),
+		    ),
+		) );
+		
+		$cmb->add_field( array(
+		    'name'             => 'Map Settings',
+		    'desc'			 => __('On pages with multiple results, how would you like to show the map and list views?', 'cmb2'),
+		    'id'               => 'sr_search_map_position',
+		    'type'             => 'radio',
+		    'show_option_none' => true,
+		    'options'          => array(
+		        'list_only' => __( 'Only Show List View', 'cmb2' ),
+		        'map_only'   => __( 'Only Show Map View', 'cmb2' ),
+		        'map_above'   => __( 'Show Map View Above List View', 'cmb2' ),
+		        'map_below'   => __( 'Show Map View Below List View', 'cmb2' ),
+		    ),
+		) );
+		
+		$cmb->add_field( array(
+	        'name'       => __( 'Google Maps API Key ', 'cmb2' ),
+	        'id'         => 'sr_google_api_key',
+	        'type'       => 'text',
+	        'desc'			 => __('(Required for maps. Get one <a href="https://console.developers.google.com/flows/enableapi?apiid=maps_backend,geocoding_backend,directions_backend,distance_matrix_backend,elevation_backend,places_backend&amp;keyType=CLIENT_SIDE&amp;reusekey=true" target="_blank">here</a>.)', 'cmb2'),
+	    ));
+	    
+	    $cmb->object_type( 'options-page' );
+	    $boxes[] = $cmb;
+	    
+	    
+	    
+	    
+	    /*
+		 *
+		 *	DDF TAB
+		 *
+		 */
+		 
+		 //
+		 //	DDF Credentials BOX
+		 //
+	    $cmb = new_cmb2_box( array(
+	        'id'        => 'ddf_settings',
+	        'title'     => __( 'Account Credentials ', 'cmb2' ),
+	        'show_on'   => $show_on,
+	    ));
+	    
+	    $cmb->add_field( array(
+	        'name'       => __( 'RETS Username', 'cmb2' ),
+	        'id'         => 'rets_username',
+	        'type'       => 'text_small',
+	    ));
+	    $cmb->add_field( array(
+	        'name'       => __( 'RETS Password', 'cmb2' ),
+	        'id'         => 'rets_password',
+	        'type'       => 'text_small',
+	    ));
+	    $cmb->add_field( array(
+	        'name'       => __( 'RETS URL', 'cmb2' ),
+	        'id'         => 'rets_url',
+	        'type'       => 'text_url',
+	    ));
+	    
+	    $cmb->object_type( 'options-page' );
+	    $boxes[] = $cmb;
+		 
+		 
+		 
+	    /*
+		 *
+		 *	TABS
+		 *
+		 */
+	    $tabs[] = array(
+	         'id'    => 'hiilite_rets_tab',
+	         'title' => 'Main',
+	         'desc'  => '',
+	         'boxes' => array(
+		         'rets_settings',
+	         ),
+	    ); 
+	    
+	    $tabs[] = array(
+	         'id'    => 'hiilite_simplyrets_tab',
+	         'title' => 'SimplyRETS',
+	         'desc'  => '<div class="sr-doc-links"><p>
+            <a target="_blank" href="http://simplyrets.com">
+                simplyrets.com
+            </a> |
+            <a target="_blank" href="https://wordpress.org/plugins/simply-rets/other_notes/">
+                Plugin Docs
+            </a> |
+            <a target="_blank" href="http://docs.simplyrets.com">
+                API Docs
+            </a> |
+            <a target="_blank" href="http://status.simplyrets.com">
+                Service Status
+            </a> |
+            <a target="_blank" href="https://simplyrets.com/account">
+                Support Request
+            </a></p><p>Enter your SimplyRETS API credentials in the fields below.<br>Note - to use the SimplyRETS demo data, you can use these API credentials: API Username: simplyrets API Key: simplyrets</p></div>',
+	         'boxes' => array(
+		         'simplyrets_settings',
+		         'simplyrets_single_listing_settings',
+	         ),
+	    ); 
+	    
+	    
+	    $tabs[] = array(
+	         'id'    => 'hiilite_ddf_tab',
+	         'title' => 'DirectDataFeed',
+	         'desc'  => '',
+	         'boxes' => array(
+		         'ddf_settings',
+	         ),
+	    ); 
+		
+		
+		
+		 
+	
+		/*
+		*
+		*	GENERATE PAGE
+		*	
+		*/
+	    $args = array(
+	        'key'        => $opt_key,
+	        'title'      => 'RETS Settings',
+	        'menuargs' => array(
+	        	'icon_url'	=>	'dashicons-admin-home',
+	        	'position'	=> 2,
+	        ),
+	        'boxes'      => $boxes,
+	        'tabs'       => $tabs,
+	        'cols'       => 2,
+	        'savetxt'    => 'Save',
+	    );
+	    new Cmb2_Metatabs_Options( $args );
+    }
 
-      if($page_created OR !$show_msg) {
-          return;
-      } else {
-          $notice = SimplyRetsCustomPostPages::onActivationNotice();
-          echo $notice;
-      }
-  }
-
-  public static function createDemoPage() {
-      if(isset( $_POST['sr_create_demo_page'])) {
-          $demo_post = array(
-              "post_content" => "[sr_map_search search_form=\"true\" list_view=\"true\"]",
-              "post_name" => "simplyrets-listings",
-              "post_title" => "SimplyRETS Demo Page",
-              "post_status" => "publish",
-              "post_type" => "page"
-          );
-          $post_id = wp_insert_post($demo_post);
-          $permalink = get_post_permalink($post_id);
-          update_option("sr_demo_page_created", true);
-          wp_redirect($permalink);
-          exit();
-      } else if(isset( $_POST['sr_dismiss_admin_msg'])) {
-          update_option("sr_show_admin_message", false);
-      } else {
-          return;
-      }
-  }
-
-  function sr_admin_page() {
+  public static function sr_admin_page() {
       global $wpdb;
       $logo_path = RETSURL . 'assets/img/logo_button.png';
 
@@ -90,7 +348,7 @@ class SrAdminSettings {
       <div class="wrap sr-admin-wrap">
         <h2 id="message"></h2>
         <img class="sr-admin-logo" src="<?php echo $logo_path; ?>">
-        <h1 class="sr-admin-title">SimplyRETS Admin Settings</h1>
+        <h1 class="sr-admin-title">RETS Admin Settings</h1>
         <div class="sr-doc-links">
           <p>
             <a target="_blank" href="http://simplyrets.com">

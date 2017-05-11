@@ -12,12 +12,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 $post_id = get_the_id();
 $atts = vc_map_get_attributes( $this->getShortcode(), $atts );
 if($atts['active'] == true):
-	if(get_post_meta($post_id, 'amp', true) == 'nonamp'){
-		$hiilite_options['amp'] = false;
-	} else {
-		$hiilite_options['amp'] = (!isset($hiilite_options['amp']))?get_theme_mod('amp'):false;
-	}
-	if($hiilite_options['amp']) $_amp = ''; else $_amp = '';
 	
 	$css = $el_class = '';
 	$this->resetVariables( $atts, $content );
@@ -57,12 +51,9 @@ if($atts['active'] == true):
 	
 	$output = '';
 	$output .= '<div ' . implode( ' ', $wrapper_attributes ) . ' style="background:url('.$src.'); background-size:cover;">';
-	//$output .= '<'.$_amp.'img src="'.$src.'" width="'.$slide_width.'" class="slider-background" height="'.$slide_height.'"  layout="responsive">';
-	//$output .= ($_amp!='')?'</amp-img>':'';
 	$output .= '<div class="slide-text-overlay">
 	                ';
 	$output .= $this->getTemplateVariable( 'content' );
 	$output .= '</div></div>';
-	//$output .= '<pre>'.print_r($atts,true).'</pre>';
 	echo $output;
 endif;

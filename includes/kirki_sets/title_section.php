@@ -34,13 +34,13 @@ Kirki::add_field( 'hiiwp', array(
 	'output' => array(
 		array(
 			'element'  => '.page-title',
-			'property' => 'height',
+			'property' => 'min-height',
 		),
 	),
 	'js_vars' => array(
 		array(
 			'element'  => '.page-title',
-			'property' => 'height',
+			'property' => 'min-height',
 		),
 	),
 ) );

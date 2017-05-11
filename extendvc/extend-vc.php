@@ -11,7 +11,7 @@ global $hiilite_options;
 //vc_remove_element("vc_wp_pages");
 //vc_remove_element("vc_wp_tagcloud");
 //vc_remove_element("vc_wp_custommenu");
-vc_remove_element("vc_wp_text");
+vc_remove_element("vc_wp_text"); 
 //vc_remove_element("vc_wp_posts");
 vc_remove_element("vc_wp_links");
 //vc_remove_element("vc_wp_categories");
@@ -43,7 +43,7 @@ vc_remove_element("vc_carousel");
 //vc_remove_element("vc_line_chart");
 vc_remove_element("vc_tta_accordion");
 vc_remove_element("vc_tta_tour");
-vc_remove_element("vc_tta_tabs");
+//vc_remove_element("vc_tta_tabs");
 
 //vc_remove_element('vc_basic_grid');
 //vc_remove_element('vc_media_grid');
@@ -2207,6 +2207,14 @@ vc_add_param( 'vc_single_image', array(
 ));
 
 vc_add_param( 'vc_single_image', array(
+    'type' => 'textfield',
+    'heading' => __( 'Image size', 'my-text-domain' ),
+    'description' => __('Enter image size (Example: "thumbnail", "medium", "large", "full" or other sizes defined by theme). Alternatively enter size in pixels (Example: 200x100 (Width x Height)).'),
+    'param_name' => 'img_size',
+    'value' => 'full',
+));
+
+vc_add_param( 'vc_single_image', array(
     'type' => 'attach_image',
     'heading' => __( 'Hover Image', 'my-text-domain' ),
     'description'	=> __('The hover image should be the same dimensions as the original image','hiiwp'),
@@ -2389,120 +2397,7 @@ if ( class_exists( 'WooCommerce' ) ) {
 }
 
 
-if(class_exists('SrUtils')):
-	
-	////////////////////////////
-	//
-	//	SimplyRETS Listings
-	//
-	/////////////////////////////
-	vc_map( array(
-			"name" => "RETS Listings",
-			"base" => "sr_listings",
-			"category" => 'SimplyRETS',
-			"description" => "Show all listings from your MLS",
-			"icon" => "icon-wpb-images-carousel",
-			"allowed_container_element" => 'vc_row',
-			"params" => array(
-				array(
-					"type" => "textfield",
-					"holder" => "div",
-					"class" => "",
-					"heading" => "Agent",
-					"param_name" => "agent"
-				),
-				array(
-					"type" => "textfield",
-					"holder" => "div",
-					"class" => "",
-					"heading" => "Min Price",
-					"param_name" => "minprice"
-				),
-				array(
-					"type" => "textfield",
-					"holder" => "div",
-					"class" => "",
-					"heading" => "Min Price",
-					"param_name" => "minprice"
-				),
-			)
-	) );
-	
-	////////////////////////////
-	//
-	//	SimplyRETS Listings
-	//
-	/////////////////////////////
-	vc_map( array(
-			"name" => "RETS Search Form",
-			"base" => "sr_search_form",
-			"category" => 'SimplyRETS',
-			"description" => "Show all listings from your MLS",
-			"icon" => "icon-wpb-images-carousel",
-			"allowed_container_element" => 'vc_row',
-			"params" => array(
-				array(
-					"type" => "textfield",
-					"holder" => "div",
-					"class" => "",
-					"heading" => "Brokers",
-					"param_name" => "brokers"
-				),
-				array(
-					"type" => "textfield",
-					"holder" => "div",
-					"class" => "",
-					"heading" => "Type",
-					"param_name" => "type"
-				),
-				array(
-					"type" => "textfield",
-					"holder" => "div",
-					"class" => "",
-					"heading" => "Min Price",
-					"param_name" => "minprice"
-				),
-			)
-	) );
-	
-	////////////////////////////
-	//
-	//	SimplyRETS Listings
-	//
-	/////////////////////////////
-	vc_map( array(
-			"name" => "RETS Listings Slider",
-			"base" => "sr_listings_slider",
-			"category" => 'SimplyRETS',
-			"description" => "Show all listings from your MLS",
-			"icon" => "icon-wpb-images-carousel",
-			"allowed_container_element" => 'vc_row',
-			"params" => array(
-				array(
-					"type" => "checkbox",
-					"holder" => "div",
-					"class" => "",
-					"heading" => "Random",
-					"param_name" => "random"
-				),
-				array(
-					"type" => "textfield",
-					"holder" => "div",
-					"class" => "",
-					"heading" => "Min Price",
-					"param_name" => "minprice"
-				),
-				array(
-					"type" => "textfield",
-					"holder" => "div",
-					"class" => "",
-					"heading" => "Agent ID",
-					"param_name" => "agent"
-				),
-			)
-	) );
 
-endif;
 
 ////////////////////////////
 //
@@ -2592,6 +2487,153 @@ vc_map( array(
 		
 ) );
 
+
+// TESTIMONIALS
+if($hiilite_options['testimonials_on']){
+	$title = get_theme_mod( 'testimonials_title', 'Testimonials' );
+	$testimonials_slug = get_theme_mod( 'testimonials_slug', 'testimonials' );
+	$tax_title = get_theme_mod( 'testimonials_tax_title', 'Testimonials Categories' );
+	$testimonials_tax_slug = get_theme_mod( 'testimonials_tax_slug', 'testimonials_category' );
+
+	$sections = get_terms($testimonials_tax_slug);
+	$hiilite_options['testimonials_sections']['all'] = 'All';
+	foreach($sections as $section){
+		$hiilite_options['testimonials_sections'][$section->name] = $section->slug;
+	}
+	vc_map( array(
+		"name" => $title,
+		"base" => "testimonials",
+		"category" => 'by Hiilite',
+		"description" => "Show your testimonials",
+		"icon" => get_bloginfo('template_url')."/images/icons/comments.png",
+		"allowed_container_element" => 'vc_row',
+		"params" => array(
+			
+			array(
+				"type" => "dropdown",
+				"holder" => "div",
+				"class" => "",
+				"heading" => "Categories",
+				"param_name" => "section",
+				"default"	=> "all",
+				"value" => $hiilite_options['testimonials_sections']
+			),
+			array(
+				"type" => "checkbox",
+				"holder" => "div",
+				"class" => "",
+				"heading" => "Show Image",
+				"param_name" => "show_image",
+				"value" => true,
+			),
+			array(
+				"type" => "dropdown",
+				"holder" => "div",
+				"heading" => "Image Style",
+				"param_name" => "image_style",
+				"value" => array(
+					'none' => 'None',
+					'circle' => 'Circle',
+					'ad_background' => 'As Background',
+				),
+				"dependency" => array (
+					"element" => "show_image",
+					"value" => array('true'),
+				),
+			),
+			array(
+				"type" => "dropdown",
+				"holder" => "div",
+				"heading" => "Image Position",
+				"param_name" => "image_position",
+				"value" => array(
+					'above' => 'Above',
+					'right' => 'Right',
+					'bottom' => 'Bottom',
+					'left' => 'Left',
+				),
+				"dependency" => array (
+					"element" => "show_image",
+					"value" => array('true'),
+				),
+			),
+			array(
+				"type" => "checkbox",
+				"holder" => "div",
+				"class" => "",
+				"heading" => "Show Title",
+				"param_name" => "show_title",
+				"value" => true,
+			),
+			array(
+				"type" => "dropdown",
+				"holder" => "div",
+				"class" => "",
+				"heading" => "Heading tag",
+				"param_name" => "heading_tag",
+				"value" => array(
+					'h1' => 'h1',
+					'h2' => 'h2',
+					'h3' => 'h3',
+					'h4' => 'h4',
+					'h5' => 'h5',
+					'h6' => 'h6',
+					'strong' => 'strong',
+				),
+				"dependency" => array (
+					"element" => "show_title",
+					"value" => array('true'),
+				),
+			),
+			array(
+				"type" => "checkbox",
+				"holder" => "div",
+				"heading" => "Show Rating",
+				"param_name" => "show_rating",
+				"value" => true,
+			),
+			array(
+				"type" => "checkbox",
+				"holder" => "div",
+				"heading" => "Is Slider",
+				"param_name" => "is_slider",
+				"value" => true,
+			),
+			array(
+				"type" => "textfield", 
+				"holder" => "div",
+				"heading" => "Slider Height",
+				"param_name" => "height",
+				"default"	=> "500px",
+				"value"	=> "500px",
+				"dependency" => array (
+					"element" => "is_slider",
+					"value" => array('true')
+				),
+			),
+			array(
+				"type" => "textfield", 
+				"holder" => "div",
+				"heading" => "Slider Speed",
+				"param_name" => "slider_speed",
+				"description" => "Speed in milliseconds",
+				"default"	=> "5000",
+				"value"	=> "5000",
+				"dependency" => array (
+					"element" => "is_slider",
+					"value" => array('true')
+				),
+			),
+			array(
+	            'type' => 'css_editor',
+	            'heading' => __( 'Css', 'my-text-domain' ),
+	            'param_name' => 'css',
+	            'group' => __( 'Design options', 'my-text-domain' ),
+	        ),
+			
+		)
+	) );
+}
 vc_add_shortcode_param( 'date', 'date_settings_field' );
 function date_settings_field( $settings, $value ) {
    return '<div class="date_block">'

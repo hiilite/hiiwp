@@ -1,5 +1,15 @@
 <?php
-	if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
+/*
+Plugin Name: CMB2 Field Type: Select2
+Plugin URI: https://github.com/mustardBees/cmb-field-select2
+GitHub Plugin URI: https://github.com/mustardBees/cmb-field-select2
+Description: Select2 field type for CMB2.
+Version: 3.0.3
+Author: Phil Wylie
+Author URI: https://www.philwylie.co.uk/
+License: GPLv2+
+*/
+
 /**
  * Class PW_CMB2_Field_Select2
  */
@@ -8,7 +18,7 @@ class PW_CMB2_Field_Select2 {
 	/**
 	 * Current version number
 	 */
-	const VERSION = '3.0.0';
+	const VERSION = '3.0.3';
 
 	/**
 	 * Initialize the plugin by hooking into CMB2
@@ -27,6 +37,10 @@ class PW_CMB2_Field_Select2 {
 	public function render_pw_select( $field, $field_escaped_value, $field_object_id, $field_object_type, $field_type_object ) {
 		$this->setup_admin_scripts();
 
+		if ( version_compare( CMB2_VERSION, '2.2.2', '>=' ) ) {
+			$field_type_object->type = new CMB2_Type_Select( $field_type_object );
+		}
+
 		echo $field_type_object->select( array(
 			'class'            => 'pw_select2 pw_select',
 			'desc'             => $field_type_object->_desc( true ),
@@ -41,7 +55,11 @@ class PW_CMB2_Field_Select2 {
 	public function render_pw_multiselect( $field, $field_escaped_value, $field_object_id, $field_object_type, $field_type_object ) {
 		$this->setup_admin_scripts();
 
-		$a = $field_type_object->parse_args( array(), 'pw_multiselect', array(
+		if ( version_compare( CMB2_VERSION, '2.2.2', '>=' ) ) {
+			$field_type_object->type = new CMB2_Type_Select( $field_type_object );
+		}
+
+		$a = $field_type_object->parse_args( 'pw_multiselect', array(
 			'multiple'         => 'multiple',
 			'style'            => 'width: 99%',
 			'class'            => 'pw_select2 pw_multiselect',
@@ -159,9 +177,9 @@ class PW_CMB2_Field_Select2 {
 		$link = str_replace( WP_CONTENT_DIR, WP_CONTENT_URL, $file );
 		$asset_path = apply_filters( 'pw_cmb2_field_select2_asset_path', $link );
 
-		wp_register_script( 'pw-select2', $asset_path . '/js/select2.min.js', array( 'jquery-ui-sortable' ), '4.0.2' );
+		wp_register_script( 'pw-select2', $asset_path . '/js/select2.min.js', array( 'jquery-ui-sortable' ), '4.0.3' );
 		wp_enqueue_script( 'pw-select2-init', $asset_path . '/js/script.js', array( 'cmb2-scripts', 'pw-select2' ), self::VERSION );
-		wp_register_style( 'pw-select2', $asset_path . '/css/select2.min.css', array(), '4.0.2' );
+		wp_register_style( 'pw-select2', $asset_path . '/css/select2.min.css', array(), '4.0.3' );
 		wp_enqueue_style( 'pw-select2-tweaks', $asset_path . '/css/style.css', array( 'pw-select2' ), self::VERSION );
 	}
 }

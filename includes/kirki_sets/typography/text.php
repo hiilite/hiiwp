@@ -93,7 +93,7 @@ Kirki::add_field( 'my_config', array(
 	'settings'    => 'icon_settings_border',
 	'label'       => __( 'Border Thickness', 'my_textdomain' ),
 	'section'     => $section,
-	'default'     => '',
+	'default'     => '0',
 	'priority'    => 1,
 ) );
 Kirki::add_field( 'my_config', array(
@@ -101,7 +101,7 @@ Kirki::add_field( 'my_config', array(
 	'settings'    => 'icon_settings_border_r',
 	'label'       => __( 'Border Radius', 'my_textdomain' ),
 	'section'     => $section,
-	'default'     => '',
+	'default'     => '0',
 	'priority'    => 1,
 ) );
 
@@ -127,8 +127,7 @@ Kirki::add_field( 'hiiwp', array(
 	'label'       => __( 'Icon Custom CSS', 'my_textdomain' ),
 	'description' => __( 'Custom style all font-awesome icons', 'textdomain' ),
 	'section'     => $section,
-	'default'     => '
-	.fa-style-round {
+	'default'     => '.fa-style-round {
 	background: '.get_theme_mod( 'color_one', '#ef5022').';
 	display: inline-block;
 	width: 1.6em;

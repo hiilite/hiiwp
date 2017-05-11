@@ -3,6 +3,8 @@
 
 function add_social_profiles_shortcode( $atts ){
 	$options = get_option('hii_seo_settings');
+	
+	$is_vc = (class_exists('Vc_Manager'))?true:false;
 	$defaults = array(
 	    'facebook'  	=> false,
 	    'twitter'  		=> false,
@@ -23,21 +25,24 @@ function add_social_profiles_shortcode( $atts ){
     if($atts == '')$atts = $defaults;
 	extract( shortcode_atts( $defaults, $atts ) );
 	
+	$vc_css = ($is_vc)?vc_shortcode_custom_css_class( $css ):null;
 	$css_classes = array(
 		'social-profiles',
-		'text-block',
-		vc_shortcode_custom_css_class( $css ), 
+		$vc_css, 
 	);
-	if (vc_shortcode_custom_css_has_property( $css, array('border', 'background') )) {
+	if ($is_vc && vc_shortcode_custom_css_has_property( $css, array('border', 'background') )) {
 		$css_classes[]='';
 	}
+	
 	$wrapper_attributes = array();
-	$css_class = preg_replace( '/\s+/', ' ', apply_filters( VC_SHORTCODE_CUSTOM_CSS_FILTER_TAG, implode( ' ', array_filter( $css_classes ) ), '.vc_custom_', $atts ) );
+	
+	$css_class = ($is_vc)?preg_replace( '/\s+/', ' ', apply_filters( VC_SHORTCODE_CUSTOM_CSS_FILTER_TAG, implode( ' ', array_filter( $css_classes ) ), '.vc_custom_', $atts ) ):implode( ' ', array_filter( $css_classes ) );
 	$wrapper_attributes[] = 'class="' . esc_attr( trim( $css_class ) ) . '"';
+		
 		
     $output = '<div '.implode( ' ', $wrapper_attributes ).'>';
     
-	if(count($options['business_social']) > 0) {
+	if(count($options['business_social']) > 0 && isset($atts['icon_style'])) {
 		foreach($options['business_social'] as $socialprofile):
 			
 			if($atts['icon_style'] != '')$style = $atts['icon_style'];

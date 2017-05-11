@@ -78,7 +78,7 @@ if(isset($atts)) {
 	$hiilite_options['blog_title_position'] = isset($atts['blog_title_position'])?$atts['blog_title_position']:$hiilite_options['blog_title_position'];
 	$hiilite_options['blog_cats_show'] = isset($atts['blog_cats_show'])?$atts['blog_cats_show']:$hiilite_options['blog_cats_show'];
 	$hiilite_options['blog_meta_show'] = isset($atts['blog_meta_show'])?$atts['blog_cats_show']:$hiilite_options['blog_meta_show'];
-	$hiilite_options['blog_excerpt_show'] = isset($atts['blog_excerpt_show'])?$atts['blog_cats_show']:$hiilite_options['blog_excerpt_show'];
+	$hiilite_options['blog_excerpt_show'] = isset($atts['blog_excerpt_show'])?$atts['blog_excerpt_show']:$hiilite_options['blog_excerpt_show'];
 	$hiilite_options['blog_excerpt_len'] = isset($atts['blog_excerpt_len'])?$atts['blog_excerpt_len']:$hiilite_options['blog_excerpt_len'];
 	$hiilite_options['blog_more_show'] = isset($atts['blog_more_show'])?$atts['blog_more_show']:$hiilite_options['blog_more_show'];
 	
@@ -102,7 +102,7 @@ if(isset($atts)) {
 	}
 }
 
-$colcount = ($hiilite_options['blog_layouts'] =='masonry')?' col-count-'.$hiilite_options['blog_col']:'';
+$colcount = ' col-count-'.$hiilite_options['blog_col'];
 
 echo '<!-- vc_grid start --><div class="vc_grid-container-wrapper vc_clearfix container_inner '.$grid.' '.$hiilite_options['blog_layouts'].$colcount.'" '.implode( ' ', $wrapper_attributes ).'>';
 

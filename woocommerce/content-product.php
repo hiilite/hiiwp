@@ -35,7 +35,7 @@ if ( empty( $product ) || ! $product->is_visible() ) {
 	 * @hooked woocommerce_template_loop_product_link_open - 10
 	 */
 	do_action( 'woocommerce_before_shop_loop_item' );?>
-	<div class="top-product-section">
+		<div class="top-product-section">
 
             <a itemprop="url" href="<?php the_permalink(); ?>" class="product-category">
                 <span class="image-wrapper">
@@ -54,26 +54,28 @@ if ( empty( $product ) || ! $product->is_visible() ) {
 			<?php do_action('qode_woocommerce_after_product_image'); ?>
 
         </div>
-    <?php 
-            echo $product->get_categories(', ','<div class="product-categories">','</div>');
-         ?>
-        <a itemprop="url" href="<?php the_permalink(); ?>" class="product-category product-info">
-            <h3 itemprop="name"><?php the_title(); ?></h3>
-
-            <?php ?>
-            <div class="separator after-title-spearator small center"></div>
-            <span class="description"><?php  the_excerpt(); ?></span>
-            
-            <?php
-                /**
-                 * woocommerce_after_shop_loop_item_title hook
-                 *
-                 * @hooked woocommerce_template_loop_rating - 5
-                 * @hooked woocommerce_template_loop_price - 10
-                 */
-                do_action( 'woocommerce_after_shop_loop_item_title' );
-            ?>
-        </a>
-
-        <?php do_action( 'woocommerce_after_shop_loop_item' ); ?>
+        <div class="bottom-product-section">
+	    	<?php 
+	            echo $product->get_categories(', ','<div class="product-categories">','</div>');
+	         ?>
+	        <a itemprop="url" href="<?php the_permalink(); ?>" class="product-category product-info">
+	            <h3 itemprop="name"><?php the_title(); ?></h3>
+	
+	            <?php ?>
+	            <div class="separator after-title-spearator small center"></div>
+	            <span class="description"><?php  the_excerpt(); ?></span>
+	            
+	            <?php
+	                /**
+	                 * woocommerce_after_shop_loop_item_title hook
+	                 *
+	                 * @hooked woocommerce_template_loop_rating - 5
+	                 * @hooked woocommerce_template_loop_price - 10
+	                 */
+	                do_action( 'woocommerce_after_shop_loop_item_title' );
+	            ?>
+	        </a>
+        
+			<?php do_action( 'woocommerce_after_shop_loop_item' ); ?>
+        </div>
 </li>

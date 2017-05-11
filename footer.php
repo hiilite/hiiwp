@@ -11,11 +11,10 @@ do_action( 'hii_after_content' );
 	<?php 
 	do_action ( 'hii_footer' );
 	
-	if(get_theme_mod( 'show_footer_top_yesno', true )): ?>
-	<div id="footer_top">
-		<div class="container_inner">
-	<?php 
-		if($hiilite_options['footer_in_grid']) { echo '<div class="in_grid">'; } 
+	if(get_theme_mod( 'show_footer_top_yesno', true )): 
+		echo '<div id="footer_top"><div class="container_inner">';
+		
+		if($hiilite_options['footer_in_grid']) echo '<div class="in_grid">';
 	
 	
 		$footer_top_columns = get_theme_mod( 'footer_top_columns');
@@ -49,11 +48,15 @@ do_action( 'hii_after_content' );
 				 
 		
 			endforeach;
-			 if($hiilite_options['footer_in_grid']) { echo '</div>'; } 
-			echo '</div></div>';
+			
+			
+			
 		endif;//end footer top columns
-	endif; //end footer top 
 		
+		if($hiilite_options['footer_in_grid']) echo '</div>';
+		echo '</div></div>';
+	endif; //end footer top 
+	
 		
 		
 	

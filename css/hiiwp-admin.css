@@ -1,0 +1,111 @@
+
+.wp-pointer-buttons a.hiiwp-next {
+	margin-right: 22px;
+	margin-top: -6px;
+}
+
+.container_inner, .in_grid {
+    margin: auto;
+    display: flex;
+    width: 100%;
+    align-items: stretch;
+    flex-wrap: wrap;
+    box-sizing: border-box;
+}
+
+.full-width,.threequarter-width,.half-width,.third-width,.twothird-width,.quarter-width,
+.col-12,.col-9,.col-7,.col-8,.col-6,.col-4,.col-3,.col-2,.col-1 {
+    box-sizing: border-box;
+    min-width: 100px;
+}
+.align-center {
+	text-align: center;
+	margin: auto;
+}
+
+.col-4, .third-width {
+    max-width: 100%;
+    width: 33.2333333333%;
+    flex: 1 1 33.2333333333%;
+}
+.col-6, .half-width {
+    max-width: 100%;
+    width: 49.9%;
+    flex: 1 1 49.9%;
+}
+.text-block {
+    padding: 1em;
+}
+.feature-section {
+	background:white;
+}
+.about-wrap {
+    position: relative;
+    margin: 25px 40px 0 20px;
+    max-width: 1050px;
+    font-size: 15px;
+}
+.about-wrap .about-text {
+	margin: 1em 0;
+	text-align: center;
+    min-height: 60px;
+    color: #555d66;
+}
+.about-wrap h1 {
+    margin: 1em 0;
+    padding: 0;
+    color: #32373c;
+    line-height: 1.2em;
+    font-size: 2.8em;
+    font-weight: 400;
+}
+.about-wrap h2 {
+    margin: 50px 0 1em;
+    font-size: 1.8em;
+    line-height: 1.3;
+    font-weight: 300;
+    text-align: center;
+}
+
+.about-wrap h2 a.button{
+    font-size: 1.8rem;
+    line-height: 1.3;
+    font-weight: 300;
+    height: auto;
+    text-align: center;
+}
+
+
+.cmb-type-textarea-code pre {
+    margin: 0;
+    display: inline-block;
+}
+span.select2 {
+    min-width: 150px;
+}
+.postbox.cmb-row.cmb-repeatable-grouping {
+    box-sizing: border-box;
+} 
+p.cmb-add-row {
+    margin-top: 0;
+} 
+
+.cmb-row.cmb-type-text.cmb-repeat.cmb-repeat-group-field.table-layout {
+    background: rgb(250,250,250);
+    padding: 10px !important;
+    box-sizing: border-box;
+    margin-bottom: 10px;
+    border-right: 10px solid white;
+}
+
+.cmb-type-group .cmb-row:not(:last-of-type), .cmb2-postbox .cmb-row:not(:last-of-type) {
+    border-bottom:none;
+}
+
+.cmb-type-group .cmb-repeat-row .cmb-td, .cmb2-postbox .cmb-repeat-row .cmb-td {
+    padding-bottom: 0;
+}
+
+.cmb2-postbox .cmb2-metabox>.cmb-row .cmb-row.table-layout .cmb-repeat-table .cmb-tbody .cmb-row:not(.hidden):not(.empty-row), .cmb2-postbox .cmb2-metabox>.cmb-row .cmb-row.table-layout .cmb-repeat-table .cmb-tbody .cmb-row:not(:first-of-type) .cmb-td {
+    padding-top: 0;
+}

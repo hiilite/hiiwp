@@ -21,17 +21,7 @@ if($hiilite_options['amp']) $_amp = 'amp-'; else $_amp = '';
 <!--POST-LOOP-->
 <article <?php post_class('row blog-article'); ?> itemscope itemtype="http://schema.org/Article" id="post-<?php the_ID(); ?>" >
 	<header class="page-title <?php echo get_post_meta ( $post->ID, 'page_title_bg', true); ?>">
-<?php
-if($hiilite_options['blog_cats_show']):
-	echo '<span itemprop="articleSection" class="labels">'.get_the_category_list(' ').'</span>';
-else:
-	$categories = get_the_category();$cats ='';
-	foreach($categories as $cat){
-		$cats .= $cat->name;
-	}
-	echo '<meta itemprop="articleSection" content="'.$cats.'">';
-endif;
-?>		<div class="container_inner">
+		<div class="container_inner">
 			<div class="in_grid content-box">
 				
 				<meta itemprop="datePublished" content="<?php the_time('Y-m-d'); ?>">
@@ -51,6 +41,18 @@ endif;
 					<time class="time op-published" datetime="<?php the_time('c'); ?>">
 						<span class="date"><?php the_time('F j, Y'); ?></span> <?php the_time('h:i a'); ?>
 					</time>
+				
+				<?php
+if($hiilite_options['blog_cats_show']):
+	echo '<span itemprop="articleSection" class="labels">'.get_the_category_list(' ').'</span>';
+else:
+	$categories = get_the_category();$cats ='';
+	foreach($categories as $cat){
+		$cats .= $cat->name;
+	}
+	echo '<meta itemprop="articleSection" content="'.$cats.'">';
+endif;
+?>
 				</small>
 			</div>
 		</div>

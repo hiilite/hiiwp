@@ -6,26 +6,22 @@
  * This file provides a class that has functions for retrieving and parsing
  * data from the remote retsd api.
  *
-*/
+*/ 
 
 /* Code starts here */
   
 class SimplyRetsApiHelper {
 
     public static function retrieveRetsListings( $params, $settings = NULL ) {
-        $request_url      = SimplyRetsApiHelper::srRequestUrlBuilder( $params );
-        $request_response = SimplyRetsApiHelper::srApiRequest( $request_url );
-        $response_markup  = SimplyRetsApiHelper::srResidentialResultsGenerator( $request_response, $settings );
-
+	    $response_markup  = SimplyRetsApiHelper::srResidentialResultsGenerator( null, $settings );
         return $response_markup;
     }
 
 
     public static function retrieveListingDetails( $listing_id ) {
-        $request_url      = SimplyRetsApiHelper::srRequestUrlBuilder( $listing_id );
-        $request_response = SimplyRetsApiHelper::srApiRequest( $request_url );
-        $response_markup  = SimplyRetsApiHelper::srResidentialDetailsGenerator( $request_response );
-
+	    global $RETS_feedType;
+		$response_markup  = SimplyRetsApiHelper::srResidentialDetailsGenerator( $listing_id );
+      
         return $response_markup;
     }
 
@@ -429,6 +425,15 @@ HTML;
     /**
      * Build the photo gallery shown on single listing details pages
      */
+    
+    /**
+     * srDetailsGallery function.
+     * 
+     * @access public
+     * @static
+     * @param mixed $photos
+     * @return void
+     */
     public static function srDetailsGallery( $photos ) {
         $photo_gallery = array();
 
@@ -480,16 +485,36 @@ HTML;
 	*	SINGLE LISTING VIEW
 	*		
 	*/
-
+	
+    /**
+     * srResidentialDetailsGenerator function.
+     * 
+     * @access public
+     * @static
+     * @param mixed $listing
+     * @return void
+     */
     public static function srResidentialDetailsGenerator( $listing ) {
-        
-		$listing = $listing['response'];
-
-        return get_listing_template( $listing, 'full', 'rets');
-        //return $cont;
+	    global $RETS_feedType;
+	    if($RETS_feedType == 'ddf'){
+			$listing_id = $listing;
+		} else {
+			$listing = $listing['response'];
+		}
+        return get_listing_template( $listing, 'full', $RETS_feedType);
     }
 
-
+	
+    /**
+     * resultDataColumnMarkup function.
+     * 
+     * @access public
+     * @static
+     * @param mixed $val
+     * @param mixed $name
+     * @param bool $reverse (default: false)
+     * @return void
+     */
     public static function resultDataColumnMarkup($val, $name, $reverse=false) {
         if( $val == "" ) {
             $val = "";
@@ -505,94 +530,248 @@ HTML;
     }
 
 	/*
-	Generate results for [sr_listings]	
+	//	Note: Generate results for [sr_listings]
+	//	Todo: Import every found listing into database then use results from database
 	*/
+	
+	/**
+	 * explode_if_key function.
+	 * 
+	 * @access public
+	 * @param mixed $key
+	 * @param mixed $value
+	 * @return void
+	 */
+	static private function explode_if_key($key, $value){
+		
+		$check_keys = array('RoadType', 
+						    	'Structure', 
+						    	'ViewType', 
+						    	'WaterFrontType',
+						    	'PoolType',
+						    	'CoolingType',
+						    	'ExteriorFinish',
+						    	'FireProtection',
+						    	'FlooringType',
+						    	'HeatingFuel',
+						    	'HeatingType',
+						    	'RoofMaterial',
+						    	'AccessType',
+						    	'Amenities',
+						    	'LandscapeFeatures',
+						    	'Appliances',
+						    );
+		
+							    
+	    if(in_array($key, $check_keys)){
+	        $arr_value = explode(', ', $value);
+	    } else {
+	        $arr_value = $value;
+	    }
+	    return $arr_value;
+	}
+	
+	
+	/**
+	 * check_if_single function.
+	 * 
+	 * @access public
+	 * @param mixed $arr_check
+	 * @return void
+	 */
+	function check_if_single($arr_check){
+	    $return_arr = array();
+	    if(!array_key_exists(1, $arr_check)) {
+			$return_arr[0] = $arr_check;
+		} else {
+			foreach($arr_check as $ph_key => $ph_val) {
+				$return_arr[] = $ph_val;
+			}
+		}
+		return $return_arr;
+	}
+	
+    /**
+     * srResidentialResultsGenerator function.
+     * 
+     * @access public
+     * @static
+     * @param mixed $response
+     * @param mixed $settings
+     * @return void
+     */
     public static function srResidentialResultsGenerator( $response, $settings ) {
-	   
+	    global $RETS_feedType, $RETS, $wpdb;
+	    $cont              = "";
+	    $br                = "<br>";
+	    
+	    // TODO: Add pagination to DDF using buildPaginationLinks function, will need to accept REQUEST vars
+	    if($RETS_feedType == 'ddf'):
+			/* 
+			//	Note: Store the last imported data in database. When the site is loaded, compare the last updated date to the current date. if it is the next day, load listings from DDF and import them into WP.
+			*/
+			
+			$rets_last_import = get_option('rets_last_import') != null
+				?get_option('rets_last_import')
+				:update_option('rets_last_import', date('Y-m-d\TH:m:s\Z', strtotime('Now'))); 
+			
+			
+			// Check for filters
+			$settings['sr_keywords'] = isset($_REQUEST['sr_keywords'])?$_REQUEST['sr_keywords']:false;
+			
+	    	$settings['offset'] = isset($_REQUEST['offset'])?$_REQUEST['offset']:0;
+	    	
+	    	// may no longer be neccessary after importer is written
+			$TimeBackPull = "Today"; 
+			$DBML = "(LastUpdated=" . $rets_last_import . ")";
+			$limit = isset($settings['limit'])?$settings['limit']:10;
+			$offset = isset($settings['offset'])?$settings['offset']:0;
+			$startOffset = $offset*$limit;
+			
+			
+			// Load from DDF and import into WordPress as posts
+			$params = array("Limit" => 1, "Format" => "STANDARD-XML", "Count" => 1, "Offset" => $startOffset);
+			$results = $RETS->SearchQuery("Property", "Property", $DBML, $params);
+			$totalAvailable = $results["Count"]; 
+			$RETS_LimitPerQuery = 10;
+			
+			for($i = 0; $i < $RETS_LimitPerQuery; $i++) 
+			{
+				$startOffset = $i*$RETS_LimitPerQuery;
+				$params = array("Limit" => $RETS_LimitPerQuery, "Format" => "STANDARD-XML", "Count" => 1, "Offset" => $startOffset);
+				$results = $RETS->SearchQuery("Property", "Property", $DBML, $params);		
+				foreach($results["Properties"] as $listing)
+				{
+					$listingID = $listing["@attributes"]["ID"];
+					
+					$_listing_arrs = null;
+				    $_listing_meta = $listing;
+				    
+				    // TODO: Move into Global functions file
+				    
+					
+				    
+				    
+				    
+				    
+				    
+				    if(isset($_listing_meta)){
+				        foreach($_listing_meta as $key => $value){
+					        
+					        
+					        
+					        switch($key) {
+						        case 'AgentDetails':
+						        	$office[0] = null;
+						        	
+						        	
+									if (!array_key_exists(1, $value)){
+										$newval[0] = $value;
+										$_listing_arrs[$key][0] = $newval[0];
+										$_listing_arrs['Office'][0] = $newval[0]['Office'];
+										
+										if(
+											isset($_listing_arrs['Office'][0]['Phones']) && 
+											!array_key_exists(1, $_listing_arrs['Office'][0]['Phones']['Phone'])
+										) {
+											$_listing_arrs['Office'][0]['Phones'][0] = $_listing_arrs['Office'][0]['Phones']['Phone'];
+										} else {
+											foreach($_listing_arrs['Office'][0]['Phones']['Phone'] as $ph_key => $ph_val) {
+												$_listing_arrs['Office'][0]['Phones'][] = $ph_val;
+											}
+										}
+										unset($_listing_arrs['AgentDetails'][0]['Office'][0]);
+										unset($_listing_arrs['Office'][0]['Phones']['Phone']);
+									} else {
+										$_listing_arrs[$key] = $value;
+									}
+										
+						        break;
+						        case 'Photo':
+						        	$_listing_arrs[$key] = $value['PropertyPhoto'];
+						        	unset($_listing_arrs[$key]);
+						        default:
+						        	$dual_key = '';
+						        	if((is_object($value) || is_array($value))){
+								        foreach($value as $key1 => $value1){
+									        $dual_key = $key."-".$key1;
+									        $_listing_arrs[$dual_key] = SimplyRetsApiHelper::explode_if_key($key1,$value1);
+									        
+									        if($dual_key == 'Building-Rooms') {
+												$_listing_arrs['Building-Rooms'] = $_listing_arrs['Building-Rooms']['Room'];
+												unset($_listing_arrs['Building-Rooms']['Room']);
+											} elseif($dual_key == 'ParkingSpaces-Parking') {
+												if(!array_key_exists(1, $_listing_arrs[$dual_key])) {
+													$newval[0] = $value['Parking'];
+													$_listing_arrs[$dual_key][0] = $newval[0];
+													unset($_listing_arrs[$dual_key]['Name']);
+													unset($_listing_arrs[$dual_key]['Spaces']);
+												} else {
+													foreach($_listing_arrs[$dual_key] as $ph_key => $ph_val) {
+														if(isset($ph_val['Parking']))
+															$_listing_arrs[$dual_key][] = $ph_val['Parking'];
+													}
+												}
+											}
+									    }
+								    } else {
+									    $_listing_arrs[$key] = SimplyRetsApiHelper::explode_if_key($key,$value);
+									}
+									
+									
+						        break;
+					        }
+					        
+					        
+				        }
+				    } 
+				    
+				    //print_r($_listing_arrs);
+				    $post_title = 	$_listing_arrs['Address-StreetAddress'].', '.
+				    				$_listing_arrs['Address-City'].', '.
+				    				$_listing_arrs['Address-Province'].' '.
+				    				$_listing_arrs['Address-PostalCode'];
+				    $post_title = wp_strip_all_tags($post_title);
+				    $check_query = $wpdb->prepare(
+						'SELECT ID FROM '.$wpdb->posts.'
+						WHERE post_title = %s
+						AND post_type = \'listing\'',
+						$post_title
+				    );
+				    $wpdb->query($check_query);
+				    
+				    if($wpdb->num_rows){
+					    // TODO: Update post data
+				    } else {
+					    $post_information = array(
+					        'post_title' => $post_title,
+					        'post_content' => $_listing_arrs['PublicRemarks'], 
+					        'post_type' => 'listing',
+					        'post_status' => 'pending',
+					        'meta_input' => $_listing_arrs
+					    ); 
+					    if($post_id = wp_insert_post( $post_information )) {
+							SimplyRetsApiHelper::downloadPhotos($listingID, $post_id);
+						}
+						
+				    }
+					
+				}
+				
+			}
+
+			
+			
+			$offset_next = $offset + 1;
+			$offset_prev = $offset - 1;
+			$next_link = "<a href='?offset=$offset_next' class='button'>Next</a>";
+			$prev_link = ($offset_prev >= 0)?"<a href='?offset=$offset_prev' class='button'>Prev</a>":'';
+			
+			$cont .= "<hr><p class='sr-pagination'>$prev_link $next_link</p>";
+		endif;
 		
-		$cont              = "";
-        $br                = "<br>";
-        $pagination        = $response['pagination'];
-        $response          = $response['response'];
-        $map_position      = get_option('sr_search_map_position', 'list_only');
-        $show_listing_meta = SrUtils::srShowListingMeta();
-        $pag               = SrUtils::buildPaginationLinks( $pagination );
-        $prev_link         = $pag['prev'];
-        $next_link         = $pag['next'];
-
-        $vendor       = isset($settings['vendor'])   ? $settings['vendor']   : '';
-        $map_setting  = isset($settings['show_map']) ? $settings['show_map'] : '';
-
-        /** Allow override of "map_position" admin setting on a per short-code basis */
-        $map_position = isset($settings['map_position']) ? $settings['map_position'] : $map_position;
-
-        if(empty($vendor)) {
-            $vendor = get_query_var('sr_vendor', '');
-        }
-
-        /*
-         * check for an error code in the array first, if it's
-         * there, return it - no need to do anything else.
-         * The error code comes from the UrlBuilder function.
-        */
-        if($response == NULL
-           || array_key_exists("errors", $response)
-           || array_key_exists("error", $response)
-        ) {
-            $err = SrMessages::noResultsMsg((array)$response);
-            return $err;
-        }
-
-        $response_size = sizeof($response);
-        if(!array_key_exists("0", $response)) {
-            $response = array($response);
-        }
-
-
-        $map       = SrSearchMap::mapWithDefaults();
-        $mapHelper = SrSearchMap::srMapHelper();
-        $map->setAutoZoom(true);
-        $markerCount = 0;
-        
+		update_option('rets_last_import', date('Y-m-d\TH:m:s\Z', strtotime('Now')));
 		
-
-        foreach( $response as $listing ) {
-	        $resultsMarkup .= get_short_listing_template($listing);
-        }
-		
-        $markerCount > 0 ? $mapMarkup = $mapHelper->render($map) : $mapMarkup = '';
-
-        if( $map_setting == 'false' ) {
-            $mapMarkup = '';
-        }
-
-        if( $map_position == 'list_only' )
-        {
-            $cont .= $resultsMarkup;
-        }
-        elseif( $map_position == 'map_only' )
-        {
-            $cont .= $mapMarkup;
-        }
-        elseif( $map_position == 'map_above' )
-        {
-            $cont .= $mapMarkup;
-            $cont .= $resultsMarkup;
-        }
-        elseif( $map_position == 'map_below' )
-        {
-            $cont .= $resultsMarkup;
-            $cont .= '<hr>';
-            $cont .= $mapMarkup;
-        }
-        else
-        {
-            $cont .= $resultsMarkup;
-        }
-
-        $cont .= "<hr><p class='sr-pagination'>$prev_link $next_link</p>";
-        $cont .= "<br><p><small><i>This information is believed to be accurate, but without any warranty.</i></small></p>";
-
         return $cont;
 
     }
@@ -763,13 +942,16 @@ HTML;
     }
 
 
-/*************************
-*
-*	srListingSliderGenerator
-*	
-*	Creates carousel slider of listings
-*
-**************************/
+	
+    /**
+     * srListingSliderGenerator function.
+     * 
+     * @access public
+     * @static
+     * @param mixed $response
+     * @param mixed $settings
+     * @return void
+     */
     public static function srListingSliderGenerator( $response, $settings ) {
 	    global $post;
         $listings = $response['response'];
@@ -833,5 +1015,126 @@ HTML;
         return $lh_send_details;
 
     }
+    
+    
+    
+	/**
+	 * downloadPhotos function.
+	 * 
+	 * @access public
+	 * @static
+	 * @param mixed $listingID
+	 * @param mixed $post_id
+	 * @return void
+	 */
+	public static function downloadPhotos($listingID, $post_id)
+	{
+		global $RETS, $RETS_PhotoSize, $debugMode, $RETS_PhotoFolder;
+	
+		// TODO Check for downloadedPhotos
+		$photos_list = [];
+		$upload_dir = wp_upload_dir(); // Set upload folder
+		
+		$photos = $RETS->GetObject("Property", $RETS_PhotoSize, $listingID, '*');
+		
+		if(!is_array($photos))
+		{
+			if($debugMode) error_log("Cannot Locate Photos");
+			return;
+		}
+		
+		if(count($photos) > 0)
+		{
+			$count = 0;
+			foreach($photos as $photo)
+			{
+				if(
+					(!isset($photo['Content-ID']) || !isset($photo['Object-ID']))
+					||
+					(is_null($photo['Content-ID']) || is_null($photo['Object-ID']))
+					||
+					($photo['Content-ID'] == 'null' || $photo['Object-ID'] == 'null')
+				)
+				{
+					continue;
+				}
+				
+				$listing = $photo['Content-ID'];
+				$number = $photo['Object-ID'];
+				$filename = $listingID."_".$number.".jpg";
+				$photoData = $photo['Data'];
+				
+				// Check folder permission and define file location
+				if( wp_mkdir_p( $upload_dir['path'] ) ) {
+				    $destination = $upload_dir['path'] . '/' . $filename;
+				} else {
+				    $destination = $upload_dir['basedir'] . '/' . $filename;
+				}
+				
+				//$destination = $RETS_PhotoFolder.$listingID."_".$number.".jpg";
+				// Check image file type
+				$wp_filetype = wp_check_filetype( $filename, null );
+	
+	
+				// TODO Check if already exists
+				//if(!is_dir($RETS_PhotoFolder)) mkdir($RETS_PhotoFolder);
+				
+				
+				file_put_contents($destination, $photoData);
+				
+				
+	
+				
+				// Check image file type
+				$wp_filetype = wp_check_filetype( $filename, null );
+				
+				// Set attachment data
+				$attachment = array(
+				    'post_mime_type' => $wp_filetype['type'],
+				    'post_title'     => sanitize_file_name( $filename ),
+				    'post_content'   => '',
+				    'post_status'    => 'inherit'
+				);
+				// Create the attachment
+				$attach_id = wp_insert_attachment( $attachment, $destination, $post_id );
+				
+				// Include image.php
+				require_once(ABSPATH . 'wp-admin/includes/image.php');
+				
+				// Define attachment metadata
+				$attach_data = wp_generate_attachment_metadata( $attach_id, $destination );
+				
+				// Assign metadata to attachment
+				wp_update_attachment_metadata( $attach_id, $attach_data );
+				
+				
+				$photos_list[$attach_id] = $destination;
+				$new_photos[$attach_id] = $upload_dir['url'].'/'.$filename;
+				
+				if($key == 0){
+					// And finally assign featured image to post
+					set_post_thumbnail( $post_id, $attach_id );
+				}
+				
+				
+				$count++;
+			}
+			
+			update_post_meta( $post_id, 'photos', $photos_list);
+			
+			if($debugMode)
+				error_log("Downloaded ".$count." Images For '".$listingID."'");
+		}
+		elseif($debugMode)
+			error_log("No Images For '".$listingID."'");
+		
+		// For good measure.
+		if(isset($photos)) $photos = null;
+		if(isset($photo)) $photo = null;
+		
+		
+		
+		return $photos_list;
+	}
 }
  

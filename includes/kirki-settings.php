@@ -5,7 +5,7 @@ include_once( dirname( __FILE__ ) . '/kirki/kirki.php' );
 
 if ( ! function_exists( 'my_theme_kirki_update_url' ) ) {
     function my_theme_kirki_update_url( $config ) {
-        $config['url_path'] = get_stylesheet_directory_uri() . '/includes/kirki/';
+        $config['url_path'] = get_template_directory_uri() . '/includes/kirki/';
         return $config;
     }
 }

@@ -941,8 +941,10 @@ function output_structured_data(){
 	if(has_post_thumbnail($post_id)){
 		$page_image = wp_get_attachment_image_src(get_post_thumbnail_id($post_id), 'full');
 		$page_image=$page_image[0];
-	} else {
+	} elseif(isset($options['business_logo'])) {
 		$page_image = $options['business_logo'];
+	} else {
+		$page_image = get_theme_mod( 'main_logo' );
 	}
 	 
 		
@@ -954,14 +956,14 @@ function output_structured_data(){
 	<meta property="og:description" content="<?=$page_description?>">
 	<meta property="og:site_name" content="<?=$brand_title?>">
 	<?php
-	if(in_array($options['business_type'], array('FoodEstablishment', 'Bakery','BarOrPub','Brewery', 'CafeOrCoffeeShop', 'FastFoodRestaurant', 'IceCreamShop', 'Restaurant', 'Winery'))){
+	if((isset($options['business_type'])) && (in_array($options['business_type'], array('FoodEstablishment', 'Bakery','BarOrPub','Brewery', 'CafeOrCoffeeShop', 'FastFoodRestaurant', 'IceCreamShop', 'Restaurant', 'Winery')))){
 		
 		if(is_page('menu') || is_tax('menu-section')){
 			echo '<meta property="fb:app_id" content="'.$options['business_fb_article_claim'].'" />';
 			echo '<meta property="og:type" content="restaurant.menu">';
 			echo '<meta property="restaurant:restaurant" content="'.$options['business_name'].'" />';
 		} if(is_singular('menu')){
-			echo '<meta property="fb:app_id" content="'.$options['business_fb_article_claim'].'" />';
+			if(isset($options['business_fb_article_claim']))echo '<meta property="fb:app_id" content="'.$options['business_fb_article_claim'].'" />';
 			echo '<meta property="og:type" content="restaurant.menu_item">';
 			$section = get_the_terms($post_id, 'menu-section');
 			$meta_price = get_post_meta($post_id, 'price', true);
@@ -970,32 +972,34 @@ function output_structured_data(){
 				  <meta property="restaurant:variation:price:currency" content="CAD" />';
 		} else {
 			echo '<meta property="og:type" content="restaurant.restaurant">';
-			echo '<meta property="restaurant:contact_info:street_address" content="'.$options['business_address']['address-1'].'" /> 
-				  <meta property="restaurant:contact_info:locality"       content="'.$options['business_address']['city'].'" /> 
-				  <meta property="restaurant:contact_info:region"         content="'.$options['business_address']['state'].'" /> 
-				  <meta property="restaurant:contact_info:postal_code"    content="'.$options['business_address']['zip'].'" /> 
-				  <meta property="restaurant:contact_info:country_name"   content="'.$options['business_address']['country'].'" /> 
-				  <meta property="restaurant:contact_info:email"          content="'.$options['business_email'].'" /> 
-				  <meta property="restaurant:contact_info:phone_number"   content="'.$options['business_telephone'].'" /> 
-				  <meta property="restaurant:contact_info:website"        content="'.$options['business_url'].'" /> 
-				  <meta property="place:location:latitude"                content="'.$options['business_geo_latitude'].'" /> 
-				  <meta property="place:location:longitude"               content="'.$options['business_geo_longitude'].'" />';
+			if(isset($options['business_address'])) echo '<meta property="restaurant:contact_info:street_address" content="'.$options['business_address']['address-1'].'" />';
+			if(isset($options['business_address'])) echo '<meta property="restaurant:contact_info:locality"       content="'.$options['business_address']['city'].'" />';
+			if(isset($options['business_address'])) echo '<meta property="restaurant:contact_info:region"         content="'.$options['business_address']['state'].'" /> ';
+			if(isset($options['business_address'])) echo '<meta property="restaurant:contact_info:postal_code"    content="'.$options['business_address']['zip'].'" /> ';
+			if(isset($options['business_address'])) echo '<meta property="restaurant:contact_info:country_name"   content="'.$options['business_address']['country'].'" /> ';
+			if(isset($options['business_email'])) echo '<meta property="restaurant:contact_info:email"          content="'.$options['business_email'].'" /> ';
+			if(isset($options['business_telephone'])) echo '<meta property="restaurant:contact_info:phone_number"   content="'.$options['business_telephone'].'" />'; 
+			if(isset($options['business_url'])) echo '<meta property="restaurant:contact_info:website"        content="'.$options['business_url'].'" /> ';
+			if(isset($options['business_geo_latitude'])) echo '<meta property="place:location:latitude"                content="'.$options['business_geo_latitude'].'" /> ';
+			if(isset($options['business_geo_longitude'])) echo '<meta property="place:location:longitude"               content="'.$options['business_geo_longitude'].'" />';
 		}
 	} elseif(is_single()){
 		echo '<meta property="og:type" content="article">';
 	} elseif(is_front_page() || is_home() || !is_single() || !is_archive()){
 		echo '<meta property="og:type" content="business.business">';
-		echo '<meta property="business:contact_data:street_address" content="'.$options['business_address']['address-1'].'">';
-		echo '<meta property="business:contact_data:locality" 	  content="'.$options['business_address']['city'].'">';
-		echo '<meta property="business:contact_info:region"     content="'.$options['business_address']['state'].'" />';
-		echo '<meta property="business:contact_data:postal_code"  content="'.$options['business_address']['zip'].'">';
-		echo '<meta property="business:contact_data:country_name" content="'.$options['business_address']['country'].'">';
-		echo '<meta property="place:location:latitude" content="'.$options['business_geo_latitude'].'">';
-		echo '<meta property="place:location:longitude" content="'.$options['business_geo_longitude'].'">';
+		if(isset($options['business_address'])) { 
+			echo '<meta property="business:contact_data:street_address" content="'.$options['business_address']['address-1'].'">';
+			echo '<meta property="business:contact_data:locality" 	  content="'.$options['business_address']['city'].'">';
+			echo '<meta property="business:contact_info:region"     content="'.$options['business_address']['state'].'" />';
+			echo '<meta property="business:contact_data:postal_code"  content="'.$options['business_address']['zip'].'">';
+			echo '<meta property="business:contact_data:country_name" content="'.$options['business_address']['country'].'">';
+		}
+		if(isset($options['business_geo_latitude'])) echo '<meta property="place:location:latitude" content="'.$options['business_geo_latitude'].'">';
+		if(isset($options['business_geo_longitude'])) echo '<meta property="place:location:longitude" content="'.$options['business_geo_longitude'].'">';
 	} else {
 		echo '<meta property="og:type" content="website">';
 	}
-	if($options['business_fb_article_claim'] != ''){
+	if(isset($options['business_fb_article_claim'])){
 		echo '<meta property="fb:pages" content="'.$options['business_fb_article_claim'].'" />';
 	}
 
@@ -1022,7 +1026,7 @@ function add_graph_data(){
 	$WebSite = '<script type="application/ld+json">{
 	  "@context" : "http://schema.org",
 	  "@type" : "WebSite",';
- 		if($options['business_name']!='')$WebSite .= ' "name" : "'.$options['business_name'].'",';
+ 		if(isset($options['business_name']))$WebSite .= ' "name" : "'.$options['business_name'].'",';
 	 $WebSite .= '"url" : "'.get_bloginfo('url').'"';
 	$WebSite .= '}</script>';
 	echo $WebSite;
@@ -1036,14 +1040,14 @@ function add_graph_data(){
 		"@context" : "http://schema.org",
 		"@type" : "Organization",';
 	$html .= '"url" : "'.get_bloginfo('url').'",';
-	if($options['business_logo']!='')$html .= '"logo" : "'.$options['business_logo'].'",';
-	if($options['business_email']!='')$html .= '"email" : "'.$options['business_email'].'",';
-	if($options['business_faxNumber']!='')$html .= '"faxNumber" : "'.$options['business_faxNumber'].'",';
-	if($options['business_description']!='')$html .= ' "description" : "'.$options['business_description'].'",';
-	if($options['business_name']!='')$html .= ' "name" : "'.$options['business_name'].'",';
+	if(isset($options['business_logo']))$html .= '"logo" : "'.$options['business_logo'].'",';
+	if(isset($options['business_email']))$html .= '"email" : "'.$options['business_email'].'",';
+	if(isset($options['business_faxNumber']))$html .= '"faxNumber" : "'.$options['business_faxNumber'].'",';
+	if(isset($options['business_description']))$html .= ' "description" : "'.$options['business_description'].'",';
+	if(isset($options['business_name']))$html .= ' "name" : "'.$options['business_name'].'",';
 	if(isset($options['business_telephone_numbers'])){
 		foreach($options['business_telephone_numbers'] as $number){
-			if($number['business_telephone']!='')$html .= ' "contactPoint" : [{
+			if(isset($number['business_telephone']))$html .= ' "contactPoint" : [{
 			"@type" : "ContactPoint",
 			"telephone" : "'.$number['business_telephone'].'",
 			"contactType" : "'.$number['business_contactType'].'"
@@ -1077,130 +1081,134 @@ function add_graph_data(){
 	*	SPECIFIC TYPE
 	*
 	*/
-	$html = '<script type="application/ld+json">{
-	  "@context" : "http://schema.org",
-	  "@type" : "'.$options['business_type'].'",';
-	$html .= '"url" : "'.get_bloginfo('url').'",';
-	 
-	if($options['business_logo']!='')$html .= '"logo" : "'.$options['business_logo'].'",';
-	if($options['business_logo']!='')$html .= '"image" : "'.$options['business_logo'].'",';
-	if($options['business_email']!='')$html .= '"email" : "'.$options['business_email'].'",';
-	if(isset($options['business_telephone_numbers'])){
-		foreach($options['business_telephone_numbers'] as $number){
-			if($number['business_telephone']!='')$html .= ' "contactPoint" : [{
-			"@type" : "ContactPoint",
-			"telephone" : "'.$number['business_telephone'].'",
-			"contactType" : "'.$number['business_contactType'].'"
-			}],';
-		}
-	}
-	$html .= '"priceRange" : "$$$",';
-	if($options['business_faxNumber']!='')$html .= '"faxNumber" : "'.$options['business_faxNumber'].'",';
-	if($options['business_description']!='')$html .= ' "description" : "'.$options['business_description'].'",';
-	if($options['business_name']!='')$html .= ' "name" : "'.$options['business_name'].'",';
-	  
-	if(in_array($options['business_type'], array('FoodEstablishment','Bakery','BarOrPub','Brewery','CafeOrCoffeeShop','FastFoodRestaurant','IceCreamShop','Restaurant','Winery'))){
-		if($options['business_acceptsReservations']!='')$html .= ' "acceptsReservations" : "'.$options['business_acceptsReservations'].'",';
-		if($options['business_menu']!='')$html .= ' "menu" : "'.$options['business_menu'].'",';
-	  	
-	  	if(isset($options['business_potentialAction'])):
-			$html .= '"potentialAction":{
-			    "@type":"ReserveAction",
-			    "target":{
-			      "@type":"EntryPoint",
-			      "urlTemplate":"'.$options['business_potentialAction_urlTemplate'].'",
-			      "inLanguage":"en-CA",
-			      "actionPlatform":[
-			        "http://schema.org/DesktopWebPlatform",
-			        "http://schema.org/IOSPlatform",
-			        "http://schema.org/AndroidPlatform",
-			        "http://schema.org/MobileWebPlatform"
-			      ]
-			    },
-			    "result":{
-			      "@type":"'.$options['business_potentialAction_resultType'].'",
-			      "name":"'.$options['business_potentialAction_name'].'"
-			    }
-			},';
-		endif;
-	}
-	if(isset($options['business_telephone_numbers'])){
-		if($options['business_telephone_numbers'][0]['business_telephone']!='')$html .= '"telephone" : "'.$options['business_telephone_numbers'][0]['business_telephone'].'",';
-		foreach($options['business_telephone_numbers'] as $number){
-			
-			if($number['business_telephone']!='')$html .= ' "contactPoint" : [{
-			"@type" : "ContactPoint",
-			"telephone" : "'.$number['business_telephone'].'",
-			"contactType" : "'.$number['business_contactType'].'"
-			}],';
-		}
-	}
-	
-	if(isset($options['business_openingHoursSpecification']) && is_array($options['business_openingHoursSpecification'])){
-		$html .= '"openingHoursSpecification" : [';
-		$comma = '';
-		foreach($options['business_openingHoursSpecification'] as $hourset):
-		 	if(!empty($hourset['dayOfWeek'])){
-				$html .= $comma.'{
-					    "@type": "OpeningHoursSpecification",
-					    "dayOfWeek": [';
-					$comma2 ='';
-					foreach($hourset['dayOfWeek'] as $key=>$day){
-						$html .= $comma2.'"'.$day.'"';
-						$comma2 =',';
-					}
-					
-				$html .= '],
-					    "opens": "'.$hourset['opens'].'",
-					    "closes": "'.$hourset['closes'].'"
-					  }';
-				$comma = ',';
+	if(isset($options['business_type'])):
+		$html = '<script type="application/ld+json">{
+		  "@context" : "http://schema.org",
+		  "@type" : "'.$options['business_type'].'",';
+		$html .= '"url" : "'.get_bloginfo('url').'",';
+		 
+		if(isset($options['business_logo']))$html .= '"logo" : "'.$options['business_logo'].'",';
+		if(isset($options['business_logo']))$html .= '"image" : "'.$options['business_logo'].'",';
+		if(isset($options['business_email']))$html .= '"email" : "'.$options['business_email'].'",';
+		if(isset($options['business_telephone_numbers'])){
+			foreach($options['business_telephone_numbers'] as $number){
+				if($number['business_telephone']!='')$html .= ' "contactPoint" : [{
+				"@type" : "ContactPoint",
+				"telephone" : "'.$number['business_telephone'].'",
+				"contactType" : "'.$number['business_contactType'].'"
+				}],';
 			}
-		endforeach;
-		$html .= ' ],';
-	}
-	if(isset($options['business_social'])){
-		$html .= '"sameAs" : [';
-		$comma = '';
-		foreach($options['business_social'] as $socialprofile):
-			$html .= $comma.'"'.$socialprofile['social_url'].'"';
-			$comma = ',';
-		endforeach;
-		$html.= ' ],';
-	}
-	if(isset($options['business_address'])){
-		$html .= '"address": {
-			"@type": "PostalAddress",';
-			if($options['business_address']['city']!='')$html .= '"addressLocality": "'.$options['business_address']['city'].'",';
-			if($options['business_address']['state']!='')$html .= '"addressRegion": "'.$options['business_address']['state'].'",';
-			if($options['business_address']['address-1']!='')$html .= '"streetAddress": "'.$options['business_address']['address-1'].'",';
-			if($options['business_address']['country']!='')$html .= '"addressCountry": "'.$options['business_address']['country'].'",';
-			if($options['business_address']['zip']!='')$html .= '"postalCode": "'.$options['business_address']['zip'].'"';
-		$html.='  }';
-	}
-	  if($options['business_geo_latitude']!='' && $options['business_geo_longitude']!=''){$html .= ', "geo": {
-		"@type": "GeoCoordinates",
-		"latitude": "'.$options['business_geo_latitude'].'",
-		"longitude": "'.$options['business_geo_longitude'].'"
-	  }';}
-	$html .= '}</script>';
+		}
+	
+		$html .= '"priceRange" : "$$$",';
+		if(isset($options['business_faxNumber']))$html .= '"faxNumber" : "'.$options['business_faxNumber'].'",';
+		if(isset($options['business_description']))$html .= ' "description" : "'.$options['business_description'].'",';
+		if(isset($options['business_name']))$html .= ' "name" : "'.$options['business_name'].'",';
+		  
+		if(in_array($options['business_type'], array('FoodEstablishment','Bakery','BarOrPub','Brewery','CafeOrCoffeeShop','FastFoodRestaurant','IceCreamShop','Restaurant','Winery'))){
+			if($options['business_acceptsReservations']!='')$html .= ' "acceptsReservations" : "'.$options['business_acceptsReservations'].'",';
+			if($options['business_menu']!='')$html .= ' "menu" : "'.$options['business_menu'].'",';
+		  	
+		  	if(isset($options['business_potentialAction'])):
+				$html .= '"potentialAction":{
+				    "@type":"ReserveAction",
+				    "target":{
+				      "@type":"EntryPoint",
+				      "urlTemplate":"'.$options['business_potentialAction_urlTemplate'].'",
+				      "inLanguage":"en-CA",
+				      "actionPlatform":[
+				        "http://schema.org/DesktopWebPlatform",
+				        "http://schema.org/IOSPlatform",
+				        "http://schema.org/AndroidPlatform",
+				        "http://schema.org/MobileWebPlatform"
+				      ]
+				    },
+				    "result":{
+				      "@type":"'.$options['business_potentialAction_resultType'].'",
+				      "name":"'.$options['business_potentialAction_name'].'"
+				    }
+				},';
+			endif;
+		}
+	
+		if(isset($options['business_telephone_numbers'])){
+			if($options['business_telephone_numbers'][0]['business_telephone']!='')$html .= '"telephone" : "'.$options['business_telephone_numbers'][0]['business_telephone'].'",';
+			foreach($options['business_telephone_numbers'] as $number){
+				
+				if($number['business_telephone']!='')$html .= ' "contactPoint" : [{
+				"@type" : "ContactPoint",
+				"telephone" : "'.$number['business_telephone'].'",
+				"contactType" : "'.$number['business_contactType'].'"
+				}],';
+			}
+		}
+	
+		if(isset($options['business_openingHoursSpecification']) && is_array($options['business_openingHoursSpecification'])){
+			$html .= '"openingHoursSpecification" : [';
+			$comma = '';
+			foreach($options['business_openingHoursSpecification'] as $hourset):
+			 	if(!empty($hourset['dayOfWeek'])){
+					$html .= $comma.'{
+						    "@type": "OpeningHoursSpecification",
+						    "dayOfWeek": [';
+						$comma2 ='';
+						foreach($hourset['dayOfWeek'] as $key=>$day){
+							$html .= $comma2.'"'.$day.'"';
+							$comma2 =',';
+						}
+						
+					$html .= '],
+						    "opens": "'.$hourset['opens'].'",
+						    "closes": "'.$hourset['closes'].'"
+						  }';
+					$comma = ',';
+				}
+			endforeach;
+			$html .= ' ],';
+		}
+		
+		if(isset($options['business_social'])){
+			$html .= '"sameAs" : [';
+			$comma = '';
+			foreach($options['business_social'] as $socialprofile):
+				$html .= $comma.'"'.$socialprofile['social_url'].'"';
+				$comma = ',';
+			endforeach;
+			$html.= ' ],';
+		}
+		if(isset($options['business_address'])){
+			$html .= '"address": {
+				"@type": "PostalAddress",';
+				if($options['business_address']['city']!='')$html .= '"addressLocality": "'.$options['business_address']['city'].'",';
+				if($options['business_address']['state']!='')$html .= '"addressRegion": "'.$options['business_address']['state'].'",';
+				if($options['business_address']['address-1']!='')$html .= '"streetAddress": "'.$options['business_address']['address-1'].'",';
+				if($options['business_address']['country']!='')$html .= '"addressCountry": "'.$options['business_address']['country'].'",';
+				if($options['business_address']['zip']!='')$html .= '"postalCode": "'.$options['business_address']['zip'].'"';
+			$html.='  }';
+		}
+		  if(isset($options['business_geo_latitude']) && isset($options['business_geo_longitude'])){$html .= ', "geo": {
+			"@type": "GeoCoordinates",
+			"latitude": "'.$options['business_geo_latitude'].'",
+			"longitude": "'.$options['business_geo_longitude'].'"
+		  }';}
+		$html .= '}</script>';
 	
 	
-	
-	if($options['business_google_site_verification'] != ''){
+	endif;
+	if(isset($options['business_google_site_verification'])){
 		if($match = preg_match_all("/\"([^\"]*)\"/", $options['business_google_site_verification'], $output_array)){
 			if(isset($output_array[1][1]))$html .= '<meta name="google-site-verification" content="'.$output_array[1][1].'">';
 			else $html .= $options['business_google_site_verification'];
 		} else { $html .= '<meta name="google-site-verification" content="'.$options['business_google_site_verification'].'">'; }
 	}
-	if($options['business_bing_site_verification'] != ''){
+	if(isset($options['business_bing_site_verification'])){
 		if($match = preg_match_all("/\"([^\"]*)\"/", $options['business_bing_site_verification'], $output_array)){
 			if(isset($output_array[1][1]))$html .= '<meta name="msvalidate.01" content="'.$output_array[1][1].'">';
 			else $html .= $options['business_bing_site_verification'];
 		} else { $html .= '<meta name="msvalidate.01" content="'.$options['business_bing_site_verification'].'">'; }
 	}
 	
-	if($options['business_pinterest_site_verification'] != ''){
+	if(isset($options['business_pinterest_site_verification'])){
 		if($match = preg_match_all("/\"([^\"]*)\"/", $options['business_pinterest_site_verification'], $output_array)){
 			if(isset($output_array[1][1]))$html .= '<meta name="p:domain_verify" content="'.$output_array[1][1].'">';
 			else $html .= $options['business_pinterest_site_verification'];

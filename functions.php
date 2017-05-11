@@ -1,7 +1,137 @@
 <?php
-/* 
-// TODO: Add WP Custom CSS support	
-*/
+/*
+Theme Structure:
+- Admin
+-- SEO Options
+-- Theme Customizer (Kirki)
+-- Post Panels
+
+- SEO 
+-- Shortcodes of values
+-- Meta data modification
+
+- Compression
+-- WordPress speed enhancements
+-- CSS Inlining
+-- JS Async Loading
+
+- Custom Shortcodes
+-- Sliders
+
+- DDF Realty Addon
+
+- Plugin Modifiers
+-- Gravity Forms
+-- WooCommerce
+
+========================
+Folder Structure: 
+- post_types
+-- portfolio
+-- listings
+-- food
+-- testimonials
+--- shortcodes
+--- editor
+--- templates
+
+
+TODO: Create class that will handle the creation of Kirki customizer options, while simaltaniously creating the same options in a Theme Options Page.
+
+TODO: Have all CSS scripts that cannot be inlined loaded asyncronously use Google suggested Javascript method [https://www.keycdn.com/blog/google-pagespeed-insights-wordpress/].
+
+TODO: Implement Classes using the Singleton Pattern to prevent multiple instances [https://code.tutsplus.com/articles/design-patterns-in-wordpress-the-singleton-pattern--wp-31621].
+
+**/
+if ( ! defined( 'HIIWP_VERSION' ) ) {                
+	 define( 'HIIWP_VERSION', '0.3.1' );
+}
+if ( ! defined( 'HIIWP_SLUG' ) ) {                
+    define( 'HIIWP_SLUG', 'hiiwp' );           
+}                
+if(!defined('HIILITE_DIR')) define( 'HIILITE_DIR', get_template_directory() );
+    
+if ( ! defined( 'HIIWP_URL' ) ) {
+    $file = get_template_directory(); // Current PHP file, but can be anyone
+	$link = str_replace( WP_CONTENT_DIR, WP_CONTENT_URL, $file );
+    define( 'HIIWP_URL', $link );
+}
+include_once(HIILITE_DIR . '/includes/HiiWP.php');
+/**
+ * Hii class.
+ * Based on the Simple Factory methods Plugin class, mixed with the Singleton method of checking if the class is already set.
+ * load the HiiWP class
+ */
+class Hii {
+	/*--------------------------------------------*
+     * Attributes
+     *--------------------------------------------*/
+     
+	/** Refers to a single instance of this class. */
+	private static $hiiwp = null;
+	
+	
+	
+	/*--------------------------------------------*
+     * Constructor
+     *--------------------------------------------*/
+ 
+    /**
+     * Creates or returns an instance of this class.
+     *
+     * @return  Foo A single instance of this class.
+     */
+     public static function say_hii(){
+		if(null == self::$hiiwp) {
+			self::$hiiwp = new HiiWP();
+		}
+		return self::$hiiwp;
+	}
+	
+	/**
+     * Initializes the theme by setting localization, filters, and administration functions.
+     */
+	private function __construct() {
+		//Define plugin constants if you haven't already. 
+		//I recommend calling  a function, $this->define_constants and doing the definitions there
+		//$this->define_constants();
+		
+		/*
+		Add Theme Supports	
+		*/
+		add_theme_support( 'title-tag' );
+		add_theme_support( 'post-thumbnails' );
+		add_theme_support( 'menus' );
+		add_theme_support( 'woocommerce' );
+	}
+	
+	/*--------------------------------------------*
+     * Functions
+     *--------------------------------------------*/
+     
+    /**
+	* Define plugin constants
+	*/
+	private function define_constants(){
+	    if ( ! defined( 'HIIWP_VERSION' ) ) {                
+			 define( 'HIIWP_VERSION', '0.3.1' );
+	    }
+	    if ( ! defined( 'HIIWP_SLUG' ) ) {                
+	        define( 'HIIWP_SLUG', 'hiiwp' );           
+	    }                
+	    if(!defined('HIILITE_DIR')) define( 'HIILITE_DIR', get_template_directory() );
+	        
+	    if ( ! defined( 'HIIWP_URL' ) ) {
+		    $file = dirname(get_template_directory()); // Current PHP file, but can be anyone
+			$link = str_replace( WP_CONTENT_DIR, WP_CONTENT_URL, $file );
+	        define( 'HIIWP_URL', $link );
+	    }
+	}
+}
+
+Hii::say_hii();
+
+
 global $hiilite_options;
 $hiilite_options['amp'] = get_theme_mod('amp');
 $hiilite_options['portfolio_on'] = get_theme_mod('portfolio_on');
@@ -15,17 +145,12 @@ if(class_exists( 'WooCommerce' )){
 } else {
 	$hiilite_options['is_woocommerce'] = false;
 }
-if(!defined('HIILITE_DIR')) define( 'HIILITE_DIR', dirname( __FILE__ ) );
+
 add_filter( 'auto_update_theme', '__return_true' );
+add_filter('widget_text','do_shortcode');
 
 
-/*
-Add Theme Supports	
-*/
-add_theme_support( 'title-tag' );
-add_theme_support( 'post-thumbnails' );
-add_theme_support( 'menus' );
-add_theme_support( 'woocommerce' );
+
 
 add_filter( 'wp_calculate_image_srcset_meta', '__return_null' );
 
@@ -34,35 +159,28 @@ add_filter( 'wp_calculate_image_srcset_meta', '__return_null' );
 
 
 
-require_once( dirname( __FILE__ ) . '/includes/kirki-settings.php' );
+require_once( HIILITE_DIR . '/includes/kirki-settings.php' );
 
-if(!class_exists('HiiWP')){ 
-	require_once( dirname( __FILE__ ) . '/addons/hiiwp/hiiwp.php');
-}
-if(!class_exists('SrUtils') && $hiilite_options['rets_listings_on']){
+require_once( HIILITE_DIR . '/addons/hiiwp/hiiwp.php');
+
+if($hiilite_options['rets_listings_on']){
 	//Simply Rets Plugin
-	require_once( dirname( __FILE__ ) . '/addons/simply-rets/simply-rets.php' );
-	
-	// Admin listing port type
-	require_once( dirname( __FILE__ ) . '/includes/rets-listings.php' );
-	
-	// Templete override functions
-	require_once( dirname( __FILE__ ) . '/addons/simply-rets.php' );
+	require_once( HIILITE_DIR . '/hii-ddf/hii-ddf.php' );
 }
 
-require_once( dirname( __FILE__ ) . '/addons/tinymce_edits/tinymce_edits.php');
-require_once( dirname( __FILE__ ) . '/includes/widgets.php' );
-require_once( dirname( __FILE__ ) . '/includes/register_sidebars.php' );
-require_once( dirname( __FILE__ ) . '/includes/register_post_types.php');
-require_once( dirname( __FILE__ ) . '/includes/classes.php' );
-require_once( dirname( __FILE__ ) . '/includes/shortcodes/button.php');
-require_once( dirname( __FILE__ ) . '/includes/shortcodes/title.php');
-require_once( dirname( __FILE__ ) . '/includes/shortcodes/media-gallery.php');
-require_once( dirname( __FILE__ ) . '/includes/shortcodes/vc_empty_space.php');
-require_once( dirname( __FILE__ ) . '/includes/shortcodes/amp-carousel.php');
-require_once( dirname( __FILE__ ) . '/includes/shortcodes/screen-showcase.php');
-require_once( dirname( __FILE__ ) . '/includes/shortcodes/calculation-table.php');
-require_once( dirname( __FILE__ ) . '/includes/shortcodes/icon_text.php');
+require_once( HIILITE_DIR . '/addons/tinymce_edits/tinymce_edits.php');
+require_once( HIILITE_DIR . '/includes/widgets.php' );
+require_once( HIILITE_DIR . '/includes/register_sidebars.php' );
+require_once( HIILITE_DIR . '/includes/register_post_types.php');
+require_once( HIILITE_DIR . '/includes/classes.php' );
+require_once( HIILITE_DIR . '/includes/shortcodes/button.php');
+require_once( HIILITE_DIR . '/includes/shortcodes/title.php');
+require_once( HIILITE_DIR . '/includes/shortcodes/media-gallery.php');
+require_once( HIILITE_DIR . '/includes/shortcodes/vc_empty_space.php');
+require_once( HIILITE_DIR . '/includes/shortcodes/amp-carousel.php');
+require_once( HIILITE_DIR . '/includes/shortcodes/screen-showcase.php');
+require_once( HIILITE_DIR . '/includes/shortcodes/calculation-table.php');
+require_once( HIILITE_DIR . '/includes/shortcodes/icon_text.php');
 
 
 /*
@@ -82,7 +200,7 @@ function requireVcExtend(){
 WP USER MANAGER	
 */
 if(class_exists('WP_User_Manager')):
-	require_once( dirname( __FILE__ ) . '/includes/shortcodes/wpum.php');
+	require_once( HIILITE_DIR . '/includes/shortcodes/wpum.php');
 endif;
 
 /*	
@@ -92,10 +210,18 @@ if(class_exists('GFForms')):
 	//require_once( dirname( __FILE__ ) . '/addons/gravityformsrangeslider/rangeslider.php');
 endif;
 
+/*
+bbPress	
+*/
+if(class_exists('bbPress')):
+	//change admin links displayed
+
+endif;
+
 
 /* Add with options in Custumizer */
 if(get_theme_mod( 'blog_author_bio' ) == true){
-	require_once( dirname( __FILE__ ) . '/includes/shortcodes/author-info.php');
+	require_once( HIILITE_DIR . '/includes/shortcodes/author-info.php');
 }
 
 
@@ -110,8 +236,46 @@ function optimize_heartbeat_settings( $settings ) {
 add_filter( 'heartbeat_settings', 'optimize_heartbeat_settings' );
 
 
+//add_action('wp_print_scripts','add_load_css',7);
+add_action('wp_head','add_load_css',7);
+function add_load_css(){ 
+    ?>
+    <script>/*! 
+		loadCSS: load a CSS file asynchronously. 
+		[c]2014 @scottjehl, Filament Group, Inc. 
+		Licensed MIT 
+		*/
+		
+		function loadCSS( href, before, media ){ 
+			"use strict"; 
+			var ss = window.document.createElement( "link" ); 
+			var ref = before || window.document.getElementsByTagName( "script" )[ 0 ]; 
+			ss.rel = "stylesheet"; 
+			ss.href = href; 
+			ss.media = "only x"; 
+			ref.parentNode.insertBefore( ss, ref ); 
+			setTimeout( function(){ 
+				ss.media = media || "all"; 
+			} ); 
+			return ss; 
+		}
+	</script><?php
+}
 
-
+add_filter('style_loader_tag', 'link_to_loadCSS_script',9999,3);
+function link_to_loadCSS_script($html, $handle, $href ) {
+	if(!is_admin()){
+		$dom = new DOMDocument();
+	    $dom->loadHTML($html);
+	    $a = $dom->getElementById($handle.'-css');
+	    if($a)
+	    	return "<script>loadCSS('" . $a->getAttribute('href') . "',0,'" . $a->getAttribute('media') . "');</script>\n";	
+	    else
+	    	return $html;
+	} else {
+		return $html;
+	}
+}
 
 
 /*
@@ -171,31 +335,46 @@ add_action( 'init', 'disable_wp_emojicons' );
 function hiiwp_init(){
 	global $hiilite_options, $post, $wp_scripts;
 	
-	require_once(dirname( __FILE__ ) . '/includes/site_variables.php');
+	require_once(HIILITE_DIR . '/includes/site_variables.php');
 	
 	wp_enqueue_script("jquery");
 	wp_enqueue_script('amp-scripts', get_template_directory_uri().'/js/amp-scripts.js','jquery', array( 'jquery' ), '0.0.1', true);	
 	add_filter('script_loader_tag', 'add_defer_attribute', 10, 2);
-
+	if($hiilite_options['is_woocommerce']){
+		wp_enqueue_script( 'prettyPhoto-init', $woocommerce->plugin_url() . '/assets/js/prettyPhoto/jquery.prettyPhoto.init' . '.js', array( 'jquery' ), $woocommerce->version, true );
+	} 
+	
+	include_once(HIILITE_DIR . '/css/main-css.php');
 }
 add_action( 'wp_head', 'hiiwp_init' );
 
+function print_inline_script() {
+  if ( wp_script_is( 'jquery', 'done' ) ) { 
+	  
+  ?><script type="text/javascript">
+		document.onreadystatechange = function() {
+		<?=get_theme_mod('custom_js');?>
+		};
+	</script><?php
+  }
+}
+add_action( 'wp_footer', 'print_inline_script', 100 );
 
 /*
 //	note: customize_preview_init
 */
-function tuts_customize_preview_js() {
-    wp_enqueue_script( 'tuts_customizer_preview', get_template_directory_uri() . '/js/customizer-preview.js', array( 'customize-preview' ), null, true );
+function hiiwp_customize_preview_js() {
+    wp_enqueue_script( 'hiiwp_customizer_preview', get_template_directory_uri() . '/js/customizer-preview.js', array( 'customize-preview' ), null, true );
 }
-add_action( 'customize_preview_init', 'tuts_customize_preview_js' );
+add_action( 'customize_preview_init', 'hiiwp_customize_preview_js' );
  
 /*
 //	note: customize_controls_enqueue_scripts
 */
-function tuts_customize_control_js() {
-    wp_enqueue_script( 'tuts_customizer_control', get_template_directory_uri() . '/js/customizer-control.js', array( 'customize-controls', 'jquery' ), null, true );
+function hiiwp_customize_control_js() {
+    wp_enqueue_script( 'hiiwp_customizer_control', get_template_directory_uri() . '/js/customizer-control.js', array( 'customize-controls', 'jquery' ), null, true );
 }
-add_action( 'customize_controls_enqueue_scripts', 'tuts_customize_control_js' );
+add_action( 'customize_controls_enqueue_scripts', 'hiiwp_customize_control_js' );
 
 
 
@@ -235,13 +414,13 @@ on ADMIN_HEAD actions
 */
 if(!function_exists('hiilite_admin_styles')){
 	function hiilite_admin_styles() {
-	    wp_register_style( 'hiilite_admin_stylesheet', get_stylesheet_directory_uri(). '/css/admin-style.css' );
+	    wp_register_style( 'hiilite_admin_stylesheet', get_template_directory_uri(). '/css/admin-style.css' );
 	    wp_enqueue_style( 'hiilite_admin_stylesheet' );
 	    
 	    wp_enqueue_media();
 	 
 	    // Registers and enqueues the required javascript.
-	    wp_register_script( 'meta_uploader', get_stylesheet_directory_uri() . '/js/meta_uploader.js', array( 'jquery' ) );
+	    wp_register_script( 'meta_uploader', get_template_directory_uri() . '/js/meta_uploader.js', array( 'jquery' ) );
 	    wp_localize_script( 'meta_uploader', 'meta_image',
 	        array(
 	            'title' => __( 'Choose or Upload an Image', 'prfx-textdomain' ),
@@ -257,9 +436,9 @@ if(!function_exists('hiilite_admin_styles')){
 	function custom_colors() {
 		global $hiilite_options;
 		
-		require_once(dirname( __FILE__ ) . '/includes/site_variables.php');
+		require_once(HIILITE_DIR . '/includes/site_variables.php');
 		echo '<style>';
-			require_once(dirname( __FILE__ ) . '/editor-style.php');
+			require_once(HIILITE_DIR . '/editor-style.php');
 		echo '</style>';
 		add_editor_style( 'editor-style.css' ); 
 	}
@@ -462,64 +641,58 @@ function cmb2_post_metaboxes(){
 	$cmb->add_field( array(
 	    'name' => 'Hide Page Title',
 	    'id'   => 'show_page_title',
-	    'type' => 'checkbox',
-	    'default' => false
+	    'type' => 'select',
+	    'default' => 'default',
+	    'options' => array(
+		    'default' => 'Theme Default',
+	        'hide' => 'Hide Page Title',
+	        'show'    => 'Show Page Title',
+	    )
 	) );
 	
 	$cmb->add_field( array(
 	    'name' => 'Hide Feature Image',
 	    'id'   => 'hide_page_feature_image',
-	    'type' => 'checkbox',
-	    'default' => false
+	    'type' => 'select',
+	    'default' => 'default',
+	    'options'  => array(
+		    'default' => 'Theme Default',
+	        'hide' => 'Hide Image Title',
+	        'show'    => 'Show Image Title',
+	    )
 	) );
 	
 	$cmb->add_field( array(
 	    'name'             => 'Title Background Color',
 	    'desc'             => 'Edit color sets in the theme customizer',
 	    'id'               => 'page_title_bg',
-	    'type'             => 'radio_inline',
-	    'show_option_none' => true,
+	    'type'             => 'colorpicker',
 	    'default'          => '',
-	    'options'          => array(
-	        '' => 'None',
-	        'bg_color_one'    => '<span style="background:'.get_theme_mod( 'color_one', '#ef5022').'">'.get_theme_mod( 'color_one', '#ef5022').'</span>',
-	        'bg_color_two'    => '<span style="background:'.get_theme_mod( 'color_two', '#71be44').'">'.get_theme_mod( 'color_two', '#71be44').'</span>',
-	        'bg_color_three'  => '<span style="background:'.get_theme_mod( 'color_three', '#2eb6c4').'">'.get_theme_mod( 'color_three', '#2eb6c4').'</span>',
-	        'bg_color_four'   => '<span style="background:'.get_theme_mod( 'color_four', '#555555').'">'.get_theme_mod( 'color_four', '#555555').'</span>',
-	        'bg_color_five'   => '<span style="background:'.get_theme_mod( 'color_five', '#8f52a0').'">'.get_theme_mod( 'color_five', '#8f52a0').'</span>',
-	    ),
+	) );
+	
+	$cmb->add_field( array(
+	    'name'             => 'Title Background Image',
+	    'desc'             => 'Edit background image sets in the theme customizer',
+	    'id'               => 'page_title_bgimg',
+	    'type'             => 'file',
+	    'options' => array(
+			'url' => false, // Hide the text input for the url
+		),
+		'text'    => array(
+			'add_upload_file_text' => 'Choose Image' // Change upload button text. Default: "Add or Upload File"
+		),
+		
 	) );
 	
 	$cmb->add_field( array(
 	    'name'             => 'Title Font Color',
 	    'desc'             => 'Edit color sets in the theme customizer',
 	    'id'               => 'page_title_color',
-	    'type'             => 'radio_inline',
-	    'show_option_none' => true,
+	    'type'             => 'colorpicker',
 	    'default'          => '',
-	    'options'          => array(
-	        '' => 'None',
-	        'color_one'    => '<span style="background:'.get_theme_mod( 'color_one', '#ef5022').'">'.get_theme_mod( 'color_one', '#ef5022').'</span>',
-	        'color_two'    => '<span style="background:'.get_theme_mod( 'color_two', '#71be44').'">'.get_theme_mod( 'color_two', '#71be44').'</span>',
-	        'color_three'  => '<span style="background:'.get_theme_mod( 'color_three', '#2eb6c4').'">'.get_theme_mod( 'color_three', '#2eb6c4').'</span>',
-	        'color_four'   => '<span style="background:'.get_theme_mod( 'color_four', '#555555').'">'.get_theme_mod( 'color_four', '#555555').'</span>',
-	        'color_five'   => '<span style="background:'.get_theme_mod( 'color_five', '#8f52a0').'">'.get_theme_mod( 'color_five', '#8f52a0').'</span>',
-	        'white'   	   => '#ffffff',
-	    ),
 	) );
 	
-	$cmb->add_field( array(
-	    'name' => 'Turn off AMP',
-	    'id'   => 'amp',
-	    'type' => 'select',
-	    'default' => 'default',
-	    
-	    'options'          => array(
-	        'default' => 'default',
-	        'nonamp'    =>'Non-AMP',
-	        'amp'	=>'AMP'
-	    )
-	) );
+	
 }
 
 
@@ -791,9 +964,9 @@ function content_excerpt( $length = 55 ) {
 	if($exc == NULL || strlen($exc) <= 0)
 	{   
 	    if( $post->post_excerpt ) {
-	        $excerpt = get_the_excerpt();
+	        $excerpt = excerpt($length);
 	    } else {
-	        $content = get_the_content();
+	        $content = strip_shortcodes(get_the_content());
 	        $excerpt = wp_trim_words( $content , $length );
 	    }
 	}
@@ -808,6 +981,14 @@ function get_wp_title( $separator = ' ', $seplocation = 'left' ) {
 	$separator = apply_filters('timber_wp_title_seperator', $separator);	
 	return trim(wp_title($separator, false, $seplocation));	
 }	
+
+
+function isset_return(&$is_true = null, $prepend = '', $append = ''){
+	return isset($is_true) && !is_array($is_true) ? $prepend.$is_true.$append : null; 
+}
+function empty_return(&$is_true = null){
+	return !empty($is_true) ? $is_true : null; 
+}
 
 /* Add Numbered Pagination */
 function numeric_posts_nav() {
@@ -885,5 +1066,14 @@ function numeric_posts_nav() {
 /* Add usport for custom event list template */
 add_filter( 'FHEE__EED_Event_Archive__template_include__allow_custom_selected_template', '__return_true' );
 
-
+function sanitize_output($buffer) {
+    $search = array(
+        '/\>[^\S ]+/s',  // strip whitespaces after tags, except space
+        '/[^\S ]+\</s',  // strip whitespaces before tags, except space
+        '/(\s)+/s'       // shorten multiple whitespace sequences
+    );
+    $replace = array('>','<','\\1');
+    $buffer = preg_replace($search, $replace, $buffer);
+    return $buffer;
+} 
 ?>

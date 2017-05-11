@@ -190,9 +190,32 @@ Kirki::add_field( 'hiiwp', array(
     'default'     => true,
     'priority'    => 1,
 ) );
+
+Kirki::add_field( 'hiiwp', array(
+    'type'        => 'select',
+    'settings'    => 'blog_more_type',
+    'label'       => __( 'Show More Button Type', 'my_textdomain' ),
+    'section'     => $section,
+    'default'     => 'button',
+    'priority'    => 1,
+    'choices'     => array(
+	    'button' => 'Default Button',
+        'button-primary' => 'Primary Button',
+        'button-secondary' => 'Secondary Button',
+        'link' => 'Text Link',
+    ),
+    'active_callback'	=> array(
+	    array(
+		    'setting'	=> 'blog_more_show',
+		    'operator'	=> '==',
+		    'value'	=> true,
+	    ),
+    ),
+) );
+
 Kirki::add_field( 'hiiwp', array(
     'type'        => 'text',
-    'settings'    => 'blog_more_ex',
+    'settings'    => 'blog_more_text',
     'label'       => __( 'Show More Button Text', 'my_textdomain' ),
     'section'     => $section,
     'default'     => esc_attr__( 'Read More'),

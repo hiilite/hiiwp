@@ -15,12 +15,6 @@ global $hiilite_options;
 $post_id = get_the_id();
 $post_object = get_post( $post_id );
 
-if(get_post_meta($post_id, 'amp', true) == 'nonamp'){
-	$hiilite_options['amp'] = false;
-} else {
-	$hiilite_options['amp'] = (!isset($hiilite_options['amp']))?get_theme_mod('amp'):false;
-}
-if($hiilite_options['amp']) $_amp = 'amp-'; else $_amp = '';
 
 // Page Title
 $brand_title = (get_theme_mod('brand_seo_title')!='')?get_theme_mod('brand_seo_title'):get_bloginfo('title');
@@ -43,16 +37,7 @@ if(get_post_meta(get_the_id(), 'page_seo_description', true) != ''){
 	$page_description = strip_tags($the_content);
 }
 
-function sanitize_output($buffer) {
-    $search = array(
-        '/\>[^\S ]+/s',  // strip whitespaces after tags, except space
-        '/[^\S ]+\</s',  // strip whitespaces before tags, except space
-        '/(\s)+/s'       // shorten multiple whitespace sequences
-    );
-    $replace = array('>','<','\\1');
-    $buffer = preg_replace($search, $replace, $buffer);
-    return $buffer;
-} 
+
 ?><!doctype html>
 <html lang="en">
 <head>
@@ -65,14 +50,11 @@ function sanitize_output($buffer) {
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"><?php 
 	
 wp_head(); 
-	
-
-include_once('css/main-css.php');
-
-
- ?></head>
+?></head>
 <body <?php body_class(); ?>>
-<?php if ( is_customize_preview() ) : ?>
+<?php 
+do_action( 'hii_before_header' );
+if ( is_customize_preview() ) : ?>
 <div class="customizer_quick_links">
 	<button class="customizer-edit font-edit" data-control='{ "name":"typography_h1_font" }'><?php esc_html_e( 'Heading Fonts', 'hiiwp' ); ?></button>
 	<button class="customizer-edit font-edit" data-control='{ "name":"text_font" }'><?php esc_html_e( 'Text Fonts', 'hiiwp' ); ?></button>
@@ -144,7 +126,7 @@ include_once('css/main-css.php');
 		
 							
 							<a href="<?php bloginfo('url'); ?>">
-								<<?=$_amp?>img src="<?=$hiilite_options['main_logo'];?>" width="<?=$hiilite_options['logo_width'];?>" alt="<?=$page_title?>" height="<?=$hiilite_options['logo_height'];?>"><?=($_amp!='')?'</amp-img>':'';?>
+								<img src="<?=$hiilite_options['main_logo'];?>" width="<?=$hiilite_options['logo_width'];?>" alt="<?=$page_title?>" height="<?=$hiilite_options['logo_height'];?>">
 							</a>
 						</div><?php 
 					endif;
@@ -175,6 +157,10 @@ include_once('css/main-css.php');
 					)); 
 					
 					if($hiilite_options['header_center_right_on'] && $hiilite_options['header_type'] == 'regular'){ 
+						if ( is_active_sidebar( 'header_center_right' ) ) :
+							if(!dynamic_sidebar( 'header_center_right' )){}
+						endif;
+						
 						wp_nav_menu(array(
 								'menu' =>  'right-menu',
 								'container' => 'div',

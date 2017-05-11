@@ -13,8 +13,8 @@ function testimonial_post_type_init() {
 	$tax_title = get_theme_mod( 'testimonials_tax_title', 'Testimonials Categories' );
 	$testimonials_tax_slug = get_theme_mod( 'testimonials_tax_slug', 'testimonials_category' );
 
-
-	$labels = array(
+ 
+	$labels = array( 
 		'name'               => _x( $title, 'testimonials', 'hiilite' ),
 		'singular_name'      => _x( $title.'Item', 'post type singular name', 'hiilite' ),
 		'menu_name'          => _x( $title, 'admin menu', 'hiilite' ),
@@ -85,143 +85,6 @@ function testimonial_post_type_init() {
 	
 	// Add Shortcodes
 	require_once( HIILITE_DIR . '/includes/shortcodes/testimonials.php');
-	
-	
-	// Add VC Controls
-	vc_map( array(
-		"name" => $title,
-		"base" => "testimonials",
-		"category" => 'by Hiilite',
-		"description" => "Show your testimonials",
-		"icon" => get_bloginfo('template_url')."/images/icons/comments.png",
-		"allowed_container_element" => 'vc_row',
-		"params" => array(
-			
-			array(
-				"type" => "dropdown",
-				"holder" => "div",
-				"class" => "",
-				"heading" => "Categories",
-				"param_name" => "section",
-				"default"	=> "all",
-				"value" => $hiilite_options['testimonials_sections']
-			),
-			array(
-				"type" => "checkbox",
-				"holder" => "div",
-				"class" => "",
-				"heading" => "Show Image",
-				"param_name" => "show_image",
-				"value" => true,
-			),
-			array(
-				"type" => "dropdown",
-				"holder" => "div",
-				"heading" => "Image Style",
-				"param_name" => "image_style",
-				"value" => array(
-					'none' => 'None',
-					'circle' => 'Circle',
-					'ad_background' => 'As Background',
-				),
-				"dependency" => array (
-					"element" => "show_image",
-					"value" => array('true'),
-				),
-			),
-			array(
-				"type" => "dropdown",
-				"holder" => "div",
-				"heading" => "Image Position",
-				"param_name" => "image_position",
-				"value" => array(
-					'above' => 'Above',
-					'right' => 'Right',
-					'bottom' => 'Bottom',
-					'left' => 'Left',
-				),
-				"dependency" => array (
-					"element" => "show_image",
-					"value" => array('true'),
-				),
-			),
-			array(
-				"type" => "checkbox",
-				"holder" => "div",
-				"class" => "",
-				"heading" => "Show Title",
-				"param_name" => "show_title",
-				"value" => true,
-			),
-			array(
-				"type" => "dropdown",
-				"holder" => "div",
-				"class" => "",
-				"heading" => "Heading tag",
-				"param_name" => "heading_tag",
-				"value" => array(
-					'h1' => 'h1',
-					'h2' => 'h2',
-					'h3' => 'h3',
-					'h4' => 'h4',
-					'h5' => 'h5',
-					'h6' => 'h6',
-					'strong' => 'strong',
-				),
-				"dependency" => array (
-					"element" => "show_title",
-					"value" => array('true'),
-				),
-			),
-			array(
-				"type" => "checkbox",
-				"holder" => "div",
-				"heading" => "Show Rating",
-				"param_name" => "show_rating",
-				"value" => true,
-			),
-			array(
-				"type" => "checkbox",
-				"holder" => "div",
-				"heading" => "Is Slider",
-				"param_name" => "is_slider",
-				"value" => true,
-			),
-			array(
-				"type" => "textfield", 
-				"holder" => "div",
-				"heading" => "Slider Height",
-				"param_name" => "height",
-				"default"	=> "500px",
-				"value"	=> "500px",
-				"dependency" => array (
-					"element" => "is_slider",
-					"value" => array('true')
-				),
-			),
-			array(
-				"type" => "textfield", 
-				"holder" => "div",
-				"heading" => "Slider Speed",
-				"param_name" => "slider_speed",
-				"description" => "Speed in milliseconds",
-				"default"	=> "5000",
-				"value"	=> "5000",
-				"dependency" => array (
-					"element" => "is_slider",
-					"value" => array('true')
-				),
-			),
-			array(
-	            'type' => 'css_editor',
-	            'heading' => __( 'Css', 'my-text-domain' ),
-	            'param_name' => 'css',
-	            'group' => __( 'Design options', 'my-text-domain' ),
-	        ),
-			
-		)
-	) );
-	
 }
 
 

@@ -34,43 +34,54 @@ Kirki::add_field( 'hiiwp', array(
         'fixed' => esc_attr__( 'Fixed', 'hiiwp' ),
     ),
 ) );
-/*
-Kirki::add_field( 'hiiwp', array(
-    'type'        => 'dimension',
-    'settings'    => 'header_height',
-    'label'       => __( 'Header Height', 'hiiwp' ),
-    'description' => __('Enter header height in pixels'),
-    'section'     => $section,
-    'default'     => '100px',
-    'priority'    => 1,
-) );
-*/
-
-
-
 
 Kirki::add_field( 'hiiwp', array(
-	'type'        => 'color',
-    'settings'    => 'header_background',
-    'label'       => __( 'Header Background Color', 'hiiwp' ),
-    'description' => __('Choose a background color for header area'),
-    'section'     => $section,
-    'priority'    => 2,
-    'default'     => '#fff',
-    'alpha'		  => true,
-    'transport'   => 'postMessage',
+	'type'        => 'spacing',
+	'settings'    => 'header_padding',
+	'label'       => __( 'Header Padding', 'my_textdomain' ),
+	'section'     => $section,
+	'default'     => array(
+		'top'    => '1em',
+		'right'  => '0',
+		'bottom' => '1em',
+		'left'   => '0',
+	),
+	'priority'    => 2,
+	'transport'   => 'postMessage',
     'output' => array(
 		array(
 			'element'  => 'header#main_header',
-			'property' => 'background-color',
+			'property' => 'padding',
 		),
 	),
 	'js_vars' => array(
 		array(
 			'element'  => 'header#main_header',
-			'property' => 'background-color',
+			'property' => 'padding',
 		),
 	),
+) );
+
+
+
+
+Kirki::add_field( 'hiiwp', array(
+	'type'        => 'background',
+    'settings'    => 'header_background',
+    'label'       => __( 'Header Background Color', 'hiiwp' ),
+    'description' => __('Choose a background color for header area'),
+    'section'     => $section,
+    'priority'    => 2,
+    'default'     => array(
+		'color'    => '#ffffff',
+		'image'    => '',
+		'repeat'   => 'no-repeat',
+		'size'     => 'cover',
+		'attach'   => 'fixed',
+		'position' => 'left-top',
+	),
+
+    'alpha'		  => true,
 ) );	
 
 
@@ -82,19 +93,7 @@ Kirki::add_field( 'hiiwp', array(
     'section'     => $section,
     'default'     => '0px',
     'priority'    => 4,
-    'transport'   => 'postMessage',
-    'output' => array(
-		array(
-			'element'  => '#header_top',
-			'property' => 'border-top-width',
-		),
-	),
-	'js_vars' => array(
-		array(
-			'element'  => '#header_top',
-			'property' => 'border-top-width',
-		),
-	),
+    
 ) );
 
 Kirki::add_field( 'hiiwp', array(
@@ -105,19 +104,7 @@ Kirki::add_field( 'hiiwp', array(
     'section'     => $section,
     'default'     => '',
     'priority'    => 4,
-    'transport'   => 'postMessage',
-    'output' => array(
-		array(
-			'element'  => '#header_top',
-			'property' => 'border-top-color',
-		),
-	),
-	'js_vars' => array(
-		array(
-			'element'  => '#header_top',
-			'property' => 'border-top-color',
-		),
-	),
+    
 ) );
 
 

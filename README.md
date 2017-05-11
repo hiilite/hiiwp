@@ -39,6 +39,13 @@ Avoid SEO based plugins. The AMP theme is structured in such a way to be perfect
 This is where you can fill out all your company info that can then be distributed across the site and used as Structured Date in Google's SERP. Each field also has a shortcode attributed to it for easy distribution throughout your site content, such as using the shortcode \[business_phone\] to display the phone number. For a complete list of the shortcodes, see the "Help" tab on the Company Profile page.
 
 ## Change log
+### v0.3.7
+- Added HiiDDF Realestate listing management and mapping
+- Major changes and bug fixes to numerous files
+- Changed Page Options to allow more control of page titles.
+- All plugins must now be installed independently (no longer embedded)
+- Next release will be a major update changing all default styling and removing all AMP options. The new theme will be titled the HiiWP Theme
+
 ### v0.3.5
 - Added active slide function
 

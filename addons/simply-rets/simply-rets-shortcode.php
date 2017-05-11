@@ -85,8 +85,13 @@ class SrShortcodes {
                         <div class="sr-search-field" id="sr-search-keywords">
                           <input name="sr_keywords"
                                  type="text"
-                                 placeholder="Subdivision, Zipcode, MLS® Area, MLS® Number, or Market Area"
-                          />
+                                 placeholder="Subdivision, Zipcode, MLS® Area, MLS® Number, or Market Area" />
+                        </div>
+                        
+                        <div class="sr-search-field" id="sr-search-bedrooms">
+                        	<select name="sr_bedrooms">
+						  		<option value="Any">Any</option><option value="1">1</option><option value="1+">1+</option><option value="2">2</option><option value="2+">2+</option><option value="3">3</option><option value="3+">3+</option><option value="4">4</option><option value="4+">4+</option><option value="5">5</option><option value="5+">5+</option>
+						  </select>
                         </div>
 
                         <div class="sr-search-field" id="sr-search-ptype">
@@ -168,156 +173,160 @@ HTML;
      * to show a single listing.
      * ie, [sr_residential mlsid="12345"]
      */
-    public function sr_residential_shortcode( $atts ) {
-        global $wp_query;
-
-        /**
-         * Check if `mlsId` was supplied. If so, just query that.
-         */
-        if(!empty($atts['mlsid'])) {
-            $qs = '/' . $atts['mlsid'];
-            if(array_key_exists('vendor', $atts) && !empty($atts['vendor'])) {
-                $qs .= "?vendor={$atts['vendor']}";
-            }
-            $listings_content = SimplyRetsApiHelper::retrieveRetsListings($qs);
-            return $listings_content;
-        }
-
-        if(!is_array($atts)) {
-            $listing_params = array();
-        } else {
-            $listing_params = $atts;
-        }
-
-        /**
-         * The below parameters currently support multiple values via
-         * a semicolon delimeter. Eg, status="Active; Closed"
-         *
-         * Before we send them, build a proper query string that the API
-         * can understand. Eg, status=Active&status=Closed
-         */
-        if( !isset($listing_params['neighborhoods'])
-            && !isset($listing_params['postalcodes'])
-            && !isset($listing_params['counties'])
-            && !isset($listing_params['cities'])
-            && !isset($listing_params['agent'])
-            && !isset($listing_params['type'])
-            && !isset($listing_params['status'])
-        )
-        {
-            $listings_content = SimplyRetsApiHelper::retrieveRetsListings( $listing_params, $atts );
-            return $listings_content;
-
-        } else {
-            /**
-             * Neighborhoods filter is being used - check for multiple values and build query accordingly
-             */
-            if( isset( $listing_params['neighborhoods'] ) && !empty( $listing_params['neighborhoods'] ) ) {
-                $neighborhoods = explode( ';', $listing_params['neighborhoods'] );
-                foreach( $neighborhoods as $key => $neighborhood ) {
-                    $neighborhood = trim( $neighborhood );
-                    $neighborhoods_string .= "neighborhoods=$neighborhood&";
-                }
-                $neighborhoods_string = str_replace(' ', '%20', $neighborhoods_string );
-            }
-
-            if( isset( $listing_params['cities'] ) && !empty( $listing_params['cities'] ) ) {
-                $cities = explode( ';', $listing_params['cities'] );
-                foreach( $cities as $key => $city ) {
-                    $city = trim( $city );
-                    $cities_string .= "cities=$city&";
-                }
-                $cities_string = str_replace(' ', '%20', $cities_string );
-            }
-
-            if( isset( $listing_params['agent'] ) && !empty( $listing_params['agent'] ) ) {
-                $agents = explode( ';', $listing_params['agent'] );
-                foreach( $agents as $key => $agent ) {
-                    $agent = trim( $agent );
-                    $agents_string .= "agent=$agent&";
-                }
-                $agents_string = str_replace(' ', '%20', $agents_string );
-            }
-
-            if( isset( $listing_params['type'] ) && !empty( $listing_params['type'] ) ) {
-                $ptypes = explode( ';', $listing_params['type'] );
-                foreach($ptypes as $key => $ptype) {
-                    $ptype = trim($ptype);
-                    $ptypes_string .= "type=$ptype&";
-                }
-                $ptypes_string = str_replace(' ', '%20', $ptypes_string );
-            }
-
-            if( isset( $listing_params['postalcodes'] ) && !empty( $listing_params['postalcodes'] ) ) {
-                $postalcodes = explode( ';', $listing_params['postalcodes'] );
-                foreach( $postalcodes as $key => $postalcode  ) {
-                    $postalcode = trim( $postalcode );
-                    $postalcodes_string .= "postalCodes=$postalcode&";
-                }
-                $postalcodes_string = str_replace(' ', '%20', $postalcodes_string );
-            }
-
-            if( isset( $listing_params['counties'] ) && !empty( $listing_params['counties'] ) ) {
-                $counties = explode( ';', $listing_params['counties'] );
-                foreach( $counties as $key => $county ) {
-                    $county = trim( $county );
-                    $counties_string .= "counties=$county&";
-                }
-                $counties_string = str_replace(' ', '%20', $counties_string );
-            }
-
-            /**
-             * Multiple statuses
-             */
-            if( isset( $listing_params['status'] ) && !empty( $listing_params['status'] ) ) {
-
-                $statuses = explode( ';', $listing_params['status'] );
-
-                foreach( $statuses as $key => $stat) {
-                    $stat = trim($stat);
-                    $statuses_string .= "status=$stat&";
-                }
-
-                $statuses_string = str_replace(' ', '%20', $statuses_string );
-            }
-
-            /**
-             * Build a regular query string for everything else
-             */
-            foreach( $listing_params as $key => $value ) {
-                // Skip params that support multiple
-                if( $key !== 'postalcodes'
-                    && $key !== 'counties'
-                    && $key !== 'neighborhoods'
-                    && $key !== 'cities'
-                    && $key !== 'agent'
-                    && $key !== 'type'
-                    && $key !== 'status'
-                ) {
-                    $params_string .= $key . "=" . $value . "&";
-                }
-            }
-
-            /**
-             * Final query string
-             */
-            $qs = '?';
-            $qs .= $neighborhoods_string;
-            $qs .= $cities_string;
-            $qs .= $postalcodes_string;
-            $qs .= $counties_string;
-            $qs .= $params_string;
-            $qs .= $agents_string;
-            $qs .= $ptypes_string;
-            $qs .= $statuses_string;
-
-            $listings_content = SimplyRetsApiHelper::retrieveRetsListings( $qs, $atts );
-            return $listings_content;
-
-        }
-
-
-        $listings_content = SimplyRetsApiHelper::retrieveRetsListings( $listing_params, $atts );
+    public static function sr_residential_shortcode( $atts ) {
+        global $wp_query, $RETS_feedType;
+		$listing_params = array();
+		if($RETS_feedType == 'rets'):
+	        /**
+	         * Check if `mlsId` was supplied. If so, just query that.
+	         */
+	        if(!empty($atts['mlsid'])) {
+	            $qs = '/' . $atts['mlsid'];
+	            if(array_key_exists('vendor', $atts) && !empty($atts['vendor'])) {
+	                $qs .= "?vendor={$atts['vendor']}";
+	            }
+	            $listings_content = SimplyRetsApiHelper::retrieveRetsListings($qs);
+	            return $listings_content;
+	        }
+	
+	        if(is_array($atts)) {
+	            $listing_params = $atts;
+	        }
+	
+	        /**
+	         * The below parameters currently support multiple values via
+	         * a semicolon delimeter. Eg, status="Active; Closed"
+	         *
+	         * Before we send them, build a proper query string that the API
+	         * can understand. Eg, status=Active&status=Closed
+	         */
+	        if( !isset($listing_params['neighborhoods'])
+	            && !isset($listing_params['postalcodes'])
+	            && !isset($listing_params['counties'])
+	            && !isset($listing_params['cities'])
+	            && !isset($listing_params['agent'])
+	            && !isset($listing_params['type'])
+	            && !isset($listing_params['status'])
+	        )
+	        {
+	            $listings_content = SimplyRetsApiHelper::retrieveRetsListings( $listing_params, $atts );
+	            return $listings_content;
+	
+	        } else {
+	            /**
+	             * Neighborhoods filter is being used - check for multiple values and build query accordingly
+	             */
+	            if( isset( $listing_params['neighborhoods'] ) && !empty( $listing_params['neighborhoods'] ) ) {
+	                $neighborhoods = explode( ';', $listing_params['neighborhoods'] );
+	                foreach( $neighborhoods as $key => $neighborhood ) {
+	                    $neighborhood = trim( $neighborhood );
+	                    $neighborhoods_string .= "neighborhoods=$neighborhood&";
+	                }
+	                $neighborhoods_string = str_replace(' ', '%20', $neighborhoods_string );
+	            }
+	
+	            if( isset( $listing_params['cities'] ) && !empty( $listing_params['cities'] ) ) {
+	                $cities = explode( ';', $listing_params['cities'] );
+	                foreach( $cities as $key => $city ) {
+	                    $city = trim( $city );
+	                    $cities_string .= "cities=$city&";
+	                }
+	                $cities_string = str_replace(' ', '%20', $cities_string );
+	            }
+	
+	            if( isset( $listing_params['agent'] ) && !empty( $listing_params['agent'] ) ) {
+	                $agents = explode( ';', $listing_params['agent'] );
+	                foreach( $agents as $key => $agent ) {
+	                    $agent = trim( $agent );
+	                    $agents_string .= "agent=$agent&";
+	                }
+	                $agents_string = str_replace(' ', '%20', $agents_string );
+	            }
+	
+	            if( isset( $listing_params['type'] ) && !empty( $listing_params['type'] ) ) {
+	                $ptypes = explode( ';', $listing_params['type'] );
+	                foreach($ptypes as $key => $ptype) {
+	                    $ptype = trim($ptype);
+	                    $ptypes_string .= "type=$ptype&";
+	                }
+	                $ptypes_string = str_replace(' ', '%20', $ptypes_string );
+	            }
+	
+	            if( isset( $listing_params['postalcodes'] ) && !empty( $listing_params['postalcodes'] ) ) {
+	                $postalcodes = explode( ';', $listing_params['postalcodes'] );
+	                foreach( $postalcodes as $key => $postalcode  ) {
+	                    $postalcode = trim( $postalcode );
+	                    $postalcodes_string .= "postalCodes=$postalcode&";
+	                }
+	                $postalcodes_string = str_replace(' ', '%20', $postalcodes_string );
+	            }
+	
+	            if( isset( $listing_params['counties'] ) && !empty( $listing_params['counties'] ) ) {
+	                $counties = explode( ';', $listing_params['counties'] );
+	                foreach( $counties as $key => $county ) {
+	                    $county = trim( $county );
+	                    $counties_string .= "counties=$county&";
+	                }
+	                $counties_string = str_replace(' ', '%20', $counties_string );
+	            }
+	
+	            /**
+	             * Multiple statuses
+	             */
+	            if( isset( $listing_params['status'] ) && !empty( $listing_params['status'] ) ) {
+	
+	                $statuses = explode( ';', $listing_params['status'] );
+	
+	                foreach( $statuses as $key => $stat) {
+	                    $stat = trim($stat);
+	                    $statuses_string .= "status=$stat&";
+	                }
+	
+	                $statuses_string = str_replace(' ', '%20', $statuses_string );
+	            }
+	
+	            /**
+	             * Build a regular query string for everything else
+	             */
+	            foreach( $listing_params as $key => $value ) {
+	                // Skip params that support multiple
+	                if( $key !== 'postalcodes'
+	                    && $key !== 'counties'
+	                    && $key !== 'neighborhoods'
+	                    && $key !== 'cities'
+	                    && $key !== 'agent'
+	                    && $key !== 'type'
+	                    && $key !== 'status'
+	                ) {
+	                    $params_string .= $key . "=" . $value . "&";
+	                }
+	            }
+	
+	            /**
+	             * Final query string
+	             */
+	            $qs = '?';
+	            $qs .= $neighborhoods_string;
+	            $qs .= $cities_string;
+	            $qs .= $postalcodes_string;
+	            $qs .= $counties_string;
+	            $qs .= $params_string;
+	            $qs .= $agents_string;
+	            $qs .= $ptypes_string;
+	            $qs .= $statuses_string;
+	
+	            $listings_content = SimplyRetsApiHelper::retrieveRetsListings( $qs, $atts );
+	            return $listings_content;
+	
+	        }
+	
+	
+	        $listings_content = SimplyRetsApiHelper::retrieveRetsListings( $listing_params, $atts );
+	    elseif($RETS_feedType == 'ddf'):
+	    	$atts['sr_keywords'] = isset($_REQUEST['keywords'])?$_REQUEST['sr_keywords']:false;
+	    	$atts['offset'] = isset($_REQUEST['offset'])?$_REQUEST['offset']:0;
+		    $listings_content = SimplyRetsApiHelper::retrieveRetsListings( $listing_params, $atts );
+		endif;
         return $listings_content;
     }
 
@@ -615,69 +624,39 @@ HTML;
             <?php
             return ob_get_clean();
         }
-
+// TODO: Add new fields
         ?>
-        <div id="sr-search-wrapper">
+        <div id="sr-search-wrapper" class="col-12">
           <h3>Search Listings</h3>
           <form method="get" class="sr-search" action="<?php echo $home_url; ?>">
             <input type="hidden" name="sr-listings" value="sr-search">
 
-            <div class="sr-minmax-filters">
-              <div class="sr-search-field" id="sr-search-keywords">
-                <input name="sr_keywords"
-                       type="text"
-                       placeholder="Subdivision, Zipcode, MLS® Area, MLS® Number, or Market Area"
-                       value="<?php echo $keywords ?>" />
-              </div>
-
-              <div class="sr-search-field" id="sr-search-ptype">
-                <select name="sr_ptype">
-                  <?php echo $default_type_option; ?>
-                  <?php echo $type_options; ?>
-                </select>
-              </div>
-            </div>
-
-            <div class="sr-minmax-filters">
-              <div class="sr-search-field" id="sr-search-minprice">
-                <input name="sr_minprice" step="1000" min="0" type="number" value="<?php echo $minprice; ?>" placeholder="Min Price.." />
-              </div>
-              <div class="sr-search-field" id="sr-search-maxprice">
-                <input name="sr_maxprice" step="1000" min="0" type="number" value="<?php echo $maxprice; ?>" placeholder="Max Price.." />
-              </div>
-
-              <div class="sr-search-field" id="sr-search-minbeds">
-                <input name="sr_minbeds" min="0" type="number" value="<?php echo $minbeds; ?>" placeholder="Min Beds.." />
-              </div>
-              <div class="sr-search-field" id="sr-search-maxbeds">
-                <input name="sr_maxbeds" min="0" type="number" value="<?php echo $maxbeds; ?>" placeholder="Max Beds.." />
-              </div>
-
-              <div class="sr-search-field" id="sr-search-minbaths">
-                <input name="sr_minbaths" min="0" type="number" value="<?php echo $minbaths; ?>" placeholder="Min Baths.." />
-              </div>
-              <div class="sr-search-field" id="sr-search-maxbaths">
-                <input name="sr_maxbaths" min="0" type="number" value="<?php echo $maxbaths; ?>" placeholder="Max Baths.." />
-              </div>
-            </div>
-
-            <input type="hidden" name="sr_vendor"  value="<?php echo $vendor; ?>"  />
-            <input type="hidden" name="sr_brokers" value="<?php echo $brokers; ?>" />
-            <input type="hidden" name="sr_agent"   value="<?php echo $agent; ?>" />
-            <input type="hidden" name="limit"      value="<?php echo $limit; ?>" />
-
-            <div>
-                <input class="submit button btn" type="submit" value="Search Properties">
-
-                <div class="sr-sort-wrapper">
-                    <label for="sr_sort">Sort by: </label>
-                    <select class="select" name="sr_sort">
-                        <option value="-listprice" <?php echo $sort_price_hl ?>> Price - High to Low</option>
-                        <option value="listprice"  <?php echo $sort_price_lh ?>> Price - Low to High</option>
-                        <option value="-listdate"  <?php echo $sort_date_hl ?> > List Date - New to Old</option>
-                        <option value="listdate"   <?php echo $sort_date_lh ?> > List date - Old to New</option>
-                    </select>
+            <div class="container_inner row">
+              	<div class="sr-search-field col-6 text-block" id="sr-search-keyword">
+	              	<!--<label for="sr_keywords">Search</label><br>-->
+	                <input name="sr_keywords"
+	                       type="text"
+	                       placeholder="Subdivision, Zipcode, MLS® Area, MLS® Number, or Market Area"
+	                       value="<?php echo $keywords ?>" style="width:100%;box-sizing: border-box;" />
+              	</div>
+              	
+              	
+                <!--
+                <div class="sr-search-field col-2 text-block" id="sr-search-bedrooms"> 
+	              	<label for="sr_bedrooms">Beds</label><br>
+                	<select name="sr_bedrooms" id="sr-search-beds">
+				  		<option value="Any">Any</option><option value="1">1</option><option value="1+">1+</option><option value="2">2</option><option value="2+">2+</option><option value="3">3</option><option value="3+">3+</option><option value="4">4</option><option value="4+">4+</option><option value="5">5</option><option value="5+">5+</option>
+				  </select>
                 </div>
+                
+                <div class="sr-search-field col-2 text-block" id="sr-search-bathrooms"> 
+	              	<label for="sr_bathrooms">Baths</label><br>
+                	<select class="ezm_sbox_choose" name="sr_bathrooms"><option value="Any">Any</option><option value="1">1</option><option value="1+">1+</option><option value="2">2</option><option value="2+">2+</option><option value="3">3</option><option value="3+">3+</option><option value="4">4</option><option value="4+">4+</option><option value="5">5</option><option value="5+">5+</option></select>
+                </div>
+              	-->
+              	<div class="col-2 text-block">
+	                <input class="submit button btn" type="submit" value="Search Properties">
+				</div>
             </div>
 
           </form>
@@ -689,8 +668,7 @@ HTML;
 
 
     /**
-     * TODO: sr_listings_slider should support attributes that can
-     * take multiple values (eg, postalCodes, counties). #32
+     // TODO: sr_listings_slider should support attributes that can take multiple values (eg, postalCodes, counties). #32
      */
     public static function sr_listing_slider_shortcode( $atts ) {
         ob_start();

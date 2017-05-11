@@ -267,6 +267,9 @@ table td {
 .row_reverse {
 	flex-direction: row-reverse;
 }
+.row-o-content-middle, .row-o-content-middle>.container_inner {
+	align-items: center;
+}
 .row-o-direction-row>.container_inner, .flex-container.row-o-direction-row, .row-o-direction-row .vc_column-inner .wpb_wrapper.flex-container {
 	flex-direction: row !important;
 }
@@ -308,7 +311,9 @@ table td {
 	padding-right: 0;
 }
 
-
+.vc_row-parallax {
+	background-attachment: fixed;
+}
 /*
 FLEX JUSTIFY CONTENT
 */
@@ -346,6 +351,13 @@ FLEX JUSTIFY CONTENT
 }
 .vc_row-o-columns-baseline>.container_inner>.in_grid {
 	margin:0 auto !important;	
+}
+
+
+.vc_column_container>.vc_column-inner {
+	width: auto;
+	padding-left: 0;
+    padding-right: 0;
 }
 
 
@@ -405,7 +417,6 @@ body .bg-img-pos-cb {
 header#main_header {
 	position: relative;
 	width: 100%;
-	padding: 1em 0;
 	align-items: center;
 	flex-wrap: wrap;
 	z-index: 9999;
@@ -414,6 +425,12 @@ header#main_header {
 	if ($hiilite_options['header_above_content'] == false){ 
 		echo 'position:absolute;'; 
 	} 
+	echo (get_theme_mod('header_background_image') != '')?'background-image:url('.get_theme_mod('header_background_image').');':'';
+	echo 'background-repeat:'.get_theme_mod('header_background_repeat').';';
+	echo 'background-size:'.get_theme_mod('header_background_size').';';
+	echo 'background-attachment:'.get_theme_mod('header_background_attach').';';
+	echo 'background-position:'.str_replace('-', ' ', get_theme_mod('header_background_position')).';';
+	echo 'background-color:'.get_theme_mod('header_background_color').';';	
 	?>
 }
 <?php
@@ -485,7 +502,8 @@ $header_top_colors = get_theme_mod( 'header_top_colors' );
 ?>
 #header_top {
 	background: <?=get_theme_mod('header_top_background_color', '#f8f8f8');?>;
-	border:0px solid;
+	border-top: <?=get_theme_mod('header_top_border_width', '0px').' solid '.get_theme_mod('header_top_border_color', 'transparent');?>;
+	border-bottom: <?=get_theme_mod('header_bottom_border_width', '0px').' solid '.get_theme_mod('header_bottom_border_color', 'transparent');?>;
 	<?php 
 	get_font_css($hiilite_options['header_top_font']);
 ?>
@@ -563,7 +581,9 @@ border-top-style:solid;
 #main_footer a {
 	<?php get_font_css($hiilite_options['typography_footer_links_font']); ?>
 }
-
+#main_footer .menu .menu-item a {
+	padding:0;
+}
 <?php 
 if(get_theme_mod( 'show_footer_top_yesno', true )): ?>
  #footer_top {
@@ -903,7 +923,7 @@ a, .button, .menu li {
 	?>
 	min-height: <?=$hiilite_options['title_height'];?>;
 	padding: <?=get_spacing(get_theme_mod( 'title_padding' ));?>;
-	display: flex;
+	display: block;
 }
 .page-title h1 {
 	margin-bottom: 0;
@@ -932,6 +952,7 @@ img.full-width, .row, .wpb_content_element {
     box-sizing: border-box;
     min-width: 100px;
 }
+
 <?php 
 $alt_cols =	array(false,false,false,'quarter-width','third-width',false,'half-width',false,'twothird-width','threequarter-width',false,false,'full-width');
 $col_4 = ($hiilite_options['grid_width'] / 3) + 1;
@@ -1181,6 +1202,8 @@ if($hiilite_options['portfolio_on']): ?>
 	width:1.6em;
 }
 
+
+
 <?=$hiilite_options['typography_icon_custom_css'];?>
 
 .custom_format_1 { <?=$hiilite_options['custom_format_1'];?> }
@@ -1300,6 +1323,7 @@ hr.small {
 	overflow: hidden;
 	display: block;
     position: relative;
+    max-width: 100vw;
 }
 amp-carousel[type=slides] .slide {
 	position: absolute;
@@ -1307,7 +1331,7 @@ amp-carousel[type=slides] .slide {
     left: 0;
     bottom: 0; 
     right: 0;
-    display: block;
+    display: flex;
     min-width: 100%;
     max-width: 100%;
     height: 100%;
@@ -1353,14 +1377,15 @@ amp-carousel.slider {
 	max-height: 100vh;
 	display: block;
 	position: relative;
+	
+}
+amp-carousel.slider_full_height {
+	min-height: 100vh;
 }
 
 amp-carousel.slider .slide-text-overlay {
-	position: absolute;
-	width: 100%;
-	/*top: 10%;
-	left: 10%;
-	height: 80%;*/
+	flex: 1 1 auto;
+    margin: auto;
 	<?php echo (isset($slider_slide_styles))?$slider_slide_styles:'';?>
 }
 amp-carousel.slider .slide-text-overlay amp-fit-text {
@@ -1374,10 +1399,9 @@ amp-carousel[type=slides] .slide {
 }
 
 /*for when image bleeds beyond edges*/
-amp-carousel.slider <?=$_amp?>img {
+amp-carousel.slider img {
 	max-height: 100%;
 	max-width: 100%;
-	min-width:100%;
 }
 
 
@@ -1480,7 +1504,15 @@ if($hiilite_options['testimonials_on']):
 	padding: 0;
 	list-style: none; 
 }
-input,textarea,select {padding:1em; border: 1px solid rgba(203, 203, 203, 1); font-size: 1rem;}
+input,textarea,select {
+	padding:1em;
+	border: 1px solid rgba(203, 203, 203, 1); 
+	font-size: 1rem;
+}
+select {
+    -webkit-appearance: none;
+    border-radius: 0;
+}
 .ginput_complex {
 	
 }

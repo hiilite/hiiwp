@@ -74,7 +74,7 @@ function add_social_share_shortcode( $atts ){
 			$comma = ',';
 		}
 	}
-	$output = '<div '.implode( ' ', $wrapper_attributes ).'>';
+	$output = '<span '.implode( ' ', $wrapper_attributes ).'>';
 	
 	$output .= '<a title="Share On Facebook" target="_blank" href="http://www.facebook.com/sharer.php?u='.$permalink.'"><i class="fa fa-facebook"></i></a>  ';
 	
@@ -102,7 +102,7 @@ function add_social_share_shortcode( $atts ){
 	if($gp) $output .= '<amp-social-share type="gplus" width="50" height="50"><a title="Share On Google+"><i class="fa fa-google-plus"></i></a></amp-social-share>';
 	if($em) $output .= '<amp-social-share type="email" width="50" height="50"><a title="Email"><i class="fa fa-envelope"></i></a></amp-social-share>';
 	*/
-	$output .= '</div>';
+	$output .= '</span>';
 	return $output;
 }
 add_shortcode( 'social-share', 'add_social_share_shortcode' );
