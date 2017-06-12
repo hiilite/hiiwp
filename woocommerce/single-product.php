@@ -19,12 +19,10 @@
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
 }
-echo '<!--SINGLE-PRODUCT-->';
+
 get_header( 'shop' ); ?>
 
 	<?php
-		echo '<div class="row"><div class="container_inner"><div class="in_grid">';
-		echo '<div class="col-9 text-block align-top">';
 		/**
 		 * woocommerce_before_main_content hook.
 		 *
@@ -56,10 +54,8 @@ get_header( 'shop' ); ?>
 		 * @hooked woocommerce_get_sidebar - 10
 		 */
 		do_action( 'woocommerce_sidebar' );
-		echo '</div><div class="col-3 align-top flex-item text-block sidebar">';
- dynamic_sidebar('post_sidebar');
- echo '</div>';
-echo '</div></div><div>';
 	?>
 
-<?php get_footer( 'shop' ); ?>
+<?php get_footer( 'shop' );
+
+/* Omit closing PHP tag at the end of PHP files to avoid "headers already sent" issues. */

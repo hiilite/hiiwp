@@ -14,7 +14,7 @@ Kirki::add_field( 'hiiwp', array(
 	'label'       => __( 'Dropdown Menu Background', 'my_textdomain' ),
 	'description' => __('Choose a color and transparency for the main menu background'),
 	'section'     => $section,
-	'default'     => '#808080',
+	'default'     => $hiilite_options['dropdown_background_color'],
 	'priority'    => 7,
 	'alpha'		  => true,
 	'transport'   => 'postMessage',
@@ -73,6 +73,15 @@ Kirki::add_field( 'hiiwp', array(
         'text-align'          => 'right',
     ), 
     'priority'    => 1,
+) );
+Kirki::add_field( 'hiiwp', array(
+	'type'        => 'spacing',
+	'settings'    => 'menu_margin',
+	'label'       => __( 'Menu Margin', 'my_textdomain' ),
+	'section'     => $section,
+	'default'     => $hiilite_options['menu_margin'],
+	'priority'    => 1,
+	
 ) );
 
 Kirki::add_field( 'hiiwp', array(
@@ -142,22 +151,33 @@ Kirki::add_field( 'hiiwp', array(
 	'label'       => __( 'Mobile Menu Icon', 'my_textdomain' ),
 	'description' => __('Change the color of the mobile menu icon'),
 	'section'     => $section,
-	'default'     => '',
+	'default'     => $hiilite_options['mobile_menu_icon_color'],
 	'priority'    => 11,
 	'alpha'		  => true,
 	'transport'   => 'postMessage',
     'output' => array(
 		array(
-			'element'  => '#main_header nav#main-nav:before',
+			'element'  => '.mobile_menu_button .fa, .search_button .fa',
 			'property' => 'color',
 		),
 	),
 	'js_vars' => array(
 		array(
-			'element'  => '#main_header nav#main-nav:before',
+			'element'  => '.mobile_menu_button .fa, .search_button .fa',
 			'property' => 'color',
 		),
 	),
+) );
+
+
+Kirki::add_field( 'hiiwp', array(
+    'type'        => 'switch',
+    'settings'    => 'enable_search_bar_yesno',
+    'label'       => __( 'Enable Search Bar', 'hiiwp' ),
+    'description'  => __( 'This option enables Search functionality (search icon will appear next to main navigation)', 'hiiwp' ),
+    'section'     => $section,
+    'default'     => $hiilite_options['enable_search_bar_yesno'],
+    'priority'    => 11,
 ) );
 	
 ?>

@@ -1,6 +1,11 @@
 <?php
 $post_id = get_the_id();
-$status = HiiDdfHelper::ddfCheckListingStatus(get_post_meta( $post_id, '@attributes-ID' , true), $post_id);
+$author_id = get_post_field('post_author', get_the_ID());
+if(!isset($author_id) || $author_id == 0){
+	$status = HiiDdfHelper::ddfCheckListingStatus(get_post_meta( $post_id, '@attributes-ID' , true), $post_id);
+}
+
+
 $classes = $cont = '';
 
 // Add Lat Long if does not exist (fix for legacy listings that did not start with Lat Long)
@@ -184,7 +189,7 @@ if(get_post_meta( $post_id, 'Address-Latitude', true ) == ''){
 		if(is_array(get_post_meta( $post_id, 'AgentDetails', true ))){
 			$cont .= "<aside class='col-6 text-block'>";
 			/* TODO: What to know more */
-				$cont .= '<h2>What To Know More?</h2><p>Contact ';
+				$cont .= '<h2>Want To Know More?</h2><p>Contact ';
 				$i = 0;
 				foreach(get_post_meta( $post_id, 'AgentDetails', true ) as $key) {
 					if($i > 0) $cont .= '<br> or ';
@@ -215,7 +220,7 @@ if(get_post_meta( $post_id, 'Address-Latitude', true ) == ''){
 			    	
 			    	$i++;
 		    	}
-			$cont .= " to learn more about this listing, or arrange a showing.</p></aside>";
+			$cont .= " to learn more about this listing, or arrange a showing. <br><a href='https://www.johnantle.com/' title='Kelowna Mortgage Broker' target='new'>Need a mortgage?</a></p></aside>"; 
 			
 			$cont .= "<aside class='col-6 text-block' id='requestinfo'>";
 			/* TODO: contact */

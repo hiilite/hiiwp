@@ -17,9 +17,15 @@
 
 <?php endif; ?>
 
-<?php if ( bbp_current_user_can_access_create_reply_form() ) : ?>
+<?php if ( bbp_current_user_can_access_create_reply_form() ) : 
+	if(isset($_REQUEST['bbp_reply_to'])) {
+		$openform = 'open';
+	} else {
+		$openform = '';
+	}
+?>
 
-	<div id="new-reply-<?php bbp_topic_id(); ?>" class="bbp-reply-form">
+	<div id="new-reply-<?php bbp_topic_id(); ?>" class="bbp-reply-form <?=$openform?>">
 
 		<form id="new-post" name="new-post" method="post" action="<?php the_permalink(); ?>">
 

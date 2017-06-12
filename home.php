@@ -6,7 +6,7 @@ get_template_part( 'templates/title' );
 $colcount = ($hiilite_options['blog_layouts'] =='masonry')?' col-count-'.$hiilite_options['blog_col']:'';
 if ( $hiilite_options['blog_sidebar_show'] == true ) $colcount .= ' col-9';
 
-$grid = ($hiilite_options['blog_full_width'] == true) ? 'in_grid' : 'x';
+$grid = ($hiilite_options['blog_full_width'] == false) ? 'in_grid' : 'x';
 
 
 if(have_posts()):

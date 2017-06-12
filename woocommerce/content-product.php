@@ -13,7 +13,7 @@
  * @see     https://docs.woocommerce.com/document/template-structure/
  * @author  WooThemes
  * @package WooCommerce/Templates
- * @version 2.6.1
+ * @version 3.0.0
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -21,7 +21,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 global $product;
-echo '<!--CONTENT-PRODUCT-->';
+
 // Ensure visibility
 if ( empty( $product ) || ! $product->is_visible() ) {
 	return;
@@ -34,48 +34,37 @@ if ( empty( $product ) || ! $product->is_visible() ) {
 	 *
 	 * @hooked woocommerce_template_loop_product_link_open - 10
 	 */
-	do_action( 'woocommerce_before_shop_loop_item' );?>
-		<div class="top-product-section">
+	do_action( 'woocommerce_before_shop_loop_item' );
 
-            <a itemprop="url" href="<?php the_permalink(); ?>" class="product-category">
-                <span class="image-wrapper">
-                <?php
-                    /**
-                     * woocommerce_before_shop_loop_item_title hook
-                     *
-                     * @hooked woocommerce_show_product_loop_sale_flash - 10
-                     * @hooked woocommerce_template_loop_product_thumbnail - 10
-                     */
-                    do_action( 'woocommerce_before_shop_loop_item_title' );
-                ?>
-                </span>
-            </a>
+	/**
+	 * woocommerce_before_shop_loop_item_title hook.
+	 *
+	 * @hooked woocommerce_show_product_loop_sale_flash - 10
+	 * @hooked woocommerce_template_loop_product_thumbnail - 10
+	 */
+	do_action( 'woocommerce_before_shop_loop_item_title' );
 
-			<?php do_action('qode_woocommerce_after_product_image'); ?>
+	/**
+	 * woocommerce_shop_loop_item_title hook.
+	 *
+	 * @hooked woocommerce_template_loop_product_title - 10
+	 */
+	do_action( 'woocommerce_shop_loop_item_title' );
 
-        </div>
-        <div class="bottom-product-section">
-	    	<?php 
-	            echo $product->get_categories(', ','<div class="product-categories">','</div>');
-	         ?>
-	        <a itemprop="url" href="<?php the_permalink(); ?>" class="product-category product-info">
-	            <h3 itemprop="name"><?php the_title(); ?></h3>
-	
-	            <?php ?>
-	            <div class="separator after-title-spearator small center"></div>
-	            <span class="description"><?php  the_excerpt(); ?></span>
-	            
-	            <?php
-	                /**
-	                 * woocommerce_after_shop_loop_item_title hook
-	                 *
-	                 * @hooked woocommerce_template_loop_rating - 5
-	                 * @hooked woocommerce_template_loop_price - 10
-	                 */
-	                do_action( 'woocommerce_after_shop_loop_item_title' );
-	            ?>
-	        </a>
-        
-			<?php do_action( 'woocommerce_after_shop_loop_item' ); ?>
-        </div>
+	/**
+	 * woocommerce_after_shop_loop_item_title hook.
+	 *
+	 * @hooked woocommerce_template_loop_rating - 5
+	 * @hooked woocommerce_template_loop_price - 10
+	 */
+	do_action( 'woocommerce_after_shop_loop_item_title' );
+
+	/**
+	 * woocommerce_after_shop_loop_item hook.
+	 *
+	 * @hooked woocommerce_template_loop_product_link_close - 5
+	 * @hooked woocommerce_template_loop_add_to_cart - 10
+	 */
+	do_action( 'woocommerce_after_shop_loop_item' );
+	?>
 </li>

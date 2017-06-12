@@ -58,19 +58,24 @@ if (!function_exists('hii_title')) {
 		$wrapper_attributes = array();
 
 		$css_class = ($is_vc)?preg_replace( '/\s+/', ' ', apply_filters( VC_SHORTCODE_CUSTOM_CSS_FILTER_TAG, implode( ' ', array_filter( $css_classes ) ), '.vc_custom_', $atts ) ):implode( ' ', array_filter( $css_classes ) );
+		
+		if($class != ""){
+	        $css_class = $css_class.' '.$class;
+        }
+        
 		$wrapper_attributes[] = 'class="' . esc_attr( trim( $css_class ) ) . '"';
 		
 
-        if($class != ""){
-	        $css_class = $css_class.' '.$class;
-        }
+        
         
 		$html .= $font_container_data;
 		if(isset($atts['max_width'])){ $maxw = ' style="max-width:'.$atts['max_width'].';"';}
         $html .=  '<div ' . implode( ' ', $wrapper_attributes ) . $maxw. '>';
-        
-        if($link != "")
+		
+        if(is_array($link))
         {
+	        $link = vc_build_link( $link );
+			$link = $link['url'];
 	    	$html .= '<a href="'.$link.'">';    
 	    }
 	    
@@ -101,10 +106,10 @@ if (!function_exists('hii_title')) {
 		}
 		
 	    $style = " style='".$c.$ff.$fs."'";
-	    
+	    if($size == '')$size='h1';
         $html .= '<'.$size.$style.'>'.$text.'</'.$size.'></div>';
 		
-		if($link != "")
+		if(is_array($link))
         {
 	    	$html .= '</a>';    
 	    }

@@ -18,15 +18,7 @@ Kirki::add_field( 'hiiwp', array(
     'label'       => esc_attr__( '1st Level Menu', 'kirki' ),
     'description' => __( 'Define styles for 1st level in Top Navigation Menu' ),
     'section'     => $section,
-    'default'     =>  array(
-        'font-family'    => ' ',
-        'variant'        => ' ',
-        'font-size'      => ' ',
-        'line-height'    => ' ',
-        'letter-spacing' => '0px',
-        'text-transform' => 'None',
-        'color'			 => '#333333',
-    ),
+    'default'     =>  $hiilite_options['main_menu_font'],
     'priority'    => 1,
 ) );
 Kirki::add_field( 'hiiwp', array(

@@ -21,7 +21,7 @@ Kirki::add_field( 'hiiwp', array(
     'label'       => __( 'Show Header Top Area', 'hiiwp' ),
     'description'  => __( 'Enabling this option will show Header Top area (this setting applies to Header Left and Header Right widgets)', 'hiiwp' ),
     'section'     => $section,
-    'default'     => false,
+    'default'     => $hiilite_options['header_top_area_yesno'],
     'priority'    => 6,
 ) );
 

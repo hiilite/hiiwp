@@ -46,9 +46,10 @@ if ( ! empty( $atts['el_id'] ) ) {
 // END TESTING
 
 
-
+$paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
 $query;
 if(isset($atts['post_type']) && $atts['post_type'] != 'custom'){
+	$taxquery = array();
 	if(isset($atts['taxonomies'])) {
 		$terms = get_object_taxonomies($atts['post_type'], 'names');
 		$taxquery = array(
@@ -59,13 +60,15 @@ if(isset($atts['post_type']) && $atts['post_type'] != 'custom'){
 				'operator'	=> 'IN',
 			)
 		);
-	}
 	
+	} 
 	$query = array(
 		'post_type' => $atts['post_type'],
+		'paged'		=> $paged,
 		'posts_per_page' => isset($atts['max_items'])?$atts['max_items']:10,
 		'tax_query'	=> $taxquery,
 	);
+	
 	
 } elseif(isset($atts['custom_query'])) {
 	parse_str(html_entity_decode($atts['custom_query']), $query);
@@ -114,6 +117,22 @@ if(isset($query) && $query != ''){
 		include(locate_template( 'templates/blog-loop.php' ));
 	
 	}
+	if($hiilite_options['blog_pag_show']):
+		if($hiilite_options['blog_pag_style'] == 'option-2'):
+			echo '<div class="pagination '.$grid.' content-box">';
+				echo '<div class="align-center flex-item col-6">';
+				numeric_posts_nav();
+			echo '</div></div>';
+		else:
+			echo '<div class="pagination '.$grid.' content-box col-12">';
+				echo '<div class="align-left flex-item col-6">';
+				previous_posts_link('Prev', $bg_query->max_num_pages);
+				echo '</div><div class="align-right flex-item col-6">';
+				next_posts_link('Next', $bg_query->max_num_pages);
+			echo '</div></div>';
+		endif;
+	endif;
+	
 	wp_reset_postdata();
 } else {
 	wp_enqueue_script( 'prettyphoto' );

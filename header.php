@@ -9,8 +9,8 @@
  * @license     http://opensource.org/licenses/gpl-2.0.php GNU Public License
  * @since       0.1.0
  */
-global $hiilite_options;
 
+$hiilite_options = Hii::$hiiwp->getOptions();
 
 $post_id = get_the_id();
 $post_object = get_post( $post_id );
@@ -64,6 +64,16 @@ if ( is_customize_preview() ) : ?>
     
 	<div class="wrapper">
 		<div class="wrapper_inner">
+			<?php
+			if($hiilite_options['enable_search_bar_yesno'] == true)	:
+			?>
+			<aside id="main_search">
+				<?php get_search_form(); ?>
+			</aside>
+			<?php
+			endif; // end enable_search_bar_yesno
+			
+			if($hiilite_options['header_top_area_yesno'] == true): ?>
 			<aside id="header_top">
 				<div class="container_inner"><div class="in_grid">
 					<?php 
@@ -73,25 +83,26 @@ if ( is_customize_preview() ) : ?>
 					?>
 				</div></div>
 			</aside>
-			
 			<?php 
-				if(get_theme_mod( 'header_top_home') == true && get_theme_mod('header_top_home_content') != false && is_front_page()){
-					$hometop_id = get_theme_mod('header_top_home_content');
-					$hometop = new WP_Query(array('page_id' => $hometop_id));
-					if($hometop->have_posts()){
-						echo '<aside id="header_home_top">';
-						while($hometop->have_posts()){
-							$hometop->the_post();
-							
-							the_content();
-						}
-						echo '</aside>';
+			endif;
+			
+			if(get_theme_mod( 'header_top_home') == true && get_theme_mod('header_top_home_content') != false && is_front_page()){
+				$hometop_id = get_theme_mod('header_top_home_content');
+				$hometop = new WP_Query(array('page_id' => $hometop_id));
+				if($hometop->have_posts()){
+					echo '<aside id="header_home_top">';
+					while($hometop->have_posts()){
+						$hometop->the_post();
+						
+						the_content();
 					}
-				} elseif (get_theme_mod( 'header_top_home') == true && !is_front_page()){					
-					echo '<aside id="header_top_pages"></aside>';
-				
+					echo '</aside>';
 				}
-				
+			} elseif (get_theme_mod( 'header_top_home') == true && !is_front_page()){					
+				echo '<aside id="header_top_pages"></aside>';
+			
+			}
+			
 			?>
 			<!-- HEADER -->
 			<header id="main_header" class="<?=$hiilite_options['header_type'];?>">
@@ -146,6 +157,8 @@ if ( is_customize_preview() ) : ?>
 							));	
 						?></div><?php
 					} 
+					
+					echo '<div class="mobile_menu_button"><i class="fa fa-bars"></i></div>';
 					wp_nav_menu(array(
 						'menu' =>  'header-menu',
 						'container' => 'nav',
@@ -154,7 +167,7 @@ if ( is_customize_preview() ) : ?>
 						'items_wrap'  => '<ul id="%1s" class="%2$s main-menu">%3$s</ul>',
 						'theme_location' => 'header-menu',
 						'fallback_cb'    => false
-					)); 
+					));
 					
 					if($hiilite_options['header_center_right_on'] && $hiilite_options['header_type'] == 'regular'){ 
 						if ( is_active_sidebar( 'header_center_right' ) ) :
@@ -170,8 +183,12 @@ if ( is_customize_preview() ) : ?>
 								'theme_location' => 'right-menu',
 								'fallback_cb'    => false
 							));	
-					} ?>
-				<?php if($hiilite_options['header_in_grid']) { echo '</div>'; } ?>
+					} 
+					if($hiilite_options['enable_search_bar_yesno'] == true)	:
+						echo '<div class="search_button"><i class="fa fa-search"></i></div>';
+					endif;
+					
+				if($hiilite_options['header_in_grid']) { echo '</div>'; } ?>
 				</div>
 				<?php if($hiilite_options['header_bottom_on']): ?>
 				<aside id="header_bottom" class="flex-item">

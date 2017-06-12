@@ -133,7 +133,7 @@ $business_args = array(
 		'page'		=> 'hii_social_settings',
 		'section'	=> 'company_social' ),
 	array(
-		'id'		=>'business_tripadvisor',
+		'id'		=>'business_tripadvisor', 
 		'title'		=>'TripAdvisor',
 		'callback'	=>'company_setting_url',
 		'page'		=> 'hii_social_settings',

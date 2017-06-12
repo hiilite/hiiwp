@@ -6,9 +6,7 @@
 */
 global $hiilite_options;
 $post_meta = get_post_meta(get_the_id());
-$hiilite_options['amp'] = get_theme_mod('amp');
-if($hiilite_options['amp']) $_amp = 'amp-'; else $_amp = '';
-if($hiilite_options['subdomain'] != 'iframe'):
+
 ?>
 <!--PORTFOLIO_PIECE-LOOP-->
 <article  <?php post_class('row'); ?> itemscope itemtype="http://schema.org/Article" id="post-<?php the_ID(); ?>" >
@@ -33,7 +31,7 @@ if($show_featureimage):
 		<meta itemprop="url" content="<?=$img[0];?>">
 		<meta itemprop="width" content="<?=$img[1];?>">
 		<meta itemprop="height" content="<?=$img[2];?>">
-		<<?=$_amp?>img src='<?=$img[0];?>' layout='responsive' width='<?=$width?>' height='<?=$height?>'><?=($_amp!='')?'</amp-img>':''?>
+		<img src='<?=$img[0];?>' layout='responsive' width='<?=$width?>' height='<?=$height?>'>
 	</figure>
 	<?php endif; ?>
 </div><?php
@@ -102,7 +100,7 @@ echo '<div class="full-width  align-top">';
 		echo '</aside>';*/
 		
 echo '</div>';
-endif;
+
 $hiilite_options['show_more_projects'] = false;
 if($hiilite_options['show_more_projects']):
 ?>
@@ -144,25 +142,8 @@ if($hiilite_options['portfolio_comments']):
 	echo '</div>';
 endif;
 	
-/*
-if($hiilite_options['subdomain'] != 'iframe'){
-	echo '<div class="iframe-content container_inner">';
-	echo '<amp-iframe width="100vw" height="100vh"
-            sandbox="allow-forms allow-modals allow-popups allow-popups-to-escape-sandbox allow-scripts allow-same-origin"
-            frameborder="0"
-            src="https://iframe.'.$_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"].'">';
-    echo '</amp-iframe>';
-    echo '</div>';
-} elseif ($hiilite_options['subdomain'] == 'iframe') {
-	echo '<div class="container_inner">';
-		comments_template();
-	echo '</div>';
-}
-*/
 
-
-if($hiilite_options['subdomain'] != 'iframe'):
 
 echo '</article>';
-endif;
+
 ?>

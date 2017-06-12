@@ -1,5 +1,6 @@
 {
     "require": {
-        "afragen/github-updater": "^5.4"
+        "afragen/github-updater": "^5.4",
+        "phpdocumentor/phpdocumentor": "2.*"
     }
 }

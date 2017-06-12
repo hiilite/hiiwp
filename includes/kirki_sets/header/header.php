@@ -14,7 +14,7 @@ Kirki::add_field( 'hiiwp', array(
     'label'       => __( 'Header in Grid', 'hiiwp' ),
     'description' => __('Enabling this option will display header content in grid'),
     'section'     => $section,
-    'default'     => true,
+    'default'     => $hiilite_options['header_in_grid'],
     'priority'    => 1,
 ) );
 
@@ -25,7 +25,7 @@ Kirki::add_field( 'hiiwp', array(
     'label'       => __( 'Type of header', 'hiiwp' ),
     'description' => __('Choose the header layout & behavior'),
     'section'     => $section,
-    'default'     => 'regular',
+    'default'     => $hiilite_options['header_type'],
     'priority'    => 1,
     'multiple'    => 1,
     'choices'     => array(
@@ -40,12 +40,7 @@ Kirki::add_field( 'hiiwp', array(
 	'settings'    => 'header_padding',
 	'label'       => __( 'Header Padding', 'my_textdomain' ),
 	'section'     => $section,
-	'default'     => array(
-		'top'    => '1em',
-		'right'  => '0',
-		'bottom' => '1em',
-		'left'   => '0',
-	),
+	'default'     => $hiilite_options['header_padding'],
 	'priority'    => 2,
 	'transport'   => 'postMessage',
     'output' => array(
@@ -68,17 +63,17 @@ Kirki::add_field( 'hiiwp', array(
 Kirki::add_field( 'hiiwp', array(
 	'type'        => 'background',
     'settings'    => 'header_background',
-    'label'       => __( 'Header Background Color', 'hiiwp' ),
-    'description' => __('Choose a background color for header area'),
+    'label'       => __( 'Header Background', 'hiiwp' ),
+    'description' => __('Choose a background for header area'),
     'section'     => $section,
     'priority'    => 2,
     'default'     => array(
-		'color'    => '#ffffff',
-		'image'    => '',
-		'repeat'   => 'no-repeat',
-		'size'     => 'cover',
-		'attach'   => 'fixed',
-		'position' => 'left-top',
+		'color'    => $hiilite_options['header_background_color'],
+		'image'    => $hiilite_options['header_background_image'],
+		'repeat'   => $hiilite_options['header_background_repeat'],
+		'size'     => $hiilite_options['header_background_size'],
+		'attach'   => $hiilite_options['header_background_attach'],
+		'position' => $hiilite_options['header_background_position'],
 	),
 
     'alpha'		  => true,
@@ -91,7 +86,7 @@ Kirki::add_field( 'hiiwp', array(
     'settings'    => 'header_top_border_width',
     'label'       => __( 'Header Top Border Thickness', 'hiiwp' ),
     'section'     => $section,
-    'default'     => '0px',
+    'default'     => $hiilite_options['header_top_border_width'],
     'priority'    => 4,
     
 ) );
@@ -102,7 +97,7 @@ Kirki::add_field( 'hiiwp', array(
     'label'       => __( 'Header Top Border Color', 'hiiwp' ),
     'description'       => __( 'Choose a color for the header top border. Note: If color has not been chosen, border bottom will not be displayed', 'hiiwp' ),
     'section'     => $section,
-    'default'     => '',
+    'default'     => $hiilite_options['header_top_border_color'],
     'priority'    => 4,
     
 ) );
@@ -115,7 +110,7 @@ Kirki::add_field( 'hiiwp', array(
     'settings'    => 'header_bottom_border_width',
     'label'       => __( 'Header Bottom Border Thickness', 'hiiwp' ),
     'section'     => $section,
-    'default'     => '0px',
+    'default'     => $hiilite_options['header_bottom_border_width'],
     'priority'    => 4,
     'transport'   => 'postMessage',
     'output' => array(
@@ -138,7 +133,7 @@ Kirki::add_field( 'hiiwp', array(
     'description' => __('Choose a color for the header bottom border. Note: If color has not been chosen, border bottom will not be displayed'),
     'section'     => $section,
     'priority'    => 4,
-    'default'     => '',
+    'default'     => $hiilite_options['header_bottom_border_color'],
     'alpha'		  => true,
     'transport'   => 'postMessage',
     'output' => array(
@@ -163,7 +158,7 @@ Kirki::add_field( 'hiiwp', array(
     'label'       => __( 'Header Center Left (beta)', 'hiiwp' ),
     'description'  => __( 'Add elements through the Widget panel', 'hiiwp' ),
     'section'     => $section,
-    'default'     => false,
+    'default'     => $hiilite_options['header_center_left_on'],
     'priority'    => 8,
 ) );
 Kirki::add_field( 'hiiwp', array(
@@ -172,7 +167,7 @@ Kirki::add_field( 'hiiwp', array(
     'label'       => __( 'Header Center Right (beta)', 'hiiwp' ),
     'description'  => __( 'Add elements through the Widget panel', 'hiiwp' ),
     'section'     => $section,
-    'default'     => false,
+    'default'     => $hiilite_options['header_center_right_on'],
     'priority'    => 8,
 ) );
 
@@ -182,7 +177,7 @@ Kirki::add_field( 'hiiwp', array(
     'label'       => __( 'Header Bottom (beta)', 'hiiwp' ),
     'description'  => __( 'Add elements through the Widget panel', 'hiiwp' ),
     'section'     => $section,
-    'default'     => false,
+    'default'     => $hiilite_options['header_bottom_on'],
     'priority'    => 8,
 ) );
 
@@ -193,7 +188,7 @@ Kirki::add_field( 'hiiwp', array(
     'description' => __('Choose a background color for bottom header area'),
     'section'     => $section,
     'priority'    => 8,
-    'default'     => '#fff',
+    'default'     => $hiilite_options['header_bottom_background'],
     'alpha'		  => true,
     'transport'   => 'postMessage',
     'output' => array(
@@ -216,15 +211,15 @@ Kirki::add_field( 'hiiwp', array(
 	    )),
 ) );
 
-
+/*
 
 Kirki::add_field( 'hiiwp', array(
     'type'        => 'switch',
     'settings'    => 'header_top_home',
-    'label'       => __( 'Header Home Top (beta)', 'hiiwp' ),
+    'label'       => __( 'Above Home Page Header (beta)', 'hiiwp' ),
     'description'  => __( 'Adds content above the header, but only on the home page', 'hiiwp' ),
     'section'     => $section,
-    'default'     => false,
+    'default'     => $hiilite_options['header_top_home'],
     'priority'    => 9,
 ) );
 
@@ -232,10 +227,10 @@ Kirki::add_field( 'hiiwp', array(
 Kirki::add_field( 'hiiwp', array(
 	'type'        => 'dropdown-pages',
 	'settings'    => 'header_top_home_content',
-	'label'       => __( 'Content Above Home Header (beta)', 'hiiwp' ),
+	'label'       => __( 'Content For Above Home Page Header (beta)', 'hiiwp' ),
 	'description'  => __( 'Adds content above the header, but only on the home page', 'hiiwp' ),
 	'section'     => $section,
-	'default'     => false,
+	'default'     => $hiilite_options['header_top_home_content'],
 	'priority'    => 9,
 	'required'	  => array(
 		array(
@@ -248,17 +243,13 @@ Kirki::add_field( 'hiiwp', array(
 Kirki::add_field( 'hiiwp', array(
 	'type'        => 'background',
     'settings'    => 'header_top_pages_background',
-    'label'       => __( 'Background Above Header (beta)', 'hiiwp' ),
+    'label'       => __( 'Background Above Header on all other pages (beta)', 'hiiwp' ),
     'description'  => __( 'Fallback image for all pages except home', 'hiiwp' ),
     'section'     => $section,
     'priority'    => 9,
     'default'     => array(
-		'color'    => '#ffffff',
-		'image'    => '',
-		'repeat'   => 'no-repeat',
-		'size'     => 'cover',
-		'attach'   => 'fixed',
-		'position' => 'left-top',
+		'color'    => $hiilite_options['header_top_pages_background_color'],
+		'image'    => $hiilite_options['header_top_pages_background_image'],
 	),
 	'required'	  => array(
 		array(
@@ -271,7 +262,7 @@ Kirki::add_field( 'hiiwp', array(
 Kirki::add_field( 'hiiwp', array(
     'type'        => 'dimension',
     'settings'    => 'header_top_pages_height',
-    'label'       => __( 'Above Header Height (beta)', 'hiiwp' ),
+    'label'       => __( 'Above Header Height on all other pages (beta)', 'hiiwp' ),
     'description'  => __( 'Height of above header image in all pages except home', 'hiiwp' ),
     'section'     => $section,
     'default'     => '100px',
@@ -283,4 +274,5 @@ Kirki::add_field( 'hiiwp', array(
 			'value'    => true,
 	    )),
 ) );
+*/
 ?>

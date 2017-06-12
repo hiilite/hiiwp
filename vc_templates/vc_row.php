@@ -4,8 +4,6 @@ $post_meta = get_post_meta(get_the_id());
 if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
 }
-$hiilite_options['amp'] = get_theme_mod('amp');
-if($hiilite_options['amp']) $_amp = 'amp-'; else $_amp = '';
 /**
  * Shortcode attributes
  * @var $atts
@@ -141,32 +139,13 @@ if($parallax){
 
 $output .= '<section ' . implode( ' ', $wrapper_attributes ) . ' '.$para.'>';
 
-/*if($parallax_image){
-	$para_img = wp_get_attachment_image_src($parallax_image,'large');
-	$output .= '<amp-img src="'.$para_img[0].'"  width="'.$para_img[1].'" height="'.$para_img[2].'" class="parallax-image"></amp-img>';
-}*/
-
 $output .= '<div class="container_inner">';
-$output .= (!empty($atts['in_grid']) && ($hiilite_options['subdomain'] != 'iframe' && empty($atts['in_iframe'])))?'<div class="in_grid">':'';
+$output .= (!empty($atts['in_grid']) )?'<div class="in_grid">':'';
 
-if(!empty($atts['in_iframe']) && $hiilite_options['subdomain'] != 'iframe' && $hiilite_options['amp']){
-	$output .= !empty($atts['in_iframe'])?'<div class="iframe-content">':'';
-	$output .= '<amp-iframe src="https://iframe.'.$_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"].'" frameborder="0" height="'.$iframeheight.'" width="100vw" sandbox="allow-scripts allow-same-origin allow-forms allow-top-navigation allow-popups"></amp-iframe>';
-	$output .= !empty($atts['in_iframe'])?'</div>':'';
 
-} elseif($hiilite_options['subdomain'] == 'iframe' && !empty($atts['in_iframe']) ) {
-	$output .= '<div class="container_inner">';
-	$output .= !empty($atts['in_grid'])?'<div class="in_grid">':'';
-	$output .= wpb_js_remove_wpautop( $content );
-	$output .= '</div>';
-	$output .= '</div>';
-} elseif($hiilite_options['subdomain'] == 'iframe' && empty($atts['in_iframe'])) {
-	$output .= '';
-	return ;
-} else {
-	$output .= wpb_js_remove_wpautop( $content );
-}
-$output .= (!empty($atts['in_grid']) && ($hiilite_options['subdomain'] != 'iframe' && empty($atts['in_iframe'])))?'</div>':'';
+$output .= wpb_js_remove_wpautop( $content );
+
+$output .= (!empty($atts['in_grid']) )?'</div>':'';
 $output .= '</div></section>';
 $output .= $after_output;
 

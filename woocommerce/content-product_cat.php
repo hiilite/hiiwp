@@ -19,7 +19,6 @@
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
-echo '<!--CONTENT-PRODUCT_CAT-->';
 ?>
 <li <?php wc_product_cat_class( '', $category ); ?>>
 	<?php

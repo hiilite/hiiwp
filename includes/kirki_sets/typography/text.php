@@ -59,7 +59,7 @@ Kirki::add_field( 'hiiwp', array(
     ),
     'default'     => array(
         'link'    => '',
-        'hover'   => '',
+        'hover'   => $hiilite_options['color_one'],
     ),
 ) );
 

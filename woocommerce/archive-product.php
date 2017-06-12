@@ -19,19 +19,29 @@
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
 }
-echo '<!--ARCHIVE-PRODUCT-->';
-get_header( 'shop' );
-			
-		echo '<div class="row"><div class="container_inner"><div class="in_grid">';
-		echo '<div class="col-9 text-block align-top">';
+
+get_header( 'shop' ); ?>
+
+	<?php
 		/**
 		 * woocommerce_before_main_content hook.
 		 *
 		 * @hooked woocommerce_output_content_wrapper - 10 (outputs opening divs for the content)
 		 * @hooked woocommerce_breadcrumb - 20
+		 * @hooked WC_Structured_Data::generate_website_data() - 30
 		 */
 		do_action( 'woocommerce_before_main_content' );
+	?>
 
+    <header class="woocommerce-products-header">
+
+		<?php if ( apply_filters( 'woocommerce_show_page_title', true ) ) : ?>
+
+			<h1 class="woocommerce-products-header__title page-title"><?php woocommerce_page_title(); ?></h1>
+
+		<?php endif; ?>
+
+		<?php
 			/**
 			 * woocommerce_archive_description hook.
 			 *
@@ -41,13 +51,15 @@ get_header( 'shop' );
 			do_action( 'woocommerce_archive_description' );
 		?>
 
+    </header>
+
 		<?php if ( have_posts() ) : ?>
 
 			<?php
-				
 				/**
 				 * woocommerce_before_shop_loop hook.
 				 *
+				 * @hooked wc_print_notices - 10
 				 * @hooked woocommerce_result_count - 20
 				 * @hooked woocommerce_catalog_ordering - 30
 				 */
@@ -59,6 +71,15 @@ get_header( 'shop' );
 				<?php woocommerce_product_subcategories(); ?>
 
 				<?php while ( have_posts() ) : the_post(); ?>
+
+					<?php
+						/**
+						 * woocommerce_shop_loop hook.
+						 *
+						 * @hooked WC_Structured_Data::generate_product_data() - 10
+						 */
+						do_action( 'woocommerce_shop_loop' );
+					?>
 
 					<?php wc_get_template_part( 'content', 'product' ); ?>
 
@@ -77,7 +98,14 @@ get_header( 'shop' );
 
 		<?php elseif ( ! woocommerce_product_subcategories( array( 'before' => woocommerce_product_loop_start( false ), 'after' => woocommerce_product_loop_end( false ) ) ) ) : ?>
 
-			<?php wc_get_template( 'loop/no-products-found.php' ); ?>
+			<?php
+				/**
+				 * woocommerce_no_products_found hook.
+				 *
+				 * @hooked wc_no_products_found - 10
+				 */
+				do_action( 'woocommerce_no_products_found' );
+			?>
 
 		<?php endif; ?>
 
@@ -97,11 +125,6 @@ get_header( 'shop' );
 		 * @hooked woocommerce_get_sidebar - 10
 		 */
 		do_action( 'woocommerce_sidebar' );
-
-echo '</div><div class="col-3 align-top flex-item text-block sidebar">';
- dynamic_sidebar('post_sidebar');
- echo '</div>';
-echo '</div></div><div>';
 	?>
 
 <?php get_footer( 'shop' ); ?>

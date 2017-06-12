@@ -1,7 +1,7 @@
 <?php 
 // KIRKI SETTINGS
 global $wp_customize;
-include_once( dirname( __FILE__ ) . '/kirki/kirki.php' );
+include_once( HIILITE_DIR . '/includes/kirki/kirki.php' );
 
 if ( ! function_exists( 'my_theme_kirki_update_url' ) ) {
     function my_theme_kirki_update_url( $config ) {
@@ -66,6 +66,8 @@ add_action( 'customize_register', function( $wp_customize ) {
 
 } );
 
+
+
 // PANELS
 Kirki::add_config( 'hiiwp', array(
 		'capability'    => 'edit_theme_options',
@@ -79,7 +81,6 @@ require_once 'kirki_sets/logo_section.php';
 
 // HEADER 
 require_once 'kirki_sets/header_panel.php';
-
 
 // FOOTER 
 require_once 'kirki_sets/footer_section.php';

@@ -153,7 +153,8 @@ switch ( $onclick ) {
 		break;
 
 	case 'custom_link':
-		// $link is already defined
+		$link = vc_build_link( $link );
+		$link = $link['url'];
 		break;
 
 	case 'zoom':

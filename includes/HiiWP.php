@@ -1,19 +1,86 @@
 <?php
 class HiiWP {
 	
-	
+	public static $options = array();
 	
 	public function __construct() {
 		
+		add_action( 'init', array( $this, 'hiiwp_init') );
+		add_action( 'wp_head', array( $this, 'hiiwp_head') );
+		add_action( 'wp_head', array($this, 'add_tracking_codes'));
+		
+		add_action( 'wp_footer', array( $this, 'print_inline_script'), 100 );
+		
+		add_action( 'after_setup_theme', array( $this, 'set_permalink_structure') );
 		// Load admin JavaScript. Do an is_admin() check before calling My_Custom_Plugin
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_admin_scripts' ), 100 );
 		//Used to disable tour mode
 		add_action( 'wp_ajax_hiiwp_disable_tour_mode', array( $this, 'hiiwp_disable_tour_mode' ));
-        add_action('wp_head', array($this, 'add_tracking_codes'));
-        include_once( dirname( __FILE__ ) . '/Plugin-Activation/class-tgm-plugin-activation.php');
         
+        
+        add_filter( 'auto_update_theme', '__return_true' );
+        add_filter( 'widget_text','do_shortcode');
+        add_filter( 'wp_calculate_image_srcset_meta', '__return_null' );
+        
+        $hiilite_options = self::getOptions();
+        require_once( HIILITE_DIR . '/includes/kirki-settings.php' );
+		require_once( HIILITE_DIR . '/addons/hiiwp/hiiwp.php');
+		
+        include_once( HIILITE_DIR . '/includes/Plugin-Activation/class-tgm-plugin-activation.php');
+        
+		if($hiilite_options['rets_listings_on']){
+			//Simply Rets Plugin
+			require_once( HIILITE_DIR . '/hii-ddf/hii-ddf.php' );
+		}
 	}
+	
+	public function getOptions() {
+		require(HIILITE_DIR . '/includes/site_variables.php');
+		self::$options = $hiilite_options;
+        return self::$options;
+    }
+    
+    function hiiwp_init(){  
+	    
+		
+    }
 	 
+	/*
+	//	note: wp_head
+	*/
+	function hiiwp_head(){
+		global $post, $wp_scripts;
+		
+		$hiilite_options = self::getOptions();
+		 
+		wp_enqueue_script("jquery");
+		wp_enqueue_script('main-scripts', get_template_directory_uri().'/js/main-scripts.js','jquery', array( 'jquery' ), '0.0.1', true);	
+		wp_localize_script('main-scripts', 'mobile_menu_switch', $hiilite_options['mobile_menu_switch']);
+		add_filter('script_loader_tag', 'add_defer_attribute', 10, 2);
+		if($hiilite_options['is_woocommerce']){
+			wp_enqueue_script( 'prettyPhoto-init', $woocommerce->plugin_url() . '/assets/js/prettyPhoto/jquery.prettyPhoto.init' . '.js', array( 'jquery' ), $woocommerce->version, true );
+		} 
+		
+		include_once(HIILITE_DIR . '/css/main-css.php');
+	}
+	
+	
+	function print_inline_script() {
+	  if ( wp_script_is( 'jquery', 'done' ) ) { 
+		  
+	  ?><script type="text/javascript">
+			document.onreadystatechange = function() {
+			<?=get_theme_mod('custom_js');?>
+			};
+		</script><?php
+	  }
+	}
+	
+	
+	public function set_permalink_structure(){
+		global $wp_rewrite;
+	    $wp_rewrite->set_permalink_structure( '/%postname%/' );
+	}
 	
 	public function add_tracking_codes(){
 		$post_id = get_the_id();
@@ -205,8 +272,8 @@ class HiiWP {
 	            'name'               => 'WPBakery Visual Composer', // The plugin name.
 	            'slug'               => 'js_composer', // The plugin slug (typically the folder name).
 	            'source'             => dirname(__FILE__) . '/Plugin-Activation/plugins/js_composer.zip', // The plugin source.
-	            'required'           => false, // If false, the plugin is only 'recommended' instead of required.
-	            'force_activation'   => false, // If true, plugin is activated upon theme activation and cannot be deactivated until theme switch.
+	            'required'           => true, // If false, the plugin is only 'recommended' instead of required.
+	            'force_activation'   => true, // If true, plugin is activated upon theme activation and cannot be deactivated until theme switch.
 	            'force_deactivation' => false, // If true, plugin is deactivated upon theme switch, useful for theme-specific plugins.
 	        ),
 			array(
@@ -220,6 +287,26 @@ class HiiWP {
 	        array(
 	            'name'      => 'Imsanity',
 	            'slug'      => 'imsanity',
+	            'required'  => false,
+	        ),
+	        array(
+	            'name'      => 'Autoptimize',
+	            'slug'      => 'autoptimize',
+	            'required'  => false,
+	        ),
+	        array(
+	            'name'      => 'Cache Enabler',
+	            'slug'      => 'cache-enabler',
+	            'required'  => false,
+	        ),
+	        array(
+	            'name'      => 'Cloudflare',
+	            'slug'      => 'cloudflare',
+	            'required'  => false,
+	        ),
+	        array(
+	            'name'      => 'Optimus',
+	            'slug'      => 'optimus',
 	            'required'  => false,
 	        ),
 	        array(
@@ -242,11 +329,6 @@ class HiiWP {
 	            'slug'      => 'facebook-conversion-pixel',
 	            'required'  => false,
 	        ),
-	        array(
-	            'name'      => 'WP Fastest Cache',
-	            'slug'      => 'wp-fastest-cache',
-	            'required'  => false,
-	        ),
 			array(
 	            'name'      => 'Gravity Forms Google Analytics Event Tracking',
 	            'slug'      => 'gravity-forms-google-analytics-event-tracking',
@@ -263,20 +345,11 @@ class HiiWP {
 	            'required'  => false,
 	        ),
 	        array(
-	            'name'      => 'Cloudflare',
-	            'slug'      => 'cloudflare',
-	            'required'  => false,
-	        ),
-	        array(
 	            'name'      => 'SSL Insecure Content Fixer',
 	            'slug'      => 'ssl-insecure-content-fixer',
 	            'required'  => false,
 	        ),
-	        array(
-	            'name'      => 'Loginizer',
-	            'slug'      => 'loginizer',
-	            'required'  => false,
-	        ),
+	       
 	    );
 	
 	    /**

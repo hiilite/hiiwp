@@ -52,7 +52,7 @@ vc_remove_element("vc_tta_tour");
 //vc_remove_element('vc_icon');
 vc_remove_element('vc_button2');
 //vc_remove_element("vc_custom_heading");
-//vc_remove_element("vc_btn");  
+vc_remove_element("vc_btn");  
 
 //vc_remove_element('vc_gallery');
 //vc_remove_element('vc_separator');
@@ -1097,7 +1097,7 @@ vc_map( array(
 				'description' => __( 'Select content position within columns.', 'js_composer' ),
 			),
 			array(
-				"type" => "textfield",
+				"type" => "vc_link",
 				"holder" => "div",
 				"class" => "",
 				"heading" => "Link",
@@ -1263,27 +1263,14 @@ vc_map( array(
 				),
             ),
 			array(
-				"type" => "textfield",
+				"type" => "vc_link",
 				"holder" => "div",
 				"class" => "",
 				"heading" => "Link",
 				"param_name" => "link"
 			),
 			
-			array(
-				"type" => "dropdown",
-				"holder" => "div",
-				"class" => "",
-				"heading" => "Link Target",
-				"param_name" => "target",
-				"value" => array(
-					"Self" => "_self",
-					"Blank" => "_blank",	
-					"Parent" => "_parent",
-					"Top" => "_top"	
-				),
-				'save_always' => true
-			),
+			
 			array(
 				"type" => "dropdown",
 				"holder" => "div",
@@ -1960,6 +1947,7 @@ vc_map( array(
 			'param_name' => 'active',
 			'description' => __( 'If unchecked, slide will not be displayed', 'js_composer' ),
 			'value' => array( __( 'Yes', 'js_composer' ) => 'yes' ),
+			'std'	=> 'yes',
 		),
 		/*array(
 			'type' => 'checkbox',
@@ -2207,6 +2195,18 @@ vc_add_param( 'vc_single_image', array(
 ));
 
 vc_add_param( 'vc_single_image', array(
+    'type' => 'vc_link',
+    'heading' => __( 'Image Link', 'my-text-domain' ),
+    'param_name' => 'link',
+    'dependency' => array(
+	    'element' => 'onclick',
+	    'value'	=> 'custom_link',
+	    
+	    
+    )
+));
+
+vc_add_param( 'vc_single_image', array(
     'type' => 'textfield',
     'heading' => __( 'Image size', 'my-text-domain' ),
     'description' => __('Enter image size (Example: "thumbnail", "medium", "large", "full" or other sizes defined by theme). Alternatively enter size in pixels (Example: 200x100 (Width x Height)).'),
@@ -2220,8 +2220,9 @@ vc_add_param( 'vc_single_image', array(
     'description'	=> __('The hover image should be the same dimensions as the original image','hiiwp'),
     'param_name' => 'hover_image',
 ));
+//vc_remove_param( "vc_single_image", "onclick" ); 
 vc_remove_param( "vc_single_image", "style" ); 
-
+vc_remove_param( "vc_single_image", "img_link_target" );
 
 
 if ( class_exists( 'WooCommerce' ) ) {

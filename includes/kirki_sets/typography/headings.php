@@ -20,7 +20,7 @@ Kirki::add_field( 'hiiwp', array(
         'line-height'    => ' ',
         'letter-spacing' => '0px',
         'text-transform' => ' ',
-        'color'          => ' ',
+        'color'          => $hiilite_options['color_two'],
     ), 
     'priority'    => 1,
 ) );
@@ -38,7 +38,7 @@ Kirki::add_field( 'hiiwp', array(
         'line-height'    => ' ',
         'letter-spacing' => '0px',
         'text-transform' => ' ',
-        'color'          => ' ',
+        'color'          => $hiilite_options['color_two'],
     ),
     'priority'    => 1,
 ) );
@@ -56,7 +56,7 @@ Kirki::add_field( 'hiiwp', array(
         'line-height'    => ' ',
         'letter-spacing' => '0px',
         'text-transform' => ' ',
-        'color'          => ' ',
+        'color'          => $hiilite_options['color_two'],
     ),
     'priority'    => 1,
 ) );
@@ -74,7 +74,7 @@ Kirki::add_field( 'hiiwp', array(
         'line-height'    => ' ',
         'letter-spacing' => '0px',
         'text-transform' => ' ',
-        'color'          => ' ',
+        'color'          => $hiilite_options['color_two'],
     ),
     'priority'    => 1,
 ) );
@@ -92,7 +92,7 @@ Kirki::add_field( 'hiiwp', array(
         'line-height'    => ' ',
         'letter-spacing' => '0px',
         'text-transform' => ' ',
-        'color'          => ' ',
+        'color'          => $hiilite_options['color_two'],
     ),
     'priority'    => 1,
 ) );
@@ -110,7 +110,7 @@ Kirki::add_field( 'hiiwp', array(
         'line-height'    => ' ',
         'letter-spacing' => '0px',
         'text-transform' => ' ',
-        'color'          => ' ',
+        'color'          => $hiilite_options['color_two'],
     ),
     'priority'    => 1,
 ) );	

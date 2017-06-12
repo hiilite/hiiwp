@@ -43,6 +43,8 @@ TODO: Have all CSS scripts that cannot be inlined loaded asyncronously use Googl
 TODO: Implement Classes using the Singleton Pattern to prevent multiple instances [https://code.tutsplus.com/articles/design-patterns-in-wordpress-the-singleton-pattern--wp-31621].
 
 **/
+
+
 if ( ! defined( 'HIIWP_VERSION' ) ) {                
 	 define( 'HIIWP_VERSION', '0.3.1' );
 }
@@ -68,7 +70,7 @@ class Hii {
      *--------------------------------------------*/
      
 	/** Refers to a single instance of this class. */
-	private static $hiiwp = null;
+	public static $hiiwp = null;
 	
 	
 	
@@ -132,41 +134,7 @@ class Hii {
 Hii::say_hii();
 
 
-global $hiilite_options;
-$hiilite_options['amp'] = get_theme_mod('amp');
-$hiilite_options['portfolio_on'] = get_theme_mod('portfolio_on');
-$hiilite_options['teams_on'] = get_theme_mod('teams_on');
-$hiilite_options['menus_on'] = get_theme_mod('menus_on');
-$hiilite_options['testimonials_on'] = get_theme_mod('testimonials_on');
-$hiilite_options['rets_listings_on'] = get_theme_mod('rets_listings_on');
 
-if(class_exists( 'WooCommerce' )){
-	$hiilite_options['is_woocommerce'] = (is_woocommerce())?true:false;
-} else {
-	$hiilite_options['is_woocommerce'] = false;
-}
-
-add_filter( 'auto_update_theme', '__return_true' );
-add_filter('widget_text','do_shortcode');
-
-
-
-
-add_filter( 'wp_calculate_image_srcset_meta', '__return_null' );
-
-
-
-
-
-
-require_once( HIILITE_DIR . '/includes/kirki-settings.php' );
-
-require_once( HIILITE_DIR . '/addons/hiiwp/hiiwp.php');
-
-if($hiilite_options['rets_listings_on']){
-	//Simply Rets Plugin
-	require_once( HIILITE_DIR . '/hii-ddf/hii-ddf.php' );
-}
 
 require_once( HIILITE_DIR . '/addons/tinymce_edits/tinymce_edits.php');
 require_once( HIILITE_DIR . '/includes/widgets.php' );
@@ -329,36 +297,7 @@ function disable_wp_emojicons() {
 }
 add_action( 'init', 'disable_wp_emojicons' );
 
-/*
-//	note: wp_head
-*/
-function hiiwp_init(){
-	global $hiilite_options, $post, $wp_scripts;
-	
-	require_once(HIILITE_DIR . '/includes/site_variables.php');
-	
-	wp_enqueue_script("jquery");
-	wp_enqueue_script('amp-scripts', get_template_directory_uri().'/js/amp-scripts.js','jquery', array( 'jquery' ), '0.0.1', true);	
-	add_filter('script_loader_tag', 'add_defer_attribute', 10, 2);
-	if($hiilite_options['is_woocommerce']){
-		wp_enqueue_script( 'prettyPhoto-init', $woocommerce->plugin_url() . '/assets/js/prettyPhoto/jquery.prettyPhoto.init' . '.js', array( 'jquery' ), $woocommerce->version, true );
-	} 
-	
-	include_once(HIILITE_DIR . '/css/main-css.php');
-}
-add_action( 'wp_head', 'hiiwp_init' );
 
-function print_inline_script() {
-  if ( wp_script_is( 'jquery', 'done' ) ) { 
-	  
-  ?><script type="text/javascript">
-		document.onreadystatechange = function() {
-		<?=get_theme_mod('custom_js');?>
-		};
-	</script><?php
-  }
-}
-add_action( 'wp_footer', 'print_inline_script', 100 );
 
 /*
 //	note: customize_preview_init
@@ -434,9 +373,8 @@ if(!function_exists('hiilite_admin_styles')){
 	
 	// THIS GIVES US SOME OPTIONS FOR STYLING THE ADMIN AREA
 	function custom_colors() {
-		global $hiilite_options;
 		
-		require_once(HIILITE_DIR . '/includes/site_variables.php');
+		require(HIILITE_DIR . '/includes/site_variables.php');
 		echo '<style>';
 			require_once(HIILITE_DIR . '/editor-style.php');
 		echo '</style>';

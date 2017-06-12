@@ -52,8 +52,10 @@
 		<?php bbp_topic_pagination(); ?>
 
 		<?php do_action( 'bbp_theme_before_topic_meta' ); ?>
-
-		<p class="bbp-topic-meta">
+		<p>
+		<?php bbp_reply_content(); ?>
+		</p>
+		<!--<p class="bbp-topic-meta">
 
 			<?php do_action( 'bbp_theme_before_topic_started_by' ); ?>
 
@@ -71,7 +73,7 @@
 
 			<?php endif; ?>
 
-		</p>
+		</p>-->
 
 		<?php do_action( 'bbp_theme_after_topic_meta' ); ?>
 
@@ -91,7 +93,7 @@
 
 		<?php do_action( 'bbp_theme_after_topic_freshness_link' ); ?>
 
-		<p class="bbp-topic-meta">
+		<!--<p class="bbp-topic-meta">
 
 			<?php do_action( 'bbp_theme_before_topic_freshness_author' ); ?>
 
@@ -99,7 +101,7 @@
 
 			<?php do_action( 'bbp_theme_after_topic_freshness_author' ); ?>
 
-		</p>
+		</p>-->
 	</li>
 
 </ul><!-- #bbp-topic-<?php bbp_topic_id(); ?> -->
