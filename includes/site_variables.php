@@ -13,7 +13,7 @@ if(class_exists( 'WooCommerce' )){
 /*
  *	GENERAL
  */
-$hiilite_options['portfolio_on'] 				= get_theme_mod( 'portfolio_on', false);
+$hiilite_options['portfolio_on'] 				= get_theme_mod( 'portfolio_on', true);
 $hiilite_options['portfolio_title'] 			= get_theme_mod( 'portfolio_title', 'Portfolio');
 $hiilite_options['portfolio_slug'] 				= get_theme_mod( 'portfolio_slug', 'portfolio');
 $hiilite_options['portfolio_tax_title'] 		= get_theme_mod( 'portfolio_tax_title', 'Work');
@@ -31,7 +31,7 @@ $hiilite_options['menu_slug'] 					= get_theme_mod('menu_slug', 'menu');
 $hiilite_options['menu_tax_title'] 				= get_theme_mod('menu_tax_title', 'Menu Section');
 $hiilite_options['menu_tax_slug'] 				= get_theme_mod('menu_tax_slug', 'menu-section');
 
-$hiilite_options['testimonials_on'] 			= get_theme_mod('testimonials_on');
+$hiilite_options['testimonials_on'] 			= get_theme_mod('testimonials_on', false);
 $hiilite_options['testimonials_title'] 			= get_theme_mod('testimonials_title', 'Testimonials');
 $hiilite_options['testimonials_slug'] 			= get_theme_mod('testimonials_slug', 'testimonials');
 $hiilite_options['testimonials_tax_title'] 		= get_theme_mod('testimonials_tax_title', 'Testimonials Categories');
@@ -154,7 +154,7 @@ $hiilite_options['header_top_font']				= get_theme_mod( 'header_top_font', array
         'font-family'    => ' ',
         'variant'        => ' ',
         'font-size'      => ' ',
-        'line-height'    => '50px',
+        'line-height'    => '1.5',
         'letter-spacing' => '0px',
         'text-transform' => ' ',
         'color'          => ' ',
@@ -163,6 +163,7 @@ $hiilite_options['header_top_font']				= get_theme_mod( 'header_top_font', array
 
 
 $hiilite_options['header_top_left']				= get_theme_mod( 'header_top_left', false );
+$hiilite_options['header_top_center']			= get_theme_mod( 'header_top_center', false );
 $hiilite_options['header_top_right']			= get_theme_mod( 'header_top_right', false );
 
 
@@ -219,6 +220,12 @@ $hiilite_options['main_menu_font']			= get_theme_mod( 'main_menu_font', array(
 												) );
 												
 $hiilite_options['main_menu_links_css']		= get_theme_mod( 'main_menu_links_css', '' );
+
+$hiilite_options['main_menu_colors']		= get_theme_mod('main_menu_colors', array(
+        'hover'   => '',
+        'active'  => '',
+        'hover_background'  => '',
+    ));
 
 $hiilite_options['dropdown_background_color'] = get_theme_mod( 'dropdown_background_color', '#ffffff' );
 $hiilite_options['main_menu_background_color']	= get_theme_mod( 'main_menu_background_color', '' );

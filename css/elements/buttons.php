@@ -1,6 +1,9 @@
 <?php
 
 	 /* */ ?>
+.button {
+	-webkit-appearance: none;
+}
 .button, .vc_general.vc_btn3, .vc_general.vc_btn3:focus, .vc_general.vc_btn3:hover { <?php 
 	get_font_css($hiilite_options[ 'typography_button_default_font' ]);
 	echo 'background:'.$hiilite_options[ 'typography_button_default_background' ]['base'].';';

@@ -32,11 +32,7 @@ Kirki::add_field( 'hiiwp', array(
         'active'  => esc_attr__( 'Active Color', 'hiiwp' ),
         'hover_background'  => esc_attr__( 'Hover Background', 'hiiwp' ),
     ),
-    'default'     => array(
-        'hover'   => '',
-        'active'  => '',
-        'hover_background'  => '',
-    ),
+    'default'     => $hiilite_options['main_menu_colors'],
 ) );
 
 Kirki::add_field( 'hiiwp', array(

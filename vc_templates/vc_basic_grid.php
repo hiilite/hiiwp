@@ -2,7 +2,7 @@
 if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
 }
-global $hiilite_options;
+$hiilite_options = Hii::$hiiwp->get_options();
 /**
  * Shortcode attributes
  * @var $atts array
@@ -79,8 +79,8 @@ if(isset($atts)) {
 	$hiilite_options['blog_img_pos'] = isset($atts['blog_img_pos'])?(string)$atts['blog_img_pos']:$hiilite_options['blog_img_pos'];
 	$hiilite_options['blog_title_show'] = isset($atts['blog_title_show'])?$atts['blog_title_show']:$hiilite_options['blog_title_show'];
 	$hiilite_options['blog_title_position'] = isset($atts['blog_title_position'])?$atts['blog_title_position']:$hiilite_options['blog_title_position'];
-	$hiilite_options['blog_cats_show'] = isset($atts['blog_cats_show'])?$atts['blog_cats_show']:$hiilite_options['blog_cats_show'];
-	$hiilite_options['blog_meta_show'] = isset($atts['blog_meta_show'])?$atts['blog_cats_show']:$hiilite_options['blog_meta_show'];
+	$hiilite_options['blog_cats_show'] = isset($atts['blog_cats_show'])?$atts['blog_cats_show']:$hiilite_options['blog_cats_show']; 
+	$hiilite_options['blog_meta_show'] = isset($atts['blog_meta_show'])?$atts['blog_meta_show']:$hiilite_options['blog_meta_show'];
 	$hiilite_options['blog_excerpt_show'] = isset($atts['blog_excerpt_show'])?$atts['blog_excerpt_show']:$hiilite_options['blog_excerpt_show'];
 	$hiilite_options['blog_excerpt_len'] = isset($atts['blog_excerpt_len'])?$atts['blog_excerpt_len']:$hiilite_options['blog_excerpt_len'];
 	$hiilite_options['blog_more_show'] = isset($atts['blog_more_show'])?$atts['blog_more_show']:$hiilite_options['blog_more_show'];

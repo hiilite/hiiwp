@@ -3,6 +3,9 @@ class HiiWP {
 	
 	public static $options = array();
 	
+	
+	
+	
 	public function __construct() {
 		
 		add_action( 'init', array( $this, 'hiiwp_init') );
@@ -22,7 +25,9 @@ class HiiWP {
         add_filter( 'widget_text','do_shortcode');
         add_filter( 'wp_calculate_image_srcset_meta', '__return_null' );
         
-        $hiilite_options = self::getOptions();
+        $hiilite_options = self::get_options();
+        
+        
         require_once( HIILITE_DIR . '/includes/kirki-settings.php' );
 		require_once( HIILITE_DIR . '/addons/hiiwp/hiiwp.php');
 		
@@ -32,9 +37,28 @@ class HiiWP {
 			//Simply Rets Plugin
 			require_once( HIILITE_DIR . '/hii-ddf/hii-ddf.php' );
 		}
+		require_once( HIILITE_DIR . '/addons/tinymce_edits/tinymce_edits.php');
+		
+		require_once( HIILITE_DIR . '/includes/widgets.php' );
+		
+		require_once( HIILITE_DIR . '/includes/register_sidebars.php' );
+		
+		require_once( HIILITE_DIR . '/includes/register_post_types.php');
+		require_once( HIILITE_DIR . '/includes/classes.php' );
+		
+		/*
+		 * Auto include all shortcodes
+		 */
+		foreach (glob(HIILITE_DIR."/includes/shortcodes/*.php") as $filename)
+		{
+		    include_once( $filename );
+		}
+		
+
 	}
 	
-	public function getOptions() {
+	
+	public function get_options() {
 		require(HIILITE_DIR . '/includes/site_variables.php');
 		self::$options = $hiilite_options;
         return self::$options;
@@ -51,7 +75,7 @@ class HiiWP {
 	function hiiwp_head(){
 		global $post, $wp_scripts;
 		
-		$hiilite_options = self::getOptions();
+		$hiilite_options = self::get_options();
 		 
 		wp_enqueue_script("jquery");
 		wp_enqueue_script('main-scripts', get_template_directory_uri().'/js/main-scripts.js','jquery', array( 'jquery' ), '0.0.1', true);	
@@ -263,7 +287,7 @@ class HiiWP {
 	        array(
 	            'name'               => 'Backup Buddy', // The plugin name.
 	            'slug'               => 'backupbuddy', // The plugin slug (typically the folder name).
-	            'source'             => dirname(__FILE__) . '/Plugin-Activation/plugins/backupbuddy-6.5.0.3.zip', // The plugin source.
+	            'source'             => dirname(__FILE__) . '/Plugin-Activation/plugins/backupbuddy.zip', // The plugin source.
 	            'required'           => false, // If false, the plugin is only 'recommended' instead of required.
 	            'force_activation'   => false, // If true, plugin is activated upon theme activation and cannot be deactivated until theme switch.
 	            'force_deactivation' => false, // If true, plugin is deactivated upon theme switch, useful for theme-specific plugins

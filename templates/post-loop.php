@@ -12,10 +12,9 @@ TODO:
 - Turn Related posts into widget and shortcode
 - Turn about the author into widget and shortcode	
 */
-global $hiilite_options;
+$hiilite_options = Hii::$hiiwp->get_options();
+
 $post_meta = get_post_meta(get_the_id());
-$hiilite_options['amp'] = get_theme_mod('amp');
-if($hiilite_options['amp']) $_amp = 'amp-'; else $_amp = '';
 
 ?>
 <!--POST-LOOP-->
@@ -78,7 +77,7 @@ if(has_post_thumbnail($post->id) && (get_theme_mod( 'blog_show_featured_image', 
 		<meta itemprop="url" content="<?=$img[0];?>">
 		<meta itemprop="width" content="<?=$img[1];?>">
 		<meta itemprop="height" content="<?=$img[2];?>">
-		<<?=$_amp?>img src='<?=$img[0];?>' layout='responsive' width='<?=$width?>' height='<?=$height?>'><?=($_amp!='')?'</amp-img>':''?>
+		<img src='<?=$img[0];?>' layout='responsive' width='<?=$width?>' height='<?=$height?>'>
 	</figure><?php 
 endif;
 	
@@ -86,7 +85,8 @@ the_content();
 
 
 $source = get_post_meta( $post->ID, 'source_article_link');
-if(isset($source) && $source[0] != ''){ ?>
+if(is_array($source) && 
+	isset($source[0])){ ?>
 	<br>
 	<div class="articleSource labels">
 		<p>
@@ -137,14 +137,14 @@ if($hiilite_options['blog_rel_articles'] == true):
 	echo '<aside class="col-12 text-block">';
 	
 	//for use in the loop, list 5 post titles related to first tag on current post
-	
+	$args = null;
 	$args = wp_parse_args( (array) $args, array(
 	        'orderby' => 'modified',
 	        'return'  => 'query', // Valid values are: 'query' (WP_Query object), 'array' (the arguments array)
 	    ) );
 	    
 	$related_args = array(
-	    'post_type'      => get_post_type( $post_id ),
+	    'post_type'      => get_post_type( $post->ID ),
 	    'posts_per_page' => 8,
 	    'post_status'    => 'publish',
 	    'post__not_in'   => array( get_the_ID() ),
@@ -178,17 +178,21 @@ if($hiilite_options['blog_rel_articles'] == true):
 			while ($my_query->have_posts()) : $my_query->the_post();
 				if ( has_post_thumbnail() ) {
 					$image = wp_get_attachment_image_src( get_post_thumbnail_id( get_the_id() ));
-				}
-				?>
-			
-					
+					?>
 					<a href="<?=get_the_permalink()?>"  class="relatedarticle slide">
 				    	<img src="<?=$image[0]?>" width="200" height="200" alt="<?=get_the_title()?>">
 				    	<p><?=get_the_title();?></p>
 					</a>
-					
-			
-		  <?php
+					<?php
+				} else {
+					?>
+					<a href="<?=get_the_permalink()?>"  class="relatedarticle slide">
+				    	<img src="<?=$hiilite_options['main_logo']?>" width="200" height="200" alt="<?=get_the_title()?>">
+				    	<p><?=get_the_title();?></p>
+					</a>
+					<?php
+				}
+				
 			  	
 			  endwhile;
 			  ?>

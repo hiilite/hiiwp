@@ -15,11 +15,12 @@
 	});
 	
 	$(window).on('resize',function(){
-		if($(window).width() >= parseInt(mobile_menu_switch)) {
+		if($(document).width() >= parseInt(mobile_menu_switch)) {
 			$('#main-nav').fadeIn(250);	
 			$('.sub-menu').removeClass('open').slideUp(250);
 		} else {
 			$('#main-nav').hide(0);
+			$('.sub-menu').removeClass('open').slideUp(250);
 		}
 	});
 	

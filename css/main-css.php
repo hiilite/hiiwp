@@ -136,6 +136,9 @@ h1 a, h2 a, h3 a, h4 a, h5 a, h6 a {
 .blog-article .post_author a {
     color: #bebebe;
 }
+ol li ol li {
+    list-style-type: lower-alpha;
+}
 figure {
 	display: block;
 	margin: auto;
@@ -162,6 +165,18 @@ figure.single-image.hover-image .hover_image-img {
 }
 figure.single-image.hover-image:hover .hover_image-img {
     opacity: 1;
+}
+.wp-caption.alignright {
+    display: inline-block;
+    float: right;
+}
+p .alignright {
+	margin-left:1em;
+}
+.wp-caption-text {
+	color: #637282;
+	font-size: 14px;
+    font-style: italic;
 }
 
 address {
@@ -247,6 +262,24 @@ table td {
 	align-items: stretch;
 	flex-wrap: wrap;
 	box-sizing: border-box;
+}
+.grid-left {
+    padding-left: calc((100vw - 1100px)/2);
+    min-width: initial;
+}
+.grid-right {
+    padding-right: calc((100vw - 1100px)/2);
+    min-width: initial;
+}
+@media (max-width: 1100px) {
+    .grid-right {
+        padding-right: 0;
+        min-width: initial;
+    }
+    .grid-left {
+        padding-left: 0;
+        min-width: initial;
+    }
 }
 .row {
 	box-sizing: border-box;
@@ -467,7 +500,8 @@ img.full-width, .row, .wpb_content_element {
 	scroll-snap-points-x: repeat(100%);
 }
 .full-width,.threequarter-width,.half-width,.third-width,.twothird-width,.quarter-width,
-.col-12,.col-9,.col-7,.col-8,.col-6,.col-4,.col-3,.col-2,.col-1 {
+.col-12,.col-9,.col-7,.col-8,.col-6,.col-4,.col-3,.col-2,.col-1,
+.vc_col-lg-1, .vc_col-lg-10, .vc_col-lg-11, .vc_col-lg-12, .vc_col-lg-2, .vc_col-lg-3, .vc_col-lg-4, .vc_col-lg-5, .vc_col-lg-6, .vc_col-lg-7, .vc_col-lg-8, .vc_col-lg-9, .vc_col-md-1, .vc_col-md-10, .vc_col-md-11, .vc_col-md-12, .vc_col-md-2, .vc_col-md-3, .vc_col-md-4, .vc_col-md-5, .vc_col-md-6, .vc_col-md-7, .vc_col-md-8, .vc_col-md-9, .vc_col-sm-1, .vc_col-sm-10, .vc_col-sm-11, .vc_col-sm-12, .vc_col-sm-2, .vc_col-sm-3, .vc_col-sm-4, .vc_col-sm-5, .vc_col-sm-6, .vc_col-sm-7, .vc_col-sm-8, .vc_col-sm-9, .vc_col-xs-1, .vc_col-xs-10, .vc_col-xs-11, .vc_col-xs-12, .vc_col-xs-2, .vc_col-xs-3, .vc_col-xs-4, .vc_col-xs-5, .vc_col-xs-6, .vc_col-xs-7, .vc_col-xs-8, .vc_col-xs-9 {
     box-sizing: border-box;
     min-width: 100px;
 }
@@ -476,7 +510,7 @@ img.full-width, .row, .wpb_content_element {
 $alt_cols =	array(false,false,false,'quarter-width','third-width',false,'half-width',false,'twothird-width','threequarter-width',false,false,'full-width');
 $col_4 = ($hiilite_options['grid_width'] / 3) + 1;
 for($i = 12; $i>0;$i--):
-	echo '.col-'.$i;
+	echo '.vc_col-xs-'.$i.', .vc_col-md-'.$i.', .vc_col-sm-'.$i.', .vc_col-lg-'.$i.', .col-'.$i;
 	echo ($alt_cols[$i])?', .'.$alt_cols[$i]:'';
 	echo '{';
 		$perc_ratio = (($i/12)*100) - 0.1;
@@ -1131,6 +1165,10 @@ if(class_exists('WP_User_Manager')):
 	
 	
 	<?php
+endif;
+
+if(class_exists('BuddyPress')): 
+	include_once(HIILITE_DIR.'/css/service_extensions/buddypress-css.php');	
 endif;
 
 if ( is_customize_preview() ) :

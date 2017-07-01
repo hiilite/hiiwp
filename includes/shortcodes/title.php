@@ -78,6 +78,15 @@ if (!function_exists('hii_title')) {
 			$link = $link['url'];
 	    	$html .= '<a href="'.$link.'">';    
 	    }
+	    elseif(isset($link))
+	    {
+		    $link = vc_build_link( $link );
+		    if($link['url'] != NULL && $link['url'] != '')
+		    {
+			    $link = $link['url'];
+		    	$html .= '<a href="'.$link.'">';
+		    }
+		}
 	    
 	    if($color != ";" || $font_family != ";")
 	    {
@@ -113,6 +122,14 @@ if (!function_exists('hii_title')) {
         {
 	    	$html .= '</a>';    
 	    }
+	    elseif(isset($link))
+	    {
+		    $link = vc_build_link( $link );
+		    if($link['url'] != NULL && $link['url'] != '')
+		    {
+			    $html .= '</a>'; 
+		    }
+		}
 	    
         return $html;
     }

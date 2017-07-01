@@ -136,19 +136,7 @@ Hii::say_hii();
 
 
 
-require_once( HIILITE_DIR . '/addons/tinymce_edits/tinymce_edits.php');
-require_once( HIILITE_DIR . '/includes/widgets.php' );
-require_once( HIILITE_DIR . '/includes/register_sidebars.php' );
-require_once( HIILITE_DIR . '/includes/register_post_types.php');
-require_once( HIILITE_DIR . '/includes/classes.php' );
-require_once( HIILITE_DIR . '/includes/shortcodes/button.php');
-require_once( HIILITE_DIR . '/includes/shortcodes/title.php');
-require_once( HIILITE_DIR . '/includes/shortcodes/media-gallery.php');
-require_once( HIILITE_DIR . '/includes/shortcodes/vc_empty_space.php');
-require_once( HIILITE_DIR . '/includes/shortcodes/amp-carousel.php');
-require_once( HIILITE_DIR . '/includes/shortcodes/screen-showcase.php');
-require_once( HIILITE_DIR . '/includes/shortcodes/calculation-table.php');
-require_once( HIILITE_DIR . '/includes/shortcodes/icon_text.php');
+
 
 
 /*
@@ -406,7 +394,11 @@ function posts_link_attributes() {
 }
 
 
-
+function bbp_enable_visual_editor( $args = array() ) {
+    $args['tinymce'] = true;
+    return $args;
+}
+add_filter( 'bbp_after_get_the_content_parse_args', 'bbp_enable_visual_editor' );
 
 
 // MODIFIY IMAGE TAGS

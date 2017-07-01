@@ -1,5 +1,5 @@
 <?php 
-global $hiilite_options;
+$hiilite_options = Hii::$hiiwp->get_options();
 get_header();
 echo '<!--Archive-->';
 get_template_part( 'templates/title' );
@@ -34,7 +34,7 @@ if(have_posts()):
 				get_template_part('templates/listing', 'loop');
 				break;
 			default:
-				get_template_part('templates/blog', 'loop');
+				get_template_part('templates/default', 'loop');
 		}
 		
 		

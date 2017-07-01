@@ -7,9 +7,7 @@ header#main_header {
 	z-index: 9999;
 	transition: all 0.5s;
 	<?php 
-	if ($hiilite_options['header_above_content'] == false){ 
-		echo 'position:absolute;'; 
-	} 
+	
 	echo ($hiilite_options['header_background_image'] != '')?'background-image:url('.$hiilite_options['header_background_image'].');':'';
 	echo 'background-repeat:'.$hiilite_options['header_background_repeat'].';';
 	echo 'background-size:'.$hiilite_options['header_background_size'].';';

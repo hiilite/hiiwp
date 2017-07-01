@@ -10,7 +10,7 @@
  * @since       0.1.0
  */
 
-$hiilite_options = Hii::$hiiwp->getOptions();
+$hiilite_options = Hii::$hiiwp->get_options();
 
 $post_id = get_the_id();
 $post_object = get_post( $post_id );
@@ -78,7 +78,7 @@ if ( is_customize_preview() ) : ?>
 				<div class="container_inner"><div class="in_grid">
 					<?php 
 					do_action( 'hii_header_top_left' );
-					
+					do_action( 'hii_header_top_center' );
 					do_action( 'hii_header_top_right' );	
 					?>
 				</div></div>

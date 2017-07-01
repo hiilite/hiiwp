@@ -1,7 +1,6 @@
 <?php
-global $hiilite_options;
-
-
+	
+$hiilite_options = Hii::$hiiwp->get_options();
 /*** Removing shortcodes ***/
 //vc_remove_element("vc_widget_sidebar");
 //vc_remove_element("vc_wp_search");
@@ -52,7 +51,7 @@ vc_remove_element("vc_tta_tour");
 //vc_remove_element('vc_icon');
 vc_remove_element('vc_button2');
 //vc_remove_element("vc_custom_heading");
-vc_remove_element("vc_btn");  
+//vc_remove_element("vc_btn");  
 
 //vc_remove_element('vc_gallery');
 //vc_remove_element('vc_separator');
@@ -2488,6 +2487,75 @@ vc_map( array(
 		
 ) );
 
+// Blockquote 
+vc_map( array(
+        "name" => "Blockquote",
+		"base" => "blockquote",
+		"category" => 'by Hiilite',
+		"icon" => "extended-custom-icon-qode icon-wpb-blockquote",
+		"allowed_container_element" => 'vc_row',
+		"params" => array(
+			array(
+				"type" => "textarea",
+				"heading" => "Text",
+				"param_name" => "text",
+				"value" => "Blockquote text",
+				'save_always' => true,
+				'admin_label' => true
+
+			),
+            array(
+				"type" => "colorpicker",
+				"heading" => "Text Color",
+				"param_name" => "text_color",
+				"description" => ""
+			),
+			array(
+				"type" => "textfield",
+				"heading" => "Width",
+				"param_name" => "width",
+				"description" => "Width (%)",
+				'admin_label' => true
+			),
+			array(
+				"type" => "textfield",
+				"heading" => "Line Height",
+				"param_name" => "line_height",
+				"description" => "Line Height (px)"
+			),
+            array(
+				"type" => "colorpicker",
+				"heading" => "Background Color",
+				"param_name" => "background_color",
+				"description" => ""
+			),
+			array(
+				"type" => "colorpicker",
+				"heading" => "Border Color",
+				"param_name" => "border_color",
+				"description" => ""
+			),
+            array(
+                "type" => "dropdown",
+                "heading" => "Show Quote Icon",
+                "param_name" => "show_quote_icon",
+                "value" => array(
+                    "Yes" => "yes",
+                    "No" => "no"
+                ),
+				'save_always' => true,
+                "description" => "",
+				'admin_label' => true
+            ),
+            array(
+                "type" => "colorpicker",
+                "heading" => "Quote Icon Color",
+                "param_name" => "quote_icon_color",
+                "description" => "",
+                "dependency" => array('element' => "show_quote_icon", 'value' => 'yes'),
+            )
+		)
+) );
 
 // TESTIMONIALS
 if($hiilite_options['testimonials_on']){
