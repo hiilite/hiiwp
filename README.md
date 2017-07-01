@@ -2,7 +2,7 @@
 This theme is currently in Alpha testing and should not be installed without the support of the team at Hiilite Creative Group
 
 ### Change log
-#### v0.3.8
+#### v0.3.9
 - Changing to development, testing, and production environments. Will be employing keys to all client websites hosting the hiiwp theme to begin receiving updates from the prod (master) environment.
 #### v0.3.8
 - Major overhaul of Customizer class structure
