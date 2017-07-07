@@ -61,4 +61,15 @@ Kirki::add_field( 'hiiwp', array(
     ),
     'priority'    => 1,
 ) );
+
+
+Kirki::add_field( 'hiiwp', array(
+    'type'        => 'spacing',
+    'settings'    => 'sidebar_padding',
+    'label'       => esc_attr__( 'Sidebar Padding', 'kirki' ),
+    'description' => __( 'Define padding around the sidebar' ),
+    'section'     => $section,
+    'default'     => $hiilite_options['sidebar_padding'],
+    'priority'    => 1,
+) );
 ?>

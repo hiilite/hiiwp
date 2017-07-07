@@ -193,29 +193,29 @@ if(get_post_meta( $post_id, 'Address-Latitude', true ) == ''){
 				$i = 0;
 				foreach(get_post_meta( $post_id, 'AgentDetails', true ) as $key) {
 					if($i > 0) $cont .= '<br> or ';
-					
+					/*
 					if(isset($key['Websites']) && is_array($key['Websites'])) {
 						if(isset($key['Websites'][0]))$cont .= '<a href="'.$key['Websites'][0].'" target="_blank">';
 					} else {
 						if(isset($key['Websites']['Website']))$cont .= '<a href="'.$key['Websites']['Website'].'" target="_blank">';
-					}
+					}*/
 					
 					
 					
-			    	if(isset($key['Position'])) $cont .= '<em>'.$key['Position'].'</em> ';
+			    //	if(isset($key['Position'])) $cont .= '<em>'.$key['Position'].'</em> ';
 			    	
-			    	$cont .= '<strong>'.$key['Name'].'</strong>';
+			    	$cont .= '<strong>Sean Skuter</strong>';
 			    	
-			    	if(isset($key['Websites']))$cont .= '</a>';
+			    	//if(isset($key['Websites']))$cont .= '</a>';
 			    	
 			    	
 			    	$cont .=' now ';	
 					if(isset($key['Phones']) && is_array($key['Phones']['Phone'])){
 						
-						$cont .= 'at <strong><a href="tel:'.$key['Phones']['Phone'][0].'">'.$key['Phones']['Phone'][0].'</a></strong>';
+						$cont .= 'at <strong><a href="tel:+12507175000">(250) 717-5000</a></strong>';
 					}
 					elseif(isset($key['Phones']))
-						$cont .= 'at <strong><a href="tel:'.$key['Phones']['Phone'].'">'.$key['Phones']['Phone'].'</a></strong>';
+						$cont .= 'at <strong><a href="tel:+12507175000">(250) 717-5000</a></strong>';
 
 			    	
 			    	$i++;

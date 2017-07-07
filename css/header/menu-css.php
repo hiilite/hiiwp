@@ -61,7 +61,7 @@ ul.sub-menu {
 	background-color: <?=$hiilite_options['dropdown_background_color'];?>;
 }
 
-.menu ul.sub-menu .menu-item a {
+#main_header .menu ul.sub-menu .menu-item a {
 	text-decoration: none;
 	display:block;
 	<?php 
