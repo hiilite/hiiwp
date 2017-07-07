@@ -480,6 +480,14 @@ $hiilite_options['blog_rel_articles']		= get_theme_mod( 'blog_rel_articles', tru
 $hiilite_options['single_full']			= get_theme_mod( 'single_full', false );
 
 
+// SIDEBAR
+$hiilite_options['sidebar_padding'] 				= get_theme_mod( 'sidebar_padding', array(
+		'top'    => '1em',
+		'right'  => '1em',
+		'bottom' => '1em',
+		'left'   => '1em',
+	));
+
 // PORTFOLIO
 $hiilite_options['portfolio_slug']		= get_theme_mod( 'portfolio_slug', 'portfolio' );
 $hiilite_options['portfolio_layout']		= get_theme_mod( 'portfolio_layout', 'masonry-h' );

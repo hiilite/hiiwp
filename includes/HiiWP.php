@@ -52,7 +52,7 @@ class HiiWP {
 		foreach (glob(HIILITE_DIR."/includes/shortcodes/*.php") as $filename)
 		{
 		    include_once( $filename );
-		}
+		} 
 		
 
 	}
@@ -73,7 +73,7 @@ class HiiWP {
 	//	note: wp_head
 	*/
 	function hiiwp_head(){
-		global $post, $wp_scripts;
+		global $post, $wp_scripts, $woocommerce;
 		
 		$hiilite_options = self::get_options();
 		 

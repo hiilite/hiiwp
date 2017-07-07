@@ -3,7 +3,6 @@
 global $is_IE;
 include_once('font-awesome/css/font-awesome.min.css'); 
 
-	
 function get_font_css($font){
 	if(is_array($font)){
 		foreach($font as $key => $value){
@@ -476,6 +475,7 @@ if(get_theme_mod( 'show_footer_top_yesno', true )): ?>
 	min-height: <?=$hiilite_options['title_height'];?>;
 	padding: <?=get_spacing(get_theme_mod( 'title_padding' ));?>;
 	display: block;
+	width:100%;
 }
 .page-title h1 {
 	margin-bottom: 0;
@@ -864,16 +864,21 @@ amp-carousel[type=slides] .slide {
     top: 50%;
     height: 34px;
     width: 34px;
-    border-radius: 2px;
+    border-radius: 100%;
     opacity: 1;
     pointer-events: all;
-    background-color: rgba(0,0,0,.5);
-    background-position: 50% 50%;
-    background-repeat: no-repeat;
     -webkit-transform: translateY(-50%);
     transform: translateY(-50%);
     visibility: visible;
     z-index: 10;
+    
+    display: inline-block;
+    font: normal normal normal 14px/34px FontAwesome;
+    font-size: inherit;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-align: center;
 }
 amp-carousel .amp-carousel-button.amp-disabled {
     -webkit-animation: none;
@@ -883,15 +888,38 @@ amp-carousel .amp-carousel-button.amp-disabled {
 }
 .amp-carousel-button-next {
     right: 16px;
-    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="%23fff" viewBox="0 0 18 18"><path d="M9 3L7.94 4.06l4.19 4.19H3v1.5h9.13l-4.19 4.19L9 15l6-6z" /></svg>');
-    background-size: 18px 18px;
+}
+.amp-carousel-button-next:before {
+    content: "\f054";
 }
 .amp-carousel-button-prev {
     left: 16px;
-    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="%23fff" viewBox="0 0 18 18"><path d="M15 8.25H5.87l4.19-4.19L9 3 3 9l6 6 1.06-1.06-4.19-4.19H15v-1.5z" /></svg>');
-    background-size: 18px 18px;
+}
+.amp-carousel-button-prev:before {
+    content: "\f053";
+}
+amp-carousel ul.bullets_navigation {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    left: 0;
+    padding: 0;
+    margin: 0;
+    text-align: center;
 }
 
+amp-carousel li.bullet_item {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border: 1px solid white;
+    border-radius: 10px;
+    margin: 5px;
+    background-color: rgba(0,0,0,0.4);
+}
+amp-carousel li.bullet_item.on { 
+	background-color: white;
+}
 
 amp-carousel.slider {
 	min-width: 100%;

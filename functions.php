@@ -46,7 +46,7 @@ TODO: Implement Classes using the Singleton Pattern to prevent multiple instance
 
 
 if ( ! defined( 'HIIWP_VERSION' ) ) {                
-	 define( 'HIIWP_VERSION', '0.3.1' );
+	 define( 'HIIWP_VERSION', '0.3.9' );
 }
 if ( ! defined( 'HIIWP_SLUG' ) ) {                
     define( 'HIIWP_SLUG', 'hiiwp' );           
@@ -116,7 +116,7 @@ class Hii {
 	*/
 	private function define_constants(){
 	    if ( ! defined( 'HIIWP_VERSION' ) ) {                
-			 define( 'HIIWP_VERSION', '0.3.1' );
+			 define( 'HIIWP_VERSION', '0.3.9' );
 	    }
 	    if ( ! defined( 'HIIWP_SLUG' ) ) {                
 	        define( 'HIIWP_SLUG', 'hiiwp' );           
@@ -132,9 +132,6 @@ class Hii {
 }
 
 Hii::say_hii();
-
-
-
 
 
 
@@ -165,6 +162,15 @@ GRAVITY FORMS
 if(class_exists('GFForms')):
 	//require_once( dirname( __FILE__ ) . '/addons/gravityformsrangeslider/rangeslider.php');
 endif;
+
+/*	
+WOOCMMERCE	
+*/
+if(class_exists('WooCommerce')){
+	add_theme_support( 'wc-product-gallery-zoom' );
+	add_theme_support( 'wc-product-gallery-lightbox' );
+	add_theme_support( 'wc-product-gallery-slider' );
+}
 
 /*
 bbPress	

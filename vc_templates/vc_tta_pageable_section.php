@@ -51,8 +51,7 @@ if($atts['active'] == true):
 	
 	$output = '';
 	$output .= '<div ' . implode( ' ', $wrapper_attributes ) . ' style="background:url('.$src.'); background-size:cover;">';
-	$output .= '<div class="slide-text-overlay">
-	                ';
+	$output .= '<div class="slide-text-overlay">';
 	$output .= $this->getTemplateVariable( 'content' );
 	$output .= '</div></div>';
 	echo $output;
