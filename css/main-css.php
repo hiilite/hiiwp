@@ -3,7 +3,6 @@
 global $is_IE;
 include_once('font-awesome/css/font-awesome.min.css'); 
 
-	
 function get_font_css($font){
 	if(is_array($font)){
 		foreach($font as $key => $value){
@@ -136,6 +135,9 @@ h1 a, h2 a, h3 a, h4 a, h5 a, h6 a {
 .blog-article .post_author a {
     color: #bebebe;
 }
+ol li ol li {
+    list-style-type: lower-alpha;
+}
 figure {
 	display: block;
 	margin: auto;
@@ -162,6 +164,18 @@ figure.single-image.hover-image .hover_image-img {
 }
 figure.single-image.hover-image:hover .hover_image-img {
     opacity: 1;
+}
+.wp-caption.alignright {
+    display: inline-block;
+    float: right;
+}
+p .alignright {
+	margin-left:1em;
+}
+.wp-caption-text {
+	color: #637282;
+	font-size: 14px;
+    font-style: italic;
 }
 
 address {
@@ -247,6 +261,24 @@ table td {
 	align-items: stretch;
 	flex-wrap: wrap;
 	box-sizing: border-box;
+}
+.grid-left {
+    padding-left: calc((100vw - 1100px)/2);
+    min-width: initial;
+}
+.grid-right {
+    padding-right: calc((100vw - 1100px)/2);
+    min-width: initial;
+}
+@media (max-width: 1100px) {
+    .grid-right {
+        padding-right: 0;
+        min-width: initial;
+    }
+    .grid-left {
+        padding-left: 0;
+        min-width: initial;
+    }
 }
 .row {
 	box-sizing: border-box;
@@ -443,6 +475,7 @@ if(get_theme_mod( 'show_footer_top_yesno', true )): ?>
 	min-height: <?=$hiilite_options['title_height'];?>;
 	padding: <?=get_spacing(get_theme_mod( 'title_padding' ));?>;
 	display: block;
+	width:100%;
 }
 .page-title h1 {
 	margin-bottom: 0;
@@ -467,7 +500,8 @@ img.full-width, .row, .wpb_content_element {
 	scroll-snap-points-x: repeat(100%);
 }
 .full-width,.threequarter-width,.half-width,.third-width,.twothird-width,.quarter-width,
-.col-12,.col-9,.col-7,.col-8,.col-6,.col-4,.col-3,.col-2,.col-1 {
+.col-12,.col-9,.col-7,.col-8,.col-6,.col-4,.col-3,.col-2,.col-1,
+.vc_col-lg-1, .vc_col-lg-10, .vc_col-lg-11, .vc_col-lg-12, .vc_col-lg-2, .vc_col-lg-3, .vc_col-lg-4, .vc_col-lg-5, .vc_col-lg-6, .vc_col-lg-7, .vc_col-lg-8, .vc_col-lg-9, .vc_col-md-1, .vc_col-md-10, .vc_col-md-11, .vc_col-md-12, .vc_col-md-2, .vc_col-md-3, .vc_col-md-4, .vc_col-md-5, .vc_col-md-6, .vc_col-md-7, .vc_col-md-8, .vc_col-md-9, .vc_col-sm-1, .vc_col-sm-10, .vc_col-sm-11, .vc_col-sm-12, .vc_col-sm-2, .vc_col-sm-3, .vc_col-sm-4, .vc_col-sm-5, .vc_col-sm-6, .vc_col-sm-7, .vc_col-sm-8, .vc_col-sm-9, .vc_col-xs-1, .vc_col-xs-10, .vc_col-xs-11, .vc_col-xs-12, .vc_col-xs-2, .vc_col-xs-3, .vc_col-xs-4, .vc_col-xs-5, .vc_col-xs-6, .vc_col-xs-7, .vc_col-xs-8, .vc_col-xs-9 {
     box-sizing: border-box;
     min-width: 100px;
 }
@@ -476,7 +510,7 @@ img.full-width, .row, .wpb_content_element {
 $alt_cols =	array(false,false,false,'quarter-width','third-width',false,'half-width',false,'twothird-width','threequarter-width',false,false,'full-width');
 $col_4 = ($hiilite_options['grid_width'] / 3) + 1;
 for($i = 12; $i>0;$i--):
-	echo '.col-'.$i;
+	echo '.vc_col-xs-'.$i.', .vc_col-md-'.$i.', .vc_col-sm-'.$i.', .vc_col-lg-'.$i.', .col-'.$i;
 	echo ($alt_cols[$i])?', .'.$alt_cols[$i]:'';
 	echo '{';
 		$perc_ratio = (($i/12)*100) - 0.1;
@@ -830,16 +864,21 @@ amp-carousel[type=slides] .slide {
     top: 50%;
     height: 34px;
     width: 34px;
-    border-radius: 2px;
+    border-radius: 100%;
     opacity: 1;
     pointer-events: all;
-    background-color: rgba(0,0,0,.5);
-    background-position: 50% 50%;
-    background-repeat: no-repeat;
     -webkit-transform: translateY(-50%);
     transform: translateY(-50%);
     visibility: visible;
     z-index: 10;
+    
+    display: inline-block;
+    font: normal normal normal 14px/34px FontAwesome;
+    font-size: inherit;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-align: center;
 }
 amp-carousel .amp-carousel-button.amp-disabled {
     -webkit-animation: none;
@@ -849,15 +888,38 @@ amp-carousel .amp-carousel-button.amp-disabled {
 }
 .amp-carousel-button-next {
     right: 16px;
-    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="%23fff" viewBox="0 0 18 18"><path d="M9 3L7.94 4.06l4.19 4.19H3v1.5h9.13l-4.19 4.19L9 15l6-6z" /></svg>');
-    background-size: 18px 18px;
+}
+.amp-carousel-button-next:before {
+    content: "\f054";
 }
 .amp-carousel-button-prev {
     left: 16px;
-    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="%23fff" viewBox="0 0 18 18"><path d="M15 8.25H5.87l4.19-4.19L9 3 3 9l6 6 1.06-1.06-4.19-4.19H15v-1.5z" /></svg>');
-    background-size: 18px 18px;
+}
+.amp-carousel-button-prev:before {
+    content: "\f053";
+}
+amp-carousel ul.bullets_navigation {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    left: 0;
+    padding: 0;
+    margin: 0;
+    text-align: center;
 }
 
+amp-carousel li.bullet_item {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border: 1px solid white;
+    border-radius: 10px;
+    margin: 5px;
+    background-color: rgba(0,0,0,0.4);
+}
+amp-carousel li.bullet_item.on { 
+	background-color: white;
+}
 
 amp-carousel.slider {
 	min-width: 100%;
@@ -1131,6 +1193,10 @@ if(class_exists('WP_User_Manager')):
 	
 	
 	<?php
+endif;
+
+if(class_exists('BuddyPress')): 
+	include_once(HIILITE_DIR.'/css/service_extensions/buddypress-css.php');	
 endif;
 
 if ( is_customize_preview() ) :

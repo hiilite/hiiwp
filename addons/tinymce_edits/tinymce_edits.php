@@ -3,7 +3,6 @@
 if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
 }
-global $hiilite_options;
 
 
  

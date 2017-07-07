@@ -1,0 +1,3 @@
+#buddypress {
+	width:100%;
+}

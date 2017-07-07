@@ -1,6 +1,6 @@
 <?php 
 // Include each post type if turned on
-if($hiilite_options['testimonials_on']) require_once HIILITE_DIR.'/includes/post_types/testimonial_post_type.php';
+if($hiilite_options['testimonials_on'] == true) require_once HIILITE_DIR.'/includes/post_types/testimonial_post_type.php';
 if($hiilite_options['portfolio_on']) 	require_once HIILITE_DIR.'/includes/post_types/portfolio_post_type.php';
 if($hiilite_options['menus_on']) 		require_once HIILITE_DIR.'/includes/post_types/menu_post_type.php';
 if($hiilite_options['teams_on'])		require_once HIILITE_DIR.'/includes/post_types/team_post_type.php';
@@ -429,7 +429,7 @@ function get_portfolio($args = null, $options = null){
 			$rowstart = true;
 			$rowend = true;
 			$rowdirection = false;
-			$html .= $ratio;
+			//$html .= $ratio;
 			for($k=0;$k<$i;$k++){
 				$current = null;
 				
@@ -703,7 +703,7 @@ function get_portfolio($args = null, $options = null){
 				if(!isset($current['isolate'])) $current['isolate'] ='';
 				if(isset($current['id'])):
 					$html .= '<div id="pfi'.$current['id'].'" class="flex-item '.$current['col'].' '.$current['isolate'].'">';
-					$html .= $debug;
+					//$html .= $debug;
 					if($args['post_type'] != 'attachment') $html .= '<a href="'.$current['href'].'">';
 					$html .= '<amp-img src="'.$current['src'].'" layout="responsive" width="'.$current['width'].'" height="'.$current['height'].'"';
 					if($args['post_type'] == 'attachment') $html .= ' on="tap:lightbox1" role="button" ';

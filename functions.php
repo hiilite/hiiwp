@@ -46,7 +46,7 @@ TODO: Implement Classes using the Singleton Pattern to prevent multiple instance
 
 
 if ( ! defined( 'HIIWP_VERSION' ) ) {                
-	 define( 'HIIWP_VERSION', '0.3.1' );
+	 define( 'HIIWP_VERSION', '0.3.9' );
 }
 if ( ! defined( 'HIIWP_SLUG' ) ) {                
     define( 'HIIWP_SLUG', 'hiiwp' );           
@@ -116,7 +116,7 @@ class Hii {
 	*/
 	private function define_constants(){
 	    if ( ! defined( 'HIIWP_VERSION' ) ) {                
-			 define( 'HIIWP_VERSION', '0.3.1' );
+			 define( 'HIIWP_VERSION', '0.3.9' );
 	    }
 	    if ( ! defined( 'HIIWP_SLUG' ) ) {                
 	        define( 'HIIWP_SLUG', 'hiiwp' );           
@@ -134,21 +134,6 @@ class Hii {
 Hii::say_hii();
 
 
-
-
-require_once( HIILITE_DIR . '/addons/tinymce_edits/tinymce_edits.php');
-require_once( HIILITE_DIR . '/includes/widgets.php' );
-require_once( HIILITE_DIR . '/includes/register_sidebars.php' );
-require_once( HIILITE_DIR . '/includes/register_post_types.php');
-require_once( HIILITE_DIR . '/includes/classes.php' );
-require_once( HIILITE_DIR . '/includes/shortcodes/button.php');
-require_once( HIILITE_DIR . '/includes/shortcodes/title.php');
-require_once( HIILITE_DIR . '/includes/shortcodes/media-gallery.php');
-require_once( HIILITE_DIR . '/includes/shortcodes/vc_empty_space.php');
-require_once( HIILITE_DIR . '/includes/shortcodes/amp-carousel.php');
-require_once( HIILITE_DIR . '/includes/shortcodes/screen-showcase.php');
-require_once( HIILITE_DIR . '/includes/shortcodes/calculation-table.php');
-require_once( HIILITE_DIR . '/includes/shortcodes/icon_text.php');
 
 
 /*
@@ -177,6 +162,15 @@ GRAVITY FORMS
 if(class_exists('GFForms')):
 	//require_once( dirname( __FILE__ ) . '/addons/gravityformsrangeslider/rangeslider.php');
 endif;
+
+/*	
+WOOCMMERCE	
+*/
+if(class_exists('WooCommerce')){
+	add_theme_support( 'wc-product-gallery-zoom' );
+	add_theme_support( 'wc-product-gallery-lightbox' );
+	add_theme_support( 'wc-product-gallery-slider' );
+}
 
 /*
 bbPress	
@@ -406,7 +400,11 @@ function posts_link_attributes() {
 }
 
 
-
+function bbp_enable_visual_editor( $args = array() ) {
+    $args['tinymce'] = true;
+    return $args;
+}
+add_filter( 'bbp_after_get_the_content_parse_args', 'bbp_enable_visual_editor' );
 
 
 // MODIFIY IMAGE TAGS

@@ -20,6 +20,16 @@ function hiiwp_widgets_init() {
 	'before_title'  => '<h4 class="widgettitle">',
 	'after_title'   => '</h4>',
     ) );
+    
+    register_sidebar( array(
+        'name' => __( 'Header Top Center', 'hiiwp' ),
+        'id' => 'header_top_center',
+        'description' => __( 'Widgets in this area will be shown in the top header above the logo', 'theme-slug' ),
+        'before_widget' => '<div id="%1$s" class="flex-item %2$s">',
+	'after_widget'  => '</div>',
+	'before_title'  => '<h4 class="widgettitle">',
+	'after_title'   => '</h4>',
+    ) );
      
     register_sidebar( array(
         'name' => __( 'Header Top Right', 'hiiwp' ),

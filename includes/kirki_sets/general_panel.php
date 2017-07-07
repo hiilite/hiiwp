@@ -33,6 +33,7 @@ Kirki::add_field( 'hiiwp', array(
 	'label'       => esc_attr__( 'Portfolio', 'my_textdomain' ),
 	'section'     => $section,
 	'default'     => $hiilite_options['portfolio_on'],
+	'value'		  => true,
 	'priority'	  => 1,
 	'description'    => __( 'Turn on the Portfolio post type' ),
 ) );

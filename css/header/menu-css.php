@@ -1,6 +1,6 @@
 <?php if(false): ?><style><?php endif; 
 
-$main_menu_colors = get_theme_mod('main_menu_colors');	
+$main_menu_colors = $hiilite_options['main_menu_colors'];	
 ?>
 .menu {
 	list-style: none;
@@ -57,21 +57,17 @@ ul.sub-menu {
     padding: 0;
     display: none;
 	min-width: 12em;
-	z-index: 10;
+	z-index: 10; 
 	background-color: <?=$hiilite_options['dropdown_background_color'];?>;
 }
 
-.menu ul.sub-menu .menu-item a {
+#main_header .menu ul.sub-menu .menu-item a {
 	text-decoration: none;
 	display:block;
 	<?php 
 	get_font_css(get_theme_mod('second_level_menu_font'));
 	echo get_theme_mod('second_level_menu_links_css');
 	?>
-}
-.menu li a:hover {
-	background: <?=$hiilite_options['color_one']?>;
-	color: #ffffff;
 }
 
 <?php

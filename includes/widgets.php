@@ -27,6 +27,17 @@ function hii_header_top_left_widget_area(){
 }
 add_action( 'hii_header_top_left', 'hii_header_top_left_widget_area' );
 
+function hii_header_top_center_widget_area(){
+	global $hiilite_options;
+	if($hiilite_options['header_top_center'] || get_theme_mod('header_top_area_yesno') == true){
+		echo '<div id="header_top_center" class="flex-item">';
+			if ( is_active_sidebar( 'header_top_center' ) ) :
+				if(!dynamic_sidebar( 'header_top_center' )){}
+			endif;
+		echo '</div>';
+	} 	
+}
+add_action( 'hii_header_top_left', 'hii_header_top_center_widget_area' );
 
 function hii_header_top_right_widget_area(){
 	global $hiilite_options;

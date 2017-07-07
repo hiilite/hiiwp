@@ -1,6 +1,5 @@
 <?php
-global $hiilite_options;
-
+$hiilite_options = Hii::$hiiwp->get_options();
 do_action( 'hii_after_content' );
 
 ?>			

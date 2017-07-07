@@ -67,8 +67,7 @@ function add_amp_carousel_shortcode( $atts ){
 	       $image = wp_get_attachment_image_src( $attachment->ID, 'full' );
 	       $hratio = ($height / $image[2]);
 	       $output .= '<a class="slide">';
-		   $output .= '<'.$_amp.'img src="'.$image[0].'" width="'.($image[1]*$hratio).'" height="'.($image[2]*$hratio).'" alt="'.get_the_title().'">';
-		   if($hiilite_options['amp']) $output .= '</amp-img>';
+		   $output .= '<img src="'.$image[0].'" width="'.($image[1]*$hratio).'" height="'.($image[2]*$hratio).'" alt="'.get_the_title().'">';
 		   $output .= '</a>';
 	    endforeach;
 	    if($thumbnails):
@@ -79,8 +78,7 @@ function add_amp_carousel_shortcode( $atts ){
 		       $image = wp_get_attachment_image_src( $attachment->ID, 'thumbnail' );
 		       $hratio = ($height / $image[2]);
 		       $output .= '<a class="thumbnail" data-img="'.$i.'" style="width:'.$thumb_width.'%">';
-			   $output .= '<'.$_amp.'img src="'.$image[0].'" width="150" height="150" alt="'.get_the_title().'">';
-			   if($hiilite_options['amp']) $output .= '</amp-img>';
+			   $output .= '<img src="'.$image[0].'" width="150" height="150" alt="'.get_the_title().'">';
 			   $output .= '</a>';
 			   $i++;
 		    endforeach;
@@ -93,8 +91,7 @@ function add_amp_carousel_shortcode( $atts ){
 				$image = wp_get_attachment_image_src( get_post_thumbnail_id( get_the_id() ), 'large' );
 				$hratio = ($height / $image[2]);
 				$output .= '<a href="'.get_the_permalink().'" class="slide">';
-				$output .= '<'.$_amp.'img src="'.$image[0].'" width="'.($image[1]*$hratio).'" height="'.($image[2]*$hratio).'" alt="'.get_the_title().'">';
-				if($hiilite_options['amp']) $output .= '</amp-img>';
+				$output .= '<img src="'.$image[0].'" width="'.($image[1]*$hratio).'" height="'.($image[2]*$hratio).'" alt="'.get_the_title().'">';
 				$output .= '</a>';
 		  	}
 		endwhile;

@@ -1,5 +1,6 @@
 <?php
-global $hiilite_options, $post;
+global $post;
+$hiilite_options = Hii::$hiiwp->get_options();
 $post_meta = get_post_meta(get_the_id());
 echo '<!--BLOG-LOOP-->';
 // Create Title

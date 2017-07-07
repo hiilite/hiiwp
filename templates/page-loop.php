@@ -1,6 +1,5 @@
 <?php
-global $hiilite_options;
-
+$hiilite_options = Hii::$hiiwp->get_options();
 $post_meta = get_post_meta(get_the_id()); 
 ?>
 <!--PAGE-LOOP-->

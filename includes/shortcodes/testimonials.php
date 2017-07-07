@@ -2,25 +2,18 @@
 function add_testimonials_shortcode( $atts ){
 	global $qode_options_proya;
 	
+	
 	$testimonials_slug = get_theme_mod( 'testimonials_slug', 'testimonials' );
 	$testimonials_tax_slug = get_theme_mod( 'testimonials_tax_slug', 'testimonials_category' );
 	
 	$post_id = get_the_id();
 	$post_object = get_post( $post_id );
-	
-	if(get_post_meta($post_id, 'amp', true) == 'nonamp'){
-		$hiilite_options['amp'] = false;
-	} else {
-		$hiilite_options['amp'] = (!isset($hiilite_options['amp']))?get_theme_mod('amp'):$hiilite_options['amp'];
-	}
-	
+
 	
 	$options = get_option('company_options');
-	if($hiilite_options['amp']) $_amp = 'amp-'; else $_amp = '';
 
 	$el_class = $width = $css = $offset = ''; $output = '';
 	
-	$options = get_option('company_options');
 	extract( shortcode_atts( array(
       'section'			=> 'all',
       'show_image'		=> false,
@@ -35,6 +28,7 @@ function add_testimonials_shortcode( $atts ){
       "css"  		=> "",
    ), $atts ) );
 	
+
 	
 	////////////////
 	// Push VC CSS
@@ -81,6 +75,8 @@ function add_testimonials_shortcode( $atts ){
 	    endif;
 	    while($query->have_posts()){
 		    $query->the_post();
+		    
+		    
 		    $post_id = get_the_id();
 			
 			$output .= '<div itemscope itemtype="http://schema.org/Review" class="testimonial_item slide row container_inner"><div class="flex-item  align-center">
@@ -89,8 +85,7 @@ function add_testimonials_shortcode( $atts ){
 			// image
 			if($show_image){
 				$image = wp_get_attachment_image_src( get_post_thumbnail_id(get_the_id()), 'medium' );
-				$output .= '<'.$_amp.'img src="'.$image[0].'" itemprop="image" class="'.$image_style.' testimonial_image" width="'.($image[1]).'" height="'.($image[2]).'" alt="'.get_the_title().'">';
-				if($hiilite_options['amp'])$output .= '</amp-img>';
+				$output .= '<img src="'.$image[0].'" itemprop="image" class="'.$image_style.' testimonial_image" width="'.($image[1]).'" height="'.($image[2]).'" alt="'.get_the_title().'">';
 			}
 			
 			$output .=	'<meta itemprop="name" content="'.$options['business_name'].'"></div>';
@@ -106,7 +101,7 @@ function add_testimonials_shortcode( $atts ){
 			$output .= '</div>';
 			
 			// title
-			if($show_title)$output .= '<'.$heading_tag.' class="testimonial_title"><span itemprop="name">'.get_the_title().'</span></'.$heading_tag.'>';
+			if($show_title)$output .= '<'.$heading_tag.' class="testimonial_title"><span itemprop="name">'.get_the_title($post_id).'</span></'.$heading_tag.'>';
 				  
 			// content
 			$output .= '<div itemprop="reviewBody" class="testimonial_content text-block">'.get_the_content().'</div>';

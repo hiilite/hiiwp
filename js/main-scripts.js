@@ -15,11 +15,12 @@
 	});
 	
 	$(window).on('resize',function(){
-		if($(window).width() >= parseInt(mobile_menu_switch)) {
+		if($(document).width() >= parseInt(mobile_menu_switch)) {
 			$('#main-nav').fadeIn(250);	
 			$('.sub-menu').removeClass('open').slideUp(250);
 		} else {
 			$('#main-nav').hide(0);
+			$('.sub-menu').removeClass('open').slideUp(250);
 		}
 	});
 	
@@ -75,6 +76,14 @@
 				var $thumbheight = $carousel.find('.thumbnails').height();
 				if($thumbheight < 200){$thumbheight = 200; }
 				$carousel.css({ 'margin-bottom': $thumbheight });
+			} else {
+				// Add Bullets
+				if(length > 1) {
+					$carousel.append('<ul class="bullets_navigation"></ul>')
+					for(i=1;i <= length;i++){
+						$carousel.find('.bullets_navigation').append('<li class="bullet_item" data-slide="'+i+'"></li>');
+					}
+				}
 			}
 			
 			contentHeights = $carousel.find('.slide-text-overlay').map(function() {
@@ -194,27 +203,45 @@
 			}
 			/* SLIDES */
 			else if(type == 'slides'){
-
+				
+			
+				$carousel.find('.bullets_navigation li:first-child').addClass('on');
+					
 				$carousel.find('.slide:first-child').show().addClass('on').siblings('.slide').hide().removeClass('on');
 				
 				$next_button.on('click', function(){ 
-					if($carousel.find('.slide.on').index() < (length - 1)) {
+					current_index = $carousel.find('.slide.on').index();
+					if(current_index < (length - 1)) {
 						$carousel.find('.slide.on').fadeOut(500).removeClass('on').next().fadeIn(500, function(){ $(this).addClass('on');});
 					} else {
 						$carousel.find('.slide.on').fadeOut(500).removeClass('on');
 						$carousel.find('.slide:eq(0)').fadeIn(500, function(){ $(this).addClass('on'); });
-
+						
 					}
+					$carousel.find('.bullets_navigation li.on').removeClass('on');
+					$carousel.find('.bullets_navigation li:eq('+current_index+')').addClass('on');
 				});
 				
 				$prev_button.on('click', function(){
-					if($carousel.find('.slide.on').index() > 0) {
+					current_index = $carousel.find('.slide.on').index();
+					if(current_index > 0) {
 						$carousel.find('.slide.on').fadeOut(500).removeClass('on').prev().addClass('on').fadeIn(500, function(){});
 					} else {
 						$carousel.find('.slide.on').fadeOut(500).removeClass('on');
 						$carousel.find('.slide:eq('+(length-1)+')').addClass('on').fadeIn(500, function(){});
 					}
+					$carousel.find('.bullets_navigation li.on').removeClass('on');
+					$carousel.find('.bullets_navigation li:eq('+current_index+')').addClass('on');
 				});
+				
+				$carousel.find('.bullets_navigation li').on('click', function(){
+					slide_index = ($(this).data('slide') - 1);
+					$carousel.find('.slide.on').fadeOut(500).removeClass('on');
+					$carousel.find('.slide:eq('+slide_index+')').addClass('on').fadeIn(500, function(){});
+					$carousel.find('.bullets_navigation li.on').removeClass('on');
+					$carousel.find('.bullets_navigation li:eq('+slide_index+')').addClass('on');
+				});
+				
 				if($carousel.hasClass('has_thumbs')){
 					$carousel.on('click', '.thumbnail', function(){
 						var $this = $(this),
@@ -236,19 +263,19 @@
 				/* AUTO SLIDE */
 				if(delay){
 					var autoSlider = setInterval(function(){
-					
+						current_index = $carousel.find('.slide.on').index();
 						/* last slide > first */
-						if($carousel.find('.slide.on').index() == (length - 1)) {
+						if(current_index == (length - 1)) {
 							$carousel.find('.slide.on').fadeOut(500).removeClass('on');
 							$carousel.find('.slide').eq(0).fadeIn(500).addClass('on');
 							
 						} 
 						/* first slide > second */
-						else if($carousel.find('.slide.on').index() == 0) {
+						else if(current_index == 0) {
 							$carousel.find('.slide.on').fadeOut(500).removeClass('on').next().fadeIn(500).addClass('on');
 							
 						} 
-						else if($carousel.find('.slide.on').index() == (length - 2)) {
+						else if(current_index == (length - 2)) {
 							$carousel.find('.slide.on').fadeOut(500).removeClass('on').next().fadeIn(500).addClass('on');
 							
 						} 
@@ -257,7 +284,8 @@
 							$carousel.find('.slide.on').fadeOut(500).removeClass('on').next().fadeIn(500).addClass('on');
 
 						}
-						
+						$carousel.find('.bullets_navigation li.on').removeClass('on');
+						$carousel.find('.bullets_navigation li:eq('+current_index+')').addClass('on');
 						
 					}, delay);
 				}
