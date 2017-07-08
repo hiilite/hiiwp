@@ -40,7 +40,6 @@ class HiiWP {
 		require_once( HIILITE_DIR . '/includes/register_sidebars.php' );
 		
 		require_once( HIILITE_DIR . '/includes/register_post_types.php');
-		require_once( HIILITE_DIR . '/includes/classes.php' );
 		
 		/*
 		 * Auto include all shortcodes
