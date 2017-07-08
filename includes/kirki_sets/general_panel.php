@@ -337,18 +337,6 @@ Kirki::add_field( 'hiiwp', array(
 	),
 ) );
 
-//////////////////
-// RETS Listings
-Kirki::add_field( 'hiiwp', array(
-	'type'        => 'switch',
-	'settings'    => 'rets_listings_on',
-	'label'       => esc_attr__( 'RETS Listings On', 'hiiwp' ),
-	'section'     => $section,
-	'default'     => $hiilite_options['rets_listings_on'],
-	'priority'	  => 1,
-	'description'    => __( 'Turn on Real Estate Listing functionality for connection with SimplyRETS' ),
-) );
-
 
 ///////////////////
 //

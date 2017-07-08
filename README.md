@@ -2,6 +2,10 @@
 This theme is currently in Alpha testing and should not be installed without the support of the team at Hiilite Creative Group
 
 ### Change log
+#### v0.4.0
+- Updated Visual Composer (will have to remove current and re-install plugin to get update)
+- Fixed issue with Portfolio horizontal masonry images not showing
+- Fixed menu CSS in customizer
 #### v0.3.9
 - Changing to development, testing, and production environments. Will be employing keys to all client websites hosting the hiiwp theme to begin receiving updates from the prod (master) environment.
 #### v0.3.8

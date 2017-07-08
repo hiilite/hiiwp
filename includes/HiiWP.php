@@ -33,10 +33,6 @@ class HiiWP {
 		
         include_once( HIILITE_DIR . '/includes/Plugin-Activation/class-tgm-plugin-activation.php');
         
-		if($hiilite_options['rets_listings_on']){
-			//Simply Rets Plugin
-			require_once( HIILITE_DIR . '/hii-ddf/hii-ddf.php' );
-		}
 		require_once( HIILITE_DIR . '/addons/tinymce_edits/tinymce_edits.php');
 		
 		require_once( HIILITE_DIR . '/includes/widgets.php' );

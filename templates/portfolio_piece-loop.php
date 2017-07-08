@@ -4,7 +4,7 @@
 	TODO:
 	-	Make Title and feature image turn on by default in customizer	
 */
-global $hiilite_options;
+$hiilite_options = Hii::$hiiwp->get_options();
 $post_meta = get_post_meta(get_the_id());
 
 ?>

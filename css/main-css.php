@@ -3,6 +3,24 @@
 global $is_IE;
 include_once('font-awesome/css/font-awesome.min.css'); 
 
+function get_background_css(){
+	foreach($hiilite_options['title_background'] as $rule => $value){
+		if($value != ''){
+			switch ($rule){
+				case 'attach':
+					echo "background-attachment:$value;";
+					break;
+				case 'position':
+					echo 'background-position:'.str_replace('-', ' ', $value).';';
+					break;
+				default:
+					echo "background-$rule:$value;";
+					break;
+					
+			}
+		}
+	}
+}
 function get_font_css($font){
 	if(is_array($font)){
 		foreach($font as $key => $value){
@@ -296,7 +314,7 @@ include_once(HIILITE_DIR.'/css/vc_elements/row-css.php');
 include_once(HIILITE_DIR.'/css/elements/buttons.php'); 
 include_once(HIILITE_DIR.'/css/header/header-css.php'); 
 include_once(HIILITE_DIR.'/css/header/menu-css.php');
-
+include_once(HIILITE_DIR.'/css/elements/page_titles-css.php');
 /*
 //	note: FOOTER 
 */
@@ -454,38 +472,6 @@ if(get_theme_mod( 'show_footer_top_yesno', true )): ?>
 	box-sizing: border-box;
 }
 
-<?php
-/*
-//	note: Page Title 
-*/	
-?>
-.page-title {
-	overflow: hidden;
-	<?php 
-	if ($hiilite_options['header_above_content'] == false){ echo 'z-index:100;top:0;'; } 
-	echo 'position: relative;';
-	echo ($hiilite_options['title_background_image'] != '')?'background-image:url('.$hiilite_options['title_background_image'].');':'';
-	echo 'background-repeat:'.$hiilite_options['title_background_repeat'].';';
-	echo 'background-size:'.$hiilite_options['title_background_size'].';';
-	echo 'background-attachment:'.$hiilite_options['title_background_attach'].';';
-	echo 'background-position:'.str_replace('-', ' ', $hiilite_options['title_background_position']).';';
-	echo 'background-color:'.$hiilite_options['title_background_color'].';';
-
-	?>
-	min-height: <?=$hiilite_options['title_height'];?>;
-	padding: <?=get_spacing(get_theme_mod( 'title_padding' ));?>;
-	display: block;
-	width:100%;
-}
-.page-title h1 {
-	margin-bottom: 0;
-	<?php 
-	get_font_css($hiilite_options['title_font']);
-	?>
-}
-.page-title .back_to_blog, .page-title small, .page-title small a {
-	color: <?=$hiilite_options['title_font']['color'];?>;
-}
 
 img {
 	max-width: 100%;

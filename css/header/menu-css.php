@@ -1,6 +1,7 @@
 <?php if(false): ?><style><?php endif; 
 
-$main_menu_colors = $hiilite_options['main_menu_colors'];	
+$main_menu_colors = $hiilite_options['main_menu_colors'];
+$second_level_menu_colors = $hiilite_options['second_level_menu_colors'];	
 ?>
 .menu {
 	list-style: none;
@@ -13,6 +14,7 @@ $main_menu_colors = $hiilite_options['main_menu_colors'];
 
 .menu .menu-item  {
 	position: relative;
+	cursor: pointer;
 }
 .menu .menu-item a {
 	text-decoration: none;
@@ -69,7 +71,12 @@ ul.sub-menu {
 	echo get_theme_mod('second_level_menu_links_css');
 	?>
 }
-
+#main_header .menu ul.sub-menu .menu-item a:hover {
+	color:<?=$second_level_menu_colors['hover'];?>;
+}
+#main_header .menu ul.sub-menu .menu-item:hover {
+	background-color:<?=$second_level_menu_colors['hover_background'];?>;
+}
 <?php
 /*
 //	note: SUB SUB MENU

@@ -88,15 +88,7 @@ Kirki::add_field( 'hiiwp', array(
     'label'       => esc_attr__( '2nd Level Menu', 'kirki' ),
     'description' => __( 'Define styles for 2nd level in Top Navigation Menu' ),
     'section'     => $section,
-    'default'     =>  array(
-        'font-family'    => ' ',
-        'variant'        => ' ',
-        'font-size'      => ' ',
-        'line-height'    => ' ',
-        'letter-spacing' => '0px',
-        'text-transform' => 'None',
-        'color'			 => ' ',
-    ),
+    'default'     => $hiilite_options['second_level_menu_font'],
     'priority'    => 3,
 ) );
 Kirki::add_field( 'hiiwp', array(
@@ -110,11 +102,7 @@ Kirki::add_field( 'hiiwp', array(
         'active'  => esc_attr__( 'Active Color', 'hiiwp' ),
         'hover_background'  => esc_attr__( 'Hover Background', 'hiiwp' ),
     ),
-    'default'     => array(
-        'hover'   => '',
-        'active'  => '',
-        'hover_background'  => '',
-    ),
+    'default'     => $hiilite_options['second_level_menu_colors'],
 ) );
 
 Kirki::add_field( 'hiiwp', array(

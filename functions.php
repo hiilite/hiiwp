@@ -18,8 +18,6 @@ Theme Structure:
 - Custom Shortcodes
 -- Sliders
 
-- DDF Realty Addon
-
 - Plugin Modifiers
 -- Gravity Forms
 -- WooCommerce
@@ -896,6 +894,7 @@ function content($limit) {
 }
 
 function content_excerpt( $length = 55 ) { 
+	global $post;
 	$exc = get_the_excerpt();
 	if($exc == NULL || strlen($exc) <= 0)
 	{   
@@ -908,7 +907,7 @@ function content_excerpt( $length = 55 ) {
 	}
 	else
 	{
-		$excerpt = $exc;
+		$excerpt = strip_shortcodes(wp_trim_words(get_the_content(), $length, null));
 	}
     return $excerpt;
 }
