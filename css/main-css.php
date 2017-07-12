@@ -281,20 +281,20 @@ table td {
 	box-sizing: border-box;
 }
 .grid-left {
-    padding-left: calc((100vw - 1100px)/2);
+    padding-left: calc((100vw - 1100px)/2) !important;
     min-width: initial;
 }
 .grid-right {
-    padding-right: calc((100vw - 1100px)/2);
+    padding-right: calc((100vw - 1100px)/2) !important;
     min-width: initial;
 }
 @media (max-width: 1100px) {
     .grid-right {
-        padding-right: 0;
+        padding-right: 0 !important;
         min-width: initial;
     }
     .grid-left {
-        padding-left: 0;
+        padding-left: 0 !important;
         min-width: initial;
     }
 }
@@ -512,7 +512,7 @@ endfor;
 @media (max-width:550px){
 <?php
 for($i = 12; $i>0;$i--):
-	echo '.col-'.$i;
+	echo '.vc_col-xs-'.$i.', .vc_col-md-'.$i.', .vc_col-sm-'.$i.', .vc_col-lg-'.$i.', .col-'.$i;
 	echo ($alt_cols[$i])?', .'.$alt_cols[$i]:'';
 	echo '{';
 		$perc_ratio = (($i/12)*100);
@@ -737,6 +737,19 @@ if($hiilite_options['portfolio_on']): ?>
 .widget ul ul{
 	list-style: none;
 	padding-left: 1em;
+}
+
+#post_sidebar, 
+#blog_sidebar {
+	<?php
+	echo 'padding:'.get_spacing($hiilite_options['sidebar_padding']).';';	
+	?>
+}
+#post_sidebar .widget, 
+#blog_sidebar .widget {
+	<?php
+	echo 'margin:'.get_spacing($hiilite_options['sidebar_widget_margin']).';';	
+	?>
 }
 /* Re coloring*/
 .color_one  { color: <?=$hiilite_options['color_one'];?>; }

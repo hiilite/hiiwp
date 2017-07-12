@@ -5,7 +5,7 @@ function hiiwp_widgets_init() {
         'name' => __( 'Blog Sidebar', 'hiiwp' ),
         'id' => 'blog_sidebar',
         'description' => __( 'Shows in the right sidebar of the blog page', 'hiilite' ),
-        'before_widget' => '<div id="%1$s" class="flex-item %2$s">',
+        'before_widget' => '<div id="%1$s" class="flex-item widget %2$s">',
 	'after_widget'  => '</div>',
 	'before_title'  => '<h4 class="widgettitle">',
 	'after_title'   => '</h4>',

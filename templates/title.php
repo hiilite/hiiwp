@@ -1,8 +1,8 @@
 <!--TITLE-->
 <?php 
-global $hiilite_options;
+global $hiilite_options, $post;
 
-if (
+if ( isset($post) && (
 	(
 		get_post_meta(get_the_id(), 'show_page_title', true) != 'hide' && 
 		get_theme_mod('show_page_titles', true) == true
@@ -12,7 +12,7 @@ if (
 		!class_exists( 'WooCommerce' ) 
 	) || 
 		is_post_type_archive()
-): 
+)): 
 	$post_meta = get_post_meta(get_the_id());
 	
 	// Page Title

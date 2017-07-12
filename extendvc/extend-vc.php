@@ -892,8 +892,8 @@ vc_add_param( 'vc_basic_grid',  array(
 				'group' => 'Item Design',
 				'value' => array(
 						__( 'Theme Default', 'js_composer' ) => '',
-						__( 'On', 'js_composer' ) => true,
-						__( 'Off', 'js_composer' ) => false,
+						__( 'On', 'js_composer' ) => 'true',
+						__( 'Off', 'js_composer' ) => 'false',
 						
 					)
 				));
@@ -911,6 +911,25 @@ vc_add_param( 'vc_basic_grid',  array(
 						
 					)
 				));
+vc_add_param( 'vc_basic_grid',  array(
+				"type" => "dropdown",
+				"holder" => "div",
+				"class" => "",
+				"heading" => "Title Size",
+				"param_name" => "blog_heading_tag",
+				'group' => 'Item Design',
+				'value' => array(
+						__( 'Theme Default', 'js_composer' ) => '',
+						'H1' => 'h1',
+						'H2' => 'h2',
+						'H3' => 'h3',
+						'H4' => 'h4',
+						'H5' => 'h5',
+						'H6' => 'h6',
+						
+					)
+				));
+				
 vc_add_param( 'vc_basic_grid',  array(
 				"type" => "dropdown",
 				"holder" => "div",
@@ -934,8 +953,8 @@ vc_add_param( 'vc_basic_grid',  array(
 				'group' => 'Item Design',
 				'value' => array(
 						__( 'Theme Default', 'js_composer' ) => '',
-						__( 'On', 'js_composer' ) => true,
-						__( 'Off', 'js_composer' ) => false,
+						__( 'On', 'js_composer' ) => 'true',
+						__( 'Off', 'js_composer' ) => 'false',
 						
 					)
 				));
@@ -948,8 +967,8 @@ vc_add_param( 'vc_basic_grid',  array(
 				'group' => 'Item Design',
 				'value' => array(
 						__( 'Theme Default', 'js_composer' ) => '',
-						__( 'On', 'js_composer' ) => true,
-						__( 'Off', 'js_composer' ) => false,
+						__( 'On', 'js_composer' ) => 'true',
+						__( 'Off', 'js_composer' ) => 'false',
 						
 					)
 				));
@@ -971,8 +990,8 @@ vc_add_param( 'vc_basic_grid',  array(
 				'group' => 'Item Design',
 				'value' => array(
 						__( 'Theme Default', 'js_composer' ) => '',
-						__( 'On', 'js_composer' ) => true,
-						__( 'Off', 'js_composer' ) => false,
+						__( 'On', 'js_composer' ) => 'true',
+						__( 'Off', 'js_composer' ) => 'false',
 						
 					)
 				));
@@ -2098,7 +2117,8 @@ vc_map( array(
 //
 //	Empty Space
 //
-/////////////////////////////
+////////////////////////////
+/*
 vc_map( array(
 		"name" => "Empty Space",
 		"base" => "vc_empty_space",
@@ -2114,7 +2134,7 @@ vc_map( array(
 	            'group' => __( 'Design options', 'my-text-domain' ),
 	        ),
 )));
-
+*/
 // Menu
 /*  Section (All, loop), 
 	Title Tag (span,p,h3,h4,h5.h6), 

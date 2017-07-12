@@ -121,7 +121,7 @@ $options = get_option('hii_seo_settings'); ?>
 	
 					
 	if(is_active_sidebar('post_sidebar')){	
-		echo '<aside class="quarter-width content-box  align-top">';
+		echo '<aside id="post_sidebar" class="quarter-width content-box  align-top">';
 			dynamic_sidebar( 'post_sidebar' );
 		echo '</aside>'; 
 	}

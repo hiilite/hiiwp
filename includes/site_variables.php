@@ -508,6 +508,12 @@ $hiilite_options['sidebar_padding'] 				= get_theme_mod( 'sidebar_padding', arra
 		'bottom' => '1em',
 		'left'   => '1em',
 	));
+$hiilite_options['sidebar_widget_margin'] 				= get_theme_mod( 'sidebar_widget_margin', array(
+		'top'    => '1em',
+		'right'  => '0em',
+		'bottom' => '1em',
+		'left'   => '0em',
+	));
 
 // PORTFOLIO
 $hiilite_options['portfolio_slug']		= get_theme_mod( 'portfolio_slug', 'portfolio' );

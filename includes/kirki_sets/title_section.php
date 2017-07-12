@@ -1,5 +1,6 @@
 <?php
 $section = 'title_section';
+
 Kirki::add_section( $section, array(
     'priority'    => 5,
     'title'       => __( 'Title', 'textdomain' ),
@@ -15,6 +16,24 @@ Kirki::add_field( 'hiiwp', array(
     'section'     => $section,
     'default'     => $hiilite_options['show_page_titles'],
     'priority'    => 1,
+) );
+
+Kirki::add_field( 'hiiwp', array(
+    'type'        => 'multicheck',
+    'settings'    => 'show_title_on',
+    'label'       => __( 'Show Page Title On', 'my_textdomain' ),
+    'description'  => __( 'Which post types should the title show on', 'my_textdomain' ),
+    'section'     => $section,
+    'priority'    => 1,
+    'default'     => HiiWP::get_post_types(array(), 'names'),
+    'choices'     => HiiWP::get_post_types(array(), 'objects'),
+    'active_callback'	=> array(
+		array(
+			'setting'  => 'show_page_titles',
+			'operator' => '==',
+			'value'    => true,
+		),
+	),
 ) );
 
 Kirki::add_field( 'hiiwp', array(
