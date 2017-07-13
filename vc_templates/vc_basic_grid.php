@@ -74,16 +74,17 @@ if(isset($atts['post_type']) && $atts['post_type'] != 'custom'){
 	parse_str(html_entity_decode($atts['custom_query']), $query);
 }
 if(isset($atts)) {
-	$hiilite_options['blog_layouts'] = (isset($atts['blog_layouts']) && $atts['blog_layouts'] != '')?$atts['blog_layouts']:$hiilite_options['blog_layouts'];
-	$hiilite_options['blog_col'] = isset($atts['element_width'])?(string)$atts['element_width']:$hiilite_options['blog_col'];
-	$hiilite_options['blog_img_pos'] = isset($atts['blog_img_pos'])?(string)$atts['blog_img_pos']:$hiilite_options['blog_img_pos'];
-	$hiilite_options['blog_title_show'] = isset($atts['blog_title_show'])?$atts['blog_title_show']:$hiilite_options['blog_title_show'];
-	$hiilite_options['blog_title_position'] = isset($atts['blog_title_position'])?$atts['blog_title_position']:$hiilite_options['blog_title_position'];
-	$hiilite_options['blog_cats_show'] = isset($atts['blog_cats_show'])?$atts['blog_cats_show']:$hiilite_options['blog_cats_show']; 
-	$hiilite_options['blog_meta_show'] = isset($atts['blog_meta_show'])?$atts['blog_meta_show']:$hiilite_options['blog_meta_show'];
-	$hiilite_options['blog_excerpt_show'] = isset($atts['blog_excerpt_show'])?$atts['blog_excerpt_show']:$hiilite_options['blog_excerpt_show'];
-	$hiilite_options['blog_excerpt_len'] = isset($atts['blog_excerpt_len'])?$atts['blog_excerpt_len']:$hiilite_options['blog_excerpt_len'];
-	$hiilite_options['blog_more_show'] = isset($atts['blog_more_show'])?$atts['blog_more_show']:$hiilite_options['blog_more_show'];
+	if (isset($atts['blog_layouts']) && $atts['blog_layouts'] != '') $hiilite_options['blog_layouts'] = $atts['blog_layouts'];
+	if (isset($atts['element_width'])) 		$hiilite_options['element_width'] 			= (string)$atts['element_width'];
+	if (isset($atts['blog_img_pos'])) 		$hiilite_options['blog_img_pos'] 			= (string)$atts['blog_img_pos'];
+	if (isset($atts['blog_title_show'])) 	$hiilite_options['blog_title_show'] 		= $atts['blog_title_show'];
+	if (isset($atts['blog_title_position']))$hiilite_options['blog_title_position'] 	= $atts['blog_title_position'];
+	if (isset($atts['blog_heading_tag'])) 	$hiilite_options['blog_heading_tag'] 		= $atts['blog_heading_tag'];
+	if (isset($atts['blog_cats_show'])) 	$hiilite_options['blog_cats_show'] 			= $atts['blog_cats_show']; 
+	if (isset($atts['blog_meta_show'])) 	$hiilite_options['blog_meta_show']			= $atts['blog_meta_show'];
+	if (isset($atts['blog_excerpt_show'])) 	$hiilite_options['blog_excerpt_show']		= $atts['blog_excerpt_show'];
+	if (isset($atts['blog_excerpt_len']))	$hiilite_options['blog_excerpt_len']		= $atts['blog_excerpt_len'];
+	if (isset($atts['blog_more_show'])) 	$hiilite_options['blog_more_show']			= $atts['blog_more_show'];
 	
 	
 	switch ($hiilite_options['blog_col']) {

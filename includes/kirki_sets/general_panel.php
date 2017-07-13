@@ -12,7 +12,7 @@ Kirki::add_panel( 'general_panel', array(
     'icon' => 'dashicons-admin-home'
 ) );
 //////////////////////
-//
+// 
 // GENERAL SETTINGS
 //
 //////////////////////
@@ -337,18 +337,6 @@ Kirki::add_field( 'hiiwp', array(
 	),
 ) );
 
-//////////////////
-// RETS Listings
-Kirki::add_field( 'hiiwp', array(
-	'type'        => 'switch',
-	'settings'    => 'rets_listings_on',
-	'label'       => esc_attr__( 'RETS Listings On', 'hiiwp' ),
-	'section'     => $section,
-	'default'     => $hiilite_options['rets_listings_on'],
-	'priority'	  => 1,
-	'description'    => __( 'Turn on Real Estate Listing functionality for connection with SimplyRETS' ),
-) );
-
 
 ///////////////////
 //
@@ -490,6 +478,7 @@ Kirki::add_field( 'hiiwp', array(
 	'section'     => $section,
 	'default'     => $hiilite_options['color_one'],
 	'priority'    => 1,
+	'alpha'       => true,
 	
 ) );
 Kirki::add_field( 'hiiwp', array(
@@ -500,6 +489,7 @@ Kirki::add_field( 'hiiwp', array(
 	'description' => __('Choose the second most dominant theme color, by default will style base and primary buttons and all headings and titles'),
 	'default'     => $hiilite_options['color_two'],
 	'priority'    => 1,
+	'alpha'       => true,
 ) );
 Kirki::add_field( 'hiiwp', array(
 	'type'        => 'color',
@@ -509,6 +499,7 @@ Kirki::add_field( 'hiiwp', array(
 	'section'     => $section,
 	'default'     => $hiilite_options['color_three'],
 	'priority'    => 1,
+	'alpha'       => true,
 ) );
 
 Kirki::add_field( 'hiiwp', array(
@@ -519,6 +510,7 @@ Kirki::add_field( 'hiiwp', array(
 	'section'     => $section,
 	'default'     => $hiilite_options['color_four'],
 	'priority'    => 1,
+	'alpha'       => true,
 ) );
 /*
 Kirki::add_field( 'hiiwp', array(
@@ -667,7 +659,7 @@ Kirki::add_field( 'hiiwp', array(
 	'choices'     => array(
 		'language' => 'css',
 		'theme'    => 'monokai',
-		'height'   => '100',
+		'height'   => '500',
 	),
 ) );
 
@@ -682,7 +674,7 @@ Kirki::add_field( 'hiiwp', array(
 	'choices'     => array(
 		'language' => 'css',
 		'theme'    => 'monokai',
-		'height'   => '100',
+		'height'   => '300',
 	),
 ) );
 
@@ -697,7 +689,7 @@ Kirki::add_field( 'hiiwp', array(
 	'choices'     => array(
 		'language' => 'javascript',
 		'theme'    => 'monokai',
-		'height'   => '100',
+		'height'   => '500',
 	),
 ) );
 

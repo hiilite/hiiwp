@@ -33,10 +33,6 @@ class HiiWP {
 		
         include_once( HIILITE_DIR . '/includes/Plugin-Activation/class-tgm-plugin-activation.php');
         
-		if($hiilite_options['rets_listings_on']){
-			//Simply Rets Plugin
-			require_once( HIILITE_DIR . '/hii-ddf/hii-ddf.php' );
-		}
 		require_once( HIILITE_DIR . '/addons/tinymce_edits/tinymce_edits.php');
 		
 		require_once( HIILITE_DIR . '/includes/widgets.php' );
@@ -44,7 +40,6 @@ class HiiWP {
 		require_once( HIILITE_DIR . '/includes/register_sidebars.php' );
 		
 		require_once( HIILITE_DIR . '/includes/register_post_types.php');
-		require_once( HIILITE_DIR . '/includes/classes.php' );
 		
 		/*
 		 * Auto include all shortcodes
@@ -69,6 +64,7 @@ class HiiWP {
 		
     }
 	 
+	
 	/*
 	//	note: wp_head
 	*/
@@ -100,6 +96,22 @@ class HiiWP {
 	  }
 	}
 	
+	public function get_post_types($args = array(), $output = 'names') {
+		$post_types = get_post_types( array(), $output ); 
+		$types = array();
+		if($output == 'objects'):
+			foreach ($post_types as $post_type) {
+				if( $post_type->name != 'revision' &&
+					$post_type->name != 'nav_menu_item' &&
+					$post_type->name != 'custom_css' &&
+					$post_type->name != 'customize_changeset')
+					$types[$post_type->name] = $post_type->name;
+			}
+		else:
+			$types = $post_types;
+		endif;
+		return $types;
+	}
 	
 	public function set_permalink_structure(){
 		global $wp_rewrite;

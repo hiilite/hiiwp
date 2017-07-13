@@ -5,7 +5,7 @@ Admin Styles
 
 h1,h2,h3,h4,h5,h6 {
 	font-family: 'Lato', "Open Sans", sans-serif;;
-}
+} 
 h1 {
 	border-width: 1px;
 }
@@ -305,10 +305,3 @@ ul.cmb2-checkbox-list.cmb2-list li {
     clear: none;
     margin-right: 2%;
 }  
-
-body .customize-control-kirki-code .CodeMirror {
-	opacity:1;
-background: -moz-linear-gradient(left, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0) 100%); /* FF3.6-15 */
-background: -webkit-linear-gradient(left, rgba(0,0,0,0.85) 0%,rgba(0,0,0,0) 100%); /* Chrome10-25,Safari5.1-6 */
-background: linear-gradient(to right, rgba(0,0,0,0.85) 0%,rgba(0,0,0,0) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-}

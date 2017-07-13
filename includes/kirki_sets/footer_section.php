@@ -16,7 +16,7 @@ Kirki::add_field( 'hiiwp', array(
 	'type'        => 'background',
     'settings'    => 'footer_background',
     'label'       => __( 'Footer Background', 'my_textdomain' ),
-    'description' => __('Choose footer background image and color'),
+    'description' => __('Choose a background image and color for the entire footer.'),
     'section'     => $section,
     'priority'    => 1,
     'default'     => array(
@@ -112,7 +112,12 @@ Kirki::add_field( 'hiiwp', array(
     'label'       => __( 'Footer Top Columns', 'my_textdomain' ),
     'description'  => __( 'Choose which columns show for Footer top area', 'my_textdomain' ),
     'section'     => $section,
-    'default'     => true,
+    'default'     => array(
+		'footer_column_1',
+		'footer_column_2',
+		'footer_column_3',
+		'footer_column_4'
+	),
     'priority'    => 6,
     'choices'     => array(
 		'footer_column_1' => esc_attr__( 'Column 1', 'my_textdomain' ),
@@ -370,7 +375,7 @@ Kirki::add_field( 'hiiwp', array(
 	'type'        => 'color',
     'settings'    => 'footer_bottom_border_color',
     'label'       => __( 'Footer Bottom Border Color', 'hiiwp' ),
-    'description' => __('Define top border color for Footer Top'),
+    'description' => __('Define top border color for Footer Bottom'),
     'section'     => $section,
     'priority'    => 8,
     'default'     => '',

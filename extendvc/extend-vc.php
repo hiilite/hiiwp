@@ -2,61 +2,16 @@
 	
 $hiilite_options = Hii::$hiiwp->get_options();
 /*** Removing shortcodes ***/
-//vc_remove_element("vc_widget_sidebar");
-//vc_remove_element("vc_wp_search");
-//vc_remove_element("vc_wp_meta");
-//vc_remove_element("vc_wp_recentcomments");
-//vc_remove_element("vc_wp_calendar");
-//vc_remove_element("vc_wp_pages");
-//vc_remove_element("vc_wp_tagcloud");
-//vc_remove_element("vc_wp_custommenu");
 vc_remove_element("vc_wp_text"); 
-//vc_remove_element("vc_wp_posts");
 vc_remove_element("vc_wp_links");
-//vc_remove_element("vc_wp_categories");
-//vc_remove_element("vc_wp_archives");
-//vc_remove_element("vc_wp_rss");
-vc_remove_element("vc_teaser_grid");
+//vc_remove_element("vc_teaser_grid");
 vc_remove_element("vc_button");
 vc_remove_element("vc_cta_button");
 vc_remove_element("vc_cta_button2");
-//vc_remove_element("vc_message");
-//vc_remove_element("vc_tour");
-//vc_remove_element("vc_progress_bar");
-//vc_remove_element("vc_pie");
-//vc_remove_element("vc_posts_slider");
-//vc_remove_element("vc_toggle");
-
-//vc_remove_element("vc_facebook");
-//vc_remove_element("vc_tweetmeme");
-//vc_remove_element("vc_googleplus");
-//vc_remove_element("vc_pinterest");
-//vc_remove_element("vc_flickr");
-//vc_remove_element("vc_empty_space");
-
-//vc_remove_element("vc_images_carousel"); 
-//vc_remove_element("vc_posts_grid");
-vc_remove_element("vc_carousel");
-//vc_remove_element("vc_cta");
-//vc_remove_element("vc_round_chart");
-//vc_remove_element("vc_line_chart");
-vc_remove_element("vc_tta_accordion");
-vc_remove_element("vc_tta_tour");
-//vc_remove_element("vc_tta_tabs");
-
-//vc_remove_element('vc_basic_grid');
-//vc_remove_element('vc_media_grid');
-//vc_remove_element('vc_masonry_grid');
-//vc_remove_element('vc_masonry_media_grid');
-//vc_remove_element('vc_icon');
+//vc_remove_element("vc_carousel");
+//vc_remove_element("vc_tta_accordion");
+//vc_remove_element("vc_tta_tour");
 vc_remove_element('vc_button2');
-//vc_remove_element("vc_custom_heading");
-//vc_remove_element("vc_btn");  
-
-//vc_remove_element('vc_gallery');
-//vc_remove_element('vc_separator');
-//vc_remove_element('vc_text_separator');
-
 
 
 ////////////////////////////
@@ -937,8 +892,8 @@ vc_add_param( 'vc_basic_grid',  array(
 				'group' => 'Item Design',
 				'value' => array(
 						__( 'Theme Default', 'js_composer' ) => '',
-						__( 'On', 'js_composer' ) => true,
-						__( 'Off', 'js_composer' ) => false,
+						__( 'On', 'js_composer' ) => 'true',
+						__( 'Off', 'js_composer' ) => 'false',
 						
 					)
 				));
@@ -956,6 +911,25 @@ vc_add_param( 'vc_basic_grid',  array(
 						
 					)
 				));
+vc_add_param( 'vc_basic_grid',  array(
+				"type" => "dropdown",
+				"holder" => "div",
+				"class" => "",
+				"heading" => "Title Size",
+				"param_name" => "blog_heading_tag",
+				'group' => 'Item Design',
+				'value' => array(
+						__( 'Theme Default', 'js_composer' ) => '',
+						'H1' => 'h1',
+						'H2' => 'h2',
+						'H3' => 'h3',
+						'H4' => 'h4',
+						'H5' => 'h5',
+						'H6' => 'h6',
+						
+					)
+				));
+				
 vc_add_param( 'vc_basic_grid',  array(
 				"type" => "dropdown",
 				"holder" => "div",
@@ -979,8 +953,8 @@ vc_add_param( 'vc_basic_grid',  array(
 				'group' => 'Item Design',
 				'value' => array(
 						__( 'Theme Default', 'js_composer' ) => '',
-						__( 'On', 'js_composer' ) => true,
-						__( 'Off', 'js_composer' ) => false,
+						__( 'On', 'js_composer' ) => 'true',
+						__( 'Off', 'js_composer' ) => 'false',
 						
 					)
 				));
@@ -993,8 +967,8 @@ vc_add_param( 'vc_basic_grid',  array(
 				'group' => 'Item Design',
 				'value' => array(
 						__( 'Theme Default', 'js_composer' ) => '',
-						__( 'On', 'js_composer' ) => true,
-						__( 'Off', 'js_composer' ) => false,
+						__( 'On', 'js_composer' ) => 'true',
+						__( 'Off', 'js_composer' ) => 'false',
 						
 					)
 				));
@@ -1016,8 +990,8 @@ vc_add_param( 'vc_basic_grid',  array(
 				'group' => 'Item Design',
 				'value' => array(
 						__( 'Theme Default', 'js_composer' ) => '',
-						__( 'On', 'js_composer' ) => true,
-						__( 'Off', 'js_composer' ) => false,
+						__( 'On', 'js_composer' ) => 'true',
+						__( 'Off', 'js_composer' ) => 'false',
 						
 					)
 				));
@@ -2143,7 +2117,8 @@ vc_map( array(
 //
 //	Empty Space
 //
-/////////////////////////////
+////////////////////////////
+/*
 vc_map( array(
 		"name" => "Empty Space",
 		"base" => "vc_empty_space",
@@ -2159,7 +2134,7 @@ vc_map( array(
 	            'group' => __( 'Design options', 'my-text-domain' ),
 	        ),
 )));
-
+*/
 // Menu
 /*  Section (All, loop), 
 	Title Tag (span,p,h3,h4,h5.h6), 
@@ -2396,96 +2371,6 @@ if ( class_exists( 'WooCommerce' ) ) {
 	)));
 }
 
-
-
-
-////////////////////////////
-//
-//	SimplyRETS Listings
-//
-/////////////////////////////
-vc_map( array(
-		"name" => "Calculation Table",
-		"base" => "calculation_table",
-		"category" => 'Real Estate',
-		"description" => "Add fields to be calculated for an average",
-		"icon" => "icon-wpb-table",
-		"allowed_container_element" => 'vc_row',
-		"params" => array(
-			array(
-				'type'	=> 'param_group',
-				'value'	=> 'Listing',
-				'heading'	=> 'Listing Row',
-				'param_name'	=> 'listings',
-				'params'	=> array(
-					array(
-						"type" => "textfield",
-						"holder" => "div",
-						"edit_field_class" => "vc_col-xs-4",
-						"heading" => "Style",
-						"param_name" => "home_style",
-					),
-					array(
-						"type" => "dropdown",
-						"holder" => "div",
-						"edit_field_class" => "vc_col-xs-1",
-						"heading" => "Beds",
-						"param_name" => "beds",
-						"value"	=> array(
-							"1" => "1",	
-							"2" => "2",	
-							"3" => "3",	
-							"4" => "4",	
-							"5" => "5",	
-							"6" => "6",	
-							"7" => "7",	
-						),
-						
-					),
-					array(
-						"type" => "dropdown",
-						"holder" => "div",
-						"edit_field_class" => "vc_col-xs-1",
-						"heading" => "Baths",
-						"param_name" => "baths",
-						"value"	=> array(
-							"1" => "1",	
-							"2" => "2",	
-							"3" => "3",	
-							"4" => "4",	
-							"5" => "5",	
-							"6" => "6",	
-							"7" => "7",	
-						),
-						
-					),
-					array(
-						"type" => "textfield",
-						"holder" => "div",
-						"edit_field_class" => "vc_col-xs-2",
-						"heading" => "Sq. Ft",
-						"param_name" => "sqft",
-					),
-					array(
-						"type" => "textfield",
-						"holder" => "div",
-						"edit_field_class" => "vc_col-xs-2",
-						"heading" => "Sold $",
-						"param_name" => "sold",
-					),
-					array(
-						"type" => "textfield",
-						"holder" => "div",
-						"edit_field_class" => "vc_col-xs-2",
-						"heading" => "Days On Market",
-						"param_name" => "dom",
-					),
-				),
-			),
-			
-		),
-		
-) );
 
 // Blockquote 
 vc_map( array(

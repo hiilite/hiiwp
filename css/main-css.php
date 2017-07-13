@@ -3,6 +3,24 @@
 global $is_IE;
 include_once('font-awesome/css/font-awesome.min.css'); 
 
+function get_background_css(){
+	foreach($hiilite_options['title_background'] as $rule => $value){
+		if($value != ''){
+			switch ($rule){
+				case 'attach':
+					echo "background-attachment:$value;";
+					break;
+				case 'position':
+					echo 'background-position:'.str_replace('-', ' ', $value).';';
+					break;
+				default:
+					echo "background-$rule:$value;";
+					break;
+					
+			}
+		}
+	}
+}
 function get_font_css($font){
 	if(is_array($font)){
 		foreach($font as $key => $value){
@@ -263,20 +281,20 @@ table td {
 	box-sizing: border-box;
 }
 .grid-left {
-    padding-left: calc((100vw - 1100px)/2);
+    padding-left: calc((100vw - 1100px)/2) !important;
     min-width: initial;
 }
 .grid-right {
-    padding-right: calc((100vw - 1100px)/2);
+    padding-right: calc((100vw - 1100px)/2) !important;
     min-width: initial;
 }
 @media (max-width: 1100px) {
     .grid-right {
-        padding-right: 0;
+        padding-right: 0 !important;
         min-width: initial;
     }
     .grid-left {
-        padding-left: 0;
+        padding-left: 0 !important;
         min-width: initial;
     }
 }
@@ -296,7 +314,7 @@ include_once(HIILITE_DIR.'/css/vc_elements/row-css.php');
 include_once(HIILITE_DIR.'/css/elements/buttons.php'); 
 include_once(HIILITE_DIR.'/css/header/header-css.php'); 
 include_once(HIILITE_DIR.'/css/header/menu-css.php');
-
+include_once(HIILITE_DIR.'/css/elements/page_titles-css.php');
 /*
 //	note: FOOTER 
 */
@@ -454,38 +472,6 @@ if(get_theme_mod( 'show_footer_top_yesno', true )): ?>
 	box-sizing: border-box;
 }
 
-<?php
-/*
-//	note: Page Title 
-*/	
-?>
-.page-title {
-	overflow: hidden;
-	<?php 
-	if ($hiilite_options['header_above_content'] == false){ echo 'z-index:100;top:0;'; } 
-	echo 'position: relative;';
-	echo ($hiilite_options['title_background_image'] != '')?'background-image:url('.$hiilite_options['title_background_image'].');':'';
-	echo 'background-repeat:'.$hiilite_options['title_background_repeat'].';';
-	echo 'background-size:'.$hiilite_options['title_background_size'].';';
-	echo 'background-attachment:'.$hiilite_options['title_background_attach'].';';
-	echo 'background-position:'.str_replace('-', ' ', $hiilite_options['title_background_position']).';';
-	echo 'background-color:'.$hiilite_options['title_background_color'].';';
-
-	?>
-	min-height: <?=$hiilite_options['title_height'];?>;
-	padding: <?=get_spacing(get_theme_mod( 'title_padding' ));?>;
-	display: block;
-	width:100%;
-}
-.page-title h1 {
-	margin-bottom: 0;
-	<?php 
-	get_font_css($hiilite_options['title_font']);
-	?>
-}
-.page-title .back_to_blog, .page-title small, .page-title small a {
-	color: <?=$hiilite_options['title_font']['color'];?>;
-}
 
 img {
 	max-width: 100%;
@@ -526,7 +512,7 @@ endfor;
 @media (max-width:550px){
 <?php
 for($i = 12; $i>0;$i--):
-	echo '.col-'.$i;
+	echo '.vc_col-xs-'.$i.', .vc_col-md-'.$i.', .vc_col-sm-'.$i.', .vc_col-lg-'.$i.', .col-'.$i;
 	echo ($alt_cols[$i])?', .'.$alt_cols[$i]:'';
 	echo '{';
 		$perc_ratio = (($i/12)*100);
@@ -751,6 +737,19 @@ if($hiilite_options['portfolio_on']): ?>
 .widget ul ul{
 	list-style: none;
 	padding-left: 1em;
+}
+
+#post_sidebar, 
+#blog_sidebar {
+	<?php
+	echo 'padding:'.get_spacing($hiilite_options['sidebar_padding']).';';	
+	?>
+}
+#post_sidebar .widget, 
+#blog_sidebar .widget {
+	<?php
+	echo 'margin:'.get_spacing($hiilite_options['sidebar_widget_margin']).';';	
+	?>
 }
 /* Re coloring*/
 .color_one  { color: <?=$hiilite_options['color_one'];?>; }

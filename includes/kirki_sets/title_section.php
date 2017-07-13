@@ -1,5 +1,6 @@
 <?php
 $section = 'title_section';
+
 Kirki::add_section( $section, array(
     'priority'    => 5,
     'title'       => __( 'Title', 'textdomain' ),
@@ -10,11 +11,29 @@ Kirki::add_section( $section, array(
 Kirki::add_field( 'hiiwp', array(
     'type'        => 'switch',
     'settings'    => 'show_page_titles',
-    'label'       => __( 'Show page titles', 'my_textdomain' ),
+    'label'       => __( 'Show Page Titles', 'my_textdomain' ),
     'description'  => __( 'can be overwritten per page', 'my_textdomain' ),
     'section'     => $section,
-    'default'     => true,
+    'default'     => $hiilite_options['show_page_titles'],
     'priority'    => 1,
+) );
+
+Kirki::add_field( 'hiiwp', array(
+    'type'        => 'multicheck',
+    'settings'    => 'show_title_on',
+    'label'       => __( 'Show Page Title On', 'my_textdomain' ),
+    'description'  => __( 'Which post types should the title show on', 'my_textdomain' ),
+    'section'     => $section,
+    'priority'    => 1,
+    'default'     => HiiWP::get_post_types(array(), 'names'),
+    'choices'     => HiiWP::get_post_types(array(), 'objects'),
+    'active_callback'	=> array(
+		array(
+			'setting'  => 'show_page_titles',
+			'operator' => '==',
+			'value'    => true,
+		),
+	),
 ) );
 
 Kirki::add_field( 'hiiwp', array(
@@ -22,7 +41,7 @@ Kirki::add_field( 'hiiwp', array(
     'settings'    => 'title_height',
     'label'       => __( 'Title Height', 'hiiwp' ),
     'section'     => $section,
-    'default'     => '100px',
+    'default'     => $hiilite_options['title_height'],
     'priority'    => 5,
     'active_callback'	=> array(
 		array(
@@ -50,12 +69,7 @@ Kirki::add_field( 'hiiwp', array(
 	'settings'    => 'title_padding',
 	'label'       => __( 'Title Padding', 'hiiwp' ),
 	'section'     => $section,
-	'default'     => array(
-		'top'    => '0',
-		'right'  => '0',
-		'bottom' => '0',
-		'left'   => '0',
-	),
+	'default'     => $hiilite_options['title_padding'],
 	'priority'    => 5,
 	'active_callback'	=> array(
 		array(
@@ -74,15 +88,9 @@ Kirki::add_field( 'hiiwp', array(
     'settings'    => 'title_background',
     'label'       => __( 'Title Background', 'hiiwp' ),
     'section'     => $section,
-    'priority'    => 7,
-    'default'     => array(
-		'color'    => ' ',
-		'image'    => '',
-		'repeat'   => 'no-repeat',
-		'size'     => 'cover',
-		'attach'   => 'fixed',
-		'position' => 'left-top',
-	),
+    'priority'    => 5,
+    'default'     => $hiilite_options['title_background'],
+    'alpha'		  => true,
 	'active_callback'	=> array(
 		array(
 			'setting'  => 'show_page_titles',
