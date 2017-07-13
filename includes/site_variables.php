@@ -45,7 +45,7 @@ $hiilite_options['default_font']				= get_theme_mod( 'default_font', array(
         'letter-spacing' => '0px',
         'text-transform' => 'none',
         'color'          => '#818181',
-    ) );
+    ) ); 
 
 $hiilite_options['color_one']					= get_theme_mod( 'color_one', '#ef5022');
 $hiilite_options['color_two']					= get_theme_mod( 'color_two', '#303030');
