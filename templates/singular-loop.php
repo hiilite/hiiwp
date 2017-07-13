@@ -12,12 +12,6 @@ switch (get_post_type($post)) {
 	case 'post':
 		get_template_part('templates/post', 'loop');
 		break;
-	case 'sr-listings':
-		get_template_part('templates/listing', 'loop');
-		break;
-	case 'listing':
-		get_template_part('templates/listing', 'loop');
-		break;
 	default:
 		get_template_part('templates/page', 'loop');
 }

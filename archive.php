@@ -43,7 +43,7 @@ if(have_posts()):
 	endwhile;
 	echo '</div>'; //end in_grid
 	?>
-	<div id="blog-sidebar" class="col-3">
+	<div id="blog_sidebar" class="col-3">
 		<?php
 		if ( $hiilite_options['blog_sidebar_show'] == true ) :
 			dynamic_sidebar( 'blog_sidebar' );

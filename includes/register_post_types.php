@@ -23,8 +23,7 @@ function get_portfolio($args = null, $options = null){
 	$html = '';
 	$css = '';
 	$slug = get_theme_mod( 'portfolio_slug', 'portfolio' );
-	$hiilite_options['amp'] = get_theme_mod('amp');
-	if($hiilite_options['amp']) $_amp = 'amp-'; else $_amp = '';
+	
 	
 	extract( shortcode_atts( array(
 	    'show_post_meta'  	=> get_theme_mod( 'portfolio_show_post_meta', false ),
@@ -130,8 +129,7 @@ function get_portfolio($args = null, $options = null){
 					
 										
 					$html .='<figure class="flex-item">
-						<'.$_amp.'img src="'.$imgs[$i]['src'].'" layout="responsive" on="tap:lightbox1" width='.$imgs[$i]['width'].' height='.$imgs[$i]['height'].'>';
-					$html .= ($_amp!='')?'</amp-img>':'';
+						<img src="'.$imgs[$i]['src'].'" layout="responsive" on="tap:lightbox1" width='.$imgs[$i]['width'].' height='.$imgs[$i]['height'].'>';
 					$html .= '</figure>';
 					
 					$html .= '</article>';
@@ -157,8 +155,8 @@ function get_portfolio($args = null, $options = null){
 					
 										
 					$html .='<figure class="flex-item">
-						<a href="'.$imgs[$i]['src'].'"><'.$_amp.'img src="'.$imgs[$i]['src'].'" layout="responsive" width='.$imgs[$i]['width'].' height='.$imgs[$i]['height'].'>';
-					$html .= ($_amp!='')?'</amp-img>':'';
+						<a href="'.$imgs[$i]['src'].'"><img src="'.$imgs[$i]['src'].'" layout="responsive" width='.$imgs[$i]['width'].' height='.$imgs[$i]['height'].'>';
+					
 					$html .= '</a></figure>';
 					
 					$html .= '</article>';
@@ -319,8 +317,8 @@ function get_portfolio($args = null, $options = null){
 						$height = $img[2];
 					
 						$html .='<figure class="flex-item">
-							<a href="'.get_the_permalink().'"><'.$_amp.'img src="'.$img[0].'" layout="responsive" width='.$width.' height='.$height.'>';
-						$html .= ($_amp!='')?'</amp-img>':'';
+							<a href="'.get_the_permalink().'"><img src="'.$img[0].'" layout="responsive" width='.$width.' height='.$height.'>';
+			
 						$html .= '</a></figure>';
 					endif;
 					
@@ -397,8 +395,8 @@ function get_portfolio($args = null, $options = null){
 						$height = $img[2];
 					
 						$html .='<figure class="flex-item col-6">
-							<a href="'.get_the_permalink().'"><'.$_amp.'img src="'.$img[0].'" layout="responsive" width='.$width.' height='.$height.'>';
-						$html .= ($_amp!='')?'</amp-img>':'';
+							<a href="'.get_the_permalink().'"><img src="'.$img[0].'" layout="responsive" width='.$width.' height='.$height.'>';
+					
 						$html .= '</a></figure>';
 					endif;
 	
@@ -705,9 +703,9 @@ function get_portfolio($args = null, $options = null){
 					$html .= '<div id="pfi'.$current['id'].'" class="flex-item '.$current['col'].' '.$current['isolate'].'">';
 					//$html .= $debug;
 					if($args['post_type'] != 'attachment') $html .= '<a href="'.$current['href'].'">';
-					$html .= '<amp-img src="'.$current['src'].'" layout="responsive" width="'.$current['width'].'" height="'.$current['height'].'"';
+					$html .= '<img src="'.$current['src'].'" layout="responsive" width="'.$current['width'].'" height="'.$current['height'].'"';
 					if($args['post_type'] == 'attachment') $html .= ' on="tap:lightbox1" role="button" ';
-					$html .= '></amp-img>';
+					$html .= '>';
 					if($args['post_type'] != 'attachment') $html .= '</a>';
 					if($args['post_type'] != 'attachment') {
 						if($show_post_title ||  $show_post_meta) $html .= '<div class="post_meta">';

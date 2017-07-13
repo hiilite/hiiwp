@@ -1,13 +1,13 @@
 <?php
 global $post;
-$hiilite_options = Hii::$hiiwp->get_options();
+if(!isset($atts)) $hiilite_options = Hii::$hiiwp->get_options();
 $post_meta = get_post_meta(get_the_id());
 echo '<!--BLOG-LOOP-->';
 // Create Title
 $article_title = $dateline = $article_cat = '';
 
 $article_title .= '<span itemprop="author" itemscope itemtype="https://schema.org/Person">';
-if($hiilite_options['blog_meta_show']):
+if($hiilite_options['blog_meta_show'] == 'true'):
 	$dateline .= '<small><address class="post_author">';
 	$dateline .= '<a itemprop="author" itemscope itemtype="https://schema.org/Person" class="post_author_link" href="'.get_author_posts_url( get_the_author_meta( 'ID' ) ).'"><span itemprop="name">';
 	$dateline .= get_the_author_meta('display_name'); 
@@ -24,7 +24,7 @@ else:
 endif;
 $article_title .= '</span>';
 
-if($hiilite_options['blog_cats_show']):
+if($hiilite_options['blog_cats_show'] == 'true' || $hiilite_options['blog_cats_show'] == true):
 	$article_cat .= '<span itemprop="articleSection" class="labels">'.get_the_category_list(' ').'</span>';
 else:
 	$categories = get_the_category();$cats ='';
@@ -34,11 +34,11 @@ else:
 	$article_cat .= '<meta itemprop="articleSection" content="'.$cats.'">';
 endif;
 
-if($hiilite_options['blog_title_show']) {
+if($hiilite_options['blog_title_show'] == 'true' || $hiilite_options['blog_title_show'] == true) {
 	$article_title .= '<'.$hiilite_options['blog_heading_tag'].'><a href="'.get_the_permalink().'">'.get_the_title().'</a></'.$hiilite_options['blog_heading_tag'].'>';
 } 
 
-if($hiilite_options['blog_cats_show']):
+if($hiilite_options['blog_cats_show'] == 'true' || $hiilite_options['blog_cats_show'] == true):
 	$dateline = $dateline.$article_cat;
 endif;
 
@@ -108,8 +108,10 @@ if(is_customize_preview()) echo '<div class="customizer_quick_links"><button cla
 			echo $article_title;
 		
 		}
-		if($hiilite_options['blog_excerpt_show']):?><p><?=content_excerpt($hiilite_options['blog_excerpt_len']); ?></p><?php endif;
-		if($hiilite_options['blog_more_show']):
+		if($hiilite_options['blog_excerpt_show'] == 'true'):
+			echo '<p>'.content_excerpt($hiilite_options['blog_excerpt_len']).'</p>';
+		endif;
+		if($hiilite_options['blog_more_show'] == 'true'):
 			$more_button_class = get_theme_mod( 'blog_more_type', 'button' );
 			$more_button_class .= ($more_button_class != 'link' && $more_button_class != 'button')?' button readmore':' readmore';
 			?>

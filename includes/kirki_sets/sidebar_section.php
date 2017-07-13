@@ -72,4 +72,13 @@ Kirki::add_field( 'hiiwp', array(
     'default'     => $hiilite_options['sidebar_padding'],
     'priority'    => 1,
 ) );
+Kirki::add_field( 'hiiwp', array(
+    'type'        => 'spacing',
+    'settings'    => 'sidebar_widget_margin',
+    'label'       => esc_attr__( 'Widget Margin', 'kirki' ),
+    'description' => __( 'Define margin around the individual widgets within the sidebar' ),
+    'section'     => $section,
+    'default'     => $hiilite_options['sidebar_widget_margin'],
+    'priority'    => 1,
+) );
 ?>

@@ -257,7 +257,7 @@ Kirki::add_field( 'hiiwp', array(
 	'default'     => array(
 		'top'    => '0.5em',
 		'right'  => '1em',
-		'bottom' => '0.5em',
+		'bottom' => '0.5em', 
 		'left'   => '1em',
 	),
 	'priority'    => 3,
