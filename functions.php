@@ -461,11 +461,7 @@ function amp_image_tags($content)
 }
 
 
-// ADD DEFER TO SCRIPT TAGS
-function add_defer_attribute($tag, $handle) {
-	if(is_admin()) return $tag;
-	return str_replace( ' src', ' defer=defer src', $tag );
-}
+
 
 
 

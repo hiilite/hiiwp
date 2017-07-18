@@ -19,14 +19,7 @@ Kirki::add_field( 'hiiwp', array(
     'description' => __('Choose a background image and color for the entire footer.'),
     'section'     => $section,
     'priority'    => 1,
-    'default'     => array(
-		'color'    => '#ffffff',
-		'image'    => '',
-		'repeat'   => 'no-repeat',
-		'size'     => 'cover',
-		'attach'   => 'fixed',
-		'position' => 'left-top',
-	),
+    'default'     => $hiilite_options['footer_background'],
 ) );
 // Footer  order Top
 Kirki::add_field( 'hiiwp', array(

@@ -1,9 +1,13 @@
+<?php if(false): ?><style><?php endif; ?>
 .page-title {
 	overflow: hidden;
 	<?php 
 	if ($hiilite_options['header_above_content'] == false){ echo 'z-index:100;top:0;'; } 
-	echo 'position: relative;';
-	get_background_css($hiilite_options['title_background']);
+	echo 'position: relative;'; 
+	foreach($hiilite_options['title_background'] as $key => $value) {
+		if($key == 'background-image') echo $key.':url("'.$value.'");';
+		else echo $key.':'.$value.';';
+	}
 	?>
 	min-height: <?=$hiilite_options['title_height'];?>;
 	padding: <?=get_spacing($hiilite_options[ 'title_padding' ]);?>;

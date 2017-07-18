@@ -23,6 +23,14 @@ Kirki::add_field( 'hiiwp', array(
 ) );
 Kirki::add_field( 'hiiwp', array(
     'type'        => 'switch',
+    'settings'    => 'blog_show_featured_image',
+    'label'       => __( 'Show Feature Image', 'my_textdomain' ),
+    'section'     => $section,
+    'default'     => $hiilite_options['blog_show_featured_image'],
+    'priority'    => 1,
+) );
+Kirki::add_field( 'hiiwp', array(
+    'type'        => 'switch',
     'settings'    => 'blog_author_bio_show',
     'label'       => __( 'Show Author Bio', 'my_textdomain' ),
     'section'     => $section,
