@@ -19,7 +19,7 @@ Kirki::add_field( 'hiiwp', array(
     'label'       => __( 'Pagination', 'hiiwp' ),
     'description' => __('Enabling this option will display pagination on bottom of Blog List','hiiwp'),
     'section'     => $section,
-    'default'     => true,
+    'default'     => $hiilite_options['blog_pag_show'],
     'priority'    => 1,
 ) );
 Kirki::add_field( 'hiiwp', array(
@@ -27,7 +27,7 @@ Kirki::add_field( 'hiiwp', array(
     'settings'    => 'blog_pag_style',
     'label'       => __( 'Pagination Type', 'hiiwp' ),
     'section'     => $section,
-    'default'     => 'option-1',
+    'default'     => $hiilite_options['blog_pag_style'],
     'choices'	  => array(
 	    'option-1' => esc_attr__( 'Prev/Next', 'hiiwp'),
 	    'option-2' => esc_attr__( 'Numbered', 'hiiwp'),

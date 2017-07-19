@@ -1,12 +1,7 @@
 /*
 Admin Styles
 */
-@import url(http://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic);
-
-h1,h2,h3,h4,h5,h6 {
-	font-family: 'Lato', "Open Sans", sans-serif;;
-} 
-h1 {
+h1 { 
 	border-width: 1px;
 }
 li#toplevel_page_customize .wp-menu-name, li#toplevel_page_customize .wp-menu-image:before {

@@ -8,7 +8,7 @@
 		}
 	});
 		
-	$('.menu-item-has-children').on('click tap', function(e){
+	$('#main_header .menu-item-has-children').on('click tap', function(e){
 		if(e.target == this) {
 			$(this).toggleClass('open').children('.sub-menu').slideToggle(250);
 		}
@@ -17,10 +17,10 @@
 	$(window).on('resize',function(){
 		if($(document).width() >= parseInt(mobile_menu_switch)) {
 			$('#main-nav').fadeIn(250);	
-			$('.sub-menu').removeClass('open').slideUp(250);
+			$('#main_header .sub-menu').removeClass('open').slideUp(250);
 		} else {
 			$('#main-nav').hide(0);
-			$('.sub-menu').removeClass('open').slideUp(250);
+			$('#main_header .sub-menu').removeClass('open').slideUp(250);
 		}
 	});
 	

@@ -115,12 +115,15 @@ $hiilite_options['header_padding'] 				= get_theme_mod( 'header_padding', array(
 		'left'   => '0',
 	));
 
-$hiilite_options['header_background_color']		= get_theme_mod( 'header_background_color', '#ffffff' );
-$hiilite_options['header_background_image']		= get_theme_mod( 'header_background_image', '');
-$hiilite_options['header_background_repeat']	= get_theme_mod( 'header_background_repeat', 'no-repeat');
-$hiilite_options['header_background_size']	    = get_theme_mod( 'header_background_size', 'cover');
-$hiilite_options['header_background_attach']	= get_theme_mod( 'header_background_attach', 'fixed');
-$hiilite_options['header_background_position']	= get_theme_mod( 'header_background_position', 'left-top');
+$hiilite_options['header_background'] = get_theme_mod( 'header_background', array(
+	'color' => '#ffffff',
+	'image' => '',
+	'repeat' => 'no-repeat',
+	'position' => 'left-top',
+	'size' => 'cover',
+	'attach' => 'fixed',
+));
+
 
 $hiilite_options['header_top_area_yesno']		= get_theme_mod( 'header_top_area_yesno', false );
 $hiilite_options['header_top_border_width']		= get_theme_mod( 'header_top_border_width', '0px' );
@@ -173,13 +176,14 @@ $hiilite_options['footer_font_color']			= '#8c8880';
 
 
 // FOOTER
-$hiilite_options['footer_background_color']		= get_theme_mod( 'footer_background_color', '#ffffff' );
-$hiilite_options['footer_background_image']		= get_theme_mod( 'footer_background_image', '');
-$hiilite_options['footer_background_repeat']	= get_theme_mod( 'footer_background_repeat', 'no-repeat');
-$hiilite_options['footer_background_size']	    = get_theme_mod( 'footer_background_size', 'cover');
-$hiilite_options['footer_background_attach']	= get_theme_mod( 'footer_background_attach', 'fixed');
-$hiilite_options['footer_background_position']	= get_theme_mod( 'footer_background_position', 'left-top');
-
+$hiilite_options['footer_background'] = get_theme_mod( 'footer_background', array(
+	'color' => '#ffffff',
+	'image' => '',
+	'repeat' => 'no-repeat',
+	'position' => 'left-top',
+	'size' => 'cover',
+	'attach' => 'fixed',
+));
     
 
 //$hiilite_options['footer_top_border_color']	= get_theme_mod( 'footer_top_border_color', '' );
@@ -260,13 +264,14 @@ $hiilite_options['title_padding']			= get_theme_mod( 'title_padding', array(
 	));
 $hiilite_options['title_font']				= get_theme_mod( 'title_font', $hiilite_options['heading_font'] );
 
-$hiilite_options['title_background']['color']	= get_theme_mod( 'title_background_color', '#ffffff' );
-$hiilite_options['title_background']['image'] 	= get_theme_mod( 'title_background_image', '');
-$hiilite_options['title_background']['repeat']	= get_theme_mod( 'title_background_repeat', 'no-repeat');
-$hiilite_options['title_background']['size']	= get_theme_mod( 'title_background_size', 'cover');
-$hiilite_options['title_background']['attach']	= get_theme_mod( 'title_background_attach', 'fixed');
-$hiilite_options['title_background']['position']= get_theme_mod( 'title_background_position', 'left-top');
-
+$hiilite_options['title_background'] = get_theme_mod( 'title_background', array(
+	'color' => '#ffffff',
+	'image' => '',
+	'repeat' => 'no-repeat',
+	'position' => 'left-top',
+	'size' => 'cover',
+	'attach' => 'fixed',
+));
 
 
 
@@ -499,7 +504,7 @@ $hiilite_options['blog_author_bio_show']		= get_theme_mod( 'blog_author_bio_show
 $hiilite_options['blog_comments_show']		= get_theme_mod( 'blog_comments_show', true );
 $hiilite_options['blog_rel_articles']		= get_theme_mod( 'blog_rel_articles', true );
 $hiilite_options['single_full']			= get_theme_mod( 'single_full', false );
-
+$hiilite_options['blog_show_featured_image'] = get_theme_mod('blog_show_featured_image', true);
 
 // SIDEBAR
 $hiilite_options['sidebar_padding'] 				= get_theme_mod( 'sidebar_padding', array(

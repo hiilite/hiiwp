@@ -7,13 +7,9 @@ header#main_header {
 	z-index: 9999;
 	transition: all 0.5s;
 	<?php 
-	
-	echo ($hiilite_options['header_background_image'] != '')?'background-image:url('.$hiilite_options['header_background_image'].');':'';
-	echo 'background-repeat:'.$hiilite_options['header_background_repeat'].';';
-	echo 'background-size:'.$hiilite_options['header_background_size'].';';
-	echo 'background-attachment:'.$hiilite_options['header_background_attach'].';';
-	echo 'background-position:'.str_replace('-', ' ', $hiilite_options['header_background_position']).';';
-	echo 'background-color:'.$hiilite_options['header_background_color'].';';	
+	foreach($hiilite_options['header_background'] as $key => $value) {
+		echo $key.':'.$value.';';
+	}
 	?>
 }
 <?php
@@ -170,7 +166,7 @@ endif; ?>
 #logo_container img {
     height: auto;
     transition: all 0.5s;
-    
+    display:block;
 }
 <?php
 	

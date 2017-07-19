@@ -14,7 +14,7 @@ class HiiWP {
 		
 		add_action( 'wp_footer', array( $this, 'print_inline_script'), 100 );
 		
-		add_action( 'after_setup_theme', array( $this, 'set_permalink_structure') );
+		add_action( 'after_switch_theme', array( $this, 'set_permalink_structure') );
 		// Load admin JavaScript. Do an is_admin() check before calling My_Custom_Plugin
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_admin_scripts' ), 100 );
 		//Used to disable tour mode
@@ -73,10 +73,11 @@ class HiiWP {
 		
 		$hiilite_options = self::get_options();
 		 
+		wp_enqueue_script('modernizr', get_template_directory_uri().'/js/vender/modernizr-custom.js');
 		wp_enqueue_script("jquery");
 		wp_enqueue_script('main-scripts', get_template_directory_uri().'/js/main-scripts.js','jquery', array( 'jquery' ), '0.0.1', true);	
 		wp_localize_script('main-scripts', 'mobile_menu_switch', $hiilite_options['mobile_menu_switch']);
-		add_filter('script_loader_tag', 'add_defer_attribute', 10, 2);
+		add_filter('script_loader_tag', array( $this, 'add_defer_attribute'), 10, 2);
 		if($hiilite_options['is_woocommerce']){
 			wp_enqueue_script( 'prettyPhoto-init', $woocommerce->plugin_url() . '/assets/js/prettyPhoto/jquery.prettyPhoto.init' . '.js', array( 'jquery' ), $woocommerce->version, true );
 		} 
@@ -84,8 +85,13 @@ class HiiWP {
 		include_once(HIILITE_DIR . '/css/main-css.php');
 	}
 	
+	// ADD DEFER TO SCRIPT TAGS
+	public function add_defer_attribute($tag, $handle) {
+		if(is_admin() || is_customize_preview()) return $tag;
+		return str_replace( ' src', ' defer=defer src', $tag );
+	}
 	
-	function print_inline_script() {
+	public function print_inline_script() {
 	  if ( wp_script_is( 'jquery', 'done' ) ) { 
 		  
 	  ?><script type="text/javascript">

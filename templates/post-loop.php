@@ -65,7 +65,7 @@ endif;
 			echo '<div class="threequarter-width content-box  align-top">';
 
 		
-if(has_post_thumbnail($post->id) && (get_theme_mod( 'blog_show_featured_image', true ) && get_post_meta( $post->ID, 'hide_page_feature_image', true) != 'on')): 
+if(has_post_thumbnail($post->id) && ($hiilite_options[ 'blog_show_featured_image' ] && get_post_meta( $post->ID, 'hide_page_feature_image', true) != 'hide')): 
 		
 	$tn_id = get_post_thumbnail_id( $post->ID );
 

@@ -1,6 +1,7 @@
 <?php 
-global $hiilite_options;
+$hiilite_options = Hii::$hiiwp->get_options();
 get_header();
+echo '<!--HOME-->';
 get_template_part( 'templates/title' );
 
 $colcount = ($hiilite_options['blog_layouts'] =='masonry')?' col-count-'.$hiilite_options['blog_col']:'';
@@ -17,8 +18,7 @@ if(have_posts()):
 		the_post();
 		get_template_part('templates/blog', 'loop');
 	endwhile;
-	
-	if($hiilite_options['blog_pag_show']):
+	if($hiilite_options['blog_pag_show'] == true):
 		if($hiilite_options['blog_pag_style'] == 'option-2'):
 			echo '<div class="pagination '.$grid.' content-box">';
 				echo '<div class="align-center flex-item col-6">';
@@ -37,7 +37,7 @@ if(have_posts()):
 	
 	echo '</div>'; //end in_grid
 	?>
-	<div id="blog-sidebar" class="col-3">
+	<div id="blog_sidebar" class="col-3">
 		<?php
 		if ( $hiilite_options['blog_sidebar_show'] == true ) :
 			dynamic_sidebar( 'blog_sidebar' );
