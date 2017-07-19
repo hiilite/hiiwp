@@ -67,17 +67,8 @@ Kirki::add_field( 'hiiwp', array(
     'description' => __('Choose a background for header area'),
     'section'     => $section,
     'priority'    => 2,
-    'default'     => array(
-		'color'    => $hiilite_options['header_background_color'],
-		'image'    => $hiilite_options['header_background_image'],
-		'repeat'   => $hiilite_options['header_background_repeat'],
-		'size'     => $hiilite_options['header_background_size'],
-		'attach'   => $hiilite_options['header_background_attach'],
-		'position' => $hiilite_options['header_background_position'],
-	),
-
-    'alpha'		  => true,
-) );	
+    'default'     => $hiilite_options['header_background']
+ ) );	
 
 
 // BORDER TOP

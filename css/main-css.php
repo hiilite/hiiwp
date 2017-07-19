@@ -3,8 +3,8 @@
 global $is_IE;
 include_once('font-awesome/css/font-awesome.min.css'); 
 
-function get_background_css(){
-	foreach($hiilite_options['title_background'] as $rule => $value){
+function get_background_css($background){
+	foreach($background as $rule => $value){
 		if($value != ''){
 			switch ($rule){
 				case 'attach':
@@ -323,15 +323,10 @@ $footer_bottom_colors = get_theme_mod('footer_bottom_colors');
 ?>
 #main_footer {
 	position: relative;
-	background: <?=get_theme_mod('footer_background_color', '#c8c8c8');?>;
 	<?php 
-	echo 'background-image:url('.$hiilite_options['footer_background_image'].');';
-	echo 'background-repeat:'.$hiilite_options['footer_background_repeat'].';';
-	echo 'background-size:'.$hiilite_options['footer_background_size'].';';
-	echo 'background-attachment:'.$hiilite_options['footer_background_attach'].';';
-	echo 'background-position:'.str_replace('-', ' ', $hiilite_options['footer_background_position']).';';
-	echo 'background-color:'.$hiilite_options['footer_background_color'].';';
- 
+	foreach($hiilite_options['footer_background'] as $key => $value) {
+		echo $key.':'.$value.';';
+	}
 	get_font_css($hiilite_options['typography_footer_text_font']);
 	
 ?>
