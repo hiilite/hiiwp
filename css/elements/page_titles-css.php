@@ -5,8 +5,10 @@
 	if ($hiilite_options['header_above_content'] == false){ echo 'z-index:100;top:0;'; } 
 	echo 'position: relative;'; 
 	foreach($hiilite_options['title_background'] as $key => $value) {
-		if($key == 'background-image') echo $key.':url("'.$value.'");';
-		else echo $key.':'.$value.';';
+		if($value != ''){ 
+			if($key == 'background-image') echo $key.':url("'.$value.'");';
+			else echo $key.':'.$value.';';
+		}
 	}
 	?>
 	min-height: <?=$hiilite_options['title_height'];?>;
@@ -14,7 +16,7 @@
 	display: block;
 	width:100%;
 }
-.page-title h1 {
+.page-title, .page-title h1 {
 	margin-bottom: 0;
 	<?php 
 	get_font_css($hiilite_options['title_font']);

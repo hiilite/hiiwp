@@ -1705,7 +1705,7 @@ vc_map( array(
 //
 /////////////////////////////
 vc_map( array(
-		"name" => "AMP Image Carousel",
+		"name" => "Hii Image Carousel",
 		"base" => "amp-carousel",
 		"category" => 'HiiWP',
 		"description" => "Carousel of images",
@@ -1780,7 +1780,7 @@ vc_map( array(
 //
 /////////////////////////////
 vc_map( array(
-	'name' => __( 'AMP Slider', 'js_composer' ),
+	'name' => __( 'Hii Slider', 'js_composer' ),
 	'base' => 'vc_tta_pageable',
 	'icon' => 'icon-wpb-ui-pageable',
 	'is_container' => true,
@@ -1789,7 +1789,7 @@ vc_map( array(
 		'only' => 'vc_tta_section',
 	),
 	'category' => __( 'HiiWP', 'js_composer' ),
-	'description' => __( 'AMP Slideshow carousel', 'js_composer' ),
+	'description' => __( 'Simple content slider ', 'js_composer' ),
 	'params' => array(
 		array(
 			'type' => 'hidden',
