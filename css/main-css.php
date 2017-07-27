@@ -1098,9 +1098,7 @@ select {
 }
 #closelightbox{position:fixed;width:100vw;height:100vh;z-index:9999;}
 
-.woocommerce {
-	width: 100%;
-}
+
 .menu-title, .menu-ingredients, .menu-price {
     padding-top: 0.5em;
 }
@@ -1191,6 +1189,9 @@ endif;
 
 if(class_exists('BuddyPress')): 
 	include_once(HIILITE_DIR.'/css/service_extensions/buddypress-css.php');	
+endif;
+if(class_exists('WooCommerce')):
+	include_once(HIILITE_DIR.'/css/service_extensions/woocommerce-css.php');	
 endif;
 
 if ( is_customize_preview() ) :
