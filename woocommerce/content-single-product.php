@@ -36,8 +36,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 	 }
 ?>
 
-<div id="product-<?php the_ID(); ?>" <?php post_class(); ?>>
-
+<div id="product-<?php the_ID(); ?>" <?php post_class('in_grid'); ?>>
+	<div class="summary entry-summary row">
 	<?php
 		/**
 		 * woocommerce_before_single_product_summary hook.
@@ -48,7 +48,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		do_action( 'woocommerce_before_single_product_summary' );
 	?>
 
-	<div class="summary entry-summary">
+	
 
 		<?php
 			/**
@@ -67,7 +67,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		?>
 
 	</div><!-- .summary -->
-
+	<div class="row">
 	<?php
 		/**
 		 * woocommerce_after_single_product_summary hook.
@@ -78,7 +78,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		 */
 		do_action( 'woocommerce_after_single_product_summary' );
 	?>
-
+	</div>
 </div><!-- #product-<?php the_ID(); ?> -->
 
 <?php do_action( 'woocommerce_after_single_product' ); ?>

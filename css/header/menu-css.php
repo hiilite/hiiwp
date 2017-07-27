@@ -154,6 +154,7 @@ ul.sub-menu {
 	    width: 100%;
 	    overflow: auto;
 	    display: none;
+	    left:0;
 	    background: <?=$hiilite_options[ 'moblie_menu_background_color' ]?>;
 	}
 

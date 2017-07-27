@@ -22,7 +22,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 get_header( 'shop' ); ?>
 
-	<?php
+	
+
+    <header class="woocommerce-products-header page-title">
+		<div class="in_grid content-box">
+			<?php
 		/**
 		 * woocommerce_before_main_content hook.
 		 *
@@ -32,12 +36,9 @@ get_header( 'shop' ); ?>
 		 */
 		do_action( 'woocommerce_before_main_content' );
 	?>
-
-    <header class="woocommerce-products-header">
-
 		<?php if ( apply_filters( 'woocommerce_show_page_title', true ) ) : ?>
 
-			<h1 class="woocommerce-products-header__title page-title"><?php woocommerce_page_title(); ?></h1>
+			<h1 class="woocommerce-products-header__title "><?php woocommerce_page_title(); ?></h1>
 
 		<?php endif; ?>
 
@@ -50,11 +51,14 @@ get_header( 'shop' ); ?>
 			 */
 			do_action( 'woocommerce_archive_description' );
 		?>
-
+		
+		
+		</div>
     </header>
 
 		<?php if ( have_posts() ) : ?>
-
+		<div class="row "><div class="in_grid content-box">
+			<div class="woocommerce_before_shop_loop">
 			<?php
 				/**
 				 * woocommerce_before_shop_loop hook.
@@ -65,7 +69,7 @@ get_header( 'shop' ); ?>
 				 */
 				do_action( 'woocommerce_before_shop_loop' );
 			?>
-
+			</div>
 			<?php woocommerce_product_loop_start(); ?>
 
 				<?php woocommerce_product_subcategories(); ?>
@@ -126,5 +130,5 @@ get_header( 'shop' ); ?>
 		 */
 		do_action( 'woocommerce_sidebar' );
 	?>
-
+		</div></div>
 <?php get_footer( 'shop' ); ?>
