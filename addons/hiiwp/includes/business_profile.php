@@ -861,10 +861,10 @@ function hii_seo_options_page() {
 	// Arguments array. See the arguments page for more detail
     $args = array(
         'key'        => $opt_key,
-        'title'      => 'Hiilite SEO',
+        'title'      => 'HiiWP Settings',
         //'topmenu'    => 'options-general.php',
         'menuargs' => array(
-        	'icon_url'	=>	'dashicons-id-alt',
+        	'icon_url'	=>	get_template_directory_uri().'/images/hii-dashicon.png',
         	'position'	=> 2,
         ),
         

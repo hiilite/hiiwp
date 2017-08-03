@@ -4,7 +4,7 @@
 .button {
 	-webkit-appearance: none;
 }
-.button, .vc_general.vc_btn3, .vc_general.vc_btn3:focus, .vc_general.vc_btn3:hover { <?php 
+.button, .vc_general.vc_btn3, .vc_general.vc_btn3:focus, .vc_general.vc_btn3:hover, button.single_add_to_cart_button.button.alt, button.single_add_to_cart_button.button.alt.disabled.wc-variation-selection-needed { <?php 
 	get_font_css($hiilite_options[ 'typography_button_default_font' ]);
 	echo 'background:'.$hiilite_options[ 'typography_button_default_background' ]['base'].';';
 	echo 'padding:'.get_spacing($hiilite_options[ 'typography_button_default_padding' ]).';';
@@ -22,7 +22,7 @@
 	border-color: <?php echo $hiilite_options['typography_button_default_border_color']['hover']?>;
 }
 
-.button-primary { <?php 
+.button-primary, body .woocommerce #respond input#submit.alt, body .woocommerce a.button.alt, body .woocommerce button.button.alt, body .woocommerce input.button.alt { <?php 
 	get_font_css($hiilite_options[ 'typography_button_primary_font' ]);
 	echo 'background:'.$hiilite_options[ 'typography_button_primary_background']['base'].';';
 	echo 'padding:'.get_spacing($hiilite_options[ 'typography_button_primary_padding' ]).';';

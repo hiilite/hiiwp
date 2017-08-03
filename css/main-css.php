@@ -7,14 +7,17 @@ function get_background_css($background){
 	foreach($background as $rule => $value){
 		if($value != ''){
 			switch ($rule){
-				case 'attach':
+				case 'background-image':
+					echo "background-image:url($value);";
+					break;
+				case 'background-attach':
 					echo "background-attachment:$value;";
 					break;
-				case 'position':
+				case 'background-position':
 					echo 'background-position:'.str_replace('-', ' ', $value).';';
 					break;
 				default:
-					echo "background-$rule:$value;";
+					echo "$rule:$value;";
 					break;
 					
 			}

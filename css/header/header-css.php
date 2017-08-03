@@ -1,27 +1,23 @@
 <?php if(false): ?><style><?php endif; ?>
 header#main_header {
-	position: relative;
 	width: 100%;
 	align-items: center;
 	flex-wrap: wrap;
 	z-index: 9999;
 	transition: all 0.5s;
 	<?php 
-	foreach($hiilite_options['header_background'] as $key => $value) {
-		echo $key.':'.$value.';';
-	}
+	get_background_css($hiilite_options['header_background']);
+	if($hiilite_options['header_content_under'] == true)
+		echo 'position: absolute;';
+	else
+		echo 'position: relative;';
 	?>
 }
 <?php
 if($hiilite_options['header_top_home'] == true): ?>
 
 	#header_top_pages {<?php
-		echo ($hiilite_options['header_top_pages_background_image'] != '')?'background-image:url('.$hiilite_options['header_top_pages_background_image'].');':'';
-		echo 'background-repeat:'.$hiilite_options['header_top_pages_background_repeat'].';';
-		echo 'background-size:'.$hiilite_options['header_top_pages_background_size'].';';
-		echo 'background-attachment:'.$hiilite_options['header_top_pages_background_attach'].';';
-		echo 'background-position:'.str_replace('-', ' ', $hiilite_options['header_top_pages_background_position']).';';
-		echo 'background-color:'.$hiilite_options['header_top_pages_background_color'].';';	
+		get_background_css($hiilite_options['header_top_pages_background_image']);
 		echo 'height:'.$hiilite_options['header_top_pages_height'].';'; ?>
 	}
 

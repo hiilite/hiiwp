@@ -108,6 +108,8 @@ $hiilite_options['color_palette'] 				= array(
  */
 $hiilite_options['header_in_grid']				= get_theme_mod( 'header_in_grid', true );
 $hiilite_options['header_type'] 				= get_theme_mod( 'header_type', 'regular'); // regular | centered | fixed
+$hiilite_options['header_content_under']		= get_theme_mod( 'header_content_under', false);
+
 $hiilite_options['header_padding'] 				= get_theme_mod( 'header_padding', array(
 		'top'    => '1em',
 		'right'  => '0',
@@ -196,7 +198,13 @@ $hiilite_options['footer_top_col2']			= get_theme_mod( 'footer_top_col2', true )
 $hiilite_options['footer_top_col3']			= get_theme_mod( 'footer_top_col3', true );
 $hiilite_options['footer_top_col4']			= get_theme_mod( 'footer_top_col4', true );
 
-
+$hiilite_options[ 'footer_top_columns' ]    = get_theme_mod( 'footer_top_columns',  array(
+		'footer_column_1',
+		'footer_column_2',
+		'footer_column_3',
+		'footer_column_4'
+	) );
+$hiilite_options['show_footer_top_yesno']	= get_theme_mod( 'show_footer_top_yesno', true );
 $hiilite_options['footer_bottom_background_color']		= get_theme_mod( 'footer_bottom_background_color', '#c8c8c8' );
 $hiilite_options['footer_bottom_center']	= get_theme_mod( 'footer_bottom_center', true );
 $hiilite_options['footer_bottom_left']		= get_theme_mod( 'footer_bottom_left', false );

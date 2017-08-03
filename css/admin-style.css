@@ -8,7 +8,7 @@ li#toplevel_page_customize .wp-menu-name, li#toplevel_page_customize .wp-menu-im
     color: #2AB7C4;
 }
 #wpadminbar>#wp-toolbar>#wp-admin-bar-root-default #wp-admin-bar-wp-logo .ab-icon {
-	background-image: url('../images/hiilite-logo-symbolmark.svg') !important;
+	background-image: url('../images/favicon.png') !important;
 	background-size: contain;
 	background-repeat: no-repeat;
 	background-position: center center;
@@ -300,3 +300,7 @@ ul.cmb2-checkbox-list.cmb2-list li {
     clear: none;
     margin-right: 2%;
 }  
+
+#adminmenu .wp-menu-image img {
+    padding: 5px 0 0;
+}

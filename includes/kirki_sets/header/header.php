@@ -36,6 +36,22 @@ Kirki::add_field( 'hiiwp', array(
 ) );
 
 Kirki::add_field( 'hiiwp', array(
+    'type'        => 'switch',
+    'settings'    => 'header_content_under',
+    'label'       => __( 'Header Overlaps Content', 'hiiwp' ),
+    'description'  => __( 'Have the content flow behind the header', 'hiiwp' ),
+    'section'     => $section,
+    'default'     => $hiilite_options['header_content_under'],
+    'priority'    => 1,
+    'required'	  => array(
+		array(
+		    'setting'  => 'header_type',
+			'operator' => '!=',
+			'value'    => 'fixed',
+	    )),
+) );
+
+Kirki::add_field( 'hiiwp', array(
 	'type'        => 'spacing',
 	'settings'    => 'header_padding',
 	'label'       => __( 'Header Padding', 'my_textdomain' ),
@@ -58,7 +74,7 @@ Kirki::add_field( 'hiiwp', array(
 ) );
 
 
-
+ 
 
 Kirki::add_field( 'hiiwp', array(
 	'type'        => 'background',

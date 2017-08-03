@@ -14,13 +14,14 @@ class HiiWP {
 		
 		add_action( 'wp_footer', array( $this, 'print_inline_script'), 100 );
 		
+		add_action( 'after_setup_theme', array( $this, 'woocommerce_support') );
 		add_action( 'after_switch_theme', array( $this, 'set_permalink_structure') );
 		// Load admin JavaScript. Do an is_admin() check before calling My_Custom_Plugin
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_admin_scripts' ), 100 );
 		//Used to disable tour mode
 		add_action( 'wp_ajax_hiiwp_disable_tour_mode', array( $this, 'hiiwp_disable_tour_mode' ));
         
-        
+         
         add_filter( 'auto_update_theme', '__return_true' );
         add_filter( 'widget_text','do_shortcode');
         add_filter( 'wp_calculate_image_srcset_meta', '__return_null' );
@@ -83,6 +84,10 @@ class HiiWP {
 		} 
 		
 		include_once(HIILITE_DIR . '/css/main-css.php');
+	}
+	
+	private function woocommerce_support() {
+    	add_theme_support( 'woocommerce' );
 	}
 	
 	// ADD DEFER TO SCRIPT TAGS

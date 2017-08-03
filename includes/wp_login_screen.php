@@ -13,6 +13,14 @@ if(!function_exists('hiilite_login_logo')){
 	}
 	?>
 	    <style type="text/css">
+		    body.login.login-action-login.wp-core-ui.locale-en-us {
+			    background: white;
+			}
+			
+			form#loginform {
+			    box-shadow: none;
+			    padding: 0;
+			}
 	        .login #login h1 a {
 	            background-image: url( <?= $hiilite_options['main_logo']; ?> );
 				background-size: contain;

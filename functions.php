@@ -101,7 +101,6 @@ class Hii {
 		add_theme_support( 'title-tag' );
 		add_theme_support( 'post-thumbnails' );
 		add_theme_support( 'menus' );
-		add_theme_support( 'woocommerce' );
 	}
 	
 	/*--------------------------------------------*
@@ -158,6 +157,7 @@ GRAVITY FORMS
 */
 if(class_exists('GFForms')):
 	//require_once( dirname( __FILE__ ) . '/addons/gravityformsrangeslider/rangeslider.php');
+	add_filter( 'gform_enable_field_label_visibility_settings', '__return_true' );
 endif;
 
 /*	

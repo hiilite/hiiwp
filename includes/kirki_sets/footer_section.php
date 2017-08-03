@@ -78,7 +78,7 @@ Kirki::add_field( 'hiiwp', array(
     'label'       => __( 'Show Footer Top', 'my_textdomain' ),
     'description' => __('Enabling this option will show Footer Top area'),
     'section'     => $section,
-    'default'     => true,
+    'default'     => $hiilite_options['show_footer_top_yesno'],
     'priority'    => 1,
 ) );
 
@@ -105,12 +105,7 @@ Kirki::add_field( 'hiiwp', array(
     'label'       => __( 'Footer Top Columns', 'my_textdomain' ),
     'description'  => __( 'Choose which columns show for Footer top area', 'my_textdomain' ),
     'section'     => $section,
-    'default'     => array(
-		'footer_column_1',
-		'footer_column_2',
-		'footer_column_3',
-		'footer_column_4'
-	),
+    'default'     => $hiilite_options[ 'footer_top_columns' ],
     'priority'    => 6,
     'choices'     => array(
 		'footer_column_1' => esc_attr__( 'Column 1', 'my_textdomain' ),
