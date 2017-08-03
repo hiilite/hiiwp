@@ -26,7 +26,7 @@ Kirki::add_field( 'hiiwp', array(
     'type'        => 'dimension',
     'settings'    => 'text_margin',
     'label'       => esc_attr__( 'Paragraph Bottom Margin', 'kirki' ),
-    'description' => __( 'Define styles for paragraph text' ),
+    'description' => __( 'Define the paragraph tags margin-bottom' ),
     'section'     => $section,
     'default'     => '1em',
     'priority'    => 1,
@@ -49,7 +49,7 @@ Kirki::add_field( 'hiiwp', array(
 Kirki::add_field( 'hiiwp', array(
 	'type'        => 'multicolor',
 	'settings'    => 'link_color',
-	'label'       => __( 'Link', 'my_textdomain' ),
+	'label'       => __( 'Link Colors', 'my_textdomain' ),
 	'description' => __('Define styles for link text'),
 	'section'     => $section,
 	'priority'    => 1,
@@ -79,6 +79,7 @@ Kirki::add_field( 'hiiwp', array(
 Kirki::add_field( 'hiiwp', array(
 	'type'        => 'multicolor',
 	'settings'    => 'icon_settings_bg',
+	'label'		  => 'Social Icon Background',
 	'section'     => $section,
 	'priority'    => 1,
 	'choices'     => array(

@@ -106,12 +106,16 @@ on ADMIN_MENU
 */
 add_action('admin_menu', 'hiiwp_adminmenu', 10);
 function hiiwp_adminmenu() {
-	add_submenu_page('hii_seo_settings', __('Hiilite SEO', 'hiiwp'), __('Hiilite SEO', 'hiiwp'), 'manage_options', 'hii_seo_settings');
+	add_submenu_page('hii_seo_settings', __('HiiWP Settings', 'hiiwp'), __('Settings', 'hiiwp'), 'manage_options', 'hii_seo_settings');
 	
-    add_menu_page( __('About Hiilite SEO', 'sitemap'), __('About', 'hiiwp'), 'manage_options', 'admin.php?page=about_hii_seo','hii_about_page');
+	add_submenu_page('hii_seo_settings', __('Customize', 'hiiwp'), __('Customize', 'hiiwp'), 'manage_options', 'customize.php');
+	
+	add_submenu_page('hii_seo_settings', __('Install Plugins', 'hiiwp'), __('Install Plugins', 'hiiwp'), 'manage_options', 'themes.php?page=tgmpa-install-plugins');
+	
+    add_menu_page( __('About HiiWP SEO', 'hiiwp'), __('About', 'hiiwp'), 'manage_options', 'admin.php?page=about_hii_seo','hii_about_page');
     remove_menu_page( 'admin.php?page=about_hii_seo' );
     
-    add_submenu_page( 'hii_seo_settings', __('About Hiilite SEO', 'sitemap'), __('About', 'hiiwp'), 'manage_options', 'admin.php?page=about_hii_seo','hii_about_page');
+    add_submenu_page( 'hii_seo_settings', __('About HiiWP', 'hiiwp'), __('About', 'hiiwp'), 'manage_options', 'admin.php?page=about_hii_seo','hii_about_page');
 }
 function hii_about_page(){
 	require_once dirname( __FILE__ ) . '/about.php';
@@ -129,7 +133,7 @@ function page_options_meta_box()
 {
     add_meta_box(
         'page_seo_options', // id, used as the html id att
-        __( 'Hiilite SEO Options' ), // meta box title, like "Page Attributes"
+        __( 'HiiWP SEO Options' ), // meta box title, like "Page Attributes"
         'page_seo_options_meta_box_cb', // callback function, spits out the content
         array('page','post','portfolio','team','menu'), // post type or page. We'll add this to pages only
         'normal', // context (where on the screen

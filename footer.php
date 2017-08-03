@@ -6,17 +6,15 @@ do_action( 'hii_after_content' );
 
 <!-- FOOTER -->
 <footer id="main_footer">
-<?php if(is_customize_preview()) echo '<div class="customizer_quick_links"><button class="customizer-edit" data-control=\'{"name":"footer_background_color"}\'>Edit Footer</button><button class="customizer-edit font-edit" data-control=\'{"name":"typography_footer_headings_font"}\'>Footer Fonts</button></div>';?>
 	<?php 
 	do_action ( 'hii_footer' );
 	
-	if(get_theme_mod( 'show_footer_top_yesno', true )): 
+	if($hiilite_options[ 'show_footer_top_yesno' ] == 'true'): 
 		echo '<div id="footer_top"><div class="container_inner">';
 		
 		if($hiilite_options['footer_in_grid']) echo '<div class="in_grid">';
 	
-	
-		$footer_top_columns = get_theme_mod( 'footer_top_columns');
+		$footer_top_columns = $hiilite_options[ 'footer_top_columns' ];
 		if(is_array($footer_top_columns) && count($footer_top_columns) > 0):
 			$col_count_str ='';
 			switch(count($footer_top_columns)){

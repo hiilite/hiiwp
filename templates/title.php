@@ -7,10 +7,6 @@ if ( isset($post) && (
 		get_post_meta(get_the_id(), 'show_page_title', true) != 'hide' && 
 		get_theme_mod('show_page_titles', true) == true
 	) || 
-	(
-		is_archive()  && 
-		!class_exists( 'WooCommerce' ) 
-	) || 
 		is_post_type_archive()
 )): 
 	$post_meta = get_post_meta(get_the_id());
