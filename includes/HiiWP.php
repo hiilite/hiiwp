@@ -86,7 +86,7 @@ class HiiWP {
 		include_once(HIILITE_DIR . '/css/main-css.php');
 	}
 	
-	private function woocommerce_support() {
+	public function woocommerce_support() {
     	add_theme_support( 'woocommerce' );
 	}
 	
@@ -354,26 +354,6 @@ class HiiWP {
 	        array(
 	            'name'      => 'Optimus',
 	            'slug'      => 'optimus',
-	            'required'  => false,
-	        ),
-	        array(
-	            'name'      => 'Duplicate Post',
-	            'slug'      => 'duplicate-post',
-	            'required'  => false,
-	        ),
-	        array(
-	            'name'      => 'Post Types Order',
-	            'slug'      => 'post-types-order',
-	            'required'  => false,
-	        ),
-	        array(
-	            'name'      => 'Category Order and Taxonomy Terms Order',
-	            'slug'      => 'taxonomy-terms-order',
-	            'required'  => false,
-	        ),
-			array(
-	            'name'      => 'Facebook Conversion Pixel',
-	            'slug'      => 'facebook-conversion-pixel',
 	            'required'  => false,
 	        ),
 			array(
