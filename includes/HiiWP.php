@@ -91,18 +91,39 @@ class HiiWP {
 	}
 	
 	// ADD DEFER TO SCRIPT TAGS
-	public function add_defer_attribute($tag, $handle) {
+	private function add_defer_attribute($tag, $handle) {
 		if(is_admin() || is_customize_preview()) return $tag;
 		return str_replace( ' src', ' defer=defer src', $tag );
 	}
 	
 	public function print_inline_script() {
 	  if ( wp_script_is( 'jquery', 'done' ) ) { 
-		  
 	  ?><script type="text/javascript">
-			document.onreadystatechange = function() {
 			<?=get_theme_mod('custom_js');?>
-			};
+		</script>
+		<script type="text/javascript">
+		
+		jQuery( document ).ready(function( $ ) {
+			function trackingLink($this, type){
+				var href = $this.innerHTML;
+				
+				return "ga('send', 'event', 'Contact Links', '"+type+"','"+href+"')";
+				
+			}
+			
+			var maillink = $('[href*=mail]'),
+				phonelink = $('[href*=tel]');
+			maillink.attr('onclick',function(){
+					return trackingLink(this, "user-emailed");
+				});
+			
+			phonelink.attr('onclick', function(){
+					return trackingLink(this, "user-phoned");
+				});
+			
+				
+		});
+	
 		</script><?php
 	  }
 	}

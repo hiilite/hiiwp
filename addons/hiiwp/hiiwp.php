@@ -72,31 +72,7 @@ function add_footer_tracking(){
 	$tracking_id = (isset($profile_info[2]))?$profile_info[2]:get_theme_mod('analytics_id');
 	
 	?>
-	<script type="text/javascript">
-		
-	document.onreadystatechange = function() {
 	
-		function trackingLink($this, type){
-			var href = $this.innerHTML;
-			return "ga('send', 'event', 'Contact Links', '"+type+"','"+href+"')";
-		}
-		
-		var maillink = document.querySelectorAll('[href*=mail]'),
-			phonelink = document.querySelectorAll('[href*=tel]');
-		for (var i=0; i < maillink.length; i++) {
-			maillink[i].onclick = function(){
-				return trackingLink(this, "user-emailed");
-			};
-		}
-		for (var i=0; i < phonelink.length; i++) {
-			phonelink[i].onclick = function(){
-				return trackingLink(this, "user-phoned");
-			};
-		}
-			
-	};
-
-	</script>
 	<?php
 	
 }
