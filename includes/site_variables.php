@@ -488,7 +488,53 @@ $hiilite_options['h4_color']					= '#58b8a6';
 $hiilite_options['h5_color']					= '#635d5d';
 $hiilite_options['h6_color']					= '#635d5d';
 
-
+$hiilite_options['icon_settings']				= get_theme_mod( 'icon_settings', array(
+        'font-size'      => '',
+        'line-height'    => '',
+        'color'          => $hiilite_options['color_one'],
+    ) );
+// Social
+$hiilite_options['typography_icon_custom_css']		= get_theme_mod('typography_icon_custom_css', '.fa-style-round {
+	background: '.get_theme_mod( 'color_one', '#ef5022').';
+	display: inline-block;
+	width: 1.6em;
+	text-align: center;
+	color: white;
+	font-size: 1em;
+	line-height: 1.6em;
+	border-radius: 2em;
+}
+.fa-style-square {
+	background: '.get_theme_mod( 'color_one', '#ef5022').';
+	display: inline-block;
+	width: 1.6em;
+	text-align: center;
+	color: white;
+	font-size: 1em;
+	line-height: 1.6em;
+	border-radius: 0.2em;
+}
+.fa-style-circle {
+	color: '.get_theme_mod( 'color_one', '#ef5022').';
+	display: inline-block;
+	width: 1.6em;
+	text-align: center;
+	line-height: 1.6em;
+	font-size: 1em;
+	background: none;
+	border-radius: 2em;
+	border:1px solid '.get_theme_mod( 'color_one', '#ef5022').';
+}
+.fa-style-no-bg {
+	color: '.get_theme_mod( 'color_one', '#ef5022').';
+	font-size:1.6em;
+	display: inline-block;
+	width: 1.6em;
+	text-align: center;
+	line-height: 1.6em;
+	border: none;
+	background: none;
+}');
 
 // BLOG
 $hiilite_options['blog_layouts']			= get_theme_mod( 'blog_layouts', 'full-width' );

@@ -72,11 +72,13 @@ function add_button_shortcode( $atts ){
 
 	$css_class = ($is_vc)?preg_replace( '/\s+/', ' ', apply_filters( VC_SHORTCODE_CUSTOM_CSS_FILTER_TAG, implode( ' ', array_filter( $css_classes ) ), '.vc_custom_', $atts ) ):implode( ' ', array_filter( $css_classes ) );
 	$wrapper_attributes[] = 'class="' . esc_attr( trim( $css_class ) ) . '"';
-	
-	if(isset($link)){
-		$link = vc_build_link( $link );
-		$link = $link['url'];
+	if(strpos($link, 'url:') !== false) {
+		if(isset($link)){
+			$link = vc_build_link( $link );
+			$link = $link['url'];
+		} 
 	} 
+	
 	
 	$align_start = ($button_align != '')?'<div class="'.$button_align.'">':'';
 	$align_end = ($button_align != '')?'</div>':'';

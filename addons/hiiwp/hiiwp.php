@@ -28,9 +28,7 @@ include_once( dirname( __FILE__ ) . '/addons/custom-field-types/address-field-ty
 include_once( dirname( __FILE__ ) . '/includes/business_profile.php' );
 include_once( dirname( __FILE__ ) . '/addons/google-sitemap-generator/sitemap.php');
 require_once( dirname( __FILE__ ) . '/includes/wp_login_screen.php');
-//require_once( dirname( __FILE__ ) . '/includes/wp_admin_dashboard.php');
-require_once( dirname( __FILE__ ) . '/includes/shortcodes/social-profiles.php');
-require_once( dirname( __FILE__ ) . '/includes/shortcodes/social-share.php');
+
 require_once( dirname( __FILE__ ) . '/addons/google-analytics-dashboard-for-wp/gadwp.php');
 
 

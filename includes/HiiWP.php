@@ -2,55 +2,36 @@
 class HiiWP {
 	
 	public static $options = array();
-	
-	
-	
-	
+
 	public function __construct() {
-		
 		add_action( 'init', array( $this, 'hiiwp_init') );
 		add_action( 'wp_head', array( $this, 'hiiwp_head') );
 		add_action( 'wp_head', array($this, 'add_tracking_codes'));
-		
 		add_action( 'wp_footer', array( $this, 'print_inline_script'), 100 );
-		
 		add_action( 'after_setup_theme', array( $this, 'woocommerce_support') );
-		add_action( 'after_switch_theme', array( $this, 'set_permalink_structure') );
-		// Load admin JavaScript. Do an is_admin() check before calling My_Custom_Plugin
+		add_action( 'after_switch_theme', array( $this, 'set_permalink_structure') ); // Load admin JavaScript. Do an is_admin() check before calling My_Custom_Plugin
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_admin_scripts' ), 100 );
-		//Used to disable tour mode
-		add_action( 'wp_ajax_hiiwp_disable_tour_mode', array( $this, 'hiiwp_disable_tour_mode' ));
-        
-         
+		add_action( 'wp_ajax_hiiwp_disable_tour_mode', array( $this, 'hiiwp_disable_tour_mode' )); //Used to disable tour mode
         add_filter( 'auto_update_theme', '__return_true' );
         add_filter( 'widget_text','do_shortcode');
         add_filter( 'wp_calculate_image_srcset_meta', '__return_null' );
         
         $hiilite_options = self::get_options();
         
-        
         require_once( HIILITE_DIR . '/includes/kirki-settings.php' );
 		require_once( HIILITE_DIR . '/addons/hiiwp/hiiwp.php');
-		
         include_once( HIILITE_DIR . '/includes/Plugin-Activation/class-tgm-plugin-activation.php');
-        
 		require_once( HIILITE_DIR . '/addons/tinymce_edits/tinymce_edits.php');
-		
 		require_once( HIILITE_DIR . '/includes/widgets.php' );
-		
 		require_once( HIILITE_DIR . '/includes/register_sidebars.php' );
-		
 		require_once( HIILITE_DIR . '/includes/register_post_types.php');
 		
 		/*
 		 * Auto include all shortcodes
 		 */
-		foreach (glob(HIILITE_DIR."/includes/shortcodes/*.php") as $filename)
-		{
+		foreach (glob(HIILITE_DIR."/includes/shortcodes/*.php") as $filename) {
 		    include_once( $filename );
 		} 
-		
-
 	}
 	
 	
@@ -65,10 +46,6 @@ class HiiWP {
 		
     }
 	 
-	
-	/*
-	//	note: wp_head
-	*/
 	function hiiwp_head(){
 		global $post, $wp_scripts, $woocommerce;
 		
@@ -86,12 +63,11 @@ class HiiWP {
 		include_once(HIILITE_DIR . '/css/main-css.php');
 	}
 	
-	private function woocommerce_support() {
+	public function woocommerce_support() {
     	add_theme_support( 'woocommerce' );
 	}
 	
-	// ADD DEFER TO SCRIPT TAGS
-	private function add_defer_attribute($tag, $handle) {
+	public function add_defer_attribute($tag, $handle) {
 		if(is_admin() || is_customize_preview()) return $tag;
 		return str_replace( ' src', ' defer=defer src', $tag );
 	}
@@ -185,7 +161,6 @@ class HiiWP {
 		}
 	}
 	
-	
 	public function enqueue_admin_scripts() {
 		wp_enqueue_script( HIIWP_SLUG . '-pointer-js', HIIWP_URL.'/js/hiiwp-pointer.js', array( 'jquery' ), HIIWP_VERSION );
 		
@@ -206,7 +181,7 @@ class HiiWP {
 	* Give the user an introductory tour to your plugin
 	* @return Array $pointers Returns an array of pointers or false
 	*/
-	private function load_intro_tour(){
+	public function load_intro_tour(){
 		$screen = get_current_screen();
 		$screen_id = $screen->id;
 		// Don't run on WP < 3.3. Admin pointers were only introduced in WP 3.3
@@ -237,7 +212,7 @@ class HiiWP {
 	  * The tour content for the different screens
 	  */
 	
-	private function generate_tour_content(){
+	public function generate_tour_content(){
 		//The content is entered into the array based on when it should display since
 		//it'll be displayed sequentially i.e. content at $p[0] will come first, then $p[n+1]
 		$p[] = array(
@@ -375,26 +350,6 @@ class HiiWP {
 	        array(
 	            'name'      => 'Optimus',
 	            'slug'      => 'optimus',
-	            'required'  => false,
-	        ),
-	        array(
-	            'name'      => 'Duplicate Post',
-	            'slug'      => 'duplicate-post',
-	            'required'  => false,
-	        ),
-	        array(
-	            'name'      => 'Post Types Order',
-	            'slug'      => 'post-types-order',
-	            'required'  => false,
-	        ),
-	        array(
-	            'name'      => 'Category Order and Taxonomy Terms Order',
-	            'slug'      => 'taxonomy-terms-order',
-	            'required'  => false,
-	        ),
-			array(
-	            'name'      => 'Facebook Conversion Pixel',
-	            'slug'      => 'facebook-conversion-pixel',
 	            'required'  => false,
 	        ),
 			array(

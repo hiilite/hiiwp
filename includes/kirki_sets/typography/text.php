@@ -63,48 +63,7 @@ Kirki::add_field( 'hiiwp', array(
     ),
 ) );
 
-Kirki::add_field( 'hiiwp', array(
-    'type'        => 'typography',
-    'settings'    => 'icon_settings',
-    'label'       => esc_attr__( 'Social Icon Settings', 'kirki' ),
-    'description' => __( 'Define styles for social icons' ),
-    'section'     => $section,
-    'default'     => array(
-        'font-size'      => ' ',
-        'line-height'    => ' ',
-        'color'          => ' ',
-    ),
-    'priority'    => 1,
-) );
-Kirki::add_field( 'hiiwp', array(
-	'type'        => 'multicolor',
-	'settings'    => 'icon_settings_bg',
-	'label'		  => 'Social Icon Background',
-	'section'     => $section,
-	'priority'    => 1,
-	'choices'     => array(
-        'background'  => esc_attr__( 'Background Color', 'hiiwp' ),
-    ),
-    'default'     => array(
-        'background'    => '',
-    ),
-) );
-Kirki::add_field( 'my_config', array(
-	'type'        => 'dimension',
-	'settings'    => 'icon_settings_border',
-	'label'       => __( 'Border Thickness', 'my_textdomain' ),
-	'section'     => $section,
-	'default'     => '0',
-	'priority'    => 1,
-) );
-Kirki::add_field( 'my_config', array(
-	'type'        => 'dimension',
-	'settings'    => 'icon_settings_border_r',
-	'label'       => __( 'Border Radius', 'my_textdomain' ),
-	'section'     => $section,
-	'default'     => '0',
-	'priority'    => 1,
-) );
+
 
 Kirki::add_field( 'hiiwp', array(
 	'type'        => 'code',
@@ -122,60 +81,6 @@ Kirki::add_field( 'hiiwp', array(
 	),
 ) );
 
-Kirki::add_field( 'hiiwp', array(
-	'type'        => 'code',
-	'settings'    => 'typography_icon_custom_css',
-	'label'       => __( 'Icon Custom CSS', 'my_textdomain' ),
-	'description' => __( 'Custom style all font-awesome icons', 'textdomain' ),
-	'section'     => $section,
-	'default'     => '.fa-style-round {
-	background: '.get_theme_mod( 'color_one', '#ef5022').';
-	display: inline-block;
-	width: 1.6em;
-	text-align: center;
-	color: white;
-	font-size: 1em;
-	line-height: 1.6em;
-	border-radius: 2em;
-}
-.fa-style-square {
-	background: '.get_theme_mod( 'color_one', '#ef5022').';
-	display: inline-block;
-	width: 1.6em;
-	text-align: center;
-	color: white;
-	font-size: 1em;
-	line-height: 1.6em;
-	border-radius: 0.2em;
-}
-.fa-style-circle {
-	color: '.get_theme_mod( 'color_one', '#ef5022').';
-	display: inline-block;
-	width: 1.6em;
-	text-align: center;
-	line-height: 1.6em;
-	font-size: 1em;
-	background: none;
-	border-radius: 2em;
-	border:1px solid '.get_theme_mod( 'color_one', '#ef5022').';
-}
-.fa-style-no-bg {
-	color: '.get_theme_mod( 'color_one', '#ef5022').';
-	font-size:1.6em;
-	display: inline-block;
-	width: 1.6em;
-	text-align: center;
-	line-height: 1.6em;
-	border: none;
-	background: none;
-}',
-	'priority'    => 1,
-	'choices'     => array(
-		'language' => 'css',
-		'theme'    => 'monokai',
-		'height'   => '100',
-	),
-) );	
 
 /*
 *
