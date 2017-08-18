@@ -15,7 +15,14 @@ Kirki::add_section( 'typography_headings_section', array(
 Kirki::add_section( 'typography_text_section', array(
     'priority'    => 6,
     'title'       => __( 'Text', 'textdomain' ),
-    'description' => __( 'Links, Icons, and Custom Formats', 'textdomain' ),
+    'description' => __( 'Customize fonts for Paragraphs, Links, and Custom Formats', 'textdomain' ),
+    'panel'		 => 'typography_panel',
+) );
+
+Kirki::add_section( 'typography_social_icons_section', array(
+    'priority'    => 6,
+    'title'       => __( 'Social Icons', 'textdomain' ),
+    'description' => __( 'Customize the default social icons', 'textdomain' ),
     'panel'		 => 'typography_panel',
 ) );
 
@@ -45,6 +52,7 @@ Kirki::add_section( 'typography_footer_section', array(
 
 include_once 'typography/headings.php';
 include_once 'typography/text.php';
+include_once 'typography/social_icons.php';
 include_once 'typography/header_menu.php';
 include_once 'typography/page_title.php';
 include_once 'typography/footer.php';
