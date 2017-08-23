@@ -3,6 +3,9 @@
 $main_menu_colors = $hiilite_options['main_menu_colors'];
 $second_level_menu_colors = $hiilite_options['second_level_menu_colors'];	
 ?>
+#main-nav {
+	margin:<?=get_spacing($hiilite_options['menu_margin']);?>;
+}
 .menu {
 	list-style: none;
 	padding: 0;
@@ -36,16 +39,16 @@ $second_level_menu_colors = $hiilite_options['second_level_menu_colors'];
 }
 
 .main-menu {
-	<?php get_justify_content(get_theme_mod('main_menu_align')); ?>
+	<?php get_justify_content($hiilite_options['main_menu_align']); ?>
 }
 .left-menu {
-	<?php get_justify_content(get_theme_mod('left_menu_align')); ?>
+	<?php get_justify_content($hiilite_options['left_menu_align']); ?>
 }
 .right-menu {
-	<?php get_justify_content(get_theme_mod('right_menu_align')); ?>
+	<?php get_justify_content($hiilite_options['right_menu_align']); ?>
 }
 .bottom-menu {
-	<?php get_justify_content(get_theme_mod('bottom_menu_align')); ?>
+	<?php get_justify_content($hiilite_options['bottom_menu_align']); ?>
 }
 
 <?php
@@ -96,7 +99,7 @@ ul.sub-menu {
 .search_button {
 	display: block;
 	text-align: center;
-	margin: auto 0;
+	margin:<?=get_spacing($hiilite_options['menu_margin']);?>;
     text-align: right;
     flex: 0 1 auto; 
 }
@@ -140,7 +143,7 @@ ul.sub-menu {
 	.mobile_menu_button {
 		display: block;
 		text-align: center;
-		margin: 1em 0;
+		margin:<?=get_spacing($hiilite_options['menu_margin']);?>;
 	    text-align: right;
 	    flex: 1 1 auto;
 	}

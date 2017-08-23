@@ -21,7 +21,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 get_header( 'shop' ); ?>
-
+<!--ARCHIVE-PRODUCT-->
 	
 
     <header class="woocommerce-products-header page-title">
@@ -39,7 +39,7 @@ get_header( 'shop' ); ?>
 		<?php if ( apply_filters( 'woocommerce_show_page_title', true ) ) : ?>
 
 			<h1 class="woocommerce-products-header__title "><?php woocommerce_page_title(); ?></h1>
-
+ 
 		<?php endif; ?>
 
 		<?php
@@ -50,7 +50,7 @@ get_header( 'shop' ); ?>
 			 * @hooked woocommerce_product_archive_description - 10
 			 */
 			do_action( 'woocommerce_archive_description' );
-		?>
+		?> 
 		
 		
 		</div>

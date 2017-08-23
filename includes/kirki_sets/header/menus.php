@@ -69,9 +69,7 @@ Kirki::add_field( 'hiiwp', array(
     'label'       => esc_attr__( 'Main Menu Alignment', 'kirki' ),
     'description' => __( 'Change the text align of the main menu' ),
     'section'     => $section,
-    'default'     => array(
-        'text-align'          => 'right',
-    ), 
+    'default'     => $hiilite_options['main_menu_align'], 
     'priority'    => 1,
 ) );
 Kirki::add_field( 'hiiwp', array(
@@ -90,9 +88,7 @@ Kirki::add_field( 'hiiwp', array(
     'label'       => esc_attr__( 'Left Menu Alignment', 'kirki' ),
     'description' => __( 'Change the text align of the left menu' ),
     'section'     => $section,
-    'default'     => array(
-        'text-align'          => 'right',
-    ), 
+    'default'     => $hiilite_options['left_menu_align'], 
     'priority'    => 1,
     'required'	  => array(
 		array(
@@ -107,9 +103,7 @@ Kirki::add_field( 'hiiwp', array(
     'label'       => esc_attr__( 'Right Menu Alignment', 'kirki' ),
     'description' => __( 'Change the text align of the right menu' ),
     'section'     => $section,
-    'default'     => array(
-        'text-align'          => 'left',
-    ), 
+    'default'     => $hiilite_options['right_menu_align'], 
     'priority'    => 1,
     'required'	  => array(
 		array(
@@ -124,9 +118,7 @@ Kirki::add_field( 'hiiwp', array(
     'label'       => esc_attr__( 'Bottom Menu Alignment', 'kirki' ),
     'description' => __( 'Change the text align of the bottom menu' ),
     'section'     => $section,
-    'default'     => array(
-        'text-align'          => 'center',
-    ), 
+    'default'     => $hiilite_options['bottom_menu_align'], 
     'priority'    => 1,
     'required'	  => array(
 		array(

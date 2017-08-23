@@ -3,18 +3,24 @@
 global $is_IE;
 include_once('font-awesome/css/font-awesome.min.css'); 
 
-function get_background_css($background){
+function get_background_css($background){ 
 	foreach($background as $rule => $value){
 		if($value != ''){
 			switch ($rule){
-				case 'background-image':
+				case 'background-image':case 'image':
 					echo "background-image:url($value);";
 					break;
-				case 'background-attach':
+				case 'background-attach':case 'attach':
 					echo "background-attachment:$value;";
 					break;
-				case 'background-position':
+				case 'background-position':case 'position':
 					echo 'background-position:'.str_replace('-', ' ', $value).';';
+					break;
+				case 'background-size':case 'size':
+					echo "background-size:$value;";
+					break;
+				case 'background-repeat':case 'repeat':
+					echo "background-repeat:$value;";
 					break;
 				default:
 					echo "$rule:$value;";
@@ -82,13 +88,18 @@ function get_font_css($font){
 					}
 					echo $key.':'.$value.';';
 				}
+				elseif ($key == 'font-family') {
+					$font_family = $key.':'.$value;
+				}
+				elseif ($key == 'font-backup') {
+					$font_family .= ','.$value;
+				}
 				else { echo $key.':'.$value.';'; }
 				
-				
-				
-				
 			}
+			
 		}
+		echo $font_family.';';
 	}
 }
 
@@ -125,7 +136,7 @@ function get_spacing($spacing){
 	
 	return $values;
 }
-$link_color = get_theme_mod('link_color');
+$link_color = $hiilite_options['link_color'];
 ?>
 html {
 	<?php 
@@ -762,10 +773,7 @@ if($hiilite_options['portfolio_on']): ?>
 .bg_color_four { background-color: <?=$hiilite_options['color_four'];?>; }
 .bg_white { background-color:white; }
 
-.label, .labels a{
-	padding: 0.3em;
-	font-size: 0.7em;
-}
+
 
 /*
 //	note: Complimentary styles	

@@ -126,6 +126,7 @@ $hiilite_options['header_background'] = get_theme_mod( 'header_background', arra
 	'attach' => 'fixed',
 ));
 
+$hiilite_options['header_above_content'] = get_theme_mod('header_above_content', $hiilite_options['header_content_under']);
 
 $hiilite_options['header_top_area_yesno']		= get_theme_mod( 'header_top_area_yesno', false );
 $hiilite_options['header_top_border_width']		= get_theme_mod( 'header_top_border_width', '0px' );
@@ -228,6 +229,13 @@ $hiilite_options['main_menu_font']			= get_theme_mod( 'main_menu_font', array(
 												    'letter-spacing' => '0',
 												    'color'          => '#333333',
 												) );
+
+
+$hiilite_options['main_menu_align']			= get_theme_mod('main_menu_align', array( 'text-align' => 'right'));
+$hiilite_options['left_menu_align']			= get_theme_mod('left_menu_align', array( 'text-align' => 'right'));
+$hiilite_options['right_menu_align']		= get_theme_mod('right_menu_align', array( 'text-align' => 'left'));
+$hiilite_options['bottom_menu_align']		= get_theme_mod('bottom_menu_align', array( 'text-align' => 'center'));
+
 												
 $hiilite_options['main_menu_links_css']		= get_theme_mod( 'main_menu_links_css', '' );
 
@@ -367,6 +375,10 @@ $hiilite_options['typography_footer_headings_font']				= get_theme_mod( 'typogra
     ) );
 
 $hiilite_options['typography_link_custom_css']	= get_theme_mod( 'typography_link_custom_css', '{text-decoration:none;}' );
+$hiilite_options['link_color']				=get_theme_mod( 'link_color', array(
+        'link'    => $hiilite_options['color_one'],
+        'hover'   => $hiilite_options['color_two'],
+    ));
 $hiilite_options['typography_link_color']	= get_theme_mod( 'typography_link_color', $hiilite_options['color_one'] );
 $hiilite_options['typography_icon_custom_css']	= get_theme_mod( 'typography_icon_custom_css', '{
 	background: '.$hiilite_options['color_one'].';

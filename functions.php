@@ -140,6 +140,18 @@ if(class_exists('Vc_Manager')){
 	Include VC Extend file
 	*/
 	add_action('init', 'requireVcExtend', 10);
+	add_action( 'vc_after_init', 'add_vc_grid_dependancies' ); /* Note: here we are using vc_after_init because WPBMap::GetParam and mutateParame are available only when default content elements are "mapped" into the system */
+	function add_vc_grid_dependancies() {
+	  //Get current values stored in the color param in "Call to Action" element
+	  $param = WPBMap::getParam( 'vc_basic_grid', 'item' );
+	  //Append new value to the 'value' array
+	  $param['dependency'] = array (
+					"element" => "use_blog_layouts",
+					"value" => "false",
+				);
+	  //Finally "mutate" param with new values
+	  vc_update_shortcode_param( 'vc_basic_grid', $param );
+	}
 }
 function requireVcExtend(){
 	require_once locate_template('/extendvc/extend-vc.php');
