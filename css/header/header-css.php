@@ -25,9 +25,7 @@ if($hiilite_options['header_top_home'] == true): ?>
 endif;
 ?>
 
-#main-nav {
-	margin:<?=get_spacing($hiilite_options['menu_margin']);?>;
-}
+
 <?php
 if($hiilite_options['header_type'] == 'centered') : ?>
 

@@ -28,7 +28,6 @@ $css_class = apply_filters( VC_SHORTCODE_CUSTOM_CSS_FILTER_TAG, $class_to_filter
 $this->buildGridSettings();
 
 
-
 $grid_id = $this->atts['item'];
 $grid_query = new WP_Query('post_type=vc_grid_item&post='.$grid_id);
 if ( $grid_query->have_posts() ) {
@@ -75,7 +74,8 @@ if(isset($atts['post_type']) && $atts['post_type'] != 'custom'){
 }
 if(isset($atts)) {
 	if (isset($atts['blog_layouts']) && $atts['blog_layouts'] != '') $hiilite_options['blog_layouts'] = $atts['blog_layouts'];
-	if (isset($atts['element_width'])) 		$hiilite_options['element_width'] 			= (string)$atts['element_width'];
+	if (isset($atts['element_width'])) 		$hiilite_options['blog_col'] 				= (string)$atts['element_width'];
+							else			$hiilite_options['blog_col'] 				= '4';
 	if (isset($atts['blog_img_pos'])) 		$hiilite_options['blog_img_pos'] 			= (string)$atts['blog_img_pos'];
 	if (isset($atts['blog_title_show'])) 	$hiilite_options['blog_title_show'] 		= $atts['blog_title_show'];
 	if (isset($atts['blog_title_position']))$hiilite_options['blog_title_position'] 	= $atts['blog_title_position'];
@@ -85,6 +85,8 @@ if(isset($atts)) {
 	if (isset($atts['blog_excerpt_show'])) 	$hiilite_options['blog_excerpt_show']		= $atts['blog_excerpt_show'];
 	if (isset($atts['blog_excerpt_len']))	$hiilite_options['blog_excerpt_len']		= $atts['blog_excerpt_len'];
 	if (isset($atts['blog_more_show'])) 	$hiilite_options['blog_more_show']			= $atts['blog_more_show'];
+	
+	$use_blog_layouts = (!isset($atts['use_blog_layouts']))?'true':$atts['blog_more_show'];
 	
 	
 	switch ($hiilite_options['blog_col']) {
@@ -105,12 +107,11 @@ if(isset($atts)) {
 		break;		
 	}
 }
-
 $colcount = ' col-count-'.$hiilite_options['blog_col'];
 
 echo '<!-- vc_grid start --><div class="vc_grid-container-wrapper vc_clearfix container_inner '.$grid.' '.$hiilite_options['blog_layouts'].$colcount.'" '.implode( ' ', $wrapper_attributes ).'>';
 
-if(isset($query) && $query != ''){
+if(($use_blog_layouts == 'true')){
 	$bg_query = new WP_Query($query);
 	while ( $bg_query->have_posts() ) {
 		$bg_query->the_post(); // Get post from query

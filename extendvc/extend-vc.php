@@ -857,7 +857,20 @@ vc_map( array(
 ///////////////////////////// 
 vc_add_param( 'vc_basic_grid',  array(
 				"type" => "dropdown",
-				"holder" => "div",
+				"class" => "",
+				'holder'	=> 'div',
+				"heading" => "Use Theme Item Design",
+				"param_name" => "use_blog_layouts",
+				'group' => 'Item Design',
+				'std'	=> 'true',
+				'value' => array(
+						__( 'Use Theme Template', 'js_composer' ) => 'true',
+						__( 'Use Grid Builder', 'js_composer' ) => 'false'
+					)
+				));
+				
+vc_add_param( 'vc_basic_grid',  array(
+				"type" => "dropdown",
 				"class" => "",
 				"heading" => "Layout",
 				"param_name" => "blog_layouts",
@@ -867,11 +880,13 @@ vc_add_param( 'vc_basic_grid',  array(
 						__( 'Boxed', 'js_composer' ) => 'boxed',
 						__( 'Masonry', 'js_composer' ) => 'masonry',
 						__( 'Full Width', 'js_composer' ) => 'full-width',
-					)
-				));
+					),
+				"dependency" => array (
+					"element" => "use_blog_layouts",
+					"value" => "true"
+				)));
 vc_add_param( 'vc_basic_grid',  array(
 				"type" => "dropdown",
-				"holder" => "div",
 				"class" => "",
 				"heading" => "Image Position",
 				"param_name" => "blog_img_pos",
@@ -881,11 +896,13 @@ vc_add_param( 'vc_basic_grid',  array(
 						__( 'Image Left', 'js_composer' ) => 'image-left',
 						__( 'Image Above', 'js_composer' ) => 'image-above',
 						
-					)
-				));
+					),
+				"dependency" => array (
+					"element" => "use_blog_layouts",
+					"value" => "true"
+				)));
 vc_add_param( 'vc_basic_grid',  array(
 				"type" => "dropdown",
-				"holder" => "div",
 				"class" => "",
 				"heading" => "Show Title",
 				"param_name" => "blog_title_show",
@@ -895,11 +912,13 @@ vc_add_param( 'vc_basic_grid',  array(
 						__( 'On', 'js_composer' ) => 'true',
 						__( 'Off', 'js_composer' ) => 'false',
 						
-					)
-				));
+					),
+				"dependency" => array (
+					"element" => "use_blog_layouts",
+					"value" => "true"
+				)));
 vc_add_param( 'vc_basic_grid',  array(
 				"type" => "dropdown",
-				"holder" => "div",
 				"class" => "",
 				"heading" => "Title Position",
 				"param_name" => "blog_title_position",
@@ -909,11 +928,13 @@ vc_add_param( 'vc_basic_grid',  array(
 						__( 'Above', 'js_composer' ) => 'title-above',
 						__( 'Below', 'js_composer' ) => 'title-below',
 						
-					)
-				));
+					),
+				"dependency" => array (
+					"element" => "use_blog_layouts",
+					"value" => "true"
+				)));
 vc_add_param( 'vc_basic_grid',  array(
 				"type" => "dropdown",
-				"holder" => "div",
 				"class" => "",
 				"heading" => "Title Size",
 				"param_name" => "blog_heading_tag",
@@ -927,12 +948,14 @@ vc_add_param( 'vc_basic_grid',  array(
 						'H5' => 'h5',
 						'H6' => 'h6',
 						
-					)
-				));
+					),
+				"dependency" => array (
+					"element" => "use_blog_layouts",
+					"value" => "true"
+				)));
 				
 vc_add_param( 'vc_basic_grid',  array(
 				"type" => "dropdown",
-				"holder" => "div",
 				"class" => "",
 				"heading" => "Show Category",
 				"param_name" => "blog_cats_show",
@@ -942,11 +965,13 @@ vc_add_param( 'vc_basic_grid',  array(
 						__( 'On', 'js_composer' ) => true,
 						__( 'Off', 'js_composer' ) => false,
 						
-					)
-				));
+					),
+				"dependency" => array (
+					"element" => "use_blog_layouts",
+					"value" => "true"
+				)));
 vc_add_param( 'vc_basic_grid',  array(
 				"type" => "dropdown",
-				"holder" => "div",
 				"class" => "",
 				"heading" => "Show Meta Information",
 				"param_name" => "blog_meta_show",
@@ -956,11 +981,13 @@ vc_add_param( 'vc_basic_grid',  array(
 						__( 'On', 'js_composer' ) => 'true',
 						__( 'Off', 'js_composer' ) => 'false',
 						
-					)
-				));
+					),
+				"dependency" => array (
+					"element" => "use_blog_layouts",
+					"value" => "true"
+				)));
 vc_add_param( 'vc_basic_grid',  array(
 				"type" => "dropdown",
-				"holder" => "div",
 				"class" => "",
 				"heading" => "Show Excerpt",
 				"param_name" => "blog_excerpt_show",
@@ -970,20 +997,24 @@ vc_add_param( 'vc_basic_grid',  array(
 						__( 'On', 'js_composer' ) => 'true',
 						__( 'Off', 'js_composer' ) => 'false',
 						
-					)
-				));
+					),
+				"dependency" => array (
+					"element" => "use_blog_layouts",
+					"value" => "true"
+				)));
 vc_add_param( 'vc_basic_grid',  array(
 				"type" => "textfield",
-				"holder" => "div",
 				"class" => "",
 				"heading" => "Excerpt Length",
 				"param_name" => "blog_excerpt_len",
 				'group' => 'Item Design',
 				'value' => '40',
-				));
+				"dependency" => array (
+					"element" => "use_blog_layouts",
+					"value" => "true"
+				)));
 vc_add_param( 'vc_basic_grid',  array(
 				"type" => "dropdown",
-				"holder" => "div",
 				"class" => "",
 				"heading" => "Show More Button",
 				"param_name" => "blog_more_show",
@@ -993,11 +1024,15 @@ vc_add_param( 'vc_basic_grid',  array(
 						__( 'On', 'js_composer' ) => 'true',
 						__( 'Off', 'js_composer' ) => 'false',
 						
-					)
+					),
+				"dependency" => array (
+					"element" => "use_blog_layouts",
+					"value" => "true"
+				)
 				));
-vc_remove_param( "vc_basic_grid", "item" );
-vc_remove_param( "vc_basic_grid", "gap" );
-vc_remove_param( "vc_basic_grid", "initial_loading_animation" );
+//vc_remove_param( "vc_basic_grid", "item" );
+//vc_remove_param( "vc_basic_grid", "gap" );
+//vc_remove_param( "vc_basic_grid", "initial_loading_animation" );
 
 
 ////////////////////////////

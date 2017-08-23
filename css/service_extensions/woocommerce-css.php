@@ -1,6 +1,11 @@
 <?php if(false): ?><style><?php endif; ?>
-.woocommerce, .woocommerce div.product{
+.woocommerce, .woocommerce div.product, .woocommerce_before_shop_loop{
 	width: 100%;
+}
+
+.woocommerce #content div.product div.images, .woocommerce div.product div.images, .woocommerce-page #content div.product div.images, .woocommerce-page div.product div.images, .woocommerce #content div.product div.summary, .woocommerce div.product div.summary, .woocommerce-page #content div.product div.summary, .woocommerce-page div.product div.summary {
+    float: none;
+    width: auto;
 }
 
 .woocommerce-MyAccount-navigation ul  {
@@ -54,4 +59,15 @@
 	echo 'border-radius:'.$hiilite_options['typography_button_primary_border_radius'].';';
 	echo preg_replace('/[{}]/','',$hiilite_options['typography_button_primary_custom_css']);?>
 	
+}
+
+.product_summary {
+	padding:0 1em;
+}
+.woocommerce div.product form.cart div.quantity, .woocommerce div.product form.cart .button {
+    float: none;
+    display: inline-block;
+}
+.woocommerce div.product form.cart .variations td, .woocommerce div.product form.cart .variations th {
+    vertical-align: middle;
 }

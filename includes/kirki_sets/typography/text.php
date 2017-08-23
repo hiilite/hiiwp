@@ -57,10 +57,7 @@ Kirki::add_field( 'hiiwp', array(
         'link'  => esc_attr__( 'Text Color', 'hiiwp' ),
         'hover'  => esc_attr__( 'Hover Color', 'hiiwp' ),
     ),
-    'default'     => array(
-        'link'    => '',
-        'hover'   => $hiilite_options['color_one'],
-    ),
+    'default'     => $hiilite_options['link_color'],
 ) );
 
 
@@ -94,8 +91,7 @@ Kirki::add_field( 'hiiwp', array(
 	'label'       => __( 'Custom Format 1 (.custom_format_1)', 'my_textdomain' ),
 	'description' => __( 'Custom format that can be used in the visual editor', 'textdomain' ),
 	'section'     => $section,
-	'default'     => '{
-}',
+	'default'     => '',
 	'priority'    => 1,
 	'choices'     => array(
 		'language' => 'css',
@@ -110,8 +106,7 @@ Kirki::add_field( 'hiiwp', array(
 	'label'       => __( 'Custom Format 2 (.custom_format_2)', 'my_textdomain' ),
 	'description' => __( 'Custom format that can be used in the visual editor', 'textdomain' ),
 	'section'     => $section,
-	'default'     => '{
-}',
+	'default'     => '',
 	'priority'    => 1,
 	'choices'     => array(
 		'language' => 'css',
@@ -126,8 +121,7 @@ Kirki::add_field( 'hiiwp', array(
 	'label'       => __( 'Custom Format 3 (.custom_format_3)', 'my_textdomain' ),
 	'description' => __( 'Custom format that can be used in the visual editor', 'textdomain' ),
 	'section'     => $section,
-	'default'     => '{
-}',
+	'default'     => '',
 	'priority'    => 1,
 	'choices'     => array(
 		'language' => 'css',
