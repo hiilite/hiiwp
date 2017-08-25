@@ -1,4 +1,15 @@
 <?php
+/**
+ * HiiWP functions.
+ * Handles locating and loading other class-files.
+ *
+ * @package     HiiWP
+ * @category    Core
+ * @author      Peter Vigilante
+ * @copyright   Copyright (c) 2017, Hiilite Creative Group
+ * @license     http://opensource.org/licenses/https://opensource.org/licenses/MIT
+ * @since       0.4.1
+ */
 /*
 Theme Structure:
 - Admin
@@ -55,7 +66,9 @@ if ( ! defined( 'HIIWP_URL' ) ) {
 	$link = str_replace( WP_CONTENT_DIR, WP_CONTENT_URL, $file );
     define( 'HIIWP_URL', $link );
 }
-include_once(HIILITE_DIR . '/includes/HiiWP.php');
+include_once(HIILITE_DIR . '/HiiWP.php');
+include_once(HIILITE_DIR . '/includes/class-hiiwp-admin.php');
+
 /**
  * Hii class.
  * Based on the Simple Factory methods Plugin class, mixed with the Singleton method of checking if the class is already set.
@@ -68,6 +81,7 @@ class Hii {
      
 	/** Refers to a single instance of this class. */
 	public static $hiiwp = null;
+	public static $hiiwp_admin = null;
 	
 	
 	
@@ -85,6 +99,13 @@ class Hii {
 			self::$hiiwp = new HiiWP();
 		}
 		return self::$hiiwp;
+	}
+	
+	public static function say_hii_admin(){
+		if(null == self::$hiiwp) {
+			self::$hiiwp_admin= new HiiWP_Admin();
+		}
+		return self::$hiiwp_admin;
 	}
 	
 	/**
@@ -128,6 +149,7 @@ class Hii {
 }
 
 Hii::say_hii();
+Hii::say_hii_admin();
 
 
 
@@ -207,6 +229,11 @@ function optimize_heartbeat_settings( $settings ) {
 add_filter( 'heartbeat_settings', 'optimize_heartbeat_settings' );
 
 
+
+
+
+
+
 //add_action('wp_print_scripts','add_load_css',7);
 add_action('wp_head','add_load_css',7);
 function add_load_css(){ 
@@ -282,25 +309,6 @@ function register_my_menus() {
 }
 add_action( 'init', 'register_my_menus' );
 
-// REMOVE WP EMOJIS
-function disable_wp_emojicons() {
-	
-	// all actions related to emojis
-	remove_action( 'admin_print_styles', 'print_emoji_styles' );
-	remove_action( 'wp_head', 'print_emoji_detection_script', 7 );
-	remove_action( 'admin_print_scripts', 'print_emoji_detection_script' );
-	remove_action( 'wp_print_styles', 'print_emoji_styles' );
-	remove_filter( 'wp_mail', 'wp_staticize_emoji_for_email' );
-	remove_filter( 'the_content_feed', 'wp_staticize_emoji' );
-	remove_filter( 'comment_text_rss', 'wp_staticize_emoji' );
-	
-	// filter to remove TinyMCE emojis
-	add_filter( 'tiny_mce_plugins', 'disable_emojicons_tinymce' );
-        
-}
-add_action( 'init', 'disable_wp_emojicons' );
-
-
 
 /*
 //	note: customize_preview_init
@@ -351,40 +359,7 @@ add_action( 'wp_head', 'rel_canonical_with_custom_tag_override' );
 
 
 
-/*
-on ADMIN_HEAD actions
-*/
-if(!function_exists('hiilite_admin_styles')){
-	function hiilite_admin_styles() {
-	    wp_register_style( 'hiilite_admin_stylesheet', get_template_directory_uri(). '/css/admin-style.css' );
-	    wp_enqueue_style( 'hiilite_admin_stylesheet' );
-	    
-	    wp_enqueue_media();
-	 
-	    // Registers and enqueues the required javascript.
-	    wp_register_script( 'meta_uploader', get_template_directory_uri() . '/js/meta_uploader.js', array( 'jquery' ) );
-	    wp_localize_script( 'meta_uploader', 'meta_image',
-	        array(
-	            'title' => __( 'Choose or Upload an Image', 'prfx-textdomain' ),
-	            'button' => __( 'Use this image', 'prfx-textdomain' ),
-	        )
-	    );
-	    wp_enqueue_script( 'meta_uploader' );
-	}
-	add_action( 'admin_enqueue_scripts', 'hiilite_admin_styles' );
-	
-	
-	// THIS GIVES US SOME OPTIONS FOR STYLING THE ADMIN AREA
-	function custom_colors() {
-		
-		require(HIILITE_DIR . '/includes/site_variables.php');
-		echo '<style>';
-			require_once(HIILITE_DIR . '/editor-style.php');
-		echo '</style>';
-		add_editor_style( 'editor-style.css' ); 
-	}
-	add_action('admin_head', 'custom_colors');
-}
+
 
 
 
@@ -414,151 +389,6 @@ function bbp_enable_visual_editor( $args = array() ) {
     return $args;
 }
 add_filter( 'bbp_after_get_the_content_parse_args', 'bbp_enable_visual_editor' );
-
-
-// MODIFIY IMAGE TAGS
-function amp_image_tags($content)
-{
-    try {
-        $html = new DOMDocument();
-        @$html->loadHTML(mb_convert_encoding($content, 'HTML-ENTITIES', 'UTF-8'));
-        
-        // IMAGE replace
-        foreach ($html->getElementsByTagName('img') as $img) {
-			 
-			$amp = $html->createElement("amp-img");
-
-		    if ($img->hasAttributes()) {
-			  foreach ($img->attributes as $attr) {
-			    $amp->setAttribute($attr->nodeName, $attr->nodeValue);
-			    
-			  }
-			}
-		    
-		    $img->parentNode->replaceChild($amp, $img);
-        }
-        
-        // VIDEO Replace
-        foreach ($html->getElementsByTagName('video') as $vid) {
-			$amp = $html->createElement("amp-video");
-		    if ($vid->hasAttributes()) {
-			  foreach ($vid->attributes as $attr) {
-			    $amp->setAttribute($attr->nodeName, $attr->nodeValue);
-			  }
-			}
-		    $vid->parentNode->replaceChild($amp, $vid);
-        }
-        
-        // EMBED Replace
-        foreach ($html->getElementsByTagName('embed') as $emb) {
-			$amp = $html->createElement("amp-embed");
-		    if ($emb->hasAttributes()) {
-			  foreach ($emb->attributes as $attr) {
-			    $amp->setAttribute($attr->nodeName, $attr->nodeValue);
-			  }
-			}
-		    $emb->parentNode->replaceChild($amp, $emb);
-        }
-        //return $html->saveXML();
-        
-        $find 		= array('/^<!DOCTYPE.+?>/', '/style="([^"]*)"/');
-        $replace 	= '';
-        
-        return $html = preg_replace($find, $replace, str_replace( array('<html>', '</html>', '<body>', '</body>'), array('', '', '', ''), $html->saveHTML()));
-        
-        
-    } catch (Exception $e) {
-        return $content;
-    }
-}
-
-
-
-
-
-
-function disable_emojicons_tinymce( $plugins ) {
-	if ( is_array( $plugins ) ) {
-		return array_diff( $plugins, array( 'wpemoji' ) );
-	} else {
-		return array();
-	}
-}
-
-
-
-
-	
-function minqueue_scripts() {
-	global $wp_scripts, $hiilite_options;
-	global $post;
-	if(is_admin() || get_post_meta($post->ID, 'amp', true) == 'nonamp' || get_theme_mod('amp') == false){
-		return;
-	} 
-	
-	if(class_exists( 'WooCommerce' )){
-		$hiilite_options['is_woocommerce'] = (is_woocommerce())?true:false;
-	} else {
-		$hiilite_options['is_woocommerce'] = false;
-	}
-	
-	if($wp_scripts){
-		$queue = $wp_scripts->queue;
-		foreach( $queue as $key => $handle) {
-			
-			if ((isset($_REQUEST['vc_editable']) && $_REQUEST['vc_editable'] == true) || (isset($_REQUEST['wp_customize']) && $_REQUEST['wp_customize'] == 'on')){
-				
-			} elseif(!$hiilite_options['is_woocommerce'])  {
-				//wp_deregister_script($handle); 
-			}
-		}
-    }
-}
-
-function minqueue_styles() {
-	global $wp_styles, $hiilite_options;
-	
-	if(class_exists( 'WooCommerce' )){
-		$hiilite_options['is_woocommerce'] = (is_woocommerce())?true:false;
-	} else {
-		$hiilite_options['is_woocommerce'] = false;
-	}
-
-	$queue = $wp_styles->queue;
-    foreach( $queue as $key => $handle) {
-		if ((isset($_REQUEST['vc_editable']) && 
-			$_REQUEST['vc_editable'] == true) || 
-			(isset($_REQUEST['wp_customize']) && 
-			$_REQUEST['wp_customize'] == 'on' )){
-			
-		} elseif(
-			($handle != 'js_composer_front' && !is_admin()) &&
-			$handle != 'kirki_google_fonts' &&
-			//$handle != 'vc_inline_css' &&
-			//$handle != 'customize-preview' && 
-			$handle != 'admin-bar'
-		) {
-			if(!$hiilite_options['is_woocommerce']) wp_deregister_style($handle);
-		}
-    }
-}
-
-function enqueue_less_styles($tag, $handle) {
-    global $wp_styles;
-    //if(is_admin()){
-        $handle = $wp_styles->registered[$handle]->handle;
-        $media = $wp_styles->registered[$handle]->args;
-        $href = $wp_styles->registered[$handle]->src;
-        $rel = isset($wp_styles->registered[$handle]->extra['alt']) && $wp_styles->registered[$handle]->extra['alt'] ? 'alternate stylesheet' : 'stylesheet';
-        $title = isset($wp_styles->registered[$handle]->extra['title']) ? "title='" . esc_attr( $wp_styles->registered[$handle]->extra['title'] ) . "'" : '';
-
-        $tag = "<link $title href='$href' rel='stylesheet' type='text/css' id='$handle'>";
-    
-    	return $tag;
-	//}
-}
-
-
 
 
 
@@ -740,132 +570,13 @@ function cmb2_portfolio_metaboxes(){
 
 
 
-
-//////////////////////////////
-//
-//	If HiiWP Plugin is not installed
-//
-/////////////////////////////
-
 /**
- * -----------------------------------------------------------------------------------------
- * Based on `https://github.com/mecha-cms/mecha-cms/blob/master/system/kernel/converter.php`
- * -----------------------------------------------------------------------------------------
+ * cc_mime_types function.
+ * 
+ * @access public
+ * @param mixed $mimes
+ * @return void
  */
-// HTML Minifier
-function minify_html($input) {
-   if(trim($input) === "") return $input;
-    // Remove extra white-space(s) between HTML attribute(s)
-    $input = preg_replace_callback('#<([^\/\s<>!]+)(?:\s+([^<>]*?)\s*|\s*)(\/?)>#s', function($matches) {
-        return '<' . $matches[1] . preg_replace('#([^\s=]+)(\=([\'"]?)(.*?)\3)?(\s+|$)#s', ' $1$2', $matches[2]) . $matches[3] . '>';
-    }, str_replace("\r", "", $input));
-    // Minify inline CSS declaration(s)
-    if(strpos($input, ' style=') !== false) {
-        $input = preg_replace_callback('#<([^<]+?)\s+style=([\'"])(.*?)\2(?=[\/\s>])#s', function($matches) {
-            return '<' . $matches[1] . ' style=' . $matches[2] . minify_css($matches[3]) . $matches[2];
-        }, $input);
-    }
-    return preg_replace(
-        array(
-            // t = text
-            // o = tag open
-            // c = tag close
-            // Keep important white-space(s) after self-closing HTML tag(s)
-            '#<(img|input)(>| .*?>)#s',
-            // Remove a line break and two or more white-space(s) between tag(s)
-            '#(<!--.*?-->)|(>)(?:\n*|\s{2,})(<)|^\s*|\s*$#s',
-            '#(<!--.*?-->)|(?<!\>)\s+(<\/.*?>)|(<[^\/]*?>)\s+(?!\<)#s', // t+c || o+t
-            '#(<!--.*?-->)|(<[^\/]*?>)\s+(<[^\/]*?>)|(<\/.*?>)\s+(<\/.*?>)#s', // o+o || c+c
-            '#(<!--.*?-->)|(<\/.*?>)\s+(\s)(?!\<)|(?<!\>)\s+(\s)(<[^\/]*?\/?>)|(<[^\/]*?\/?>)\s+(\s)(?!\<)#s', // c+t || t+o || o+t -- separated by long white-space(s)
-            '#(<!--.*?-->)|(<[^\/]*?>)\s+(<\/.*?>)#s', // empty tag
-            '#<(img|input)(>| .*?>)<\/\1>#s', // reset previous fix
-            '#(&nbsp;)&nbsp;(?![<\s])#', // clean up ...
-            '#(?<=\>)(&nbsp;)(?=\<)#', // --ibid
-            // Remove HTML comment(s) except IE comment(s)
-            '#\s*<!--(?!\[if\s).*?-->\s*|(?<!\>)\n+(?=\<[^!])#s'
-        ),
-        array(
-            '<$1$2</$1>',
-            '$1$2$3',
-            '$1$2$3',
-            '$1$2$3$4$5',
-            '$1$2$3$4$5$6$7',
-            '$1$2$3',
-            '<$1$2',
-            '$1 ',
-            '$1',
-            ""
-        ),
-    $input);
-}
-// CSS Minifier => http://ideone.com/Q5USEF + improvement(s)
-function minify_css($input) {
-    if(trim($input) === "") return $input;
-    return preg_replace(
-        array(
-            // Remove comment(s)
-            '#("(?:[^"\\\]++|\\\.)*+"|\'(?:[^\'\\\\]++|\\\.)*+\')|\/\*(?!\!)(?>.*?\*\/)|^\s*|\s*$#s',
-            // Remove unused white-space(s)
-            '#("(?:[^"\\\]++|\\\.)*+"|\'(?:[^\'\\\\]++|\\\.)*+\'|\/\*(?>.*?\*\/))|\s*+;\s*+(})\s*+|\s*+([*$~^|]?+=|[{};,>~]|\s*+-(?![0-9\.])|!important\b)\s*+|([[(:])\s++|\s++([])])|\s++(:)\s*+(?!(?>[^{}"\']++|"(?:[^"\\\]++|\\\.)*+"|\'(?:[^\'\\\\]++|\\\.)*+\')*+{)|^\s++|\s++\z|(\s)\s+#si',
-            // Replace `0(cm|em|ex|in|mm|pc|pt|px|vh|vw|%)` with `0`
-            '#(?<=[\s:])(0)(cm|em|ex|in|mm|pc|pt|px|vh|vw|%)#si',
-            // Replace `:0 0 0 0` with `:0`
-            '#:(0\s+0|0\s+0\s+0\s+0)(?=[;\}]|\!important)#i',
-            // Replace `background-position:0` with `background-position:0 0`
-            '#(background-position):0(?=[;\}])#si',
-            // Replace `0.6` with `.6`, but only when preceded by `:`, `,`, `-` or a white-space
-            '#(?<=[\s:,\-])0+\.(\d+)#s',
-            // Minify string value
-            '#(\/\*(?>.*?\*\/))|(?<!content\:)([\'"])([a-z_][a-z0-9\-_]*?)\2(?=[\s\{\}\];,])#si',
-            '#(\/\*(?>.*?\*\/))|(\burl\()([\'"])([^\s]+?)\3(\))#si',
-            // Minify HEX color code
-            '#(?<=[\s:,\-]\#)([a-f0-6]+)\1([a-f0-6]+)\2([a-f0-6]+)\3#i',
-            // Replace `(border|outline):none` with `(border|outline):0`
-            '#(?<=[\{;])(border|outline):none(?=[;\}\!])#',
-            // Remove empty selector(s)
-            '#(\/\*(?>.*?\*\/))|(^|[\{\}])(?:[^\s\{\}]+)\{\}#s'
-        ),
-        array(
-            '$1',
-            '$1$2$3$4$5$6$7',
-            '$1',
-            ':0',
-            '$1:0 0',
-            '.$1',
-            '$1$3',
-            '$1$2$4$5',
-            '$1$2$3',
-            '$1:0',
-            '$1$2'
-        ),
-    $input);
-}
-// JavaScript Minifier
-function minify_js($input) {
-    if(trim($input) === "") return $input;
-    return preg_replace(
-        array(
-            // Remove comment(s)
-            '#\s*("(?:[^"\\\]++|\\\.)*+"|\'(?:[^\'\\\\]++|\\\.)*+\')\s*|\s*\/\*(?!\!|@cc_on)(?>[\s\S]*?\*\/)\s*|\s*(?<![\:\=])\/\/.*(?=[\n\r]|$)|^\s*|\s*$#',
-            // Remove white-space(s) outside the string and regex
-            '#("(?:[^"\\\]++|\\\.)*+"|\'(?:[^\'\\\\]++|\\\.)*+\'|\/\*(?>.*?\*\/)|\/(?!\/)[^\n\r]*?\/(?=[\s.,;]|[gimuy]|$))|\s*([!%&*\(\)\-=+\[\]\{\}|;:,.<>?\/])\s*#s',
-            // Remove the last semicolon
-            '#;+\}#',
-            // Minify object attribute(s) except JSON attribute(s). From `{'foo':'bar'}` to `{foo:'bar'}`
-            '#([\{,])([\'])(\d+|[a-z_][a-z0-9_]*)\2(?=\:)#i',
-            // --ibid. From `foo['bar']` to `foo.bar`
-            '#([a-z0-9_\)\]])\[([\'"])([a-z_][a-z0-9_]*)\2\]#i'
-        ),
-        array(
-            '$1',
-            '$1$2',
-            '}',
-            '$1$3',
-            '$1.$3'
-        ),
-    $input);
-}
-
 function cc_mime_types($mimes) {
   $mimes['svg'] = 'image/svg+xml';
   return $mimes;
@@ -874,6 +585,13 @@ add_filter('upload_mimes', 'cc_mime_types');
 
 
 
+/**
+ * excerpt function.
+ * 
+ * @access public
+ * @param mixed $limit
+ * @return void
+ */
 function excerpt($limit) {
   $excerpt = explode(' ', get_the_excerpt(), $limit);
   if (count($excerpt)>=$limit) {
@@ -886,6 +604,14 @@ function excerpt($limit) {
   return $excerpt;
 }
  
+
+/**
+ * content function.
+ * 
+ * @access public
+ * @param mixed $limit
+ * @return void
+ */
 function content($limit) {
   $content = explode(' ', get_the_content(), $limit);
   if (count($content)>=$limit) {
@@ -900,6 +626,14 @@ function content($limit) {
   return $content;
 }
 
+
+/**
+ * content_excerpt function.
+ * 
+ * @access public
+ * @param int $length (default: 55)
+ * @return void
+ */
 function content_excerpt( $length = 55 ) { 
 	global $post;
 	$exc = get_the_excerpt();
@@ -919,20 +653,54 @@ function content_excerpt( $length = 55 ) {
     return $excerpt;
 }
 
+
+/**
+ * get_wp_title function.
+ * 
+ * @access public
+ * @param string $separator (default: ' ')
+ * @param string $seplocation (default: 'left')
+ * @return void
+ */
 function get_wp_title( $separator = ' ', $seplocation = 'left' ) {	
 	$separator = apply_filters('timber_wp_title_seperator', $separator);	
 	return trim(wp_title($separator, false, $seplocation));	
 }	
 
 
+/**
+ * isset_return function.
+ * 
+ * @access public
+ * @param mixed &$is_true (default: null)
+ * @param string $prepend (default: '')
+ * @param string $append (default: '')
+ * @return void
+ */
 function isset_return(&$is_true = null, $prepend = '', $append = ''){
 	return isset($is_true) && !is_array($is_true) ? $prepend.$is_true.$append : null; 
 }
+
+
+/**
+ * empty_return function.
+ * 
+ * @access public
+ * @param mixed &$is_true (default: null)
+ * @return void
+ */
 function empty_return(&$is_true = null){
 	return !empty($is_true) ? $is_true : null; 
 }
 
-/* Add Numbered Pagination */
+
+
+/**
+ * numeric_posts_nav function.
+ * Add Numbered Pagination 
+ * @access public
+ * @return void
+ */
 function numeric_posts_nav() {
 
 	if( is_singular() )

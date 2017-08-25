@@ -101,7 +101,7 @@ Kirki::add_field( 'hiiwp', array(
     'type'        => 'typography',
     'settings'    => 'typography_h6_font',
     'label'       => esc_attr__( 'H6 Style', 'kirki' ),
-    'description' => __( 'Define styles for H1 heading' ),
+    'description' => __( 'Define styles for H6 heading' ),
     'section'     => $section,
     'default'     => array(
         'font-family'    => ' ',

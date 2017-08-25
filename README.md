@@ -2,6 +2,10 @@
 This theme is currently in Alpha testing and should not be installed without the support of the team at Hiilite Creative Group
 
 ### Change log
+#### v0.4.1
+- Removed built in Google Analytics and XML Sitemap plugins. Now must be added as a plugin
+- General file cleanup and rearrangement
+- Fixed to business profiles
 #### v0.4.0
 - Updated Visual Composer (will have to remove current and re-install plugin to get update)
 - Fixed issue with Portfolio horizontal masonry images not showing
