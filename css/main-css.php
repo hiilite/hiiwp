@@ -579,10 +579,10 @@ endfor;
 }
 .blog-article .content-box {
 	padding-top: 2px;
-	padding:2px 2em;
+	padding:2px 1em;
 }
 .blog-article figure {
-	padding: 0 2em;
+	padding: 0 1em;
 	text-align: center;
 }
 
