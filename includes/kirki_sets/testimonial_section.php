@@ -1,7 +1,7 @@
 <?php
 Kirki::add_section( 'testimonials_section', array(
     'priority'    => 6,
-    'title'       => __( 'Testimonials (beta)', 'hiiwp' ),
+    'title'       => __( 'Testimonials', 'hiiwp' ),
     'description' => __( 'Testimonials settings', 'hiiwp' ),
     'icon' => 'dashicons-testimonial'
 ) );

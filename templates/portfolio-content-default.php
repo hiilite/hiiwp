@@ -1,12 +1,10 @@
 <?php
 /*
-
 	TODO:
 	-	Make Title and feature image turn on by default in customizer	
 */
 $hiilite_options = Hii::$hiiwp->get_options();
 $post_meta = get_post_meta(get_the_id());
-
 ?>
 <!--PORTFOLIO_PIECE-LOOP-->
 <article  <?php post_class('row'); ?> itemscope itemtype="http://schema.org/Article" id="post-<?php the_ID(); ?>" >
@@ -22,7 +20,6 @@ if($show_featureimage):
 		if(has_post_thumbnail($post->id) && get_post_meta(get_the_id(), 'hide_page_feature_image', true) != 'on'): 
 			
 		$tn_id = get_post_thumbnail_id( $post->ID );
-
 		$img = wp_get_attachment_image_src( $tn_id, 'large' );
 		$width = $img[1];
 		$height = $img[2];
@@ -91,7 +88,6 @@ echo '<div class="full-width  align-top">';
 				</div>
 				<meta itemprop="name" content="<?=$options['business_name']?>">
 			</div><?php
-
 		echo '</div>';
 		
 					
@@ -100,7 +96,6 @@ echo '<div class="full-width  align-top">';
 		echo '</aside>';*/
 		
 echo '</div>';
-
 $hiilite_options['show_more_projects'] = false;
 if($hiilite_options['show_more_projects']):
 ?>
@@ -135,15 +130,11 @@ if($hiilite_options['show_more_projects']):
 <?php
 	
 endif;
-
 if($hiilite_options['portfolio_comments']):
 	echo '<div class="container_inner">';
 		comments_template();
 	echo '</div>';
 endif;
 	
-
-
 echo '</article>';
-
 ?>

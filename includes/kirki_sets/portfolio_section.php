@@ -6,7 +6,7 @@
 //////////////////////
 Kirki::add_panel( 'portfolio_panel', array(
     'priority'    => 7,
-    'title'       => __( 'Portfolio (beta)', 'textdomain' ),
+    'title'       => __( 'Portfolio', 'textdomain' ),
     'description' => __( 'Portfolio settings', 'textdomain' ),
     'icon' => 'dashicons-grid-view',
 ) );
@@ -240,12 +240,93 @@ Kirki::add_field( 'hiiwp', array(
 	    ),
     ),
 ) );
+//////////////////////
+//
+//	PORTFOLIO PIECE
+//
+//////////////////////
+Kirki::add_field( 'hiiwp', array(
+    'type'        => 'radio-image',
+    'settings'    => 'portfolio_template',
+    'label'       => __( 'Portfolio Template', 'my_textdomain' ),
+    'section'     => 'portfolio_piece_section',
+    'default'     => $hiilite_options['portfolio_template'],
+    'description' => 'Select the layout type for your blog',
+    'priority'    => 1,
+    'multiple'    => 1,
+    'choices'     => array(
+        'default' => get_template_directory_uri() . '/images/icons/portfolio-default.png',
+        'split' => get_template_directory_uri() . '/images/icons/portfolio-split.png',
+    ),
+) );
+Kirki::add_field( 'hiiwp', array(
+	'type'        => 'color',
+	'settings'    => 'portfolio_background',
+	'label'       => __( 'Portfolio Background', 'my_textdomain' ),
+	'section'     => 'portfolio_piece_section',
+	'default'     => $hiilite_options['portfolio_background'],
+	'priority'    => 1,
+	'choices'     => array(
+		'alpha' => true,
+	),
+	'active_callback'	=> array(
+		array(
+			'setting'  => 'portfolio_template',
+			'operator' => '==',
+			'value'    => 'split',
+		),
+	),
+) );
+Kirki::add_field( 'hiiwp', array(
+	'type'        => 'color',
+	'settings'    => 'portfolio_panel_background',
+	'label'       => __( 'Info Panel Background', 'my_textdomain' ),
+	'section'     => 'portfolio_piece_section',
+	'default'     => $hiilite_options['portfolio_panel_background'],
+	'priority'    => 1,
+	'choices'     => array(
+		'alpha' => true,
+	),
+	'active_callback'	=> array(
+		array(
+			'setting'  => 'portfolio_template',
+			'operator' => '==',
+			'value'    => 'split',
+		),
+	),
+) );
+Kirki::add_field( 'hiiwp', array(
+	'type'        => 'multicolor',
+    'settings'    => 'portfolio_info_colors',
+    'label'       => __( 'Info Panel Text Colors', 'hiiwp' ),
+    'section'     => 'portfolio_piece_section',
+    'priority'    => 1,
+    'choices'     => array(
+        'title'    => esc_attr__( 'Title', 'hiiwp' ),
+        'text'   => esc_attr__( 'Text', 'hiiwp' ),
+        'link'  => esc_attr__( 'Link', 'hiiwp' ),
+        'hover'  => esc_attr__( 'Link Hover', 'hiiwp' ),
+    ),
+    'default' => array(
+        'title' => $hiilite_options['portfolio_info_colors']['title'],
+        'text'	=> $hiilite_options['portfolio_info_colors']['text'],
+        'link'  => $hiilite_options['portfolio_info_colors']['link'],
+        'hover' => $hiilite_options['portfolio_info_colors']['hover'],
+    ),
+	'active_callback'	=> array(
+		array(
+			'setting'  => 'portfolio_template',
+			'operator' => '==',
+			'value'    => 'split',
+		),
+	),
+) );
 Kirki::add_field( 'hiiwp', array(
     'type'        => 'switch',
     'settings'    => 'show_more_projects',
     'label'       => __( 'Show More Projects', 'my_textdomain' ),
     'section'     => 'portfolio_piece_section',
-    'default'     => false,
+    'default'     => $hiilite_options['show_more_projects'],
     'priority'    => 1,
 ) );
 Kirki::add_field( 'hiiwp', array(

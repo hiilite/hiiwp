@@ -861,6 +861,7 @@ vc_add_param( 'vc_basic_grid',  array(
 				'holder'	=> 'div',
 				"heading" => "Use Theme Item Design",
 				"param_name" => "use_blog_layouts",
+				'save_always' => true,
 				'group' => 'Item Design',
 				'std'	=> 'true',
 				'value' => array(

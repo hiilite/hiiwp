@@ -456,6 +456,14 @@ function cmb2_post_metaboxes(){
 	) );
 	
 	$cmb->add_field( array(
+	    'name'             => 'Page Background Color',
+	    'desc'             => 'Edit color sets in the theme customizer',
+	    'id'               => 'page_bg',
+	    'type'             => 'colorpicker',
+	    'default'          => '',
+	) );
+	
+	$cmb->add_field( array(
 	    'name'             => 'Title Font Color',
 	    'desc'             => 'Edit color sets in the theme customizer',
 	    'id'               => 'page_title_color',
@@ -531,6 +539,20 @@ function cmb2_portfolio_metaboxes(){
         'cmb_styles'    => true, // false to disable the CMB stylesheet
         'closed'        => false, // keep the metabox closed by default
     ) );
+    $cmb->add_field( array(
+		'name'       => __( 'Client Name', 'hiilite' ),
+		'id'         => 'portfolio_client',
+		'type'       => 'text'
+	) );
+	$cmb->add_field( array(
+		'name'    => __( 'Project Description', 'hiilite' ),
+		'desc'    => __( 'Add a project description (optional)', 'hiilite' ),
+		'id'      => 'portfolio_description',
+		'type'    => 'wysiwyg',
+		'options' => array(
+			'textarea_rows' => 10,
+		),
+	) );
     $cmb->add_field( array(
 	    'name' => 'Isolated Image',
 	    'id'   => 'isolated',
@@ -637,18 +659,21 @@ function content($limit) {
 function content_excerpt( $length = 55 ) { 
 	global $post;
 	$exc = get_the_excerpt();
-	if($exc == NULL || strlen($exc) <= 0)
+	if($exc != NULL && strlen($exc) > 0)
 	{   
-	    if( $post->post_excerpt ) {
-	        $excerpt = excerpt($length);
-	    } else {
-	        $content = strip_shortcodes(get_the_content());
-	        $excerpt = wp_trim_words( $content , $length );
-	    }
+	    $excerpt = $exc;
+	    
 	}
 	else
 	{
-		$excerpt = strip_shortcodes(wp_trim_words(get_the_content(), $length, null));
+	    if( $post->post_excerpt ) {
+		    
+	        $excerpt = strip_shortcodes(excerpt($length));
+	    } else {
+		    $content = get_the_content('');
+	        $content = preg_replace("/\[[^\]]+\]/", '', $content);
+	        $excerpt = wp_trim_words( $content , $length );
+	    }
 	}
     return $excerpt;
 }

@@ -1,6 +1,6 @@
 <?php 
 	
-add_action( 'init', 'portfolio_post_type_init' );
+add_action( 'init', 'portfolio_post_type_init', 1 );
 function portfolio_post_type_init() {
 	
 	$title = get_theme_mod( 'portfolio_title', 'Portfolio' );

@@ -1,7 +1,7 @@
 <?php
 switch (get_post_type($post)) {
 	case get_theme_mod( 'portfolio_slug', 'portfolio' ):
-		get_template_part('templates/portfolio_piece', 'loop');
+		get_template_part('templates/portfolio-single', 'loop');
 		break;
 	case 'team':
 		get_template_part('templates/team_member', 'loop');

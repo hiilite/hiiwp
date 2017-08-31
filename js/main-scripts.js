@@ -67,6 +67,18 @@
 				$carousel.height(height);
 			});
 		} 
+		/* angled slider */
+		else if($carousel.hasClass('angled') && type == 'slides'){
+			width = $carousel.parent().width();
+			height = width * ratio;
+			
+			$(window).on('resize',function(){
+				width = $carousel.parent().width();
+				height = width * ratio;
+				$carousel.width(width);
+				$carousel.height(height);
+			});
+		} 
 		/* standard slider */
 		else if(type == 'slides'){
 			width = $carousel.parent().width();

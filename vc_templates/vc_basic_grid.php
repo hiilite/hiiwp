@@ -86,7 +86,7 @@ if(isset($atts)) {
 	if (isset($atts['blog_excerpt_len']))	$hiilite_options['blog_excerpt_len']		= $atts['blog_excerpt_len'];
 	if (isset($atts['blog_more_show'])) 	$hiilite_options['blog_more_show']			= $atts['blog_more_show'];
 	
-	$use_blog_layouts = (!isset($atts['use_blog_layouts']))?'true':$atts['blog_more_show'];
+	$use_blog_layouts = (isset($atts['use_blog_layouts']))?true:false;
 	
 	
 	switch ($hiilite_options['blog_col']) {
@@ -110,7 +110,6 @@ if(isset($atts)) {
 $colcount = ' col-count-'.$hiilite_options['blog_col'];
 
 echo '<!-- vc_grid start --><div class="vc_grid-container-wrapper vc_clearfix container_inner '.$grid.' '.$hiilite_options['blog_layouts'].$colcount.'" '.implode( ' ', $wrapper_attributes ).'>';
-
 if(($use_blog_layouts == 'true')){
 	$bg_query = new WP_Query($query);
 	while ( $bg_query->have_posts() ) {

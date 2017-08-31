@@ -7,7 +7,7 @@
 
 Kirki::add_panel( 'blog_panel', array(
     'priority'    => 7,
-    'title'       => __( 'Blog (beta)', 'textdomain' ),
+    'title'       => __( 'Blog', 'textdomain' ),
     'description' => __( 'Blog settings', 'textdomain' ),
     'icon' => 'dashicons-welcome-write-blog',
 ) );

@@ -18,6 +18,16 @@ $hiilite_options['portfolio_title'] 			= get_theme_mod( 'portfolio_title', 'Port
 $hiilite_options['portfolio_slug'] 				= get_theme_mod( 'portfolio_slug', 'portfolio');
 $hiilite_options['portfolio_tax_title'] 		= get_theme_mod( 'portfolio_tax_title', 'Work');
 $hiilite_options['portfolio_tax_slug'] 			= get_theme_mod( 'portfolio_tax_slug', 'work');
+$hiilite_options['portfolio_template']			= get_theme_mod( 'portfolio_template', 'default');
+$hiilite_options['portfolio_background']		= get_theme_mod( 'portfolio_background', '#ffffff');
+$hiilite_options['portfolio_panel_background']	= get_theme_mod( 'portfolio_panel_background', '#f7f7f7');
+$hiilite_options['portfolio_info_colors']		= get_theme_mod( 'portfolio_info_colors', array(
+        'title'    => '#333',
+        'text'     => '#333',
+        'link'     => '#333',
+        'hover'    => '#333',
+    ) ); 
+$hiilite_options['show_more_projects']		= get_theme_mod( 'show_more_projects', false);
 
 $hiilite_options['teams_on'] 					= get_theme_mod('teams_on', false);
 $hiilite_options['teams_title'] 				= get_theme_mod('teams_title', 'Team');

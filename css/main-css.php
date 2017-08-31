@@ -97,7 +97,6 @@ function get_font_css($font){
 				else { echo $key.':'.$value.';'; }
 				
 			}
-			
 		}
 		echo $font_family.';';
 	}
@@ -503,12 +502,11 @@ img.full-width, .row, .wpb_content_element {
 
 <?php 
 $alt_cols =	array(false,false,false,'quarter-width','third-width',false,'half-width',false,'twothird-width','threequarter-width',false,false,'full-width');
-$col_4 = ($hiilite_options['grid_width'] / 3) + 1;
 for($i = 12; $i>0;$i--):
 	echo '.vc_col-xs-'.$i.', .vc_col-md-'.$i.', .vc_col-sm-'.$i.', .vc_col-lg-'.$i.', .col-'.$i;
 	echo ($alt_cols[$i])?', .'.$alt_cols[$i]:'';
 	echo '{';
-		$perc_ratio = (($i/12)*100) - 0.1;
+		$perc_ratio = (( $i / 12 ) * 100 );
 		echo ($i > 12)?'max-width:'.$perc_ratio.'em;':'max-width:100%;';
 		echo 'width:'.$perc_ratio.'%;';
 		$min_width = ($i>4)?'320':'160';
@@ -519,7 +517,7 @@ endfor;
 ?>
 
 @media (max-width:550px){
-<?php
+<?php 
 for($i = 12; $i>0;$i--):
 	echo '.vc_col-xs-'.$i.', .vc_col-md-'.$i.', .vc_col-sm-'.$i.', .vc_col-lg-'.$i.', .col-'.$i;
 	echo ($alt_cols[$i])?', .'.$alt_cols[$i]:'';
@@ -579,10 +577,10 @@ endfor;
 }
 .blog-article .content-box {
 	padding-top: 2px;
-	padding:2px 1em;
+	padding:2px 2em;
 }
 .blog-article figure {
-	padding: 0 1em;
+	padding: 0 2em;
 	text-align: center;
 }
 
@@ -650,35 +648,9 @@ endfor;
 }
 <?php 
 
-if($hiilite_options['portfolio_on']): ?>
-	.portfolio-piece {
-		padding: 0.5em;
-	}
-	.portfolio-piece .content-box {
-		box-shadow: inset 0 0 1px rgba(0,0,0,0.1);
-	}
-	.portfolio-piece h5 {
-		margin: 0;
-	}
-	.portfolio_row .post_meta {
-		position: absolute;
-	    width: 100%;
-	    bottom: 10px;
-	    text-align: center;
-	}
-	.portfolio_row .post_meta h3 {
-		margin: 2px;
-		background: rgba(255,255,255,0.8);
-		display: inline-block;
-		padding: 5px;
-	}
-	.portfolio_row .post_meta small {
-		margin: 2px;
-	    background: rgba(255,255,255,0.8);
-	    display: inline-block;
-	    padding: 5px;
-	}
-<?php endif; ?>
+if($hiilite_options['portfolio_on']): 
+	include_once(HIILITE_DIR.'/css/portfolio/portfolio-css.php');
+endif; ?>
 
 <?php if($hiilite_options['teams_on']): ?>
 .team-member {

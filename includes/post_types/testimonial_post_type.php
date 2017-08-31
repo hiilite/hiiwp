@@ -1,6 +1,6 @@
 <?php 
 	
-add_action( 'init', 'testimonial_post_type_init' );
+add_action( 'init', 'testimonial_post_type_init', 1 );
 function testimonial_post_type_init() {
 	////////////////////////
 	//
