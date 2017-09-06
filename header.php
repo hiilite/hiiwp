@@ -15,17 +15,6 @@ $hiilite_options = Hii::$hiiwp->get_options();
 $post_id = get_the_id();
 $post_object = get_post( $post_id );
 
-
-// Page Title
-$brand_title = (get_theme_mod('brand_seo_title')!='')?get_theme_mod('brand_seo_title'):get_bloginfo('title');
-if(get_post_meta(get_the_id(), 'page_seo_title', true) != ''){
-	$page_title = get_post_meta(get_the_id(), 'page_seo_title', true);
-} elseif(get_theme_mod('site_seo_title') != '' && is_front_page()) {
-	$page_title = get_theme_mod('site_seo_title');
-} else {
-	$page_title = wp_title('|',false,'right').$brand_title;
-}
-
 // Page Description
 if(get_post_meta(get_the_id(), 'page_seo_description', true) != ''){
 	$page_description = get_post_meta(get_the_id(), 'page_seo_description', true);
@@ -105,7 +94,25 @@ if ( is_customize_preview() ) : ?>
 			
 			?>
 			<!-- HEADER -->
-			<header id="main_header" class="<?=$hiilite_options['header_type'];?>">
+			<?php
+			$category = get_the_terms( $post->ID, 'work' );  
+			$portfolio_work_color = (get_term_meta ( $category[0]->term_taxonomy_id, 'portfolio_work_color', true))?get_term_meta ( $category[0]->term_taxonomy_id, 'portfolio_work_color', true):false;	
+			if($portfolio_work_color) {
+				$bg_color = 'style="background-color:'.$portfolio_work_color.'"';	
+			}
+			$post_meta = get_post_meta(get_the_id());
+			
+			$header_bg = (get_post_meta ( $post->ID, 'header_bg', true))?get_post_meta ( $post->ID, 'header_bg', true):false;
+			if($header_bg) {
+				$bg_color = 'style="background-color:'.$header_bg.'"';		
+			}
+				
+			?>
+			
+			
+			
+			
+			<header id="main_header" class="<?=$hiilite_options['header_type'];?>" <?=$bg_color;?>">
 <?php if(is_customize_preview()) echo '<div class="customizer_quick_links"><button class="customizer-edit" data-control=\'{ "name":"header_in_grid" }\'>Edit Header</button><button class="customizer-edit font-edit" data-control=\'{ "name":"main_menu_font" }\'>Header & Menu Fonts</button></div>'; ?>
 				<div class="container_inner">
 					<hgroup style="display: none;">
@@ -169,7 +176,8 @@ if ( is_customize_preview() ) : ?>
 						'fallback_cb'    => false
 					));
 					
-					if($hiilite_options['header_center_right_on'] && $hiilite_options['header_type'] == 'regular'){ 
+					if($hiilite_options['header_center_right_on'] && $hiilite_options['header_type'] == 'regular'){ ?>
+						<div id="header_center_right" class="flex-item"><?php
 						if ( is_active_sidebar( 'header_center_right' ) ) :
 							if(!dynamic_sidebar( 'header_center_right' )){}
 						endif;
@@ -183,6 +191,7 @@ if ( is_customize_preview() ) : ?>
 								'theme_location' => 'right-menu',
 								'fallback_cb'    => false
 							));	
+						?></div><?php
 					} 
 					if($hiilite_options['enable_search_bar_yesno'] == true)	:
 						echo '<div class="search_button"><i class="fa fa-search"></i></div>';

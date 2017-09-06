@@ -849,7 +849,7 @@ function hii_seo_options_page() {
     );
     $tabs[] = array(
         'id'    => 'hiilite_info_tab',
-        'title' => 'Site Info',
+        'title' => 'Structured Data',
         'desc'  => '<p>Your company information is used to fill in the Rich Snippet/Structured Data fields used by Google.</p>',
         'boxes' => array(
             'main_company_info',

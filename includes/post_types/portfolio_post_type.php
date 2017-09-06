@@ -1,7 +1,9 @@
 <?php 
 	
-add_action( 'init', 'portfolio_post_type_init' );
+add_action( 'init', 'portfolio_post_type_init', 1 );
 function portfolio_post_type_init() {
+	
+	$hiilite_options = Hii::$hiiwp->get_options();
 	
 	$title = get_theme_mod( 'portfolio_title', 'Portfolio' );
 	$slug = get_theme_mod( 'portfolio_slug', 'portfolio' );
@@ -67,6 +69,18 @@ function portfolio_post_type_init() {
         'show_admin_column' => true,
         'query_var'         => true,
         'rewrite'           => array( 'slug' => $tax_slug ),
+    );
+    
+    register_taxonomy( 
+	    'porfolio_tag', 
+	    $hiilite_options['portfolio_slug'], 
+	    array( 
+	        'hierarchical'  => false, 
+	        'label'         => __( 'Tags', 'hiilite' ), 
+	        'singular_name' => __( 'Tag', 'hiilite' ), 
+	        'rewrite'       => true, 
+	        'query_var'     => true 
+	    )  
     );
  
     register_taxonomy( $tax_slug, array( $slug ), $args );

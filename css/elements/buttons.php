@@ -36,7 +36,7 @@
 }
 .button-primary:hover {
 	color: white;
-	background-color: <?php echo $hiilite_options['typography_button_primary_border_color']['hover']?>;
+	background-color: <?php echo $hiilite_options['typography_button_primary_background']['hover']?>;
 	border-color: <?php echo $hiilite_options['typography_button_primary_border_color']['hover']?>;
 }
 

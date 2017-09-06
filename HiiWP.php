@@ -29,6 +29,8 @@ class HiiWP {
 	 * @return void
 	 */
 	public function __construct() {
+		
+		
 		add_action( 'init', array( $this, 'hiiwp_init') );
 		add_action( 'wp_head', array( $this, 'hiiwp_head') );
 		add_action( 'wp_head', array($this, 'add_tracking_codes'));
@@ -47,10 +49,10 @@ class HiiWP {
         add_filter( 'wp_calculate_image_srcset_meta', '__return_null' );
         add_action( 'tgmpa_register', array('HiiWP','hiilite_register_required_plugins' ));
         
-		add_filter( 'document_title_parts', array($this, 'custom_titles'), 10);
+		//add_filter( 'document_title_parts', array($this, 'custom_titles'), 10);
         
         //if ( ! function_exists( '_wp_render_title_tag' ) ) {
-	    add_action( 'wp_head', array($this, 'theme_slug_render_title' ));
+	    	add_action( 'wp_head', array($this, 'theme_slug_render_title' ));
 	    //}
         
         $hiilite_options = self::get_options();
@@ -61,7 +63,9 @@ class HiiWP {
 		include_once( HIILITE_DIR . '/addons/cmb2-metatabs-options/cmb2_metatabs_options.php' );
 		include_once( HIILITE_DIR . '/addons/cmb2-conditionals/cmb2-conditionals.php' );
 		include_once( HIILITE_DIR . '/addons/cmb-field-select2/cmb-field-select2.php' );
+		include_once( HIILITE_DIR . '/addons/cmb2-taxonomy/init.php' );
 		include_once( HIILITE_DIR . '/addons/custom-field-types/address-field-type.php' );
+		
 		
 		include_once( HIILITE_DIR . '/includes/business_profile.php' );
 		require_once( HIILITE_DIR . '/includes/wp_login_screen.php');
@@ -118,14 +122,19 @@ class HiiWP {
 		
 		$hiilite_options = self::get_options();
 		
-		 
-		wp_enqueue_script('modernizr', get_template_directory_uri().'/js/vender/modernizr-custom.js');
+		
 		wp_enqueue_script("jquery");
-		wp_enqueue_script('main-scripts', get_template_directory_uri().'/js/main-scripts.js','jquery', array( 'jquery' ), '0.0.1', true);	
+		
+		wp_enqueue_script('modernizr', HIIWP_URL.'/js/vender/modernizr-custom.js');
+		
+		
+		wp_enqueue_script('main-scripts', HIIWP_URL.'/js/main-scripts.js', array( 'jquery' ), '0.0.1', true);	
 		wp_localize_script('main-scripts', 'mobile_menu_switch', $hiilite_options['mobile_menu_switch']);
+		
 		add_filter('script_loader_tag', array( $this, 'add_defer_attribute'), 10, 2);
+		
 		if($hiilite_options['is_woocommerce']){
-			wp_enqueue_script( 'prettyPhoto-init', $woocommerce->plugin_url() . '/assets/js/prettyPhoto/jquery.prettyPhoto.init' . '.js', array( 'jquery' ), $woocommerce->version, true );
+			wp_enqueue_script( 'prettyPhoto-init', $woocommerce->plugin_url() . '/assets/js/prettyPhoto/jquery.prettyPhoto.init.js', array( 'jquery' ), $woocommerce->version, true );
 		} 
 		
 		include_once(HIILITE_DIR . '/css/main-css.php');
@@ -297,7 +306,16 @@ class HiiWP {
 	 * @return void
 	 */
 	public function theme_slug_render_title() {
-		?><title><?php wp_title( '|', true, 'right' ); ?></title><?php
+		// Page Title
+		$brand_title = (get_theme_mod('brand_seo_title')!='')?get_theme_mod('brand_seo_title'):get_bloginfo('title');
+		if(get_post_meta(get_the_id(), 'page_seo_title', true) != ''){
+			$page_title = get_post_meta(get_the_id(), 'page_seo_title', true);
+		} elseif(get_theme_mod('site_seo_title') != '' && is_front_page()) {
+			$page_title = get_theme_mod('site_seo_title');
+		} else {
+			$page_title = wp_title('|',false,'right').$brand_title;
+		}
+		echo "<title>$page_title</title>";
 	}
 	
 
@@ -512,7 +530,7 @@ class HiiWP {
 			array(
 	            'name'               => 'WPBakery Visual Composer', // The plugin name.
 	            'slug'               => 'js_composer', // The plugin slug (typically the folder name).
-	            'source'             => dirname(__FILE__) . '/Plugin-Activation/plugins/js_composer.zip', // The plugin source.
+	            'source'             => HIILITE_DIR . '/includes/Plugin-Activation/plugins/js_composer.zip', // The plugin source.
 	            'required'           => true, // If false, the plugin is only 'recommended' instead of required.
 	            'force_activation'   => true, // If true, plugin is activated upon theme activation and cannot be deactivated until theme switch.
 	            'force_deactivation' => false, // If true, plugin is deactivated upon theme switch, useful for theme-specific plugins.
@@ -530,7 +548,7 @@ class HiiWP {
 	        array(
 	            'name'               => 'Gravity Forms',
 	            'slug'               => 'gravityforms', 
-	            'source'             => dirname(__FILE__) . '/Plugin-Activation/plugins/gravityforms.zip',
+	            'source'             => HIILITE_DIR . '/includes/Plugin-Activation/plugins/gravityforms.zip',
 	            'required'           => false, 
 	            'force_activation'   => false, 
 	            'force_deactivation' => false, 
@@ -584,7 +602,7 @@ class HiiWP {
 	        array(
 	            'name'               => 'Backup Buddy', // The plugin name.
 	            'slug'               => 'backupbuddy', // The plugin slug (typically the folder name).
-	            'source'             => dirname(__FILE__) . '/Plugin-Activation/plugins/backupbuddy.zip', // The plugin source.
+	            'source'             => HIILITE_DIR . '/includes/Plugin-Activation/plugins/backupbuddy.zip', // The plugin source.
 	            'required'           => false, // If false, the plugin is only 'recommended' instead of required.
 	            'force_activation'   => false, // If true, plugin is activated upon theme activation and cannot be deactivated until theme switch.
 	            'force_deactivation' => false, // If true, plugin is deactivated upon theme switch, useful for theme-specific plugins

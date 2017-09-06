@@ -1,5 +1,5 @@
 <?php
-add_action( 'init', 'event_post_type_init' );
+add_action( 'init', 'event_post_type_init', 1 );
 function event_post_type_init() {
 	
 	$title = get_theme_mod( 'event_title', 'Event' );

@@ -104,12 +104,12 @@ function add_testimonials_shortcode( $atts ){
 			if($show_title)$output .= '<'.$heading_tag.' class="testimonial_title"><span itemprop="name">'.get_the_title($post_id).'</span></'.$heading_tag.'>';
 				  
 			// content
-			$output .= '<div itemprop="reviewBody" class="testimonial_content text-block">'.get_the_content().'</div>';
+			$output .= '<div itemprop="reviewBody" class="testimonial_content">'.get_the_content().'</div>';
 				  
 			// author
-			$output .= '<span itemprop="author" itemscope itemtype="http://schema.org/Person">
-				    <span itemprop="name" class="testimonial_author">'.get_post_meta($post_id, 'testimonial_author', true).'</span>
-				  </span>';
+			$output .= '<div itemprop="author" itemscope itemtype="http://schema.org/Person" class="testimonial_author">
+				    		<span itemprop="name">'.get_post_meta($post_id, 'testimonial_author', true).'</span>
+						</div>';
 				  
 			// publisher info
 			$output .= '<div itemprop="publisher" itemscope itemtype="http://schema.org/Organization"><meta itemprop="name" content="'.$options['business_name'].'"></div>';

@@ -29,7 +29,7 @@ class HiiWP_Admin {
 		add_action( 'add_meta_boxes', array( $this, 'page_options_meta_box' ));
 		add_action( 'save_post', array( $this, 'page_seo_options_meta_box_save' ), 999 );
 		add_action( 'admin_enqueue_scripts', array( $this, 'admin_styles' ));
-		add_action('admin_head', array( $this, 'custom_colors'));
+		add_action( 'admin_head', array( $this, 'custom_colors' ));
 	}
 	
 	
@@ -148,6 +148,6 @@ class HiiWP_Admin {
 	    update_post_meta( $post_id, 'page_seo_title', $page_seo_title );
 	    update_post_meta( $post_id, 'page_seo_description', $page_seo_description );
 	}
-
 }
+
 ?>

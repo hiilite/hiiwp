@@ -44,8 +44,11 @@ if($hiilite_options['header_type'] == 'centered') : ?>
 	}
 	header.centered #logo_container {
 		margin: auto;
-		width:100%;
+		
 	}
+	header.centered #main-nav {
+    	width: 100%;
+	}	
 
 <?php 
 elseif($hiilite_options['header_type'] == 'fixed'):	?>

@@ -110,7 +110,7 @@ require_once 'kirki_sets/portfolio_section.php';
 require_once 'kirki_sets/testimonial_section.php';
 
 // Events
-require_once 'kirki_sets/event_section.php';
+//require_once 'kirki_sets/event_section.php';
 
 // Social
 require_once 'kirki_sets/social_section.php';

@@ -32,61 +32,63 @@ function get_background_css($background){
 }
 function get_font_css($font){
 	if(is_array($font)){
+		$font_extras = '';
 		foreach($font as $key => $value){
 			if($value != ' ' && $value != '' && $value != 'px'){
 				if($key == 'variant') { 
-					echo 'font-weight:';
+					$font_weight = 'font-weight:';
 					switch ($value) {
 						case 'regular':
-							echo '400';
+							$font_weight .= '400';
 						break;
 						case '100italic':
-							echo '100;font-style:italic;';
+							$font_weight .= '100;font-style:italic;';
 						break;
 						case '200italic':
-							echo '200;font-style:italic;';
+							$font_weight .= '200;font-style:italic;';
 						break;
 						case '300italic':
-							echo '300;font-style:italic;';
+							$font_weight .= '300;font-style:italic;';
 						break;
 						case '400italic':
-							echo '400;font-style:italic;';
+							$font_weight .= '400;font-style:italic;';
 						break;
 						case '600italic':
-							echo '600;font-style:italic;';
+							$font_weight .= '600;font-style:italic;';
 						break;
 						case '700italic':
-							echo '700;font-style:italic;';
+							$font_weight .= '700;font-style:italic;';
 						break;
 						case '800italic':
-							echo '800;font-style:italic;';
+							$font_weight .= '800;font-style:italic;';
 						break;
 						case '900italic':
-							echo '900;font-style:italic;';
+							$font_weight .= '900;font-style:italic;';
 						break;
 						case 'italic':
-							echo '400;font-style:italic;';
+							$font_weight .= '400;font-style:italic;';
 						break;
 						default:
-							echo $value.';';
+							$font_weight .= $value.';';
 						break;
 					}
-					echo ';';
+					$font_weight .= ';';
 				}
 				elseif ($key == 'text-align') {
+					$text_align = '';
 					switch ($value) {
 						case 'right':
-							echo 'margin-left:auto;';
+							$text_align .= 'margin-left:auto;';
 						break;
 						case 'center':
-							echo 'margin-left:auto;';
-							echo 'margin-right:auto;';
+							$text_align .=  'margin-left:auto;';
+							$text_align .=  'margin-right:auto;';
 						break;
 						case 'left':
-							echo 'margin-right:auto;';
+							$text_align .=  'margin-right:auto;';
 						break;
 					}
-					echo $key.':'.$value.';';
+					$text_align .=  $key.':'.$value.';';
 				}
 				elseif ($key == 'font-family') {
 					$font_family = $key.':'.$value;
@@ -94,12 +96,16 @@ function get_font_css($font){
 				elseif ($key == 'font-backup') {
 					$font_family .= ','.$value;
 				}
-				else { echo $key.':'.$value.';'; }
+				elseif($key != 'font-weight' && $key != 'font-style') { 
+					$font_extras .= $key.':'.$value.';'; 
+				}
 				
 			}
-			
 		}
-		echo $font_family.';';
+		echo $font_family.';'.
+			 $font_weight.
+			 $font_extras.
+			 $text_align;
 	}
 }
 
@@ -181,7 +187,7 @@ figure.align-center img{
 	
 }
 .single-image img {
-	display:block;
+	display:inline-block;
 }
 figure.single-image.hover-image {
     position: relative;
@@ -503,12 +509,11 @@ img.full-width, .row, .wpb_content_element {
 
 <?php 
 $alt_cols =	array(false,false,false,'quarter-width','third-width',false,'half-width',false,'twothird-width','threequarter-width',false,false,'full-width');
-$col_4 = ($hiilite_options['grid_width'] / 3) + 1;
 for($i = 12; $i>0;$i--):
 	echo '.vc_col-xs-'.$i.', .vc_col-md-'.$i.', .vc_col-sm-'.$i.', .vc_col-lg-'.$i.', .col-'.$i;
 	echo ($alt_cols[$i])?', .'.$alt_cols[$i]:'';
 	echo '{';
-		$perc_ratio = (($i/12)*100) - 0.1;
+		$perc_ratio = (( $i / 12 ) * 100 );
 		echo ($i > 12)?'max-width:'.$perc_ratio.'em;':'max-width:100%;';
 		echo 'width:'.$perc_ratio.'%;';
 		$min_width = ($i>4)?'320':'160';
@@ -519,7 +524,7 @@ endfor;
 ?>
 
 @media (max-width:550px){
-<?php
+<?php 
 for($i = 12; $i>0;$i--):
 	echo '.vc_col-xs-'.$i.', .vc_col-md-'.$i.', .vc_col-sm-'.$i.', .vc_col-lg-'.$i.', .col-'.$i;
 	echo ($alt_cols[$i])?', .'.$alt_cols[$i]:'';
@@ -579,10 +584,10 @@ endfor;
 }
 .blog-article .content-box {
 	padding-top: 2px;
-	padding:2px 1em;
+	padding:2px 2em;
 }
 .blog-article figure {
-	padding: 0 1em;
+	padding: 0 2em;
 	text-align: center;
 }
 
@@ -650,35 +655,9 @@ endfor;
 }
 <?php 
 
-if($hiilite_options['portfolio_on']): ?>
-	.portfolio-piece {
-		padding: 0.5em;
-	}
-	.portfolio-piece .content-box {
-		box-shadow: inset 0 0 1px rgba(0,0,0,0.1);
-	}
-	.portfolio-piece h5 {
-		margin: 0;
-	}
-	.portfolio_row .post_meta {
-		position: absolute;
-	    width: 100%;
-	    bottom: 10px;
-	    text-align: center;
-	}
-	.portfolio_row .post_meta h3 {
-		margin: 2px;
-		background: rgba(255,255,255,0.8);
-		display: inline-block;
-		padding: 5px;
-	}
-	.portfolio_row .post_meta small {
-		margin: 2px;
-	    background: rgba(255,255,255,0.8);
-	    display: inline-block;
-	    padding: 5px;
-	}
-<?php endif; ?>
+if($hiilite_options['portfolio_on']): 
+	include_once(HIILITE_DIR.'/css/portfolio/portfolio-css.php');
+endif; ?>
 
 <?php if($hiilite_options['teams_on']): ?>
 .team-member {
@@ -778,6 +757,9 @@ if($hiilite_options['portfolio_on']): ?>
 /*
 //	note: Complimentary styles	
 */
+.inline_block {
+	display: inline-block;
+}
 .align-right, .alignright {
 	text-align: right;
 	align-self: flex-end;
@@ -1040,9 +1022,11 @@ if($hiilite_options['testimonials_on']):
 	    padding: 0 3em;
 	}
 	.testimonial_content { 
+		padding:1em;
 		<?php get_font_css($hiilite_options[ 'testimonials_body_font' ]); ?>
 	}
 	.testimonial_author {
+		padding: 1em;
 		<?php get_font_css($hiilite_options[ 'testimonials_author_font' ]); ?>
 	}
 <?php endif ?>

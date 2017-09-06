@@ -35,7 +35,7 @@ switch($shortcode_type){
 		$wrapper_attributes = array();
 		$css_classes = array(
 			'slider',
-			$slider_type,
+			$atts['slider_type'],
 		);
 		if($atts['slider_full_height'] == true){
 			$css_classes[] = 'slider_full_height';

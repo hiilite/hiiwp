@@ -1,6 +1,6 @@
 <?php 
 	
-add_action( 'init', 'menu_post_type_init' );
+add_action( 'init', 'menu_post_type_init', 1 );
 function menu_post_type_init() {
 	
 	////////////////////////

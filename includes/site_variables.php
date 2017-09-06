@@ -18,6 +18,16 @@ $hiilite_options['portfolio_title'] 			= get_theme_mod( 'portfolio_title', 'Port
 $hiilite_options['portfolio_slug'] 				= get_theme_mod( 'portfolio_slug', 'portfolio');
 $hiilite_options['portfolio_tax_title'] 		= get_theme_mod( 'portfolio_tax_title', 'Work');
 $hiilite_options['portfolio_tax_slug'] 			= get_theme_mod( 'portfolio_tax_slug', 'work');
+$hiilite_options['portfolio_template']			= get_theme_mod( 'portfolio_template', 'default');
+$hiilite_options['portfolio_background']		= get_theme_mod( 'portfolio_background', '#ffffff');
+$hiilite_options['portfolio_panel_background']	= get_theme_mod( 'portfolio_panel_background', '#f7f7f7');
+$hiilite_options['portfolio_info_colors']		= get_theme_mod( 'portfolio_info_colors', array(
+        'title'    => '#333',
+        'text'     => '#333',
+        'link'     => '#333',
+        'hover'    => '#333',
+    ) ); 
+$hiilite_options['show_more_projects']		= get_theme_mod( 'show_more_projects', false);
 
 $hiilite_options['teams_on'] 					= get_theme_mod('teams_on', false);
 $hiilite_options['teams_title'] 				= get_theme_mod('teams_title', 'Team');
@@ -36,6 +46,29 @@ $hiilite_options['testimonials_title'] 			= get_theme_mod('testimonials_title', 
 $hiilite_options['testimonials_slug'] 			= get_theme_mod('testimonials_slug', 'testimonials');
 $hiilite_options['testimonials_tax_title'] 		= get_theme_mod('testimonials_tax_title', 'Testimonials Categories');
 $hiilite_options['testimonials_tax_slug'] 		= get_theme_mod('testimonials_tax_slug', 'testimonials_category');
+
+$hiilite_options['testimonials_body_font'] 			= get_theme_mod('testimonials_body_font', array(
+        'font-family'    => ' ',
+        'variant'        => ' ',
+        'font-size'      => ' ',
+        'line-height'    => ' ',
+        'letter-spacing' => '0px',
+        'text_transform'    => ' ',
+        'color'          => get_theme_mod('color_four','#333333'),
+        'text-align'	=> 'center',
+        'text-transform'	=> 'none',
+    ));
+$hiilite_options['testimonials_author_font'] 		= get_theme_mod('testimonials_author_font', array(
+        'font-family'    => ' ',
+        'variant'        => ' ',
+        'font-size'      => ' ',
+        'line-height'    => ' ',
+        'letter-spacing' => '0px',
+        'text_transform'    => ' ',
+        'color'          => get_theme_mod('color_four','#333333'),
+        'text-align'	=> 'center',
+        'text-transform'	=> 'none',
+    ));
 
 $hiilite_options['default_font']				= get_theme_mod( 'default_font', array(
         'font-family'    => 'Open Sans',
@@ -235,6 +268,13 @@ $hiilite_options['main_menu_align']			= get_theme_mod('main_menu_align', array( 
 $hiilite_options['left_menu_align']			= get_theme_mod('left_menu_align', array( 'text-align' => 'right'));
 $hiilite_options['right_menu_align']		= get_theme_mod('right_menu_align', array( 'text-align' => 'left'));
 $hiilite_options['bottom_menu_align']		= get_theme_mod('bottom_menu_align', array( 'text-align' => 'center'));
+
+$hiilite_options['main_menu_padding']		= get_theme_mod('main_menu_padding', array(
+		'top'    => '1em',
+		'right'  => '1em',
+		'bottom' => '1em',
+		'left'   => '1em',
+	));
 
 												
 $hiilite_options['main_menu_links_css']		= get_theme_mod( 'main_menu_links_css', '' );

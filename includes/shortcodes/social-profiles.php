@@ -39,13 +39,12 @@ function add_social_profiles_shortcode( $atts ){
 	$css_class = ($is_vc)?preg_replace( '/\s+/', ' ', apply_filters( VC_SHORTCODE_CUSTOM_CSS_FILTER_TAG, implode( ' ', array_filter( $css_classes ) ), '.vc_custom_', $atts ) ):implode( ' ', array_filter( $css_classes ) );
 	$wrapper_attributes[] = 'class="' . esc_attr( trim( $css_class ) ) . '"';
 		
-		
+	$style = '';
     $output = '<div '.implode( ' ', $wrapper_attributes ).'>';
-    
-	if(count($options['business_social']) > 0 && isset($atts['icon_style'])) {
+	if(count($options['business_social']) > 0) {
 		foreach($options['business_social'] as $socialprofile):
 			
-			if($atts['icon_style'] != '')$style = $atts['icon_style'];
+			if(isset($atts['icon_style']) && $atts['icon_style'] != '')$style = $atts['icon_style'];
 				
 			$output .= '<a href="'.$socialprofile['social_url'].'" target="_blank"><i class="fa fa-'.strtolower($socialprofile['social_site']).' fa-style-'.$style.'"></i></a> ';
 		endforeach;

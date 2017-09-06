@@ -110,7 +110,7 @@ do_action( 'hii_after_content' );
 						'menu' =>  'footer-menu',
 						'container' => 'nav',
 						'container_class' => 'flex-item',
-						'container_id' => 'main-nav',
+						'container_id' => 'footer-nav',
 						'items_wrap'  => '<ul id="%1s" class="%2$s main-menu">%3$s</ul>',
 						'theme_location' => 'footer-menu',
 						'fallback_cb'    => false

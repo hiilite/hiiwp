@@ -1,6 +1,6 @@
 <?php 
 	
-add_action( 'init', 'team_post_type_init' );
+add_action( 'init', 'team_post_type_init', 1 );
 function team_post_type_init() {
 	
 

@@ -6,12 +6,22 @@ echo '<!--BLOG-LOOP-->';
 // Create Title
 $article_title = $dateline = $article_cat = '';
 
+if($hiilite_options['blog_cats_show'] == 'true' || $hiilite_options['blog_cats_show'] == true):
+	$article_cat .= '<span itemprop="articleSection" class="labels">'.get_the_category_list(', ').' </span> <br>';
+else:
+	$categories = get_the_category();$cats ='';
+	foreach($categories as $cat){
+		$cats .= $cat->name.' ';
+	}
+	$article_cat .= '<meta itemprop="articleSection" content="'.$cats.'"> ';
+endif;
+
 $article_title .= '<span itemprop="author" itemscope itemtype="https://schema.org/Person">';
 if($hiilite_options['blog_meta_show'] == 'true'):
 	$dateline .= '<small><address class="post_author">';
 	$dateline .= '<a itemprop="author" itemscope itemtype="https://schema.org/Person" class="post_author_link" href="'.get_author_posts_url( get_the_author_meta( 'ID' ) ).'"><span itemprop="name">';
 	$dateline .= get_the_author_meta('display_name'); 
-	$dateline .= '</span></a> | </address> <time class="time op-published" datetime="';
+	$dateline .= '</span></a> </address> <time class="time op-published" datetime="';
 	$dateline .= get_the_time('c');
 	$dateline .= '">';
 	$dateline .= '<span class="date">';
@@ -24,22 +34,14 @@ else:
 endif;
 $article_title .= '</span>';
 
-if($hiilite_options['blog_cats_show'] == 'true' || $hiilite_options['blog_cats_show'] == true):
-	$article_cat .= '<span itemprop="articleSection" class="labels">'.get_the_category_list(' ').'</span>';
-else:
-	$categories = get_the_category();$cats ='';
-	foreach($categories as $cat){
-		$cats .= $cat->name;
-	}
-	$article_cat .= '<meta itemprop="articleSection" content="'.$cats.'">';
-endif;
+
 
 if($hiilite_options['blog_title_show'] == 'true' || $hiilite_options['blog_title_show'] == true) {
 	$article_title .= '<'.$hiilite_options['blog_heading_tag'].'><a href="'.get_the_permalink().'">'.get_the_title().'</a></'.$hiilite_options['blog_heading_tag'].'>';
 } 
 
 if($hiilite_options['blog_cats_show'] == 'true' || $hiilite_options['blog_cats_show'] == true):
-	$dateline = $dateline.$article_cat;
+	$dateline = $article_cat.$dateline;
 endif;
 
 if($hiilite_options['blog_date_pos'] == 'date-above'):

@@ -13,7 +13,7 @@ $hiilite_options = Hii::$hiiwp->get_options();
  
 
 $this->post_id = false;
-$css = $el_class = '';
+$css = $el_class = ''; 
 $posts = $filter_terms = array();
 $this->buildAtts( $atts, $content );
 
@@ -41,8 +41,6 @@ $wrapper_attributes = array();
 if ( ! empty( $atts['el_id'] ) ) {
 	$wrapper_attributes[] = 'id="' . esc_attr( $atts['el_id'] ) . '"';
 }
-
-// END TESTING
 
 
 $paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
@@ -85,9 +83,9 @@ if(isset($atts)) {
 	if (isset($atts['blog_excerpt_show'])) 	$hiilite_options['blog_excerpt_show']		= $atts['blog_excerpt_show'];
 	if (isset($atts['blog_excerpt_len']))	$hiilite_options['blog_excerpt_len']		= $atts['blog_excerpt_len'];
 	if (isset($atts['blog_more_show'])) 	$hiilite_options['blog_more_show']			= $atts['blog_more_show'];
+	if (isset($atts['blog_pag_show'])) 		$hiilite_options['blog_pag_show']			= $atts['blog_pag_show'];
 	
-	$use_blog_layouts = (!isset($atts['use_blog_layouts']))?'true':$atts['blog_more_show'];
-	
+	$use_blog_layouts = (isset($atts['use_blog_layouts']) && $atts['use_blog_layouts'] == 'true')?true:false;
 	
 	switch ($hiilite_options['blog_col']) {
 		case '6': 
@@ -109,9 +107,8 @@ if(isset($atts)) {
 }
 $colcount = ' col-count-'.$hiilite_options['blog_col'];
 
-echo '<!-- vc_grid start --><div class="vc_grid-container-wrapper vc_clearfix container_inner '.$grid.' '.$hiilite_options['blog_layouts'].$colcount.'" '.implode( ' ', $wrapper_attributes ).'>';
-
-if(($use_blog_layouts == 'true')){
+echo '<div class="vc_grid-container-wrapper vc_clearfix container_inner '.$grid.' '.$hiilite_options['blog_layouts'].$colcount.'" '.implode( ' ', $wrapper_attributes ).'>';
+if(($use_blog_layouts == true)){
 	$bg_query = new WP_Query($query);
 	while ( $bg_query->have_posts() ) {
 		$bg_query->the_post(); // Get post from query
@@ -119,7 +116,7 @@ if(($use_blog_layouts == 'true')){
 		include(locate_template( 'templates/blog-loop.php' ));
 	
 	}
-	if($hiilite_options['blog_pag_show']):
+	if($hiilite_options['blog_pag_show'] == 'true'):
 		if($hiilite_options['blog_pag_style'] == 'option-2'):
 			echo '<div class="pagination '.$grid.' content-box">';
 				echo '<div class="align-center flex-item col-6">';
@@ -160,6 +157,6 @@ if(($use_blog_layouts == 'true')){
 	<?php
 	
 }
-echo '</div><!-- vc_grid end -->';
+echo '</div>';
 
 ?>
