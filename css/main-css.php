@@ -32,61 +32,63 @@ function get_background_css($background){
 }
 function get_font_css($font){
 	if(is_array($font)){
+		$font_extras = '';
 		foreach($font as $key => $value){
 			if($value != ' ' && $value != '' && $value != 'px'){
 				if($key == 'variant') { 
-					echo 'font-weight:';
+					$font_weight = 'font-weight:';
 					switch ($value) {
 						case 'regular':
-							echo '400';
+							$font_weight .= '400';
 						break;
 						case '100italic':
-							echo '100;font-style:italic;';
+							$font_weight .= '100;font-style:italic;';
 						break;
 						case '200italic':
-							echo '200;font-style:italic;';
+							$font_weight .= '200;font-style:italic;';
 						break;
 						case '300italic':
-							echo '300;font-style:italic;';
+							$font_weight .= '300;font-style:italic;';
 						break;
 						case '400italic':
-							echo '400;font-style:italic;';
+							$font_weight .= '400;font-style:italic;';
 						break;
 						case '600italic':
-							echo '600;font-style:italic;';
+							$font_weight .= '600;font-style:italic;';
 						break;
 						case '700italic':
-							echo '700;font-style:italic;';
+							$font_weight .= '700;font-style:italic;';
 						break;
 						case '800italic':
-							echo '800;font-style:italic;';
+							$font_weight .= '800;font-style:italic;';
 						break;
 						case '900italic':
-							echo '900;font-style:italic;';
+							$font_weight .= '900;font-style:italic;';
 						break;
 						case 'italic':
-							echo '400;font-style:italic;';
+							$font_weight .= '400;font-style:italic;';
 						break;
 						default:
-							echo $value.';';
+							$font_weight .= $value.';';
 						break;
 					}
-					echo ';';
+					$font_weight .= ';';
 				}
 				elseif ($key == 'text-align') {
+					$text_align = '';
 					switch ($value) {
 						case 'right':
-							echo 'margin-left:auto;';
+							$text_align .= 'margin-left:auto;';
 						break;
 						case 'center':
-							echo 'margin-left:auto;';
-							echo 'margin-right:auto;';
+							$text_align .=  'margin-left:auto;';
+							$text_align .=  'margin-right:auto;';
 						break;
 						case 'left':
-							echo 'margin-right:auto;';
+							$text_align .=  'margin-right:auto;';
 						break;
 					}
-					echo $key.':'.$value.';';
+					$text_align .=  $key.':'.$value.';';
 				}
 				elseif ($key == 'font-family') {
 					$font_family = $key.':'.$value;
@@ -94,11 +96,16 @@ function get_font_css($font){
 				elseif ($key == 'font-backup') {
 					$font_family .= ','.$value;
 				}
-				else { echo $key.':'.$value.';'; }
+				elseif($key != 'font-weight' && $key != 'font-style') { 
+					$font_extras .= $key.':'.$value.';'; 
+				}
 				
 			}
 		}
-		echo $font_family.';';
+		echo $font_family.';'.
+			 $font_weight.
+			 $font_extras.
+			 $text_align;
 	}
 }
 
@@ -180,7 +187,7 @@ figure.align-center img{
 	
 }
 .single-image img {
-	display:block;
+	display:inline-block;
 }
 figure.single-image.hover-image {
     position: relative;
@@ -750,6 +757,9 @@ endif; ?>
 /*
 //	note: Complimentary styles	
 */
+.inline_block {
+	display: inline-block;
+}
 .align-right, .alignright {
 	text-align: right;
 	align-self: flex-end;
@@ -1012,9 +1022,11 @@ if($hiilite_options['testimonials_on']):
 	    padding: 0 3em;
 	}
 	.testimonial_content { 
+		padding:1em;
 		<?php get_font_css($hiilite_options[ 'testimonials_body_font' ]); ?>
 	}
 	.testimonial_author {
+		padding: 1em;
 		<?php get_font_css($hiilite_options[ 'testimonials_author_font' ]); ?>
 	}
 <?php endif ?>

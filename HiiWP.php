@@ -63,7 +63,9 @@ class HiiWP {
 		include_once( HIILITE_DIR . '/addons/cmb2-metatabs-options/cmb2_metatabs_options.php' );
 		include_once( HIILITE_DIR . '/addons/cmb2-conditionals/cmb2-conditionals.php' );
 		include_once( HIILITE_DIR . '/addons/cmb-field-select2/cmb-field-select2.php' );
+		include_once( HIILITE_DIR . '/addons/cmb2-taxonomy/init.php' );
 		include_once( HIILITE_DIR . '/addons/custom-field-types/address-field-type.php' );
+		
 		
 		include_once( HIILITE_DIR . '/includes/business_profile.php' );
 		require_once( HIILITE_DIR . '/includes/wp_login_screen.php');
@@ -120,14 +122,19 @@ class HiiWP {
 		
 		$hiilite_options = self::get_options();
 		
-		 
-		wp_enqueue_script('modernizr', get_template_directory_uri().'/js/vender/modernizr-custom.js');
+		
 		wp_enqueue_script("jquery");
-		wp_enqueue_script('main-scripts', get_template_directory_uri().'/js/main-scripts.js','jquery', array( 'jquery' ), '0.0.1', true);	
+		
+		wp_enqueue_script('modernizr', HIIWP_URL.'/js/vender/modernizr-custom.js');
+		
+		
+		wp_enqueue_script('main-scripts', HIIWP_URL.'/js/main-scripts.js', array( 'jquery' ), '0.0.1', true);	
 		wp_localize_script('main-scripts', 'mobile_menu_switch', $hiilite_options['mobile_menu_switch']);
+		
 		add_filter('script_loader_tag', array( $this, 'add_defer_attribute'), 10, 2);
+		
 		if($hiilite_options['is_woocommerce']){
-			wp_enqueue_script( 'prettyPhoto-init', $woocommerce->plugin_url() . '/assets/js/prettyPhoto/jquery.prettyPhoto.init' . '.js', array( 'jquery' ), $woocommerce->version, true );
+			wp_enqueue_script( 'prettyPhoto-init', $woocommerce->plugin_url() . '/assets/js/prettyPhoto/jquery.prettyPhoto.init.js', array( 'jquery' ), $woocommerce->version, true );
 		} 
 		
 		include_once(HIILITE_DIR . '/css/main-css.php');

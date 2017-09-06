@@ -40,23 +40,18 @@ Kirki::add_field( 'hiiwp', array(
 	'settings'    => 'main_menu_padding',
 	'label'       => __( 'Padding', 'my_textdomain' ),
 	'section'     => $section,
-	'default'     => array(
-		'top'    => '1em',
-		'right'  => '1em',
-		'bottom' => '1em',
-		'left'   => '1em',
-	),
+	'default'     => $hiilite_options['main_menu_padding'],
 	'priority'    => 1,
 	'transport'   => 'postMessage',
     'output' => array(
 		array(
-			'element'  => '.menu .menu-item a',
+			'element'  => '.menu .menu-item a, .search_button .fa',
 			'property' => 'padding',
 		),
 	),
 	'js_vars' => array(
 		array(
-			'element'  => '.menu .menu-item a',
+			'element'  => '.menu .menu-item a, .search_button .fa',
 			'property' => 'padding',
 		),
 	),

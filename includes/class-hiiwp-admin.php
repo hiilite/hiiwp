@@ -148,6 +148,6 @@ class HiiWP_Admin {
 	    update_post_meta( $post_id, 'page_seo_title', $page_seo_title );
 	    update_post_meta( $post_id, 'page_seo_description', $page_seo_description );
 	}
-
 }
+
 ?>

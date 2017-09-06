@@ -5,6 +5,9 @@
 */
 $hiilite_options = Hii::$hiiwp->get_options();
 $post_meta = get_post_meta(get_the_id());
+
+$portfolio_images = (get_post_meta ( $post->ID, 'project_iamges', true))?get_post_meta ( $post->ID, 'project_iamges', true):false;
+$imgs_in_grid = (get_post_meta ( $post->ID, 'imgs_in_grid', true))?get_post_meta ( $post->ID, 'imgs_in_grid', true):false;
 ?>
 <!--PORTFOLIO_PIECE-LOOP-->
 <article  <?php post_class('row'); ?> itemscope itemtype="http://schema.org/Article" id="post-<?php the_ID(); ?>" >
@@ -58,6 +61,14 @@ echo '<div class="full-width  align-top">';
 	<?php	
 	the_content();
 	
+	if($imgs_in_grid == true) {
+		echo '<div class="in_grid">';
+	}
+		cmb2_output_portfolio_imgs($portfolio_images);
+	
+	if($imgs_in_grid == true) {
+		echo '</div>';
+	}
 	
 	$source = get_post_meta( $post->ID, 'source_article_link');
 	if($source && $source[0] != ''){ ?>

@@ -1030,7 +1030,25 @@ vc_add_param( 'vc_basic_grid',  array(
 					"element" => "use_blog_layouts",
 					"value" => "true"
 				)
-				));
+			));
+vc_add_param( 'vc_basic_grid',  array(
+				"type" => "dropdown",
+				"class" => "",
+				"heading" => "Show Pagination",
+				"param_name" => "blog_pag_show",
+				'group' => 'Item Design',
+				'value' => array(
+						__( 'Theme Default', 'js_composer' ) => '',
+						__( 'On', 'js_composer' ) => 'true',
+						__( 'Off', 'js_composer' ) => 'false',
+						
+					),
+				"dependency" => array (
+					"element" => "use_blog_layouts",
+					"value" => "true"
+				)
+			));
+			
 //vc_remove_param( "vc_basic_grid", "item" );
 //vc_remove_param( "vc_basic_grid", "gap" );
 //vc_remove_param( "vc_basic_grid", "initial_loading_animation" );

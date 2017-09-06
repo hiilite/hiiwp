@@ -16,6 +16,7 @@ Theme Structure:
 -- SEO Options
 -- Theme Customizer (Kirki)
 -- Post Panels
+-- Custome fields for taxomonomies
 
 - SEO 
 -- Shortcodes of values
@@ -51,7 +52,6 @@ TODO: Have all CSS scripts that cannot be inlined loaded asyncronously use Googl
 TODO: Implement Classes using the Singleton Pattern to prevent multiple instances [https://code.tutsplus.com/articles/design-patterns-in-wordpress-the-singleton-pattern--wp-31621].
 
 **/
-
 
 if ( ! defined( 'HIIWP_VERSION' ) ) {                
 	 define( 'HIIWP_VERSION', '0.3.9' );
@@ -150,8 +150,6 @@ class Hii {
 
 Hii::say_hii();
 Hii::say_hii_admin();
-
-
 
 
 /*
@@ -402,7 +400,7 @@ function cmb2_post_metaboxes(){
         'title'         => 'Page Options',
         'object_types'  => array( 'page', 'post', 'team', 'menu', 'portfolio' ), // post type
         'context'       => 'normal', // 'normal', 'advanced' or 'side'
-        'priority'      => 'high', // 'high', 'core', 'default' or 'low'
+        'priority'      => 'low', // 'high', 'core', 'default' or 'low'
         'show_names'    => true, // show field names on the left
         'cmb_styles'    => true, // false to disable the CMB stylesheet
         'closed'        => false, // keep the metabox closed by default
@@ -453,6 +451,14 @@ function cmb2_post_metaboxes(){
 			'add_upload_file_text' => 'Choose Image' // Change upload button text. Default: "Add or Upload File"
 		),
 		
+	) );
+	
+	$cmb->add_field( array(
+	    'name'             => 'Header Background Color',
+	    'desc'             => 'Edit color sets in the theme customizer',
+	    'id'               => 'header_bg',
+	    'type'             => 'colorpicker',
+	    'default'          => '',
 	) );
 	
 	$cmb->add_field( array(
@@ -529,6 +535,8 @@ function cmb2_portfolio_metaboxes(){
 	//////////////////////////////////
 	// Portfolio for all posts
 	/////////////////////////////////
+	$hiilite_options = Hii::$hiiwp->get_options();
+	
     $cmb = new_cmb2_box( array(
         'id'            => 'portfolio_options',
         'title'         => 'Portfolio Options',
@@ -539,21 +547,101 @@ function cmb2_portfolio_metaboxes(){
         'cmb_styles'    => true, // false to disable the CMB stylesheet
         'closed'        => false, // keep the metabox closed by default
     ) );
-    $cmb->add_field( array(
-		'name'       => __( 'Client Name', 'hiilite' ),
-		'id'         => 'portfolio_client',
-		'type'       => 'text'
-	) );
+    if($hiilite_options['portfolio_template'] == 'split') {
+	    $cmb->add_field( array(
+			'name'       => __( 'Client Name', 'hiilite' ),
+			'id'         => 'portfolio_client',
+			'type'       => 'text'
+		) );
+		$cmb->add_field( array(
+			'name'    => __( 'Project Description', 'hiilite' ),
+			'desc'    => __( 'Add a project description (optional)', 'hiilite' ),
+			'id'      => 'portfolio_description',
+			'type'    => 'wysiwyg',
+			'options' => array(
+				'textarea_rows' => 10,
+			),
+		) );
+		
+		$cmb->add_field( array(
+			'name'    => __( 'Social Share', 'hiilite' ),
+			'desc'    => __( 'Add social share icons', 'hiilite' ),
+			'id'      => 'project_share',
+			'type'    => 'multicheck',
+			'options' => array(
+				'fb' => 'Facebook',
+				'tw' => 'Twitter',
+				'gp' => 'Google+',
+				'pn' => 'Pinterest',
+				'ln' => 'LinkedIn',
+			),
+		) );
+		
+		$contributors = $cmb->add_field( array(
+			'id'          => 'contributers_group',
+			'type'        => 'group',
+			'description' => __( 'Generates reusable entries for contributors', 'hiilite' ),
+			// 'repeatable'  => false, // use false if you want non-repeatable group
+			'options'     => array(
+				'group_title'   => __( 'Contributor {#}', 'hiilite' ), // since version 1.1.4, {#} gets replaced by row number
+				'add_button'    => __( 'Add Another Contributor', 'hiilite' ),
+				'remove_button' => __( 'Remove Contributor', 'hiilite' ),
+				'sortable'      => true, // beta
+				// 'closed'     => true, // true to have the groups closed by default
+			),
+		) );
+		
+		// Id's for group's fields only need to be unique for the group. Prefix is not needed.
+		$cmb->add_group_field( $contributors, array(
+			'name' => __( 'Contributor Role', 'hiilite' ),
+			'id'   => 'role',
+			'type' => 'text',
+			//'repeatable' => true,
+		) );	
+		
+		$users_args = array(
+		    'role_in' => array('administrator','editor','author','contributor'),
+		 );
+		$users = get_users();
+		$user_names = array();
+		foreach($users as $user) {
+					$user_names[$user->display_name] = $user->display_name;
+		}
+		$cmb->add_group_field( $contributors, array(
+			'name'             => __( 'Contributor Name', 'hiilite' ),
+			'id'               => 'name',
+			'type'             => 'select',
+			'show_option_none' => true,
+			'default'          => 'custom',
+			'options'          => $user_names,
+		) );	
+	}
 	$cmb->add_field( array(
-		'name'    => __( 'Project Description', 'hiilite' ),
-		'desc'    => __( 'Add a project description (optional)', 'hiilite' ),
-		'id'      => 'portfolio_description',
-		'type'    => 'wysiwyg',
-		'options' => array(
-			'textarea_rows' => 10,
+		'name' => 'Upload Images',
+		'desc' => __( 'Add your project images', 'hiilite' ),
+		'id'   => 'project_iamges',
+		'type' => 'file_list',
+		// 'preview_size' => array( 100, 100 ), // Default: array( 50, 50 )
+		// 'query_args' => array( 'type' => 'image' ), // Only images attachment
+		// Optional, override default text strings
+		'text' => array(
+			'add_upload_files_text' => __( 'Add or Upload Files', 'hiilite' ), // default: "Add or Upload Files"
+			'remove_image_text' => __( 'Remove Image', 'hiilite' ), // default: "Remove Image"
+			'file_text' => __( 'File:', 'hiilite' ), // default: "File:"
+			'file_download_text' => __( 'Download', 'hiilite' ), // default: "Download"
+			'remove_text' => __( 'Remove', 'hiilite' ), // default: "Remove"
 		),
 	) );
-    $cmb->add_field( array(
+	
+	if($hiilite_options['portfolio_template'] == 'default') {
+		$cmb->add_field( array(
+			'name' => 'In Grid',
+			'desc' => __( 'Keep images in grid', 'hiilite' ),
+			'id'   => 'imgs_in_grid',
+			'type' => 'checkbox',
+		) );
+	}
+    /*$cmb->add_field( array(
 	    'name' => 'Isolated Image',
 	    'id'   => 'isolated',
 	    'type' => 'checkbox',
@@ -587,8 +675,128 @@ function cmb2_portfolio_metaboxes(){
 	    'id'      => 'min_padding',
 	    'type'    => 'text',
 	    'default' => '',
-	) );
+	) );*/
 }
+
+
+function cmb2_output_portfolio_imgs( $portfolio_images ) {
+
+	foreach($portfolio_images as $port_img) {
+		echo '<div class="col-12 port-img">';
+		echo '<img src="'.$port_img.'">';
+		echo '</div>';	
+	}
+}
+
+
+//////////////////////////////////
+// Taxonomy for all Portfolio
+/////////////////////////////////
+add_action('cmb2-taxonomy_meta_boxes', 'cmb2_portfolio_taxonomy_metaboxes');
+function cmb2_portfolio_taxonomy_metaboxes( array $meta_boxes ) {
+	$hiilite_options = Hii::$hiiwp->get_options();
+	
+	$meta_boxes['test_metabox'] = array(
+		'id'            => 'portfolio_work_metabox',
+		'title'         => __( 'Portfolio Category Indentity', 'hiilite' ),
+		'object_types'  => array( $hiilite_options['portfolio_tax_slug'] ), // Taxonomy
+		'context'       => 'normal',
+		'priority'      => 'high',
+		'show_names'    => true, // Show field names on the left
+		// 'cmb_styles' => false, // false to disable the CMB stylesheet
+		'fields'        => array(
+			array(
+				'name'    => __( 'Category Color Picker', 'cmb2' ),
+				'desc'    => __( 'field description (optional)', 'hiilite' ),
+				'id'      => 'portfolio_work_color',
+				'type'    => 'colorpicker',
+				'default' => '#ffffff'
+			),
+			array(
+				'name' => __( 'Category Icon', 'cmb2' ),
+				'desc' => __( 'Upload an image or enter a URL.', 'hiilite' ),
+				'id'   => 'portfolio_work_image',
+				'type' => 'file',
+			),
+		),
+	);
+	return $meta_boxes;
+}
+
+
+
+
+
+function portfolio_primary_category_selection() {
+	
+	$hiilite_options = Hii::$hiiwp->get_options();
+
+    $prefix = 'portfolio_';
+
+    $cmb_demo = new_cmb2_box( array(
+        'id'            => $prefix . 'metabox',
+        'title'         => esc_html__( 'Primary Category', 'hiilite' ),
+        'object_types'  => array( $hiilite_options['portfolio_slug'] ),
+            'context'       => 'side',
+        'priority'      => 'low',
+        'show_names'    => false, 
+    ) );
+
+    $cmb_demo->add_field( array(
+        'name'           => esc_html__( 'Choose Primary Category', 'hiilite' ),
+        'desc'           => esc_html__( 'Choose primary category for display in post_meta', 'hiilite' ),
+        'id'             => $prefix . 'category_list',
+        'taxonomy'       => $hiilite_options['portfolio_tax_slug'],
+        'type'           => 'taxonomy_select',
+    ) );    
+
+}
+add_action( 'cmb2_admin_init', 'portfolio_primary_category_selection' );
+
+
+/**
+ *
+ * Add Primary to [post_categories] shortcode replacing the genesis shortcode of the same name
+ *
+ */
+function portfolio_post_primary_category_shortcode( $atts ) {
+
+    //* get our CMB2 field and category stuff
+    $prefix        = 'portfolio_';
+    $primary_cat   = get_post_meta( get_the_ID(), $prefix . 'category_list', true );
+    $category_id   = get_cat_ID( $primary_cat );
+    $category_link = get_category_link( $category_id );
+    $category_name = get_cat_name( $category_id );
+
+    $defaults = array(
+        'sep'    => ', ',
+        'before' => __( 'Filed Under: ', 'hiilite' ),
+        'after'  => '',
+    );
+
+    $atts = shortcode_atts( $defaults, $atts, 'post_categories' );
+
+    //* fallback to the standard array if the choice in the primary metabox is not set
+    if( empty( $primary_cat ) ) {
+        $cats = get_the_category_list( trim( $atts['sep'] ) . ' ' );
+    } else {
+        $cats = '<a href="' . $category_link . '">' . $category_name . '</a>';
+    }
+
+    //* Do nothing if no cats
+    if ( ! $cats ) {
+        return '';
+    }
+
+    if ( genesis_html5() )
+        $output = sprintf( '<span %s>', genesis_attr( 'entry-categories' ) ) . $atts['before'] . $cats . $atts['after'] . '</span>';
+    else
+        $output = '<span class="categories">' . $atts['before'] . $cats . $atts['after'] . '</span>';
+
+    return apply_filters( 'genesis_post_categories_shortcode', $output, $atts );
+
+}
+add_shortcode( 'post_categories', 'portfolio_post_primary_category_shortcode' );
 
 
 

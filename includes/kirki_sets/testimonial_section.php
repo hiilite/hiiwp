@@ -14,17 +14,7 @@ Kirki::add_field( 'hiiwp', array(
     'label'       => esc_attr__( 'Testimonial Body Font', 'kirki' ),
     'description'    => __( 'This will style just the body text of the testimonial widget' ),
     'section'     => 'testimonials_section',
-    'default'     => array(
-        'font-family'    => ' ',
-        'variant'        => ' ',
-        'font-size'      => ' ',
-        'line-height'    => ' ',
-        'letter-spacing' => '0px',
-        'text_transform'    => ' ',
-        'color'          => get_theme_mod('color_four','#333333'),
-        'text-align'	=> 'center',
-        'text-transform'	=> 'none',
-    ),
+    'default'     => $hiilite_options['testimonials_body_font'],
     'priority'    => 1,
 ) );
 
@@ -35,17 +25,7 @@ Kirki::add_field( 'hiiwp', array(
     'label'       => esc_attr__( 'Testimonial Author Font', 'kirki' ),
     'description'    => __( 'This will style just the author text of the testimonial widget' ),
     'section'     => 'testimonials_section',
-    'default'     => array(
-        'font-family'    => ' ',
-        'variant'        => ' ',
-        'font-size'      => ' ',
-        'line-height'    => ' ',
-        'letter-spacing' => '0px',
-        'text_transform'    => ' ',
-        'color'          => get_theme_mod('color_four','#333333'),
-        'text-align'	=> 'center',
-        'text-transform'	=> 'none',
-    ),
+    'default'     => $hiilite_options['testimonials_author_font'],
     'priority'    => 1,
 ) );
 

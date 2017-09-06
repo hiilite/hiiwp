@@ -63,6 +63,7 @@ if (!function_exists('hii_title')) {
 	        $css_class = $css_class.' '.$class;
         }
         
+        $wrapper_attributes[] = 'id="'.esc_attr( trim( $id ) ).'"';
 		$wrapper_attributes[] = 'class="' . esc_attr( trim( $css_class ) ) . '"';
 		
 

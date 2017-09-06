@@ -29,13 +29,23 @@
 .single-portfolio .page-title {
 	display:none;
 }
+<?php
+if($hiilite_options['portfolio_template'] == 'split') {
+?>
 .single-portfolio .portfolio {
 	padding-top:3em;
 	padding-bottom:3em;
 	background:<?php echo $hiilite_options['portfolio_background']; ?>;	
 }
+<?php
+}
+?>
 .single-portfolio .portfolio-gallery {
 	background:#fff;
+}
+.single-portfolio .port-img img,
+.single-portfolio .portfolio-gallery .port-img img {
+	width:100%;	
 }
 .single-portfolio .portfolio-gallery .project-comments {
 	padding:1em;	
@@ -63,33 +73,67 @@
 .project-info a:hover {
 	color:<?php echo $hiilite_options['portfolio_info_colors']['hover']; ?>;		
 }
-.project-info .project-client {
+.project-info .project-title {
 	justify-content: space-between;	
-	margin-bottom:2em;
+	align-items: center;
 }
-.project-info .project-client h1 {
+.project-info .project-title h1 {
 	font-weight:bold;
-	font-size:1.2rem;
+	font-size:1.2em;
+}
+.project-info hr {
+		color:<?=$portfolio_work_color;?>;
+		border-color: inherit;
+	}
+.project-info .project-client {
+	padding-top:2em;	
 }
 .project-info .project-client h3 {
 	font-weight:bold;
-	font-size:1rem;
+	font-size:0.9em;
 }
-.project-info .project-title h2 {
-	font-size: 1em;
-    text-transform: uppercase;
+.project-info .project-client h2 {
+	font-size: 1.1em;
 }
 .project-info .project-icon {
 	width:50px;
 	flex:1 1 50px;
 	min-width:0;
 }
+.project-info .cat-icon {
+	border-radius:50%;	
+	padding-top:5px;
+	padding-right:10px;
+}
+.project-info .project-group {
+	display:block;	
+}
 .project-info .project-group,
 .project-info .project-social {
-	margin-top:1em;	
+	margin-top:2em;	
+}
+.project-info .project-social {
+	display: block;
+}
+.project-info .project-social a .fa {
+	color:<?php echo $hiilite_options['portfolio_info_colors']['link']; ?>;	
+	margin-right: 0.5em;
 }
 .project-info .project-author {
 	margin-top:3em;	
+}
+.project-info .author-icon {
+	padding-top:5px;
+	padding-right:10px;
+}
+.project-info .author-icon img {
+	border-radius:50%;	
+}
+.project-info .project-author h4 {
+	text-transform: none;
+	font-size:1.1em;
+	font-weight:bold;
+	color:<?php echo $hiilite_options['portfolio_info_colors']['text']; ?>;
 }
 .project-info .project-author small {
 	margin-bottom:1em;	

@@ -6,6 +6,7 @@
 */
 $hiilite_options = Hii::$hiiwp->get_options();
 $post_meta = get_post_meta(get_the_id());
+$category = get_the_terms( $post->ID, 'work' );
 
 if(is_front_page() || is_archive(  )){ 
 	$page_title = get_wp_title('');
@@ -18,6 +19,19 @@ if(is_front_page() || is_archive(  )){
 $page_bg = (get_post_meta ( $post->ID, 'page_bg', true))?get_post_meta ( $post->ID, 'page_bg', true):false;
 $portfolio_description = (get_post_meta ( $post->ID, 'portfolio_description', true))?get_post_meta ( $post->ID, 'portfolio_description', true):false;
 $portfolio_client = (get_post_meta ( $post->ID, 'portfolio_client', true))?get_post_meta ( $post->ID, 'portfolio_client', true):false;
+$portfolio_images = (get_post_meta ( $post->ID, 'project_iamges', true))?get_post_meta ( $post->ID, 'project_iamges', true):false;
+$contributers = (get_post_meta ( $post->ID, 'contributers_group', true))?get_post_meta ( $post->ID, 'contributers_group', true):false;
+$project_share = (get_post_meta ( $post->ID, 'project_share', true))?get_post_meta ( $post->ID, 'project_share', true):false;
+
+$social_url = esc_url( get_permalink($post->ID) );
+     
+$portfolio_work_image = (get_term_meta ( $category[0]->term_taxonomy_id, 'portfolio_work_image', true))?get_term_meta ( $category[0]->term_taxonomy_id, 'portfolio_work_image', true):false;
+$portfolio_work_color = (get_term_meta ( $category[0]->term_taxonomy_id, 'portfolio_work_color', true))?get_term_meta ( $category[0]->term_taxonomy_id, 'portfolio_work_color', true):false;
+
+$author_id=$post->post_author;
+
+
+$tags = get_the_terms( $post->ID, 'porfolio_tag');
 ?>
 <!--PORTFOLIO_PIECE-LOOP-->
 <article  <?php post_class('row'); ?> itemscope itemtype="http://schema.org/Article" id="post-<?php the_ID(); ?>" style="<?=($page_bg)?'background-color:'.$page_bg.';':'';?>">
@@ -62,9 +76,8 @@ echo '<div class="in_grid  align-top">';
 	
 	<!-- Gallery -->
 	<div class="col-8 portfolio-gallery">
-		<?php	
-		the_content();
-		?>
+		<?php the_content(); ?>
+		<?php cmb2_output_portfolio_imgs($portfolio_images); ?>
 		
 		<?php
 		if($hiilite_options['show_more_projects']):
@@ -116,31 +129,57 @@ echo '<div class="in_grid  align-top">';
 	
 	<!-- Sidebar -->
 	<div class="col-2 project-info">
-		<div class="row project-client">
+		
+		<div class="row project-title">
 			<div class="col-11">
-				<h3>CLIENT</h3>
-				<h1 itemprop="headline">
-					<?=($portfolio_client)?$portfolio_client:'';?>
-				</h1>
-			</div>
-			<div class="col-1 project-icon">
-				ICON
-			</div>
-		</div>
-		<div>
-			<div class="col-12 project-title">
+				<div class="col-12">
 				<?php
-				echo '<h2 itemprop="headline">'.$page_title.'</h2>';
+				echo '<h1 itemprop="headline">'.$page_title.'</h1>';
 				?>
 			</div>
+			</div>
+			<div class="col-1 project-icon cat-icon">
+				<img src="<?=$portfolio_work_image;?>">
+			</div>
+		</div>
+
+		<hr style="color:<?=$portfolio_work_color;?>;border-color: <?=$portfolio_work_color;?>;background: <?=$portfolio_work_color;?>;height: 2px;border: none;">
+	
+		<?php
+		if($portfolio_client) {
+		?>
+		<div>
+			<div class="col-12 project-client">
+				<h3>CLIENT</h3>
+				<h2>
+					<?=$portfolio_client;?>
+				</h2>
+			</div>
+		</div>
+		<?php
+		}
+		?>
+		
+		<div class="row">
+			<?php
+			echo '<small><time class="time op-published" datetime="'.get_the_time('c').'><span class="date">'.get_the_time('F jS, Y').'</span></time></small>';
+			?>
 		</div>
 
 		<div class="row">
 			<?php
-			if( has_tag()) { ?>
+
+			if($tags) { ?>
 		        <div class="tags_text">
 					<span itemprop="keywords" class="labels">
-					TAGS
+						<small>
+							<?php 
+							foreach($tags as $tag) {
+								$tad_id = get_tag_link($tag->term_id);
+								echo '<a href="'.$tad_id.'">#'.$tag->name.'</a> ';
+							}
+							?>
+						</small>
 					</span>
 				</div>
 			<?php 
@@ -148,28 +187,64 @@ echo '<div class="in_grid  align-top">';
 			?>
 		</div>
 		
-		<div class="row">
+		<div class="row project-group">
 			<?php
-			echo '<time class="time op-published" datetime="'.get_the_time('c').'><span class="date">'.get_the_time('F jS, Y').'</span></time>';;
+			foreach ( $contributers as $key => $entry ) {
+			
+				$role = $name = '';
+			
+				if ( isset( $entry['role'] ) && isset( $entry['name'] )) { 
+					echo '<div class="row"><div class="col-6"><strong>';
+					echo __( $entry['role'], 'hiilite' );
+					echo ': </strong>';
+					echo $entry['name'];
+					echo '</div></div>';
+				}			
+			}	
 			?>
 		</div>
 		
-		<div class="row project-group">
-		ROLES AND TEAM MEMBERS
-		</div>
-		
+		<?php
+		if($project_share){
+		?>
 		<div class="row project-social">
-			SOCIAL LINKS
-			<br>Appriciate and Share
+			<div>
+			<?php
+			foreach($project_share as $share) {
+				if($share == 'fb') {
+					echo '<a href="https://www.facebook.com/sharer/sharer.php?u='.$social_url.'"><i class="fa fa-facebook" aria-hidden="true"></i></a>';	
+				}
+				if($share == 'tw') {
+					echo '<a href="https://twitter.com/home?status='.$social_url.'"><i class="fa fa-twitter" aria-hidden="true"></i></a>';	
+				}
+				if($share == 'gp') {
+					echo '<a href="https://plus.google.com/share?url='.$social_url.'"><i class="fa fa-google-plus" aria-hidden="true"></i></a>';	
+				}
+				if($share == 'pn') {
+					echo '<a href="https://pinterest.com/pin/create/button/?url='.$social_url.'"><i class="fa fa-pinterest-p" aria-hidden="true"></i></a>';	
+				}
+				if($share == 'ln') {
+					echo '<a href="https://www.linkedin.com/shareArticle?mini=true&url='.$social_url.'"><i class="fa fa-linkedin" aria-hidden="true"></i></a>';	
+				}
+			}
+			?>
+			</div>
+			<div>
+				<?php echo __( 'Appreciate and Share', 'hiilite' ); ?>
+			</div>
 		</div>
-		
+		<?php	
+		}
+		?>
 		<div class="row project-author">
-			<div class="col-2 project-icon">
-				ICON
+			<div class="col-2 author-icon project-icon">
+				<a href="<?php echo get_author_posts_url( $author_id ); ?>">
+					<img src="<?php echo get_avatar_url( $author_id ); ?> " width="50" height="50" class="avatar" alt="<?php echo the_author_meta( 'display_name' , $author_id ); ?>" />
+				</a>
 			</div>
 			<div class="col-10">
-				AUTHOR NAME
-				<br><small>Author</small>
+				<a href="<?php echo get_author_posts_url( $author_id ); ?>"><h4><?php the_author_meta( 'display_name' , $author_id ); ?></h4></a>
+				<small><?php echo __( 'Author', 'hiilite' ); ?></small>
 				<div class="project-description">
 					<?=($portfolio_description)?$portfolio_description:'';?>
 				</div>
