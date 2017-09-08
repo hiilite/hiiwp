@@ -41,7 +41,7 @@ function add_social_profiles_shortcode( $atts ){
 		
 	$style = '';
     $output = '<div '.implode( ' ', $wrapper_attributes ).'>';
-	if(count($options['business_social']) > 0) {
+	if(isset($options['business_social']) && count($options['business_social']) > 0) {
 		foreach($options['business_social'] as $socialprofile):
 			
 			if(isset($atts['icon_style']) && $atts['icon_style'] != '')$style = $atts['icon_style'];

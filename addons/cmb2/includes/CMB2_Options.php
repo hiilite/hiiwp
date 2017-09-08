@@ -204,8 +204,9 @@ class CMB2_Option {
 				$this->options = get_option( $this->key, $default );
 			}
 		}
+		$this->options = (array) $this->options;
 
-		return (array) $this->options;
+		return $this->options;
 	}
 
 }

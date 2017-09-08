@@ -6,7 +6,7 @@ $second_level_menu_colors = $hiilite_options['second_level_menu_colors'];
 #main-nav {
 	margin:<?=get_spacing($hiilite_options['menu_margin']);?>;
 }
-.main-menu.menu, #header_top .menu {
+.main-menu.menu, #header_top .menu, #header_bottom .menu {
 	list-style: none;
 	padding: 0;
 	margin: 0;

@@ -32,7 +32,9 @@ function get_background_css($background){
 }
 function get_font_css($font){
 	if(is_array($font)){
-		$font_extras = '';
+	
+		$font_family = $font_weight = $text_align = $font_extras = '';
+		
 		foreach($font as $key => $value){
 			if($value != ' ' && $value != '' && $value != 'px'){
 				if($key == 'variant') { 

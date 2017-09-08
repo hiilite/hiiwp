@@ -95,23 +95,20 @@ if ( is_customize_preview() ) : ?>
 			?>
 			<!-- HEADER -->
 			<?php
-			$category = get_the_terms( $post->ID, 'work' );  
-			$portfolio_work_color = (get_term_meta ( $category[0]->term_taxonomy_id, 'portfolio_work_color', true))?get_term_meta ( $category[0]->term_taxonomy_id, 'portfolio_work_color', true):false;	
-			if($portfolio_work_color) {
-				$bg_color = 'style="background-color:'.$portfolio_work_color.'"';	
-			}
-			$post_meta = get_post_meta(get_the_id());
-			
+			$bg_color = '';
 			$header_bg = (get_post_meta ( $post->ID, 'header_bg', true))?get_post_meta ( $post->ID, 'header_bg', true):false;
-			if($header_bg) {
+			if($header_bg) :
 				$bg_color = 'style="background-color:'.$header_bg.'"';		
-			}
+			elseif($hiilite_options['portfolio_on'] == true):
+				$category = get_the_terms( $post->ID, $hiilite_options['portfolio_tax_slug'] );  
+				$portfolio_work_color = (get_term_meta ( $category[0]->term_taxonomy_id, 'portfolio_work_color', true))?get_term_meta ( $category[0]->term_taxonomy_id, 'portfolio_work_color', true):false;	
+				if($portfolio_work_color) {
+					$bg_color = 'style="background-color:'.$portfolio_work_color.'"';	
+				} 
+			endif;
+			
 				
 			?>
-			
-			
-			
-			
 			<header id="main_header" class="<?=$hiilite_options['header_type'];?>" <?=$bg_color;?>">
 <?php if(is_customize_preview()) echo '<div class="customizer_quick_links"><button class="customizer-edit" data-control=\'{ "name":"header_in_grid" }\'>Edit Header</button><button class="customizer-edit font-edit" data-control=\'{ "name":"main_menu_font" }\'>Header & Menu Fonts</button></div>'; ?>
 				<div class="container_inner">
