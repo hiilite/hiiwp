@@ -13,10 +13,9 @@ add_filter( 'kirki/config', 'my_theme_kirki_update_url' );
 
 function kirki_demo_configuration_sample_styling( $config ) {
 
-   // $config['logo_image']   = 'https://kirki.org/img/kirki-new-logo-white.png';
+    $config['logo_image']   = get_template_directory_uri() . '/images/Hiilite_Hii_Logo.png';
     $config['description']  = __( 'The HiiWP Theme', 'kirki' );
     $config['color_accent'] = '#f05023';
-   // $config['color_back']   = '#fff';
     $config['width']        = '30%';
 
     return $config;

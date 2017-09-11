@@ -45,45 +45,39 @@ if ( ! empty( $atts['el_id'] ) ) {
 
 $paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
 $query;
-if(isset($atts['post_type']) && $atts['post_type'] != 'custom'){
-	$taxquery = array();
-	if(isset($atts['taxonomies'])) {
-		$terms = get_object_taxonomies($atts['post_type'], 'names');
-		$taxquery = array(
-			array(
-				'taxonomy'	=> $terms[0],
-				'field'		=> 'term_id',
-				'terms' 	=> array($atts['taxonomies']),
-				'operator'	=> 'IN',
-			)
-		);
-	
-	} 
-	$query = array(
-		'post_type' => $atts['post_type'],
-		'paged'		=> $paged,
-		'posts_per_page' => isset($atts['max_items'])?$atts['max_items']:10,
-		'tax_query'	=> $taxquery,
-	);
-	
-	
-} elseif(isset($atts['custom_query'])) {
-	parse_str(html_entity_decode($atts['custom_query']), $query);
-}
+
 if(isset($atts)) {
 	if (isset($atts['blog_layouts']) && $atts['blog_layouts'] != '') $hiilite_options['blog_layouts'] = $atts['blog_layouts'];
+	
+	if(isset($atts['post_type']) && $atts['post_type'] != 'custom'){
+		$taxquery = array();
+		if(isset($atts['taxonomies'])) {
+			$terms = get_object_taxonomies($atts['post_type'], 'names');
+			$taxquery = array(
+				array(
+					'taxonomy'	=> $terms[0],
+					'field'		=> 'term_id',
+					'terms' 	=> array($atts['taxonomies']),
+					'operator'	=> 'IN',
+				)
+			);
+		
+		} 
+		$query = array(
+			'post_type' => $atts['post_type'],
+			'paged'		=> $paged,
+			'posts_per_page' => isset($atts['max_items'])?$atts['max_items']:10,
+			'tax_query'	=> $taxquery,
+		);
+		
+		
+	} elseif(isset($atts['custom_query'])) {
+		parse_str(html_entity_decode($atts['custom_query']), $query);
+		$query['paged'] = $paged;
+	}
+	
 	if (isset($atts['element_width'])) 		$hiilite_options['blog_col'] 				= (string)$atts['element_width'];
 							else			$hiilite_options['blog_col'] 				= '4';
-	if (isset($atts['blog_img_pos'])) 		$hiilite_options['blog_img_pos'] 			= (string)$atts['blog_img_pos'];
-	if (isset($atts['blog_title_show'])) 	$hiilite_options['blog_title_show'] 		= $atts['blog_title_show'];
-	if (isset($atts['blog_title_position']))$hiilite_options['blog_title_position'] 	= $atts['blog_title_position'];
-	if (isset($atts['blog_heading_tag'])) 	$hiilite_options['blog_heading_tag'] 		= $atts['blog_heading_tag'];
-	if (isset($atts['blog_cats_show'])) 	$hiilite_options['blog_cats_show'] 			= $atts['blog_cats_show']; 
-	if (isset($atts['blog_meta_show'])) 	$hiilite_options['blog_meta_show']			= $atts['blog_meta_show'];
-	if (isset($atts['blog_excerpt_show'])) 	$hiilite_options['blog_excerpt_show']		= $atts['blog_excerpt_show'];
-	if (isset($atts['blog_excerpt_len']))	$hiilite_options['blog_excerpt_len']		= $atts['blog_excerpt_len'];
-	if (isset($atts['blog_more_show'])) 	$hiilite_options['blog_more_show']			= $atts['blog_more_show'];
-	if (isset($atts['blog_pag_show'])) 		$hiilite_options['blog_pag_show']			= $atts['blog_pag_show'];
 	
 	$use_blog_layouts = (isset($atts['use_blog_layouts']) && $atts['use_blog_layouts'] == 'true')?true:false;
 	
@@ -109,6 +103,18 @@ $colcount = ' col-count-'.$hiilite_options['blog_col'];
 
 echo '<div class="vc_grid-container-wrapper vc_clearfix container_inner '.$grid.' '.$hiilite_options['blog_layouts'].$colcount.'" '.implode( ' ', $wrapper_attributes ).'>';
 if(($use_blog_layouts == true)){
+	if (isset($atts['blog_img_pos'])) 		$hiilite_options['blog_img_pos'] 			= (string)$atts['blog_img_pos'];
+	if (isset($atts['blog_title_show'])) 	$hiilite_options['blog_title_show'] 		= $atts['blog_title_show'];
+	if (isset($atts['blog_title_position']))$hiilite_options['blog_title_position'] 	= $atts['blog_title_position'];
+	if (isset($atts['blog_heading_tag'])) 	$hiilite_options['blog_heading_tag'] 		= $atts['blog_heading_tag'];
+	if (isset($atts['blog_cats_show'])) 	$hiilite_options['blog_cats_show'] 			= $atts['blog_cats_show']; 
+	if (isset($atts['blog_meta_show'])) 	$hiilite_options['blog_meta_show']			= $atts['blog_meta_show'];
+	if (isset($atts['blog_excerpt_show'])) 	$hiilite_options['blog_excerpt_show']		= $atts['blog_excerpt_show'];
+	if (isset($atts['blog_excerpt_len']))	$hiilite_options['blog_excerpt_len']		= $atts['blog_excerpt_len'];
+	if (isset($atts['blog_more_show'])) 	$hiilite_options['blog_more_show']			= $atts['blog_more_show'];
+	if (isset($atts['blog_pag_show'])) 		$hiilite_options['blog_pag_show']			= $atts['blog_pag_show'];
+
+
 	$bg_query = new WP_Query($query);
 	while ( $bg_query->have_posts() ) {
 		$bg_query->the_post(); // Get post from query
@@ -123,10 +129,10 @@ if(($use_blog_layouts == true)){
 				numeric_posts_nav();
 			echo '</div></div>';
 		else:
-			echo '<div class="pagination '.$grid.' content-box col-12">';
-				echo '<div class="align-left flex-item col-6">';
+			echo '<div class="pagination '.$grid.' container_inner">';
+				echo '<div class="align-left fl">';
 				previous_posts_link('Prev', $bg_query->max_num_pages);
-				echo '</div><div class="align-right flex-item col-6">';
+				echo '</div><div class="align-right fl">';
 				next_posts_link('Next', $bg_query->max_num_pages);
 			echo '</div></div>';
 		endif;

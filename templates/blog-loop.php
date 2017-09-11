@@ -2,8 +2,7 @@
 global $post;
 if(!isset($atts)) $hiilite_options = Hii::$hiiwp->get_options();
 $post_meta = get_post_meta(get_the_id());
-echo '<!--BLOG-LOOP-->';
-// Create Title
+
 $article_title = $dateline = $article_cat = '';
 
 if($hiilite_options['blog_cats_show'] == 'true' || $hiilite_options['blog_cats_show'] == true):
@@ -27,7 +26,6 @@ if($hiilite_options['blog_meta_show'] == 'true'):
 	$dateline .= '<span class="date">';
 	$dateline .= get_the_time('d F, Y');
 	$dateline .= ' </span>';
-	//$article_title .= get_the_time('h:i a')
 	$dateline .= '</time></small>';
 else:
 	$dateline .= '<meta itemprop="name" content="'.get_the_author_meta('display_name').'">';

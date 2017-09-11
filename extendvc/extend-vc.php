@@ -62,22 +62,6 @@ $vc_row_params = array(
 			'value' => array( __( 'Yes', 'js_composer' ) => 'yes' ),
 		),
 		
-		/*array(
-			'type' => 'dropdown',
-			'heading' => __( 'Background Color', 'js_composer' ),
-			'param_name' => 'background_palette',
-			'value' => array(
-				'None' => '',
-				'Color One' => 'bg_color_one',
-				'Color Two' => 'bg_color_two',
-				'Color Three' => 'bg_color_three',
-				'Color Four' => 'bg_color_four',
-				'White' => 'bg_white',
-			),
-			'std' => '0',
-			'description' => __( 'Select from your predefined theme colors', 'js_composer' ),
-		),*/
-		
 		array(
 			'type' => 'checkbox',
 			'heading' => __( 'Parallax', 'js_composer' ),
@@ -85,17 +69,7 @@ $vc_row_params = array(
 			'value' => array(__( 'Yes', 'js_composer' ) => 'yes'),
 			'description' => __( 'Make row background image parallax. (Must set a Background image in Design Options tab.)', 'js_composer' ),
 		),
-		/*array(
-			'type' => 'attach_image',
-			'heading' => __( 'Image', 'js_composer' ),
-			'param_name' => 'parallax_image',
-			'value' => '',
-			'description' => __( 'Select image from media library.', 'js_composer' ),
-			'dependency' => array(
-				'element' => 'parallax',
-				'not_empty' => true,
-			),
-		),*/
+		
 		array(
 			'type' => 'el_id',
 			'heading' => __( 'Row ID', 'js_composer' ),
@@ -264,22 +238,6 @@ $vc_row_inner_params = array(
 			'value' => array( __( 'Yes', 'js_composer' ) => 'yes' ),
 		),
 		
-		/*array(
-			'type' => 'dropdown',
-			'heading' => __( 'Background Color', 'js_composer' ),
-			'param_name' => 'background_palette',
-			'value' => array(
-				'None' => '',
-				'Color One' => 'bg_color_one',
-				'Color Two' => 'bg_color_two',
-				'Color Three' => 'bg_color_three',
-				'Color Four' => 'bg_color_four',
-				'White' => 'bg_white',
-			),
-			'std' => '0',
-			'description' => __( 'Select from your predefined theme colors', 'js_composer' ),
-		),*/
-		
 		array(
 			'type' => 'checkbox',
 			'heading' => __( 'Parallax', 'js_composer' ),
@@ -441,6 +399,13 @@ vc_map( array(
 //
 ////////////////////////////
 $vc_column_params = array(
+	array(
+		'type' => 'el_id',
+		'heading' => __( 'Column ID', 'js_composer' ),
+		'param_name' => 'el_id',
+		'description' => sprintf( __( 'Enter column ID (Note: make sure it is unique and valid according to <a href="%s" target="_blank">w3c specification</a>).', 'js_composer' ), 'http://www.w3schools.com/tags/att_global_id.asp' ),
+	),
+		
 	array(
 		'type' => 'textfield',
 		'heading' => __( 'Extra class name', 'js_composer' ),
@@ -649,6 +614,12 @@ vc_map( array(
 //
 ////////////////////////////
 $vc_column_inner_params = array(
+	array(
+		'type' => 'el_id',
+		'heading' => __( 'Column ID', 'js_composer' ),
+		'param_name' => 'el_id',
+		'description' => sprintf( __( 'Enter column ID (Note: make sure it is unique and valid according to <a href="%s" target="_blank">w3c specification</a>).', 'js_composer' ), 'http://www.w3schools.com/tags/att_global_id.asp' ),
+	),
 	array(
 		'type' => 'textfield',
 		'heading' => __( 'Extra class name', 'js_composer' ),

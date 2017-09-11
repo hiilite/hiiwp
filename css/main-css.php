@@ -175,6 +175,9 @@ h1 a, h2 a, h3 a, h4 a, h5 a, h6 a {
 .blog-article .post_author a {
     color: #bebebe;
 }
+.back_to_blog {
+  font-size:14px;
+}
 ol li ol li {
     list-style-type: lower-alpha;
 }
@@ -485,7 +488,7 @@ if(get_theme_mod( 'show_footer_top_yesno', true )): ?>
 }
 
 .content-box {
-	padding: 1em; /*set*/
+	padding: 1rem;
 	box-sizing: border-box;
 }
 
@@ -985,11 +988,12 @@ amp-carousel.right .vc_tta-panel-heading {
 	overflow: hidden;
 	display: inline-block;
 	padding: 10px;
+    vertical-align: top;
 }
 .relatedposts .relatedarticle p {
 	max-width: 200px;
 	text-overflow: ellipsis;
-	white-space: nowrap;
+	white-space: normal;
 	overflow: hidden;
 }
 
@@ -1237,6 +1241,21 @@ button.customizer-edit:hover {
 <?php
 endif;
 
+if(is_user_logged_in()):
+?>
+li#wp-admin-bar-new_draft, li#wp-admin-bar-edit, li#wp-admin-bar-new-content, li#wp-admin-bar-customize, li#wp-admin-bar-site-name {
+    max-width: 2.5em;
+    text-overflow: clip;
+    white-space: nowrap;
+}
+li#wp-admin-bar-my-account span.display-name {
+    display: none;
+}
+a.ab-item {
+    overflow: hidden;
+} 
+<?php
+endif;
 do_action ( 'custom_css' );
 echo $hiilite_options['custom_css'];
 echo $hiilite_options['portfolio_custom_css'];

@@ -30,10 +30,18 @@ class HiiWP_Admin {
 		add_action( 'save_post', array( $this, 'page_seo_options_meta_box_save' ), 999 );
 		add_action( 'admin_enqueue_scripts', array( $this, 'admin_styles' ));
 		add_action( 'admin_head', array( $this, 'custom_colors' ));
+		add_filter( 'get_user_option_edit_post_per_page', array($this, 'edit_per_page'), 10, 3 );
+		add_filter( 'get_user_option_edit_page_per_page', array($this, 'edit_per_page'), 10, 3 );
 	}
 	
 	
+	public function edit_per_page( $result, $option, $user ) {
+		$status = filter_input( INPUT_GET, 'post_status', FILTER_SANITIZE_STRING );
+		return 50;
+	}
+	 
 	
+
 	/**
 	 * hiilite_admin_styles function.
 	 * 
@@ -86,7 +94,7 @@ class HiiWP_Admin {
 	    add_meta_box(
 	        'page_seo_options', // id, used as the html id att
 	        __( 'HiiWP SEO Options' ), // meta box title, like "Page Attributes"
-	        'page_seo_options_meta_box_cb', // callback function, spits out the content
+	        array($this, 'page_seo_options_meta_box_cb'), // callback function, spits out the content
 	        array('page','post','portfolio','team','menu'), // post type or page. We'll add this to pages only
 	        'normal', // context (where on the screen
 	        'high' // priority, where should this go in the context?

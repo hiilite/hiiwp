@@ -102,7 +102,7 @@ class Hii {
 	}
 	
 	public static function say_hii_admin(){
-		if(null == self::$hiiwp) {
+		if(null == self::$hiiwp_admin) {
 			self::$hiiwp_admin= new HiiWP_Admin();
 		}
 		return self::$hiiwp_admin;
@@ -680,12 +680,13 @@ function cmb2_portfolio_metaboxes(){
 
 
 function cmb2_output_portfolio_imgs( $portfolio_images ) {
-
-	foreach($portfolio_images as $port_img) {
-		echo '<div class="col-12 port-img">';
-		echo '<img src="'.$port_img.'">';
-		echo '</div>';	
-	}
+	if(!empty($portfolio_images)):
+		foreach($portfolio_images as $port_img) {
+			echo '<div class="col-12 port-img">';
+			echo '<img src="'.$port_img.'">';
+			echo '</div>';	
+		}
+	endif;
 }
 
 

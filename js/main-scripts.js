@@ -181,6 +181,7 @@
 					prev = (prev < (length - 1))?prev+1:0;
 					
 				});
+				$next_button.trigger('click');
 				
 				$prev_button.on('click', function(){
 					
@@ -211,6 +212,13 @@
 					prev = (prev > 0)?prev-1:length-1;
 					
 				});
+				
+				/* AUTO SLIDE */
+				if(delay){
+					var autoSlider = setInterval(function(){
+						$next_button.trigger('click');
+					}, delay);
+				}
 				
 			}
 			/* SLIDES */

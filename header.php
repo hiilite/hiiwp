@@ -14,6 +14,7 @@ $hiilite_options = Hii::$hiiwp->get_options();
 
 $post_id = get_the_id();
 $post_object = get_post( $post_id );
+$bg_color = '';
 
 // Page Description
 if(get_post_meta(get_the_id(), 'page_seo_description', true) != ''){
@@ -95,18 +96,20 @@ if ( is_customize_preview() ) : ?>
 			?>
 			<!-- HEADER -->
 			<?php
-			$bg_color = '';
-			$header_bg = (get_post_meta ( $post->ID, 'header_bg', true))?get_post_meta ( $post->ID, 'header_bg', true):false;
-			if($header_bg) :
-				$bg_color = 'style="background-color:'.$header_bg.'"';		
-			elseif($hiilite_options['portfolio_on'] == true):
-				$category = get_the_terms( $post->ID, $hiilite_options['portfolio_tax_slug'] );  
-				$portfolio_work_color = (get_term_meta ( $category[0]->term_taxonomy_id, 'portfolio_work_color', true))?get_term_meta ( $category[0]->term_taxonomy_id, 'portfolio_work_color', true):false;	
-				if($portfolio_work_color) {
-					$bg_color = 'style="background-color:'.$portfolio_work_color.'"';	
-				} 
-			endif;
 			
+			if(isset($post->ID)):
+				
+				$header_bg = (get_post_meta ( $post->ID, 'header_bg', true))?get_post_meta ( $post->ID, 'header_bg', true):false;
+				if($header_bg) :
+					$bg_color = 'style="background-color:'.$header_bg.'"';		
+				elseif($hiilite_options['portfolio_on'] == true):
+					$category = get_the_terms( $post->ID, $hiilite_options['portfolio_tax_slug'] );  
+					$portfolio_work_color = (get_term_meta ( $category[0]->term_taxonomy_id, 'portfolio_work_color', true))?get_term_meta ( $category[0]->term_taxonomy_id, 'portfolio_work_color', true):false;	
+					if($portfolio_work_color) {
+						$bg_color = 'style="background-color:'.$portfolio_work_color.'"';	
+					} 
+				endif;
+			endif;
 				
 			?>
 			<header id="main_header" class="<?=$hiilite_options['header_type'];?>" <?=$bg_color;?>">

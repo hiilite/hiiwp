@@ -128,7 +128,7 @@ class HiiWP {
 		wp_enqueue_script('modernizr', HIIWP_URL.'/js/vender/modernizr-custom.js');
 		
 		
-		wp_enqueue_script('main-scripts', HIIWP_URL.'/js/main-scripts.js', array( 'jquery' ), '0.0.1', true);	
+		wp_enqueue_script('main-scripts', HIIWP_URL.'/js/main-scripts.js', array( 'jquery' ), '0.0.2', true);	
 		wp_localize_script('main-scripts', 'mobile_menu_switch', $hiilite_options['mobile_menu_switch']);
 		
 		add_filter('script_loader_tag', array( $this, 'add_defer_attribute'), 10, 2);
