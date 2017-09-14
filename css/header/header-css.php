@@ -12,6 +12,7 @@ header#main_header {
 	else
 		echo 'position: relative;';
 	?>
+	border-bottom: <?=$hiilite_options['header_bottom_border_width'].' solid '.$hiilite_options['header_bottom_border_color'];?>;
 }
 <?php
 if($hiilite_options['header_top_home'] == true): ?>
@@ -97,7 +98,7 @@ if($hiilite_options['header_top_area_yesno'] == true):
 	#header_top {
 		background: <?=get_theme_mod('header_top_background_color', '#f8f8f8');?>;
 		border-top: <?=get_theme_mod('header_top_border_width', '0px').' solid '.get_theme_mod('header_top_border_color', 'transparent');?>;
-		border-bottom: <?=get_theme_mod('header_bottom_border_width', '0px').' solid '.get_theme_mod('header_bottom_border_color', 'transparent');?>;
+		
 		<?php 
 		get_font_css($hiilite_options['header_top_font']);
 	?>
