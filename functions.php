@@ -8,7 +8,7 @@
  * @author      Peter Vigilante
  * @copyright   Copyright (c) 2017, Hiilite Creative Group
  * @license     http://opensource.org/licenses/https://opensource.org/licenses/MIT
- * @since       0.4.1
+ * @since       0.4.2
  */
 /*
 Theme Structure:
@@ -54,7 +54,7 @@ TODO: Implement Classes using the Singleton Pattern to prevent multiple instance
 **/
 
 if ( ! defined( 'HIIWP_VERSION' ) ) {                
-	 define( 'HIIWP_VERSION', '0.3.9' );
+	 define( 'HIIWP_VERSION', '0.4.2' );
 }
 if ( ! defined( 'HIIWP_SLUG' ) ) {                
     define( 'HIIWP_SLUG', 'hiiwp' );           
