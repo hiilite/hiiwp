@@ -8,7 +8,7 @@
  * @author      Peter Vigilante
  * @copyright   Copyright (c) 2017, Hiilite Creative Group
  * @license     http://opensource.org/licenses/https://opensource.org/licenses/MIT
- * @since       0.4.1
+ * @since       0.4.2
  */
 /*
 Theme Structure:
@@ -54,7 +54,7 @@ TODO: Implement Classes using the Singleton Pattern to prevent multiple instance
 **/
 
 if ( ! defined( 'HIIWP_VERSION' ) ) {                
-	 define( 'HIIWP_VERSION', '0.3.9' );
+	 define( 'HIIWP_VERSION', '0.4.2' );
 }
 if ( ! defined( 'HIIWP_SLUG' ) ) {                
     define( 'HIIWP_SLUG', 'hiiwp' );           
@@ -102,7 +102,7 @@ class Hii {
 	}
 	
 	public static function say_hii_admin(){
-		if(null == self::$hiiwp) {
+		if(null == self::$hiiwp_admin) {
 			self::$hiiwp_admin= new HiiWP_Admin();
 		}
 		return self::$hiiwp_admin;
@@ -332,28 +332,6 @@ if( function_exists( 'rel_canonical' ) )
     remove_action( 'wp_head', 'rel_canonical' );
 }
 
-/*
-//	note: action: rel_canonical_with_custom_tag_override
- *
- *	Override the rel=canonical tag to always show site url
- *
- *	REPLACE rel_canonical to load on all pages	
- */
-function rel_canonical_with_custom_tag_override()
-{
-    global $wp_the_query, $post;
-    if( !$id = $wp_the_query->get_queried_object_id() ) {
-        $link = get_permalink( $id );
-    } elseif(get_post_meta( $post->ID, 'article_canonical_link', true) != '') {
-	    $link = get_post_meta( $post->ID, 'article_canonical_link', true);
-    } else {
-	    $link = "https://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
-    }
-    	
-    
-    echo "<link rel='canonical' href='" . esc_url( $link ) . "' />\n";
-}
-add_action( 'wp_head', 'rel_canonical_with_custom_tag_override' );
 
 
 
@@ -680,12 +658,13 @@ function cmb2_portfolio_metaboxes(){
 
 
 function cmb2_output_portfolio_imgs( $portfolio_images ) {
-
-	foreach($portfolio_images as $port_img) {
-		echo '<div class="col-12 port-img">';
-		echo '<img src="'.$port_img.'">';
-		echo '</div>';	
-	}
+	if(!empty($portfolio_images)):
+		foreach($portfolio_images as $port_img) {
+			echo '<div class="col-12 port-img">';
+			echo '<img src="'.$port_img.'">';
+			echo '</div>';	
+		}
+	endif;
 }
 
 

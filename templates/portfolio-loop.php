@@ -2,6 +2,7 @@
 global $hiilite_options;
 $post_meta = get_post_meta(get_the_id());
 ?>
+<!--PORTFOLIO-LOOP-->
 <article  <?php post_class('portfolio-piece flex-item half-width'); ?> id="post-<?php the_ID(); ?>" >
 	<meta itemscope itemprop="mainEntityOfPage"  itemType="https://schema.org/WebPage" itemid="<?php bloginfo('url')?>"/>
 	<?php 

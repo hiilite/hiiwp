@@ -3,11 +3,10 @@ $hiilite_options = Hii::$hiiwp->get_options();
 get_header();
 echo '<!--Archive-->';
 get_template_part( 'templates/title' );
-
 $colcount = ($hiilite_options['blog_layouts'] =='masonry')?' col-count-'.$hiilite_options['blog_col']:'';
 if ( $hiilite_options['blog_sidebar_show'] == true ) $colcount .= ' col-9';
 
-$grid = ($hiilite_options['blog_full_width'] == false) ? 'in_grid' : 'x';
+$grid = ($hiilite_options['blog_full_width'] == false) ? 'in_grid' : '';
 if(have_posts()):
 	echo '<section class="row"><div class="container_inner '.$grid.'">';
 	echo '<div class="'.$grid.' '.$hiilite_options['blog_layouts'].$colcount.'">';

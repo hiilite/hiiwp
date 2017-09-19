@@ -310,16 +310,16 @@ function hii_seo_options_page() {
     $cmb = new_cmb2_box( array(
         'id'        => 'site_analytics',
         'title'     => __( 'Analytics', 'cmb2' ),
-        'show_on'   => $show_on,
+        'show_on'   => $show_on 
     ));
     
     if(class_exists('GADWP_Manager')):
-	    $cmb->add_field( array(
+	    /*$cmb->add_field( array(
 	        'name'       => __( 'Google Analytics Connect', 'cmb2' ),
 	        'desc'       => __( 'Connect directly with Google Analytics to display all your information right in your dashboard and input all the correct tracking code within your site.', 'cmb2' ),
 	        'id'         => 'google_authorization',
 	        'type'       => 'google_authorization',
-	    ));
+	    ));*/
     else:
     	$cmb->add_field( array(
 	        'name'       => __( 'Google Analytics Code', 'cmb2' ),
@@ -340,7 +340,7 @@ function hii_seo_options_page() {
     
     // add first box: this is just normal CMB2 box creation, with the exception
     // of the show_on parameter and call to object_type method, both essential
-    $cmb = new_cmb2_box( array(
+    $cmb_ = new_cmb2_box( array(
         'id'        => 'site_validation',
         'title'     => __( 'Site Validation', 'cmb2' ),
         'desc'		=> __('Note that <strong>verifying your site with these services is not necessary</strong> in order for your site to be indexed by search engines. To use these advanced search engine tools and verify your site with a service, paste the HTML Tag code below. Read the <a target=_blank href=https://en.support.wordpress.com/webmaster-tools/>full instructions</a> if you are having trouble. Supported verification services: <a target=_blank href=http://g.co/SearchConsole>Google Search Console</a>, <a target=_blank href=http://www.bing.com/webmaster>Bing Webmaster Center</a>, <a target=_blank href=http://pinterest.com/>Pinterest</a>'),
@@ -480,11 +480,10 @@ function hii_seo_options_page() {
 	    'type'        => 'group',
 	    'description' => __( 'Use corporate contact markup on your official website to add your company\'s contact information to the Google Knowledge panel in some searches, for example when a user enters your company’s name into the Search bar. <a target=_blank href=https://developers.google.com/search/docs/data-types/corporate-contacts>Read More...</a>', 'cmb2' ),
 	    'options'     => array(
-	        'group_title'   => __( 'Phone Numbers', 'cmb2' ), // since version 1.1.4, {#} gets replaced by row number
+	        'group_title'   => __( 'Phone Numbers', 'cmb2' ),
 	        'add_button'    => __( 'Add Another Number', 'cmb2' ),
 	        'remove_button' => __( 'Remove Number', 'cmb2' ),
-	        'sortable'      => true, // beta
-	        // 'closed'     => true, // true to have the groups closed by default
+	        'sortable'      => true
 	    ),
 	) );
 	$cmb->add_group_field($business_telephone_group, array(
@@ -872,7 +871,6 @@ function hii_seo_options_page() {
     $args = array(
         'key'        => $opt_key,
         'title'      => 'HiiWP Settings',
-        //'topmenu'    => 'options-general.php',
         'menuargs' => array(
         	'icon_url'	=>	get_template_directory_uri().'/images/hii-dashicon.png',
         	'position'	=> 2,
@@ -884,32 +882,6 @@ function hii_seo_options_page() {
         'savetxt'    => 'Save',
     );
     new Cmb2_Metatabs_Options( $args );
-    
-    
-    
-   /* $opt_key = 'hii_xml_settings';
-    // Arguments array. See the arguments page for more detail
-    $args = array(
-        'key'        => $opt_key,
-        'title'      => 'XML Site Map',
-        'topmenu'    => 'hii_seo_settings',
-        'menuargs' => array(
-        	'icon_url'	=>	'dashicons-id-alt',
-        	'position'	=> 2,
-        ),
-        //'desc' => GoogleSitemapGeneratorLoader::CallHtmlShowOptionsPage(),
-        
-        ///'boxes'      => $boxes,
-        //'tabs'       => $tabs,
-        //'cols'       => 1,
-        //'savetxt'    => 'Save',
-    );
-    
-   // add_submenu_page( 'hii_seo_settings', 'My Custom Page', 'My Custom Page', 'manage_options', 'hii_xml_settings');
-    */
-   
-    
-   // new Cmb2_Metatabs_Options( $args );
 }
 
 

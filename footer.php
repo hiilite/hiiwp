@@ -130,6 +130,6 @@ do_action( 'hii_after_content' );
 			
 	</div>
 	<?php wp_footer(); ?>
-	
+	</div>
 </body>
 </html>

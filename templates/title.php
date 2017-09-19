@@ -1,27 +1,34 @@
 <!--TITLE-->
 <?php 
 global $hiilite_options, $post;
-
-if ( isset($post) && (
-	(
-		get_post_meta(get_the_id(), 'show_page_title', true) != 'hide' && 
-		get_theme_mod('show_page_titles', true) == true
-	) || 
-		is_post_type_archive()
-)): 
+$show_title_on = get_theme_mod('show_title_on', array());
+//print_r(get_post_type($post));
+if( isset($post) 
+	&& (
+		(	get_post_meta(get_the_id(), 'show_page_title', true) != 'hide' 
+			&& 	get_theme_mod('show_page_titles', true) == true ) 
+		|| is_post_type_archive()
+	) 
+	&& ( in_array(get_post_type($post), $show_title_on) )
+): 
 	$post_meta = get_post_meta(get_the_id());
 	
 	// Page Title
-	if(is_front_page() || is_archive(  )){ 
-		$page_title = get_wp_title('');
+	if( is_archive(  )){ 
+		$page_title = get_the_archive_title();
 	} elseif(is_home()) {
 		$page_title = get_the_title( get_option('page_for_posts', true) );
 	} else {
 		$page_title = get_the_title( get_the_id( ));
 	} 
+	
 	$page_title_color = (get_post_meta ( $post->ID, 'page_title_color', true))?get_post_meta ( $post->ID, 'page_title_color', true):false;
 	$page_bg_color = (get_post_meta ( $post->ID, 'page_title_bg', true))?get_post_meta ( $post->ID, 'page_title_bg', true):false;
-	$page_bg_img = (get_post_meta ( $post->ID, 'page_title_bgimg', false))?get_post_meta ( $post->ID, 'page_title_bgimg'):false;
+	
+	if(! is_archive()):
+		$page_bg_img = (get_post_meta ( $post->ID, 'page_title_bgimg', false))?get_post_meta ( $post->ID, 'page_title_bgimg'):false;
+	endif;
+	
 	if($page_title != ''){
 	?>
 	<div class="page-title" style="<?=($page_bg_img)?'background-image:url('.$page_bg_img[0].');':'';?><?=($page_bg_img)?'background-color:'.$page_bg_img[0].';':'';?>">

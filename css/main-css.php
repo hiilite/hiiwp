@@ -32,7 +32,9 @@ function get_background_css($background){
 }
 function get_font_css($font){
 	if(is_array($font)){
-		$font_extras = '';
+	
+		$font_family = $font_weight = $text_align = $font_extras = '';
+		
 		foreach($font as $key => $value){
 			if($value != ' ' && $value != '' && $value != 'px'){
 				if($key == 'variant') { 
@@ -173,6 +175,12 @@ h1 a, h2 a, h3 a, h4 a, h5 a, h6 a {
 .blog-article .post_author a {
     color: #bebebe;
 }
+.back_to_blog {
+  font-size:14px;
+}
+ul, ol {
+    padding-left: 1em;
+}
 ol li ol li {
     list-style-type: lower-alpha;
 }
@@ -181,6 +189,7 @@ figure {
 	margin: auto;
 	padding: 0;
 	position: relative;
+    line-height: 0;
 }
 figure.align-center img{
 	margin: auto;
@@ -483,7 +492,7 @@ if(get_theme_mod( 'show_footer_top_yesno', true )): ?>
 }
 
 .content-box {
-	padding: 1em; /*set*/
+	padding: 1rem;
 	box-sizing: border-box;
 }
 
@@ -946,7 +955,9 @@ amp-carousel.carousel {
 	height: 300px;
 	overflow: hidden;
 }
-
+amp-carousel.carousel .carousel-wrapper{
+	white-space: nowrap; position: absolute; z-index: 1; top: 0px; left: 0px; bottom: 0px;
+}
 amp-carousel.slider .hide {
 	display:none;	
 }
@@ -983,11 +994,12 @@ amp-carousel.right .vc_tta-panel-heading {
 	overflow: hidden;
 	display: inline-block;
 	padding: 10px;
+    vertical-align: top;
 }
 .relatedposts .relatedarticle p {
 	max-width: 200px;
 	text-overflow: ellipsis;
-	white-space: nowrap;
+	white-space: normal;
 	overflow: hidden;
 }
 
@@ -1188,6 +1200,9 @@ endif;
 if(class_exists('WooCommerce')):
 	include_once(HIILITE_DIR.'/css/service_extensions/woocommerce-css.php');	
 endif;
+if(class_exists('GFForms')):
+	include_once(HIILITE_DIR.'/css/service_extensions/gravityforms-css.php');	
+endif;
 
 if ( is_customize_preview() ) :
 ?>
@@ -1235,6 +1250,21 @@ button.customizer-edit:hover {
 <?php
 endif;
 
+if(is_user_logged_in()):
+?>
+li#wp-admin-bar-new_draft, li#wp-admin-bar-edit, li#wp-admin-bar-new-content, li#wp-admin-bar-customize, li#wp-admin-bar-site-name {
+    max-width: 2.5em;
+    text-overflow: clip;
+    white-space: nowrap;
+}
+li#wp-admin-bar-my-account span.display-name {
+    display: none;
+}
+a.ab-item {
+    overflow: hidden;
+} 
+<?php
+endif;
 do_action ( 'custom_css' );
 echo $hiilite_options['custom_css'];
 echo $hiilite_options['portfolio_custom_css'];

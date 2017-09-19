@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Shortcode class
  * @var $this WPBakeryShortCode_VC_Column
  */
-$el_class = $width = $css = $offset = '';
+$el_class = $width = $css = $offset = $el_id = '';
 $output = '';
 $atts = vc_map_get_attributes( $this->getShortcode(), $atts );
 extract( $atts );
@@ -81,6 +81,9 @@ if ( ! empty( $bg_img_pos )) {
 }
 
 $wrapper_attributes = array();
+if ( ! empty( $el_id ) ) {
+	$wrapper_attributes[] = 'id="' . esc_attr( $el_id ) . '"';
+}
 
 $css_class = preg_replace( '/\s+/', ' ', apply_filters( VC_SHORTCODE_CUSTOM_CSS_FILTER_TAG, implode( ' ', array_filter( $css_classes ) ), $this->settings['base'], $atts ) );
 $wrapper_attributes[] = 'class="' . esc_attr( trim( $css_class ) ) . '"';

@@ -9,7 +9,7 @@ $post_meta = get_post_meta(get_the_id());
 $portfolio_images = (get_post_meta ( $post->ID, 'project_iamges', true))?get_post_meta ( $post->ID, 'project_iamges', true):false;
 $imgs_in_grid = (get_post_meta ( $post->ID, 'imgs_in_grid', true))?get_post_meta ( $post->ID, 'imgs_in_grid', true):false;
 ?>
-<!--PORTFOLIO_PIECE-LOOP-->
+<!--PORTFOLIO-CONTENT-DEFAULT-->
 <article  <?php post_class('row'); ?> itemscope itemtype="http://schema.org/Article" id="post-<?php the_ID(); ?>" >
 	
 	<meta itemscope itemprop="mainEntityOfPage"  itemType="https://schema.org/WebPage" itemid="<?php bloginfo('url')?>"/>
@@ -53,14 +53,12 @@ echo '<div class="full-width  align-top">';
 	
 	endif;
 ?>
-
 <span itemprop="author" itemscope itemtype="https://schema.org/Person"><meta itemprop="name" content="<?php the_author_meta('display_name'); ?>"></span>
-
-
-
-	<?php	
+<?php	
+	echo '<div class="in_grid">';
 	the_content();
-	
+	echo '</div>';
+		
 	if($imgs_in_grid == true) {
 		echo '<div class="in_grid">';
 	}
@@ -107,7 +105,6 @@ echo '<div class="full-width  align-top">';
 		echo '</aside>';*/
 		
 echo '</div>';
-$hiilite_options['show_more_projects'] = false;
 if($hiilite_options['show_more_projects']):
 ?>
 <aside class="col-12">
@@ -115,27 +112,32 @@ if($hiilite_options['show_more_projects']):
 		<h4>More Projects</h4>
 	</div>
 	<?php
-	$slug = get_theme_mod( 'portfolio_slug', 'portfolio' );
+	$slug = $hiilite_options[ 'portfolio_slug' ];
 	$args = array('post_type'=>$slug,'posts_per_page'=> -1,'nopaging'=>true,'order'=>'ASC','orderby'=>'menu_order');
-	echo '<pre>'.print_r($args,true).'</pre>';
 	$query = new WP_Query($args);
 	?>
 	
-	<amp-carousel height="300" layout="fixed-height" type="carousel" class="carousel">
-      <?php
-	while($query->have_posts()):
-		$query->the_post();
-		if ( has_post_thumbnail() ) {
-			$image = wp_get_attachment_image_src( get_post_thumbnail_id( get_the_id() ), 'large' );
-			$hratio = (300 / $image[2]);
-		?>
-	<a href="<?=get_the_permalink()?>">
-    	<amp-img src="<?=$image[0]?>" width="<?=$image[1]*$hratio?>" height="<?=$image[2]*$hratio?>" alt="<?=get_the_title()?>"></amp-img>
-	</a>
-  <?php
-	  	}
-	  endwhile;
-	  ?>
+	<amp-carousel height="300" layout="fixed-height" type="carousel" class="relatedposts carousel in_grid">
+		<div class="carousel-wrapper" style="white-space: nowrap; position: absolute; z-index: 1; top: 0px; left: 0px; bottom: 0px;"><?php
+		while ($query->have_posts()) : $query->the_post();
+			if ( has_post_thumbnail() ) {
+				$image = wp_get_attachment_image_src( get_post_thumbnail_id( get_the_id() ));
+				?>
+				<a href="<?=get_the_permalink()?>"  class="relatedarticle slide">
+			    	<figure><img src="<?=$image[0]?>" width="200" height="200" alt="<?=get_the_title()?>"></figure>
+			    	<p><?=get_the_title();?></p>
+				</a>
+				<?php
+			} else {
+				?>
+				<a href="<?=get_the_permalink()?>"  class="relatedarticle slide">
+			    	<img src="<?=$hiilite_options['main_logo']?>" width="200" height="200" alt="<?=get_the_title()?>">
+			    	<p><?=get_the_title();?></p>
+				</a>
+				<?php
+			}	
+		  endwhile;		  ?>
+		  </div>
 	</amp-carousel>
 </aside>
 <?php

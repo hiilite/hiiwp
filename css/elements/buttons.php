@@ -18,7 +18,7 @@
 }
 .button:hover {
 	color: white;
-	background-color: <?php echo $hiilite_options['typography_button_default_background']['hover']?>;
+	background: <?php echo $hiilite_options['typography_button_default_background']['hover']?>;
 	border-color: <?php echo $hiilite_options['typography_button_default_border_color']['hover']?>;
 }
 
@@ -36,7 +36,7 @@
 }
 .button-primary:hover {
 	color: white;
-	background-color: <?php echo $hiilite_options['typography_button_primary_background']['hover']?>;
+	background: <?php echo $hiilite_options['typography_button_primary_background']['hover']?>;
 	border-color: <?php echo $hiilite_options['typography_button_primary_border_color']['hover']?>;
 }
 
@@ -50,7 +50,7 @@
 }
 .button-secondary:hover {
 	color: <?=$hiilite_options['color_two']?>;
-	background-color: <?php echo $hiilite_options['typography_button_secondary_background']['hover']?>;
+	background: <?php echo $hiilite_options['typography_button_secondary_background']['hover']?>;
 	border-color: <?php echo $hiilite_options['typography_button_secondary_border_color']['hover']?>;
 }
 .button-dis { 

@@ -33,7 +33,7 @@ $author_id=$post->post_author;
 
 $tags = get_the_terms( $post->ID, 'porfolio_tag');
 ?>
-<!--PORTFOLIO_PIECE-LOOP-->
+<!--PORTFOLIO-CONTENT-SPLIT-->
 <article  <?php post_class('row'); ?> itemscope itemtype="http://schema.org/Article" id="post-<?php the_ID(); ?>" style="<?=($page_bg)?'background-color:'.$page_bg.';':'';?>">
 	
 	<meta itemscope itemprop="mainEntityOfPage"  itemType="https://schema.org/WebPage" itemid="<?php bloginfo('url')?>"/>
@@ -88,12 +88,12 @@ echo '<div class="in_grid  align-top">';
 				</div>
 				<?php
 				$slug = get_theme_mod( 'portfolio_slug', 'portfolio' );
-				$args = array('post_type'=>$slug,'posts_per_page'=> -1,'nopaging'=>true,'order'=>'ASC','orderby'=>'menu_order');
-				echo '<pre>'.print_r($args,true).'</pre>';
+				$args = array('post_type'=>$slug,'posts_per_page'=> '10','nopaging'=>true,'order'=>'ASC','orderby'=>'rand');
 				$query = new WP_Query($args);
 				?>
 				
 				<amp-carousel height="300" layout="fixed-height" type="carousel" class="carousel">
+				<div class="carousel-wrapper">
 			      <?php
 				while($query->have_posts()):
 					$query->the_post();
@@ -101,13 +101,14 @@ echo '<div class="in_grid  align-top">';
 						$image = wp_get_attachment_image_src( get_post_thumbnail_id( get_the_id() ), 'large' );
 						$hratio = (300 / $image[2]);
 					?>
-				<a href="<?=get_the_permalink()?>">
-			    	<amp-img src="<?=$image[0]?>" width="<?=$image[1]*$hratio?>" height="<?=$image[2]*$hratio?>" alt="<?=get_the_title()?>"></amp-img>
-				</a>
+				<a href="<?=get_the_permalink()?>" class="slide">
+			    	<img src="<?=$image[0]?>" width="<?=$image[1]*$hratio?>" height="<?=$image[2]*$hratio?>" alt="<?=get_the_title()?>">
+ 				</a>
 			  <?php
 				  	}
 				  endwhile;
 				  ?>
+				</div>
 				</amp-carousel>
 			</div>
 		<?php
@@ -323,7 +324,7 @@ if($hiilite_options['show_more_projects']):
 	</div>
 	<?php
 	$slug = get_theme_mod( 'portfolio_slug', 'portfolio' );
-	$args = array('post_type'=>$slug,'posts_per_page'=> -1,'nopaging'=>true,'order'=>'ASC','orderby'=>'menu_order');
+	$args = array('post_type'=>$slug,'posts_per_page'=> '10','nopaging'=>true,'order'=>'ASC','orderby'=>'RAND');
 	echo '<pre>'.print_r($args,true).'</pre>';
 	$query = new WP_Query($args);
 	?>
@@ -337,7 +338,7 @@ if($hiilite_options['show_more_projects']):
 			$hratio = (300 / $image[2]);
 		?>
 	<a href="<?=get_the_permalink()?>">
-    	<amp-img src="<?=$image[0]?>" width="<?=$image[1]*$hratio?>" height="<?=$image[2]*$hratio?>" alt="<?=get_the_title()?>"></amp-img>
+    	<img src="<?=$image[0]?>" width="<?=$image[1]*$hratio?>" height="<?=$image[2]*$hratio?>" alt="<?=get_the_title()?>">
 	</a>
   <?php
 	  	}

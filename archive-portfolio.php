@@ -1,7 +1,8 @@
 <?php 
 get_header();
 get_template_part( 'templates/title' );
-
+echo '<!--ARCHIVE-PORTFOLIO-->';
+do_action( 'before_portfolio' );
 $port_args = array(
 		'show_post_meta'  	=> get_theme_mod( 'portfolio_show_post_meta', false ),
 	    'show_post_title'  	=> get_theme_mod( 'portfolio_show_post_title', false ),
@@ -17,9 +18,11 @@ $port_args = array(
 		'portfolio_excerpt_length'=> get_theme_mod( 'portfolio_excerpt_length', '55' ),
 		'portfolio_more_on'=> get_theme_mod( 'portfolio_more_on', false ),
 		'portfolio_more_text'=> get_theme_mod( 'portfolio_more_text', 'Read On' ),
+		'portfolio_show_filter'=> get_theme_mod( 'portfolio_show_filter', true ),
 	    );
 
 $portfolio = get_portfolio(null, $port_args );
 echo $portfolio;
 
+do_action( 'after_portfolio' );
 get_footer(); ?>

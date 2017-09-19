@@ -14,7 +14,7 @@ $portfolio = get_portfolio($args);
 
 get_header();
 get_template_part( 'templates/title' );
-
+do_action( 'before_portfolio' );
 echo $portfolio;
-
+do_action( 'after_portfolio' );
 get_footer(); ?>
