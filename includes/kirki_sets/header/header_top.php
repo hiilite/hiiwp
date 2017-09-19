@@ -151,13 +151,13 @@ Kirki::add_field( 'hiiwp', array(
 	    )),
     'output' => array(
 		array(
-			'element'  => '#header_top',
+			'element'  => '#header_top .in_grid',
 			'property' => 'padding',
 		),
 	),
 	'js_vars' => array(
 		array(
-			'element'  => '#header_top',
+			'element'  => '#header_top .in_grid',
 			'property' => 'padding',
 		),
 	),

@@ -1,6 +1,5 @@
 <?php
 // SETTING
-
 /*
  *	HEADER -> MENUS
  */
@@ -320,6 +319,8 @@ $hiilite_options['title_padding']			= get_theme_mod( 'title_padding', array(
 	));
 $hiilite_options['title_font']				= get_theme_mod( 'title_font', $hiilite_options['heading_font'] );
 
+$default_show_title_on = HiiWP::get_post_types(array(), 'names');
+$hiilite_options['show_title_on'] 	= get_theme_mod( 'show_title_on', $default_show_title_on );
 $hiilite_options['title_background'] = get_theme_mod( 'title_background', array(
 	'color' => '#ffffff',
 	'image' => '',
