@@ -196,12 +196,19 @@ if ( $link ) {
 	$html =  $img['thumbnail'].$hover_html;
 }
 
+$wrapper_attributes = array();
+// build attributes for wrapper
+if ( ! empty( $el_id ) ) {
+	$wrapper_attributes[] = 'id="' . esc_attr( $el_id ) . '"';
+}
 
 $class_to_filter = 'single-image';
 if($hover_html) $class_to_filter .= ' hover-image';
 $class_to_filter .= '  align-' . $alignment . ' ' . $this->getCSSAnimation( $css_animation );
 $class_to_filter .= vc_shortcode_custom_css_class( $css, ' ' ) . $this->getExtraClass( $el_class );
 $css_class = apply_filters( VC_SHORTCODE_CUSTOM_CSS_FILTER_TAG, $class_to_filter, $this->settings['base'], $atts );
+
+$wrapper_attributes[] = 'class="' . esc_attr( trim( $css_class ) ) . '"';
 
 if ( in_array( $source, array( 'media_library', 'featured_image' ) ) && 'yes' === $add_caption ) {
 	$post = get_post( $img_id );
@@ -218,9 +225,8 @@ if ( 'yes' === $add_caption && '' !== $caption ) {
 	$html .= '<figcaption class="vc_figure-caption">' .  $caption  . '</figcaption>';
 }
 $output = '
-		<figure class="' . esc_attr( trim( $css_class ) ) . '">
+		<figure '. implode( ' ', $wrapper_attributes ) .'>
 			' . $html . '
-		</figure>
-';
+		</figure>';
 
 echo $output;

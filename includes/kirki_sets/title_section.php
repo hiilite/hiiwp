@@ -18,23 +18,26 @@ Kirki::add_field( 'hiiwp', array(
     'priority'    => 1,
 ) );
 
-Kirki::add_field( 'hiiwp', array(
-    'type'        => 'multicheck',
-    'settings'    => 'show_title_on',
-    'label'       => __( 'Show Page Title On', 'my_textdomain' ),
-    'description'  => __( 'Which post types should the title show on', 'my_textdomain' ),
-    'section'     => $section,
-    'priority'    => 1,
-    'default'     => HiiWP::get_post_types(array(), 'names'),
-    'choices'     => HiiWP::get_post_types(array(), 'objects'),
-    'active_callback'	=> array(
-		array(
-			'setting'  => 'show_page_titles',
-			'operator' => '==',
-			'value'    => true,
+function add_show_title_on_control() {
+	Kirki::add_field( 'hiiwp', array(
+	    'type'        => 'multicheck',
+	    'settings'    => 'show_title_on',
+	    'label'       => __( 'Show Page Title On', 'my_textdomain' ),
+	    'description'  => __( 'Which post types should the title show on', 'my_textdomain' ),
+	    'section'     => 'title_section',
+	    'priority'    => 1,
+	    'default'     => HiiWP::get_post_types(array(), 'names'),
+	    'choices'     => HiiWP::get_post_types(array(), 'objects'),
+	    'active_callback'	=> array(
+			array(
+				'setting'  => 'show_page_titles',
+				'operator' => '==',
+				'value'    => true,
+			),
 		),
-	),
-) );
+	) );
+}
+add_action( 'init', 'add_show_title_on_control', 100 );
 
 Kirki::add_field( 'hiiwp', array(
     'type'        => 'dimension',

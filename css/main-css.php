@@ -178,6 +178,9 @@ h1 a, h2 a, h3 a, h4 a, h5 a, h6 a {
 .back_to_blog {
   font-size:14px;
 }
+ul, ol {
+    padding-left: 1em;
+}
 ol li ol li {
     list-style-type: lower-alpha;
 }
@@ -186,6 +189,7 @@ figure {
 	margin: auto;
 	padding: 0;
 	position: relative;
+    line-height: 0;
 }
 figure.align-center img{
 	margin: auto;
@@ -951,7 +955,9 @@ amp-carousel.carousel {
 	height: 300px;
 	overflow: hidden;
 }
-
+amp-carousel.carousel .carousel-wrapper{
+	white-space: nowrap; position: absolute; z-index: 1; top: 0px; left: 0px; bottom: 0px;
+}
 amp-carousel.slider .hide {
 	display:none;	
 }
@@ -1193,6 +1199,9 @@ if(class_exists('BuddyPress')):
 endif;
 if(class_exists('WooCommerce')):
 	include_once(HIILITE_DIR.'/css/service_extensions/woocommerce-css.php');	
+endif;
+if(class_exists('GFForms')):
+	include_once(HIILITE_DIR.'/css/service_extensions/gravityforms-css.php');	
 endif;
 
 if ( is_customize_preview() ) :

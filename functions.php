@@ -332,28 +332,6 @@ if( function_exists( 'rel_canonical' ) )
     remove_action( 'wp_head', 'rel_canonical' );
 }
 
-/*
-//	note: action: rel_canonical_with_custom_tag_override
- *
- *	Override the rel=canonical tag to always show site url
- *
- *	REPLACE rel_canonical to load on all pages	
- */
-function rel_canonical_with_custom_tag_override()
-{
-    global $wp_the_query, $post;
-    if( !$id = $wp_the_query->get_queried_object_id() ) {
-        $link = get_permalink( $id );
-    } elseif(get_post_meta( $post->ID, 'article_canonical_link', true) != '') {
-	    $link = get_post_meta( $post->ID, 'article_canonical_link', true);
-    } else {
-	    $link = "https://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
-    }
-    	
-    
-    echo "<link rel='canonical' href='" . esc_url( $link ) . "' />\n";
-}
-add_action( 'wp_head', 'rel_canonical_with_custom_tag_override' );
 
 
 

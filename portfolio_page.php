@@ -10,6 +10,7 @@ endif;
 
 get_header();
 get_template_part( 'templates/title' );
+echo '<!--PORTFOLIO_PAGE-->';
 if(have_posts()):
 	while(have_posts()):
 		the_post();

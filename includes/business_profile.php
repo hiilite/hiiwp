@@ -314,12 +314,12 @@ function hii_seo_options_page() {
     ));
     
     if(class_exists('GADWP_Manager')):
-	    $cmb->add_field( array(
+	    /*$cmb->add_field( array(
 	        'name'       => __( 'Google Analytics Connect', 'cmb2' ),
 	        'desc'       => __( 'Connect directly with Google Analytics to display all your information right in your dashboard and input all the correct tracking code within your site.', 'cmb2' ),
 	        'id'         => 'google_authorization',
 	        'type'       => 'google_authorization',
-	    ));
+	    ));*/
     else:
     	$cmb->add_field( array(
 	        'name'       => __( 'Google Analytics Code', 'cmb2' ),

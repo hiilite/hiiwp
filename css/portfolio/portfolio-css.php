@@ -1,4 +1,28 @@
 <?php if(false): ?><style><?php endif; ?>
+ul.portfolio_terms {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: space-evenly;
+    width: 100%;
+    text-align: center;
+}
+
+ul.portfolio_terms li {
+    display: inline-block;
+    flex: 1 1 auto;
+}
+
+.portfolio_filter {
+    border-bottom: 1px solid;
+}
+
+ul.portfolio_terms li a {
+    line-height: 3;
+}
+
+
 .portfolio-piece {
 	padding: 0.5em;
 }

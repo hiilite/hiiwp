@@ -1,6 +1,4 @@
 .DS_Store
 editor-style.css
-
-addons/new_js_composer/assets/css/js_composer_backend_editor.min.css
-
-addons/new_js_composer/assets/css/js_composer_frontend_editor_iframe.min.css
+phpdoc.dist.xml
+/docs

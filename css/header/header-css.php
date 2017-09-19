@@ -140,7 +140,7 @@ endif; ?>
 #header_bottom {
 	border-bottom-style: solid;
 }
-#main_header #header_bottom .menu .menu-item a{
+#header_bottom .menu .menu-item a{
 	<?php 
 	get_font_css(get_theme_mod( 'header_bottom_font' ));
 	?>

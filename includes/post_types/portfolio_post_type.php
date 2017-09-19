@@ -91,7 +91,7 @@ function portfolio_post_type_init() {
 
 if(!function_exists('get_portfolio')):
 function get_portfolio($args = null, $options = null){
-	global $hiilite_options;
+	$hiilite_options = Hii::$hiiwp->get_options();
 	$hiilite_options['portfolio_show_filter'] = get_theme_mod( 'portfolio_show_filter', true );
 	$slug = get_theme_mod( 'portfolio_slug', 'portfolio' );
 	$html = $css = '';
@@ -113,6 +113,7 @@ function get_portfolio($args = null, $options = null){
 		'portfolio_excerpt_length'=> get_theme_mod( 'portfolio_excerpt_length', '55' ),
 		'portfolio_more_on'=> get_theme_mod( 'portfolio_more_on', false ),
 		'portfolio_more_text'=> get_theme_mod( 'portfolio_more_text', 'Read On' ),
+		'portfolio_show_filter'=> get_theme_mod( 'portfolio_show_filter', true ),
 		'css_class'		=> '',
 
     ), $options ) );
@@ -121,7 +122,29 @@ function get_portfolio($args = null, $options = null){
 	$query = new WP_Query($args);
 	
 	if($query->have_posts()):
-		
+		if($portfolio_show_filter == true):
+			
+			$html .= '<div class="row portfolio_filter"><div class="in_grid">';
+				$work_terms = get_terms(array(
+					'taxonomy'		=> $hiilite_options['portfolio_tax_slug'],
+				    'hide_empty' 	=> 1,
+				));
+				if(count($work_terms) > 1):
+				$html .= '<ul class="portfolio_terms">';
+					foreach($work_terms as $term){
+						$li_classes = '';
+						if( get_queried_object()->term_id == $term->term_id ) $li_classes .= 'current-term';
+						$html .= "<li class='$li_classes'>";
+						$html .= '<a href="'.esc_attr( get_term_link( $term->term_id ) ).'">'.$term->name.'</a>';
+						$html .= '</li>';
+					}
+				$html .= '</ul>';
+				endif;
+				
+			
+			$html .= '</div></div>';
+			
+		endif;
     	$html .= '<div class="row '.esc_attr( $css_class ).'">';
 		if ($in_grid) $html .= '<div class="in_grid">';
 		
@@ -200,6 +223,7 @@ function get_portfolio($args = null, $options = null){
 					//get_template_part('templates/portfolio', 'loop');
 					$html .= '<article class="row row-o-content-top flex-item" id="post-'.$imgs[$i]['id'].'" >';
 					
+					
 										
 					$html .='<figure class="flex-item">
 						<img src="'.$imgs[$i]['src'].'" layout="responsive" on="tap:lightbox1" width='.$imgs[$i]['width'].' height='.$imgs[$i]['height'].'>';
@@ -245,6 +269,8 @@ function get_portfolio($args = null, $options = null){
 	    //////////////////////////	
 	    
 		else:
+			
+			
 	    	if($portfolio_layout == 'masonry') { 
 		    	$html .= '<div class="row masonry col-count-'.$portfolio_columns.'">';
 		    	$css .= '.masonry article {padding:'.$add_padding.';}';

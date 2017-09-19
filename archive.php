@@ -3,7 +3,6 @@ $hiilite_options = Hii::$hiiwp->get_options();
 get_header();
 echo '<!--Archive-->';
 get_template_part( 'templates/title' );
-
 $colcount = ($hiilite_options['blog_layouts'] =='masonry')?' col-count-'.$hiilite_options['blog_col']:'';
 if ( $hiilite_options['blog_sidebar_show'] == true ) $colcount .= ' col-9';
 
