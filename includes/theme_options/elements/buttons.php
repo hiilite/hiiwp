@@ -25,7 +25,7 @@ Kirki::add_field( 'hiiwp', array(
     'default'     => '<h1>Default Button</h1>',
     'priority'    => 1,
 ) );
-$button_font = $default_font;
+$button_font = $hiilite_options['default_font'];
 $button_font['color']	= $hiilite_options['color_two'];
 $button_font['text-transform'] = 'uppercase';
 $button_font['text-align']	= 'center';

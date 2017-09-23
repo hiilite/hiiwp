@@ -10,17 +10,24 @@
  * @license     http://opensource.org/licenses/https://opensource.org/licenses/MIT
  * @since       0.4.1
  */
-
+if ( ! defined( 'ABSPATH' ) )	exit;
 /**
  * HiiWP class.
  *
  * @since 1.0
  */
-class HiiWP {
+class HiiWP extends Hii{
 	
-	
+	private static $_instance = null;
+		
 	public static $options = array();
 
+	public static function instance(){
+		if( is_null(self::$_instance)) {
+			self::$_instance = new self();
+		}
+		return self::$_instance;
+	}
 	
 	/**
 	 * __construct function.
@@ -47,34 +54,16 @@ class HiiWP {
         add_filter( 'auto_update_theme', '__return_true' );
         add_filter( 'widget_text','do_shortcode');
         add_filter( 'wp_calculate_image_srcset_meta', '__return_null' );
-        add_action( 'tgmpa_register', array('HiiWP','hiilite_register_required_plugins' ));
+        add_action( 'tgmpa_register', array($this, 'hiilite_register_required_plugins' ));
         
 		//add_filter( 'document_title_parts', array($this, 'custom_titles'), 10);
         
-        //if ( ! function_exists( '_wp_render_title_tag' ) ) {
-	    	add_action( 'wp_head', array($this, 'theme_slug_render_title' ));
-	    //}
+	    add_action( 'wp_head', array($this, 'theme_slug_render_title' ));
         
         $hiilite_options = self::get_options();
-        
-        require_once( HIILITE_DIR . '/includes/kirki-settings.php' );
-		
-		include_once( HIILITE_DIR . '/addons/cmb2-functions.php' );
-		if(!class_exists('Cmb2_Metatabs_Options'))include_once( HIILITE_DIR . '/addons/cmb2-metatabs-options/cmb2_metatabs_options.php' );
-		if(!class_exists('CMB2_Conditionals'))include_once( HIILITE_DIR . '/addons/cmb2-conditionals/cmb2-conditionals.php' );
-		if(!class_exists('PW_CMB2_Field_Select2'))include_once( HIILITE_DIR . '/addons/cmb-field-select2/cmb-field-select2.php' );
-		if(!class_exists('CMB2_Taxonomy'))include_once( HIILITE_DIR . '/addons/cmb2-taxonomy/init.php' );
-		include_once( HIILITE_DIR . '/addons/custom-field-types/address-field-type.php' );
-		
-		
-		include_once( HIILITE_DIR . '/includes/business_profile.php' );
-		require_once( HIILITE_DIR . '/includes/wp_login_screen.php');
 		
         include_once( HIILITE_DIR . '/includes/Plugin-Activation/class-tgm-plugin-activation.php');
 		require_once( HIILITE_DIR . '/addons/tinymce_edits/tinymce_edits.php');
-		require_once( HIILITE_DIR . '/includes/widgets.php' );
-		require_once( HIILITE_DIR . '/includes/register_sidebars.php' );
-		require_once( HIILITE_DIR . '/includes/register_post_types.php');
 		
 		
 		/*
@@ -83,6 +72,7 @@ class HiiWP {
 		foreach (glob(HIILITE_DIR."/includes/shortcodes/*.php") as $filename) {
 		    include_once( $filename );
 		} 
+		
 	}
 	
 	
@@ -92,7 +82,7 @@ class HiiWP {
 	 * @access public
 	 * @return void
 	 */
-	public function get_options() {
+	public static function get_options() {
 		require(HIILITE_DIR . '/includes/site_variables.php');
 		self::$options = $hiilite_options;
         return self::$options;
@@ -273,30 +263,7 @@ class HiiWP {
 	}
 	
 	
-	/**
-	 * get_post_types function.
-	 * 
-	 * @access public
-	 * @param array $args (default: array())
-	 * @param string $output (default: 'names')
-	 * @return void
-	 */
-	public function get_post_types($args = array(), $output = 'names') {
-		$post_types = get_post_types( array(), $output ); 
-		$types = array();
-		if($output == 'objects'):
-			foreach ($post_types as $post_type) {
-				if( $post_type->name != 'revision' &&
-					$post_type->name != 'nav_menu_item' &&
-					$post_type->name != 'custom_css' &&
-					$post_type->name != 'customize_changeset')
-					$types[$post_type->name] = $post_type->name;
-			}
-		else:
-			$types = $post_types;
-		endif;
-		return $types;
-	}
+	
 	
 	
 	/**
@@ -650,9 +617,7 @@ class HiiWP {
 	    tgmpa( $plugins, $config );
 	
 	}
-	
-	
-
-    
 }
+
+new HiiWP();
 ?>

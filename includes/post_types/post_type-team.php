@@ -1,7 +1,6 @@
 <?php 
 	
-add_action( 'init', 'team_post_type_init', 1 );
-function team_post_type_init() {
+if($hiilite_options['teams_on']):
 	
 
 	$title = get_theme_mod( 'team_title', 'Team' );
@@ -71,9 +70,6 @@ function team_post_type_init() {
     );
  
     register_taxonomy( $tax_slug, array( $slug ), $args );
-}
-
-
-
+endif;
 
 ?>

@@ -19,6 +19,7 @@ Kirki::add_field( 'hiiwp', array(
 ) );
 
 function add_show_title_on_control() {
+	global $hiilite_options;
 	Kirki::add_field( 'hiiwp', array(
 	    'type'        => 'multicheck',
 	    'settings'    => 'show_title_on',
@@ -27,7 +28,7 @@ function add_show_title_on_control() {
 	    'section'     => 'title_section',
 	    'priority'    => 1,
 	    'default'     => $hiilite_options['show_title_on'],
-	    'choices'     => HiiWP::get_post_types(array(), 'objects'),
+	    'choices'     => Hii::$hiiwp->get_post_types(array(), 'objects'),
 	    'active_callback'	=> array(
 			array(
 				'setting'  => 'show_page_titles',
@@ -51,18 +52,6 @@ Kirki::add_field( 'hiiwp', array(
 			'setting'  => 'show_page_titles',
 			'operator' => '==',
 			'value'    => true,
-		),
-	),
-	'output' => array(
-		array(
-			'element'  => '.page-title',
-			'property' => 'min-height',
-		),
-	),
-	'js_vars' => array(
-		array(
-			'element'  => '.page-title',
-			'property' => 'min-height',
 		),
 	),
 ) );
@@ -103,4 +92,4 @@ Kirki::add_field( 'hiiwp', array(
 	),
 ) );
 
-	?>
+?>

@@ -26,8 +26,6 @@ if(get_post_meta(get_the_id(), 'page_seo_description', true) != ''){
 	$the_content = substr(preg_replace('/\[.*.\]|\n+/', '', $the_content), 0, 165);
 	$page_description = strip_tags($the_content);
 }
-
-
 ?><!doctype html>
 <html lang="en">
 <head>
@@ -43,22 +41,16 @@ wp_head();
 ?></head>
 <body <?php body_class(); ?>>
 <?php 
+do_action( 'hii_body_start' );
 do_action( 'hii_before_header' );
-if ( is_customize_preview() ) : ?>
-<div class="customizer_quick_links">
-	<button class="customizer-edit font-edit" data-control='{ "name":"typography_h1_font" }'><?php esc_html_e( 'Heading Fonts', 'hiiwp' ); ?></button>
-	<button class="customizer-edit font-edit" data-control='{ "name":"text_font" }'><?php esc_html_e( 'Text Fonts', 'hiiwp' ); ?></button>
-    <button class="customizer-edit" data-control='{ "name":"custom_css" }'><?php esc_html_e( 'CSS', 'hiiwp' ); ?></button>
-</div>
-<?php endif; ?>
-    
+?>
 	<div class="wrapper">
 		<div class="wrapper_inner">
 			<?php
 			if($hiilite_options['enable_search_bar_yesno'] == true)	:
 			?>
 			<aside id="main_search">
-				<?php get_search_form(); ?>
+				<?php apply_filters( 'hii_search_form', get_search_form() ); ?>
 			</aside>
 			<?php
 			endif; // end enable_search_bar_yesno
@@ -93,27 +85,23 @@ if ( is_customize_preview() ) : ?>
 			
 			}
 			
-			?>
-			<!-- HEADER -->
-			<?php
-			
 			if(isset($post->ID)):
 				
 				$header_bg = (get_post_meta ( $post->ID, 'header_bg', true))?get_post_meta ( $post->ID, 'header_bg', true):false;
 				if($header_bg) :
 					$bg_color = 'style="background-color:'.$header_bg.'"';		
-				elseif(isset($hiilite_options['portfolio_on']) && $hiilite_options['portfolio_on'] == true):
-					$category = get_the_terms( $post->ID, $hiilite_options['portfolio_tax_slug'] );  
-					$portfolio_work_color = (get_term_meta ( $category[0]->term_taxonomy_id, 'portfolio_work_color', true))?get_term_meta ( $category[0]->term_taxonomy_id, 'portfolio_work_color', true):false;	
-					if($portfolio_work_color) {
-						$bg_color = 'style="background-color:'.$portfolio_work_color.'"';	
-					} 
+				elseif( isset($hiilite_options['portfolio_on']) && $hiilite_options['portfolio_on'] == true ):
+					if($category = get_the_terms( $post->ID, $hiilite_options['portfolio_tax_slug'] )) {  
+						$portfolio_work_color = (get_term_meta ( $category[0]->term_taxonomy_id, 'portfolio_work_color', true))?get_term_meta ( $category[0]->term_taxonomy_id, 'portfolio_work_color', true):false;	
+						if($portfolio_work_color) {
+							$bg_color = 'style="background-color:'.$portfolio_work_color.'"';	
+						} 
+					}
 				endif;
 			endif;
 				
 			?>
 			<header id="main_header" class="<?=$hiilite_options['header_type'];?>" <?=$bg_color;?>>
-<?php if(is_customize_preview()) echo '<div class="customizer_quick_links"><button class="customizer-edit" data-control=\'{ "name":"header_in_grid" }\'>Edit Header</button><button class="customizer-edit font-edit" data-control=\'{ "name":"main_menu_font" }\'>Header & Menu Fonts</button></div>'; ?>
 				<div class="container_inner">
 					<hgroup style="display: none;">
 						<h1><?=$page_title?></h1>

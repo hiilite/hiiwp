@@ -131,5 +131,6 @@ do_action( 'hii_after_content' );
 	</div>
 	<?php wp_footer(); ?>
 	</div>
+<?php do_action( 'hii_body_end' ); ?>
 </body>
 </html>

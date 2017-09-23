@@ -1,6 +1,5 @@
 <?php
 global $hiilite_options;
-require_once(HIILITE_DIR . '/includes/site_variables.php');
 
 $css = '.align-center {
 	text-align: center;

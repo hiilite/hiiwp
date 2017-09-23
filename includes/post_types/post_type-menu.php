@@ -1,21 +1,21 @@
 <?php 
 	
-add_action( 'init', 'testimonial_post_type_init', 1 );
-function testimonial_post_type_init() {
+if($hiilite_options['menus_on']):
+	
 	////////////////////////
 	//
-	//	REGISTER TESTIMONIALS
+	//	REGISTER MENUS POST TYPE
 	//
 	////////////////////////
-		
-	$title = get_theme_mod( 'testimonials_title', 'Testimonials' );
-	$testimonials_slug = get_theme_mod( 'testimonials_slug', 'testimonials' );
-	$tax_title = get_theme_mod( 'testimonials_tax_title', 'Testimonials Categories' );
-	$testimonials_tax_slug = get_theme_mod( 'testimonials_tax_slug', 'testimonials_category' );
 
- 
-	$labels = array( 
-		'name'               => _x( $title, 'testimonials', 'hiilite' ),
+	$title = get_theme_mod( 'menu_title', 'Menu' );
+	$menu_slug = get_theme_mod( 'menu_slug', 'menu' );
+	$tax_title = get_theme_mod( 'menu_tax_title', 'Menu Section' );
+	$menu_tax_slug = get_theme_mod( 'menu_tax_slug', 'menu-section' );
+
+
+	$labels = array(
+		'name'               => _x( $title, 'restaurant menu', 'hiilite' ),
 		'singular_name'      => _x( $title.'Item', 'post type singular name', 'hiilite' ),
 		'menu_name'          => _x( $title, 'admin menu', 'hiilite' ),
 		'name_admin_bar'     => _x( $title, 'add new on admin bar', 'hiilite' ),
@@ -39,16 +39,16 @@ function testimonial_post_type_init() {
 		'show_ui'            => true,
 		'show_in_menu'       => true,
 		'query_var'          => true,
-		'rewrite'            => array( 'slug' => $testimonials_slug ),
+		'rewrite'            => array( 'slug' => $menu_slug ),
 		'capability_type'    => 'post',
 		'has_archive'        => true,
 		'hierarchical'       => false,
 		'menu_position'      => 7,
-		'menu_icon'			 => 'dashicons-format-quote',
+		'menu_icon'			 => 'dashicons-carrot',
 		'supports'           => array( 'title','thumbnail','editor'),
 	);
 
-	register_post_type( $testimonials_slug, $args );
+	register_post_type( $menu_slug, $args );
 	
 	
 	// Register Taxonomy
@@ -72,66 +72,20 @@ function testimonial_post_type_init() {
         'show_ui'           => true,
         'show_admin_column' => true,
         'query_var'         => true,
-        'rewrite'           => array( 'slug' => $testimonials_tax_slug ),
+        'rewrite'           => array( 'slug' => $menu_tax_slug ),
     );
  
-    register_taxonomy( $testimonials_tax_slug, array( $testimonials_slug ), $args );
+    register_taxonomy( $menu_tax_slug, array( $menu_slug ), $args );
     
-    $sections = get_terms($testimonials_tax_slug);
-    $hiilite_options['testimonials_sections']['all'] = 'All';
+    $sections = get_terms($menu_tax_slug);
 	foreach($sections as $section){
-		$hiilite_options['testimonials_sections'][$section->name] = $section->slug;
+		$hiilite_options['menu_sections'][$section->name] = $section->slug;
 	}
-	
-	// Add Shortcodes
-	require_once( HIILITE_DIR . '/includes/shortcodes/testimonials.php');
-}
+		
+
+endif;
 
 
-/////////////////////
-//
-//	Add Meta Boxes
-//
-/////////////////////
-add_action('cmb2_init', 'cmb2_testimonial_metaboxes');
-function cmb2_testimonial_metaboxes(){
-	//////////////////////////////////
-	// Menu for all posts
-	/////////////////////////////////
-    $cmb = new_cmb2_box( array(
-        'id'            => 'testimonial_options',
-        'title'         => 'Testimonial Details',
-        'object_types'  => array( 'testimonials' ), // post type
-        'context'       => 'advanced', // 'normal', 'advanced' or 'side'
-        'priority'      => 'high', // 'high', 'core', 'default' or 'low'
-        'show_names'    => true, // show field names on the left
-        'cmb_styles'    => true, // false to disable the CMB stylesheet
-        'closed'        => false, // keep the metabox closed by default
-    ) );
-    $cmb->add_field( array(
-	    'name' => 'Author',
-	    'id' => 'testimonial_author',
-	    'type' => 'text'
-	) );
-	$cmb->add_field( array(
-	    'name'    => 'Author Website',
-	    'id'      => 'testimonial_website',
-	    'type'    => 'text_url'
-	) );
-	$cmb->add_field( array(
-	    'name'    => 'Rating',
-	    'id'      => 'testimonial_rating',
-	    'type'    => 'radio_inline',
-	    'options' => array(
-		    '5' => __( '5', 'cmb2' ),
-		    '4' => __( '4', 'cmb2' ),
-		    '3' => __( '3', 'cmb2' ),
-			'2' => __( '2', 'cmb2' ),
-	        '1' => __( '1', 'cmb2' ),   
-	    ),
-	) );
-	
-}
 
 
 ?>

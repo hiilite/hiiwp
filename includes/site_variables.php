@@ -319,7 +319,7 @@ $hiilite_options['title_padding']			= get_theme_mod( 'title_padding', array(
 	));
 $hiilite_options['title_font']				= get_theme_mod( 'title_font', $hiilite_options['heading_font'] );
 
-$default_show_title_on = HiiWP::get_post_types(array(), 'names');
+$default_show_title_on = get_post_types(array(), 'names');
 $hiilite_options['show_title_on'] 	= get_theme_mod( 'show_title_on', $default_show_title_on );
 $hiilite_options['title_background'] = get_theme_mod( 'title_background', array(
 	'color' => '#ffffff',
@@ -668,24 +668,6 @@ $hiilite_options['testimonials_author_font']	= get_theme_mod( 'testimonials_auth
         'text-align'	=> 'center',
         'text-transform'	=> 'none',
     ) );
-
-
-if(class_exists( 'WooCommerce' )){
-	$hiilite_options['is_woocommerce'] = (is_woocommerce())?true:false;
-} else {
-	$hiilite_options['is_woocommerce'] = false;
-}
-
-
-
-
-
-
-
-
-
-
-
 
 
 	
