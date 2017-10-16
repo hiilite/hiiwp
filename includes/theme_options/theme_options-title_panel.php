@@ -27,7 +27,7 @@ function add_show_title_on_control() {
 	    'description'  => __( 'Which post types should the title show on', 'my_textdomain' ),
 	    'section'     => 'title_section',
 	    'priority'    => 1,
-	    'default'     => $hiilite_options['show_title_on'],
+	    'default'     => Hii::$hiiwp->get_post_types(array(), 'objects'),
 	    'choices'     => Hii::$hiiwp->get_post_types(array(), 'objects'),
 	    'active_callback'	=> array(
 			array(

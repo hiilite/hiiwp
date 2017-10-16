@@ -18,7 +18,7 @@
  */
 class Hii {
 	/*--------------------------------------------*
-     * Attributes
+     * Attributes 
      *--------------------------------------------*/
      
 	/** Refers to a single instance of this class. */
@@ -47,6 +47,25 @@ class Hii {
 		return self::$_instance;
 	}
 	
+	/**
+	* Define plugin constants
+	*/
+	private function define_constants(){
+	    if ( ! defined( 'HIIWP_VERSION' ) ) {                
+			 define( 'HIIWP_VERSION', '0.4.2' );
+		}
+		if ( ! defined( 'HIIWP_SLUG' ) ) {                
+		    define( 'HIIWP_SLUG', 'hiiwp' );           
+		}                
+		if(!defined('HIILITE_DIR')) define( 'HIILITE_DIR', get_template_directory() );
+		if(!defined('HIIWP_DIR')) define( 'HIIWP_DIR', get_template_directory() );
+		    
+		if ( ! defined( 'HIIWP_URL' ) ) {
+		    $file = get_template_directory(); 
+			$link = str_replace( WP_CONTENT_DIR, WP_CONTENT_URL, $file );
+		    define( 'HIIWP_URL', $link );
+		}
+	}
 	
 	/**
      * Initializes the theme by setting localization, filters, and administration functions.
@@ -71,9 +90,18 @@ class Hii {
 		    include_once( $filename );
 		} 
 		
+		if ( ! class_exists( 'AM_License_Menu' ) ) {
+			require_once( HIILITE_DIR . '/includes/service_extentions/am-license-menu.php' );
+			AM_License_Menu::instance( __FILE__, 'HiiWP', HIIWP_VERSION, 'theme', 'https://dev.hiilite.com/' );
+		    
+		}
+		
+		$this->hooks		= new HiiWP_Hooks();
 		$this->post_types	= new HiiWP_Post_Types();
 		$this->sidebars		= new HiiWP_Sidebars();
 		$this->theme_options= new HiiWP_Theme_Options();
+		
+		
 		
 		add_theme_support( 'title-tag' );
 		add_theme_support( 'post-thumbnails' );
@@ -88,29 +116,6 @@ class Hii {
 		
 	}
 	
-	
-	/*--------------------------------------------*
-     * Functions
-     *--------------------------------------------*/
-     
-    /**
-	* Define plugin constants
-	*/
-	private function define_constants(){
-	    if ( ! defined( 'HIIWP_VERSION' ) ) {                
-			 define( 'HIIWP_VERSION', '0.4.2' );
-		}
-		if ( ! defined( 'HIIWP_SLUG' ) ) {                
-		    define( 'HIIWP_SLUG', 'hiiwp' );           
-		}                
-		if(!defined('HIILITE_DIR')) define( 'HIILITE_DIR', get_template_directory() );
-		    
-		if ( ! defined( 'HIIWP_URL' ) ) {
-		    $file = get_template_directory(); 
-			$link = str_replace( WP_CONTENT_DIR, WP_CONTENT_URL, $file );
-		    define( 'HIIWP_URL', $link );
-		}
-	}
 	
 	private function add_dependencies(){
 		include_once( HIILITE_DIR . '/addons/cmb2-functions.php' );
@@ -171,6 +176,29 @@ function HIIWP() {
 }
 
 $GLOBALS['hiiwp'] = new Hii();
+
+
+/**
+ * hii_get_the_title function.
+ * 
+ * @access public
+ * @return void
+ */
+function hii_get_the_title(){
+	if( is_archive(  )){ 
+		$page_title = get_the_archive_title();
+	} elseif(is_home()) {
+		$page_title = get_the_title( get_option('page_for_posts', true) );
+	} else {
+		$page_title = get_the_title( get_the_id( ));
+	} 
+	
+	return $page_title;
+}
+
+function hii_the_title() {
+	echo hii_get_the_title();
+}
 
 /*
 Include Support Add-ons	
@@ -1194,22 +1222,22 @@ function get_portfolio($args = null, $options = null){
 	
 	
 	extract( shortcode_atts( array(
-	    'show_post_meta'  	=> get_theme_mod( 'portfolio_show_post_meta', false ),
-	    'show_post_title'  	=> get_theme_mod( 'portfolio_show_post_title', false ),
-	    'portfolio_show_author_date'  	=> get_theme_mod( 'portfolio_show_author_date', false ),
-	    'in_grid'			=> get_theme_mod( 'portfolio_in_grid', false ),
-	    'add_padding'		=> get_theme_mod( 'portfolio_add_padding', '0px' ),
-	    'portfolio_layout'	=> get_theme_mod( 'portfolio_layout', false ),
-	    'portfolio_columns'	=> get_theme_mod( 'portfolio_columns', '1' ),
-		'portfolio_image_pos'=> get_theme_mod( 'portfolio_image_pos', 'image-left' ),
-		'portfolio_title_pos'=> get_theme_mod( 'portfolio_title_pos', 'title-below' ),
-		'portfolio_heading_size'=> get_theme_mod( 'portfolio_heading_size', 'h2' ),
-		'portfolio_excerpt_on'=> get_theme_mod( 'portfolio_excerpt_on', false ),
-		'portfolio_excerpt_length'=> get_theme_mod( 'portfolio_excerpt_length', '55' ),
-		'portfolio_more_on'=> get_theme_mod( 'portfolio_more_on', false ),
-		'portfolio_more_text'=> get_theme_mod( 'portfolio_more_text', 'Read On' ),
-		'portfolio_show_filter'=> get_theme_mod( 'portfolio_show_filter', true ),
-		'css_class'		=> '',
+	    'show_post_meta'  			=> get_theme_mod( 'portfolio_show_post_meta', false ),
+	    'show_post_title'  			=> get_theme_mod( 'portfolio_show_post_title', false ),
+	    'portfolio_show_author_date'=> get_theme_mod( 'portfolio_show_author_date', false ),
+	    'in_grid'					=> get_theme_mod( 'portfolio_in_grid', false ),
+	    'add_padding'				=> get_theme_mod( 'portfolio_add_padding', '0px' ),
+	    'portfolio_layout'			=> get_theme_mod( 'portfolio_layout', false ),
+	    'portfolio_columns'			=> get_theme_mod( 'portfolio_columns', '1' ),
+		'portfolio_image_pos'		=> get_theme_mod( 'portfolio_image_pos', 'image-left' ),
+		'portfolio_title_pos'		=> get_theme_mod( 'portfolio_title_pos', 'title-below' ),
+		'portfolio_heading_size'	=> get_theme_mod( 'portfolio_heading_size', 'h2' ),
+		'portfolio_excerpt_on'		=> get_theme_mod( 'portfolio_excerpt_on', false ),
+		'portfolio_excerpt_length'	=> get_theme_mod( 'portfolio_excerpt_length', '55' ),
+		'portfolio_more_on'			=> get_theme_mod( 'portfolio_more_on', false ),
+		'portfolio_more_text'		=> get_theme_mod( 'portfolio_more_text', 'Read On' ),
+		'portfolio_show_filter'		=> get_theme_mod( 'portfolio_show_filter', true ),
+		'css_class'					=> '',
 
     ), $options ) );
 	$args = ($args==null)?array('post_type'=>$slug,'posts_per_page'=> -1,'nopaging'=>true,'order'=>'ASC','orderby'=>'menu_order'):$args;
@@ -1228,7 +1256,7 @@ function get_portfolio($args = null, $options = null){
 				$html .= '<ul class="portfolio_terms">';
 					foreach($work_terms as $term){
 						$li_classes = '';
-						if( get_queried_object()->term_id == $term->term_id ) $li_classes .= 'current-term';
+						if( isset(get_queried_object()->term_id) && get_queried_object()->term_id == $term->term_id ) $li_classes .= 'current-term';
 						$html .= "<li class='$li_classes'>";
 						$html .= '<a href="'.esc_attr( get_term_link( $term->term_id ) ).'">'.$term->name.'</a>';
 						$html .= '</li>';

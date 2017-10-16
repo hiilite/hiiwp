@@ -4,8 +4,8 @@ $section = 'typography_social_icons_section';
 Kirki::add_field( 'hiiwp', array(
     'type'        => 'typography',
     'settings'    => 'icon_settings',
-    'label'       => esc_attr__( 'Social Icon Settings', 'kirki' ),
-    'description' => __( 'Define styles for social icons' ),
+    'label'       => esc_attr__( 'Social Icon Color', 'kirki' ),
+    'description' => __( 'Define color for social icons' ),
     'section'     => $section,
     'default'     => $hiilite_options['icon_settings'],
     'priority'    => 1,

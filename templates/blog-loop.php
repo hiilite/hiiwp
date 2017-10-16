@@ -64,10 +64,9 @@ if($hiilite_options['blog_layouts'] =='boxed'){
 	}
 }
 do_action( 'hii_before_blog_loop' );
-
-if(is_customize_preview()) echo '<div class="customizer_quick_links"><button class="customizer-edit" data-control=\'{"name":"blog_layouts"}\'>Blog List</button></div>';?>
+?>
 <!--BLOG-LOOP-->
-<article <?php post_class('row blog-article'.$cols); ?> itemscope itemtype="http://schema.org/Article" id="post-<?php the_ID(); ?>" >
+<article <?php post_class('flex-item blog-article '.$cols); ?> itemscope itemtype="http://schema.org/Article" id="post-<?php the_ID(); ?>" >
 	<meta itemscope itemprop="mainEntityOfPage"  itemType="https://schema.org/WebPage" itemid="<?php bloginfo('url')?>"/>
 	<?php 
 	if($hiilite_options['blog_title_position'] == 'title-above') { 

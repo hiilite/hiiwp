@@ -41,7 +41,7 @@ class HiiWP_Dashboard {
 	
 	
 	public function hiilite_add_dashboard_widgets() {
-	    wp_add_dashboard_widget( 'hiilite_dashboard_welcome', 'Welcome', 'hiilite_add_welcome_widget' );
+	    wp_add_dashboard_widget( 'hiilite_dashboard_welcome', 'Welcome', array($this, 'hiilite_add_welcome_widget' ));
 	}
 	
 	public function hiilite_add_welcome_widget(){ ?>
@@ -87,7 +87,6 @@ class HiiWP_Dashboard {
 
 	
 	public function modify_admin_bar( $wp_admin_bar ){
-	  // do something with $wp_admin_bar;
 		$wp_admin_bar->remove_node( 'wporg' );
 		$wp_admin_bar->remove_node( 'about' );
 		$wp_admin_bar->remove_node( 'documentation' );
@@ -95,39 +94,40 @@ class HiiWP_Dashboard {
 		$wp_admin_bar->remove_node( 'feedback' );
 		
 		$wplogo = $wp_admin_bar->get_node( 'wp-logo' );
+		$wplogo_id = ( ! is_null( $wplogo ))?$wplogo->id:'wp-logo';
 		$args = array(
 			'id'    => 'hiilite_com',
 			'title' => 'Hiilite.com',
-			'href'  => 'http://hiilite.com',
+			'href'  => 'https://hiilite.com',
 			'meta'  => array( 'class' => 'hiilite_com' ),
-			'parent' => $wplogo->id
+			'parent' => $wplogo_id
 		);
 		$wp_admin_bar->add_node( $args );
 		
 		$args = array(
 			'id'    => 'hiilite_marketing',
 			'title' => 'Marketing',
-			'href'  => 'http://www.hiilite.com/marketing-strategy/',
+			'href'  => 'https://hiilite.com/marketing-strategy/',
 			'meta'  => array( 'class' => 'hiilite_marketing' ),
-			'parent' => $wplogo->id
+			'parent' => $wplogo_id
 		);
 		$wp_admin_bar->add_node( $args );
 		
 		$args = array(
 			'id'    => 'hiilite_webdesign',
 			'title' => 'Web Design',
-			'href'  => 'http://www.hiilite.com/website-design/',
+			'href'  => 'https://hiilite.com/website-design/',
 			'meta'  => array( 'class' => 'hiilite_webdesign' ),
-			'parent' => $wplogo->id
+			'parent' => $wplogo_id
 		);
 		$wp_admin_bar->add_node( $args );
 		
 		$args = array(
 			'id'    => 'hiilite_seo',
 			'title' => 'SEO',
-			'href'  => 'http://www.hiilite.com/seo-social-media/',
+			'href'  => 'https://hiilite.com/seo-social-media/',
 			'meta'  => array( 'class' => 'hiilite_seo' ),
-			'parent' => $wplogo->id
+			'parent' => $wplogo_id
 		);
 		$wp_admin_bar->add_node( $args );
 	}

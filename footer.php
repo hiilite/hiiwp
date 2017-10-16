@@ -2,6 +2,7 @@
 $hiilite_options = Hii::$hiiwp->get_options();
 do_action( 'hii_after_content' );
 
+do_action( 'hii_before_footer' );
 ?>			
 
 <!-- FOOTER -->
@@ -10,6 +11,7 @@ do_action( 'hii_after_content' );
 	do_action ( 'hii_footer' );
 	
 	if($hiilite_options[ 'show_footer_top_yesno' ] == 'true'): 
+		do_action ( 'hii_before_footer_top' );
 		echo '<div id="footer_top"><div class="container_inner">';
 		
 		if($hiilite_options['footer_in_grid']) echo '<div class="in_grid">';
@@ -46,7 +48,7 @@ do_action( 'hii_after_content' );
 		
 			endforeach;
 			
-			
+		do_action ( 'hii_after_footer_top' );	
 			
 		endif;//end footer top columns
 		
@@ -58,6 +60,8 @@ do_action( 'hii_after_content' );
 		
 	
 	if(get_theme_mod( 'footer_page_on') == true && get_theme_mod('footer_page_content') != false){
+		do_action ( 'hii_before_footer_page' );
+		
 		$footerpage_id = get_theme_mod('footer_page_content');
 		$footerpage = new WP_Query(array('page_id' => $footerpage_id));
 		if($footerpage->have_posts()){
@@ -69,13 +73,15 @@ do_action( 'hii_after_content' );
 			}
 			echo '</div>';
 		}
+		do_action ( 'hii_after_footer_page' );
 	} 
 	
 
 		
 		
 		
-
+		do_action ( 'hii_before_footer_bottom' );
+		
 		echo '<div id="footer_bottom" class="container_inner">';
 	
 		if(get_theme_mod('footer_bottom_in_grid')) { echo '<div class="in_grid">'; }
@@ -105,6 +111,7 @@ do_action( 'hii_after_content' );
 			endforeach;
 		}
 		
+		do_action ( 'hii_before_footer_menu' );
 		
 		wp_nav_menu(array(
 						'menu' =>  'footer-menu',
@@ -115,9 +122,12 @@ do_action( 'hii_after_content' );
 						'theme_location' => 'footer-menu',
 						'fallback_cb'    => false
 					)); 
+					
+		do_action ( 'hii_after_footer_menu' );
 		
 		if(get_theme_mod('footer_bottom_in_grid')) { echo '</div>'; }
-		 
+		
+		do_action ( 'hii_after_footer_bottom' );
 		?>
 			<div class="full-width align-center">
 				<?php echo get_theme_mod('footer_bottom_copyright_text', '<small>Copyright © '.date('Y').'  All rights reserved. <a href="https://hiilite.com/" target="_blank" title="Hiilite Creative Group | Web + Marketing">Web Design by Hiilite Creative Group Kelowna</a></small>'); ?>

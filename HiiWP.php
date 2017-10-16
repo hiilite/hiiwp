@@ -55,7 +55,7 @@ class HiiWP extends Hii{
         add_filter( 'widget_text','do_shortcode');
         add_filter( 'wp_calculate_image_srcset_meta', '__return_null' );
         add_action( 'tgmpa_register', array($this, 'hiilite_register_required_plugins' ));
-        
+        add_filter( 'get_the_archive_title', array($this, 'modify_archive_title' ));
 		//add_filter( 'document_title_parts', array($this, 'custom_titles'), 10);
         
 	    add_action( 'wp_head', array($this, 'theme_slug_render_title' ));
@@ -285,6 +285,29 @@ class HiiWP extends Hii{
 		echo "<title>$page_title</title>";
 	}
 	
+	
+	/**
+	 * modify_archive_title function.
+	 * 
+	 * @access public
+	 * @param mixed $title
+	 * @return void
+	 */
+	public function  modify_archive_title( $title ) {
+	    if ( is_category() ) {
+	        $title = single_cat_title( '', false );
+	    } elseif ( is_tag() ) {
+	        $title = single_tag_title( '', false );
+	    } elseif ( is_author() ) {
+	        $title = '<span class="vcard">' . get_the_author() . '</span>';
+	    } elseif ( is_post_type_archive() ) {
+	        $title = post_type_archive_title( '', false );
+	    } elseif ( is_tax() ) {
+	        $title = single_term_title( '', false );
+	    }
+	  
+	    return $title;
+	}
 
 	/**
 	 * set_permalink_structure function.

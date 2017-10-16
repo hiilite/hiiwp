@@ -133,3 +133,46 @@ ul.download-versions {
 .woocommerce div.product .woocommerce-tabs .panel {
     padding: 1em;
 }
+.woocommerce ul.product-categories li.product mark {
+	display:none;
+}
+.woocommerce ul.product-categories li.product a {
+    display: block;
+}
+.woocommerce .products ul, .woocommerce ul.products,
+.woocommerce ul.product-categories {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+}
+
+.woocommerce ul.products li.product,
+.woocommerce ul.product-categories li.product {
+	float: none;
+    flex: 1 1 auto;
+    margin: 0 auto;
+    text-align: center;
+    max-width: 300px;
+}
+
+.woocommerce ul.product-categories li.product a img {
+    width: 100px;
+    display: block;
+    padding: 0.5em;
+    margin: 0;
+    vertical-align: middle;
+    box-sizing: border-box;
+    margin:auto;
+
+}
+
+.woocommerce ul.product-categories li.product a h2 {
+    display: inline-block;
+    padding: 0;
+}
+
+.woocommerce ul.product-categories li.product {
+    border: 1px solid #ccc;
+    max-width: 100%;
+    margin: 0.1em;
+}

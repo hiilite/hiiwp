@@ -134,7 +134,7 @@ if($parallax){
 	$para = "style='background-attachment:fixed;'";
 }
 
-$output .= '<section ' . implode( ' ', $wrapper_attributes ) . ' '.$para.'>';
+$output .= '<div ' . implode( ' ', $wrapper_attributes ) . ' '.$para.'>';
 
 $output .= '<div class="container_inner">';
 $output .= (!empty($atts['in_grid']) )?'<div class="in_grid">':'';
@@ -143,7 +143,7 @@ $output .= (!empty($atts['in_grid']) )?'<div class="in_grid">':'';
 $output .= wpb_js_remove_wpautop( $content );
 
 $output .= (!empty($atts['in_grid']) )?'</div>':'';
-$output .= '</div></section>';
+$output .= '</div></div>';
 $output .= $after_output;
 
 echo $output;

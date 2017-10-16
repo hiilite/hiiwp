@@ -208,7 +208,7 @@ Kirki::add_field( 'hiiwp', array(
 ) );
 Kirki::add_field( 'hiiwp', array(
 	'type'        => 'code',
-	'settings'    => 'second_level_menu_links_css',
+	'settings'    => 'third_level_menu_links_css',
 	'label'       => __( 'Menu Custom CSS (.menu .menu-item a)', 'hiiwp' ),
 	'section'     => $section,
 	'default'     => '',

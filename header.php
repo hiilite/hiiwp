@@ -10,7 +10,7 @@
  * @since       0.1.0
  */
 
-$hiilite_options = Hii::$hiiwp->get_options();
+$hiilite_options = Hii::get_options();
 
 $post_id = get_the_id();
 $post_object = get_post( $post_id );
@@ -26,8 +26,9 @@ if(get_post_meta(get_the_id(), 'page_seo_description', true) != ''){
 	$the_content = substr(preg_replace('/\[.*.\]|\n+/', '', $the_content), 0, 165);
 	$page_description = strip_tags($the_content);
 }
-?><!doctype html>
-<html lang="en">
+
+do_action('hii_doctype');
+?>
 <head>
 <meta charset="utf-8">
 <meta name="description" content="<?=$page_description?>">
@@ -55,7 +56,9 @@ do_action( 'hii_before_header' );
 			<?php
 			endif; // end enable_search_bar_yesno
 			
-			if($hiilite_options['header_top_area_yesno'] == true): ?>
+			if($hiilite_options['header_top_area_yesno'] == true): 
+			do_action( 'hii_before_header_top' );
+			?>
 			<aside id="header_top">
 				<div class="container_inner"><div class="in_grid">
 					<?php 
@@ -66,9 +69,11 @@ do_action( 'hii_before_header' );
 				</div></div>
 			</aside>
 			<?php 
+			do_action( 'hii_after_header_top' );
 			endif;
 			
 			if(get_theme_mod( 'header_top_home') == true && get_theme_mod('header_top_home_content') != false && is_front_page()){
+				do_action( 'hii_before_header_top_home' );
 				$hometop_id = get_theme_mod('header_top_home_content');
 				$hometop = new WP_Query(array('page_id' => $hometop_id));
 				if($hometop->have_posts()){
@@ -80,6 +85,7 @@ do_action( 'hii_before_header' );
 					}
 					echo '</aside>';
 				}
+				do_action( 'hii_after_header_top_home' );
 			} elseif (get_theme_mod( 'header_top_home') == true && !is_front_page()){					
 				echo '<aside id="header_top_pages"></aside>';
 			
@@ -99,15 +105,13 @@ do_action( 'hii_before_header' );
 					}
 				endif;
 			endif;
-				
+			
+			do_action( 'hii_before_main_header' );	
 			?>
 			<header id="main_header" class="<?=$hiilite_options['header_type'];?>" <?=$bg_color;?>>
 				<div class="container_inner">
-					<hgroup style="display: none;">
-						<h1><?=$page_title?></h1>
-					</hgroup>
-					<?php 
-				if($hiilite_options['header_in_grid']) { echo '<div class="in_grid">'; }
+				<?php do_action('hii_header_hgroup');
+				if($hiilite_options['header_in_grid'] == true) { echo '<div class="in_grid">'; }
 				
 					if($hiilite_options['header_center_left_on']){ ?>
 						<div id="header_center_left" class="flex-item">
@@ -185,30 +189,31 @@ do_action( 'hii_before_header' );
 						echo '<div class="search_button"><i class="fa fa-search"></i></div>';
 					endif;
 					
-				if($hiilite_options['header_in_grid']) { echo '</div>'; } ?>
+				if($hiilite_options['header_in_grid'] == true) { echo '</div>'; } ?>
 				</div>
-				<?php if($hiilite_options['header_bottom_on']): ?>
+				<?php if($hiilite_options['header_bottom_on']): 
+				do_action( 'hii_before_header_bottom' );
+				?>
 				<aside id="header_bottom" class="flex-item">
 					<div class="container_inner"><div class="in_grid">
 						<div id="header_bottom_left">
 							<?php
-							if ( is_active_sidebar( 'header_bottom_left' ) ) :
-								dynamic_sidebar( 'header_bottom_left' );
-							endif;
+							do_action( 'hii_header_bottom_left' );
 							?>
 						</div>
 						<div id="header_bottom_right">
 							<?php
-							if ( is_active_sidebar( 'header_bottom_right' ) ) :
-								dynamic_sidebar( 'header_bottom_right' );
-							endif;
+							do_action( 'hii_header_bottom_right' );
 							?>
 						</div>
 						</div>
 					</div>
 				</aside>
 				</aside>
-				<?php endif; ?>
+				<?php 
+				do_action( 'hii_after_header_bottom' );
+				endif; ?>
 			</header><?php
+do_action( 'hii_after_main_header' );
 do_action( 'hii_before_content' );
 ?>

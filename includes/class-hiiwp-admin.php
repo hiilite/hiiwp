@@ -43,6 +43,15 @@ class HiiWP_Admin {
 	}
 	
 	
+	/**
+	 * edit_per_page function.
+	 * 
+	 * @access public
+	 * @param mixed $result
+	 * @param mixed $option
+	 * @param mixed $user
+	 * @return void
+	 */
 	public function edit_per_page( $result, $option, $user ) {
 		$status = filter_input( INPUT_GET, 'post_status', FILTER_SANITIZE_STRING );
 		return 50;
@@ -166,14 +175,14 @@ class HiiWP_Admin {
 	}
 	
 	
-	function cmb2_render_callback_for_google_authorization( $field, $escaped_value, $object_id, $object_type, $field_type_object ) {
+	public function cmb2_render_callback_for_google_authorization( $field, $escaped_value, $object_id, $object_type, $field_type_object ) {
 	    $gadwp = new GADWP_Settings();
 	    $gadwp->general_settings();
 	}
 	
 	
 	
-	function hii_seo_options_page() {
+	public function hii_seo_options_page() {
 	
 		/*
 		*

@@ -244,6 +244,18 @@ h1,h2,h3,h4,h5,h6,.h1,.h2 {
 	line-height:1.5;
 	margin: 0;
 }
+table, tr, th, td {
+	box-sizing:border-box;	
+}
+table {
+	border:1px solid #efefef;	
+}
+table tr:nth-child(odd) {
+	background:#f5f5f5;
+}
+table td {
+	padding:0.5rem;	
+}
 <?php 
 //////////////////////
 //
@@ -522,7 +534,7 @@ for($i = 12; $i>0;$i--):
 	echo '.vc_col-xs-'.$i.', .vc_col-md-'.$i.', .vc_col-sm-'.$i.', .vc_col-lg-'.$i.', .col-'.$i;
 	echo ($alt_cols[$i])?', .'.$alt_cols[$i]:'';
 	echo '{';
-		$perc_ratio = (( $i / 12 ) * 100 );
+		$perc_ratio = floor((($i/12)*100));
 		echo ($i > 12)?'max-width:'.$perc_ratio.'em;':'max-width:100%;';
 		echo 'width:'.$perc_ratio.'%;';
 		$min_width = ($i>4)?'320':'160';
@@ -538,7 +550,7 @@ for($i = 12; $i>0;$i--):
 	echo '.vc_col-xs-'.$i.', .vc_col-md-'.$i.', .vc_col-sm-'.$i.', .vc_col-lg-'.$i.', .col-'.$i;
 	echo ($alt_cols[$i])?', .'.$alt_cols[$i]:'';
 	echo '{';
-		$perc_ratio = (($i/12)*100);
+		$perc_ratio = floor((($i/12)*100));
 		echo 'width:'.$perc_ratio.'%;';
 		$min_width = ($i>2)?'320':'160';
 		echo 'flex:1 1 '.$min_width.'px;';
@@ -718,30 +730,46 @@ endif; ?>
 /*
 //	note: Widgets
 */
+.sidebar,
 .widget {
 	<?php get_font_css(get_theme_mod( 'sidebar_widget_text_font' )); ?>
 }
+.sidebar h3,
 .widgettitle {
 	<?php get_font_css(get_theme_mod( 'sidebar_widget_title_font' )); ?>
 }
+.sidebar a,
 .widget a {
 	<?php	get_font_css(get_theme_mod( 'sidebar_widget_link_font' ));	?>
 }
+.sidebar ul,
 .widget ul {
 	list-style: none;
 	padding: 0;
 }
+.sidebar ul ul,
 .widget ul ul{
 	list-style: none;
 	padding-left: 1em;
 }
-
+.sidebar {
+	background: <?=$hiilite_options['sidebar_background'];?>;	
+}
+.sidebar .depth_2 {
+	padding-left:1em;	
+}
+.sidebar .depth_3 {
+	padding-left:2em;	
+}
+.sidebar,
 #post_sidebar, 
 #blog_sidebar {
 	<?php
 	echo 'padding:'.get_spacing($hiilite_options['sidebar_padding']).';';	
 	?>
+	background: <?=$hiilite_options['sidebar_background'];?>;
 }
+.sidebar .widget,
 #post_sidebar .widget, 
 #blog_sidebar .widget {
 	<?php
@@ -1202,10 +1230,22 @@ input,textarea,select {
 select {
     -webkit-appearance: none;
     border-radius: 0;
+    background-image: linear-gradient(45deg, transparent 50%, gray 50%), linear-gradient(135deg, gray 50%, transparent 50%), linear-gradient(to right, #ccc, #ccc);
+    background-position: calc(100% - 20px) 50%, calc(100% - 15px) 50%, calc(100% - 43px) 30%;
+    background-size: 5px 5px, 5px 5px, 1px 2em;
+    background-repeat: no-repeat;
+    padding-right: 3em;
 }
-.ginput_complex {
-	
+
+select:focus {
+    background-image: linear-gradient(45deg,<?=$hiilite_options['color_one'];?> 50%,transparent 50%),linear-gradient(135deg,transparent 50%,<?=$hiilite_options['color_one'];?> 50%),linear-gradient(to right,#ccc,#ccc);
+    background-position: calc(100% - 15px) 50%,calc(100% - 20px) 50%,calc(100% - 43px) 30%;
+    background-size: 5px 5px,4px 5px,1px 2em;
+    background-repeat: no-repeat;
+    border-color: <?=$hiilite_options['color_one'];?>;
+    outline: 0;
 }
+
 .ginput_full {
     width: 100%;
 }

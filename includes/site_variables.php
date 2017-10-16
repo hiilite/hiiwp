@@ -614,6 +614,7 @@ $hiilite_options['single_full']			= get_theme_mod( 'single_full', false );
 $hiilite_options['blog_show_featured_image'] = get_theme_mod('blog_show_featured_image', true);
 
 // SIDEBAR
+$hiilite_options['sidebar_background']		= get_theme_mod( 'sidebar_background', '#efefef');
 $hiilite_options['sidebar_padding'] 				= get_theme_mod( 'sidebar_padding', array(
 		'top'    => '1em',
 		'right'  => '1em',

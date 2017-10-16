@@ -8,6 +8,16 @@ Kirki::add_section( $section, array(
 ) );
 
 Kirki::add_field( 'hiiwp', array(
+	'type'        => 'color',
+    'settings'    => 'sidebar_background',
+    'label'       => __( 'Sidebar Background Color', 'hiiwp' ),
+    'section'     => $section,
+    'priority'    => 1,
+    'default'     => $hiilite_options['sidebar_background'],
+    'alpha'		  => true,
+));
+
+Kirki::add_field( 'hiiwp', array(
     'type'        => 'typography',
     'settings'    => 'sidebar_widget_title_font',
     'label'       => esc_attr__( 'Title Style', 'kirki' ),

@@ -17,7 +17,7 @@ Kirki::add_panel( 'portfolio_panel', array(
 //////////////////////
 Kirki::add_section( 'portfolio_section', array(
     'priority'    => 1,
-    'title'       => __( 'Portfolio', 'textdomain' ),
+    'title'       => __( 'Portfolio Page', 'textdomain' ),
     'description' => __( 'Portfolio settings', 'textdomain' ),
     'panel'       => 'portfolio_panel', 
 ) );
@@ -47,6 +47,28 @@ Kirki::add_field( 'hiiwp', array(
         'masonry' => get_template_directory_uri() . '/images/icons/layout-masonry.png',
         'boxed' => get_template_directory_uri() . '/images/icons/layout-boxed.png',
     ),
+) );
+
+Kirki::add_field( 'hiiwp', array(
+	'type'        => 'radio-image',
+    'settings'    => 'portfolio_image_pos',
+    'label'       => __( 'Image Position', 'my_textdomain' ),
+    'section'     => 'portfolio_section',
+    'default'     => 'image-left',
+    'description' => 'Select position of the image',
+    'priority'    => 1,
+    'multiple'    => 1,
+    'choices'     => array(
+        'image-left' => get_template_directory_uri() . '/images/icons/image-left.png',
+        'image-above' => get_template_directory_uri() . '/images/icons/image-above.png',
+    ),
+    'active_callback'	=> array(
+		array(
+			'setting'  => 'portfolio_layout',
+			'operator' => '==',
+			'value'    => 'boxed',
+		),
+	),
 ) );
 
 Kirki::add_field( 'hiiwp', array(
@@ -99,16 +121,6 @@ Kirki::add_field( 'hiiwp', array(
 ) );
 
 Kirki::add_field( 'hiiwp', array(
-    'type'        => 'switch',
-    'settings'    => 'portfolio_show_author_date',
-    'label'       => __( 'Show Author and Date line', 'my_textdomain' ),
-    'section'     => 'portfolio_section',
-    'default'     => false,
-    'priority'    => 1,
-) );
-
-
-Kirki::add_field( 'hiiwp', array(
 	'type'        => 'radio-buttonset',
 	'settings'    => 'portfolio_heading_size',
 	'label'       => esc_attr__( 'Title Size', 'my_textdomain' ),
@@ -133,38 +145,6 @@ Kirki::add_field( 'hiiwp', array(
 ) );
 
 Kirki::add_field( 'hiiwp', array(
-    'type'        => 'switch',
-    'settings'    => 'portfolio_show_post_meta',
-    'label'       => __( 'Show Meta', 'my_textdomain' ),
-    'section'     => 'portfolio_section',
-    'default'     => false,
-    'priority'    => 1,
-) );
-
-
-Kirki::add_field( 'hiiwp', array(
-	'type'        => 'radio-image',
-    'settings'    => 'portfolio_image_pos',
-    'label'       => __( 'Image Position', 'my_textdomain' ),
-    'section'     => 'portfolio_section',
-    'default'     => 'image-left',
-    'description' => 'Select position of the image',
-    'priority'    => 1,
-    'multiple'    => 1,
-    'choices'     => array(
-        'image-left' => get_template_directory_uri() . '/images/icons/image-left.png',
-        'image-above' => get_template_directory_uri() . '/images/icons/image-above.png',
-    ),
-    'active_callback'	=> array(
-		array(
-			'setting'  => 'portfolio_layout',
-			'operator' => '==',
-			'value'    => 'boxed',
-		),
-	),
-) );
-
-Kirki::add_field( 'hiiwp', array(
 	'type'        => 'radio-image',
     'settings'    => 'portfolio_title_pos',
     'label'       => __( 'Title Position', 'my_textdomain' ),
@@ -184,6 +164,24 @@ Kirki::add_field( 'hiiwp', array(
 			'value'    => true,
 		),
 	),
+) );
+
+Kirki::add_field( 'hiiwp', array(
+    'type'        => 'switch',
+    'settings'    => 'portfolio_show_author_date',
+    'label'       => __( 'Show Author and Date line', 'my_textdomain' ),
+    'section'     => 'portfolio_section',
+    'default'     => false,
+    'priority'    => 1,
+) );
+
+Kirki::add_field( 'hiiwp', array(
+    'type'        => 'switch',
+    'settings'    => 'portfolio_show_post_meta',
+    'label'       => __( 'Show Meta', 'my_textdomain' ),
+    'section'     => 'portfolio_section',
+    'default'     => false,
+    'priority'    => 1,
 ) );
 
 Kirki::add_field( 'hiiwp', array(
