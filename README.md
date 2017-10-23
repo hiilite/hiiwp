@@ -2,6 +2,8 @@
 This theme is currently in Alpha testing and should not be installed without the support of the team at Hiilite Creative Group
 
 ### Change log
+#### v0.4,3
+- Added [viewport-units-buggyfill](https://github.com/rodneyrehm/viewport-units-buggyfill)
 #### v0.4.2
 - Adding Hooks Library
 - Theme Licensing groundwork added

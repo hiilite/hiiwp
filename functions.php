@@ -8,7 +8,7 @@
  * @author      Peter Vigilante
  * @copyright   Copyright (c) 2017, Hiilite Creative Group
  * @license     http://opensource.org/licenses/https://opensource.org/licenses/MIT
- * @since       0.4.2
+ * @since       0.4.3
  */
 
 
@@ -52,7 +52,7 @@ class Hii {
 	*/
 	private function define_constants(){
 	    if ( ! defined( 'HIIWP_VERSION' ) ) {                
-			 define( 'HIIWP_VERSION', '0.4.2' );
+			 define( 'HIIWP_VERSION', '0.4.3' );
 		}
 		if ( ! defined( 'HIIWP_SLUG' ) ) {                
 		    define( 'HIIWP_SLUG', 'hiiwp' );           
@@ -73,7 +73,7 @@ class Hii {
 	public function __construct() {
 		$this->define_constants();
 		$this->add_dependencies();
-		
+		$this->add_service_extensions();
 		
 				
 		include_once(HIILITE_DIR . '/HiiWP.php');
@@ -91,7 +91,7 @@ class Hii {
 		} 
 		
 		if ( ! class_exists( 'AM_License_Menu' ) ) {
-			require_once( HIILITE_DIR . '/includes/service_extentions/am-license-menu.php' );
+			require_once( HIILITE_DIR . '/includes/service_extensions/am-license-menu.php' );
 			AM_License_Menu::instance( __FILE__, 'HiiWP', HIIWP_VERSION, 'theme', 'https://dev.hiilite.com/' );
 		    
 		}
@@ -114,6 +114,8 @@ class Hii {
 		add_action( 'after_switch_theme', 'flush_rewrite_rules', 15);
 		
 		
+		
+		
 	}
 	
 	
@@ -124,6 +126,20 @@ class Hii {
 		if(!class_exists('PW_CMB2_Field_Select2'))	include_once( HIILITE_DIR . '/addons/cmb-field-select2/cmb-field-select2.php' );
 		if(!class_exists('CMB2_Taxonomy'))			include_once( HIILITE_DIR . '/addons/cmb2-taxonomy/init.php' );
 		include_once( HIILITE_DIR . '/addons/custom-field-types/address-field-type.php' );
+	}
+	
+	private function add_service_extensions(){
+		if(class_exists('WooCommerce')){
+			add_theme_support( 'wc-product-gallery-zoom' );
+			add_theme_support( 'wc-product-gallery-lightbox' );
+			add_theme_support( 'wc-product-gallery-slider' );
+		}
+		
+		if(class_exists('WP_User_Manager')):
+			require_once( HIILITE_DIR . '/includes/shortcodes/wpum.php');
+		endif;
+		
+		
 	}
 	
 	public function activate() {
@@ -200,6 +216,9 @@ function hii_the_title() {
 	echo hii_get_the_title();
 }
 
+if(class_exists('WooCommerce')){
+	include_once( HIILITE_DIR . '/includes/service_extensions/woocommerce.php' );
+}
 /*
 Include Support Add-ons	
 */
@@ -225,12 +244,6 @@ function requireVcExtend(){
 	require_once locate_template('/extendvc/extend-vc.php');
 }
 
-/*	
-WP USER MANAGER	
-*/
-if(class_exists('WP_User_Manager')):
-	require_once( HIILITE_DIR . '/includes/shortcodes/wpum.php');
-endif;
 
 /*	
 GRAVITY FORMS	
@@ -240,22 +253,6 @@ if(class_exists('GFForms')):
 	add_filter( 'gform_enable_field_label_visibility_settings', '__return_true' );
 endif;
 
-/*	
-WOOCMMERCE	
-*/
-if(class_exists('WooCommerce')){
-	add_theme_support( 'wc-product-gallery-zoom' );
-	add_theme_support( 'wc-product-gallery-lightbox' );
-	add_theme_support( 'wc-product-gallery-slider' );
-}
-
-/*
-bbPress	
-*/
-if(class_exists('bbPress')):
-	//change admin links displayed
-
-endif;
 
 
 /* Add with options in Custumizer */

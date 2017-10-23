@@ -1,7 +1,7 @@
 (function($){
 	
 $(document).ready(function(){	
-	
+	window.viewportUnitsBuggyfill.init();  
 	/* HII POST CAROUSEL */
 		
 	/* get number of items */
