@@ -33,7 +33,7 @@ if($hiilite_options['testimonials_on'] == true):
 		'show_ui'            => true,
 		'show_in_menu'       => true,
 		'query_var'          => true,
-		'rewrite'            => array( 'slug' => $testimonials_slug ),
+		'rewrite'            => array( 'slug' => $testimonials_slug, 'with_front' => false ),
 		'capability_type'    => 'post',
 		'has_archive'        => true,
 		'hierarchical'       => false,
@@ -66,7 +66,7 @@ if($hiilite_options['testimonials_on'] == true):
 	    'show_ui'           => true,
 	    'show_admin_column' => true,
 	    'query_var'         => true,
-	    'rewrite'           => array( 'slug' => $testimonials_tax_slug ),
+	    'rewrite'           => array( 'slug' => $testimonials_tax_slug, 'with_front' => false ),
 	);
 	
 	register_taxonomy( $testimonials_tax_slug, array( $testimonials_slug ), $args );

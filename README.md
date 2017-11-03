@@ -4,6 +4,11 @@ This theme is currently in Alpha testing and should not be installed without the
 ### Change log
 #### v0.4,3
 - Added [viewport-units-buggyfill](https://github.com/rodneyrehm/viewport-units-buggyfill)
+- Moved favicon code to hiiwp_head function
+- Removed duplicate instance of hiiwp from Hii class
+- Fixes to <title> tag for better compatibility with new WordPress title formats
+- Default button radius set to 0
+- Fully HTML Validated
 #### v0.4.2
 - Adding Hooks Library
 - Theme Licensing groundwork added

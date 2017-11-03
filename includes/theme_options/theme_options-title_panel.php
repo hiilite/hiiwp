@@ -27,8 +27,8 @@ function add_show_title_on_control() {
 	    'description'  => __( 'Which post types should the title show on', 'my_textdomain' ),
 	    'section'     => 'title_section',
 	    'priority'    => 1,
-	    'default'     => Hii::$hiiwp->get_post_types(array(), 'objects'),
-	    'choices'     => Hii::$hiiwp->get_post_types(array(), 'objects'),
+	    'default'     => Hii::get_post_types(array(), 'objects'),
+	    'choices'     => Hii::get_post_types(array(), 'objects'),
 	    'active_callback'	=> array(
 			array(
 				'setting'  => 'show_page_titles',

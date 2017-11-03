@@ -1,6 +1,6 @@
 <?php
 	
-$hiilite_options = Hii::$hiiwp->get_options();
+$hiilite_options = Hii::get_options();
 /*** Removing shortcodes ***/
 vc_remove_element("vc_wp_text"); 
 vc_remove_element("vc_wp_links");

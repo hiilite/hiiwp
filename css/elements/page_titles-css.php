@@ -5,9 +5,9 @@
 	if ($hiilite_options['header_above_content'] == false){ echo 'z-index:100;top:0;'; } 
 	echo 'position: relative;'; 
 	get_background_css($hiilite_options['title_background']);
+	echo (!empty($hiilite_options['title_height']))?'min-height:'.$hiilite_options['title_height'].';':'';
+	echo (!empty($hiilite_options[ 'title_padding' ]))?'padding:'.get_spacing($hiilite_options[ 'title_padding' ]).';':'';
 	?>
-	min-height: <?=$hiilite_options['title_height'];?>;
-	padding: <?=get_spacing($hiilite_options[ 'title_padding' ]);?>;
 	display: block;
 	width:100%;
 }

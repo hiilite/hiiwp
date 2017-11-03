@@ -1,5 +1,6 @@
 <style>
 <?php 
+$hiilite_options = Hii::get_options();
 global $is_IE;
 include_once('font-awesome/css/font-awesome.min.css'); 
 
@@ -190,6 +191,11 @@ figure {
 	padding: 0;
 	position: relative;
     line-height: 0;
+}
+figcaption {
+    line-height: 1.5;
+    color: #999;
+    font-size: 0.8em;
 }
 figure.align-center img{
 	margin: auto;
@@ -628,7 +634,7 @@ endfor;
 	margin-right:0.5em;
 }
 
-<?php if($hiilite_options['blog_layout'] == 'boxed'): ?>
+<?php if($hiilite_options['blog_layouts'] == 'boxed'): ?>
 .boxed .blog-article h4 {
     overflow: hidden;
     display: -webkit-box;

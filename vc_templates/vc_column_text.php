@@ -13,12 +13,12 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Shortcode class
  * @var $this WPBakeryShortCode_VC_Column_text
  */
-$el_class = $css = $css_animation = $white_text = '';
+$white = $el_class = $css = $css_animation = $white_text = '';
 $atts = vc_map_get_attributes( $this->getShortcode(), $atts );
 extract( $atts );
 
 if($white_text == 'yes') {
-	$white = 'white';	
+	$white = ' white';	
 }
 
 $class_to_filter = 'text-block ' . $this->getCSSAnimation( $css_animation );

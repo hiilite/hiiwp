@@ -80,7 +80,7 @@ class Hii {
 		
 		// For backwards compatibility
 		if(null == self::$hiiwp) {
-			self::$hiiwp = new HiiWP();
+			self::$hiiwp = $this;
 		}
 		
 		$hiilite_options = self::get_options();
@@ -169,7 +169,7 @@ class Hii {
 	 * @param string $output (default: 'names')
 	 * @return void
 	 */
-	public function get_post_types($args = array(), $output = 'names') {
+	public static function get_post_types($args = array(), $output = 'names') {
 		$post_types = get_post_types( array(), $output ); 
 		$types = array();
 		if($output == 'objects'):
@@ -187,11 +187,10 @@ class Hii {
 	}
     
 }
-function HIIWP() {
-	return Hii::instance();
-}
 
-$GLOBALS['hiiwp'] = new Hii();
+$GLOBALS['hiiwp'] = Hii::instance();
+
+
 
 
 /**
@@ -310,7 +309,7 @@ function link_to_loadCSS_script($html, $handle, $href ) {
 	    $dom->loadHTML($html);
 	    $a = $dom->getElementById($handle.'-css');
 	    if($a)
-	    	return "<script>loadCSS('" . $a->getAttribute('href') . "',0,'" . $a->getAttribute('media') . "');</script>\n";	
+	    	return "<script>if (typeof loadCSS == 'function') { loadCSS('" . $a->getAttribute('href') . "',0,'" . $a->getAttribute('media') . "'); }</script>\n";	
 	    else
 	    	return $html;
 	} else {
@@ -371,19 +370,56 @@ add_action( 'customize_controls_enqueue_scripts', 'hiiwp_customize_control_js' )
 
 
 
-// remove the default WordPress canonical URL function
-if( function_exists( 'rel_canonical' ) )
-{
-    remove_action( 'wp_head', 'rel_canonical' );
+
+
+
+/*
+Get Primary Category With Yoast	
+*/
+function prime_cat($tax, $id) {
+	$yourTaxonomy = 'work';
+
+	$category = get_the_terms( $id, $tax );
+	$useCatLink = true;
+	// If post has a category assigned.
+	if ($category){
+		$category_display = '';
+		$category_link = '';
+		if ( class_exists('WPSEO_Primary_Term') )
+		{
+			// Show the post's 'Primary' category, if this Yoast feature is available, & one is set
+			$wpseo_primary_term = new WPSEO_Primary_Term( 'event_cat', get_the_id() );
+			$wpseo_primary_term = $wpseo_primary_term->get_primary_term();
+			$term = get_term( $wpseo_primary_term );
+			if (is_wp_error($term)) { 
+				// Default to first category (not Yoast) if an error is returned
+				$category_display = $category[0]->name;
+				$category_link = get_bloginfo('url') . '/' . 'event-category/' . $term->slug;
+				$category_id = $category[0]->term_id;
+			} else { 
+				// Yoast Primary category
+				$category_display = $term->name;
+				$category_link = get_term_link( $term->term_id );
+				$category_id = $term->term_id;
+			}
+		} 
+		else {
+			// Default, display the first category in WP's list of assigned categories
+			$category_display = $category[0]->name;
+			$category_link = get_term_link( $category[0]->term_id );
+			$category_id = $category[0]->term_id;
+		}
+		// Display category
+		if ( !empty($category_display) ){
+		    if ( $useCatLink == true && !empty($category_link) ){
+			return $category_id;
+		    } else {
+			return $category_id;
+		    }
+		}
+		
+	}
 }
-
-
-
-
-
-
-
-
 
 
 /*
@@ -404,13 +440,11 @@ function posts_link_attributes() {
     return 'class="button"';
 }
 
-
 function bbp_enable_visual_editor( $args = array() ) {
     $args['tinymce'] = true;
     return $args;
 }
 add_filter( 'bbp_after_get_the_content_parse_args', 'bbp_enable_visual_editor' );
-
 
 
 add_action('cmb2_admin_init', 'cmb2_post_metaboxes');
@@ -558,7 +592,7 @@ function cmb2_portfolio_metaboxes(){
 	//////////////////////////////////
 	// Portfolio for all posts
 	/////////////////////////////////
-	$hiilite_options = Hii::$hiiwp->get_options();
+	$hiilite_options = Hii::get_options();
 	
     $cmb = new_cmb2_box( array(
         'id'            => 'portfolio_options',
@@ -706,7 +740,7 @@ function cmb2_output_portfolio_imgs( $portfolio_images ) {
 	if(!empty($portfolio_images)):
 		foreach($portfolio_images as $port_img) {
 			echo '<div class="col-12 port-img">';
-			echo '<img src="'.$port_img.'">';
+			echo '<img src="'.$port_img.'" >';
 			echo '</div>';	
 		}
 	endif;
@@ -718,7 +752,7 @@ function cmb2_output_portfolio_imgs( $portfolio_images ) {
 /////////////////////////////////
 add_action('cmb2-taxonomy_meta_boxes', 'cmb2_portfolio_taxonomy_metaboxes');
 function cmb2_portfolio_taxonomy_metaboxes( array $meta_boxes ) {
-	$hiilite_options = Hii::$hiiwp->get_options();
+	$hiilite_options = Hii::get_options();
 	
 	$meta_boxes['test_metabox'] = array(
 		'id'            => 'portfolio_work_metabox',
@@ -753,7 +787,7 @@ function cmb2_portfolio_taxonomy_metaboxes( array $meta_boxes ) {
 
 function portfolio_primary_category_selection() {
 	
-	$hiilite_options = Hii::$hiiwp->get_options();
+	$hiilite_options = Hii::get_options();
 
     $prefix = 'portfolio_';
 
@@ -1211,7 +1245,7 @@ function tofloat($num) {
 
 if(!function_exists('get_portfolio')):
 function get_portfolio($args = null, $options = null){
-	$hiilite_options = Hii::$hiiwp->get_options();
+	$hiilite_options = Hii::get_options();
 	$hiilite_options['portfolio_show_filter'] = get_theme_mod( 'portfolio_show_filter', true );
 	$slug = get_theme_mod( 'portfolio_slug', 'portfolio' );
 	$html = $css = '';
@@ -1346,7 +1380,7 @@ function get_portfolio($args = null, $options = null){
 					
 										
 					$html .='<figure class="flex-item">
-						<img src="'.$imgs[$i]['src'].'" layout="responsive" on="tap:lightbox1" width='.$imgs[$i]['width'].' height='.$imgs[$i]['height'].'>';
+						<img src="'.$imgs[$i]['src'].'" on="tap:lightbox1" width='.$imgs[$i]['width'].' height='.$imgs[$i]['height'].' alt="'.get_the_title().'">';
 					$html .= '</figure>';
 					
 					$html .= '</article>';
@@ -1372,7 +1406,7 @@ function get_portfolio($args = null, $options = null){
 					
 										
 					$html .='<figure class="flex-item">
-						<a href="'.$imgs[$i]['src'].'"><img src="'.$imgs[$i]['src'].'" layout="responsive" width='.$imgs[$i]['width'].' height='.$imgs[$i]['height'].'>';
+						<a href="'.$imgs[$i]['src'].'"><img src="'.$imgs[$i]['src'].'" width='.$imgs[$i]['width'].' height='.$imgs[$i]['height'].' alt="'.get_the_title().'">';
 					
 					$html .= '</a></figure>';
 					
@@ -1500,6 +1534,15 @@ function get_portfolio($args = null, $options = null){
 							$article_title .= '<meta itemprop="name" content="'.get_the_author_meta('display_name').'">';
 						endif;
 						$article_title .= '</span>';
+						
+					}
+					
+					$cat_id = prime_cat('work',get_the_id());
+					
+					if($cat_id) {
+					
+						$portfolio_work_image = (get_term_meta ( $cat_id, 'portfolio_work_image', true))?get_term_meta ( $cat_id, 'portfolio_work_image', true):false;
+						$article_title .= ($portfolio_work_image)?'<img src="'.$portfolio_work_image.'" class="cat-img-small" alt="'.get_the_title().'">':'';
 					}
 					
 					$cols = '';
@@ -1520,8 +1563,7 @@ function get_portfolio($args = null, $options = null){
 					}
 					
 					//get_template_part('templates/portfolio', 'loop');
-					$html .= '<article class="row row-o-content-top flex-item" id="post-'.get_the_id().'" >
-					<meta itemscope itemprop="mainEntityOfPage"  itemType="https://schema.org/WebPage" itemid="'.get_bloginfo('url').'"/>';
+					$html .= '<article class="row row-o-content-top flex-item portfolio-masonry-item" id="post-'.get_the_id().'" >';
 					
 					if($portfolio_title_pos == 'title-above') { 
 						$html .= '<div class="content-box">'.$article_title.'</div>';
@@ -1536,7 +1578,7 @@ function get_portfolio($args = null, $options = null){
 						$height = $img[2];
 					
 						$html .='<figure class="flex-item">
-							<a href="'.get_the_permalink().'"><img src="'.$img[0].'" layout="responsive" width='.$width.' height='.$height.'>';
+							<a href="'.get_the_permalink().'"><img src="'.$img[0].'" width='.$width.' height='.$height.' alt="'.get_the_title().'">';
 			
 						$html .= '</a></figure>';
 					endif;
@@ -1544,15 +1586,13 @@ function get_portfolio($args = null, $options = null){
 						$html .= '<div class="flex-item';
 						$html .= ($portfolio_image_pos=='image-left')?' col-6':' col-12';
 						$html .= '">';
-						$html .= '<meta itemprop="datePublished" content="'.get_the_time('Y-m-d').'">
-						<meta itemprop="dateModified" content="'.get_the_modified_date('Y-m-d').'">';
 					
 					if($portfolio_title_pos == 'title-below') { 
 						$html .= $article_title;
 					}
 					if($portfolio_excerpt_on)$html .= '<p>'.content_excerpt($portfolio_excerpt_length).'</p>';
 					if($portfolio_more_on)$html .='<a class="button" href="'.get_the_permalink().'">'.$portfolio_more_text.'</a>';
-					$html .= '<div></article>';
+					$html .= '</div></article>';
 				else: // else if not masonry-h
 				
 					
@@ -1598,8 +1638,7 @@ function get_portfolio($args = null, $options = null){
 					}
 					
 					//get_template_part('templates/portfolio', 'loop');
-					$html .= '<article class="row row-o-content-top blog-article flex-item '.$cols.'" id="post-'.get_the_id().'" >
-					<meta itemscope itemprop="mainEntityOfPage"  itemType="https://schema.org/WebPage" itemid="'.get_bloginfo('url').'"/>';
+					$html .= '<article class="row row-o-content-top blog-article flex-item '.$cols.'" id="post-'.get_the_id().'" >';
 					
 					if($portfolio_title_pos == 'title-above') { 
 						$html .= '<div class="content-box">'.$article_title.'</div>';
@@ -1614,7 +1653,7 @@ function get_portfolio($args = null, $options = null){
 						$height = $img[2];
 					
 						$html .='<figure class="flex-item col-6">
-							<a href="'.get_the_permalink().'"><img src="'.$img[0].'" layout="responsive" width='.$width.' height='.$height.'>';
+							<a href="'.get_the_permalink().'"><img src="'.$img[0].'" width='.$width.' height='.$height.' alt="'.get_the_title().'">';
 					
 						$html .= '</a></figure>';
 					endif;
@@ -1630,7 +1669,7 @@ function get_portfolio($args = null, $options = null){
 					}
 					if($portfolio_excerpt_on)$html .= '<p>'.content_excerpt($portfolio_excerpt_length).'</p>';
 					if($portfolio_more_on)$html .='<a class="button" href="'.get_the_permalink().'">'.$portfolio_more_text.'</a>';
-					$html .= '<div></article>';
+					$html .= '</div></article>';
 				endif; // end if not masonry-h
 				
 			endwhile;
@@ -1922,9 +1961,9 @@ function get_portfolio($args = null, $options = null){
 					$html .= '<div id="pfi'.$current['id'].'" class="flex-item '.$current['col'].' '.$current['isolate'].'">';
 					//$html .= $debug;
 					if($args['post_type'] != 'attachment') $html .= '<a href="'.$current['href'].'">';
-					$html .= '<img src="'.$current['src'].'" layout="responsive" width="'.$current['width'].'" height="'.$current['height'].'"';
+					$html .= '<img src="'.$current['src'].'"  width="'.$current['width'].'" height="'.$current['height'].'"';
 					if($args['post_type'] == 'attachment') $html .= ' on="tap:lightbox1" role="button" ';
-					$html .= '>';
+					$html .= ' alt="'.get_the_title().'">';
 					if($args['post_type'] != 'attachment') $html .= '</a>';
 					if($args['post_type'] != 'attachment') {
 						if($show_post_title ||  $show_post_meta) $html .= '<div class="post_meta">';
@@ -1944,13 +1983,13 @@ function get_portfolio($args = null, $options = null){
 		if ($in_grid) $html .= '</div>';
 		$html .= '</div>';
 		
-		$hiilite_options['portfolio_custom_css'] = $css;
+		//$hiilite_options['portfolio_custom_css'] = $css;
 		
-		$html .= '<style>'.$hiilite_options['portfolio_custom_css'].'</style>';
-		if($args['post_type'] == 'attachment') { 
+		//$html .= '<style>'.$hiilite_options['portfolio_custom_css'].'</style>';
+		/*if($args['post_type'] == 'attachment') { 
 			$html .= '<amp-image-lightbox id="lightbox1" layout="nodisplay"><div id="closelightbox" on="tap:lightbox1.close"></div></amp-image-lightbox>';
 			$hiilite_options['portfolio_custom_css'] .= '#closelightbox{position:fixed;width:100vw;height:100vh;z-index:9999;}';
-		}
+		}*/
 		
 		
 		

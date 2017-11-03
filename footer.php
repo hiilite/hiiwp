@@ -1,5 +1,5 @@
 <?php
-$hiilite_options = Hii::$hiiwp->get_options();
+$hiilite_options = Hii::get_options();
 do_action( 'hii_after_content' );
 
 do_action( 'hii_before_footer' );

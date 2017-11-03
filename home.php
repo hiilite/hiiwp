@@ -11,7 +11,7 @@ $grid = ($hiilite_options['blog_full_width'] == false) ? 'in_grid' : 'x';
 
 
 if(have_posts()):
-	echo '<section class="row" id="home_blog_loop"><div class="container_inner '.$grid.'">';
+	echo '<div class="row" id="home_blog_loop"><div class="container_inner '.$grid.'">';
 	echo '<div class="'.$grid.' '.$hiilite_options['blog_layouts'].$colcount.'">';
 
 	while(have_posts()):
@@ -48,7 +48,7 @@ if(have_posts()):
 	
 	/*do_action( 'hii_blog_sidebar' );*/			
 	
-	echo '</div></section>';
+	echo '</div></div>';
 
 endif;
 get_footer(); ?>

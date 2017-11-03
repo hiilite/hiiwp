@@ -33,7 +33,7 @@ if($hiilite_options['teams_on']):
 		'show_ui'            => true,
 		'show_in_menu'       => true,
 		'query_var'          => true,
-		'rewrite'            => array( 'slug' => $slug ),
+		'rewrite'            => array( 'slug' => $slug , 'with_front' => false),
 		'capability_type'    => 'post',
 		'has_archive'        => true,
 		'hierarchical'       => false,
@@ -66,7 +66,7 @@ if($hiilite_options['teams_on']):
         'show_ui'           => true,
         'show_admin_column' => true,
         'query_var'         => true,
-        'rewrite'           => array( 'slug' => $tax_slug ),
+        'rewrite'           => array( 'slug' => $tax_slug, 'with_front' => false ),
     );
  
     register_taxonomy( $tax_slug, array( $slug ), $args );

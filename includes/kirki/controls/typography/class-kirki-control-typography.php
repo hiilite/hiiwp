@@ -196,7 +196,7 @@ class Kirki_Control_Typography extends WP_Customize_Control {
 					<h5><?php esc_attr_e( 'Font Family', 'kirki' ); ?></h5>
 					<select {{{ data.inputAttrs }}} id="kirki-typography-font-family-{{{ data.id }}}" placeholder="<?php esc_attr_e( 'Select Font Family', 'kirki' ); ?>"></select>
 				</div>
-				<# if ( true  ) { #>
+				<# if (  true === data.choices['font-backup']   ) { #>
 					<div class="font-backup hide-on-standard-fonts kirki-font-backup-wrapper">
 						<h5><?php esc_attr_e( 'Backup Font', 'kirki' ); ?></h5>
 						<select {{{ data.inputAttrs }}} id="kirki-typography-font-backup-{{{ data.id }}}" placeholder="<?php esc_attr_e( 'Select Font Family', 'kirki' ); ?>"></select>

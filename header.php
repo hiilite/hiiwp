@@ -25,6 +25,10 @@ if(get_post_meta(get_the_id(), 'page_seo_description', true) != ''){
 	$the_content = $post_object->post_content;
 	$the_content = substr(preg_replace('/\[.*.\]|\n+/', '', $the_content), 0, 165);
 	$page_description = strip_tags($the_content);
+} elseif( get_post_meta(get_the_ID(), '_yoast_wpseo_metadesc', true) != '' ) {
+	$page_description = get_post_meta(get_the_ID(), '_yoast_wpseo_metadesc', true);
+} else {
+	$page_description = '';
 }
 
 do_action('hii_doctype');
@@ -33,11 +37,7 @@ do_action('hii_doctype');
 <meta charset="utf-8">
 <meta name="description" content="<?=$page_description?>">
 <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
-<link rel="shortcut icon" href="<?=get_theme_mod('favicon');?>"> 
-<link rel="mask-icon" href="<?=get_theme_mod('safari_icon');?>" color="<?=get_theme_mod('safari_icon_color');?>">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"><?php 
-	
+<?php 
 wp_head(); 
 ?></head>
 <body <?php body_class(); ?>>
@@ -109,8 +109,9 @@ do_action( 'hii_before_header' );
 			do_action( 'hii_before_main_header' );	
 			?>
 			<header id="main_header" class="<?=$hiilite_options['header_type'];?>" <?=$bg_color;?>>
+				<?php do_action('hii_header_hgroup');?>
 				<div class="container_inner">
-				<?php do_action('hii_header_hgroup');
+				<?php 
 				if($hiilite_options['header_in_grid'] == true) { echo '<div class="in_grid">'; }
 				
 					if($hiilite_options['header_center_left_on']){ ?>
@@ -136,7 +137,7 @@ do_action( 'hii_before_header' );
 		
 							
 							<a href="<?php bloginfo('url'); ?>">
-								<img src="<?=$hiilite_options['main_logo'];?>" width="<?=$hiilite_options['logo_width'];?>" alt="<?=$page_title?>" height="<?=$hiilite_options['logo_height'];?>">
+								<img src="<?=$hiilite_options['main_logo'];?>" width="<?=$hiilite_options['logo_width'];?>" alt="<?=hii_get_the_title();?>">
 							</a>
 						</div><?php 
 					endif;

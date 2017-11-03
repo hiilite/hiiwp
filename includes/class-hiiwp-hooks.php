@@ -9,7 +9,6 @@ class HiiWP_Hooks extends Hii {
 	
 	public $hii_hooks = array(
 		'hii_doctype',
-		'hii_title',
 		'hii_meta',
 		'hii_before',
 		'hii_before_header',
@@ -28,6 +27,9 @@ class HiiWP_Hooks extends Hii {
 		'hii_split_portfolio_sidebar_team',
 		'hii_split_portfolio_sidebar_share',
 		'hii_split_portfolio_sidebar_about',
+		'hii_before_blog_loop',
+		'hii_after_blog_loop',
+		
 	);
 	/**
 	 * __construct function.
@@ -40,6 +42,7 @@ class HiiWP_Hooks extends Hii {
 		add_action( 'cmb2_admin_init', array($this, 'add_admin_hooks_page' ));
 		
 		add_action('hii_doctype', array($this,'hii_doctype'));	
+		add_action('hii_title', array($this, 'hii_title'));
 		add_action('hii_header_hgroup', array($this,'hii_header_hgroup'));	
 		add_action('hii_header_bottom_left', array($this,'hii_header_bottom_left'));	
 		add_action('hii_header_bottom_right', array($this,'hii_header_bottom_right'));	
@@ -136,7 +139,6 @@ class HiiWP_Hooks extends Hii {
 		echo $doctype.$html_tag;
 	}
 	
-	
 	/**
 	 * hii_doctype function.
 	 * 
@@ -145,7 +147,7 @@ class HiiWP_Hooks extends Hii {
 	 */
 	public function hii_header_hgroup(){
 		$page_title = hii_get_the_title();
-		$hgroup = "<hgroup style='display: none;'><h1>$page_title</h1></hgroup>";
+		$hgroup = "<h1 style='display: none;'>$page_title</h1>";
 		echo $hgroup;
 	}
 	
@@ -225,7 +227,7 @@ class HiiWP_Hooks extends Hii {
 	 */
 	public function hii_split_portfolio_sidebar_date($args){
 		$date = '<div class="row">
-			<small><time class="time op-published" datetime="'.$args[0].'><span class="date">'.$args[1].'</span></time></small>
+			<small><time class="time op-published" datetime="'.$args[0].'"><span class="date">'.$args[1].'</span></time></small>
 		</div>';
 		
 		echo $date;
@@ -244,9 +246,15 @@ class HiiWP_Hooks extends Hii {
 		        	<div class="tags_text">
 						<span itemprop="keywords" class="labels">
 							<small>';
-								foreach($tags as $tag) {
-									$tad_id = get_tag_link($tag->term_id);
-									$portfolio_tags .= '<a href="'.$tad_id.'">#'.$tag->name.'</a> ';
+								if(is_array($tags)) {
+									foreach($tags as $tag) {
+										$tad_id = get_tag_link($tag->term_id);
+										$portfolio_tags .= '<a href="'.$tad_id.'">#'.$tag->name.'</a> ';
+									}
+								}
+								else {
+									$tad_id = get_tag_link($tags->term_id);
+									$portfolio_tags .= '<a href="'.$tad_id.'">#'.$tags->name.'</a> ';
 								}
 							$portfolio_tags .= '</small>
 							</span>

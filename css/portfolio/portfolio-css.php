@@ -21,6 +21,19 @@ ul.portfolio_terms li {
 ul.portfolio_terms li a {
     line-height: 3;
 }
+.portfolio-masonry-item .content-box {
+	display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.portfolio-masonry-item .content-box h6 {
+	align-self: center;
+}
+.portfolio-masonry-item .content-box .cat-img-small {
+	min-width:30px;
+	width:30px;
+	height:30px;	
+}
 
 
 .portfolio-piece {
@@ -105,10 +118,12 @@ if($hiilite_options['portfolio_template'] == 'split') {
 	font-weight:bold;
 	font-size:1.2em;
 }
+<?php if(isset($portfolio_work_color)): ?>
 .project-info hr {
 		color:<?=$portfolio_work_color;?>;
 		border-color: inherit;
 	}
+<?php endif; ?>
 .project-info .project-client {
 	padding-top:2em;	
 }
@@ -166,7 +181,7 @@ if($hiilite_options['portfolio_template'] == 'split') {
 	margin-top:1em;	
 }
 @media (max-width:912px){
-	.single-portfolio .portfolio .container_inner .in_grid {
+	.single-portfolio .portfolio > .container_inner > .in_grid {
 		flex-direction:column-reverse;	
 	}	
 	.portfolio-gallery, .project-info {

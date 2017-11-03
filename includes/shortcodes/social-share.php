@@ -82,10 +82,10 @@ function add_social_share_shortcode( $atts ){
 	
 	
 	
-	if($tw) $output .= '<a title="Share On Twitter" target="_blank" href="https://twitter.com/share?url='.urlencode($permalink).'&text='.$page_title.str_replace(' ','',$hashtags).'"><i class="fa fa-twitter"></i></a>  ';
+	if($tw) $output .= '<a title="Share On Twitter" target="_blank" href="https://twitter.com/share?url='.urlencode($permalink).'&text='.urlencode($page_title).str_replace(' ','',$hashtags).'"><i class="fa fa-twitter"></i></a>  ';
 	
 	if($li) $output .= '<a title="Share On LinkedIn" target="_blank" href="http://www.linkedin.com/shareArticle?url='.$permalink.'"><i class="fa fa-linkedin"></i></a>  ';
-	if($pt) $output .= '<a title="Share On Pinterest" target="_blank" href="https://pinterest.com/pin/create/bookmarklet/?media='.$page_image.'&url='.$permalink.'&description='.$page_title.'"><i class="fa fa-pinterest"></i></a>  ';
+	if($pt) $output .= '<a title="Share On Pinterest" target="_blank" href="https://pinterest.com/pin/create/bookmarklet/?media='.$page_image.'&url='.$permalink.'&description='.urlencode($page_title).'"><i class="fa fa-pinterest"></i></a>  ';
 	
 	
 	

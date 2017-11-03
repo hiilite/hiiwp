@@ -39,7 +39,7 @@ if($hiilite_options['menus_on']):
 		'show_ui'            => true,
 		'show_in_menu'       => true,
 		'query_var'          => true,
-		'rewrite'            => array( 'slug' => $menu_slug ),
+		'rewrite'            => array( 'slug' => $menu_slug, 'with_front' => false ),
 		'capability_type'    => 'post',
 		'has_archive'        => true,
 		'hierarchical'       => false,
@@ -72,7 +72,7 @@ if($hiilite_options['menus_on']):
         'show_ui'           => true,
         'show_admin_column' => true,
         'query_var'         => true,
-        'rewrite'           => array( 'slug' => $menu_tax_slug ),
+        'rewrite'           => array( 'slug' => $menu_tax_slug, 'with_front' => false ),
     );
  
     register_taxonomy( $menu_tax_slug, array( $menu_slug ), $args );

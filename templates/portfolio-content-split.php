@@ -15,6 +15,9 @@ if(is_front_page() || is_archive(  )){
 } else {
 	$page_title = get_the_title( get_the_id( ));
 } 
+
+$work_object = get_queried_object();
+$work_id     = get_queried_object_id();
 	
 $page_bg = (get_post_meta ( $post->ID, 'page_bg', true))?get_post_meta ( $post->ID, 'page_bg', true):false;
 $portfolio_description = (get_post_meta ( $post->ID, 'portfolio_description', true))?get_post_meta ( $post->ID, 'portfolio_description', true):false;
@@ -122,7 +125,7 @@ echo '<div class="in_grid  align-top">';
 			do_action( 'hii_split_portfolio_sidebar_client', $portfolio_client );
 		}
 		
-		do_action( 'hii_split_portfolio_sidebar_date', array(get_the_time('c'),get_the_time('F jS, Y')) );
+		do_action( 'hii_split_portfolio_sidebar_date', array(get_the_date('c',$work_id),get_the_date('F jS, Y',$work_id)) );
 		
 		do_action( 'hii_split_portfolio_sidebar_tags', $tags);
 		

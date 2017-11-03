@@ -30,7 +30,7 @@ if($hiilite_options['portfolio_on']):
 		'show_ui'            => true,
 		'show_in_menu'       => true,
 		'query_var'          => true,
-		'rewrite'            => array( 'slug' => $slug ),
+		'rewrite'            => array( 'slug' => $slug, 'with_front' => false),
 		'capability_type'    => 'post',
 		'has_archive'        => true,
 		'hierarchical'       => true,
@@ -63,7 +63,7 @@ if($hiilite_options['portfolio_on']):
 	    'show_ui'           => true,
 	    'show_admin_column' => true,
 	    'query_var'         => true,
-	    'rewrite'           => array( 'slug' => $tax_slug ),
+	    'rewrite'           => array( 'slug' => $tax_slug, 'with_front' => false ),
 	);
 	
 	register_taxonomy( 
@@ -73,7 +73,7 @@ if($hiilite_options['portfolio_on']):
 	        'hierarchical'  => false, 
 	        'label'         => __( 'Tags', 'hiilite' ), 
 	        'singular_name' => __( 'Tag', 'hiilite' ), 
-	        'rewrite'       => true, 
+	        'rewrite'       => array( 'slug' => 'tag', 'with_front' => false ), 
 	        'query_var'     => true 
 	    )  
 	);

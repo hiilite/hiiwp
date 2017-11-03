@@ -186,7 +186,7 @@ if ( $hover_image ) {
 
 if ( $link ) {
 	$a_attrs['href'] = $link;
-	$a_attrs['target'] = $img_link_target;
+	if($img_link_target != '') $a_attrs['target'] = $img_link_target;
 	if ( ! empty( $a_attrs['class'] ) ) {
 		$wrapperClass .= ' ' . $a_attrs['class'];
 		unset( $a_attrs['class'] );
