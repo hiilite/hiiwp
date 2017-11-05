@@ -13,12 +13,17 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Shortcode class
  * @var $this WPBakeryShortCode_VC_Column_text
  */
-$el_class = $css = $css_animation = '';
+$white = $el_class = $css = $css_animation = $white_text = '';
 $atts = vc_map_get_attributes( $this->getShortcode(), $atts );
 extract( $atts );
 
+if($white_text == 'yes') {
+	$white = ' white';	
+}
+
 $class_to_filter = 'text-block ' . $this->getCSSAnimation( $css_animation );
 $class_to_filter .= vc_shortcode_custom_css_class( $css, ' ' ) . $this->getExtraClass( $el_class );
+$class_to_filter .= $white;
 $css_class = apply_filters( VC_SHORTCODE_CUSTOM_CSS_FILTER_TAG, $class_to_filter, $this->settings['base'], $atts );
 
 //$content = str_replace( '<img', '<amp-img layout="responsive" ', $content );

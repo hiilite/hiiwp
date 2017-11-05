@@ -1,5 +1,6 @@
 <style>
 <?php 
+$hiilite_options = Hii::get_options();
 global $is_IE;
 include_once('font-awesome/css/font-awesome.min.css'); 
 
@@ -191,6 +192,11 @@ figure {
 	position: relative;
     line-height: 0;
 }
+figcaption {
+    line-height: 1.5;
+    color: #999;
+    font-size: 0.8em;
+}
 figure.align-center img{
 	margin: auto;
 	
@@ -243,6 +249,18 @@ h1,h2,h3,h4,h5,h6,.h1,.h2 {
 	get_font_css($hiilite_options['heading_font']); ?>
 	line-height:1.5;
 	margin: 0;
+}
+table, tr, th, td {
+	box-sizing:border-box;	
+}
+table {
+	border:1px solid #efefef;	
+}
+table tr:nth-child(odd) {
+	background:#f5f5f5;
+}
+table td {
+	padding:0.5rem;	
 }
 <?php 
 //////////////////////
@@ -341,6 +359,7 @@ table td {
 <?php
 include_once(HIILITE_DIR.'/css/vc_elements/row-css.php');	
 include_once(HIILITE_DIR.'/css/elements/buttons.php'); 
+include_once(HIILITE_DIR.'/css/elements/forms.php'); 
 include_once(HIILITE_DIR.'/css/header/header-css.php'); 
 include_once(HIILITE_DIR.'/css/header/menu-css.php');
 include_once(HIILITE_DIR.'/css/elements/page_titles-css.php');
@@ -522,7 +541,7 @@ for($i = 12; $i>0;$i--):
 	echo '.vc_col-xs-'.$i.', .vc_col-md-'.$i.', .vc_col-sm-'.$i.', .vc_col-lg-'.$i.', .col-'.$i;
 	echo ($alt_cols[$i])?', .'.$alt_cols[$i]:'';
 	echo '{';
-		$perc_ratio = (( $i / 12 ) * 100 );
+		$perc_ratio = floor((($i/12)*100));
 		echo ($i > 12)?'max-width:'.$perc_ratio.'em;':'max-width:100%;';
 		echo 'width:'.$perc_ratio.'%;';
 		$min_width = ($i>4)?'320':'160';
@@ -538,7 +557,7 @@ for($i = 12; $i>0;$i--):
 	echo '.vc_col-xs-'.$i.', .vc_col-md-'.$i.', .vc_col-sm-'.$i.', .vc_col-lg-'.$i.', .col-'.$i;
 	echo ($alt_cols[$i])?', .'.$alt_cols[$i]:'';
 	echo '{';
-		$perc_ratio = (($i/12)*100);
+		$perc_ratio = floor((($i/12)*100));
 		echo 'width:'.$perc_ratio.'%;';
 		$min_width = ($i>2)?'320':'160';
 		echo 'flex:1 1 '.$min_width.'px;';
@@ -615,7 +634,7 @@ endfor;
 	margin-right:0.5em;
 }
 
-<?php if($hiilite_options['blog_layout'] == 'boxed'): ?>
+<?php if($hiilite_options['blog_layouts'] == 'boxed'): ?>
 .boxed .blog-article h4 {
     overflow: hidden;
     display: -webkit-box;
@@ -718,30 +737,46 @@ endif; ?>
 /*
 //	note: Widgets
 */
+.sidebar,
 .widget {
 	<?php get_font_css(get_theme_mod( 'sidebar_widget_text_font' )); ?>
 }
+.sidebar h3,
 .widgettitle {
 	<?php get_font_css(get_theme_mod( 'sidebar_widget_title_font' )); ?>
 }
+.sidebar a,
 .widget a {
 	<?php	get_font_css(get_theme_mod( 'sidebar_widget_link_font' ));	?>
 }
+.sidebar ul,
 .widget ul {
 	list-style: none;
 	padding: 0;
 }
+.sidebar ul ul,
 .widget ul ul{
 	list-style: none;
 	padding-left: 1em;
 }
-
+.sidebar {
+	background: <?=$hiilite_options['sidebar_background'];?>;	
+}
+.sidebar .depth_2 {
+	padding-left:1em;	
+}
+.sidebar .depth_3 {
+	padding-left:2em;	
+}
+.sidebar,
 #post_sidebar, 
 #blog_sidebar {
 	<?php
 	echo 'padding:'.get_spacing($hiilite_options['sidebar_padding']).';';	
 	?>
+	background: <?=$hiilite_options['sidebar_background'];?>;
 }
+.sidebar .widget,
 #post_sidebar .widget, 
 #blog_sidebar .widget {
 	<?php
@@ -856,6 +891,7 @@ amp-carousel[type=slides] .slide {
 }
 .amp-carousel-button {
     position: absolute;
+    background: white;
     box-sizing: border-box;
     top: 50%;
     height: 34px;
@@ -988,12 +1024,152 @@ amp-carousel.right .vc_tta-panel-heading {
 	text-align:right;
 }
 
+/* POST SLIDER */
+
+.hii_post_carousel {
+  width: 100%;
+  height: 100%;
+  background:#fff;
+  display:flex;
+}
+.hii_post_carousel_wrap {
+	position:relative;	
+}
+/*.hii_post_carousel_wrap > div {
+	width: 80%;
+}*/
+.hii_carousel_post {
+	display:none;
+	/*width:0;*/	
+	position:absolute;
+	left:-1000;
+	text-align:center;
+	-webkit-transition: all 1s;
+	-moz-transition: all 1s;
+	-o-transition: all 1s;
+	-ms-transition: all 1s;
+	transition: all 1s;
+}
+.hii_pc_left {
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  position: absolute;
+  top: 30%;
+  left: 0;
+  width: 20% !important;
+  z-index: 1;
+  -webkit-transition: all 1s;
+	-moz-transition: all 1s;
+	-o-transition: all 1s;
+	-ms-transition: all 1s;
+	transition: all 1s;
+}
+.hii_pc_center {
+  display: block !important;
+  position: absolute;
+  top:0;
+  left: 20%;
+  width: 60% !important;
+  z-index: 2;
+  -webkit-transition: all 1s;
+	-moz-transition: all 1s;
+	-o-transition: all 1s;
+	-ms-transition: all 1s;
+	transition: all 1s;
+}
+.hii_pc_right {
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  position: absolute;
+  top: 30%;
+  left: 80%;
+  width: 20% !important;
+  z-index: 1;
+  -webkit-transition: all 1s;
+	-moz-transition: all 1s;
+	-o-transition: all 1s;
+	-ms-transition: all 1s;
+	transition: all 1s;
+}
+.hii_pc_center h3, .hii_pc_center .hii_post_exc, .hii_pc_center .button {
+	visibility:visible;
+	opacity:1;
+	-webkit-transition: visibility 500ms, opacity 500ms;
+	-moz-transition: visibility 500ms, opacity 500ms;
+	-o-transition: visibility 500ms, opacity 500ms;
+	-ms-transition: visibility 500ms, opacity 500ms;
+	transition: visibility 500ms, opacity 500ms;	
+	-webkit-transition-delay: 1s;
+    -moz-transition-delay: 1s;
+    -o-transition-delay: 1s;
+    transition-delay: 1s;
+}
+.hii_pc_left h3, .hii_pc_left .hii_post_exc, .hii_pc_left .button, 
+.hii_pc_right h3, .hii_pc_right .hii_post_exc, .hii_pc_right .button,
+.fade-out-left h3, .fade-out-left .hii_post_exc, .fade-out-left .button,
+.fade-out-right h3, .fade-out-right .hii_post_exc, .fade-out-right .button,
+.fade-in h3, .fade-in .hii_post_exc, .fade-in .button {
+	visibility:hidden;
+	opacity:0;
+	height:0;
+}
+#hii_pc_prev, #hii_pc_next {
+	text-align:center;
+	align-self: center;
+}
+#hii_pc_prev .fa, #hii_pc_next .fa {
+	font-size:2rem;
+	color:#303030;
+	cursor:pointer;
+}
+.fade-out-left {
+	display: block !important;
+	visibility: visible;
+	opacity: 0;
+	position: absolute;
+	top: 30%;
+	left: 0;
+	width: 20% !important;
+	z-index: 1;
+	-webkit-transition: all 1s;
+	-moz-transition: all 1s;
+	-o-transition: all 1s;
+	-ms-transition: all 1s;
+	transition: all 1s;
+}
+.fade-out-right {
+	display: block !important;
+	visibility: visible;
+	opacity: 0;
+	position: absolute;
+	top: 30%;
+	left: 80%;
+	width: 20% !important;
+	z-index: 1;
+	-webkit-transition: all 1s;
+	-moz-transition: all 1s;
+	-o-transition: all 1s;
+	-ms-transition: all 1s;
+	transition: all 1s;
+}
+.fade-in {
+	display: block;
+	opacity:0;
+}
+@media(max-width:550px) {
+	.hii_pc_left, .hii_pc_right {
+		display:none !important;	
+	}
+}
+
 
 .relatedposts .relatedarticle {
 	max-width: 200px;
 	overflow: hidden;
 	display: inline-block;
-	padding: 10px;
+	padding: 1em;
     vertical-align: top;
 }
 .relatedposts .relatedarticle p {
@@ -1001,6 +1177,7 @@ amp-carousel.right .vc_tta-panel-heading {
 	text-overflow: ellipsis;
 	white-space: normal;
 	overflow: hidden;
+	margin-top: 0;
 }
 
 .post-grid h5 {
@@ -1047,62 +1224,10 @@ if($hiilite_options['testimonials_on']):
 	text-align: center;
 }
 
-/* 
- //	note: Gravity Forms 
- */
-.gform_fields {
-	padding: 0;
-	list-style: none; 
-}
-input,textarea,select {
-	padding:1em;
-	border: 1px solid rgba(203, 203, 203, 1); 
-	font-size: 1rem;
-}
-select {
-    -webkit-appearance: none;
-    border-radius: 0;
-}
-.ginput_complex {
-	
-}
-.ginput_full {
-    width: 100%;
-}
-.gfield {
-    margin-bottom: 2em;
-}
-.gform_wrapper input:not([type=radio]):not([type=checkbox]):not([type=submit]):not([type=button]):not([type=image]):not([type=file]) {
-	padding:1em;
-}
-.gform_wrapper .chosen-container-single .chosen-single,.gform_wrapper.gf_browser_chrome .ginput_complex .ginput_right select, .gform_wrapper.gf_browser_chrome .ginput_complex select {
-	height: 3.4em;
-    margin-top: 0;
-    line-height: 3; 
-}
-
-.gfield span label { 
-    /* width: 100%; */
-    display: inline-block;
-    position: relative;
-    left: 0;
-    font-size: 12px;
-}
-
-.gfield span {
-    position: relative;
-    display: inline-block;
-}
-
-#disqus_thread {
-	width: 100%;
-}
-.vc_empty_space {
-	height: 2em;
-}
 .fl {
 	float: left;
 }
+
 #closelightbox{position:fixed;width:100vw;height:100vh;z-index:9999;}
 
 

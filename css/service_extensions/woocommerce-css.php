@@ -1,4 +1,8 @@
 <?php if(false): ?><style><?php endif; ?>
+.woocommerce label {
+    display: block;
+}
+
 .woocommerce, .woocommerce div.product, .woocommerce_before_shop_loop{
 	width: 100%;
 }
@@ -15,6 +19,12 @@
 .woocommerce-account .woocommerce-MyAccount-content {
 	box-sizing: border-box;
 	width:auto;
+}
+.woocommerce div.product form.cart .variations td.label {
+    padding: 1em;
+}
+.woocommerce div.product form.cart select {
+    line-height: 3;
 }
 .woocommerce-MyAccount-navigation {
 	box-sizing: border-box;
@@ -132,4 +142,75 @@ ul.download-versions {
 
 .woocommerce div.product .woocommerce-tabs .panel {
     padding: 1em;
+}
+.woocommerce ul.product-categories li.product mark {
+	display:none;
+}
+.woocommerce ul.product-categories li.product a {
+    display: block;
+}
+.woocommerce .products ul, .woocommerce ul.products,
+.woocommerce ul.product-categories {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+}
+
+.woocommerce ul.products li.product, .woocommerce ul.product-categories li.product {
+    float: none;
+    flex: 1 1 auto;
+    margin: 1em;
+    text-align: center;
+    max-width: 300px;
+}
+
+.woocommerce ul.product-categories li.product a img {
+    width: 100px;
+    display: block;
+    padding: 0.5em;
+    margin: 0;
+    vertical-align: middle;
+    box-sizing: border-box;
+    margin:auto;
+
+}
+
+.woocommerce ul.product-categories li.product a h2 {
+    display: inline-block;
+    padding: 0;
+}
+
+.woocommerce ul.product-categories li.product {
+    border: 1px solid #ccc;
+    max-width: 100%;
+    margin: 0.1em;
+}
+span.woocommerce-Price-amount.amount {
+    font-weight: 600;
+    font-size: 1.2em;
+    line-height: 1;
+}
+
+.subscription-details span.woocommerce-Price-amount.amount {
+    margin-top: 0.5em;
+}
+.woocommerce div.product form.cart {
+    clear: both;
+}
+
+.woocommerce div.product form.cart .nm-productmeta-box {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.woocommerce div.product form.cart .nm-productmeta-box
+ > div {
+    background: #efefef;
+    padding: 1em;
+    flex: 1 1 200px;
+}
+
+.woocommerce div.product form.cart .nm-productmeta-box
+div:last-child {
+    display: none;
 }

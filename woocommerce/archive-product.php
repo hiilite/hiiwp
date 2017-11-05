@@ -70,10 +70,13 @@ get_header( 'shop' ); ?>
 				do_action( 'woocommerce_before_shop_loop' );
 			?>
 			</div>
-			<?php woocommerce_product_loop_start(); ?>
-
+			<ul class="products product-categories">
 				<?php woocommerce_product_subcategories(); ?>
-
+			</ul>
+			<?php woocommerce_product_loop_start(); ?>
+				
+				
+				
 				<?php while ( have_posts() ) : the_post(); ?>
 
 					<?php

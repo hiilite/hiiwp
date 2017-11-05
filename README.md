@@ -2,6 +2,15 @@
 This theme is currently in Alpha testing and should not be installed without the support of the team at Hiilite Creative Group
 
 ### Change log
+#### v0.4.3
+- Added [viewport-units-buggyfill](https://github.com/rodneyrehm/viewport-units-buggyfill)
+- Moved favicon code to hiiwp_head function
+- Removed duplicate instance of hiiwp from Hii class
+- Fixes to <title> tag for better compatibility with new WordPress title formats
+- Default button radius set to 0
+- Fully HTML Validated
+- Updated WooCommerce template files
+- Deactivate SEO Options when Yoast SEO is installed
 #### v0.4.2
 - Adding Hooks Library
 - Theme Licensing groundwork added

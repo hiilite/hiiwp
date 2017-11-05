@@ -4,7 +4,7 @@ $post_meta = get_post_meta(get_the_id());
 ?>
 <!--PORTFOLIO-LOOP-->
 <article  <?php post_class('portfolio-piece flex-item half-width'); ?> id="post-<?php the_ID(); ?>" >
-	<meta itemscope itemprop="mainEntityOfPage"  itemType="https://schema.org/WebPage" itemid="<?php bloginfo('url')?>"/>
+	<meta itemscope itemprop="mainEntityOfPage"  itemType="https://schema.org/WebPage" itemid="<?php bloginfo('url')?>" content="<?php bloginfo('url')?>"/>
 	<?php 
 	if(has_post_thumbnail($post->id)): 
 			
@@ -15,7 +15,7 @@ $post_meta = get_post_meta(get_the_id());
 		$height = $img[2];
 	?>
 	<figure class="flex-item full-width">
-		<a href="<?=get_the_permalink()?>"><img src='<?=$img[0];?>' layout='responsive' width='<?=$width?>' height='<?=$height?>'></a>
+		<a href="<?=get_the_permalink()?>"><img src='<?=$img[0];?>' width='<?=$width?>' height='<?=$height?>' alt='<?=get_the_title()?>'></a>
 	</figure><?php endif; ?>
 	<div class="flex-item full-width content-box" >
 		<span itemprop="articleSection" class="labels"><?php the_category(', '); ?></span>

@@ -15,9 +15,9 @@ else:
 	$article_cat .= '<meta itemprop="articleSection" content="'.$cats.'"> ';
 endif;
 
-$article_title .= '<span itemprop="author" itemscope itemtype="https://schema.org/Person">';
+
 if($hiilite_options['blog_meta_show'] == 'true'):
-	$dateline .= '<small><address class="post_author">';
+	$dateline .= '<address class="post_author">';
 	$dateline .= '<a itemprop="author" itemscope itemtype="https://schema.org/Person" class="post_author_link" href="'.get_author_posts_url( get_the_author_meta( 'ID' ) ).'"><span itemprop="name">';
 	$dateline .= get_the_author_meta('display_name'); 
 	$dateline .= '</span></a> </address> <time class="time op-published" datetime="';
@@ -26,11 +26,11 @@ if($hiilite_options['blog_meta_show'] == 'true'):
 	$dateline .= '<span class="date">';
 	$dateline .= get_the_time('d F, Y');
 	$dateline .= ' </span>';
-	$dateline .= '</time></small>';
+	$dateline .= '</time>';
 else:
-	$dateline .= '<meta itemprop="name" content="'.get_the_author_meta('display_name').'">';
+	$article_title .= '<meta itemprop="name" content="'.get_the_author_meta('display_name').'">';
 endif;
-$article_title .= '</span>';
+
 
 
 
@@ -64,11 +64,10 @@ if($hiilite_options['blog_layouts'] =='boxed'){
 	}
 }
 do_action( 'hii_before_blog_loop' );
-
-if(is_customize_preview()) echo '<div class="customizer_quick_links"><button class="customizer-edit" data-control=\'{"name":"blog_layouts"}\'>Blog List</button></div>';?>
+?>
 <!--BLOG-LOOP-->
-<article <?php post_class('row blog-article'.$cols); ?> itemscope itemtype="http://schema.org/Article" id="post-<?php the_ID(); ?>" >
-	<meta itemscope itemprop="mainEntityOfPage"  itemType="https://schema.org/WebPage" itemid="<?php bloginfo('url')?>"/>
+<article <?php post_class('flex-item blog-article '.$cols); ?> itemscope itemtype="http://schema.org/Article" id="post-<?php the_ID(); ?>" >
+	<meta itemscope itemprop="mainEntityOfPage"  itemType="https://schema.org/WebPage" itemid="<?php bloginfo('url')?>" content="<?php bloginfo('url')?>"/>
 	<?php 
 	if($hiilite_options['blog_title_position'] == 'title-above') { 
 		echo '<div class="content-box col-12">';
@@ -95,13 +94,10 @@ if(is_customize_preview()) echo '<div class="customizer_quick_links"><button cla
 		<meta itemprop="url" content="<?=$img_src;?>">
 		<meta itemprop="width" content="<?=$width;?>">
 		<meta itemprop="height" content="<?=$height;?>">
-		<a href="<?=get_the_permalink()?>"><img src='<?=$img_src;?>' layout='responsive' width='<?=$width?>' height='<?=$height?>'></a>
+		<a href="<?=get_the_permalink()?>"><img src='<?=$img_src;?>' width='<?=$width?>' height='<?=$height?>' alt='<?=get_the_title()?>'></a>
 		<?php
 	echo '</figure>'; ?>
 	<div class="flex-item <?=($hiilite_options['blog_img_pos']=='image-left')?'col-6':'col-12'; ?> content-box" >
-		<meta itemprop="datePublished" content="<?php the_time('Y-m-d'); ?>">
-		<meta itemprop="dateModified" content="<?php the_modified_date('Y-m-d'); ?>">
-		<meta itemprop="headline" content="<?php the_title(); ?>">
 		<?php 
 		if($hiilite_options['blog_title_position'] == 'title-below') { 
 			
@@ -116,19 +112,8 @@ if(is_customize_preview()) echo '<div class="customizer_quick_links"><button cla
 			$more_button_class .= ($more_button_class != 'link' && $more_button_class != 'button')?' button readmore':' readmore';
 			?>
 			<a class="<?=$more_button_class;?>" href="<?php the_permalink() ?>"><?=$hiilite_options['blog_more_ex'];?></a><?php 
-				
 		endif;?>
-	<div>
-		<?php $options = get_option('hii_seo_settings'); ?>
-		<div itemprop="publisher" itemscope itemtype="https://schema.org/Organization">
-			<div itemprop="logo" itemscope itemtype="https://schema.org/ImageObject">
-			  <meta itemprop="url" content="<?=$options['business_logo']?>">
-			  <meta itemprop="width" content="150">
-			  <meta itemprop="height" content="150">
-			</div>
-			<meta itemprop="name" content="<?=$options['business_name']?>">
-		</div>
-
+	</div>
 </article>
 <?php
 do_action( 'hii_after_blog_loop' );	

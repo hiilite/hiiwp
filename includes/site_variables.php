@@ -1,6 +1,5 @@
 <?php
 // SETTING
-
 /*
  *	HEADER -> MENUS
  */
@@ -320,6 +319,8 @@ $hiilite_options['title_padding']			= get_theme_mod( 'title_padding', array(
 	));
 $hiilite_options['title_font']				= get_theme_mod( 'title_font', $hiilite_options['heading_font'] );
 
+$default_show_title_on = get_post_types(array(), 'names');
+$hiilite_options['show_title_on'] 	= get_theme_mod( 'show_title_on', $default_show_title_on );
 $hiilite_options['title_background'] = get_theme_mod( 'title_background', array(
 	'color' => '#ffffff',
 	'image' => '',
@@ -613,6 +614,7 @@ $hiilite_options['single_full']			= get_theme_mod( 'single_full', false );
 $hiilite_options['blog_show_featured_image'] = get_theme_mod('blog_show_featured_image', true);
 
 // SIDEBAR
+$hiilite_options['sidebar_background']		= get_theme_mod( 'sidebar_background', '#efefef');
 $hiilite_options['sidebar_padding'] 				= get_theme_mod( 'sidebar_padding', array(
 		'top'    => '1em',
 		'right'  => '1em',
@@ -667,24 +669,6 @@ $hiilite_options['testimonials_author_font']	= get_theme_mod( 'testimonials_auth
         'text-align'	=> 'center',
         'text-transform'	=> 'none',
     ) );
-
-
-if(class_exists( 'WooCommerce' )){
-	$hiilite_options['is_woocommerce'] = (is_woocommerce())?true:false;
-} else {
-	$hiilite_options['is_woocommerce'] = false;
-}
-
-
-
-
-
-
-
-
-
-
-
 
 
 	

@@ -8,19 +8,27 @@
  * @author      Peter Vigilante
  * @copyright   Copyright (c) 2017, Hiilite Creative Group
  * @license     http://opensource.org/licenses/https://opensource.org/licenses/MIT
- * @since       0.4.1
+ * @since       0.4.3
  */
-
+if ( ! defined( 'ABSPATH' ) )	exit;
 /**
  * HiiWP class.
  *
  * @since 1.0
  */
-class HiiWP {
+class HiiWP extends Hii {
 	
-	
+	private static $_instance = null;
+		
 	public static $options = array();
+	public static $hiilite_options = null;
 
+	public static function instance(){
+		if( is_null(self::$_instance)) {
+			self::$_instance = new self();
+		}
+		return self::$_instance;
+	}
 	
 	/**
 	 * __construct function.
@@ -29,10 +37,10 @@ class HiiWP {
 	 * @return void
 	 */
 	public function __construct() {
-		
-		
+		$hiilite_options = self::$hiilite_options = self::get_options();
 		add_action( 'init', array( $this, 'hiiwp_init') );
-		add_action( 'wp_head', array( $this, 'hiiwp_head') );
+		add_action( 'wp_head', array($this, 'hiiwp_head') );
+		add_action( 'wp_head', array($this, 'add_favicons'));
 		add_action( 'wp_head', array($this, 'add_tracking_codes'));
 		add_action( 'wp_head', array($this, 'canonical_for_comments') );
 		
@@ -47,34 +55,19 @@ class HiiWP {
         add_filter( 'auto_update_theme', '__return_true' );
         add_filter( 'widget_text','do_shortcode');
         add_filter( 'wp_calculate_image_srcset_meta', '__return_null' );
-        add_action( 'tgmpa_register', array('HiiWP','hiilite_register_required_plugins' ));
+        add_action( 'tgmpa_register', array($this, 'hiilite_register_required_plugins' ));
+        add_filter( 'get_the_archive_title', array($this, 'modify_archive_title' ));
         
-		//add_filter( 'document_title_parts', array($this, 'custom_titles'), 10);
-        
-        //if ( ! function_exists( '_wp_render_title_tag' ) ) {
-	    	add_action( 'wp_head', array($this, 'theme_slug_render_title' ));
-	    //}
-        
-        $hiilite_options = self::get_options();
-        
-        require_once( HIILITE_DIR . '/includes/kirki-settings.php' );
 		
-		include_once( HIILITE_DIR . '/addons/cmb2-functions.php' );
-		if(!class_exists('Cmb2_Metatabs_Options'))include_once( HIILITE_DIR . '/addons/cmb2-metatabs-options/cmb2_metatabs_options.php' );
-		if(!class_exists('CMB2_Conditionals'))include_once( HIILITE_DIR . '/addons/cmb2-conditionals/cmb2-conditionals.php' );
-		if(!class_exists('PW_CMB2_Field_Select2'))include_once( HIILITE_DIR . '/addons/cmb-field-select2/cmb-field-select2.php' );
-		if(!class_exists('CMB2_Taxonomy'))include_once( HIILITE_DIR . '/addons/cmb2-taxonomy/init.php' );
-		include_once( HIILITE_DIR . '/addons/custom-field-types/address-field-type.php' );
-		
-		
-		include_once( HIILITE_DIR . '/includes/business_profile.php' );
-		require_once( HIILITE_DIR . '/includes/wp_login_screen.php');
+        if ( ! function_exists( '_wp_render_title_tag' ) ) :
+	    	add_action( 'wp_head', array($this, 'render_title' ));
+    	else:
+    		add_filter( 'document_title_parts', array($this, 'custom_titles'), 10);
+	    endif;
+        
 		
         include_once( HIILITE_DIR . '/includes/Plugin-Activation/class-tgm-plugin-activation.php');
 		require_once( HIILITE_DIR . '/addons/tinymce_edits/tinymce_edits.php');
-		require_once( HIILITE_DIR . '/includes/widgets.php' );
-		require_once( HIILITE_DIR . '/includes/register_sidebars.php' );
-		require_once( HIILITE_DIR . '/includes/register_post_types.php');
 		
 		
 		/*
@@ -83,6 +76,7 @@ class HiiWP {
 		foreach (glob(HIILITE_DIR."/includes/shortcodes/*.php") as $filename) {
 		    include_once( $filename );
 		} 
+		
 	}
 	
 	
@@ -92,7 +86,7 @@ class HiiWP {
 	 * @access public
 	 * @return void
 	 */
-	public function get_options() {
+	public static function get_options() {
 		require(HIILITE_DIR . '/includes/site_variables.php');
 		self::$options = $hiilite_options;
         return self::$options;
@@ -105,10 +99,7 @@ class HiiWP {
      * @access public
      * @return void
      */
-    public function hiiwp_init(){  
-	    
-		
-    }
+    public function hiiwp_init(){}
 	
 	 
 	/**
@@ -120,26 +111,41 @@ class HiiWP {
 	public function hiiwp_head(){
 		global $cpage, $post, $wp_scripts, $woocommerce;
 		
-		$hiilite_options = self::get_options();
-		
-		
 		wp_enqueue_script("jquery");
 		
 		wp_enqueue_script('modernizr', HIIWP_URL.'/js/vender/modernizr-custom.js');
-		
+		wp_enqueue_script('viewportUnitsBuggyfill', HIIWP_URL.'/js/vender/viewport-units-buggyfill.js');
 		
 		wp_enqueue_script('main-scripts', HIIWP_URL.'/js/main-scripts.js', array( 'jquery' ), '0.0.2', true);	
-		wp_localize_script('main-scripts', 'mobile_menu_switch', $hiilite_options['mobile_menu_switch']);
+		wp_localize_script('main-scripts', 'mobile_menu_switch', self::$hiilite_options['mobile_menu_switch']);
 		
-		add_filter('script_loader_tag', array( $this, 'add_defer_attribute'), 10, 2);
+		/*Removed due to conflict with other caching plugins*/
+		//add_filter('script_loader_tag', array( $this, 'add_defer_attribute'), 10, 2);
 		
-		if($hiilite_options['is_woocommerce']){
+		if(self::$hiilite_options['is_woocommerce']){
 			wp_enqueue_script( 'prettyPhoto-init', $woocommerce->plugin_url() . '/assets/js/prettyPhoto/jquery.prettyPhoto.init.js', array( 'jquery' ), $woocommerce->version, true );
 		} 
 		
 		include_once(HIILITE_DIR . '/css/main-css.php');
 	}
 	
+	
+	/**
+	 * hiiwp_head function.
+	 * 
+	 * @access public
+	 * @return void
+	 */
+	public static function add_favicons(){		
+		$favicon = self::$hiilite_options['favicon'];
+		echo "<link rel='shortcut icon' href='$favicon'>";
+		$safari_icon = self::$hiilite_options['safari_icon'];
+		$safari_icon_color = self::$hiilite_options['safari_icon_color'];
+		echo "<link rel='mask-icon' href='$safari_icon' color='$safari_icon_color'>";
+		?>
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"><?php
+	}
 	
 	/**
 	 * canonical_for_comments function.
@@ -177,6 +183,26 @@ class HiiWP {
 	    add_submenu_page( 'hii_seo_settings', __('About HiiWP', 'hiiwp'), __('About', 'hiiwp'), 'manage_options', 'admin.php?page=about_hii_seo','hii_about_page');
 	}
 	
+	
+	/**
+	 * render_title function.
+	 * For WP 4.1 and under
+	 * @access public
+	 * @return void
+	 */
+	public function render_title() {
+		// Page Title
+		$brand_title = (get_theme_mod('brand_seo_title')!='')?get_theme_mod('brand_seo_title'):get_bloginfo('title');
+		if(get_post_meta(get_the_id(), 'page_seo_title', true) != ''){
+			$page_title = get_post_meta(get_the_id(), 'page_seo_title', true);
+		} elseif(get_theme_mod('site_seo_title') != '' && is_front_page()) {
+			$page_title = get_theme_mod('site_seo_title');
+		} else {
+			$page_title = wp_title('|',false,'right').$brand_title;
+		}
+		return $page_title;
+	}
+	
 	/**
 	 * custom_titles function.
 	 * 
@@ -185,17 +211,22 @@ class HiiWP {
 	 * @return void
 	 */
 	function custom_titles( $title ) {
+	
 	    // Page Title
 		$brand_title = (get_theme_mod('brand_seo_title')!='')?get_theme_mod('brand_seo_title'):get_bloginfo('title');
-		if(get_post_meta(get_the_id(), 'page_seo_title', true) != ''){
-			$title['title'] = get_post_meta(get_the_id(), 'page_seo_title', true);
-			$title['site'] = '';
-			$title['tagline'] = '';
-		} elseif(get_theme_mod('site_seo_title') != '' && is_front_page()) {
-			$title['title'] = get_theme_mod('site_seo_title');
-			$title['site'] = '';
-			$title['tagline'] = '';
+		$title['site'] = '';
+		$title['tagline'] = '';
+		$pageID = (is_home())?get_option('page_for_posts'):get_the_ID();
+		if( get_post_meta($pageID, '_yoast_wpseo_title', true) != '' ) {
+			$title['title'] = get_post_meta($pageID, '_yoast_wpseo_title', true);
 		} 
+		elseif( get_post_meta($pageID, 'page_seo_title', true) != '' ){
+			$title['title'] = get_post_meta($pageID, 'page_seo_title', true);
+		} 
+		elseif( get_theme_mod('site_seo_title') != '' && is_front_page() ) {
+			$title['title'] = get_theme_mod('site_seo_title');
+		} 
+		
 	    return $title;
 	}
 	
@@ -223,6 +254,7 @@ class HiiWP {
 	/**
 	 * add_defer_attribute function.
 	 * 
+	 * DEPRICATED
 	 * @access public
 	 * @param mixed $tag
 	 * @param mixed $handle
@@ -273,51 +305,34 @@ class HiiWP {
 	}
 	
 	
-	/**
-	 * get_post_types function.
-	 * 
-	 * @access public
-	 * @param array $args (default: array())
-	 * @param string $output (default: 'names')
-	 * @return void
-	 */
-	public function get_post_types($args = array(), $output = 'names') {
-		$post_types = get_post_types( array(), $output ); 
-		$types = array();
-		if($output == 'objects'):
-			foreach ($post_types as $post_type) {
-				if( $post_type->name != 'revision' &&
-					$post_type->name != 'nav_menu_item' &&
-					$post_type->name != 'custom_css' &&
-					$post_type->name != 'customize_changeset')
-					$types[$post_type->name] = $post_type->name;
-			}
-		else:
-			$types = $post_types;
-		endif;
-		return $types;
-	}
+	
+	
+	
+	
 	
 	
 	/**
-	 * theme_slug_render_title function.
+	 * modify_archive_title function.
 	 * 
 	 * @access public
+	 * @param mixed $title
 	 * @return void
 	 */
-	public function theme_slug_render_title() {
-		// Page Title
-		$brand_title = (get_theme_mod('brand_seo_title')!='')?get_theme_mod('brand_seo_title'):get_bloginfo('title');
-		if(get_post_meta(get_the_id(), 'page_seo_title', true) != ''){
-			$page_title = get_post_meta(get_the_id(), 'page_seo_title', true);
-		} elseif(get_theme_mod('site_seo_title') != '' && is_front_page()) {
-			$page_title = get_theme_mod('site_seo_title');
-		} else {
-			$page_title = wp_title('|',false,'right').$brand_title;
-		}
-		echo "<title>$page_title</title>";
+	public function  modify_archive_title( $title ) {
+	    if ( is_category() ) {
+	        $title = single_cat_title( '', false );
+	    } elseif ( is_tag() ) {
+	        $title = single_tag_title( '', false );
+	    } elseif ( is_author() ) {
+	        $title = '<span class="vcard">' . get_the_author() . '</span>';
+	    } elseif ( is_post_type_archive() ) {
+	        $title = post_type_archive_title( '', false );
+	    } elseif ( is_tax() ) {
+	        $title = single_term_title( '', false );
+	    }
+	  
+	    return $title;
 	}
-	
 
 	/**
 	 * set_permalink_structure function.
@@ -650,9 +665,7 @@ class HiiWP {
 	    tgmpa( $plugins, $config );
 	
 	}
-	
-	
-
-    
 }
+
+new HiiWP();
 ?>

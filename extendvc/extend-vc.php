@@ -1,6 +1,6 @@
 <?php
 	
-$hiilite_options = Hii::$hiiwp->get_options();
+$hiilite_options = Hii::get_options();
 /*** Removing shortcodes ***/
 vc_remove_element("vc_wp_text"); 
 vc_remove_element("vc_wp_links");
@@ -2166,8 +2166,61 @@ vc_map( array(
 	Ingredients (span,p,hide), 
 	Seperator (-,|,<br>),
 	Price (span,p,h3,h4,h5,h6,hide)
-	
 */
+
+
+
+////////////////////////////
+//
+//	Text Block
+//
+///////////////////////////// 
+vc_map( array(
+		"name" => "Text Block",
+		"base" => "vc_column_text",
+		"category" => 'HiiWP',
+		'icon' => 'icon-wpb-layer-shape-text',
+		'wrapper_class' => 'clearfix',
+		'category' => __( 'Content', 'js_composer' ),
+		'description' => __( 'A block of text with WYSIWYG editor', 'js_composer' ),
+		'params' => array(
+			array(
+				'type' => 'textarea_html',
+				'holder' => 'div',
+				'heading' => __( 'Text', 'js_composer' ),
+				'param_name' => 'content',
+				'value' => __( '<p>I am text block. Click edit button to change this text. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus, luctus nec ullamcorper mattis, pulvinar dapibus leo.</p>', 'js_composer' ),
+			),
+			array(
+				'type' => 'checkbox',
+				'heading' => __( 'White Text', 'js_composer' ),
+				'param_name' => 'white_text',
+				'description' => __( 'Set text color to white.', 'js_composer' ),
+				'value' => array( __( 'Yes', 'js_composer' ) => 'yes' ),
+			),
+			array(
+				'type' => 'el_id',
+				'heading' => __( 'Element ID', 'js_composer' ),
+				'param_name' => 'el_id',
+				'description' => sprintf( __( 'Enter element ID (Note: make sure it is unique and valid according to <a href="%s" target="_blank">w3c specification</a>).', 'js_composer' ), 'http://www.w3schools.com/tags/att_global_id.asp' ),
+			),
+			array(
+				'type' => 'textfield',
+				'heading' => __( 'Extra class name', 'js_composer' ),
+				'param_name' => 'el_class',
+				'description' => __( 'Style particular content element differently - add a class name and refer to it in custom CSS.', 'js_composer' ),
+			),
+			array(
+				'type' => 'css_editor',
+				'heading' => __( 'CSS box', 'js_composer' ),
+				'param_name' => 'css',
+				'group' => __( 'Design Options', 'js_composer' ),
+			),
+		)
+
+) );
+vc_remove_param( "vc_column_text", "css_animation" );
+
 
 vc_add_param( 'vc_row', array(
     'type' => 'css_editor',
@@ -2175,8 +2228,6 @@ vc_add_param( 'vc_row', array(
     'param_name' => 'css',
     'group' => __( 'Design options', 'my-text-domain' ),
 ));
-
-vc_remove_param( "vc_column_text", "css_animation" );
 
 vc_add_param( 'vc_tta_section', array(
     'type' => 'textfield',
@@ -2464,6 +2515,88 @@ vc_map( array(
                 "description" => "",
                 "dependency" => array('element' => "show_quote_icon", 'value' => 'yes'),
             )
+		)
+) );
+
+// HII POST CAROUSEL 
+vc_map( array(
+        "name" => "Hii Post Carousel",
+		"base" => "hii_post_carousel",
+		"category" => 'by Hiilite',
+		"icon" => "icon-wpb-images-carousel",
+		"description" => __("Carousel of posts.", 'my-text-domain' ),
+		"allowed_container_element" => 'vc_row',
+		"params" => array(
+			array(
+				"type" => "textfield",
+				"heading" => "Post IDs",
+				"param_name" => "post_ids",
+				"value" => "",
+				"description" => __( 'Enter posts IDs to display, minimum of 3. Note: separate values by commas (,)', 'my-text-domain' ),
+				'save_always' => true,
+				'admin_label' => true
+
+			),
+            array(
+                "type" => "dropdown",
+                "heading" => "Show Title",
+                "param_name" => "show_title",
+                "value" => array(
+                    "Yes" => "yes",
+                    "No" => "no"
+                ),
+                "default" => "yes",
+                "description" => __( 'Show the post title', 'my-text-domain' ),
+				'save_always' => true,
+				'admin_label' => true
+            ),
+            array(
+                "type" => "dropdown",
+                "heading" => "Show Excerpt",
+                "param_name" => "show_excerpt",
+                "value" => array(
+                    "Yes" => "yes",
+                    "No" => "no"
+                ),
+                "default" => "yes",
+                "description" => __( 'Show the post excerpt', 'my-text-domain' ),
+				'save_always' => true,
+                "description" => "",
+				'admin_label' => true
+            ),
+            array(
+                "type" => "dropdown",
+                "heading" => "Show More Button",
+                "param_name" => "show_btn",
+                "value" => array(
+                    "Yes" => "yes",
+                    "No" => "no"
+                ),
+                "default" => "yes",
+                "description" => __( 'Show Read More button', 'my-text-domain' ),
+				'save_always' => true,
+                "description" => "",
+				'admin_label' => true
+            ),
+            array(
+                "type" => "textfield",
+                "heading" => "Button Text",
+                "param_name" => "btn_text",
+                "value" => "Read More",
+                "description" => __( 'Change Read More button text', 'my-text-domain' ),
+				'save_always' => true,
+				'admin_label' => true,
+				'dependency' => array(
+					'element' => 'show_btn',
+					'value' => 'yes',
+				)
+			),
+			array(
+				'type' => 'css_editor',
+				'heading' => __( 'CSS box', 'js_composer' ),
+				'param_name' => 'css',
+				'group' => __( 'Design Options', 'js_composer' ),
+			)
 		)
 ) );
 

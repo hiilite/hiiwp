@@ -18,7 +18,7 @@ function add_button_shortcode( $atts ){
    );
    //print_r($atts);
    extract( shortcode_atts( $args, $atts ) );
-   
+   $button_id = ($button_id != '')?"id='{$button_id}'":'';
    $vc_css = ($is_vc)?vc_shortcode_custom_css_class( $css ):null;
    $css_classes = array(
 		'button',
@@ -82,7 +82,7 @@ function add_button_shortcode( $atts ){
 	
 	$align_start = ($button_align != '')?'<div class="'.$button_align.'">':'';
 	$align_end = ($button_align != '')?'</div>':'';
-	return $align_start."<a ".implode( ' ', $wrapper_attributes )." id='{$button_id}' href='{$link}' target={$target} {$style}>{$text}</a>".$align_end;
+	return $align_start."<a ".implode( ' ', $wrapper_attributes )." $button_id href='{$link}' target={$target} {$style}>{$text}</a>".$align_end;
 }
 add_shortcode( 'button', 'add_button_shortcode' );
 	

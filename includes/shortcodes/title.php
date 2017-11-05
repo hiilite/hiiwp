@@ -24,7 +24,7 @@ if (!function_exists('hii_title')) {
 
         extract(shortcode_atts($args, $atts));
         //init variables
-		
+		$id = ($id != '')?"id='{$id}'":'';
         $font_container = isset($atts['font_container'])?explode('|',$atts['font_container']):null;
         $tag = str_replace('tag:','',$font_container[0]);
         if((!isset($tag) || $tag == NULL) && isset($size))
@@ -63,7 +63,7 @@ if (!function_exists('hii_title')) {
 	        $css_class = $css_class.' '.$class;
         }
         
-        $wrapper_attributes[] = 'id="'.esc_attr( trim( $id ) ).'"';
+        $wrapper_attributes[] = esc_attr( trim( $id ) );
 		$wrapper_attributes[] = 'class="' . esc_attr( trim( $css_class ) ) . '"';
 		
 
@@ -73,11 +73,13 @@ if (!function_exists('hii_title')) {
 		if(isset($atts['max_width'])){ $maxw = ' style="max-width:'.$atts['max_width'].';"';}
         $html .=  '<div ' . implode( ' ', $wrapper_attributes ) . $maxw. '>';
 		
+		$is_linkset = false;
         if(is_array($link))
         {
 	        $link = vc_build_link( $link );
 			$link = $link['url'];
-	    	$html .= '<a href="'.$link.'">';    
+	    	$html .= '<a href="'.$link.'">';
+	    	$is_linkset = true;
 	    }
 	    elseif(isset($link))
 	    {
@@ -86,6 +88,7 @@ if (!function_exists('hii_title')) {
 		    {
 			    $link = $link['url'];
 		    	$html .= '<a href="'.$link.'">';
+		    	$is_linkset = true;
 		    }
 		}
 	    
@@ -118,20 +121,11 @@ if (!function_exists('hii_title')) {
 	    $style = " style='".$c.$ff.$fs."'";
 	    if($size == '')$size='h1';
         $html .= '<'.$size.$style.'>'.$text.'</'.$size.'></div>';
-		
-		if(is_array($link))
+		if($is_linkset)
         {
 	    	$html .= '</a>';    
 	    }
-	    elseif(isset($link))
-	    {
-		    $link = vc_build_link( $link );
-		    if($link['url'] != NULL && $link['url'] != '')
-		    {
-			    $html .= '</a>'; 
-		    }
-		}
-	    
+	   	    
         return $html;
     }
 }

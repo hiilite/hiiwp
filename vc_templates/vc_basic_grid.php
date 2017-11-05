@@ -47,15 +47,17 @@ $paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
 $query;
 
 if(isset($atts)) {
+
 	if (isset($atts['blog_layouts']) && $atts['blog_layouts'] != '') $hiilite_options['blog_layouts'] = $atts['blog_layouts'];
 	
 	if(isset($atts['post_type']) && $atts['post_type'] != 'custom'){
 		$taxquery = array();
 		if(isset($atts['taxonomies'])) {
 			$terms = get_object_taxonomies($atts['post_type'], 'names');
+		
 			$taxquery = array(
 				array(
-					'taxonomy'	=> $terms[0],
+					'taxonomy'	=> $terms[1],
 					'field'		=> 'term_id',
 					'terms' 	=> array($atts['taxonomies']),
 					'operator'	=> 'IN',
@@ -101,7 +103,7 @@ if(isset($atts)) {
 }
 $colcount = ' col-count-'.$hiilite_options['blog_col'];
 
-echo '<div class="vc_grid-container-wrapper vc_clearfix container_inner '.$grid.' '.$hiilite_options['blog_layouts'].$colcount.'" '.implode( ' ', $wrapper_attributes ).'>';
+echo '<div class="vc_grid-container-wrapper vc_clearfix container_inner '.$grid.' '.$hiilite_options['blog_layouts'].' '.$colcount.'" '.implode( ' ', $wrapper_attributes ).'>';
 if(($use_blog_layouts == true)){
 	if (isset($atts['blog_img_pos'])) 		$hiilite_options['blog_img_pos'] 			= (string)$atts['blog_img_pos'];
 	if (isset($atts['blog_title_show'])) 	$hiilite_options['blog_title_show'] 		= $atts['blog_title_show'];
@@ -117,7 +119,7 @@ if(($use_blog_layouts == true)){
 
 	$bg_query = new WP_Query($query);
 	while ( $bg_query->have_posts() ) {
-		$bg_query->the_post(); // Get post from query
+		$bg_query->the_post(); 
 		
 		include(locate_template( 'templates/blog-loop.php' ));
 	

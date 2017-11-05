@@ -31,14 +31,14 @@ $post_meta = get_post_meta(get_the_id());
 					echo '<h1 class="col-12">'.get_the_title().'</h1>';
 				}
 				?>
-				<small>
+				<div class="post_meta">
 					<address class="post_author">
 						<a itemprop="author" itemscope itemtype="https://schema.org/Person" class="post_author_link" href="<?php echo get_author_posts_url( get_the_author_meta( 'ID' ) ); ?>">
 							<span itemprop="name"><?php the_author_meta('display_name'); ?></span>
 						</a>
 					</address> 
 					<time class="time op-published" datetime="<?php the_time('c'); ?>">
-						<span class="date"><?php the_time('F j, Y'); ?></span> <?php the_time('h:i a'); ?>
+						<small><span class="date"><?php the_time('F j, Y'); ?></span> <?php the_time('h:i a'); ?></small>
 					</time>
 				
 				<?php
@@ -51,14 +51,14 @@ else:
 	}
 	echo '<meta itemprop="articleSection" content="'.$cats.'">';
 endif;
-?>
-				</small>
+?>				</div>
+				
 			</div>
 		</div>
 	</header>
 	
 	<div class="<?php if($hiilite_options['single_full'] == false) { echo 'in_grid'; } ?>">
-		<meta itemscope itemprop="mainEntityOfPage"  itemType="https://schema.org/WebPage" itemid="<?php bloginfo('url')?>"/>
+		<meta itemscope itemprop="mainEntityOfPage"  itemType="https://schema.org/WebPage" itemid="<?php bloginfo('url')?>" content="<?php bloginfo('url')?>"/>
 		<div class="container_inner">
 			
 			<?php
@@ -77,7 +77,7 @@ if(has_post_thumbnail($post->id) && ($hiilite_options[ 'blog_show_featured_image
 		<meta itemprop="url" content="<?=$img[0];?>">
 		<meta itemprop="width" content="<?=$img[1];?>">
 		<meta itemprop="height" content="<?=$img[2];?>">
-		<img src='<?=$img[0];?>' layout='responsive' width='<?=$width?>' height='<?=$height?>'>
+		<img src='<?=$img[0];?>'  width='<?=$width?>' height='<?=$height?>' alt="<?=get_the_title()?>">
 	</figure><?php 
 endif;
 	
