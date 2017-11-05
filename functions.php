@@ -92,7 +92,7 @@ class Hii {
 		
 		if ( ! class_exists( 'AM_License_Menu' ) ) {
 			require_once( HIILITE_DIR . '/includes/service_extensions/am-license-menu.php' );
-			AM_License_Menu::instance( __FILE__, 'HiiWP', HIIWP_VERSION, 'theme', 'https://dev.hiilite.com/' );
+			AM_License_Menu::instance( __FILE__, 'HiiWP', HIIWP_VERSION, 'theme', 'https://hiilite.com/' );
 		    
 		}
 		
