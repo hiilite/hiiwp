@@ -34,7 +34,7 @@ get_header( 'shop' ); ?>
 	?>
 		</div>
     </header>
-	<div class="row ">
+	<div id="product-<?php the_ID(); ?>" <?php post_class('row'); ?>>
 		<div class="in_grid content-box">
 	
 		<?php while ( have_posts() ) : the_post(); ?>

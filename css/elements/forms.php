@@ -28,3 +28,10 @@ select:focus {
     border-color: <?=$hiilite_options['color_one'];?>;
     outline: 0;
 }
+
+
+
+input:focus, select:focus, textarea:focus {
+    box-shadow: 0 1px 4px rgb(77, 144, 254), inset 0 1px 4px rgb(77, 144, 254);
+    outline: none;
+}

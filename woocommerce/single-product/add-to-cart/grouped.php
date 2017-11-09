@@ -85,7 +85,6 @@ do_action( 'woocommerce_before_add_to_cart_form' ); ?>
 			?>
 		</tbody>
 	</table>
-
 	<input type="hidden" name="add-to-cart" value="<?php echo esc_attr( $product->get_id() ); ?>" />
 
 	<?php if ( $quantites_required ) : ?>

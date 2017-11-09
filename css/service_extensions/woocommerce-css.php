@@ -23,8 +23,9 @@
 .woocommerce div.product form.cart .variations td.label {
     padding: 1em;
 }
-.woocommerce div.product form.cart select {
+.woocommerce div.product form.cart .nm-productmeta-box select {
     line-height: 3;
+    text-indent: 1em;
 }
 .woocommerce-MyAccount-navigation {
 	box-sizing: border-box;
@@ -97,7 +98,7 @@ ul.download-versions {
 	
 }
 
-.product_summary {
+.woocommerce .product_summary {
 	padding:0 1em;
 }
 .woocommerce div.product form.cart div.quantity, .woocommerce div.product form.cart .button {
@@ -132,12 +133,6 @@ ul.download-versions {
 .woocommerce div.product .woocommerce-tabs ul.tabs li a {
     display: block;
     padding: 0.5em 1em;
-}
-
-.woocommerce-tabs.wc-tabs-wrapper {
-    border-left: 1px solid #d3ced2;
-    border-right: 1px solid #d3ced2;
-    border-bottom: 1px solid #d3ced2;
 }
 
 .woocommerce div.product .woocommerce-tabs .panel {
@@ -185,13 +180,8 @@ ul.download-versions {
     max-width: 100%;
     margin: 0.1em;
 }
-span.woocommerce-Price-amount.amount {
-    font-weight: 600;
-    font-size: 1.2em;
-    line-height: 1;
-}
 
-.subscription-details span.woocommerce-Price-amount.amount {
+.woocommerce .subscription-details span.woocommerce-Price-amount.amount {
     margin-top: 0.5em;
 }
 .woocommerce div.product form.cart {
@@ -213,4 +203,54 @@ span.woocommerce-Price-amount.amount {
 .woocommerce div.product form.cart .nm-productmeta-box
 div:last-child {
     display: none;
+}
+
+.woocommerce .cart span.subscription-details {
+    display: block;
+}
+
+.woocommerce .cart .price > span.woocommerce-Price-amount.amount {
+    font-size: 42px;
+    font-weight: bold;
+}
+
+.woocommerce .cart .price {
+    text-align: center;
+}
+
+.woocommerce div.product p.price, .woocommerce div.product span.price {
+    color: black;
+}
+.woocommerce.single-product .product.row {
+    background: #e6e6e6;
+}
+
+.woocommerce.single-product .col-8.product_images {
+    background: white;
+}
+.woocommerce.single-product .col-4.product_summary {
+    background: #f2f2f2;
+}
+
+.woocommerce div.product form.cart div.quantity, .woocommerce div.product form.cart .button {
+    font-size: 16px;
+    margin: auto;
+    display: block;
+}
+.woocommerce div.product .product_title {
+    font-size: 40px;
+    line-height: 1.5;
+    margin-bottom:20px;
+    display:inline-block;
+}
+.product_title_row figure.product-image-wrapper {
+    margin-right: 1em;
+    width: 40px;
+    height: 40px;
+    vertical-align: text-bottom;
+    display: inline-block;
+}
+
+.woocommerce div.product .woocommerce-product-gallery--columns-4 .flex-control-thumbs li:nth-child(4n+1) {
+	clear:none;
 }

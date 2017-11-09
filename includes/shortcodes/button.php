@@ -75,6 +75,7 @@ function add_button_shortcode( $atts ){
 	if(strpos($link, 'url:') !== false) {
 		if(isset($link)){
 			$link = vc_build_link( $link );
+			$target = $link['target'];
 			$link = $link['url'];
 		} 
 	} 

@@ -321,14 +321,21 @@ ul.cmb2-checkbox-list.cmb2-list li {
 #adminmenu .wp-menu-image img {
     padding: 5px 0 0;
 }
+tr td, tr th {
+    position: relative;
+}
 .row-actions {
     position: absolute;
+    
 }
+
 .comment-item:hover .row-actions, tr:hover .row-actions {
     position: absolute;
-    left: 4em;
+    left: 0;
     background: white;
     padding: 0.3em;
+    z-index: 99;
+
     box-shadow: 1px 1px 4px black;
 }
 .wp-list-table .row-title {
@@ -340,4 +347,25 @@ ul.cmb2-checkbox-list.cmb2-list li {
 td.date.column-date, td.categories.column-categories {
     font-size: 10px;
     line-height: 1;
+}
+.wpb_row_container>.wpb_vc_column, .wpb_row_container>.wpb_vc_column>.wpb_element_wrapper {
+    padding-left: 2px;
+    padding-right: 2px;
+}
+
+.wpb_row_container>.wpb_vc_column_inner {
+    padding-left: 2px;
+    box-sizing: border-box;
+    padding-right: 2px;
+}
+
+.vc_row.vc_row-fluid.wpb_row_container.vc_container_for_children.ui-sortable {
+    margin-left: 0;
+    margin-right: 0;
+}
+
+.vc_controls.vc_controls-row.controls_row.vc_clearfix {
+    margin-left: 2px;
+    margin-right: 2px;
+    display: in;
 }

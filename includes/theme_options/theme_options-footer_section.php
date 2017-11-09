@@ -460,7 +460,7 @@ Kirki::add_field( 'hiiwp', array(
 	'label'       => __( 'Copyright Text', 'hiiwp' ),
 	'description' => __('Change the copy right text in the footer bottom'),
 	'section'     => $section,
-	'default'     => '<small>Copyright © '.date('Y').' '.get_theme_mod( 'business_name' ).' All rights reserved. <a href="https://hiilite.com/" target="_blank" title="Hiilite Web + Marketing">Website Design by Hiilite</a></small>',
+	'default'     => '<small>Copyright © '.date('Y').' All rights reserved. <a href="https://hiilite.com/services/website-design/" target="_blank" title="Web Design by Hiilite">Web Design</a> and <a href="https://hiilite.com/services/seo/" target="_blank" title="SEO by Hiilite">SEO</a> by <a href="https://hiilite.com/" target="_blank" title="Web Design and SEO by Hiilite">Hiilite</a></small>',
 	'priority'    => 8,
     'active_callback'	=> array(
 		array(
