@@ -31,10 +31,10 @@ class Kirki_Control_Image extends Kirki_Control_Base {
 	 */
 	protected function l10n() {
 		return array(
-			'noFileSelected' => esc_attr__( 'No File Selected', 'kirki' ),
-			'remove'         => esc_attr__( 'Remove', 'kirki' ),
-			'selectFile'     => esc_attr__( 'Select File', 'kirki' ),
-			'defaultImage'   => esc_attr__( 'Default', 'kirki' ),
+			'noFileSelected' => esc_attr__( 'No File Selected', 'hiiwp' ),
+			'remove'         => esc_attr__( 'Remove', 'hiiwp' ),
+			'selectFile'     => esc_attr__( 'Select File', 'hiiwp' ),
+			'defaultImage'   => esc_attr__( 'Default', 'hiiwp' ),
 		);
 	}
 }

@@ -1,8 +1,6 @@
 <?php
 global $hiilite_options;
 $post_meta = get_post_meta(get_the_id());
-$hiilite_options['amp'] = get_theme_mod('amp');
-if($hiilite_options['amp']) $_amp = 'amp-'; else $_amp = '';
 ?>
 <article  <?php post_class('team-member flex-item third-width'); ?> id="post-<?php the_ID(); ?>" >
 	<?php 
@@ -15,10 +13,10 @@ if($hiilite_options['amp']) $_amp = 'amp-'; else $_amp = '';
 		$height = $img[2];
 	?>
 	<figure class="flex-item full-width">
-		<a href="<?=get_the_permalink()?>"><<?=$_amp?>img src='<?=$img[0];?>' layout='responsive' width='<?=$width?>' height='<?=$height?>'><?=($_amp!='')?'</amp-img>':''?></a>
+		<a href="<?php echo get_the_permalink()?>"><img src='<?php echo $img[0];?>' layout='responsive' width='<?php echo $width?>' height='<?php echo $height?>'></a>
 	</figure><?php endif; ?>
 	<div class="flex-item full-width content-box align-center">
-		<h3><a href="<?=get_the_permalink()?>"><?php the_title(); ?></a></h3>
+		<h3><a href="<?php echo get_the_permalink()?>"><?php the_title(); ?></a></h3>
 		<span itemprop="articleSection" class="labels"><span class="category tag"><?php 
 			$terms = get_the_terms( $post->id, 'position');
 			if($terms)echo $terms[0]->name;

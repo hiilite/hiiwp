@@ -8,9 +8,8 @@
  * @author      Peter Vigilante
  * @copyright   Copyright (c) 2017, Hiilite Creative Group
  * @license     http://opensource.org/licenses/https://opensource.org/licenses/MIT
- * @since       0.4.3
+ * @since       0.4.4
  */
-
 
 
 /**
@@ -52,7 +51,7 @@ class Hii {
 	*/
 	private function define_constants(){
 	    if ( ! defined( 'HIIWP_VERSION' ) ) {                
-			 define( 'HIIWP_VERSION', '0.4.3' );
+			 define( 'HIIWP_VERSION', '0.4.4' );
 		}
 		if ( ! defined( 'HIIWP_SLUG' ) ) {                
 		    define( 'HIIWP_SLUG', 'hiiwp' );           
@@ -101,12 +100,11 @@ class Hii {
 		$this->sidebars		= new HiiWP_Sidebars();
 		$this->theme_options= new HiiWP_Theme_Options();
 		
+				
 		
 		
-		add_theme_support( 'title-tag' );
-		add_theme_support( 'post-thumbnails' );
-		add_theme_support( 'menus' );
 		
+		add_action( 'after_setup_theme', array($this, 'setup'));
 		add_action( 'after_switch_theme', array( $this, 'activate') );
 		
 		add_action( 'after_switch_theme', array( 'HiiWP_Ajax', 'add_endpoint'), 10);
@@ -142,11 +140,92 @@ class Hii {
 		
 	}
 	
+	
+	/**
+	 * activate function.
+	 * 
+	 * @access public
+	 * @return void
+	 */
 	public function activate() {
 		HiiWP_Ajax::add_endpoint();
 		$this->post_types->register_post_types();
 		HiiWP_Install::install();
 		flush_rewrite_rules();
+	}
+	
+	
+	/**
+	 * setup function.
+	 * 
+	 * @access public
+	 * @return void
+	 */
+	public function setup(){
+		
+		/*
+		 * Make theme available for translation.
+		 */
+		load_theme_textdomain( 'hiiwp' );
+		
+		add_theme_support( 'menus' );
+		
+		// Add default posts and comments RSS feed links to head.
+		add_theme_support( 'automatic-feed-links' );
+		
+		/*
+		 * Let WordPress manage the document title.
+		 * By adding theme support, we declare that this theme does not use a
+		 * hard-coded <title> tag in the document head, and expect WordPress to
+		 * provide it for us.
+		 */
+		add_theme_support( 'title-tag' );
+		
+		add_theme_support( 'post-thumbnails' );
+		
+		$GLOBALS['content_width'] = 1600;
+		
+		/*
+		 * Switch default core markup for search form, comment form, and comments
+		 * to output valid HTML5.
+		 */
+		add_theme_support( 'html5', array(
+			'comment-form',
+			'comment-list',
+			'gallery',
+			'caption',
+		) );
+		
+		/*
+		 * Enable support for Post Formats.
+		 *
+		 * See: https://codex.wordpress.org/Post_Formats
+		 */
+		add_theme_support( 'post-formats', array(
+			'aside',
+			'image',
+			'video',
+			'quote',
+			'link',
+			'gallery',
+			'audio',
+		) );
+		
+		// Add theme support for Custom Logo.
+		add_theme_support( 'custom-logo', array(
+			'width'       => 250,
+			'height'      => 250,
+			'flex-width'  => true,
+		) );
+		
+		// Add theme support for selective refresh for widgets.
+		add_theme_support( 'customize-selective-refresh-widgets' );
+		
+		/*
+		 * This theme styles the visual editor to resemble the theme style,
+		 * specifically font, colors, and column width.
+	 	 */
+		add_editor_style(  HIILITE_DIR.'/css/editor-style.css' );
 	}
 	
 	/**
@@ -189,7 +268,7 @@ class Hii {
 }
 
 $GLOBALS['hiiwp'] = Hii::instance();
-
+$hiilite_options = Hii::get_options();
 
 
 
@@ -200,17 +279,25 @@ $GLOBALS['hiiwp'] = Hii::instance();
  * @return void
  */
 function hii_get_the_title(){
-	if( is_archive(  )){ 
+	if( is_archive() )
 		$page_title = get_the_archive_title();
-	} elseif(is_home()) {
+	elseif( is_home() && ! is_front_page() ) 
 		$page_title = get_the_title( get_option('page_for_posts', true) );
-	} else {
+	elseif( is_front_page() )
+		$page_title = __( 'Posts', 'hiiwp' );
+	else
 		$page_title = get_the_title( get_the_id( ));
-	} 
 	
 	return $page_title;
 }
 
+
+/**
+ * hii_the_title function.
+ * 
+ * @access public
+ * @return void
+ */
 function hii_the_title() {
 	echo hii_get_the_title();
 }
@@ -239,10 +326,193 @@ if(class_exists('Vc_Manager')){
 	  vc_update_shortcode_param( 'vc_basic_grid', $param );
 	}
 }
+
+
+/**
+ * requireVcExtend function.
+ * 
+ * @access public
+ * @return void
+ */
 function requireVcExtend(){
 	require_once locate_template('/extendvc/extend-vc.php');
 }
 
+
+/**
+ * get_background_css function.
+ * 
+ * @access public
+ * @param mixed $background
+ * @return void
+ */
+function get_background_css($background){ 
+	foreach($background as $rule => $value){
+		if($value != ''){
+			switch ($rule){
+				case 'background-image':case 'image':
+					echo "background-image:url($value);";
+					break;
+				case 'background-attach':case 'attach':
+					echo "background-attachment:$value;";
+					break;
+				case 'background-position':case 'position':
+					echo 'background-position:'.str_replace('-', ' ', $value).';';
+					break;
+				case 'background-size':case 'size':
+					echo "background-size:$value;";
+					break;
+				case 'background-repeat':case 'repeat':
+					echo "background-repeat:$value;";
+					break;
+				default:
+					echo "$rule:$value;";
+					break;
+					
+			}
+		}
+	}
+}
+
+
+/**
+ * get_font_css function.
+ * 
+ * @access public
+ * @param mixed $font
+ * @return void
+ */
+function get_font_css($font){
+	if(is_array($font)){
+	
+		$font_family = $font_weight = $text_align = $font_extras = '';
+		
+		foreach($font as $key => $value){
+			if($value != ' ' && $value != '' && $value != 'px'){
+				if($key == 'variant') { 
+					$font_weight = 'font-weight:';
+					switch ($value) {
+						case 'regular':
+							$font_weight .= '400';
+						break;
+						case '100italic':
+							$font_weight .= '100;font-style:italic;';
+						break;
+						case '200italic':
+							$font_weight .= '200;font-style:italic;';
+						break;
+						case '300italic':
+							$font_weight .= '300;font-style:italic;';
+						break;
+						case '400italic':
+							$font_weight .= '400;font-style:italic;';
+						break;
+						case '600italic':
+							$font_weight .= '600;font-style:italic;';
+						break;
+						case '700italic':
+							$font_weight .= '700;font-style:italic;';
+						break;
+						case '800italic':
+							$font_weight .= '800;font-style:italic;';
+						break;
+						case '900italic':
+							$font_weight .= '900;font-style:italic;';
+						break;
+						case 'italic':
+							$font_weight .= '400;font-style:italic;';
+						break;
+						default:
+							$font_weight .= $value.';';
+						break;
+					}
+					$font_weight .= ';';
+				}
+				elseif ($key == 'text-align') {
+					$text_align = '';
+					switch ($value) {
+						case 'right':
+							$text_align .= 'margin-left:auto;';
+						break;
+						case 'center':
+							$text_align .=  'margin-left:auto;';
+							$text_align .=  'margin-right:auto;';
+						break;
+						case 'left':
+							$text_align .=  'margin-right:auto;';
+						break;
+					}
+					$text_align .=  $key.':'.$value.';';
+				}
+				elseif ($key == 'font-family') {
+					$font_family = $key.':'.$value;
+				}
+				elseif ($key == 'font-backup') {
+					$font_family .= ','.$value;
+				}
+				elseif($key != 'font-weight' && $key != 'font-style') { 
+					$font_extras .= $key.':'.$value.';'; 
+				}
+				
+			}
+		}
+		echo $font_family.';'.
+			 $font_weight.
+			 $font_extras.
+			 $text_align;
+	}
+}
+
+
+/**
+ * get_justify_content function.
+ * 
+ * @access public
+ * @param mixed $align
+ * @return void
+ */
+function get_justify_content($align){
+	if(is_array($align)){
+		foreach($align as $key => $value){
+			if($value != ' ' && $value != ''){
+				if($key == 'text-align') { 
+					echo 'justify-content:';
+					switch ($value) {
+						case 'left':
+							echo 'flex-start;';
+						break;
+						case 'right':
+							echo 'flex-end;';
+						break;
+						case 'center':
+							echo 'center;';
+						break;
+						case 'justify':
+							echo 'space-around;';
+						break;
+					}
+					echo ';';
+				}
+			}
+		}
+	}
+}
+
+
+/**
+ * get_spacing function.
+ * 
+ * @access public
+ * @param mixed $spacing
+ * @return void
+ */
+function get_spacing($spacing){
+	$values = '';
+
+	$values = $spacing['top'].' '.$spacing['right'].' '.$spacing['bottom'].' '.$spacing['left'];
+	
+	return $values;
+}
 
 /*	
 GRAVITY FORMS	
@@ -326,26 +596,15 @@ add_action( 'after_switch_theme', 'my_rewrite_flush' );
 add_action( 'customize_save', 'my_rewrite_flush' );
 
 
-/*
-on INIT	
-*/
-function disable_heartbeat_unless_post_edit_screen() {
-    global $pagenow;
-    
-    if ( $pagenow != 'post.php' && $pagenow != 'post-new.php' )
-        wp_deregister_script('heartbeat');
-}
-add_action( 'init', 'disable_heartbeat_unless_post_edit_screen', 1 );
-
 // REGISTER MENU AREAS
 function register_my_menus() {
   register_nav_menus(
     array(
-      'header-menu' => __( 'Header Menu' ),
-      'left-menu' => __( 'Left Menu' ),
-      'right-menu' => __( 'Right Menu' ),
-      'footer-menu' => __( 'Footer Menu' ),
-      'bottom-menu' => __( 'Header Bottom Menu' )
+      'header-menu' => __( 'Header Menu', 'hiiwp' ),
+      'left-menu' => __( 'Left Menu', 'hiiwp' ),
+      'right-menu' => __( 'Right Menu', 'hiiwp' ),
+      'footer-menu' => __( 'Footer Menu', 'hiiwp' ),
+      'bottom-menu' => __( 'Header Bottom Menu', 'hiiwp' )
     )
   );
 }
@@ -394,7 +653,7 @@ function prime_cat($tax, $id) {
 			if (is_wp_error($term)) { 
 				// Default to first category (not Yoast) if an error is returned
 				$category_display = $category[0]->name;
-				$category_link = get_bloginfo('url') . '/' . 'event-category/' . $term->slug;
+				$category_link = esc_url( home_url() ) . '/' . 'event-category/' . $term->slug;
 				$category_id = $category[0]->term_id;
 			} else { 
 				// Yoast Primary category
@@ -455,7 +714,7 @@ function cmb2_post_metaboxes(){
     $cmb = new_cmb2_box( array(
         'id'            => 'page_options',
         'title'         => 'Page Options',
-        'object_types'  => array( 'page', 'post', 'team', 'menu', 'portfolio' ), // post type
+        'object_types'  => array( 'page', 'post', 'team', 'menu', 'portfolio', 'product' ), // post type
         'context'       => 'normal', // 'normal', 'advanced' or 'side'
         'priority'      => 'low', // 'high', 'core', 'default' or 'low'
         'show_names'    => true, // show field names on the left
@@ -606,13 +865,13 @@ function cmb2_portfolio_metaboxes(){
     ) );
     if($hiilite_options['portfolio_template'] == 'split') {
 	    $cmb->add_field( array(
-			'name'       => __( 'Client Name', 'hiilite' ),
+			'name'       => __( 'Client Name', 'hiiwp' ),
 			'id'         => 'portfolio_client',
 			'type'       => 'text'
 		) );
 		$cmb->add_field( array(
-			'name'    => __( 'Project Description', 'hiilite' ),
-			'desc'    => __( 'Add a project description (optional)', 'hiilite' ),
+			'name'    => __( 'Project Description', 'hiiwp' ),
+			'desc'    => __( 'Add a project description (optional)', 'hiiwp' ),
 			'id'      => 'portfolio_description',
 			'type'    => 'wysiwyg',
 			'options' => array(
@@ -621,8 +880,8 @@ function cmb2_portfolio_metaboxes(){
 		) );
 		
 		$cmb->add_field( array(
-			'name'    => __( 'Social Share', 'hiilite' ),
-			'desc'    => __( 'Add social share icons', 'hiilite' ),
+			'name'    => __( 'Social Share', 'hiiwp' ),
+			'desc'    => __( 'Add social share icons', 'hiiwp' ),
 			'id'      => 'project_share',
 			'type'    => 'multicheck',
 			'options' => array(
@@ -637,12 +896,12 @@ function cmb2_portfolio_metaboxes(){
 		$contributors = $cmb->add_field( array(
 			'id'          => 'contributers_group',
 			'type'        => 'group',
-			'description' => __( 'Generates reusable entries for contributors', 'hiilite' ),
+			'description' => __( 'Generates reusable entries for contributors', 'hiiwp' ),
 			// 'repeatable'  => false, // use false if you want non-repeatable group
 			'options'     => array(
-				'group_title'   => __( 'Contributor {#}', 'hiilite' ), // since version 1.1.4, {#} gets replaced by row number
-				'add_button'    => __( 'Add Another Contributor', 'hiilite' ),
-				'remove_button' => __( 'Remove Contributor', 'hiilite' ),
+				'group_title'   => __( 'Contributor {#}', 'hiiwp' ), // since version 1.1.4, {#} gets replaced by row number
+				'add_button'    => __( 'Add Another Contributor', 'hiiwp' ),
+				'remove_button' => __( 'Remove Contributor', 'hiiwp' ),
 				'sortable'      => true, // beta
 				// 'closed'     => true, // true to have the groups closed by default
 			),
@@ -650,7 +909,7 @@ function cmb2_portfolio_metaboxes(){
 		
 		// Id's for group's fields only need to be unique for the group. Prefix is not needed.
 		$cmb->add_group_field( $contributors, array(
-			'name' => __( 'Contributor Role', 'hiilite' ),
+			'name' => __( 'Contributor Role', 'hiiwp' ),
 			'id'   => 'role',
 			'type' => 'text',
 			//'repeatable' => true,
@@ -665,7 +924,7 @@ function cmb2_portfolio_metaboxes(){
 					$user_names[$user->display_name] = $user->display_name;
 		}
 		$cmb->add_group_field( $contributors, array(
-			'name'             => __( 'Contributor Name', 'hiilite' ),
+			'name'             => __( 'Contributor Name', 'hiiwp' ),
 			'id'               => 'name',
 			'type'             => 'select',
 			'show_option_none' => true,
@@ -675,25 +934,25 @@ function cmb2_portfolio_metaboxes(){
 	}
 	$cmb->add_field( array(
 		'name' => 'Upload Images',
-		'desc' => __( 'Add your project images', 'hiilite' ),
+		'desc' => __( 'Add your project images', 'hiiwp' ),
 		'id'   => 'project_iamges',
 		'type' => 'file_list',
 		// 'preview_size' => array( 100, 100 ), // Default: array( 50, 50 )
 		// 'query_args' => array( 'type' => 'image' ), // Only images attachment
 		// Optional, override default text strings
 		'text' => array(
-			'add_upload_files_text' => __( 'Add or Upload Files', 'hiilite' ), // default: "Add or Upload Files"
-			'remove_image_text' => __( 'Remove Image', 'hiilite' ), // default: "Remove Image"
-			'file_text' => __( 'File:', 'hiilite' ), // default: "File:"
-			'file_download_text' => __( 'Download', 'hiilite' ), // default: "Download"
-			'remove_text' => __( 'Remove', 'hiilite' ), // default: "Remove"
+			'add_upload_files_text' => __( 'Add or Upload Files', 'hiiwp' ), // default: "Add or Upload Files"
+			'remove_image_text' => __( 'Remove Image', 'hiiwp' ), // default: "Remove Image"
+			'file_text' => __( 'File:', 'hiiwp' ), // default: "File:"
+			'file_download_text' => __( 'Download', 'hiiwp' ), // default: "Download"
+			'remove_text' => __( 'Remove', 'hiiwp' ), // default: "Remove"
 		),
 	) );
 	
 	if($hiilite_options['portfolio_template'] == 'default') {
 		$cmb->add_field( array(
 			'name' => 'In Grid',
-			'desc' => __( 'Keep images in grid', 'hiilite' ),
+			'desc' => __( 'Keep images in grid', 'hiiwp' ),
 			'id'   => 'imgs_in_grid',
 			'type' => 'checkbox',
 		) );
@@ -710,15 +969,15 @@ function cmb2_portfolio_metaboxes(){
 	    'type'    => 'radio_inline',
 	    'default' => 'center',
 	    'options' => array(
-	        'top-left' 	=> __( 'Top Left', 'hiilite' ),
-	        'top' 		=> __( 'Top', 'hiilite' ),
-	        'top-right' => __( 'Top Right', 'hiilite' ),
-	        'left' 		=> __( 'Left', 'hiilite' ),
-			'center' 	=> __( 'Center', 'hiilite' ),
-			'right' 	=> __( 'Right', 'hiilite' ),
-			'bottom-left'=> __( 'Bottom Left', 'hiilite' ),
-			'bottom' 	=> __( 'Bottom', 'hiilite' ),
-			'bottom-right'=> __( 'Bottom Right', 'hiilite' ),
+	        'top-left' 	=> __( 'Top Left', 'hiiwp' ),
+	        'top' 		=> __( 'Top', 'hiiwp' ),
+	        'top-right' => __( 'Top Right', 'hiiwp' ),
+	        'left' 		=> __( 'Left', 'hiiwp' ),
+			'center' 	=> __( 'Center', 'hiiwp' ),
+			'right' 	=> __( 'Right', 'hiiwp' ),
+			'bottom-left'=> __( 'Bottom Left', 'hiiwp' ),
+			'bottom' 	=> __( 'Bottom', 'hiiwp' ),
+			'bottom-right'=> __( 'Bottom Right', 'hiiwp' ),
 	    ),
 	) );
 	$cmb->add_field( array(
@@ -756,7 +1015,7 @@ function cmb2_portfolio_taxonomy_metaboxes( array $meta_boxes ) {
 	
 	$meta_boxes['test_metabox'] = array(
 		'id'            => 'portfolio_work_metabox',
-		'title'         => __( 'Portfolio Category Indentity', 'hiilite' ),
+		'title'         => __( 'Portfolio Category Indentity', 'hiiwp' ),
 		'object_types'  => array( $hiilite_options['portfolio_tax_slug'] ), // Taxonomy
 		'context'       => 'normal',
 		'priority'      => 'high',
@@ -764,15 +1023,15 @@ function cmb2_portfolio_taxonomy_metaboxes( array $meta_boxes ) {
 		// 'cmb_styles' => false, // false to disable the CMB stylesheet
 		'fields'        => array(
 			array(
-				'name'    => __( 'Category Color Picker', 'cmb2' ),
-				'desc'    => __( 'field description (optional)', 'hiilite' ),
+				'name'    => __( 'Category Color Picker', 'hiiwp' ),
+				'desc'    => __( 'field description (optional)', 'hiiwp' ),
 				'id'      => 'portfolio_work_color',
 				'type'    => 'colorpicker',
 				'default' => '#ffffff'
 			),
 			array(
-				'name' => __( 'Category Icon', 'cmb2' ),
-				'desc' => __( 'Upload an image or enter a URL.', 'hiilite' ),
+				'name' => __( 'Category Icon', 'hiiwp' ),
+				'desc' => __( 'Upload an image or enter a URL.', 'hiiwp' ),
 				'id'   => 'portfolio_work_image',
 				'type' => 'file',
 			),
@@ -793,7 +1052,7 @@ function portfolio_primary_category_selection() {
 
     $cmb_demo = new_cmb2_box( array(
         'id'            => $prefix . 'metabox',
-        'title'         => esc_html__( 'Primary Category', 'hiilite' ),
+        'title'         => esc_html__( 'Primary Category', 'hiiwp' ),
         'object_types'  => array( $hiilite_options['portfolio_slug'] ),
             'context'       => 'side',
         'priority'      => 'low',
@@ -801,8 +1060,8 @@ function portfolio_primary_category_selection() {
     ) );
 
     $cmb_demo->add_field( array(
-        'name'           => esc_html__( 'Choose Primary Category', 'hiilite' ),
-        'desc'           => esc_html__( 'Choose primary category for display in post_meta', 'hiilite' ),
+        'name'           => esc_html__( 'Choose Primary Category', 'hiiwp' ),
+        'desc'           => esc_html__( 'Choose primary category for display in post_meta', 'hiiwp' ),
         'id'             => $prefix . 'category_list',
         'taxonomy'       => $hiilite_options['portfolio_tax_slug'],
         'type'           => 'taxonomy_select',
@@ -828,7 +1087,7 @@ function portfolio_post_primary_category_shortcode( $atts ) {
 
     $defaults = array(
         'sep'    => ', ',
-        'before' => __( 'Filed Under: ', 'hiilite' ),
+        'before' => __( 'Filed Under: ', 'hiiwp' ),
         'after'  => '',
     );
 
@@ -1190,7 +1449,7 @@ add_action( 'edit_user_profile', 'be_custom_avatar_field' );
  */
 function be_save_custom_avatar_field( $user_id ) {
 	if ( !current_user_can( 'edit_user', $user_id ) ) { return false; }
-		update_usermeta( $user_id, 'be_custom_avatar', $_POST['be_custom_avatar'] );
+		update_user_meta( $user_id, 'be_custom_avatar', $_POST['be_custom_avatar'] );
 }
 add_action( 'personal_options_update', 'be_save_custom_avatar_field' );
 add_action( 'edit_user_profile_update', 'be_save_custom_avatar_field' );

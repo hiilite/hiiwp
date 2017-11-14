@@ -12,13 +12,13 @@
  *
  *    $cmb_demo = new_cmb2_box( array(
  *        'id'            => 'demo_metabox',
- *        'title'         => __( 'Test Metabox', 'cmb2' ),
+ *        'title'         => __( 'Test Metabox', 'hiiwp' ),
  *        'object_types'  => array( 'page', ),
  *    ) );
  *
  *    $cmb_demo->add_field( array(
- *        'name'     => __( 'Date Year Range', 'cmb2' ),
- *        'desc'     => __( 'field description (optional)', 'cmb2' ),
+ *        'name'     => __( 'Date Year Range', 'hiiwp' ),
+ *        'desc'     => __( 'field description (optional)', 'hiiwp' ),
  *        'id'       => 'yourprefix_demo_date_year_range',
  *        'type'     => 'date_year_range',
  *        // Optionally set default values.
@@ -176,7 +176,7 @@ function jt_cmb2_date_year_range_options( $type_object, $earliest, $value, $reve
 
 	$not_set = array(
 		'value' => '',
-		'label' => __( 'Not Set' ),
+		'label' => __( 'Not Set', 'hiiwp' ),
 	);
 
 	if ( cmb2_utils()->isempty( $value ) ) {
@@ -195,7 +195,7 @@ function jt_cmb2_date_year_range_options( $type_object, $earliest, $value, $reve
 
 	$a = array(
 		'value' => 'current',
-		'label' => __( 'Current' ),
+		'label' => __( 'Current', 'hiiwp' ),
 	);
 
 	if ( 'current' === $value ) {

@@ -2,6 +2,11 @@
 This theme is currently in Alpha testing and should not be installed without the support of the team at Hiilite Creative Group
 
 ### Change log
+#### v0.4.4
+- Checking the layout of product pages in woocommerce
+- Modified Visual Composer admin css
+- fixes to portfolio hooks
+- added target attribute to buttons
 #### v0.4.3
 - Added [viewport-units-buggyfill](https://github.com/rodneyrehm/viewport-units-buggyfill)
 - Moved favicon code to hiiwp_head function

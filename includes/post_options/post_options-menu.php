@@ -36,9 +36,9 @@ if(isset($hiilite_options['menu_sections'])){
 			),
 			array(
 	            'type' => 'css_editor',
-	            'heading' => __( 'Css', 'my-text-domain' ),
+	            'heading' => __( 'Css', 'hiiwp' ),
 	            'param_name' => 'css',
-	            'group' => __( 'Design options', 'my-text-domain' ),
+	            'group' => __( 'Design options', 'hiiwp' ),
 	        ),
 			
 		)
@@ -80,9 +80,9 @@ $group_field_id = $cmb->add_field( array(
     'type'        => 'group',
     // 'repeatable'  => false, // use false if you want non-repeatable group
     'options'     => array(
-        'group_title'   => __( 'Addon {#}', 'hiilite' ), // since version 1.1.4, {#} gets replaced by row number
-        'add_button'    => __( 'Add Another', 'hiilite' ),
-        'remove_button' => __( 'Remove', 'hiilite' ),
+        'group_title'   => __( 'Addon {#}', 'hiiwp' ), // since version 1.1.4, {#} gets replaced by row number
+        'add_button'    => __( 'Add Another', 'hiiwp' ),
+        'remove_button' => __( 'Remove', 'hiiwp' ),
         'sortable'      => true, // beta
         // 'closed'     => true, // true to have the groups closed by default
     ),

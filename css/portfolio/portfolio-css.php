@@ -120,7 +120,7 @@ if($hiilite_options['portfolio_template'] == 'split') {
 }
 <?php if(isset($portfolio_work_color)): ?>
 .project-info hr {
-		color:<?=$portfolio_work_color;?>;
+		color:<?php echo $portfolio_work_color;?>;
 		border-color: inherit;
 	}
 <?php endif; ?>

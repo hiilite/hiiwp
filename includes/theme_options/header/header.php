@@ -3,8 +3,8 @@ $section = 'header_header_section';
 
 Kirki::add_section( $section, array(
     'priority'    => 1,
-    'title'       => __( 'Header', 'textdomain' ),
-    'description' => __( 'Header settings', 'textdomain' ),
+    'title'       => __( 'Header', 'hiiwp' ),
+    'description' => __( 'Header settings', 'hiiwp' ),
     'panel'		 => 'header_panel',
 ) );
 
@@ -12,7 +12,7 @@ Kirki::add_field( 'hiiwp', array(
     'type'        => 'switch',
     'settings'    => 'header_in_grid',
     'label'       => __( 'Header in Grid', 'hiiwp' ),
-    'description' => __('Enabling this option will display header content in grid'),
+    'description' => __('Enabling this option will display header content in grid', 'hiiwp'),
     'section'     => $section,
     'default'     => $hiilite_options['header_in_grid'],
     'priority'    => 1,
@@ -23,7 +23,7 @@ Kirki::add_field( 'hiiwp', array(
 	'type'        => 'select',
     'settings'    => 'header_type',
     'label'       => __( 'Type of header', 'hiiwp' ),
-    'description' => __('Choose the header layout & behavior'),
+    'description' => __('Choose the header layout & behavior', 'hiiwp'),
     'section'     => $section,
     'default'     => $hiilite_options['header_type'],
     'priority'    => 1,
@@ -54,7 +54,7 @@ Kirki::add_field( 'hiiwp', array(
 Kirki::add_field( 'hiiwp', array(
 	'type'        => 'spacing',
 	'settings'    => 'header_padding',
-	'label'       => __( 'Header Padding', 'my_textdomain' ),
+	'label'       => __( 'Header Padding', 'hiiwp' ),
 	'section'     => $section,
 	'default'     => $hiilite_options['header_padding'],
 	'priority'    => 2,
@@ -80,7 +80,7 @@ Kirki::add_field( 'hiiwp', array(
 	'type'        => 'background',
     'settings'    => 'header_background',
     'label'       => __( 'Header Background', 'hiiwp' ),
-    'description' => __('Choose a background for header area'),
+    'description' => __('Choose a background for header area', 'hiiwp'),
     'section'     => $section,
     'priority'    => 2,
     'default'     => $hiilite_options['header_background']
@@ -137,7 +137,7 @@ Kirki::add_field( 'hiiwp', array(
 	'type'        => 'color',
     'settings'    => 'header_bottom_border_color',
     'label'       => __( 'Header Bottom Border Color', 'hiiwp' ),
-    'description' => __('Choose a color for the header bottom border. Note: If color has not been chosen, border bottom will not be displayed'),
+    'description' => __('Choose a color for the header bottom border. Note: If color has not been chosen, border bottom will not be displayed', 'hiiwp'),
     'section'     => $section,
     'priority'    => 4,
     'default'     => $hiilite_options['header_bottom_border_color'],
@@ -192,7 +192,7 @@ Kirki::add_field( 'hiiwp', array(
 	'type'        => 'color',
     'settings'    => 'header_bottom_background',
     'label'       => __( 'Header Bottom Background Color', 'hiiwp' ),
-    'description' => __('Choose a background color for bottom header area'),
+    'description' => __('Choose a background color for bottom header area', 'hiiwp'),
     'section'     => $section,
     'priority'    => 8,
     'default'     => $hiilite_options['header_bottom_background'],

@@ -49,7 +49,7 @@
 	echo preg_replace('/[{}]/','',$hiilite_options['typography_button_secondary_custom_css']);?>
 }
 .button-secondary:hover {
-	color: <?=$hiilite_options['color_two']?>;
+	color: <?php echo $hiilite_options['color_two']?>;
 	background: <?php echo $hiilite_options['typography_button_secondary_background']['hover']?>;
 	border-color: <?php echo $hiilite_options['typography_button_secondary_border_color']['hover']?>;
 }

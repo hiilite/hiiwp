@@ -50,7 +50,7 @@ class HiiWP_Theme_Options extends Hii {
     public function kirki_configuration_styling( $config ) {
 	
 	    $config['logo_image']   = get_template_directory_uri() . '/images/Hiilite_Hii_Logo.png';
-	    $config['description']  = __( 'The HiiWP Theme', 'kirki' );
+	    $config['description']  = __( 'The HiiWP Theme', 'hiiwp' );
 	    $config['color_accent'] = '#f05023';
 	    $config['width']        = '30%';
 	

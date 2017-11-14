@@ -49,6 +49,6 @@ function cmb_render_multicheck_title( $field, $escaped_value, $object_id, $objec
 			echo $field_type_object->radio( array( 'class' => $classes, 'options' => $options ), 'title_multicheck' );
 		}
 	} else {
-		echo __( 'Nothing' );
+		echo __( 'Nothing', 'hiiwp' );
 	}
 }

@@ -61,7 +61,7 @@ class Kirki_Control_Dimension extends WP_Customize_Control {
 		wp_enqueue_script( 'kirki-dimension', trailingslashit( Kirki::$url ) . 'controls/dimension/dimension.js', array( 'jquery', 'customize-base' ), false, true );
 		wp_enqueue_style( 'kirki-dimension-css', trailingslashit( Kirki::$url ) . 'controls/dimension/dimension.css', null );
 		wp_localize_script( 'kirki-dimension', 'dimensionkirkiL10n', array(
-			'invalid-value' => esc_attr__( 'Invalid Value', 'kirki' ),
+			'invalid-value' => esc_attr__( 'Invalid Value', 'hiiwp' ),
 		) );
 	}
 

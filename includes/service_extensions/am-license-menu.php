@@ -32,7 +32,7 @@ if ( ! class_exists( 'AM_License_Menu' ) ) {
 		public $data_prefix      = '';
 		public $slug             = '';
 		public $plugin_name      = '';
-		public $text_domain      = '';
+		public $text_domain      = 'hiiwp';
 		public $extra            = '';
 
 		/**
@@ -133,10 +133,10 @@ if ( ! class_exists( 'AM_License_Menu' ) ) {
 				$this->ame_deactivate_checkbox         = $this->data_prefix . '_deactivate_checkbox';
 				$this->ame_activation_tab_key          = $this->data_prefix . '_dashboard';
 				$this->ame_deactivation_tab_key        = $this->data_prefix . '_deactivation';
-				$this->ame_settings_menu_title         = $this->software_title . __( ' Activation', $this->text_domain );
-				$this->ame_settings_title              = $this->software_title . __( ' API Key Activation', $this->text_domain );
-				$this->ame_menu_tab_activation_title   = __( 'API Key Activation', $this->text_domain );
-				$this->ame_menu_tab_deactivation_title = __( 'API Key Deactivation', $this->text_domain );
+				$this->ame_settings_menu_title         = $this->software_title . __( ' Activation', 'hiiwp' );
+				$this->ame_settings_title              = $this->software_title . __( ' API Key Activation', 'hiiwp' );
+				$this->ame_menu_tab_activation_title   = __( 'API Key Activation', 'hiiwp' );
+				$this->ame_menu_tab_deactivation_title = __( 'API Key Deactivation', 'hiiwp' );
 
 				/**
 				 * Set all software update data here
@@ -189,7 +189,7 @@ if ( ! class_exists( 'AM_License_Menu' ) ) {
 		 * Register submenu specific to this product.
 		 */
 		public function register_menu() {
-			add_options_page( __( $this->ame_settings_menu_title, $this->text_domain ), __( $this->ame_settings_menu_title, $this->text_domain ), 'manage_options', $this->ame_activation_tab_key, array(
+			add_options_page(  $this->ame_settings_menu_title, $this->ame_settings_menu_title, 'manage_options', $this->ame_activation_tab_key, array(
 				$this,
 				'config_page'
 			) );
@@ -295,7 +295,7 @@ if ( ! class_exists( 'AM_License_Menu' ) ) {
 				return;
 			} ?>
             <div class="notice notice-error">
-                <p><?php printf( __( 'The <strong>%s</strong> API Key has not been activated, so the %s is inactive! %sClick here%s to activate <strong>%s</strong>.', $this->text_domain ), esc_attr( $this->software_title ), esc_attr( $this->plugin_or_theme ), '<a href="' . esc_url( admin_url( 'options-general.php?page=' . $this->ame_activation_tab_key ) ) . '">', '</a>', esc_attr( $this->software_title ) ); ?></p>
+                <p><?php printf( __( 'The <strong>%s</strong> API Key has not been activated, so the %s is inactive! %sClick here%s to activate <strong>%s</strong>.', 'hiiwp' ), esc_attr( $this->software_title ), esc_attr( $this->plugin_or_theme ), '<a href="' . esc_url( admin_url( 'options-general.php?page=' . $this->ame_activation_tab_key ) ) . '">', '</a>', esc_attr( $this->software_title ) ); ?></p>
             </div>
 			<?php
 		}
@@ -312,7 +312,7 @@ if ( ! class_exists( 'AM_License_Menu' ) ) {
 				if ( ! defined( 'WP_ACCESSIBLE_HOSTS' ) || stristr( WP_ACCESSIBLE_HOSTS, $host ) === false ) {
 					?>
                     <div class="notice notice-error">
-                        <p><?php printf( __( '<b>Warning!</b> You\'re blocking external requests which means you won\'t be able to get %s updates. Please add %s to %s.', $this->text_domain ), $this->ame_software_product_id, '<strong>' . $host . '</strong>', '<code>WP_ACCESSIBLE_HOSTS</code>' ); ?></p>
+                        <p><?php printf( __( '<b>Warning!</b> You\'re blocking external requests which means you won\'t be able to get %s updates. Please add %s to %s.', 'hiiwp' ), $this->ame_software_product_id, '<strong>' . $host . '</strong>', '<code>WP_ACCESSIBLE_HOSTS</code>' ); ?></p>
                     </div>
 					<?php
 				}
@@ -322,14 +322,14 @@ if ( ! class_exists( 'AM_License_Menu' ) ) {
 		// Draw option page
 		public function config_page() {
 			$settings_tabs = array(
-				$this->ame_activation_tab_key   => __( $this->ame_menu_tab_activation_title, $this->text_domain ),
-				$this->ame_deactivation_tab_key => __( $this->ame_menu_tab_deactivation_title, $this->text_domain )
+				$this->ame_activation_tab_key   => $this->ame_menu_tab_activation_title,
+				$this->ame_deactivation_tab_key =>  $this->ame_menu_tab_deactivation_title
 			);
 			$current_tab   = isset( $_GET[ 'tab' ] ) ? $_GET[ 'tab' ] : $this->ame_activation_tab_key;
 			$tab           = isset( $_GET[ 'tab' ] ) ? $_GET[ 'tab' ] : $this->ame_activation_tab_key;
 			?>
             <div class='wrap'>
-                <h2><?php _e( $this->ame_settings_title, $this->text_domain ); ?></h2>
+                <h2><?php $this->ame_settings_title; ?></h2>
                 <h2 class="nav-tab-wrapper">
 					<?php
 					foreach ( $settings_tabs as $tab_page => $tab_name ) {
@@ -344,11 +344,11 @@ if ( ! class_exists( 'AM_License_Menu' ) ) {
 						if ( $tab == $this->ame_activation_tab_key ) {
 							settings_fields( $this->ame_data_key );
 							do_settings_sections( $this->ame_activation_tab_key );
-							submit_button( __( 'Save Changes', $this->text_domain ) );
+							submit_button( __( 'Save Changes', 'hiiwp' ) );
 						} else {
 							settings_fields( $this->ame_deactivate_checkbox );
 							do_settings_sections( $this->ame_deactivation_tab_key );
-							submit_button( __( 'Save Changes', $this->text_domain ) );
+							submit_button( __( 'Save Changes', 'hiiwp' ) );
 						}
 						?>
                     </div>
@@ -361,29 +361,29 @@ if ( ! class_exists( 'AM_License_Menu' ) ) {
 		public function load_settings() {
 			register_setting( $this->ame_data_key, $this->ame_data_key, array( $this, 'validate_options' ) );
 			// API Key
-			add_settings_section( $this->ame_api_key, __( 'API Key Activation', $this->text_domain ), array(
+			add_settings_section( $this->ame_api_key, __( 'API Key Activation', 'hiiwp' ), array(
 				$this,
 				'wc_am_api_key_text'
 			), $this->ame_activation_tab_key );
-			add_settings_field( 'status', __( 'API Key Status', $this->text_domain ), array(
+			add_settings_field( 'status', __( 'API Key Status', 'hiiwp' ), array(
 				$this,
 				'wc_am_api_key_status'
 			), $this->ame_activation_tab_key, $this->ame_api_key );
-			add_settings_field( $this->ame_api_key, __( 'API Key', $this->text_domain ), array(
+			add_settings_field( $this->ame_api_key, __( 'API Key', 'hiiwp' ), array(
 				$this,
 				'wc_am_api_key_field'
 			), $this->ame_activation_tab_key, $this->ame_api_key );
-			add_settings_field( $this->ame_activation_email, __( 'API Email', $this->text_domain ), array(
+			add_settings_field( $this->ame_activation_email, __( 'API Email', 'hiiwp' ), array(
 				$this,
 				'wc_am_api_email_field'
 			), $this->ame_activation_tab_key, $this->ame_api_key );
 			// Activation settings
 			register_setting( $this->ame_deactivate_checkbox, $this->ame_deactivate_checkbox, array( $this, 'wc_am_license_key_deactivation' ) );
-			add_settings_section( 'deactivate_button', __( 'API Deactivation', $this->text_domain ), array(
+			add_settings_section( 'deactivate_button', __( 'API Deactivation', 'hiiwp' ), array(
 				$this,
 				'wc_am_deactivate_text'
 			), $this->ame_deactivation_tab_key );
-			add_settings_field( 'deactivate_button', __( 'Deactivate API Key', $this->text_domain ), array(
+			add_settings_field( 'deactivate_button', __( 'Deactivate API Key', 'hiiwp' ), array(
 				$this,
 				'wc_am_deactivate_textarea'
 			), $this->ame_deactivation_tab_key, 'deactivate_button' );
@@ -451,13 +451,13 @@ if ( ! class_exists( 'AM_License_Menu' ) ) {
 					$activate_results = json_decode( $this->activate( $args ), true );
 
 					if ( $activate_results[ 'activated' ] === true && ! empty( $this->ame_activated_key ) ) {
-						add_settings_error( 'activate_text', 'activate_msg', sprintf( __( '%s activated. ', $this->text_domain ), esc_attr( $this->software_title ) ) . "{$activate_results['message']}.", 'updated' );
+						add_settings_error( 'activate_text', 'activate_msg', sprintf( __( '%s activated. ', 'hiiwp' ), esc_attr( $this->software_title ) ) . "{$activate_results['message']}.", 'updated' );
 						update_option( $this->ame_activated_key, 'Activated' );
 						update_option( $this->ame_deactivate_checkbox, 'off' );
 					}
 
 					if ( $activate_results == false && ! empty( $this->ame_options ) && ! empty( $this->ame_activated_key ) ) {
-						add_settings_error( 'api_key_check_text', 'api_key_check_error', __( 'Connection failed to the License Key API server. Try again later. There may be a problem on your server preventing outgoing requests, or the store is blocking your request to activate the plugin/theme.', $this->text_domain ), 'error' );
+						add_settings_error( 'api_key_check_text', 'api_key_check_error', __( 'Connection failed to the License Key API server. Try again later. There may be a problem on your server preventing outgoing requests, or the store is blocking your request to activate the plugin/theme.', 'hiiwp' ), 'error' );
 						$options[ $this->ame_api_key ]          = '';
 						$options[ $this->ame_activation_email ] = '';
 						update_option( $this->ame_options[ $this->ame_activated_key ], 'Deactivated' );
@@ -555,7 +555,7 @@ if ( ! class_exists( 'AM_License_Menu' ) ) {
 				return true;
 			}
 
-			add_settings_error( 'not_deactivated_text', 'not_deactivated_error', __( 'The API Key could not be deactivated. Use the API Key Deactivation tab to manually deactivate the API Key before activating a new API Key. If all else fails, go to Plugins, then deactivate and reactivate this plugin, or if a theme change themes, then change back to this theme, then go to the Settings for this plugin/theme and enter the API Key information again to activate it. Also check the My Account dashboard to see if the API Key for this site was still active before the error message was displayed.', $this->text_domain ), 'updated' );
+			add_settings_error( 'not_deactivated_text', 'not_deactivated_error', __( 'The API Key could not be deactivated. Use the API Key Deactivation tab to manually deactivate the API Key before activating a new API Key. If all else fails, go to Plugins, then deactivate and reactivate this plugin, or if a theme change themes, then change back to this theme, then go to the Settings for this plugin/theme and enter the API Key information again to activate it. Also check the My Account dashboard to see if the API Key for this site was still active before the error message was displayed.', 'hiiwp' ), 'updated' );
 
 			return false;
 		}
@@ -590,7 +590,7 @@ if ( ! class_exists( 'AM_License_Menu' ) ) {
 					if ( ! empty( $this->ame_activated_key ) ) {
 						update_option( $this->ame_data_key, $merge_options );
 						update_option( $this->ame_activated_key, 'Deactivated' );
-						add_settings_error( 'wc_am_deactivate_text', 'deactivate_msg', __( 'API Key deactivated. ', $this->text_domain ) . "{$activate_results['activations_remaining']}.", 'updated' );
+						add_settings_error( 'wc_am_deactivate_text', 'deactivate_msg', __( 'API Key deactivated. ', 'hiiwp' ) . "{$activate_results['activations_remaining']}.", 'updated' );
 					}
 
 					return $options;
@@ -663,7 +663,7 @@ if ( ! class_exists( 'AM_License_Menu' ) ) {
 			echo '<input type="checkbox" id="' . $this->ame_deactivate_checkbox . '" name="' . $this->ame_deactivate_checkbox . '" value="on"';
 			echo checked( get_option( $this->ame_deactivate_checkbox ), 'on' );
 			echo '/>';
-			?><span class="description"><?php _e( 'Deactivates an API Key so it can be used on another blog.', $this->text_domain ); ?></span>
+			?><span class="description"><?php _e( 'Deactivates an API Key so it can be used on another blog.', 'hiiwp' ); ?></span>
 			<?php
 		}
 
@@ -1027,84 +1027,84 @@ if ( ! class_exists( 'AM_License_Menu' ) ) {
 		 * Display license expired error notice
 		 */
 		public function expired_license_error_notice() {
-			echo sprintf( '<div class="notice notice-info"><p>' . __( 'The license key for %s has expired. You can reactivate or purchase a license key from your account <a href="%s" target="_blank">dashboard</a>.', $this->text_domain ) . '</p></div>', esc_attr( $this->ame_software_product_id ), esc_url( $this->ame_renew_license_url ) );
+			echo sprintf( '<div class="notice notice-info"><p>' . __( 'The license key for %s has expired. You can reactivate or purchase a license key from your account <a href="%s" target="_blank">dashboard</a>.', 'hiiwp' ) . '</p></div>', esc_attr( $this->ame_software_product_id ), esc_url( $this->ame_renew_license_url ) );
 		}
 
 		/**
 		 * Display subscription on-hold error notice
 		 */
 		public function on_hold_subscription_error_notice() {
-			echo sprintf( '<div class="notice notice-info"><p>' . __( 'The subscription for %s is on-hold. You can reactivate the subscription from your account <a href="%s" target="_blank">dashboard</a>.', $this->text_domain ) . '</p></div>', esc_attr( $this->ame_software_product_id ), esc_url( $this->ame_renew_license_url ) );
+			echo sprintf( '<div class="notice notice-info"><p>' . __( 'The subscription for %s is on-hold. You can reactivate the subscription from your account <a href="%s" target="_blank">dashboard</a>.', 'hiiwp' ) . '</p></div>', esc_attr( $this->ame_software_product_id ), esc_url( $this->ame_renew_license_url ) );
 		}
 
 		/**
 		 * Display subscription cancelled error notice
 		 */
 		public function cancelled_subscription_error_notice() {
-			echo sprintf( '<div class="notice notice-info"><p>' . __( 'The subscription for %s has been cancelled. You can renew the subscription from your account <a href="%s" target="_blank">dashboard</a>. A new license key will be emailed to you after your order has been completed.', $this->text_domain ) . '</p></div>', esc_attr( $this->ame_software_product_id ), esc_url( $this->ame_renew_license_url ) );
+			echo sprintf( '<div class="notice notice-info"><p>' . __( 'The subscription for %s has been cancelled. You can renew the subscription from your account <a href="%s" target="_blank">dashboard</a>. A new license key will be emailed to you after your order has been completed.', 'hiiwp' ) . '</p></div>', esc_attr( $this->ame_software_product_id ), esc_url( $this->ame_renew_license_url ) );
 		}
 
 		/**
 		 * Display subscription expired error notice
 		 */
 		public function expired_subscription_error_notice() {
-			echo sprintf( '<div class="notice notice-info"><p>' . __( 'The subscription for %s has expired. You can reactivate the subscription from your account <a href="%s" target="_blank">dashboard</a>.', $this->text_domain ) . '</p></div>', esc_attr( $this->ame_software_product_id ), esc_url( $this->ame_renew_license_url ) );
+			echo sprintf( '<div class="notice notice-info"><p>' . __( 'The subscription for %s has expired. You can reactivate the subscription from your account <a href="%s" target="_blank">dashboard</a>.', 'hiiwp' ) . '</p></div>', esc_attr( $this->ame_software_product_id ), esc_url( $this->ame_renew_license_url ) );
 		}
 
 		/**
 		 * Display subscription expired error notice
 		 */
 		public function suspended_subscription_error_notice() {
-			echo sprintf( '<div class="notice notice-info"><p>' . __( 'The subscription for %s has been suspended. You can reactivate the subscription from your account <a href="%s" target="_blank">dashboard</a>.', $this->text_domain ) . '</p></div>', esc_attr( $this->ame_software_product_id ), esc_url( $this->ame_renew_license_url ) );
+			echo sprintf( '<div class="notice notice-info"><p>' . __( 'The subscription for %s has been suspended. You can reactivate the subscription from your account <a href="%s" target="_blank">dashboard</a>.', 'hiiwp' ) . '</p></div>', esc_attr( $this->ame_software_product_id ), esc_url( $this->ame_renew_license_url ) );
 		}
 
 		/**
 		 * Display subscription expired error notice
 		 */
 		public function pending_subscription_error_notice() {
-			echo sprintf( '<div class="notice notice-info"><p>' . __( 'The subscription for %s is still pending. You can check on the status of the subscription from your account <a href="%s" target="_blank">dashboard</a>.', $this->text_domain ) . '</p></div>', esc_attr( $this->ame_software_product_id ), esc_url( $this->ame_renew_license_url ) );
+			echo sprintf( '<div class="notice notice-info"><p>' . __( 'The subscription for %s is still pending. You can check on the status of the subscription from your account <a href="%s" target="_blank">dashboard</a>.', 'hiiwp' ) . '</p></div>', esc_attr( $this->ame_software_product_id ), esc_url( $this->ame_renew_license_url ) );
 		}
 
 		/**
 		 * Display subscription expired error notice
 		 */
 		public function trash_subscription_error_notice() {
-			echo sprintf( '<div class="notice notice-info"><p>' . __( 'The subscription for %s has been placed in the trash and will be deleted soon. You can purchase a new subscription from your account <a href="%s" target="_blank">dashboard</a>.', $this->text_domain ) . '</p></div>', esc_attr( $this->ame_software_product_id ), esc_url( $this->ame_renew_license_url ) );
+			echo sprintf( '<div class="notice notice-info"><p>' . __( 'The subscription for %s has been placed in the trash and will be deleted soon. You can purchase a new subscription from your account <a href="%s" target="_blank">dashboard</a>.', 'hiiwp' ) . '</p></div>', esc_attr( $this->ame_software_product_id ), esc_url( $this->ame_renew_license_url ) );
 		}
 
 		/**
 		 * Display subscription expired error notice
 		 */
 		public function no_subscription_error_notice() {
-			echo sprintf( '<div class="notice notice-info"><p>' . __( 'A subscription for %s could not be found. You can purchase a subscription from your account <a href="%s" target="_blank">dashboard</a>.', $this->text_domain ) . '</p></div>', esc_attr( $this->ame_software_product_id ), esc_url( $this->ame_renew_license_url ) );
+			echo sprintf( '<div class="notice notice-info"><p>' . __( 'A subscription for %s could not be found. You can purchase a subscription from your account <a href="%s" target="_blank">dashboard</a>.', 'hiiwp' ) . '</p></div>', esc_attr( $this->ame_software_product_id ), esc_url( $this->ame_renew_license_url ) );
 		}
 
 		/**
 		 * Display missing key error notice
 		 */
 		public function no_key_error_notice() {
-			echo sprintf( '<div class="notice notice-info"><p>' . __( 'A license key for %s could not be found. Maybe you forgot to enter a license key when setting up %s, or the key was deactivated in your account. You can reactivate or purchase a license key from your account <a href="%s" target="_blank">dashboard</a>.', $this->text_domain ) . '</p></div>', esc_attr( $this->ame_software_product_id ), esc_attr( $this->ame_software_product_id ), esc_url( $this->ame_renew_license_url ) );
+			echo sprintf( '<div class="notice notice-info"><p>' . __( 'A license key for %s could not be found. Maybe you forgot to enter a license key when setting up %s, or the key was deactivated in your account. You can reactivate or purchase a license key from your account <a href="%s" target="_blank">dashboard</a>.', 'hiiwp' ) . '</p></div>', esc_attr( $this->ame_software_product_id ), esc_attr( $this->ame_software_product_id ), esc_url( $this->ame_renew_license_url ) );
 		}
 
 		/**
 		 * Display missing download permission revoked error notice
 		 */
 		public function download_revoked_error_notice() {
-			echo sprintf( '<div class="notice notice-info"><p>' . __( 'Download permission for %s has been revoked possibly due to a license key or subscription expiring. You can reactivate or purchase a license key from your account <a href="%s" target="_blank">dashboard</a>.', $this->text_domain ) . '</p></div>', esc_attr( $this->ame_software_product_id ), esc_url( $this->ame_renew_license_url ) );
+			echo sprintf( '<div class="notice notice-info"><p>' . __( 'Download permission for %s has been revoked possibly due to a license key or subscription expiring. You can reactivate or purchase a license key from your account <a href="%s" target="_blank">dashboard</a>.', 'hiiwp' ) . '</p></div>', esc_attr( $this->ame_software_product_id ), esc_url( $this->ame_renew_license_url ) );
 		}
 
 		/**
 		 * Display no activation error notice
 		 */
 		public function no_activation_error_notice() {
-			echo sprintf( '<div class="notice notice-info"><p>' . __( '%s has not been activated. Go to the settings page and enter the license key and license email to activate %s.', $this->text_domain ) . '</p></div>', esc_attr( $this->ame_software_product_id ), esc_attr( $this->ame_software_product_id ) );
+			echo sprintf( '<div class="notice notice-info"><p>' . __( '%s has not been activated. Go to the settings page and enter the license key and license email to activate %s.', 'hiiwp' ) . '</p></div>', esc_attr( $this->ame_software_product_id ), esc_attr( $this->ame_software_product_id ) );
 		}
 
 		/**
 		 * Display switched activation error notice
 		 */
 		public function switched_subscription_error_notice() {
-			echo sprintf( '<div class="notice notice-info"><p>' . __( 'You changed the subscription for %s, so you will need to enter your new API License Key in the settings page. The License Key should have arrived in your email inbox, if not you can get it by logging into your account <a href="%s" target="_blank">dashboard</a>.', $this->text_domain ) . '</p></div>', esc_attr( $this->ame_software_product_id ), esc_url( $this->ame_renew_license_url ) );
+			echo sprintf( '<div class="notice notice-info"><p>' . __( 'You changed the subscription for %s, so you will need to enter your new API License Key in the settings page. The License Key should have arrived in your email inbox, if not you can get it by logging into your account <a href="%s" target="_blank">dashboard</a>.', 'hiiwp' ) . '</p></div>', esc_attr( $this->ame_software_product_id ), esc_url( $this->ame_renew_license_url ) );
 		}
 
 	}

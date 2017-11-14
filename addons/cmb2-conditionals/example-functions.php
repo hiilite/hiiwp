@@ -181,14 +181,14 @@ function yourprefix_register_conditionals_demo_metabox() {
 
 	// Example using conditionals with multi-check checkboxes.
 	$cmb_demo->add_field( array(
-		'name'    => __( 'Test Multi Checkbox', 'cmb2' ),
-		'desc'    => __( 'field description (optional)', 'cmb2' ),
+		'name'    => __( 'Test Multi Checkbox', 'hiiwp' ),
+		'desc'    => __( 'field description (optional)', 'hiiwp' ),
 		'id'      => $prefix . 'multi-checkbox',
 		'type'    => 'multicheck',
 		'options' => array(
-			'check1' => __( 'Check One', 'cmb2' ),
-			'check2' => __( 'Check Two', 'cmb2' ),
-			'check3' => __( 'Check Three', 'cmb2' ),
+			'check1' => __( 'Check One', 'hiiwp' ),
+			'check2' => __( 'Check Two', 'hiiwp' ),
+			'check3' => __( 'Check Three', 'hiiwp' ),
 		),
 	) );
 

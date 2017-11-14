@@ -29,6 +29,8 @@ class HiiWP_Hooks extends Hii {
 		'hii_split_portfolio_sidebar_about',
 		'hii_before_blog_loop',
 		'hii_after_blog_loop',
+		'hii_before_sidebar',
+		'hii_after_sidebar',
 		
 	);
 	/**
@@ -79,7 +81,7 @@ class HiiWP_Hooks extends Hii {
 		
 		$cmb = new_cmb2_box( array(
 	        'id'        => 'header',
-	        'title'     => __( 'Header', 'cmb2' ),
+	        'title'     => __( 'Header', 'hiiwp' ),
 	        'show_on'   => $show_on 
 	    ));
 	    	
@@ -278,7 +280,7 @@ class HiiWP_Hooks extends Hii {
 				
 					if ( isset( $entry['role'] ) && isset( $entry['name'] )) { 
 						$team .= '<div class="row"><div class="col-6"><strong>';
-						$team .= __( $entry['role'], 'hiilite' );
+						$team .= $entry['role'];
 						$team .= ': </strong>';
 						$team .= $entry['name'];
 						$team .= '</div></div>';
@@ -319,7 +321,7 @@ class HiiWP_Hooks extends Hii {
 			}
 
 			$social_share .= '</div>';
-			$social_share .= '<div>'.__( 'Appreciate and Share', 'hiilite' ).'</div>
+			$social_share .= '<div>'.__( 'Appreciate and Share', 'hiiwp' ).'</div>
 		</div>';		
 		
 		echo $social_share;
@@ -344,7 +346,7 @@ class HiiWP_Hooks extends Hii {
 			</div>
 			<div class="col-10">
 				<a href="'.$author_url.'"><h4>'.$author.'</h4></a>
-				<small>'.__( 'Author', 'hiilite' ).'</small>
+				<small>'.__( 'Author', 'hiiwp' ).'</small>
 				
 				<div class="project-description">';
 					if($args[1] != '') {

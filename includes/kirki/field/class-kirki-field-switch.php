@@ -37,8 +37,8 @@ class Kirki_Field_Switch extends Kirki_Field_Checkbox {
 		}
 
 		$l10n = array(
-			'on'  => esc_attr__( 'On', 'kirki' ),
-			'off' => esc_attr__( 'Off', 'kirki' ),
+			'on'  => esc_attr__( 'On', 'hiiwp' ),
+			'off' => esc_attr__( 'Off', 'hiiwp' ),
 		);
 
 		if ( ! isset( $this->choices['on'] ) ) {

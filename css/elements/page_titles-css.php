@@ -11,12 +11,15 @@
 	display: block;
 	width:100%;
 }
-.page-title, .page-title h1 {
+
+.page-title h1 {
 	margin-bottom: 0;
 	<?php 
 	get_font_css($hiilite_options['title_font']);
 	?>
 }
-.page-title .back_to_blog, .page-title small, .page-title small a {
-	color: <?=$hiilite_options['title_font']['color'];?>;
+.page-title .back_to_blog, 
+.page-title small, 
+.page-title small a {
+	color: <?php echo $hiilite_options['title_font']['color'];?>;
 }

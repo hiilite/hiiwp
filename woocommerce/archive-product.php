@@ -20,11 +20,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
 }
 
-get_header( 'shop' ); ?>
-<!--ARCHIVE-PRODUCT-->
-	
-
-    <header class="woocommerce-products-header page-title">
+get_header( 'shop' ); 
+$page_bg_color = (get_post_meta ( get_the_ID(), 'page_title_bg', true))?get_post_meta ( get_the_ID(), 'page_title_bg', true):false;
+$page_bg_img = (get_post_meta ( $post->ID, 'page_title_bgimg', false))?get_post_meta ( $post->ID, 'page_title_bgimg'):false;
+ ?>
+	<header class="woocommerce-products-header page-title" style="<?=($page_bg_img)?'background-image:url('.$page_bg_img[0].');':'';?><?=($page_bg_color)?'background-color:'.$page_bg_color.';':'';?>">
 		<div class="in_grid content-box">
 			<?php
 		/**

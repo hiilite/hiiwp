@@ -12,7 +12,7 @@ header#main_header {
 	else
 		echo 'position: relative;';
 	?>
-	border-bottom: <?=$hiilite_options['header_bottom_border_width'].' solid '.$hiilite_options['header_bottom_border_color'];?>;
+	border-bottom: <?php echo $hiilite_options['header_bottom_border_width'].' solid '.$hiilite_options['header_bottom_border_color'];?>;
 }
 <?php
 if($hiilite_options['header_top_home'] == true): ?>
@@ -83,7 +83,7 @@ if($hiilite_options['header_bottom_on'] == true) : ?>
 endif;
 ?>
 
-@media (max-width:<?=$hiilite_options['grid_width'];?>){
+@media (max-width:<?php echo $hiilite_options['grid_width'];?>){
 	.container_inner {
 		padding: 0em;
 	}
@@ -96,21 +96,21 @@ if($hiilite_options['header_top_area_yesno'] == true):
 	$header_top_colors = get_theme_mod( 'header_top_colors' );
 	?>
 	#header_top {
-		background: <?=get_theme_mod('header_top_background_color', '#f8f8f8');?>;
-		border-top: <?=get_theme_mod('header_top_border_width', '0px').' solid '.get_theme_mod('header_top_border_color', 'transparent');?>;
+		background: <?php echo get_theme_mod('header_top_background_color', '#f8f8f8');?>;
+		border-top: <?php echo get_theme_mod('header_top_border_width', '0px').' solid '.get_theme_mod('header_top_border_color', 'transparent');?>;
 		
 		<?php 
 		get_font_css($hiilite_options['header_top_font']);
 	?>
 	}
 	#header_top a{
-		color:<?=$header_top_colors['link'];?>;
+		color:<?php echo $header_top_colors['link'];?>;
 	}
 	#header_top a:hover{
-		color:<?=$header_top_colors['hover'];?>;
+		color:<?php echo $header_top_colors['hover'];?>;
 	}
 	<?php if(get_theme_mod('hide_top_bar_on_mobile_yesno') == true): ?>
-	@media (max-width:<?=get_theme_mod('mobile_menu_switch','768px')?>){
+	@media (max-width:<?php echo get_theme_mod('mobile_menu_switch','768px')?>){
 		#header_top {
 			display:none;
 		}

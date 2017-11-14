@@ -47,9 +47,9 @@ class Kirki_Control_Number extends Kirki_Control_Base {
 	 */
 	protected function l10n() {
 		return array(
-			'minError'  => esc_attr__( 'Value lower than allowed minimum', 'kirki' ),
-			'maxError'  => esc_attr__( 'Value higher than allowed maximum', 'kirki' ),
-			'stepError' => esc_attr__( 'Invalid Value', 'kirki' ),
+			'minError'  => esc_attr__( 'Value lower than allowed minimum', 'hiiwp' ),
+			'maxError'  => esc_attr__( 'Value higher than allowed maximum', 'hiiwp' ),
+			'stepError' => esc_attr__( 'Invalid Value', 'hiiwp' ),
 		);
 	}
 }

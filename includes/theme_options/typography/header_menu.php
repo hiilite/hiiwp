@@ -15,8 +15,8 @@ $section = 'typography_header_menu_section';
 Kirki::add_field( 'hiiwp', array(
     'type'        => 'typography',
     'settings'    => 'main_menu_font',
-    'label'       => esc_attr__( '1st Level Menu', 'kirki' ),
-    'description' => __( 'Define styles for 1st level in Top Navigation Menu' ),
+    'label'       => esc_attr__( '1st Level Menu', 'hiiwp' ),
+    'description' => __( 'Define styles for 1st level in Top Navigation Menu', 'hiiwp' ),
     'section'     => $section,
     'default'     =>  $hiilite_options['main_menu_font'],
     'priority'    => 1,
@@ -38,7 +38,7 @@ Kirki::add_field( 'hiiwp', array(
 Kirki::add_field( 'hiiwp', array(
 	'type'        => 'spacing',
 	'settings'    => 'main_menu_padding',
-	'label'       => __( 'Padding', 'my_textdomain' ),
+	'label'       => __( 'Padding', 'hiiwp' ),
 	'section'     => $section,
 	'default'     => $hiilite_options['main_menu_padding'],
 	'priority'    => 1,
@@ -80,8 +80,8 @@ Kirki::add_field( 'hiiwp', array(
 Kirki::add_field( 'hiiwp', array(
     'type'        => 'typography',
     'settings'    => 'second_level_menu_font',
-    'label'       => esc_attr__( '2nd Level Menu', 'kirki' ),
-    'description' => __( 'Define styles for 2nd level in Top Navigation Menu' ),
+    'label'       => esc_attr__( '2nd Level Menu', 'hiiwp' ),
+    'description' => __( 'Define styles for 2nd level in Top Navigation Menu', 'hiiwp' ),
     'section'     => $section,
     'default'     => $hiilite_options['second_level_menu_font'],
     'priority'    => 3,
@@ -103,7 +103,7 @@ Kirki::add_field( 'hiiwp', array(
 Kirki::add_field( 'hiiwp', array(
 	'type'        => 'spacing',
 	'settings'    => 'second_level_menu_padding',
-	'label'       => __( 'Padding', 'my_textdomain' ),
+	'label'       => __( 'Padding', 'hiiwp' ),
 	'section'     => $section,
 	'default'     => array(
 		'top'    => '1em',
@@ -148,8 +148,8 @@ Kirki::add_field( 'hiiwp', array(
 Kirki::add_field( 'hiiwp', array(
     'type'        => 'typography',
     'settings'    => 'third_level_menu_font',
-    'label'       => esc_attr__( '3rd Level Menu', 'kirki' ),
-    'description' => __( 'Define styles for 3rd level in Top Navigation Menu' ),
+    'label'       => esc_attr__( '3rd Level Menu', 'hiiwp' ),
+    'description' => __( 'Define styles for 3rd level in Top Navigation Menu', 'hiiwp' ),
     'section'     => $section,
     'default'     =>  array(
         'font-family'    => ' ',
@@ -183,7 +183,7 @@ Kirki::add_field( 'hiiwp', array(
 Kirki::add_field( 'hiiwp', array(
 	'type'        => 'spacing',
 	'settings'    => 'third_level_menu_padding',
-	'label'       => __( 'Padding', 'my_textdomain' ),
+	'label'       => __( 'Padding', 'hiiwp' ),
 	'section'     => $section,
 	'default'     => array(
 		'top'    => '1em',
@@ -227,7 +227,7 @@ Kirki::add_field( 'hiiwp', array(
 	'type'        => 'typography',
 	'settings'    => 'header_top_font',
 	'label'       => __( 'Header Top Font', 'hiiwp' ),
-	'description' => __('Define styles for Header Top area'),
+	'description' => __('Define styles for Header Top area', 'hiiwp'),
 	'section'     => $section,
 	'default'     => array(
         'font-family'    => ' ',
@@ -251,7 +251,7 @@ Kirki::add_field( 'hiiwp', array(
 	'type'        => 'multicolor',
     'settings'    => 'header_top_colors',
     'label'       => __( 'Link Colors', 'hiiwp' ),
-    'description' => __('Header Top link colors'),
+    'description' => __('Header Top link colors', 'hiiwp'),
     'section'     => $section,
     'priority'    => 6,
     'choices'     => array(
@@ -271,7 +271,7 @@ Kirki::add_field( 'hiiwp', array(
 	'type'        => 'typography',
 	'settings'    => 'header_bottom_font',
 	'label'       => __( 'Header Bottom Font', 'hiiwp' ),
-	'description' => __('Define styles for Header Bottom area'),
+	'description' => __('Define styles for Header Bottom area', 'hiiwp'),
 	'section'     => $section,
 	'default'     => array(
         'font-family'    => ' ',

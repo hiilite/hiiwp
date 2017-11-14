@@ -5,8 +5,8 @@ $section = 'typography_page_title_section';
 Kirki::add_field( 'hiiwp', array(
     'type'        => 'typography',
     'settings'    => 'title_font',
-    'label'       => esc_attr__( 'Title Style', 'kirki' ),
-    'description' => __( 'Define styles for page title' ),
+    'label'       => esc_attr__( 'Title Style', 'hiiwp' ),
+    'description' => __( 'Define styles for page title', 'hiiwp' ),
     'section'     => $section,
     'default'     => array(
         'font-family'    => ' ',

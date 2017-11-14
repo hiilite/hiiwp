@@ -151,7 +151,7 @@ class Social_Share_Widget extends WP_Widget {
 	 */
 	public function form( $instance ) {
 		// outputs the options form on admin
-		$title = ! empty( $instance['title'] ) ? $instance['title'] : __( 'Share This', 'text_domain' );
+		$title = ! empty( $instance['title'] ) ? $instance['title'] : __( 'Share This', 'hiiwp' );
 		$fa = ! empty( $instance['fa'] ) ? true : false;
 		$gp = ! empty( $instance['gp'] ) ? true : false;
 		$tw = ! empty( $instance['tw'] ) ? true : false;
@@ -159,20 +159,20 @@ class Social_Share_Widget extends WP_Widget {
 		$li = ! empty( $instance['li'] ) ? true : false;
 		?>
 		<p>
-		<label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e( 'Title:' ); ?></label> 
+		<label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e( 'Title:', 'hiiwp' ); ?></label> 
 		<input class="widefat" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" type="text" value="<?php echo esc_attr( $title ); ?>">
 		</p>
 		<p>
-			<label for="<?=$this->get_field_id( 'fa' );?>"><?php _e( 'Facebook:' );?></label> 
-			<input id="<?=$this->get_field_id( 'fa' );?>" name="<?=$this->get_field_name( 'fa' );?>" type="checkbox" value="true" <?php if($fa)echo 'checked=checked';?>><br>
-			<label for="<?=$this->get_field_id( 'gp' );?>"><?php _e( 'Google Plus:' );?></label> 
-			<input id="<?=$this->get_field_id( 'gp' );?>" name="<?=$this->get_field_name( 'gp' );?>" type="checkbox" value="true" <?php if($gp)echo 'checked=checked';?>><br>
-			<label for="<?=$this->get_field_id( 'tw' );?>"><?php _e( 'Twitter:' );?></label> 
-			<input id="<?=$this->get_field_id( 'tw' );?>" name="<?=$this->get_field_name( 'tw' );?>" type="checkbox" value="true" <?php if($tw)echo 'checked=checked';?>><br>
-			<label for="<?=$this->get_field_id( 'pt' );?>"><?php _e( 'Pinterest:' );?></label> 
-			<input id="<?=$this->get_field_id( 'pt' );?>" name="<?=$this->get_field_name( 'pt' );?>" type="checkbox" value="true" <?php if($pt)echo 'checked=checked';?>><br>
-			<label for="<?=$this->get_field_id( 'li' );?>"><?php _e( 'LinkedIn:' );?></label> 
-			<input id="<?=$this->get_field_id( 'li' );?>" name="<?=$this->get_field_name( 'li' );?>" type="checkbox" value="true" <?php if($li)echo 'checked=checked';?>><br>
+			<label for="<?php echo $this->get_field_id( 'fa' );?>"><?php _e( 'Facebook:', 'hiiwp' );?></label> 
+			<input id="<?php echo $this->get_field_id( 'fa' );?>" name="<?php echo $this->get_field_name( 'fa' );?>" type="checkbox" value="true" <?php if($fa)echo 'checked=checked';?>><br>
+			<label for="<?php echo $this->get_field_id( 'gp' );?>"><?php _e( 'Google Plus:', 'hiiwp' );?></label> 
+			<input id="<?php echo $this->get_field_id( 'gp' );?>" name="<?php echo $this->get_field_name( 'gp' );?>" type="checkbox" value="true" <?php if($gp)echo 'checked=checked';?>><br>
+			<label for="<?php echo $this->get_field_id( 'tw' );?>"><?php _e( 'Twitter:', 'hiiwp' );?></label> 
+			<input id="<?php echo $this->get_field_id( 'tw' );?>" name="<?php echo $this->get_field_name( 'tw' );?>" type="checkbox" value="true" <?php if($tw)echo 'checked=checked';?>><br>
+			<label for="<?php echo $this->get_field_id( 'pt' );?>"><?php _e( 'Pinterest:', 'hiiwp' );?></label> 
+			<input id="<?php echo $this->get_field_id( 'pt' );?>" name="<?php echo $this->get_field_name( 'pt' );?>" type="checkbox" value="true" <?php if($pt)echo 'checked=checked';?>><br>
+			<label for="<?php echo $this->get_field_id( 'li' );?>"><?php _e( 'LinkedIn:', 'hiiwp' );?></label> 
+			<input id="<?php echo $this->get_field_id( 'li' );?>" name="<?php echo $this->get_field_name( 'li' );?>" type="checkbox" value="true" <?php if($li)echo 'checked=checked';?>><br>
 		</p>
 		<?php 
 	}

@@ -2,8 +2,8 @@
 $section = 'header_menu_section';
 Kirki::add_section( $section, array(
     'priority'    => 1,
-    'title'       => __( 'Menus', 'textdomain' ),
-    'description' => __( 'Menus settings', 'textdomain' ),
+    'title'       => __( 'Menus', 'hiiwp' ),
+    'description' => __( 'Menus settings', 'hiiwp' ),
     'panel'		 => 'header_panel',
 ) );
 
@@ -11,8 +11,8 @@ Kirki::add_section( $section, array(
 Kirki::add_field( 'hiiwp', array(
 	'type'        => 'color',
 	'settings'    => 'dropdown_background_color',
-	'label'       => __( 'Dropdown Menu Background', 'my_textdomain' ),
-	'description' => __('Choose a color and transparency for the main menu background'),
+	'label'       => __( 'Dropdown Menu Background', 'hiiwp' ),
+	'description' => __('Choose a color and transparency for the main menu background', 'hiiwp'),
 	'section'     => $section,
 	'default'     => $hiilite_options['dropdown_background_color'],
 	'priority'    => 7,
@@ -35,7 +35,7 @@ Kirki::add_field( 'hiiwp', array(
 	'type'        => 'color',
 	'settings'    => 'main_menu_background_color',
 	'label'       => __( 'Main Menu Background Color', 'hiiwp' ),
-	'description' => __('Choose color for the main menu background'),
+	'description' => __('Choose color for the main menu background', 'hiiwp'),
 	'section'     => $section,
 	'default'     => '',
 	'priority'    => 7,
@@ -50,7 +50,7 @@ Kirki::add_field( 'hiiwp', array(
 	'type'        => 'color',
 	'settings'    => 'moblie_menu_background_color',
 	'label'       => __( 'Mobile Menu Background Color', 'hiiwp' ),
-	'description' => __('Choose color for mobile menu background'),
+	'description' => __('Choose color for mobile menu background', 'hiiwp'),
 	'section'     => $section,
 	'default'     => '',
 	'priority'    => 7,
@@ -66,8 +66,8 @@ Kirki::add_field( 'hiiwp', array(
 Kirki::add_field( 'hiiwp', array(
     'type'        => 'typography',
     'settings'    => 'main_menu_align',
-    'label'       => esc_attr__( 'Main Menu Alignment', 'kirki' ),
-    'description' => __( 'Change the text align of the main menu' ),
+    'label'       => esc_attr__( 'Main Menu Alignment', 'hiiwp' ),
+    'description' => __( 'Change the text align of the main menu', 'hiiwp' ),
     'section'     => $section,
     'default'     => $hiilite_options['main_menu_align'], 
     'priority'    => 1,
@@ -75,7 +75,7 @@ Kirki::add_field( 'hiiwp', array(
 Kirki::add_field( 'hiiwp', array(
 	'type'        => 'spacing',
 	'settings'    => 'menu_margin',
-	'label'       => __( 'Menu Margin', 'my_textdomain' ),
+	'label'       => __( 'Menu Margin', 'hiiwp' ),
 	'section'     => $section,
 	'default'     => $hiilite_options['menu_margin'],
 	'priority'    => 1,
@@ -85,8 +85,8 @@ Kirki::add_field( 'hiiwp', array(
 Kirki::add_field( 'hiiwp', array(
     'type'        => 'typography',
     'settings'    => 'left_menu_align',
-    'label'       => esc_attr__( 'Left Menu Alignment', 'kirki' ),
-    'description' => __( 'Change the text align of the left menu' ),
+    'label'       => esc_attr__( 'Left Menu Alignment', 'hiiwp' ),
+    'description' => __( 'Change the text align of the left menu', 'hiiwp' ),
     'section'     => $section,
     'default'     => $hiilite_options['left_menu_align'], 
     'priority'    => 1,
@@ -100,8 +100,8 @@ Kirki::add_field( 'hiiwp', array(
 Kirki::add_field( 'hiiwp', array(
     'type'        => 'typography',
     'settings'    => 'right_menu_align',
-    'label'       => esc_attr__( 'Right Menu Alignment', 'kirki' ),
-    'description' => __( 'Change the text align of the right menu' ),
+    'label'       => esc_attr__( 'Right Menu Alignment', 'hiiwp' ),
+    'description' => __( 'Change the text align of the right menu', 'hiiwp' ),
     'section'     => $section,
     'default'     => $hiilite_options['right_menu_align'], 
     'priority'    => 1,
@@ -115,8 +115,8 @@ Kirki::add_field( 'hiiwp', array(
 Kirki::add_field( 'hiiwp', array(
     'type'        => 'typography',
     'settings'    => 'bottom_menu_align',
-    'label'       => esc_attr__( 'Bottom Menu Alignment', 'kirki' ),
-    'description' => __( 'Change the text align of the bottom menu' ),
+    'label'       => esc_attr__( 'Bottom Menu Alignment', 'hiiwp' ),
+    'description' => __( 'Change the text align of the bottom menu', 'hiiwp' ),
     'section'     => $section,
     'default'     => $hiilite_options['bottom_menu_align'], 
     'priority'    => 1,
@@ -131,8 +131,8 @@ Kirki::add_field( 'hiiwp', array(
 Kirki::add_field( 'hiiwp', array(
     'type'        => 'dimension',
     'settings'    => 'mobile_menu_switch',
-    'label'       => __( 'Mobile Menu Switch', 'my_textdomain' ),
-    'description'  => __( 'At what size should the menu switch to the mobile menu', 'my_textdomain' ),
+    'label'       => __( 'Mobile Menu Switch', 'hiiwp' ),
+    'description'  => __( 'At what size should the menu switch to the mobile menu', 'hiiwp' ),
     'section'     => $section,
     'default'     => '768px',
     'priority'    => 11,
@@ -140,8 +140,8 @@ Kirki::add_field( 'hiiwp', array(
 Kirki::add_field( 'hiiwp', array(
 	'type'        => 'color',
 	'settings'    => 'mobile_menu_icon_color',
-	'label'       => __( 'Mobile Menu Icon', 'my_textdomain' ),
-	'description' => __('Change the color of the mobile menu icon'),
+	'label'       => __( 'Mobile Menu Icon', 'hiiwp' ),
+	'description' => __('Change the color of the mobile menu icon', 'hiiwp'),
 	'section'     => $section,
 	'default'     => $hiilite_options['mobile_menu_icon_color'],
 	'priority'    => 11,

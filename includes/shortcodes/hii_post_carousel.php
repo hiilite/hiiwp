@@ -6,7 +6,7 @@ function add_hii_post_carousel_shortcode( $atts ){
       'show_title'	=> true,
       'show_excerpt'	=> true,
       'show_btn'	=> true,
-      'btn_text' => 'Read More',
+      'btn_text' => __('Read More', 'hiiwp'),
       'css' => '',
     ), $atts ) );
     

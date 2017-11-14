@@ -7,8 +7,8 @@ $section = 'blog_section';
 //////////////////////
 Kirki::add_section( $section, array(
     'priority'    => 1,
-    'title'       => __( 'Blog List', 'textdomain' ),
-    'description' => __( 'Blog list settings', 'textdomain' ),
+    'title'       => __( 'Blog List', 'hiiwp' ),
+    'description' => __( 'Blog list settings', 'hiiwp' ),
     'panel'       => 'blog_panel',
 ) );
 
@@ -17,10 +17,10 @@ Kirki::add_section( $section, array(
 Kirki::add_field( 'hiiwp', array(
 	'type'        => 'radio-image',
     'settings'    => 'blog_layouts',
-    'label'       => __( 'Blog Layout', 'my_textdomain' ),
+    'label'       => __( 'Blog Layout', 'hiiwp' ),
     'section'     => $section,
     'default'     => 'full-width',
-    'description' => 'Select the layout type for your blog',
+    'description' => __('Select the layout type for your blog', 'hiiwp'),
     'priority'    => 1,
     'multiple'    => 1,
     'choices'     => array(
@@ -33,7 +33,7 @@ Kirki::add_field( 'hiiwp', array(
 Kirki::add_field( 'hiiwp', array(
 	'type'        => 'radio-buttonset',
 	'settings'    => 'blog_col',
-	'label'       => esc_attr__( 'Columns', 'my_textdomain' ),
+	'label'       => esc_attr__( 'Columns', 'hiiwp' ),
 	'section'     => $section,
 	'default'     => '2',
 	'priority'    => 1,
@@ -54,7 +54,7 @@ Kirki::add_field( 'hiiwp', array(
 Kirki::add_field( 'hiiwp', array(
     'type'        => 'switch',
     'settings'    => 'blog_full_width',
-    'label'       => __( 'Make Blog Roll Full Width', 'my_textdomain' ),
+    'label'       => __( 'Make Blog Roll Full Width', 'hiiwp' ),
     'section'     => $section,
     'default'     => false,
     'priority'    => 1,
@@ -63,10 +63,10 @@ Kirki::add_field( 'hiiwp', array(
 Kirki::add_field( 'hiiwp', array(
 	'type'        => 'radio-image',
     'settings'    => 'blog_img_pos',
-    'label'       => __( 'Image Position', 'my_textdomain' ),
+    'label'       => __( 'Image Position', 'hiiwp' ),
     'section'     => $section,
     'default'     => 'image-left',
-    'description' => 'Select position of the image',
+    'description' => __('Select position of the image', 'hiiwp'),
     'priority'    => 1,
     'multiple'    => 1,
     'choices'     => array(
@@ -78,7 +78,7 @@ Kirki::add_field( 'hiiwp', array(
 Kirki::add_field( 'hiiwp', array(
     'type'        => 'switch',
     'settings'    => 'blog_title_show',
-    'label'       => __( 'Show Title', 'my_textdomain' ),
+    'label'       => __( 'Show Title', 'hiiwp' ),
     'section'     => $section,
     'default'     => true,
     'priority'    => 1,
@@ -87,10 +87,10 @@ Kirki::add_field( 'hiiwp', array(
 Kirki::add_field( 'hiiwp', array(
 	'type'        => 'radio-image',
     'settings'    => 'blog_title_position',
-    'label'       => __( 'Title Position', 'my_textdomain' ),
+    'label'       => __( 'Title Position', 'hiiwp' ),
     'section'     => $section,
     'default'     => 'title-below',
-    'description' => 'Select position of the title',
+    'description' => __('Select position of the title', 'hiiwp'),
     'priority'    => 1,
     'multiple'    => 1,
     'choices'     => array(
@@ -109,7 +109,7 @@ Kirki::add_field( 'hiiwp', array(
 Kirki::add_field( 'hiiwp', array(
 	'type'        => 'radio-buttonset',
 	'settings'    => 'blog_heading_tag',
-	'label'       => esc_attr__( 'Title Size', 'my_textdomain' ),
+	'label'       => esc_attr__( 'Title Size', 'hiiwp' ),
 	'section'     => $section,
 	'default'     => 'h2',
 	'priority'    => 1,
@@ -132,10 +132,10 @@ Kirki::add_field( 'hiiwp', array(
 Kirki::add_field( 'hiiwp', array(
 	'type'        => 'radio-image',
     'settings'    => 'blog_date_pos',
-    'label'       => __( 'Dateline Position', 'my_textdomain' ),
+    'label'       => __( 'Dateline Position', 'hiiwp' ),
     'section'     => $section,
     'default'     => 'date-above',
-    'description' => 'Select position of the title',
+    'description' => __('Select position of the title', 'hiiwp'),
     'priority'    => 1,
     'multiple'    => 1,
     'choices'     => array(
@@ -146,7 +146,7 @@ Kirki::add_field( 'hiiwp', array(
 Kirki::add_field( 'hiiwp', array(
     'type'        => 'switch',
     'settings'    => 'blog_cats_show',
-    'label'       => __( 'Show Category', 'my_textdomain' ),
+    'label'       => __( 'Show Category', 'hiiwp' ),
     'section'     => $section,
     'default'     => true,
     'priority'    => 1,
@@ -154,7 +154,7 @@ Kirki::add_field( 'hiiwp', array(
 Kirki::add_field( 'hiiwp', array(
     'type'        => 'switch',
     'settings'    => 'blog_meta_show',
-    'label'       => __( 'Show Meta Information', 'my_textdomain' ),
+    'label'       => __( 'Show Meta Information', 'hiiwp' ),
     'section'     => $section,
     'default'     => true,
     'priority'    => 1,
@@ -162,7 +162,7 @@ Kirki::add_field( 'hiiwp', array(
 Kirki::add_field( 'hiiwp', array(
     'type'        => 'switch',
     'settings'    => 'blog_excerpt_show',
-    'label'       => __( 'Show Excerpt', 'my_textdomain' ),
+    'label'       => __( 'Show Excerpt', 'hiiwp' ),
     'section'     => $section,
     'default'     => true,
     'priority'    => 1,
@@ -170,7 +170,7 @@ Kirki::add_field( 'hiiwp', array(
 Kirki::add_field( 'hiiwp', array(
     'type'        => 'number',
     'settings'    => 'blog_excerpt_len',
-    'label'       => __( 'Excerpt Word Length', 'my_textdomain' ),
+    'label'       => __( 'Excerpt Word Length', 'hiiwp' ),
     'section'     => $section,
     'default'     => '55',
     'priority'    => 1,
@@ -185,7 +185,7 @@ Kirki::add_field( 'hiiwp', array(
 Kirki::add_field( 'hiiwp', array(
     'type'        => 'switch',
     'settings'    => 'blog_more_show',
-    'label'       => __( 'Show More Button', 'my_textdomain' ),
+    'label'       => __( 'Show More Button', 'hiiwp' ),
     'section'     => $section,
     'default'     => true,
     'priority'    => 1,
@@ -194,14 +194,14 @@ Kirki::add_field( 'hiiwp', array(
 Kirki::add_field( 'hiiwp', array(
     'type'        => 'select',
     'settings'    => 'blog_more_type',
-    'label'       => __( 'Show More Button Type', 'my_textdomain' ),
+    'label'       => __( 'Show More Button Type', 'hiiwp' ),
     'section'     => $section,
     'default'     => 'button',
     'priority'    => 1,
     'choices'     => array(
-	    'button' => 'Default Button',
-        'button-primary' => 'Primary Button',
-        'button-secondary' => 'Secondary Button',
+	    'button' => __('Default Button', 'hiiwp'),
+        'button-primary' => __('Primary Button', 'hiiwp'),
+        'button-secondary' => __('Secondary Button', 'hiiwp'),
         'link' => 'Text Link',
     ),
     'active_callback'	=> array(
@@ -216,9 +216,9 @@ Kirki::add_field( 'hiiwp', array(
 Kirki::add_field( 'hiiwp', array(
     'type'        => 'text',
     'settings'    => 'blog_more_text',
-    'label'       => __( 'Show More Button Text', 'my_textdomain' ),
+    'label'       => __( 'Show More Button Text', 'hiiwp' ),
     'section'     => $section,
-    'default'     => esc_attr__( 'Read More'),
+    'default'     => esc_attr__( 'Read More', 'hiiwp'),
     'priority'    => 1,
     'active_callback'	=> array(
 	    array(
@@ -232,7 +232,7 @@ Kirki::add_field( 'hiiwp', array(
 Kirki::add_field( 'hiiwp', array(
     'type'        => 'switch',
     'settings'    => 'blog_sidebar_show',
-    'label'       => __( 'Show Blog Sidebar', 'my_textdomain' ),
+    'label'       => __( 'Show Blog Sidebar', 'hiiwp' ),
     'section'     => $section,
     'default'     => true,
     'priority'    => 1,

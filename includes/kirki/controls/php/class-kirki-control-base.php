@@ -68,7 +68,7 @@ class Kirki_Control_Base extends WP_Customize_Control {
 			'kirki-radio'
 		) ) ) {
 			$type = str_replace( 'kirki-', '', $this->type );
-			wp_enqueue_script( $this->type , kirki_controls()->get_url( "js/$type.js" ), array_merge( $this->kirki_script_dependencies(), array( 'kirki', 'kirki' ) ), false, true );
+			wp_enqueue_script( $this->type , kirki_controls()->get_url( "js/$type.js" ), array_merge( $this->kirki_script_dependencies(), array( 'kirki', 'hiiwp' ) ), false, true );
 		}
 		wp_enqueue_style( 'kirki-styles', kirki_controls()->get_url( 'css/styles.css' ), null );
 	}
@@ -133,7 +133,7 @@ class Kirki_Control_Base extends WP_Customize_Control {
 	 */
 	protected function content_template() {
 		// This HTML will be replaced when the control is loaded.
-		echo '<h4>' . esc_attr__( 'Please wait while we load the control', 'kirki' ) . '</h4>';
+		echo '<h4>' . esc_attr__( 'Please wait while we load the control', 'hiiwp' ) . '</h4>';
 	}
 
 	/**

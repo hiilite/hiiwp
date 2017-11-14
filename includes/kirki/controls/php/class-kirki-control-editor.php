@@ -38,9 +38,9 @@ class Kirki_Control_Editor extends Kirki_Control_Base {
 	 */
 	protected function l10n() {
 		return array(
-			'openEditor'   => esc_attr__( 'Open Editor', 'kirki' ),
-			'closeEditor'  => esc_attr__( 'Close Editor', 'kirki' ),
-			'switchEditor' => esc_attr__( 'Switch Editor', 'kirki' ),
+			'openEditor'   => esc_attr__( 'Open Editor', 'hiiwp' ),
+			'closeEditor'  => esc_attr__( 'Close Editor', 'hiiwp' ),
+			'switchEditor' => esc_attr__( 'Switch Editor', 'hiiwp' ),
 		);
 	}
 }

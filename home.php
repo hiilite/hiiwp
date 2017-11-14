@@ -1,54 +1,38 @@
 <?php 
 $hiilite_options = Hii::$hiiwp->get_options();
 get_header();
-echo '<!--HOME-->';
 get_template_part( 'templates/title' );
 
 $colcount = ($hiilite_options['blog_layouts'] =='masonry')?' col-count-'.$hiilite_options['blog_col']:'';
 if ( $hiilite_options['blog_sidebar_show'] == true ) $colcount .= ' col-9';
 
-$grid = ($hiilite_options['blog_full_width'] == false) ? 'in_grid' : 'x';
+$grid = ($hiilite_options['blog_full_width'] == false) ? 'in_grid' : '';
 
-
+echo '
+<div class="row content-area" id="home_blog_loop"><div class="container_inner '.$grid.'">
+	<div class="site-main '.$grid.' '.$hiilite_options['blog_layouts'].$colcount.'" role="main">';
 if(have_posts()):
-	echo '<div class="row" id="home_blog_loop"><div class="container_inner '.$grid.'">';
-	echo '<div class="'.$grid.' '.$hiilite_options['blog_layouts'].$colcount.'">';
+
 
 	while(have_posts()):
 		the_post();
 		get_template_part('templates/blog', 'loop');
 	endwhile;
+	
 	if($hiilite_options['blog_pag_show'] == true):
-		if($hiilite_options['blog_pag_style'] == 'option-2'):
-			echo '<div class="pagination '.$grid.' content-box">';
-				echo '<div class="align-center flex-item col-6">';
-				numeric_posts_nav();
-			echo '</div></div>';
-		else:
-			echo '<div class="pagination '.$grid.' content-box">';
-				echo '<div class="align-left flex-item col-6">';
-				previous_posts_link();
-				echo '</div><div class="align-right flex-item col-6">';
-				next_posts_link();
-			echo '</div></div>';
-		endif;
+		echo '<div class="pagination '.$grid.' content-box">';
+		the_posts_pagination( array(
+			'prev_text' => '<span class="screen-reader-text">' . __( 'Previous page', 'twentyseventeen' ) . '</span>',
+			'next_text' => '<span class="screen-reader-text">' . __( 'Next page', 'twentyseventeen' ) . '</span>',
+			'before_page_number' => '<span class="meta-nav screen-reader-text">' . __( 'Page', 'twentyseventeen' ) . ' </span>',
+		) );
+		echo '</div>';
 	endif;
-
 	
 	echo '</div>'; //end in_grid
-	?>
-	<div id="blog_sidebar" class="col-3">
-		<?php
-		if ( $hiilite_options['blog_sidebar_show'] == true ) :
-			dynamic_sidebar( 'blog_sidebar' );
-		endif;
-		?>
-	</div>
-	<?php
 	
-	/*do_action( 'hii_blog_sidebar' );*/			
-	
-	echo '</div></div>';
-
+	get_sidebar();
 endif;
+echo '</div>
+</div>';
 get_footer(); ?>

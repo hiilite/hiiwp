@@ -4,7 +4,7 @@ $main_menu_colors = $hiilite_options['main_menu_colors'];
 $second_level_menu_colors = $hiilite_options['second_level_menu_colors'];	
 ?>
 #main-nav {
-	margin:<?=get_spacing($hiilite_options['menu_margin']);?>;
+	margin:<?php echo get_spacing($hiilite_options['menu_margin']);?>;
 }
 .main-menu.menu, #header_top .menu, #header_bottom .menu {
 	list-style: none;
@@ -28,17 +28,17 @@ $second_level_menu_colors = $hiilite_options['second_level_menu_colors'];
 	<?php 
 	get_font_css($hiilite_options['main_menu_font']);
 	?>
-	<?=$hiilite_options['main_menu_links_css'];?>
+	<?php echo $hiilite_options['main_menu_links_css'];?>
 }
 
 #main_header .menu li:hover {
-	background: <?=$main_menu_colors['hover_background'];?>;
+	background: <?php echo $main_menu_colors['hover_background'];?>;
 }
 #main_header .menu .current-menu-item a {
-	color:<?=$main_menu_colors['active'];?>;
+	color:<?php echo $main_menu_colors['active'];?>;
 }
 #main_header .menu li:hover a {
-	color:<?=$main_menu_colors['hover'];?>;
+	color:<?php echo $main_menu_colors['hover'];?>;
 }
 
 #main-nav .main-menu, #header_top .menu {
@@ -61,12 +61,13 @@ $second_level_menu_colors = $hiilite_options['second_level_menu_colors'];
 ?>
 ul.sub-menu {
     position: absolute;
+    margin-left: 0;
     list-style: none;
     padding: 0;
     display: none;
 	min-width: 12em;
 	z-index: 10; 
-	background-color: <?=$hiilite_options['dropdown_background_color'];?>;
+	background-color: <?php echo $hiilite_options['dropdown_background_color'];?>;
 }
 
 #main_header .menu ul.sub-menu .menu-item a {
@@ -78,10 +79,10 @@ ul.sub-menu {
 	?>
 }
 #main_header .menu ul.sub-menu .menu-item a:hover {
-	color:<?=$second_level_menu_colors['hover'];?>;
+	color:<?php echo $second_level_menu_colors['hover'];?>;
 }
 #main_header .menu ul.sub-menu .menu-item:hover {
-	background-color:<?=$second_level_menu_colors['hover_background'];?>;
+	background-color:<?php echo $second_level_menu_colors['hover_background'];?>;
 }
 <?php
 /*
@@ -102,15 +103,15 @@ ul.sub-menu {
 .search_button {
 	display: block;
 	text-align: center;
-	margin:<?=get_spacing($hiilite_options['menu_margin']);?>;
+	margin:<?php echo get_spacing($hiilite_options['menu_margin']);?>;
     text-align: right;
     flex: 0 1 auto; 
 }
 .search_button .fa {
-	color: <?=$hiilite_options['mobile_menu_icon_color'];?>;
+	color: <?php echo $hiilite_options['mobile_menu_icon_color'];?>;
 }
 
-@media (min-width:<?=$hiilite_options['mobile_menu_switch'];?>){
+@media (min-width:<?php echo $hiilite_options['mobile_menu_switch'];?>){
 	.menu li:hover > ul.sub-menu {
 		display:block;
 		box-shadow: 0 0 1px rgba(0,0,0,0.4);
@@ -129,7 +130,7 @@ ul.sub-menu {
 		content: '\f107';
 	}
 }
-@media (max-width:<?=$hiilite_options['mobile_menu_switch'];?>){
+@media (max-width:<?php echo $hiilite_options['mobile_menu_switch'];?>){
 	.menu-item-has-children:after {
 	    position: absolute;
 	    right: 0;
@@ -145,13 +146,13 @@ ul.sub-menu {
 	.mobile_menu_button {
 		display: block;
 		text-align: center;
-		margin:<?=get_spacing($hiilite_options['menu_margin']);?>;
+		margin:<?php echo get_spacing($hiilite_options['menu_margin']);?>;
 	    text-align: right;
 	    flex: 1 1 auto;
 	}
 	.mobile_menu_button .fa {
 		padding: 1em;
-		color: <?=$hiilite_options['mobile_menu_icon_color'];?>;
+		color: <?php echo $hiilite_options['mobile_menu_icon_color'];?>;
 	}
 	#main_header #main-nav {
 		position: absolute;
@@ -160,7 +161,7 @@ ul.sub-menu {
 	    overflow: auto;
 	    display: none;
 	    left:0;
-	    background: <?=$hiilite_options[ 'moblie_menu_background_color' ]?>;
+	    background: <?php echo $hiilite_options[ 'moblie_menu_background_color' ]?>;
 	}
 
 	#main_header #main-nav .main-menu {

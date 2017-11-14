@@ -109,7 +109,7 @@ class HiiWP extends Hii {
 	 * @return void
 	 */
 	public function hiiwp_head(){
-		global $cpage, $post, $wp_scripts, $woocommerce;
+		global $cpage, $post, $wp_scripts, $woocommerce, $hiilite_options;
 		
 		wp_enqueue_script("jquery");
 		
@@ -125,6 +125,8 @@ class HiiWP extends Hii {
 		if(self::$hiilite_options['is_woocommerce']){
 			wp_enqueue_script( 'prettyPhoto-init', $woocommerce->plugin_url() . '/assets/js/prettyPhoto/jquery.prettyPhoto.init.js', array( 'jquery' ), $woocommerce->version, true );
 		} 
+	
+		$link_color = $hiilite_options['link_color'];
 		
 		include_once(HIILITE_DIR . '/css/main-css.php');
 	}
@@ -275,7 +277,7 @@ class HiiWP extends Hii {
 	public function print_inline_script() {
 	  if ( wp_script_is( 'jquery', 'done' ) ) { 
 	  ?><script type="text/javascript">
-			<?=get_theme_mod('custom_js');?>
+			<?php echo get_theme_mod('custom_js');?>
 		</script>
 		<script type="text/javascript">
 		
@@ -365,12 +367,12 @@ class HiiWP extends Hii {
 				  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
 				  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
 				  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-				ga('create', '<?=$tracking_id?>', 'auto');
+				ga('create', '<?php echo $tracking_id?>', 'auto');
 				ga('send', 'pageview');
 				
 				</script>
 				<script async src='https://www.google-analytics.com/analytics.js'></script>
-				<script async src='<?=HIIWP_URL?>/js/vender/autotrack.js'></script>
+				<script async src='<?php echo HIIWP_URL?>/js/vender/autotrack.js'></script>
 				<?php
 			endif; 
 		endif;
@@ -641,23 +643,23 @@ class HiiWP extends Hii {
 	        'is_automatic' => true,                   // Automatically activate plugins after installation or not.
 	        'message'      => '',                      // Message to output right before the plugins table.
 	        'strings'      => array(
-	            'page_title'                      => __( 'Install HiiWP Recommended Plugins', 'tgmpa' ),
-	            'menu_title'                      => __( 'Install HiiWP Plugins', 'tgmpa' ),
-	            'installing'                      => __( 'Installing HiiWP Plugin: %s', 'tgmpa' ), // %s = plugin name.
-	            'oops'                            => __( 'Something went wrong with the plugin API.', 'tgmpa' ),
-	            'notice_can_install_required'     => _n_noop( 'This theme requires the following plugin: %1$s.', 'This theme requires the following plugins: %1$s.' ), // %1$s = plugin name(s).
-	            'notice_can_install_recommended'  => _n_noop( 'This theme recommends the following plugin: %1$s.', 'This theme recommends the following plugins: %1$s.' ), // %1$s = plugin name(s).
-	            'notice_cannot_install'           => _n_noop( 'Sorry, but you do not have the correct permissions to install the %s plugin. Contact the administrator of this site for help on getting the plugin installed.', 'Sorry, but you do not have the correct permissions to install the %s plugins. Contact the administrator of this site for help on getting the plugins installed.' ), // %1$s = plugin name(s).
-	            'notice_can_activate_required'    => _n_noop( 'The following required plugin is currently inactive: %1$s.', 'The following required plugins are currently inactive: %1$s.' ), // %1$s = plugin name(s).
-	            'notice_can_activate_recommended' => _n_noop( 'The following recommended plugin is currently inactive: %1$s.', 'The following recommended plugins are currently inactive: %1$s.' ), // %1$s = plugin name(s).
-	            'notice_cannot_activate'          => _n_noop( 'Sorry, but you do not have the correct permissions to activate the %s plugin. Contact the administrator of this site for help on getting the plugin activated.', 'Sorry, but you do not have the correct permissions to activate the %s plugins. Contact the administrator of this site for help on getting the plugins activated.' ), // %1$s = plugin name(s).
-	            'notice_ask_to_update'            => _n_noop( 'The following plugin needs to be updated to its latest version to ensure maximum compatibility with this theme: %1$s.', 'The following plugins need to be updated to their latest version to ensure maximum compatibility with this theme: %1$s.' ), // %1$s = plugin name(s).
-	            'notice_cannot_update'            => _n_noop( 'Sorry, but you do not have the correct permissions to update the %s plugin. Contact the administrator of this site for help on getting the plugin updated.', 'Sorry, but you do not have the correct permissions to update the %s plugins. Contact the administrator of this site for help on getting the plugins updated.' ), // %1$s = plugin name(s).
-	            'install_link'                    => _n_noop( 'Begin installing plugin', 'Begin installing plugins' ),
-	            'activate_link'                   => _n_noop( 'Begin activating plugin', 'Begin activating plugins' ),
-	            'return'                          => __( 'Return to Required Plugins Installer', 'tgmpa' ),
-	            'plugin_activated'                => __( 'Plugin activated successfully.', 'tgmpa' ),
-	            'complete'                        => __( 'All plugins installed and activated successfully. %s', 'tgmpa' ), // %s = dashboard link.
+	            'page_title'                      => __( 'Install HiiWP Recommended Plugins', 'hiiwp' ),
+	            'menu_title'                      => __( 'Install HiiWP Plugins', 'hiiwp' ),
+	            'installing'                      => __( 'Installing HiiWP Plugin: %s', 'hiiwp' ), // %s = plugin name.
+	            'oops'                            => __( 'Something went wrong with the plugin API.', 'hiiwp' ),
+	            'notice_can_install_required'     => _n_noop( 'This theme requires the following plugin: %1$s.', 'This theme requires the following plugins: %1$s.', 'hiiwp' ), // %1$s = plugin name(s).
+	            'notice_can_install_recommended'  => _n_noop( 'This theme recommends the following plugin: %1$s.', 'This theme recommends the following plugins: %1$s.', 'hiiwp' ), // %1$s = plugin name(s).
+	            'notice_cannot_install'           => _n_noop( 'Sorry, but you do not have the correct permissions to install the %s plugin. Contact the administrator of this site for help on getting the plugin installed.', 'Sorry, but you do not have the correct permissions to install the %s plugins. Contact the administrator of this site for help on getting the plugins installed.', 'hiiwp' ), // %1$s = plugin name(s).
+	            'notice_can_activate_required'    => _n_noop( 'The following required plugin is currently inactive: %1$s.', 'The following required plugins are currently inactive: %1$s.', 'hiiwp' ), // %1$s = plugin name(s).
+	            'notice_can_activate_recommended' => _n_noop( 'The following recommended plugin is currently inactive: %1$s.', 'The following recommended plugins are currently inactive: %1$s.', 'hiiwp' ), // %1$s = plugin name(s).
+	            'notice_cannot_activate'          => _n_noop( 'Sorry, but you do not have the correct permissions to activate the %s plugin. Contact the administrator of this site for help on getting the plugin activated.', 'Sorry, but you do not have the correct permissions to activate the %s plugins. Contact the administrator of this site for help on getting the plugins activated.', 'hiiwp' ), // %1$s = plugin name(s).
+	            'notice_ask_to_update'            => _n_noop( 'The following plugin needs to be updated to its latest version to ensure maximum compatibility with this theme: %1$s.', 'The following plugins need to be updated to their latest version to ensure maximum compatibility with this theme: %1$s.', 'hiiwp' ), // %1$s = plugin name(s).
+	            'notice_cannot_update'            => _n_noop( 'Sorry, but you do not have the correct permissions to update the %s plugin. Contact the administrator of this site for help on getting the plugin updated.', 'Sorry, but you do not have the correct permissions to update the %s plugins. Contact the administrator of this site for help on getting the plugins updated.', 'hiiwp' ), // %1$s = plugin name(s).
+	            'install_link'                    => _n_noop( 'Begin installing plugin', 'Begin installing plugins', 'hiiwp' ),
+	            'activate_link'                   => _n_noop( 'Begin activating plugin', 'Begin activating plugins', 'hiiwp' ),
+	            'return'                          => __( 'Return to Required Plugins Installer', 'hiiwp' ),
+	            'plugin_activated'                => __( 'Plugin activated successfully.', 'hiiwp' ),
+	            'complete'                        => __( 'All plugins installed and activated successfully. %s', 'hiiwp' ), // %s = dashboard link.
 	            'nag_type'                        => 'updated' // Determines admin notice type - can only be 'updated', 'update-nag' or 'error'.
 	        )
 	    ); 

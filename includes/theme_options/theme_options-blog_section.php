@@ -7,8 +7,8 @@
 
 Kirki::add_panel( 'blog_panel', array(
     'priority'    => 7,
-    'title'       => __( 'Blog', 'textdomain' ),
-    'description' => __( 'Blog settings', 'textdomain' ),
+    'title'       => __( 'Blog', 'hiiwp' ),
+    'description' => __( 'Blog settings', 'hiiwp' ),
     'icon' => 'dashicons-welcome-write-blog',
 ) );
 

@@ -1,9 +1,6 @@
 <?php
 global $hiilite_options;
 $post_meta = get_post_meta(get_the_id());
-$hiilite_options['amp'] = get_theme_mod('amp');
-if($hiilite_options['amp']) $_amp = 'amp-'; else $_amp = '';
-if($hiilite_options['subdomain'] != 'iframe'):
 	?>
 	<article  <?php post_class('row blog-article'); ?> id="post-<?php the_ID(); ?>" >
 		<div class="in_grid">
@@ -20,7 +17,7 @@ if($hiilite_options['subdomain'] != 'iframe'):
 			$height = $img[2];
 		?>
 		<figure class="flex-item third-width align-top">
-			<<?=$_amp?>img src='<?=$img[0];?>' layout='responsive' width='<?=$width?>' height='<?=$height?>'><?=($_amp!='')?'</amp-img>':'';?>
+			<img src='<?php echo $img[0];?>' layout='responsive' width='<?php echo $width?>' height='<?php echo $height?>'>
 		</figure>
 	<?php endif; 
 		

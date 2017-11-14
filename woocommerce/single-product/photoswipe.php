@@ -48,13 +48,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 				<div class="pswp__counter"></div>
 
-				<button class="pswp__button pswp__button--close" aria-label="<?php esc_attr_e( 'Close (Esc)', 'woocommerce' ); ?>"></button>
+				<button class="pswp__button pswp__button--close" aria-label="<?php esc_attr_e( 'Close (Esc)', 'hiiwp' ); ?>"></button>
 
-				<button class="pswp__button pswp__button--share" aria-label="<?php esc_attr_e( 'Share', 'woocommerce' ); ?>"></button>
+				<button class="pswp__button pswp__button--share" aria-label="<?php esc_attr_e( 'Share', 'hiiwp' ); ?>"></button>
 
-				<button class="pswp__button pswp__button--fs" aria-label="<?php esc_attr_e( 'Toggle fullscreen', 'woocommerce' ); ?>"></button>
+				<button class="pswp__button pswp__button--fs" aria-label="<?php esc_attr_e( 'Toggle fullscreen', 'hiiwp' ); ?>"></button>
 
-				<button class="pswp__button pswp__button--zoom" aria-label="<?php esc_attr_e( 'Zoom in/out', 'woocommerce' ); ?>"></button>
+				<button class="pswp__button pswp__button--zoom" aria-label="<?php esc_attr_e( 'Zoom in/out', 'hiiwp' ); ?>"></button>
 
 				<!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
 				<!-- element will get class pswp__preloader--active when preloader is running -->
@@ -71,9 +71,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 				<div class="pswp__share-tooltip"></div>
 			</div>
 
-			<button class="pswp__button pswp__button--arrow--left" aria-label="<?php esc_attr_e( 'Previous (arrow left)', 'woocommerce' ); ?>"></button>
+			<button class="pswp__button pswp__button--arrow--left" aria-label="<?php esc_attr_e( 'Previous (arrow left)', 'hiiwp' ); ?>"></button>
 
-			<button class="pswp__button pswp__button--arrow--right" aria-label="<?php esc_attr_e( 'Next (arrow right)', 'woocommerce' ); ?>"></button>
+			<button class="pswp__button pswp__button--arrow--right" aria-label="<?php esc_attr_e( 'Next (arrow right)', 'hiiwp' ); ?>"></button>
 
 			<div class="pswp__caption">
 				<div class="pswp__caption__center"></div>

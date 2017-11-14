@@ -91,18 +91,18 @@ function cmb2_metatabs_options_add_boxes( $options_key ) {
 	// first box
 	$cmb = new_cmb2_box( array(
 		'id'      => 'ex_dogs',
-		'title'   => __( 'Internet Doggies', 'cmb2' ),
+		'title'   => __( 'Internet Doggies', 'hiiwp' ),
 		'show_on' => $show_on, // critical, see wiki for why
 	) );
 	$cmb->add_field( array(
-		'name' => __( 'That\'s a Good Dog!', 'cmb2' ),
-		'desc' => __( 'What do you say when you see a dog on the internet?', 'cmb2' ),
+		'name' => __( 'That\'s a Good Dog!', 'hiiwp' ),
+		'desc' => __( 'What do you say when you see a dog on the internet?', 'hiiwp' ),
 		'id'   => 'ex_dogs_say',
 		'type' => 'text',
 	) );
 	$cmb->add_field( array(
-		'name' => __( 'Repeated How Many Times?', 'cmb2' ),
-		'desc' => __( 'To the nearest multiple 3, how many times do you say it?', 'cmb2' ),
+		'name' => __( 'Repeated How Many Times?', 'hiiwp' ),
+		'desc' => __( 'To the nearest multiple 3, how many times do you say it?', 'hiiwp' ),
 		'id'   => 'ex_dogs_repeat',
 		'type' => 'text_small',
 	) );
@@ -112,18 +112,18 @@ function cmb2_metatabs_options_add_boxes( $options_key ) {
 	// second box
 	$cmb = new_cmb2_box( array(
 		'id'      => 'ex_cats',
-		'title'   => __( 'Internet Kitties', 'cmb2' ),
+		'title'   => __( 'Internet Kitties', 'hiiwp' ),
 		'show_on' => $show_on,
 	) );
 	$cmb->add_field( array(
-		'name' => __( 'Nice kitty!', 'cmb2' ),
-		'desc' => __( 'What do you say when you see a cat on the internet?', 'cmb2' ),
+		'name' => __( 'Nice kitty!', 'hiiwp' ),
+		'desc' => __( 'What do you say when you see a cat on the internet?', 'hiiwp' ),
 		'id'   => 'ex_cats_say',
 		'type' => 'text',
 	) );
 	$cmb->add_field( array(
-		'name' => __( 'Repeated How Many Times?', 'cmb2' ),
-		'desc' => __( 'To the nearest multiple 3, how many times do you say it?', 'cmb2' ),
+		'name' => __( 'Repeated How Many Times?', 'hiiwp' ),
+		'desc' => __( 'To the nearest multiple 3, how many times do you say it?', 'hiiwp' ),
 		'id'   => 'ex_cats_repeat',
 		'type' => 'text_small',
 	) );
@@ -133,18 +133,18 @@ function cmb2_metatabs_options_add_boxes( $options_key ) {
 	// third box
 	$cmb = new_cmb2_box( array(
 		'id'      => 'ex_healthy',
-		'title'   => __( 'Eating for Good Health', 'cmb2' ),
+		'title'   => __( 'Eating for Good Health', 'hiiwp' ),
 		'show_on' => $show_on,
 	) );
 	$cmb->add_field( array(
-		'name' => __( 'What is a healthy food?', 'cmb2' ),
-		'desc' => __( 'Examples: Apple, Ding Dong', 'cmb2' ),
+		'name' => __( 'What is a healthy food?', 'hiiwp' ),
+		'desc' => __( 'Examples: Apple, Ding Dong', 'hiiwp' ),
 		'id'   => 'ex_healthy_food',
 		'type' => 'text',
 	) );
 	$cmb->add_field( array(
-		'name' => __( 'How Many Servings?', 'cmb2' ),
-		'desc' => __( 'How many times per day should you eat this?', 'cmb2' ),
+		'name' => __( 'How Many Servings?', 'hiiwp' ),
+		'desc' => __( 'How many times per day should you eat this?', 'hiiwp' ),
 		'id'   => 'ex_healthy_servings',
 		'type' => 'text_small',
 	) );
@@ -154,18 +154,18 @@ function cmb2_metatabs_options_add_boxes( $options_key ) {
 	// fourth box
 	$cmb = new_cmb2_box( array(
 		'id'      => 'ex_bad',
-		'title'   => __( 'Foods to Avoid', 'cmb2' ),
+		'title'   => __( 'Foods to Avoid', 'hiiwp' ),
 		'show_on' => $show_on,
 	) );
 	$cmb->add_field( array(
-		'name' => __( 'What is an unhealthy food?', 'cmb2' ),
-		'desc' => __( 'Examples: Apple, not Ding Dong', 'cmb2' ),
+		'name' => __( 'What is an unhealthy food?', 'hiiwp' ),
+		'desc' => __( 'Examples: Apple, not Ding Dong', 'hiiwp' ),
 		'id'   => 'ex_bad_food',
 		'type' => 'text',
 	) );
 	$cmb->add_field( array(
-		'name' => __( 'How Many Pushups?', 'cmb2' ),
-		'desc' => __( 'To the nearest 1, how many pushups do you need to counter your bad decision?', 'cmb2' ),
+		'name' => __( 'How Many Pushups?', 'hiiwp' ),
+		'desc' => __( 'To the nearest 1, how many pushups do you need to counter your bad decision?', 'hiiwp' ),
 		'id'   => 'ex_bad_servings',
 		'type' => 'text_small',
 	) );
@@ -175,13 +175,13 @@ function cmb2_metatabs_options_add_boxes( $options_key ) {
 	// fifth box
 	$cmb = new_cmb2_box( array(
 		'id'      => 'ex_side',
-		'title'   => __( 'Judging', 'cmb2' ),
+		'title'   => __( 'Judging', 'hiiwp' ),
 		'show_on' => $show_on,
 		'context' => 'side',
 	) );
 	$cmb->add_field( array(
 		'name' => '',
-		'desc' => __( 'This example page offers no judgment on your choices.', 'cmb2' ),
+		'desc' => __( 'This example page offers no judgment on your choices.', 'hiiwp' ),
 		'id'   => 'ex_judge',
 		'type' => 'title',
 	) );

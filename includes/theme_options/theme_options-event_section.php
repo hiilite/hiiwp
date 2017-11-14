@@ -39,7 +39,7 @@ Kirki::add_field( 'hiiwp', array(
     'label'       => __( 'Event Layout', 'hiiwp' ),
     'section'     => 'event_section',
     'default'     => 'full-width',
-    'description' => 'Select the layout type for your events',
+    'description' => __('Select the layout type for your events', 'hiiwp'),
     'priority'    => 1,
     'multiple'    => 1,
     'choices'     => array(
@@ -76,7 +76,7 @@ Kirki::add_field( 'hiiwp', array(
     'label'       => __( 'Image Position', 'hiiwp' ),
     'section'     => 'event_section',
     'default'     => 'image-left',
-    'description' => 'Select position of the image',
+    'description' => __('Select position of the image', 'hiiwp'),
     'priority'    => 1,
     'multiple'    => 1,
     'choices'     => array(
@@ -91,7 +91,7 @@ Kirki::add_field( 'hiiwp', array(
     'label'       => __( 'Title Position', 'hiiwp' ),
     'section'     => 'event_section',
     'default'     => 'title-below',
-    'description' => 'Select position of the title',
+    'description' => __('Select position of the title', 'hiiwp'),
     'priority'    => 1,
     'multiple'    => 1,
     'choices'     => array(
@@ -139,7 +139,7 @@ Kirki::add_field( 'hiiwp', array(
     'label'       => __( 'Event Date Position', 'hiiwp' ),
     'section'     => 'event_section',
     'default'     => 'date-above',
-    'description' => 'Select position of the event date',
+    'description' => __('Select position of the event date', 'hiiwp'),
     'priority'    => 1,
     'multiple'    => 1,
     'choices'     => array(
@@ -153,7 +153,7 @@ Kirki::add_field( 'hiiwp', array(
     'label'       => __( 'Event Date Format', 'hiiwp' ),
     'section'     => 'event_section',
     'default'     => 'date-full',
-    'description' => 'Select date format',
+    'description' => __('Select date format', 'hiiwp'),
     'priority'    => 1,
     'multiple'    => 1,
     'choices'     => array(
@@ -214,7 +214,7 @@ Kirki::add_field( 'hiiwp', array(
     'settings'    => 'blog_more_text',
     'label'       => __( 'Show More Button Text', 'hiiwp' ),
     'section'     => 'event_section',
-    'default'     => esc_attr__( 'Read More'),
+    'default'     => esc_attr__( 'Read More', 'hiiwp'),
     'priority'    => 1,
     'active_callback'	=> array(
 	    array(

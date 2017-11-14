@@ -35,7 +35,7 @@ do_action('hii_doctype');
 ?>
 <head>
 <meta charset="utf-8">
-<meta name="description" content="<?=$page_description?>">
+<meta name="description" content="<?php echo $page_description?>">
 <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
 <?php 
 wp_head(); 
@@ -108,7 +108,7 @@ do_action( 'hii_before_header' );
 			
 			do_action( 'hii_before_main_header' );	
 			?>
-			<header id="main_header" class="<?=$hiilite_options['header_type'];?>" <?=$bg_color;?>>
+			<header id="main_header" class="<?php echo $hiilite_options['header_type'];?>" <?php echo $bg_color;?>>
 				<?php do_action('hii_header_hgroup');?>
 				<div class="container_inner">
 				<?php 
@@ -136,8 +136,8 @@ do_action( 'hii_before_header' );
 <?php if(is_customize_preview()) echo '<div class="customizer_quick_links"><button class="customizer-edit" data-control=\'{"name":"main_logo"}\'>Edit Logo</button></div>';?>
 		
 							
-							<a href="<?php bloginfo('url'); ?>">
-								<img src="<?=$hiilite_options['main_logo'];?>" width="<?=$hiilite_options['logo_width'];?>" alt="<?=hii_get_the_title();?>">
+							<a href="<?php echo esc_url( home_url() ); ?>">
+								<img src="<?php echo $hiilite_options['main_logo'];?>" width="<?php echo $hiilite_options['logo_width'];?>" alt="<?php echo hii_get_the_title();?>">
 							</a>
 						</div><?php 
 					endif;

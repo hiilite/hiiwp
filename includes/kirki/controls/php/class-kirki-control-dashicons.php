@@ -47,21 +47,21 @@ class Kirki_Control_Dashicons extends Kirki_Control_Base {
 	protected function l10n() {
 
 		return array(
-			'admin-menu'     => esc_attr__( 'Admin Menu', 'kirki' ),
-			'welcome-screen' => esc_attr__( 'Welcome Screen', 'kirki' ),
-			'post-formats'   => esc_attr__( 'Post Formats', 'kirki' ),
-			'media'          => esc_attr__( 'Media', 'kirki' ),
-			'image-editing'  => esc_attr__( 'Image Editing', 'kirki' ),
-			'tinymce'        => esc_attr__( 'TinyMCE', 'kirki' ),
-			'posts'          => esc_attr__( 'Posts', 'kirki' ),
-			'sorting'        => esc_attr__( 'Sorting', 'kirki' ),
-			'social'         => esc_attr__( 'Social', 'kirki' ),
-			'wordpress_org'  => esc_attr__( 'WordPress', 'kirki' ),
-			'products'       => esc_attr__( 'Products', 'kirki' ),
-			'taxonomies'     => esc_attr__( 'Taxonomies', 'kirki' ),
-			'widgets'        => esc_attr__( 'Widgets', 'kirki' ),
-			'notifications'  => esc_attr__( 'Notifications', 'kirki' ),
-			'misc'           => esc_attr__( 'Miscelaneous', 'kirki' ),
+			'admin-menu'     => esc_attr__( 'Admin Menu', 'hiiwp' ),
+			'welcome-screen' => esc_attr__( 'Welcome Screen', 'hiiwp' ),
+			'post-formats'   => esc_attr__( 'Post Formats', 'hiiwp' ),
+			'media'          => esc_attr__( 'Media', 'hiiwp' ),
+			'image-editing'  => esc_attr__( 'Image Editing', 'hiiwp' ),
+			'tinymce'        => esc_attr__( 'TinyMCE', 'hiiwp' ),
+			'posts'          => esc_attr__( 'Posts', 'hiiwp' ),
+			'sorting'        => esc_attr__( 'Sorting', 'hiiwp' ),
+			'social'         => esc_attr__( 'Social', 'hiiwp' ),
+			'wordpress_org'  => esc_attr__( 'WordPress', 'hiiwp' ),
+			'products'       => esc_attr__( 'Products', 'hiiwp' ),
+			'taxonomies'     => esc_attr__( 'Taxonomies', 'hiiwp' ),
+			'widgets'        => esc_attr__( 'Widgets', 'hiiwp' ),
+			'notifications'  => esc_attr__( 'Notifications', 'hiiwp' ),
+			'misc'           => esc_attr__( 'Miscelaneous', 'hiiwp' ),
 		);
 	}
 }

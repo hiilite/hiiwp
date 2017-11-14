@@ -60,7 +60,7 @@ class Kirki_Modules_Reset {
 
 		$translation_strings = array(
 			/* translators: Icon followed by reset label. */
-			'reset-with-icon' => sprintf( esc_attr__( '%s Reset', 'kirki' ), '<span class="dashicons dashicons-update"></span><span class="label">' ) . '</span>',
+			'reset-with-icon' => sprintf( esc_attr__( '%s Reset', 'hiiwp' ), '<span class="dashicons dashicons-update"></span><span class="label">' ) . '</span>',
 		);
 		// Enqueue the reset script.
 		wp_enqueue_script( 'kirki-set-setting-value', trailingslashit( Kirki::$url ) . 'modules/reset/set-setting-value.js', array( 'jquery', 'customize-base', 'customize-controls' ) );
