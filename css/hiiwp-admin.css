@@ -1,6 +1,5 @@
-.wp-core-ui .button, .wp-core-ui .button-secondary {
-    box-shadow: 0 1px 0;
-    -webkit-box-shadow: 0 1px 0;
+.wp-core-ui .button, .wp-core-ui .button-secondary,
+.wp-core-ui .button.focus, .wp-core-ui .button.hover, .wp-core-ui .button:focus, .wp-core-ui .button:hover, .wp-core-ui .button-secondary.focus, .wp-core-ui .button-secondary.hover, .wp-core-ui .button-secondary:focus, .wp-core-ui .button-secondary:hover, .customize-panel-back, .customize-section-back {
     text-shadow: none !important;
 }
 
