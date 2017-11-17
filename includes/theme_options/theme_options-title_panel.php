@@ -82,7 +82,6 @@ Kirki::add_field( 'hiiwp', array(
     'section'     => $section,
     'priority'    => 5,
     'default'     => $hiilite_options['title_background'],
-    'alpha'		  => true,
 	'active_callback'	=> array(
 		array(
 			'setting'  => 'show_page_titles',

@@ -28,32 +28,40 @@ class Kirki_Control_FontAwesome extends Kirki_Control_Base {
 	public $type = 'kirki-fontawesome';
 
 	/**
-	 * Returns an array of extra field dependencies for Kirki controls.
-	 *
-	 * @access protected
-	 * @since 3.0.10
-	 * @return array
-	 */
-	protected function kirki_script_dependencies() {
-		return array( 'select2' );
-	}
-
-	/**
 	 * Enqueue control related scripts/styles.
 	 *
 	 * @access public
 	 */
 	public function enqueue() {
-
-		wp_enqueue_style( 'kirki-fontawesome-font-css', kirki_controls()->get_url( 'vendor/fontawesome/font-awesome.css' ), null );
-		wp_enqueue_script( 'select2', kirki_controls()->get_url( 'vendor/select2/js/select2.full.js' ), array( 'jquery' ), '4.0.3', true );
-		wp_enqueue_style( 'select2', kirki_controls()->get_url( 'vendor/select2/css/select2.css' ), array(), '4.0.3' );
 		parent::enqueue();
 
+		wp_enqueue_style( 'kirki-fontawesome-font-css', trailingslashit( Kirki::$url ) . 'assets/vendor/fontawesome/css/font-awesome.min.css', array(), KIRKI_VERSION );
+
 		ob_start();
-		$json_path = wp_normalize_path( KIRKI_CONTROLS_PATH . '/vendor/fontawesome/fontawesome.json' );
+		$json_path = wp_normalize_path( Kirki::$path . '/assets/vendor/fontawesome/fontawesome.json' );
 		include( $json_path );
 		$font_awesome_json = ob_get_clean();
-		wp_localize_script( 'kirki-fontawesome', 'fontAwesomeJSON', $font_awesome_json );
+
+		wp_localize_script( 'kirki-script', 'fontAwesomeJSON', $font_awesome_json );
+	}
+
+	/**
+	 * An Underscore (JS) template for this control's content (but not its container).
+	 *
+	 * Class variables for this control class are available in the `data` JS object;
+	 * export custom variables by overriding {@see WP_Customize_Control::to_json()}.
+	 *
+	 * @see WP_Customize_Control::print_template()
+	 *
+	 * @access protected
+	 */
+	protected function content_template() {
+		?>
+		<label>
+			<# if ( data.label ) { #><span class="customize-control-title">{{ data.label }}</span><# } #>
+			<# if ( data.description ) { #><span class="description customize-control-description">{{{ data.description }}}</span><# } #>
+			<select {{{ data.inputAttrs }}} {{{ data.link }}}></select>
+		</label>
+		<?php
 	}
 }

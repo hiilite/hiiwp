@@ -105,6 +105,5 @@ Kirki::add_field( 'hiiwp', array(
 	'section'     => $section,
 	'priority'    => 4,
 	'default'     => $hiilite_options['safari_icon_color'],
-	'alpha'       => false,
 ) );
 	?>

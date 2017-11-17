@@ -29,8 +29,7 @@ Kirki::add_field( 'hiiwp', array(
     'description' => __('Define top border color for Footer Top', 'hiiwp'),
     'section'     => $section,
     'priority'    => 1,
-    'default'     => '',
-    'alpha'		  => true,
+    'default'     => $hiilite_options['footer_top_border_color'],
     'transport'   => 'postMessage',
     'output' => array(
 		array(
@@ -51,7 +50,7 @@ Kirki::add_field( 'hiiwp', array(
     'settings'    => 'footer_border_weight',
     'label'       => __( 'Footer Border Top Thickness', 'hiiwp' ),
     'section'     => $section,
-    'default'     => '0px',
+    'default'     => $hiilite_options['footer_top_border_width'],
     'priority'    => 1,
     'transport'   => 'postMessage',
     'output' => array(
@@ -336,7 +335,6 @@ Kirki::add_field( 'hiiwp', array(
     'default'     => 'color_one',
     'priority'    => 8,
     'default'	 => ' ',
-    'alpha'		  => true,
    'active_callback'	=> array(
 		array(
 			'setting'  => 'footer_text_yesno',
@@ -367,7 +365,6 @@ Kirki::add_field( 'hiiwp', array(
     'section'     => $section,
     'priority'    => 8,
     'default'     => '',
-    'alpha'		  => true,
     'transport'   => 'postMessage',
     'output' => array(
 		array(

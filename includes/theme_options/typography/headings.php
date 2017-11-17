@@ -13,15 +13,7 @@ Kirki::add_field( 'hiiwp', array(
     'label'       => esc_attr__( 'H1 Style', 'hiiwp' ),
     'description' => __( 'Define styles for H1 heading' , 'hiiwp'),
     'section'     => $section,
-    'default'     => array(
-        'font-family'    => ' ',
-        'variant'        => ' ',
-        'font-size'      => ' ',
-        'line-height'    => ' ',
-        'letter-spacing' => '0px',
-        'text-transform' => ' ',
-        'color'          => $hiilite_options['color_two'],
-    ), 
+    'default'     => $hiilite_options['typography_h1_font'], 
     'priority'    => 1,
 ) );
 
@@ -31,15 +23,7 @@ Kirki::add_field( 'hiiwp', array(
     'label'       => esc_attr__( 'H2 Style', 'hiiwp' ),
     'description' => __( 'Define styles for H2 heading', 'hiiwp' ),
     'section'     => $section,
-    'default'     => array(
-        'font-family'    => ' ',
-        'variant'        => ' ',
-        'font-size'      => ' ',
-        'line-height'    => ' ',
-        'letter-spacing' => '0px',
-        'text-transform' => ' ',
-        'color'          => $hiilite_options['color_two'],
-    ),
+    'default'     => $hiilite_options['typography_h2_font'],
     'priority'    => 1,
 ) );
 
@@ -49,15 +33,7 @@ Kirki::add_field( 'hiiwp', array(
     'label'       => esc_attr__( 'H3 Style', 'hiiwp' ),
     'description' => __( 'Define styles for H3 heading', 'hiiwp' ),
     'section'     => $section,
-    'default'     => array(
-        'font-family'    => ' ',
-        'variant'        => ' ',
-        'font-size'      => ' ',
-        'line-height'    => ' ',
-        'letter-spacing' => '0px',
-        'text-transform' => ' ',
-        'color'          => $hiilite_options['color_two'],
-    ),
+    'default'     => $hiilite_options['typography_h3_font'],
     'priority'    => 1,
 ) );
 
@@ -67,15 +43,7 @@ Kirki::add_field( 'hiiwp', array(
     'label'       => esc_attr__( 'H4 Style', 'hiiwp' ),
     'description' => __( 'Define styles for H4 heading', 'hiiwp' ),
     'section'     => $section,
-    'default'     => array(
-        'font-family'    => ' ',
-        'variant'        => ' ',
-        'font-size'      => ' ',
-        'line-height'    => ' ',
-        'letter-spacing' => '0px',
-        'text-transform' => ' ',
-        'color'          => $hiilite_options['color_two'],
-    ),
+    'default'     => $hiilite_options['typography_h4_font'],
     'priority'    => 1,
 ) );
 
@@ -85,15 +53,7 @@ Kirki::add_field( 'hiiwp', array(
     'label'       => esc_attr__( 'H5 Style', 'hiiwp' ),
     'description' => __( 'Define styles for H5 heading', 'hiiwp' ),
     'section'     => $section,
-    'default'     => array(
-        'font-family'    => ' ',
-        'variant'        => ' ',
-        'font-size'      => ' ',
-        'line-height'    => ' ',
-        'letter-spacing' => '0px',
-        'text-transform' => ' ',
-        'color'          => $hiilite_options['color_two'],
-    ),
+    'default'     => $hiilite_options['typography_h5_font'],
     'priority'    => 1,
 ) );
 
@@ -103,15 +63,7 @@ Kirki::add_field( 'hiiwp', array(
     'label'       => esc_attr__( 'H6 Style', 'hiiwp' ),
     'description' => __( 'Define styles for H6 heading', 'hiiwp' ),
     'section'     => $section,
-    'default'     => array(
-        'font-family'    => ' ',
-        'variant'        => ' ',
-        'font-size'      => ' ',
-        'line-height'    => ' ',
-        'letter-spacing' => '0px',
-        'text-transform' => ' ',
-        'color'          => $hiilite_options['color_two'],
-    ),
+    'default'     => $hiilite_options['typography_h6_font'],
     'priority'    => 1,
 ) );	
 ?>

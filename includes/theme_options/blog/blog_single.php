@@ -51,7 +51,7 @@ Kirki::add_field( 'hiiwp', array(
     'settings'    => 'blog_comments_show',
     'label'       => __( 'Show Comments', 'hiiwp' ),
     'section'     => $section,
-    'default'     => true,
+    'default'     => $hiilite_options['blog_comments_show'],
     'priority'    => 1,
 ) );
 ?>

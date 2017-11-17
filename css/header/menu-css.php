@@ -1,10 +1,10 @@
 <?php if(false): ?><style><?php endif; 
 
-$main_menu_colors = $hiilite_options['main_menu_colors'];
-$second_level_menu_colors = $hiilite_options['second_level_menu_colors'];	
+$main_menu_colors = Hii::$options['main_menu_colors'];
+$second_level_menu_colors = Hii::$options['second_level_menu_colors'];	
 ?>
 #main-nav {
-	margin:<?php echo get_spacing($hiilite_options['menu_margin']);?>;
+	margin:<?php echo get_spacing(Hii::$options['menu_margin']);?>;
 }
 .main-menu.menu, #header_top .menu, #header_bottom .menu {
 	list-style: none;
@@ -26,9 +26,9 @@ $second_level_menu_colors = $hiilite_options['second_level_menu_colors'];
 	text-decoration: none;
 	display:block;
 	<?php 
-	get_font_css($hiilite_options['main_menu_font']);
+	get_font_css(Hii::$options['main_menu_font']);
 	?>
-	<?php echo $hiilite_options['main_menu_links_css'];?>
+	<?php echo Hii::$options['main_menu_links_css'];?>
 }
 
 #main_header .menu li:hover {
@@ -42,16 +42,16 @@ $second_level_menu_colors = $hiilite_options['second_level_menu_colors'];
 }
 
 #main-nav .main-menu, #header_top .menu {
-	<?php get_justify_content($hiilite_options['main_menu_align']); ?>
+	<?php get_justify_content(Hii::$options['main_menu_align']); ?>
 }
 .left-menu {
-	<?php get_justify_content($hiilite_options['left_menu_align']); ?>
+	<?php get_justify_content(Hii::$options['left_menu_align']); ?>
 }
 .right-menu {
-	<?php get_justify_content($hiilite_options['right_menu_align']); ?>
+	<?php get_justify_content(Hii::$options['right_menu_align']); ?>
 }
 .bottom-menu {
-	<?php get_justify_content($hiilite_options['bottom_menu_align']); ?>
+	<?php get_justify_content(Hii::$options['bottom_menu_align']); ?>
 }
 
 <?php
@@ -64,10 +64,19 @@ ul.sub-menu {
     margin-left: 0;
     list-style: none;
     padding: 0;
-    display: none;
+    display: block !important;
 	min-width: 12em;
+	transition: all 250ms;
+    background-color: #ffffff;
+    transform: scaleY(0) rotateY(90deg);
+    transform-origin: top left;
+    opacity: 0;
 	z-index: 10; 
-	background-color: <?php echo $hiilite_options['dropdown_background_color'];?>;
+	background-color: <?php echo Hii::$options['dropdown_background_color'];?>;
+}
+ul.sub-menu ul.sub-menu {
+	left:100%;
+    top: 0;
 }
 
 #main_header .menu ul.sub-menu .menu-item a {
@@ -103,23 +112,19 @@ ul.sub-menu {
 .search_button {
 	display: block;
 	text-align: center;
-	margin:<?php echo get_spacing($hiilite_options['menu_margin']);?>;
+	margin:<?php echo get_spacing(Hii::$options['menu_margin']);?>;
     text-align: right;
     flex: 0 1 auto; 
 }
 .search_button .fa {
-	color: <?php echo $hiilite_options['mobile_menu_icon_color'];?>;
+	color: <?php echo Hii::$options['mobile_menu_icon_color'];?>;
 }
 
-@media (min-width:<?php echo $hiilite_options['mobile_menu_switch'];?>){
+@media (min-width:<?php echo Hii::$options['mobile_menu_switch'];?>){
 	.menu li:hover > ul.sub-menu {
-		display:block;
 		box-shadow: 0 0 1px rgba(0,0,0,0.4);
-	}
-	#main_header .menu li>ul.sub-menu>li:hover>ul.sub-menu {
-	    position: absolute;
-	    left: 100%;
-	    top: 0;
+	    transform: scaleY(1) rotateY(0deg);
+		opacity: 1;
 	}
 	.sub-menu > .menu-item-has-children > a:after {
 	    font-family: FontAwesome;
@@ -130,7 +135,17 @@ ul.sub-menu {
 		content: '\f107';
 	}
 }
-@media (max-width:<?php echo $hiilite_options['mobile_menu_switch'];?>){
+@media (max-width:<?php echo Hii::$options['mobile_menu_switch'];?>){
+	ul.sub-menu {
+		height: 0;
+	}
+	.menu li.open > ul.sub-menu {
+		box-shadow: 0 0 1px rgba(0,0,0,0.4);
+	    transform: scaleY(1) rotateY(0deg);
+		opacity: 1;
+		left:0;
+		height: auto;
+	}
 	.menu-item-has-children:after {
 	    position: absolute;
 	    right: 0;
@@ -146,13 +161,13 @@ ul.sub-menu {
 	.mobile_menu_button {
 		display: block;
 		text-align: center;
-		margin:<?php echo get_spacing($hiilite_options['menu_margin']);?>;
+		margin:<?php echo get_spacing(Hii::$options['menu_margin']);?>;
 	    text-align: right;
 	    flex: 1 1 auto;
 	}
 	.mobile_menu_button .fa {
 		padding: 1em;
-		color: <?php echo $hiilite_options['mobile_menu_icon_color'];?>;
+		color: <?php echo Hii::$options['mobile_menu_icon_color'];?>;
 	}
 	#main_header #main-nav {
 		position: absolute;
@@ -161,7 +176,7 @@ ul.sub-menu {
 	    overflow: auto;
 	    display: none;
 	    left:0;
-	    background: <?php echo $hiilite_options[ 'moblie_menu_background_color' ]?>;
+	    background: <?php echo Hii::$options[ 'moblie_menu_background_color' ]?>;
 	}
 
 	#main_header #main-nav .main-menu {

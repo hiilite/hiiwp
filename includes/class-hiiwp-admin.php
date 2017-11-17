@@ -733,6 +733,19 @@ class HiiWP_Admin {
 		        'placeholder'	=> 'URL',
 	        ),
 	    ));
+	    $list_nav_menus = wp_get_nav_menus();
+	    $menus_list = array();
+	    foreach($list_nav_menus as $menu):
+	    	$menus_list[$menu->slug] = $menu->name;
+	    endforeach;
+	    
+	    $cmb->add_field(array(
+	        'name'       => __( 'Add Social Icons to Menu', 'hiiwp' ),
+	        'desc'       => __( '', 'hiiwp' ),
+	        'id'         => 'add_social_to_menu',
+	        'type'       => 'multicheck',
+	        'options' => $menus_list,
+	    ));
 	    
 	    $cmb->object_type( 'options-page' );
 	    $boxes[] = $cmb;

@@ -11,15 +11,7 @@ Kirki::add_field( 'hiiwp', array(
     'label'       => esc_attr__( 'Paragraph Font', 'hiiwp' ),
     'description' => __( 'Define styles for paragraph text', 'hiiwp' ),
     'section'     => $section,
-    'default'     => array(
-        'font-family'    => ' ',
-        'variant'        => ' ',
-        'font-size'      => ' ',
-        'line-height'    => ' ',
-        'letter-spacing' => '0px',
-        'text-transform' => ' ',
-        'color'          => ' ',
-    ),
+    'default'     => $hiilite_options['text_font'],
     'priority'    => 1,
 ) );
 Kirki::add_field( 'hiiwp', array(
@@ -97,8 +89,7 @@ Kirki::add_field( 'hiiwp', array(
 		'language' => 'css',
 		'theme'    => 'monokai',
 		'height'   => '100',
-	),
-	'output' => '.custom_format_1',
+	)
 ) );
 Kirki::add_field( 'hiiwp', array(
 	'type'        => 'code',
@@ -112,8 +103,7 @@ Kirki::add_field( 'hiiwp', array(
 		'language' => 'css',
 		'theme'    => 'monokai',
 		'height'   => '100',
-	),
-	'output' => '.custom_format_2',
+	)
 ) );
 Kirki::add_field( 'hiiwp', array(
 	'type'        => 'code',
@@ -127,7 +117,6 @@ Kirki::add_field( 'hiiwp', array(
 		'language' => 'css',
 		'theme'    => 'monokai',
 		'height'   => '100',
-	),
-	'output' => '.custom_format_3',
+	)
 ) );
 ?>

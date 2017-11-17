@@ -141,7 +141,6 @@ Kirki::add_field( 'hiiwp', array(
     'section'     => $section,
     'priority'    => 4,
     'default'     => $hiilite_options['header_bottom_border_color'],
-    'alpha'		  => true,
     'transport'   => 'postMessage',
     'output' => array(
 		array(
@@ -196,7 +195,6 @@ Kirki::add_field( 'hiiwp', array(
     'section'     => $section,
     'priority'    => 8,
     'default'     => $hiilite_options['header_bottom_background'],
-    'alpha'		  => true,
     'transport'   => 'postMessage',
     'output' => array(
 		array(

@@ -54,15 +54,6 @@ $page_bg_img = (get_post_meta ( $post->ID, 'page_title_bgimg', false))?get_post_
 		 */
 		do_action( 'woocommerce_after_main_content' );
 	?>
-	
-	<?php
-		/**
-		 * woocommerce_sidebar hook.
-		 *
-		 * @hooked woocommerce_get_sidebar - 10
-		 */
-		do_action( 'woocommerce_sidebar' );
-	?>
 		</div>
 	</div>
 <?php get_footer( 'shop' );

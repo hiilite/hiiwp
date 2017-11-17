@@ -14,7 +14,6 @@ Kirki::add_field( 'hiiwp', array(
     'section'     => $section,
     'priority'    => 1,
     'default'     => $hiilite_options['sidebar_background'],
-    'alpha'		  => true,
 ));
 
 Kirki::add_field( 'hiiwp', array(

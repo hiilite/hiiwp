@@ -54,7 +54,7 @@ button,
 input,
 select,
 textarea {<?php 
-	get_font_css($hiilite_options['default_font']); ?>
+	get_font_css(Hii::$options['default_font']); ?>
 }
 
 article,
@@ -336,7 +336,7 @@ h4,
 h5, 
 h6 {
 	<?php 
-	get_font_css($hiilite_options['heading_font']); ?>
+	get_font_css(Hii::$options['heading_font']); ?>
 	clear: both;
 	line-height:1.4;
 	margin: 0;
@@ -441,12 +441,12 @@ blockquote:after {
 }
 <?php
 get_template_part('css/typography/language-fixes', 'css');
-?>
+
 /*--------------------------------------------------------------
 6.0 Forms
 --------------------------------------------------------------*/
-<?php
-get_template_part('css/elements/forms'); 
+get_template_part('css/elements/forms');
+
 ?>
 /*--------------------------------------------------------------
 7.0 Formatting
@@ -509,7 +509,7 @@ table {
 	border-collapse: collapse;
 	margin: 0 0 1.5em;
 	width: 100%;
-	border:1px solid #efefef;	
+	
 }
 table, tr, th, td {
 	box-sizing:border-box;	
@@ -531,9 +531,6 @@ tr {
 td {
 	padding: 0.5rem;
 }
-table tr:nth-child(odd) {
-	background:#f5f5f5;
-}
 th:first-child,
 td:first-child {
 	padding-left: 0;
@@ -551,8 +548,12 @@ td:last-child {
 
 a,  
 a .fa {
-	color:<?php echo $link_color['link'];?>;<?php echo preg_replace('/[{}]/','',$hiilite_options['typography_link_custom_css']); ?>
+	color:<?php echo $link_color['link'];?>;<?php echo preg_replace('/[{}]/','',Hii::$options['typography_link_custom_css']); ?>
 	text-decoration: none;
+	-webkit-transition: color 80ms ease-in, -webkit-box-shadow 130ms ease-in-out;
+	transition: color 80ms ease-in, -webkit-box-shadow 130ms ease-in-out;
+	transition: color 80ms ease-in, box-shadow 130ms ease-in-out;
+	transition: color 80ms ease-in, box-shadow 130ms ease-in-out, -webkit-box-shadow 130ms ease-in-out;
 }
 
 h1 a, 
@@ -563,17 +564,15 @@ h5 a,
 h6 a {
 	color: #303030;
 	text-decoration: none;
+	-webkit-transition: color 80ms ease-in, -webkit-box-shadow 130ms ease-in-out;
+	transition: color 80ms ease-in, -webkit-box-shadow 130ms ease-in-out;
+	transition: color 80ms ease-in, box-shadow 130ms ease-in-out;
+	transition: color 80ms ease-in, box-shadow 130ms ease-in-out, -webkit-box-shadow 130ms ease-in-out;
 }
-
-a:focus {
-	outline: thin dotted;
-}
-
 
 /* Hover effects */
-a:hover, 
-a:hover .fa,
-a:active,
+a:not(.button):hover, 
+a:not(.button):active,
 h1 a:hover, 
 h2 a:hover, 
 h3 a:hover, 
@@ -582,105 +581,11 @@ h5 a:hover,
 h6 a:hover  {
 	color:<?php echo $link_color['hover'];?>;
 	outline: 0;
-}
-
-.entry-content a,
-.entry-summary a,
-.widget a,
-.site-footer .widget-area a,
-.posts-navigation a,
-.widget_authors a strong {
-	-webkit-box-shadow: inset 0 -1px 0 rgba(15, 15, 15, 1);
-	box-shadow: inset 0 -1px 0 rgba(15, 15, 15, 1);
-	-webkit-transition: color 80ms ease-in, -webkit-box-shadow 130ms ease-in-out;
-	transition: color 80ms ease-in, -webkit-box-shadow 130ms ease-in-out;
-	transition: color 80ms ease-in, box-shadow 130ms ease-in-out;
-	transition: color 80ms ease-in, box-shadow 130ms ease-in-out, -webkit-box-shadow 130ms ease-in-out;
-}
-
-.entry-title a,
-.entry-meta a,
-.page-links a,
-.page-links a .page-number,
-.entry-footer a,
-.entry-footer .cat-links a,
-.entry-footer .tags-links a,
-.edit-link a,
-.post-navigation a,
-.logged-in-as a,
-.comment-navigation a,
-.comment-metadata a,
-.comment-metadata a.comment-edit-link,
-.comment-reply-link,
-a .nav-title,
-.pagination a,
-.comments-pagination a,
-.site-info a,
-.widget .widget-title a,
-.widget ul li a,
-.site-footer .widget-area ul li a,
-.site-footer .widget-area ul li a {
-	-webkit-box-shadow: inset 0 -1px 0 rgba(255, 255, 255, 1);
-	box-shadow: inset 0 -1px 0 rgba(255, 255, 255, 1);
-	text-decoration: none;
-	-webkit-transition: color 80ms ease-in, -webkit-box-shadow 130ms ease-in-out;
-	transition: color 80ms ease-in, -webkit-box-shadow 130ms ease-in-out;
-	transition: color 80ms ease-in, box-shadow 130ms ease-in-out;
-	transition: color 80ms ease-in, box-shadow 130ms ease-in-out, -webkit-box-shadow 130ms ease-in-out;
-}
-
-.entry-content a:focus,
-.entry-content a:hover,
-.entry-summary a:focus,
-.entry-summary a:hover,
-.widget a:focus,
-.widget a:hover,
-.site-footer .widget-area a:focus,
-.site-footer .widget-area a:hover,
-.posts-navigation a:focus,
-.posts-navigation a:hover,
-.comment-metadata a:focus,
-.comment-metadata a:hover,
-.comment-metadata a.comment-edit-link:focus,
-.comment-metadata a.comment-edit-link:hover,
-.comment-reply-link:focus,
-.comment-reply-link:hover,
-.widget_authors a:focus strong,
-.widget_authors a:hover strong,
-.entry-title a:focus,
-.entry-title a:hover,
-.entry-meta a:focus,
-.entry-meta a:hover,
-.page-links a:focus .page-number,
-.page-links a:hover .page-number,
-.entry-footer a:focus,
-.entry-footer a:hover,
-.entry-footer .cat-links a:focus,
-.entry-footer .cat-links a:hover,
-.entry-footer .tags-links a:focus,
-.entry-footer .tags-links a:hover,
-.post-navigation a:focus,
-.post-navigation a:hover,
-.pagination a:not(.prev):not(.next):focus,
-.pagination a:not(.prev):not(.next):hover,
-.comments-pagination a:not(.prev):not(.next):focus,
-.comments-pagination a:not(.prev):not(.next):hover,
-.logged-in-as a:focus,
-.logged-in-as a:hover,
-a:focus .nav-title,
-a:hover .nav-title,
-.edit-link a:focus,
-.edit-link a:hover,
-.site-info a:focus,
-.site-info a:hover,
-.widget .widget-title a:focus,
-.widget .widget-title a:hover,
-.widget ul li a:focus,
-.widget ul li a:hover {
-	color: #000;
 	-webkit-box-shadow: inset 0 0 0 rgba(0, 0, 0, 0), 0 3px 0 rgba(0, 0, 0, 1);
 	box-shadow: inset 0 0 0 rgba(0, 0, 0, 0), 0 3px 0 rgba(0, 0, 0, 1);
 }
+
+
 
 /* Fixes linked images */
 .entry-content a img,
@@ -729,6 +634,10 @@ a:hover .nav-title,
 	text-decoration: none;
 	margin-left: -2px;
 }
+.entry-title .fa {
+	text-align: left;
+	width: 1.2em;
+}
 
 .entry-title:not(:first-child) {
 	padding-top: 0;
@@ -743,7 +652,15 @@ a:hover .nav-title,
 	padding-bottom: 0.25em;
 	text-transform: uppercase;
 }
-
+.cat-links, .tags-links {
+    display: block;
+    font-size: 11px;
+    font-size: 0.6875rem;
+    font-weight: 400;
+    letter-spacing: 0.1818em;
+    position: relative;
+    text-transform: uppercase;
+}
 .entry-meta a {
 	color: #767676;
 }
@@ -802,8 +719,6 @@ a:hover .nav-title,
 	-webkit-border-radius: 2px;
 	border-radius: 2px;
 	display: inline-block;
-	font-size: 24px;
-	font-size: 1.5rem;
 	line-height: 1;
 	padding: 0.25em 0.5em 0.4em;
 }
@@ -923,7 +838,6 @@ a:hover .nav-title,
 	font-size: 0.6875rem;
 	font-weight: 800;
 	letter-spacing: 0.1818em;
-	padding-left: 2.5em;
 	position: relative;
 	text-transform: uppercase;
 }
@@ -1008,6 +922,23 @@ a:hover .nav-title,
 .post-navigation {
 	font-weight: 800;
 	margin: 3em 0;
+	width: 100%;
+}
+
+.comments-pagination,
+.post-navigation {
+	clear: both;
+}
+
+.post-navigation .nav-previous {
+	float: left;
+	width: 50%;
+}
+
+.post-navigation .nav-next {
+	float: right;
+	text-align: right;
+	width: 50%;
 }
 
 .post-navigation .nav-links {
@@ -1029,10 +960,6 @@ a:hover .nav-title,
 	color: #333;
 	font-size: 15px;
 	font-size: 0.9375rem;
-}
-
-.post-navigation .nav-next {
-	margin-top: 1.5em;
 }
 
 .nav-links .nav-previous .nav-title .nav-title-icon-wrapper {
@@ -1551,40 +1478,31 @@ p .alignright {
 //	note: Generate Heading tags
 //
 //////////////////////
+$tablet_heading_sizes = '@media (max-width:768px){';
+$mobile_heading_sizes = '@media (max-width:550px){';
 for($h=1;$h<=6;$h++):
-	echo "h$h,.h$h {";
-	get_font_css($hiilite_options['typography_h'.$h.'_font']);
+	$heading_rule = "h$h,.h$h {";
+	echo $heading_rule;
+	get_font_css(Hii::$options['typography_h'.$h.'_font']);
 	echo '}';
-endfor; ?>
-@media (max-width:768px){
-<?php 
-for($h=1;$h<=6;$h++):
-	$font_size = preg_match('!\d+!', $hiilite_options['typography_h'.$h.'_font']['font-size'],$fs_int);
-	$font_unit = preg_replace("/[^a-zA-Z]+/", "", $hiilite_options['typography_h'.$h.'_font']['font-size']);
+	
+	$font_size = preg_match('/([0-9]+\.[0-9]+)/', Hii::$options['typography_h'.$h.'_font']['font-size'],$fs_int);
+	$font_unit = preg_replace("/[^a-zA-Z]+/", "", Hii::$options['typography_h'.$h.'_font']['font-size']);
 	if($font_size && $font_unit){
-	echo "h$h,.h$h {";
-	echo 'font-size:'. ($fs_int[0]* 0.8).$font_unit;
-	echo '}';
+		$tablet_heading_sizes .= $heading_rule . 'font-size:' . ($fs_int[0]* 0.85) . $font_unit . '}';
+		$mobile_heading_sizes .= $heading_rule . 'font-size:' . ($fs_int[0]* 0.75) . $font_unit . '}';
 	}
-endfor; ?>
-}
-@media (max-width:550px){
-<?php 
-for($h=1;$h<=6;$h++):
-	$font_size = preg_match('!\d+!', $hiilite_options['typography_h'.$h.'_font']['font-size'],$fs_int);
-	$font_unit = preg_replace("/[^a-zA-Z]+/", "", $hiilite_options['typography_h'.$h.'_font']['font-size']);
-	if($font_size && $font_unit){
-	echo "h$h,.h$h {";
-	echo 'font-size:'. ($fs_int[0]* 0.75).$font_unit;
-	echo '}';
-	}
-endfor; ?>
-}
+endfor; 
+
+echo $tablet_heading_sizes.'}';
+echo $mobile_heading_sizes.'}';
+?>
+
 
 p {
 <?php	
-	get_font_css(get_theme_mod( 'text_font' ));
-	echo 'margin-bottom:'.get_theme_mod( 'text_margin' ).';';
+	get_font_css(Hii::$options['text_font']);
+	if(Hii::$options['text_margin'] != '') echo 'margin-bottom:'.Hii::$options['text_margin'].';';
 ?>
 }
 .clearfix:before,
@@ -1637,15 +1555,15 @@ table td {
 	padding: 0;
 }
 .in_grid {
-	max-width: <?php echo $hiilite_options['grid_width'];?>;
+	max-width: <?php echo Hii::$options['grid_width'];?>;
 }
 <?php
-include_once(HIILITE_DIR.'/css/vc_elements/row-css.php');	
-include_once(HIILITE_DIR.'/css/elements/buttons.php'); 
+get_template_part('css/vc_elements/row', 'css');	
+get_template_part('css/elements/buttons'); 
 
-include_once(HIILITE_DIR.'/css/header/header-css.php'); 
-include_once(HIILITE_DIR.'/css/header/menu-css.php');
-include_once(HIILITE_DIR.'/css/elements/page_titles-css.php');
+get_template_part('css/header/header', 'css'); 
+get_template_part('css/header/menu', 'css');
+get_template_part('css/elements/page_titles', 'css');
 /*
 //	note: FOOTER 
 */
@@ -1655,20 +1573,18 @@ $footer_bottom_colors = get_theme_mod('footer_bottom_colors');
 #main_footer {
 	position: relative;
 	<?php 
-	foreach($hiilite_options['footer_background'] as $key => $value) {
-		echo $key.':'.$value.';';
-	}
-	get_font_css($hiilite_options['typography_footer_text_font']);
+	get_background_css(Hii::$options['footer_background']);
+	get_font_css(Hii::$options['typography_footer_text_font']);
 	
 ?>
 border-top-style:solid;
 } 
 
 #main_footer h1,#main_footer h2,#main_footer h3,#main_footer h4,#main_footer h5,#main_footer h6 {
-	<?php get_font_css($hiilite_options['typography_footer_headings_font']); ?>
+	<?php get_font_css(Hii::$options['typography_footer_headings_font']); ?>
 }
 #main_footer a {
-	<?php get_font_css($hiilite_options['typography_footer_links_font']); ?>
+	<?php get_font_css(Hii::$options['typography_footer_links_font']); ?>
 }
 #main_footer .menu .menu-item a {
 	padding:0;
@@ -1690,14 +1606,14 @@ if(get_theme_mod( 'show_footer_top_yesno', true )): ?>
 
 #footer_top .widgettitle {
 <?php 
-	get_font_css($hiilite_options['typography_footer_headings_font']);
+	get_font_css(Hii::$options['typography_footer_headings_font']);
 	if($footer_top_colors['title']) echo 'color:'.$footer_top_colors['title'];
 ?>
 }
 
 #footer_top a {
 <?php 
-	get_font_css($hiilite_options['typography_footer_links_font']);
+	get_font_css(Hii::$options['typography_footer_links_font']);
 	if($footer_top_colors['link']) echo 'color:'.$footer_top_colors['link'];
 ?>
 }
@@ -1796,6 +1712,7 @@ if(get_theme_mod( 'show_footer_top_yesno', true )): ?>
 .content-box {
 	padding: 1rem;
 	box-sizing: border-box;
+	display: block;
 }
 
 
@@ -1917,7 +1834,7 @@ endfor;
 	margin-right:0.5em;
 }
 
-<?php if($hiilite_options['blog_layouts'] == 'boxed'): ?>
+<?php if(Hii::$options['blog_layouts'] == 'boxed'): ?>
 .boxed .blog-article h4 {
     overflow: hidden;
     display: -webkit-box;
@@ -1966,11 +1883,11 @@ endfor;
 }
 <?php 
 
-if($hiilite_options['portfolio_on']): 
-	include_once(HIILITE_DIR.'/css/portfolio/portfolio-css.php');
+if(Hii::$options['portfolio_on']): 
+	get_template_part( 'css/portfolio/portfolio', 'css');
 endif; ?>
 
-<?php if($hiilite_options['teams_on']): ?>
+<?php if(Hii::$options['teams_on']): ?>
 .team-member {
 	padding: 0.5em;
 }
@@ -1993,28 +1910,26 @@ endif; ?>
 
 
 
-<?php echo $hiilite_options['typography_icon_custom_css'];?>
+<?php echo Hii::$options['typography_icon_custom_css'];?>
 
 .fa {
 	display: inline-block;
-	width: 1.6em;
+	width: 1.5em;
 	text-align: center;
-	color: white;
 	line-height: 1.6em;
 	<?php get_font_css(get_theme_mod('icon_settings')); ?>
 	<?php get_font_css(get_theme_mod('icon_settings_bg')); ?>
 	border:<?php echo get_theme_mod('icon_settings_border', '0'); ?> solid;
 	border-radius:<?php echo get_theme_mod('icon_settings_border_r', '0'); ?>;
-	width:1.6em;
 }
 
 
 
-<?php echo $hiilite_options['typography_icon_custom_css'];?>
+<?php echo Hii::$options['typography_icon_custom_css'];?>
 
-.custom_format_1 { <?php echo $hiilite_options['custom_format_1'];?> }
-.custom_format_2 { <?php echo $hiilite_options['custom_format_2'];?> }
-.custom_format_3 { <?php echo $hiilite_options['custom_format_3'];?> }
+.custom_format_1 { <?php echo Hii::$options['custom_format_1'];?> }
+.custom_format_2 { <?php echo Hii::$options['custom_format_2'];?> }
+.custom_format_3 { <?php echo Hii::$options['custom_format_3'];?> }
 
 
 /*
@@ -2043,7 +1958,7 @@ endif; ?>
 	padding-left: 1em;
 }
 .sidebar {
-	background: <?php echo $hiilite_options['sidebar_background'];?>;	
+	background: <?php echo Hii::$options['sidebar_background'];?>;	
 }
 .sidebar .depth_2 {
 	padding-left:1em;	
@@ -2055,28 +1970,28 @@ endif; ?>
 #post_sidebar, 
 #blog_sidebar {
 	<?php
-	echo 'padding:'.get_spacing($hiilite_options['sidebar_padding']).';';	
+	echo 'padding:'.get_spacing(Hii::$options['sidebar_padding']).';';	
 	?>
-	background: <?php echo $hiilite_options['sidebar_background'];?>;
+	background: <?php echo Hii::$options['sidebar_background'];?>;
 }
 .sidebar .widget,
 #post_sidebar .widget, 
 #blog_sidebar .widget {
 	<?php
-	echo 'margin:'.get_spacing($hiilite_options['sidebar_widget_margin']).';';	
+	echo 'margin:'.get_spacing(Hii::$options['sidebar_widget_margin']).';';	
 	?>
 }
 /* Re coloring*/
-.color_one  { color: <?php echo $hiilite_options['color_one'];?>; }
-.color_two 	{ color: <?php echo $hiilite_options['color_two'];?>; }
-.color_three{ color: <?php echo $hiilite_options['color_three'];?>; }
-.color_four { color: <?php echo $hiilite_options['color_four'];?>; }
+.color_one  { color: <?php echo Hii::$options['color_one'];?>; }
+.color_two 	{ color: <?php echo Hii::$options['color_two'];?>; }
+.color_three{ color: <?php echo Hii::$options['color_three'];?>; }
+.color_four { color: <?php echo Hii::$options['color_four'];?>; }
 .white, .page-title h1.white, 
 .white h1, .white h2, .white h3, .white h4, .white h5, .white h6, .white p { color:white; }
-.bg_color_one  { background-color: <?php echo $hiilite_options['color_one'];?>; }
-.bg_color_two 	{ background-color: <?php echo $hiilite_options['color_two'];?>; }
-.bg_color_three{ background-color: <?php echo $hiilite_options['color_three'];?>; }
-.bg_color_four { background-color: <?php echo $hiilite_options['color_four'];?>; }
+.bg_color_one  { background-color: <?php echo Hii::$options['color_one'];?>; }
+.bg_color_two 	{ background-color: <?php echo Hii::$options['color_two'];?>; }
+.bg_color_three{ background-color: <?php echo Hii::$options['color_three'];?>; }
+.bg_color_four { background-color: <?php echo Hii::$options['color_four'];?>; }
 .bg_white { background-color:white; }
 
 
@@ -2430,18 +2345,18 @@ amp-carousel.right .vc_tta-panel-heading {
 
 <?php
 	
-if($hiilite_options['testimonials_on']):
+if(Hii::$options['testimonials_on']):
 	?>
 	.testimonial_item {
 	    padding: 0 3em;
 	}
 	.testimonial_content { 
 		padding:1em;
-		<?php get_font_css($hiilite_options[ 'testimonials_body_font' ]); ?>
+		<?php get_font_css(Hii::$options[ 'testimonials_body_font' ]); ?>
 	}
 	.testimonial_author {
 		padding: 1em;
-		<?php get_font_css($hiilite_options[ 'testimonials_author_font' ]); ?>
+		<?php get_font_css(Hii::$options[ 'testimonials_author_font' ]); ?>
 	}
 <?php endif ?>
 
@@ -2617,19 +2532,19 @@ a.ab-item {
 endif;
 $custom_formats = '
 .custom_format_1 {
-	'.preg_replace('/[{}]/','',$hiilite_options['custom_format_1']).'
+	'.preg_replace('/[{}]/','',Hii::$options['custom_format_1']).'
 }
 .custom_format_2 {
-	'.preg_replace('/[{}]/','',$hiilite_options['custom_format_2']).'
+	'.preg_replace('/[{}]/','',Hii::$options['custom_format_2']).'
 }
 .custom_format_3 {
-	'.preg_replace('/[{}]/','',$hiilite_options['custom_format_3']).'
+	'.preg_replace('/[{}]/','',Hii::$options['custom_format_3']).'
 }';
 echo $custom_formats;
 
 do_action ( 'custom_css' );
-echo $hiilite_options['custom_css'];
-echo $hiilite_options['portfolio_custom_css'];
+echo Hii::$options['custom_css'];
+echo Hii::$options['portfolio_custom_css'];
 ?>
 
 </style>

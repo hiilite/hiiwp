@@ -15,4 +15,13 @@ Kirki::add_field( 'hiiwp', array(
     
 ) );
 
+Kirki::add_field( 'hiiwp', array(
+    'type'        => 'switch',
+    'settings'    => 'shop_sidebar_show',
+    'label'       => __( 'Show Shop Sidebar', 'hiiwp' ),
+    'section'     => $section,
+    'default'     => $hiilite_options['shop_sidebar_show'],
+    'priority'    => 1
+) );	
+
 ?>

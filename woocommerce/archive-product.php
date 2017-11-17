@@ -22,7 +22,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 get_header( 'shop' ); 
 $page_bg_color = (get_post_meta ( get_the_ID(), 'page_title_bg', true))?get_post_meta ( get_the_ID(), 'page_title_bg', true):false;
-$page_bg_img = (get_post_meta ( $post->ID, 'page_title_bgimg', false))?get_post_meta ( $post->ID, 'page_title_bgimg'):false;
+if(isset($post)) $page_bg_img = (get_post_meta ( $post->ID, 'page_title_bgimg', false))?get_post_meta ( $post->ID, 'page_title_bgimg'):false;
  ?>
 	<header class="woocommerce-products-header page-title" style="<?=($page_bg_img)?'background-image:url('.$page_bg_img[0].');':'';?><?=($page_bg_color)?'background-color:'.$page_bg_color.';':'';?>">
 		<div class="in_grid content-box">
@@ -56,82 +56,86 @@ $page_bg_img = (get_post_meta ( $post->ID, 'page_title_bgimg', false))?get_post_
 		</div>
     </header>
 
-		<?php if ( have_posts() ) : ?>
-		<div class="row "><div class="in_grid content-box">
-			<div class="woocommerce_before_shop_loop">
-			<?php
-				/**
-				 * woocommerce_before_shop_loop hook.
-				 *
-				 * @hooked wc_print_notices - 10
-				 * @hooked woocommerce_result_count - 20
-				 * @hooked woocommerce_catalog_ordering - 30
-				 */
-				do_action( 'woocommerce_before_shop_loop' );
-			?>
-			</div>
-			<ul class="products product-categories">
-				<?php woocommerce_product_subcategories(); ?>
-			</ul>
-			<?php woocommerce_product_loop_start(); ?>
+	<?php if ( have_posts() ) : ?>
+	<div class="row ">
+		<div class="in_grid">
+			<div class="col-9">
+				<div class="woocommerce_before_shop_loop content-box">
+				<?php
+					/**
+					 * woocommerce_before_shop_loop hook.
+					 *
+					 * @hooked wc_print_notices - 10
+					 * @hooked woocommerce_result_count - 20
+					 * @hooked woocommerce_catalog_ordering - 30
+					 */
+					do_action( 'woocommerce_before_shop_loop' );
+				?>
+				</div>
 				
-				
-				
-				<?php while ( have_posts() ) : the_post(); ?>
-
-					<?php
-						/**
-						 * woocommerce_shop_loop hook.
-						 *
-						 * @hooked WC_Structured_Data::generate_product_data() - 10
-						 */
-						do_action( 'woocommerce_shop_loop' );
-					?>
-
-					<?php wc_get_template_part( 'content', 'product' ); ?>
-
-				<?php endwhile; // end of the loop. ?>
-
-			<?php woocommerce_product_loop_end(); ?>
-
-			<?php
-				/**
-				 * woocommerce_after_shop_loop hook.
-				 *
-				 * @hooked woocommerce_pagination - 10
-				 */
-				do_action( 'woocommerce_after_shop_loop' );
-			?>
-
-		<?php elseif ( ! woocommerce_product_subcategories( array( 'before' => woocommerce_product_loop_start( false ), 'after' => woocommerce_product_loop_end( false ) ) ) ) : ?>
-
-			<?php
+				<ul class="products product-categories">
+					<?php woocommerce_product_subcategories(); ?>
+				</ul>
+				<?php woocommerce_product_loop_start(); ?>
+					
+					
+					
+					<?php while ( have_posts() ) : the_post(); ?>
+		
+						<?php
+							/**
+							 * woocommerce_shop_loop hook.
+							 *
+							 * @hooked WC_Structured_Data::generate_product_data() - 10
+							 */
+							do_action( 'woocommerce_shop_loop' );
+						?>
+		
+						<?php wc_get_template_part( 'content', 'product' ); ?>
+		
+					<?php endwhile; // end of the loop. ?>
+		
+				<?php woocommerce_product_loop_end(); ?>
+		
+				<?php
+					/**
+					 * woocommerce_after_shop_loop hook.
+					 *
+					 * @hooked woocommerce_pagination - 10
+					 */
+					do_action( 'woocommerce_after_shop_loop' );
+				?>
+	
+				<?php elseif ( ! woocommerce_product_subcategories( array( 'before' => woocommerce_product_loop_start( false ), 'after' => woocommerce_product_loop_end( false ) ) ) ) : ?>
+		
+				<?php
 				/**
 				 * woocommerce_no_products_found hook.
 				 *
 				 * @hooked wc_no_products_found - 10
 				 */
 				do_action( 'woocommerce_no_products_found' );
-			?>
-
-		<?php endif; ?>
-
-	<?php
-		/**
-		 * woocommerce_after_main_content hook.
-		 *
-		 * @hooked woocommerce_output_content_wrapper_end - 10 (outputs closing divs for the content)
-		 */
-		do_action( 'woocommerce_after_main_content' );
-	?>
-
-	<?php
-		/**
-		 * woocommerce_sidebar hook.
-		 *
-		 * @hooked woocommerce_get_sidebar - 10
-		 */
-		do_action( 'woocommerce_sidebar' );
-	?>
-		</div></div>
+				
+				endif; ?>
+			</div>
+			
+				<?php
+					
+					/**
+					 * woocommerce_sidebar hook.
+					 *
+					 * @hooked woocommerce_get_sidebar - 10
+					 */
+					do_action( 'woocommerce_sidebar' );
+				
+					/**
+					 * woocommerce_after_main_content hook.
+					 *
+					 * @hooked woocommerce_output_content_wrapper_end - 10 (outputs closing divs for the content)
+					 */
+					do_action( 'woocommerce_after_main_content' );
+				?>
+			
+		</div>
+	</div>
 <?php get_footer( 'shop' ); ?>

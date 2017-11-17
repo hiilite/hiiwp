@@ -1,3 +1,8 @@
+.wp-core-ui .button, .wp-core-ui .button-secondary {
+    box-shadow: 0 1px 0;
+    -webkit-box-shadow: 0 1px 0;
+    text-shadow: none !important;
+}
 
 .wp-pointer-buttons a.hiiwp-next {
 	margin-right: 22px;

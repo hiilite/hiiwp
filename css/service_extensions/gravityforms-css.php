@@ -70,19 +70,19 @@ body .gform_wrapper ul li.gfield.gform_rangeslider {
 .gform_wrapper .gform_footer input.button, .gform_wrapper .gform_footer input[type=submit] { 
 	cursor: pointer;
 	<?php 
-	get_font_css($hiilite_options[ 'typography_button_primary_font' ]);
-	echo 'background:'.$hiilite_options[ 'typography_button_primary_background']['base'].';';
-	echo 'padding:'.get_spacing($hiilite_options[ 'typography_button_primary_padding' ]).';';
+	get_font_css(Hii::$options[ 'typography_button_primary_font' ]);
+	echo 'background:'.Hii::$options[ 'typography_button_primary_background']['base'].';';
+	echo 'padding:'.get_spacing(Hii::$options[ 'typography_button_primary_padding' ]).';';
 	echo 'border: '.
-		$hiilite_options[ 'typography_button_primary_border_width'].
+		Hii::$options[ 'typography_button_primary_border_width'].
 		' solid '.
-		$hiilite_options['typography_button_primary_border_color']['base'].
+		Hii::$options['typography_button_primary_border_color']['base'].
 		';';
-	echo 'border-radius:'.$hiilite_options['typography_button_primary_border_radius'].';';
-	echo preg_replace('/[{}]/','',$hiilite_options['typography_button_primary_custom_css']);?>
+	echo 'border-radius:'.Hii::$options['typography_button_primary_border_radius'].';';
+	echo preg_replace('/[{}]/','',Hii::$options['typography_button_primary_custom_css']);?>
 }
 .gform_wrapper .gform_footer input.button:hover, .gform_wrapper .gform_footer input[type=submit]:hover {
 	color: white;
-	background: <?php echo $hiilite_options['typography_button_primary_background']['hover']?>;
-	border-color: <?php echo $hiilite_options['typography_button_primary_border_color']['hover']?>;
+	background: <?php echo Hii::$options['typography_button_primary_background']['hover']?>;
+	border-color: <?php echo Hii::$options['typography_button_primary_border_color']['hover']?>;
 }

@@ -478,7 +478,6 @@ Kirki::add_field( 'hiiwp', array(
 	'section'     => $section,
 	'default'     => $hiilite_options['color_one'],
 	'priority'    => 1,
-	'alpha'       => true,
 	
 ) );
 Kirki::add_field( 'hiiwp', array(
@@ -489,7 +488,6 @@ Kirki::add_field( 'hiiwp', array(
 	'description' => __('Choose the second most dominant theme color, by default will style base and primary buttons and all headings and titles', 'hiiwp'),
 	'default'     => $hiilite_options['color_two'],
 	'priority'    => 1,
-	'alpha'       => true,
 ) );
 Kirki::add_field( 'hiiwp', array(
 	'type'        => 'color',
@@ -499,7 +497,6 @@ Kirki::add_field( 'hiiwp', array(
 	'section'     => $section,
 	'default'     => $hiilite_options['color_three'],
 	'priority'    => 1,
-	'alpha'       => true,
 ) );
 
 Kirki::add_field( 'hiiwp', array(
@@ -510,7 +507,6 @@ Kirki::add_field( 'hiiwp', array(
 	'section'     => $section,
 	'default'     => $hiilite_options['color_four'],
 	'priority'    => 1,
-	'alpha'       => true,
 ) );
 /*
 Kirki::add_field( 'hiiwp', array(
@@ -531,7 +527,6 @@ Kirki::add_field( 'hiiwp', array(
 	'section'     => $section,
 	'default'     => $hiilite_options['default_background_color'],
 	'priority'    => 1,
-	'alpha'		  => true,
 	'transport'   => 'postMessage',
     'output' => array(
 		array(
@@ -556,7 +551,6 @@ Kirki::add_field( 'hiiwp', array(
 	'default'     => $hiilite_options['secondary_background_color'],
 	'priority'    => 1,
 	'transport'   => 'postMessage',
-	'alpha'		  => true,
     'output' => array(
 		array(
 			'element'  => 'section .container_inner > .in_grid',

@@ -186,9 +186,6 @@ do_action( 'hii_before_header' );
 							));	
 						?></div><?php
 					} 
-					if($hiilite_options['enable_search_bar_yesno'] == true)	:
-						echo '<div class="search_button"><i class="fa fa-search"></i></div>';
-					endif;
 					
 				if($hiilite_options['header_in_grid'] == true) { echo '</div>'; } ?>
 				</div>

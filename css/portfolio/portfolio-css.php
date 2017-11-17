@@ -12,6 +12,33 @@ ul.portfolio_terms {
 ul.portfolio_terms li {
     display: inline-block;
     flex: 1 1 auto;
+    position: relative;
+}
+
+ul.portfolio_terms li:hover ul.portfolio_child_terms {
+    width: 100%;
+    background: white;
+    box-shadow: 0 0 5px rgba(0,0,0,0.5);
+    max-height: 100%;
+    opacity: 1;
+}
+
+ul.portfolio_terms ul.portfolio_child_terms li a {
+    color: #252525;
+}
+
+ul.portfolio_child_terms {
+    max-height: 0;
+    position: absolute;
+    transition: all 400ms;
+    opacity: 0;
+    display: flex;
+    justify-content: space-evenly;
+    width: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    overflow: hidden;
 }
 
 .portfolio_filter {
@@ -67,12 +94,12 @@ ul.portfolio_terms li a {
 	display:none;
 }
 <?php
-if($hiilite_options['portfolio_template'] == 'split') {
+if(Hii::$options['portfolio_template'] == 'split') {
 ?>
 .single-portfolio .portfolio {
 	padding-top:3em;
 	padding-bottom:3em;
-	background:<?php echo $hiilite_options['portfolio_background']; ?>;	
+	background:<?php echo Hii::$options['portfolio_background']; ?>;	
 }
 <?php
 }
@@ -90,8 +117,8 @@ if($hiilite_options['portfolio_template'] == 'split') {
 .project-info {
 	padding:1em;
 	min-width:300px;
-	background:<?php echo $hiilite_options['portfolio_panel_background']; ?>;		
-	color:<?php echo $hiilite_options['portfolio_info_colors']['text']; ?>;		
+	background:<?php echo Hii::$options['portfolio_panel_background']; ?>;		
+	color:<?php echo Hii::$options['portfolio_info_colors']['text']; ?>;		
 }
 .project-info .row {
 	display:flex;	
@@ -102,13 +129,13 @@ if($hiilite_options['portfolio_template'] == 'split') {
 .project-info h4,
 .project-info h5,
 .project-info h6 {
-	color:<?php echo $hiilite_options['portfolio_info_colors']['title']; ?>;		
+	color:<?php echo Hii::$options['portfolio_info_colors']['title']; ?>;		
 }
 .project-info a {
-	color:<?php echo $hiilite_options['portfolio_info_colors']['link']; ?>;		
+	color:<?php echo Hii::$options['portfolio_info_colors']['link']; ?>;		
 }
 .project-info a:hover {
-	color:<?php echo $hiilite_options['portfolio_info_colors']['hover']; ?>;		
+	color:<?php echo Hii::$options['portfolio_info_colors']['hover']; ?>;		
 }
 .project-info .project-title {
 	justify-content: space-between;	
@@ -155,7 +182,7 @@ if($hiilite_options['portfolio_template'] == 'split') {
 	display: block;
 }
 .project-info .project-social a .fa {
-	color:<?php echo $hiilite_options['portfolio_info_colors']['link']; ?>;	
+	color:<?php echo Hii::$options['portfolio_info_colors']['link']; ?>;	
 	margin-right: 0.5em;
 }
 .project-info .project-author {
@@ -172,7 +199,7 @@ if($hiilite_options['portfolio_template'] == 'split') {
 	text-transform: none;
 	font-size:1.1em;
 	font-weight:bold;
-	color:<?php echo $hiilite_options['portfolio_info_colors']['text']; ?>;
+	color:<?php echo Hii::$options['portfolio_info_colors']['text']; ?>;
 }
 .project-info .project-author small {
 	margin-bottom:1em;	

@@ -224,6 +224,28 @@ class HiiWP_Sidebars {
 		'after_title'   => '</h4>',
 	    ) );
 	    
+	    if(class_exists('WooCommerce')){
+		    register_sidebar( array(
+		        'name' => __( 'Shop Sidebar', 'hiiwp' ),
+		        'id' => 'shop_sidebar',
+		        'description' => __( 'Shows on your WooCommerce Shop page', 'hiiwp' ),
+		        'before_widget' => '<div id="%1$s" class="flex-item widget %2$s">',
+				'after_widget'  => '</div>',
+				'before_title'  => '<h4 class="widgettitle">',
+				'after_title'   => '</h4>',
+		    ) );
+
+		    register_sidebar( array(
+		        'name' => __( 'Product Sidebar', 'hiiwp' ),
+		        'id' => 'product_sidebar',
+		        'description' => __( 'Shows on the single product page', 'hiiwp' ),
+		        'before_widget' => '<div id="%1$s" class="flex-item widget %2$s">',
+				'after_widget'  => '</div>',
+				'before_title'  => '<h4 class="widgettitle">',
+				'after_title'   => '</h4>',
+		    ) );
+	    }
+	    
 	   
 	}
 	

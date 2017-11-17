@@ -38,6 +38,14 @@ class Kirki_Control_Color extends Kirki_Control_Base {
 	public $palette = true;
 
 	/**
+	 * Mode.
+	 *
+	 * @since 3.0.12
+	 * @var string
+	 */
+	public $mode = 'full';
+
+	/**
 	 * Refresh the parameters passed to the JavaScript via JSON.
 	 *
 	 * @access public
@@ -45,30 +53,32 @@ class Kirki_Control_Color extends Kirki_Control_Base {
 	public function to_json() {
 		parent::to_json();
 
-		$this->json['palette']  = $this->palette;
-		$this->choices['alpha'] = ( isset( $this->choices['alpha'] ) && $this->choices['alpha'] ) ? 'true' : 'false';
+		$this->json['palette'] = $this->palette;
+		$this->json['choices']['alpha'] = ( isset( $this->choices['alpha'] ) && $this->choices['alpha'] ) ? 'true' : 'false';
+		$this->json['mode'] = $this->mode;
 	}
 
 	/**
-	 * Returns an array of extra field dependencies for Kirki controls.
+	 * An Underscore (JS) template for this control's content (but not its container).
+	 *
+	 * Class variables for this control class are available in the `data` JS object;
+	 * export custom variables by overriding {@see WP_Customize_Control::to_json()}.
+	 *
+	 * @see WP_Customize_Control::print_template()
 	 *
 	 * @access protected
-	 * @since 3.0.10
-	 * @return array
 	 */
-	protected function kirki_script_dependencies() {
-		return array( 'wp-color-picker-alpha' );
-	}
-
-	/**
-	 * Enqueue control related scripts/styles.
-	 *
-	 * @access public
-	 */
-	public function enqueue() {
-
-		wp_enqueue_script( 'wp-color-picker-alpha', kirki_controls()->get_url( 'vendor/wp-color-picker-alpha/wp-color-picker-alpha.js' ), array( 'wp-color-picker' ), '1.2', true );
-		wp_enqueue_style( 'wp-color-picker' );
-		parent::enqueue();
+	protected function content_template() {
+		?>
+		<label>
+			<span class="customize-control-title">
+				{{{ data.label }}}
+			</span>
+			<# if ( data.description ) { #>
+				<span class="description customize-control-description">{{{ data.description }}}</span>
+			<# } #>
+		</label>
+		<input type="text" data-type="{{{ data.mode }}}" {{{ data.inputAttrs }}} data-palette="{{ data.palette }}" data-default-color="{{ data.default }}" data-alpha="{{ data.choices['alpha'] }}" value="{{ data.value }}" class="kirki-color-control" {{{ data.link }}} />
+		<?php
 	}
 }

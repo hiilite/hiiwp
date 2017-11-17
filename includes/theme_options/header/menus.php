@@ -16,7 +16,6 @@ Kirki::add_field( 'hiiwp', array(
 	'section'     => $section,
 	'default'     => $hiilite_options['dropdown_background_color'],
 	'priority'    => 7,
-	'alpha'		  => true,
 	'transport'   => 'postMessage',
     'output' => array(
 		array(
@@ -145,17 +144,16 @@ Kirki::add_field( 'hiiwp', array(
 	'section'     => $section,
 	'default'     => $hiilite_options['mobile_menu_icon_color'],
 	'priority'    => 11,
-	'alpha'		  => true,
 	'transport'   => 'postMessage',
     'output' => array(
 		array(
-			'element'  => '.mobile_menu_button .fa, .search_button .fa',
+			'element'  => '.mobile_menu_button .fa',
 			'property' => 'color',
 		),
 	),
 	'js_vars' => array(
 		array(
-			'element'  => '.mobile_menu_button .fa, .search_button .fa',
+			'element'  => '.mobile_menu_button .fa',
 			'property' => 'color',
 		),
 	),

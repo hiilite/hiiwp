@@ -22,8 +22,8 @@ if(have_posts()):
 	if($hiilite_options['blog_pag_show'] == true):
 		echo '<div class="pagination '.$grid.' content-box">';
 		the_posts_pagination( array(
-			'prev_text' => '<span class="screen-reader-text">' . __( 'Previous page', 'twentyseventeen' ) . '</span>',
-			'next_text' => '<span class="screen-reader-text">' . __( 'Next page', 'twentyseventeen' ) . '</span>',
+			'prev_text' => '<span class="screen-reader-text">' . __( 'Previous page', 'twentyseventeen' ) . '</span><i class="fa fa-angle-left"></i>',
+			'next_text' => '<span class="screen-reader-text">' . __( 'Next page', 'twentyseventeen' ) . '</span><i class="fa fa-angle-right"></i>',
 			'before_page_number' => '<span class="meta-nav screen-reader-text">' . __( 'Page', 'twentyseventeen' ) . ' </span>',
 		) );
 		echo '</div>';

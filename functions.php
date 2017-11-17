@@ -46,9 +46,13 @@ class Hii {
 		return self::$_instance;
 	}
 	
+	
 	/**
-	* Define plugin constants
-	*/
+	 * define_constants function.
+	 * 
+	 * @access private
+	 * @return void
+	 */
 	private function define_constants(){
 	    if ( ! defined( 'HIIWP_VERSION' ) ) {                
 			 define( 'HIIWP_VERSION', '0.4.4' );
@@ -99,6 +103,7 @@ class Hii {
 		$this->post_types	= new HiiWP_Post_Types();
 		$this->sidebars		= new HiiWP_Sidebars();
 		$this->theme_options= new HiiWP_Theme_Options();
+		$this->menus		= new HiiWP_Menus();
 		
 				
 		
@@ -364,6 +369,9 @@ function get_background_css($background){
 					break;
 				case 'background-repeat':case 'repeat':
 					echo "background-repeat:$value;";
+					break;
+				case 'background-color':case 'color':
+					echo "background-color:$value;";
 					break;
 				default:
 					echo "$rule:$value;";
@@ -653,7 +661,7 @@ function prime_cat($tax, $id) {
 			if (is_wp_error($term)) { 
 				// Default to first category (not Yoast) if an error is returned
 				$category_display = $category[0]->name;
-				$category_link = esc_url( home_url() ) . '/' . 'event-category/' . $term->slug;
+				$category_link = esc_url( home_url() ) . '/' . $category[0]->slug;
 				$category_id = $category[0]->term_id;
 			} else { 
 				// Yoast Primary category
@@ -795,52 +803,6 @@ function cmb2_post_metaboxes(){
 	
 	
 }
-
-
-//
-// Adds the meta box to the page screen
-//
-
-
-
-add_action('cmb2_admin_init', 'cmb2_blog_metaboxes');
-function cmb2_blog_metaboxes(){
-	//////////////////////////////////
-	// Generic Options for all posts
-	/////////////////////////////////
-    $cmb = new_cmb2_box( array(
-        'id'            => 'blog_options',
-        'title'         => 'Blog Post Options',
-        'object_types'  => array( 'post' ), // post type
-        'context'       => 'side', // 'normal', 'advanced' or 'side'
-        'priority'      => 'high', // 'high', 'core', 'default' or 'low'
-        'show_names'    => false, // show field names on the left
-        'cmb_styles'    => true, // false to disable the CMB stylesheet
-        'closed'        => false, // keep the metabox closed by default
-    ) );
-    $cmb->add_field( array(
-	    'name'    => 'Source Site',
-	    'desc'    => 'Source Site',
-	    'default' => '',
-	    'id'      => 'source_site_title',
-	    'type'    => 'text_medium'
-	) );
-	$cmb->add_field( array(
-	    'name'    => 'Source Site URL',
-	    'desc'    => 'Source Site URL',
-	    'default' => '',
-	    'id'      => 'source_article_link',
-	    'type'    => 'text_url'
-	) );
-	$cmb->add_field( array(
-	    'name'    => 'Canonical URL',
-	    'desc'    => 'Canonical URL',
-	    'default' => '',
-	    'id'      => 'article_canonical_link',
-	    'type'    => 'text_url'
-	) );
-}
-
 
 
 
@@ -1043,7 +1005,7 @@ function cmb2_portfolio_taxonomy_metaboxes( array $meta_boxes ) {
 
 
 
-
+/*
 function portfolio_primary_category_selection() {
 	
 	$hiilite_options = Hii::get_options();
@@ -1069,7 +1031,7 @@ function portfolio_primary_category_selection() {
 
 }
 add_action( 'cmb2_admin_init', 'portfolio_primary_category_selection' );
-
+*/
 
 /**
  *
@@ -1538,20 +1500,40 @@ function get_portfolio($args = null, $options = null){
 		if($portfolio_show_filter == true):
 			
 			$html .= '<div class="row portfolio_filter"><div class="in_grid">';
-				$work_terms = get_terms(array(
+				$work_parent_terms = get_terms(array(
 					'taxonomy'		=> $hiilite_options['portfolio_tax_slug'],
 				    'hide_empty' 	=> 1,
+				    'parent'		=> 0
 				));
-				if(count($work_terms) > 1):
-				$html .= '<ul class="portfolio_terms">';
-					foreach($work_terms as $term){
-						$li_classes = '';
-						if( isset(get_queried_object()->term_id) && get_queried_object()->term_id == $term->term_id ) $li_classes .= 'current-term';
+				if(count($work_parent_terms) > 1):
+					$html .= '<ul class="portfolio_terms">';
+					foreach($work_parent_terms as $parent_term){
+						
+						$li_classes = ( isset(get_queried_object()->term_id) && get_queried_object()->term_id == $parent_term->term_id )? 'current-term' : '' ;
 						$html .= "<li class='$li_classes'>";
-						$html .= '<a href="'.esc_attr( get_term_link( $term->term_id ) ).'">'.$term->name.'</a>';
+						$html .= '<a href="'.esc_attr( get_term_link( $parent_term->term_id ) ).'">'.$parent_term->name.'</a>';
+							
+							$work_child_terms = get_terms(array(
+								'taxonomy'		=> $hiilite_options['portfolio_tax_slug'],
+							    'hide_empty' 	=> 0,
+							    'parent'		=> $parent_term->term_id,
+							));
+							
+							if(count($work_child_terms) > 1):
+								$html .= '<ul class="portfolio_child_terms">';
+								foreach($work_child_terms as $child_term){
+									$li_classes = ( isset(get_queried_object()->term_id) && get_queried_object()->term_id == $child_term->term_id )? 'current-term' : '' ;
+									$html .= "<li class='$li_classes'>";
+									$html .= '<a href="'.esc_attr( get_term_link( $child_term->term_id ) ).'">'.$child_term->name.'</a>';
+									$html .= '</li>';
+								}
+								$html .= '</ul>';
+							endif;
+						
+						
 						$html .= '</li>';
 					}
-				$html .= '</ul>';
+					$html .= '</ul>';
 				endif;
 				
 			

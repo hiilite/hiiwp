@@ -101,59 +101,9 @@ a {
 	color: #2FB6C4;
 }
 
-#adminmenu .wp-submenu a {
-    
-}
- 
-/* change color of arrow to submenus */
-#adminmenu li.wp-not-current-submenu .wp-menu-arrow,
-#adminmenu li.wp-not-current-submenu .wp-menu-arrow div {
-    
-}
- 
-/* active screen as seen in menu - change the background and arrow colour */
-#adminmenu li.wp-has-current-submenu a.wp-has-current-submenu,
-#adminmenu li.current a.menu-top,
-.folded #adminmenu li.wp-has-current-submenu,
-.folded #adminmenu li.current.menu-top,
-#adminmenu .wp-menu-arrow,
-#adminmenu .wp-has-current-submenu .wp-submenu .wp-submenu-head {
-    
-}
-#adminmenu li.wp-has-current-submenu .wp-menu-arrow,
-#adminmenu li.wp-has-current-submenu .wp-menu-arrow div {
-   
-}
 
-/* links elsewhere */
-a:hover, a:active {
-}
-
-.wp-core-ui .button, .wp-core-ui .button-secondary {
-    color: #000;
-    border-color: #ccc;
-    background: rgb(244,244,244);
-    box-shadow: 0px 1px 1px rgba(0,0,0,0.3);
-    border: none;
-    border-radius: 1px;
-}
 
 /* buttons */
-.wp-core-ui .button-primary, .login .button-primary {
-    background: rgb(33,150,243);
-    border-color: none; 
-    color: white;
-    -webkit-box-shadow: none;
-    box-shadow: 0px 1px 1px rgba(0,0,0,0.3);
-    text-shadow: none;
-	border-radius: 1px;
-}
-.wp-core-ui .button-primary.active,
-.wp-core-ui .button-primary:hover,
-.wp-core-ui .button-primary:active,
-.wp-core-ui .button-primary:focus {
-
-}
 
 .wp-admin select {
     padding: 2px;
@@ -324,9 +274,8 @@ ul.cmb2-checkbox-list.cmb2-list li {
 tr td, tr th {
     position: relative;
 }
-.row-actions {
+.row-actions, .row-actions.visible {
     position: absolute;
-    
 }
 
 .comment-item:hover .row-actions, tr:hover .row-actions {

@@ -172,11 +172,11 @@ select {
 }
 
 select:focus {
-    background-image: linear-gradient(45deg,<?php echo $hiilite_options['color_one'];?> 50%,transparent 50%),linear-gradient(135deg,transparent 50%,<?php echo $hiilite_options['color_one'];?> 50%),linear-gradient(to right,#ccc,#ccc);
+    background-image: linear-gradient(45deg,<?php echo Hii::$options['color_one'];?> 50%,transparent 50%),linear-gradient(135deg,transparent 50%,<?php echo Hii::$options['color_one'];?> 50%),linear-gradient(to right,#ccc,#ccc);
     background-position: calc(100% - 15px) 50%,calc(100% - 20px) 50%,calc(100% - 43px) 30%;
     background-size: 5px 5px,4px 5px,1px 2em;
     background-repeat: no-repeat;
-    border-color: <?php echo $hiilite_options['color_one'];?>;
+    border-color: <?php echo Hii::$options['color_one'];?>;
     outline: 0;
 }
 

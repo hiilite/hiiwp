@@ -6,20 +6,20 @@ header#main_header {
 	z-index: 9999;
 	transition: all 0.5s;
 	<?php 
-	get_background_css($hiilite_options['header_background']);
-	if($hiilite_options['header_content_under'] == true)
+	get_background_css(Hii::$options['header_background']);
+	if(Hii::$options['header_content_under'] == true)
 		echo 'position: absolute;';
 	else
 		echo 'position: relative;';
 	?>
-	border-bottom: <?php echo $hiilite_options['header_bottom_border_width'].' solid '.$hiilite_options['header_bottom_border_color'];?>;
+	border-bottom: <?php echo Hii::$options['header_bottom_border_width'] . ' solid ' . Hii::$options['header_bottom_border_color'];?>;
 }
 <?php
-if($hiilite_options['header_top_home'] == true): ?>
+if(Hii::$options['header_top_home'] == true): ?>
 
 	#header_top_pages {<?php
-		get_background_css($hiilite_options['header_top_pages_background_image']);
-		echo 'height:'.$hiilite_options['header_top_pages_height'].';'; ?>
+		get_background_css(Hii::$options['header_top_pages_background_image']);
+		echo 'height:'.Hii::$options['header_top_pages_height'].';'; ?>
 	}
 
 <?php
@@ -28,7 +28,7 @@ endif;
 
 
 <?php
-if($hiilite_options['header_type'] == 'centered') : ?>
+if(Hii::$options['header_type'] == 'centered') : ?>
 
 	header.centered, 
 	header.centered .container_inner,
@@ -52,7 +52,7 @@ if($hiilite_options['header_type'] == 'centered') : ?>
 	}	
 
 <?php 
-elseif($hiilite_options['header_type'] == 'fixed'):	?>
+elseif(Hii::$options['header_type'] == 'fixed'):	?>
 	header#main_header.fixed.scrolled {
 	    position: fixed;
 	    top: 0;
@@ -74,7 +74,7 @@ else: ?>
 <?php
 endif;
 
-if($hiilite_options['header_bottom_on'] == true) : ?>
+if(Hii::$options['header_bottom_on'] == true) : ?>
 
 #header_bottom_left, #header_bottom_right {
 	width:50%;	
@@ -83,13 +83,13 @@ if($hiilite_options['header_bottom_on'] == true) : ?>
 endif;
 ?>
 
-@media (max-width:<?php echo $hiilite_options['grid_width'];?>){
+@media (max-width:<?php echo Hii::$options['grid_width'];?>){
 	.container_inner {
 		padding: 0em;
 	}
 }
 <?php
-if($hiilite_options['header_top_area_yesno'] == true):
+if(Hii::$options['header_top_area_yesno'] == true):
 	/*
 	//  note: Header Top
 	*/	
@@ -100,7 +100,7 @@ if($hiilite_options['header_top_area_yesno'] == true):
 		border-top: <?php echo get_theme_mod('header_top_border_width', '0px').' solid '.get_theme_mod('header_top_border_color', 'transparent');?>;
 		
 		<?php 
-		get_font_css($hiilite_options['header_top_font']);
+		get_font_css(Hii::$options['header_top_font']);
 	?>
 	}
 	#header_top a{
@@ -155,7 +155,7 @@ endif; ?>
     max-width: 100%;
     position: relative;
     <?php 
-    foreach($hiilite_options['logo_padding'] as $key=>$value){
+    foreach(Hii::$options['logo_padding'] as $key=>$value){
 	    echo 'padding-'.$key.':'.$value.';';
     }
     ?>

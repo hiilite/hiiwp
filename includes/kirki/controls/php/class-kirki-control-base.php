@@ -8,7 +8,7 @@
  * @subpackage  Controls
  * @copyright   Copyright (c) 2017, Aristeides Stathopoulos
  * @license     http://opensource.org/licenses/https://opensource.org/licenses/MIT
- * @since       3.0.10
+ * @since       3.0.12
  */
 
 /**
@@ -41,13 +41,12 @@ class Kirki_Control_Base extends WP_Customize_Control {
 	public $kirki_config = 'global';
 
 	/**
-	 * Returns an array of extra field dependencies for Kirki controls.
+	 * Extra script dependencies.
 	 *
-	 * @access protected
-	 * @since 3.0.10
+	 * @since 3.1.0
 	 * @return array
 	 */
-	protected function kirki_script_dependencies() {
+	public function kirki_script_dependencies() {
 		return array();
 	}
 
@@ -58,19 +57,45 @@ class Kirki_Control_Base extends WP_Customize_Control {
 	 */
 	public function enqueue() {
 
-		wp_enqueue_script( 'kirki', kirki_controls()->get_url( 'js/kirki.js' ), array( 'jquery', 'customize-base' ), false, true );
-		if ( ! in_array( $this->type, array(
-			'kirki-color-palette',
-			'kirki-dashicons',
-			'kirki-palette',
-			'kirki-radio-buttonset',
-			'kirki-radio-image',
-			'kirki-radio'
-		) ) ) {
-			$type = str_replace( 'kirki-', '', $this->type );
-			wp_enqueue_script( $this->type , kirki_controls()->get_url( "js/$type.js" ), array_merge( $this->kirki_script_dependencies(), array( 'kirki', 'hiiwp' ) ), false, true );
-		}
-		wp_enqueue_style( 'kirki-styles', kirki_controls()->get_url( 'css/styles.css' ), null );
+		// Build the suffix for the script.
+		$suffix  = '';
+		$suffix .= ( Kirki_Util::get_wp_version() >= 4.9 ) ? '' : '-legacy';
+		$suffix .= ( ! defined( 'SCRIPT_DEBUG' ) || true !== SCRIPT_DEBUG ) ? '.min' : '';
+
+		// The Kirki plugin URL.
+		$kirki_url = trailingslashit( Kirki::$url );
+
+		// Enqueue ColorPicker.
+		wp_enqueue_script( 'wp-color-picker-alpha', trailingslashit( Kirki::$url ) . 'assets/vendor/wp-color-picker-alpha/wp-color-picker-alpha.js', array( 'wp-color-picker' ), KIRKI_VERSION, true );
+		wp_enqueue_style( 'wp-color-picker' );
+
+		// Enqueue selectWoo.
+		wp_enqueue_script( 'selectWoo', trailingslashit( Kirki::$url ) . 'assets/vendor/selectWoo/js/selectWoo.full.js', array( 'jquery' ), '1.0.1', true );
+		wp_enqueue_style( 'selectWoo', trailingslashit( Kirki::$url ) . 'assets/vendor/selectWoo/css/selectWoo.css', array(), '1.0.1' );
+		wp_enqueue_style( 'kirki-selectWoo', trailingslashit( Kirki::$url ) . 'assets/vendor/selectWoo/kirki.css', null );
+
+		// Enqueue the script.
+		wp_enqueue_script(
+			'kirki-script',
+			"{$kirki_url}controls/js/dist/script{$suffix}.js",
+			array(
+				'jquery',
+				'customize-base',
+				'wp-color-picker-alpha',
+				'selectWoo',
+				'jquery-ui-button',
+				'jquery-ui-spinner',
+			),
+			KIRKI_VERSION
+		);
+
+		// Enqueue the style.
+		wp_enqueue_style(
+			'kirki-styles',
+			"{$kirki_url}controls/css/styles.css",
+			array(),
+			KIRKI_VERSION
+		);
 	}
 
 	/**
@@ -87,17 +112,17 @@ class Kirki_Control_Base extends WP_Customize_Control {
 			$this->json['default'] = $this->default;
 		}
 		// Output.
-		$this->json['output']  = $this->output;
+		$this->json['output'] = $this->output;
 		// Value.
-		$this->json['value']   = $this->value();
+		$this->json['value'] = $this->value();
 		// Choices.
 		$this->json['choices'] = $this->choices;
 		// The link.
-		$this->json['link']    = $this->get_link();
+		$this->json['link'] = $this->get_link();
 		// The ID.
-		$this->json['id']      = $this->id;
+		$this->json['id'] = $this->id;
 		// Translation strings.
-		$this->json['l10n']    = $this->l10n();
+		$this->json['l10n'] = $this->l10n();
 		// The ajaxurl in case we need it.
 		$this->json['ajaxurl'] = admin_url( 'admin-ajax.php' );
 		// Input attributes.
@@ -131,10 +156,7 @@ class Kirki_Control_Base extends WP_Customize_Control {
 	 *
 	 * @access protected
 	 */
-	protected function content_template() {
-		// This HTML will be replaced when the control is loaded.
-		echo '<h4>' . esc_attr__( 'Please wait while we load the control', 'hiiwp' ) . '</h4>';
-	}
+	protected function content_template() {}
 
 	/**
 	 * Returns an array of translation strings.

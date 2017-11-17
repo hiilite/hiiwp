@@ -19,7 +19,7 @@ Kirki::add_field( 'hiiwp', array(
     'settings'    => 'blog_layouts',
     'label'       => __( 'Blog Layout', 'hiiwp' ),
     'section'     => $section,
-    'default'     => 'full-width',
+    'default'     => $hiilite_options['blog_layouts'],
     'description' => __('Select the layout type for your blog', 'hiiwp'),
     'priority'    => 1,
     'multiple'    => 1,
@@ -35,7 +35,7 @@ Kirki::add_field( 'hiiwp', array(
 	'settings'    => 'blog_col',
 	'label'       => esc_attr__( 'Columns', 'hiiwp' ),
 	'section'     => $section,
-	'default'     => '2',
+	'default'     => $hiilite_options['blog_col'],
 	'priority'    => 1,
 	'choices'     => array(
 		'2'   => '2 Columns',
@@ -56,7 +56,7 @@ Kirki::add_field( 'hiiwp', array(
     'settings'    => 'blog_full_width',
     'label'       => __( 'Make Blog Roll Full Width', 'hiiwp' ),
     'section'     => $section,
-    'default'     => false,
+    'default'     => $hiilite_options['blog_full_width'],
     'priority'    => 1,
 ) );
 
@@ -65,7 +65,7 @@ Kirki::add_field( 'hiiwp', array(
     'settings'    => 'blog_img_pos',
     'label'       => __( 'Image Position', 'hiiwp' ),
     'section'     => $section,
-    'default'     => 'image-left',
+    'default'     => $hiilite_options['blog_img_pos'],
     'description' => __('Select position of the image', 'hiiwp'),
     'priority'    => 1,
     'multiple'    => 1,
@@ -89,7 +89,7 @@ Kirki::add_field( 'hiiwp', array(
     'settings'    => 'blog_title_position',
     'label'       => __( 'Title Position', 'hiiwp' ),
     'section'     => $section,
-    'default'     => 'title-below',
+    'default'     => $hiilite_options['blog_title_position'],
     'description' => __('Select position of the title', 'hiiwp'),
     'priority'    => 1,
     'multiple'    => 1,
@@ -111,7 +111,7 @@ Kirki::add_field( 'hiiwp', array(
 	'settings'    => 'blog_heading_tag',
 	'label'       => esc_attr__( 'Title Size', 'hiiwp' ),
 	'section'     => $section,
-	'default'     => 'h2',
+	'default'     => $hiilite_options['blog_heading_tag'],
 	'priority'    => 1,
 	'choices'     => array(
 		'h1'    => 'h1',
@@ -134,7 +134,7 @@ Kirki::add_field( 'hiiwp', array(
     'settings'    => 'blog_date_pos',
     'label'       => __( 'Dateline Position', 'hiiwp' ),
     'section'     => $section,
-    'default'     => 'date-above',
+    'default'     => $hiilite_options['blog_date_pos'],
     'description' => __('Select position of the title', 'hiiwp'),
     'priority'    => 1,
     'multiple'    => 1,
@@ -148,7 +148,7 @@ Kirki::add_field( 'hiiwp', array(
     'settings'    => 'blog_cats_show',
     'label'       => __( 'Show Category', 'hiiwp' ),
     'section'     => $section,
-    'default'     => true,
+    'default'     => $hiilite_options['blog_cats_show'],
     'priority'    => 1,
 ) );
 Kirki::add_field( 'hiiwp', array(
@@ -156,7 +156,7 @@ Kirki::add_field( 'hiiwp', array(
     'settings'    => 'blog_meta_show',
     'label'       => __( 'Show Meta Information', 'hiiwp' ),
     'section'     => $section,
-    'default'     => true,
+    'default'     => $hiilite_options['blog_meta_show'],
     'priority'    => 1,
 ) );
 Kirki::add_field( 'hiiwp', array(
@@ -164,7 +164,7 @@ Kirki::add_field( 'hiiwp', array(
     'settings'    => 'blog_excerpt_show',
     'label'       => __( 'Show Excerpt', 'hiiwp' ),
     'section'     => $section,
-    'default'     => true,
+    'default'     => $hiilite_options['blog_excerpt_show'],
     'priority'    => 1,
 ) );
 Kirki::add_field( 'hiiwp', array(
@@ -172,7 +172,7 @@ Kirki::add_field( 'hiiwp', array(
     'settings'    => 'blog_excerpt_len',
     'label'       => __( 'Excerpt Word Length', 'hiiwp' ),
     'section'     => $section,
-    'default'     => '55',
+    'default'     => $hiilite_options['blog_excerpt_len'],
     'priority'    => 1,
     'active_callback'	=> array(
 	    array(
@@ -187,7 +187,7 @@ Kirki::add_field( 'hiiwp', array(
     'settings'    => 'blog_more_show',
     'label'       => __( 'Show More Button', 'hiiwp' ),
     'section'     => $section,
-    'default'     => true,
+    'default'     => $hiilite_options['blog_more_show'],
     'priority'    => 1,
 ) );
 
@@ -196,7 +196,7 @@ Kirki::add_field( 'hiiwp', array(
     'settings'    => 'blog_more_type',
     'label'       => __( 'Show More Button Type', 'hiiwp' ),
     'section'     => $section,
-    'default'     => 'button',
+    'default'     => $hiilite_options['blog_more_type'],
     'priority'    => 1,
     'choices'     => array(
 	    'button' => __('Default Button', 'hiiwp'),
@@ -218,7 +218,7 @@ Kirki::add_field( 'hiiwp', array(
     'settings'    => 'blog_more_text',
     'label'       => __( 'Show More Button Text', 'hiiwp' ),
     'section'     => $section,
-    'default'     => esc_attr__( 'Read More', 'hiiwp'),
+    'default'     => $hiilite_options['blog_more_text'],
     'priority'    => 1,
     'active_callback'	=> array(
 	    array(
@@ -234,7 +234,7 @@ Kirki::add_field( 'hiiwp', array(
     'settings'    => 'blog_sidebar_show',
     'label'       => __( 'Show Blog Sidebar', 'hiiwp' ),
     'section'     => $section,
-    'default'     => true,
+    'default'     => $hiilite_options['blog_sidebar_show'],
     'priority'    => 1,
 ) );	
 ?>

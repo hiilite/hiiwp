@@ -8,16 +8,7 @@ Kirki::add_field( 'hiiwp', array(
     'label'       => esc_attr__( 'Title Style', 'hiiwp' ),
     'description' => __( 'Define styles for page title', 'hiiwp' ),
     'section'     => $section,
-    'default'     => array(
-        'font-family'    => ' ',
-        'variant'        => ' ',
-        'font-size'      => ' ',
-        'line-height'    => '1.5',
-        'letter-spacing' => '0',
-        'text-transform' => ' ',
-        'color'          => ' ',
-        'text-align'	 => ' ',
-    ),
+    'default'     => $hiilite_options['title_font'],
     'priority'    => 1,
     'active_callback'	=> array(
 		array(

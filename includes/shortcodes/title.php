@@ -121,7 +121,7 @@ if (!function_exists('hii_title')) {
 	    $style = " style='".$c.$ff.$fs."'";
 	    if($size == '')$size='h1';
         $html .= '<'.$size.$style.'>'.$text.'</'.$size.'></div>';
-		if($is_linkset)
+		if($link['url'] != NULL && $link['url'] != '')
         {
 	    	$html .= '</a>';    
 	    }

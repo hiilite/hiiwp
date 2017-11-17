@@ -49,7 +49,6 @@ Kirki::add_field( 'hiiwp', array(
 	'section'     => $section,
 	'default'     => '#f8f8f8',
 	'priority'    => 7,
-	'alpha'       => true,
 	'required'	  => array(
 		array(
 		    'setting'  => 'header_top_area_yesno',
@@ -80,7 +79,6 @@ Kirki::add_field( 'hiiwp', array(
     'section'     => $section,
     'priority'    => 7,
     'default'     => '',
-    'alpha'		  => true,
     'required'	  => array(
 		array(
 		    'setting'  => 'header_top_area_yesno',

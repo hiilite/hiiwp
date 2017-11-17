@@ -37,35 +37,61 @@ class Kirki_Control_Select extends Kirki_Control_Base {
 	public $multiple = 1;
 
 	/**
-	 * Returns an array of extra field dependencies for Kirki controls.
-	 *
-	 * @access protected
-	 * @since 3.0.10
-	 * @return array
-	 */
-	protected function kirki_script_dependencies() {
-		return array( 'select2' );
-	}
-
-	/**
-	 * Enqueue control related scripts/styles.
-	 *
-	 * @access public
-	 */
-	public function enqueue() {
-
-		wp_enqueue_script( 'select2', kirki_controls()->get_url( 'vendor/select2/js/select2.full.js' ), array( 'jquery' ), '4.0.3', true );
-		wp_enqueue_style( 'select2', kirki_controls()->get_url( 'vendor/select2/css/select2.css' ), array(), '4.0.3' );
-	}
-
-	/**
 	 * Refresh the parameters passed to the JavaScript via JSON.
 	 *
 	 * @see WP_Customize_Control::to_json()
 	 */
 	public function to_json() {
-
 		parent::to_json();
+
 		$this->json['multiple'] = $this->multiple;
+	}
+
+
+	/**
+	 * An Underscore (JS) template for this control's content (but not its container).
+	 *
+	 * Class variables for this control class are available in the `data` JS object;
+	 * export custom variables by overriding {@see WP_Customize_Control::to_json()}.
+	 *
+	 * @see WP_Customize_Control::print_template()
+	 *
+	 * @access protected
+	 */
+	protected function content_template() {
+		?>
+		<# if ( ! data.choices ) {
+			return;
+		}
+		if ( 1 < data.multiple && data.value && _.isString( data.value ) ) {
+			data.value = [ data.value ];
+		}
+		#>
+		<label>
+			<# if ( data.label ) { #><span class="customize-control-title">{{ data.label }}</span><# } #>
+			<# if ( data.description ) { #><span class="description customize-control-description">{{{ data.description }}}</span><# } #>
+			<select {{{ data.inputAttrs }}} {{{ data.link }}}<# if ( 1 < data.multiple ) { #> data-multiple="{{ data.multiple }}" multiple="multiple"<# } #>>
+				<# _.each( data.choices, function( optionLabel, optionKey ) { #>
+					<# selected = ( data.value === optionKey ); #>
+					<# if ( 1 < data.multiple && data.value ) { #>
+						<# selected = _.contains( data.value, optionKey ); #>
+					<# } #>
+					<# if ( _.isObject( optionLabel ) ) { #>
+						<optgroup label="{{ optionLabel[0] }}">
+							<# _.each( optionLabel[1], function( optgroupOptionLabel, optgroupOptionKey ) { #>
+								<# selected = ( data.value === optgroupOptionKey ); #>
+								<# if ( 1 < data.multiple && data.value ) { #>
+									<# selected = _.contains( data.value, optgroupOptionKey ); #>
+								<# } #>
+								<option value="{{ optgroupOptionKey }}"<# if ( selected ) { #> selected <# } #>>{{ optgroupOptionLabel }}</option>
+							<# }); #>
+						</optgroup>
+					<# } else { #>
+						<option value="{{ optionKey }}"<# if ( selected ) { #> selected <# } #>>{{ optionLabel }}</option>
+					<# } #>
+				<# }); #>
+			</select>
+		</label>
+		<?php
 	}
 }

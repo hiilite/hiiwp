@@ -264,9 +264,6 @@ Kirki::add_field( 'hiiwp', array(
 	'section'     => 'portfolio_piece_section',
 	'default'     => $hiilite_options['portfolio_background'],
 	'priority'    => 1,
-	'choices'     => array(
-		'alpha' => true,
-	),
 	'active_callback'	=> array(
 		array(
 			'setting'  => 'portfolio_template',
@@ -282,9 +279,6 @@ Kirki::add_field( 'hiiwp', array(
 	'section'     => 'portfolio_piece_section',
 	'default'     => $hiilite_options['portfolio_panel_background'],
 	'priority'    => 1,
-	'choices'     => array(
-		'alpha' => true,
-	),
 	'active_callback'	=> array(
 		array(
 			'setting'  => 'portfolio_template',

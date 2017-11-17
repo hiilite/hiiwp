@@ -31,6 +31,8 @@ class HiiWP_Hooks extends Hii {
 		'hii_after_blog_loop',
 		'hii_before_sidebar',
 		'hii_after_sidebar',
+		'before_page_title',
+		'after_page_title'
 		
 	);
 	/**
@@ -67,6 +69,7 @@ class HiiWP_Hooks extends Hii {
 					return;
 			});
 		}
+		
 	}
 	
 		

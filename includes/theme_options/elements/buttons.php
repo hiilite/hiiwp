@@ -50,7 +50,6 @@ Kirki::add_field( 'hiiwp', array(
     ),
     'default'     => $hiilite_options['typography_button_default_background'],
 	'priority'    => 1,
-	'alpha'       => true,
 ) );
 Kirki::add_field( 'hiiwp', array(
 	'type'        => 'multicolor',
@@ -63,7 +62,6 @@ Kirki::add_field( 'hiiwp', array(
     ),
 	'default'     => $hiilite_options['typography_button_default_border_color'],
 	'priority'    => 1,
-	'alpha'       => true,
 ) );
 Kirki::add_field( 'hiiwp', array(
 	'type'        => 'spacing',
@@ -151,7 +149,6 @@ Kirki::add_field( 'hiiwp', array(
     ),
 	'default'     => $hiilite_options['typography_button_primary_background'],
 	'priority'    => 2,
-	'alpha'       => true,
 ) );
 Kirki::add_field( 'hiiwp', array(
 	'type'        => 'spacing',
@@ -178,7 +175,6 @@ Kirki::add_field( 'hiiwp', array(
     ),
 	'default'     => $hiilite_options['typography_button_primary_border_color'],
 	'priority'    => 2,
-	'alpha'       => true,
 ) );
 Kirki::add_field( 'hiiwp', array(
 	'type'        => 'dimension',
@@ -247,7 +243,6 @@ Kirki::add_field( 'hiiwp', array(
     ),
 	'default'     => $hiilite_options['typography_button_secondary_background'],
 	'priority'    => 3,
-	'alpha'       => true,
 ) );
 Kirki::add_field( 'hiiwp', array(
 	'type'        => 'spacing',
@@ -274,7 +269,6 @@ Kirki::add_field( 'hiiwp', array(
     ),
 	'default'     => $hiilite_options['typography_button_secondary_border_color'],
 	'priority'    => 3,
-	'alpha'       => true,
 ) );
 Kirki::add_field( 'hiiwp', array(
 	'type'        => 'dimension',
