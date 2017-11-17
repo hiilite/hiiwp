@@ -25,7 +25,7 @@ $verified = wc_review_is_from_verified_owner( $comment->comment_ID );
 
 if ( '0' === $comment->comment_approved ) { ?>
 
-	<p class="meta"><em class="woocommerce-review__awaiting-approval"><?php esc_attr_e( 'Your review is awaiting approval', 'woocommerce' ); ?></em></p>
+	<p class="meta"><em class="woocommerce-review__awaiting-approval"><?php esc_attr_e( 'Your review is awaiting approval', 'hiiwp' ); ?></em></p>
 
 <?php } else { ?>
 
@@ -33,7 +33,7 @@ if ( '0' === $comment->comment_approved ) { ?>
 		<strong class="woocommerce-review__author" itemprop="author"><?php comment_author(); ?></strong> <?php
 
 		if ( 'yes' === get_option( 'woocommerce_review_rating_verification_label' ) && $verified ) {
-			echo '<em class="woocommerce-review__verified verified">(' . esc_attr__( 'verified owner', 'woocommerce' ) . ')</em> ';
+			echo '<em class="woocommerce-review__verified verified">(' . esc_attr__( 'verified owner', 'hiiwp' ) . ')</em> ';
 		}
 
 		?><span class="woocommerce-review__dash">&ndash;</span> <time class="woocommerce-review__published-date" itemprop="datePublished" datetime="<?php echo get_comment_date( 'c' ); ?>"><?php echo get_comment_date( wc_date_format() ); ?></time>

@@ -19,10 +19,12 @@ if( isset($post) && ( get_post_meta(get_the_id(), 'show_page_title', true) != 'h
 		
 		if($page_title != ''){
 		?>
-		<div class="page-title" style="<?=($page_bg_img)?'background-image:url('.$page_bg_img[0].');':'';?><?=($page_bg_img)?'background-color:'.$page_bg_img[0].';':'';?>">
+		<div class="page-title" style="<?php echo ($page_bg_img)?'background-image:url('.$page_bg_img[0].');':'';?><?php echo ($page_bg_img)?'background-color:'.$page_bg_img[0].';':'';?>">
 			<div class="container_inner">
 				<div class="in_grid content-box">
-					<h1 style="<?=($page_title_color)?'color:'.$page_title_color.';':'';?>"><?php echo $page_title; ?></h1>
+					<?php do_action( 'before_page_title' );?>
+					<h1 style="<?php echo ($page_title_color)?'color:'.$page_title_color.';':'';?>"><?php echo $page_title; ?></h1>
+					<?php do_action( 'after_page_title' ); ?>
 				</div>
 			</div>
 		</div>

@@ -43,7 +43,7 @@ class HiiWP_Sidebars {
 		register_sidebar( array(
 	        'name' => __( 'Blog Sidebar', 'hiiwp' ),
 	        'id' => 'blog_sidebar',
-	        'description' => __( 'Shows in the right sidebar of the blog page', 'hiilite' ),
+	        'description' => __( 'Shows in the right sidebar of the blog page', 'hiiwp' ),
 	        'before_widget' => '<div id="%1$s" class="flex-item widget %2$s">',
 		'after_widget'  => '</div>',
 		'before_title'  => '<h4 class="widgettitle">',
@@ -53,7 +53,7 @@ class HiiWP_Sidebars {
 	    register_sidebar( array(
 	        'name' => __( 'Header Top Left', 'hiiwp' ),
 	        'id' => 'header_top_left',
-	        'description' => __( 'Widgets in this area will be shown in the top header above the logo', 'theme-slug' ),
+	        'description' => __( 'Widgets in this area will be shown in the top header above the logo', 'hiiwp' ),
 	        'before_widget' => '<div id="%1$s" class="flex-item %2$s">',
 		'after_widget'  => '</div>',
 		'before_title'  => '<h4 class="widgettitle">',
@@ -63,7 +63,7 @@ class HiiWP_Sidebars {
 	    register_sidebar( array(
 	        'name' => __( 'Header Top Center', 'hiiwp' ),
 	        'id' => 'header_top_center',
-	        'description' => __( 'Widgets in this area will be shown in the top header above the logo', 'theme-slug' ),
+	        'description' => __( 'Widgets in this area will be shown in the top header above the logo', 'hiiwp' ),
 	        'before_widget' => '<div id="%1$s" class="flex-item %2$s">',
 		'after_widget'  => '</div>',
 		'before_title'  => '<h4 class="widgettitle">',
@@ -73,7 +73,7 @@ class HiiWP_Sidebars {
 	    register_sidebar( array(
 	        'name' => __( 'Header Top Right', 'hiiwp' ),
 	        'id' => 'header_top_right',
-	        'description' => __( 'Widgets in this area will be shown in the top header above the logo', 'theme-slug' ),
+	        'description' => __( 'Widgets in this area will be shown in the top header above the logo', 'hiiwp' ),
 	        'before_widget' => '<div id="%1$s" class="flex-item align-right %2$s">',
 		'after_widget'  => '</div>',
 		'before_title'  => '<h4 class="widgettitle">',
@@ -83,7 +83,7 @@ class HiiWP_Sidebars {
 	    register_sidebar( array(
 	        'name' => __( 'Header Center Left', 'hiiwp' ),
 	        'id' => 'header_center_left',
-	        'description' => __( 'Widgets in this area will be shown in the header on the left of the logo', 'theme-slug' ),
+	        'description' => __( 'Widgets in this area will be shown in the header on the left of the logo', 'hiiwp' ),
 	        'before_widget' => '<div id="%1$s" class="flex-item align-left %2$s">',
 		'after_widget'  => '</div>',
 		'before_title'  => '<h4 class="widgettitle">',
@@ -93,7 +93,7 @@ class HiiWP_Sidebars {
 	    register_sidebar( array(
 	        'name' => __( 'Header Center Right', 'hiiwp' ),
 	        'id' => 'header_center_right',
-	        'description' => __( 'Widgets in this area will be shown in the header on the right of the logo', 'theme-slug' ),
+	        'description' => __( 'Widgets in this area will be shown in the header on the right of the logo', 'hiiwp' ),
 	        'before_widget' => '<div id="%1$s" class="flex-item align-left %2$s">',
 		'after_widget'  => '</div>',
 		'before_title'  => '<h4 class="widgettitle">',
@@ -103,7 +103,7 @@ class HiiWP_Sidebars {
 	    register_sidebar( array(
 	        'name' => __( 'Header Bottom Left', 'hiiwp' ),
 	        'id' => 'header_bottom_left',
-	        'description' => __( 'Widgets in this area will be shown to the left in the header under the menu', 'theme-slug' ),
+	        'description' => __( 'Widgets in this area will be shown to the left in the header under the menu', 'hiiwp' ),
 	        'before_widget' => '<div id="%1$s" class="flex-item align-center %2$s">',
 		'after_widget'  => '</div>',
 		'before_title'  => '<h4 class="widgettitle">',
@@ -113,7 +113,7 @@ class HiiWP_Sidebars {
 	    register_sidebar( array(
 	        'name' => __( 'Header Bottom Right', 'hiiwp' ),
 	        'id' => 'header_bottom_right',
-	        'description' => __( 'Widgets in this area will be shown to the right in the header under the menu', 'theme-slug' ),
+	        'description' => __( 'Widgets in this area will be shown to the right in the header under the menu', 'hiiwp' ),
 	        'before_widget' => '<div id="%1$s" class="flex-item align-center %2$s">',
 		'after_widget'  => '</div>',
 		'before_title'  => '<h4 class="widgettitle">',
@@ -124,7 +124,7 @@ class HiiWP_Sidebars {
 	    register_sidebar( array(
 	        'name' => __( 'Footer Column 1', 'hiiwp' ),
 	        'id' => 'footer_column_1',
-	        'description' => __( 'Footer Column 1', 'theme-slug' ),
+	        'description' => __( 'Footer Column 1', 'hiiwp' ),
 	        'before_widget' => '<div id="%1$s" class="flex-item  %2$s">',
 		'after_widget'  => '</div>',
 		'before_title'  => '<h4 class="widgettitle">',
@@ -134,7 +134,7 @@ class HiiWP_Sidebars {
 	    register_sidebar( array(
 	        'name' => __( 'Footer Column 2', 'hiiwp' ),
 	        'id' => 'footer_column_2',
-	        'description' => __( 'Footer Column 2', 'theme-slug' ),
+	        'description' => __( 'Footer Column 2', 'hiiwp' ),
 	        'before_widget' => '<div id="%1$s" class="flex-item  %2$s">',
 		'after_widget'  => '</div>',
 		'before_title'  => '<h4 class="widgettitle">',
@@ -144,7 +144,7 @@ class HiiWP_Sidebars {
 	    register_sidebar( array(
 	        'name' => __( 'Footer Column 3', 'hiiwp' ),
 	        'id' => 'footer_column_3',
-	        'description' => __( 'Footer Column 3', 'theme-slug' ),
+	        'description' => __( 'Footer Column 3', 'hiiwp' ),
 	        'before_widget' => '<div id="%1$s" class="flex-item %2$s">',
 		'after_widget'  => '</div>',
 		'before_title'  => '<h4 class="widgettitle">',
@@ -154,7 +154,7 @@ class HiiWP_Sidebars {
 	    register_sidebar( array(
 	        'name' => __( 'Footer Column 4', 'hiiwp' ),
 	        'id' => 'footer_column_4',
-	        'description' => __( 'Footer Column 4', 'theme-slug' ),
+	        'description' => __( 'Footer Column 4', 'hiiwp' ),
 	        'before_widget' => '<div id="%1$s" class="flex-item %2$s">',
 		'after_widget'  => '</div>',
 		'before_title'  => '<h4 class="widgettitle">',
@@ -164,7 +164,7 @@ class HiiWP_Sidebars {
 	     register_sidebar( array(
 	        'name' => __( 'Footer Bottom Center', 'hiiwp' ),
 	        'id' => 'footer_bottom_center',
-	        'description' => __( 'Footer Bottom Center', 'theme-slug' ),
+	        'description' => __( 'Footer Bottom Center', 'hiiwp' ),
 	        'before_widget' => '<div id="%1$s" class="flex-item %2$s">',
 		'after_widget'  => '</div>',
 		'before_title'  => '<h4 class="widgettitle">',
@@ -174,7 +174,7 @@ class HiiWP_Sidebars {
 	    register_sidebar( array(
 	        'name' => __( 'Footer Bottom Left', 'hiiwp' ),
 	        'id' => 'footer_bottom_left',
-	        'description' => __( 'Footer Bottom Left', 'theme-slug' ),
+	        'description' => __( 'Footer Bottom Left', 'hiiwp' ),
 	        'before_widget' => '<div id="%1$s" class="flex-item %2$s">',
 		'after_widget'  => '</div>',
 		'before_title'  => '<h4 class="widgettitle">',
@@ -184,7 +184,7 @@ class HiiWP_Sidebars {
 	    register_sidebar( array(
 	        'name' => __( 'Footer Bottom Right', 'hiiwp' ),
 	        'id' => 'footer_bottom_right',
-	        'description' => __( 'Footer Bottom Right', 'theme-slug' ),
+	        'description' => __( 'Footer Bottom Right', 'hiiwp' ),
 	        'before_widget' => '<div id="%1$s" class="flex-item %2$s">',
 		'after_widget'  => '</div>',
 		'before_title'  => '<h4 class="widgettitle">',
@@ -196,7 +196,7 @@ class HiiWP_Sidebars {
 	    register_sidebar( array(
 	        'name' => __( 'Single Post Sidebar', 'hiiwp' ),
 	        'id' => 'post_sidebar',
-	        'description' => __( 'Shows in the right sidebar of a post', 'hiilite' ),
+	        'description' => __( 'Shows in the right sidebar of a post', 'hiiwp' ),
 	        'before_widget' => '<div id="%1$s" class="flex-item widget %2$s">',
 		'after_widget'  => '</div>',
 		'before_title'  => '<h4 class="widgettitle">',
@@ -206,7 +206,7 @@ class HiiWP_Sidebars {
 	    register_sidebar( array(
 	        'name' => __( 'Post Bottom', 'hiiwp' ),
 	        'id' => 'post_bottom',
-	        'description' => __( 'Shows at the bottom of a post', 'hiilite' ),
+	        'description' => __( 'Shows at the bottom of a post', 'hiiwp' ),
 	        'before_widget' => '<div id="%1$s" class="flex-item widget %2$s">',
 		'after_widget'  => '</div>',
 		'before_title'  => '<h4 class="widgettitle">',
@@ -217,12 +217,34 @@ class HiiWP_Sidebars {
 	    register_sidebar( array(
 	        'name' => __( 'Custom Sidebar', 'hiiwp' ),
 	        'id' => 'custom_sidebar_1',
-	        'description' => __( 'Use within visual composer using the Widgitized Sidebar element', 'hiilite' ),
+	        'description' => __( 'Use within visual composer using the Widgitized Sidebar element', 'hiiwp' ),
 	        'before_widget' => '<div id="%1$s" class="flex-item widget %2$s">',
 		'after_widget'  => '</div>',
 		'before_title'  => '<h4 class="widgettitle">',
 		'after_title'   => '</h4>',
 	    ) );
+	    
+	    if(class_exists('WooCommerce')){
+		    register_sidebar( array(
+		        'name' => __( 'Shop Sidebar', 'hiiwp' ),
+		        'id' => 'shop_sidebar',
+		        'description' => __( 'Shows on your WooCommerce Shop page', 'hiiwp' ),
+		        'before_widget' => '<div id="%1$s" class="flex-item widget %2$s">',
+				'after_widget'  => '</div>',
+				'before_title'  => '<h4 class="widgettitle">',
+				'after_title'   => '</h4>',
+		    ) );
+
+		    register_sidebar( array(
+		        'name' => __( 'Product Sidebar', 'hiiwp' ),
+		        'id' => 'product_sidebar',
+		        'description' => __( 'Shows on the single product page', 'hiiwp' ),
+		        'before_widget' => '<div id="%1$s" class="flex-item widget %2$s">',
+				'after_widget'  => '</div>',
+				'before_title'  => '<h4 class="widgettitle">',
+				'after_title'   => '</h4>',
+		    ) );
+	    }
 	    
 	   
 	}

@@ -177,7 +177,7 @@ if ( ! class_exists( 'CMB2_Bootstrap_225_Trunk', false ) ) {
 			}
 
 			if ( ! $loaded ) {
-				$locale = apply_filters( 'plugin_locale', get_locale(), 'cmb2' );
+				$locale = apply_filters( 'plugin_locale', get_locale(), 'hiiwp' );
 				$mofile = dirname( __FILE__ ) . '/languages/cmb2-' . $locale . '.mo';
 				load_textdomain( 'cmb2', $mofile );
 			}

@@ -315,11 +315,11 @@ class HiiWP_Schema {
 			
 		?>
 		<meta property="op:markup_version" content="v1.0">
-		<meta property="og:title" content="<?=$page_title?>">
-		<meta property="og:url" content="<?='https://'.$_SERVER["HTTP_HOST"].$_SERVER["REQUEST_URI"]?>">
-		<meta property="og:image" content="<?=$page_image?>">
-		<meta property="og:description" content="<?=$page_description?>">
-		<meta property="og:site_name" content="<?=$brand_title?>">
+		<meta property="og:title" content="<?php echo $page_title?>">
+		<meta property="og:url" content="<?php echo 'https://'.$_SERVER["HTTP_HOST"].$_SERVER["REQUEST_URI"]?>">
+		<meta property="og:image" content="<?php echo $page_image?>">
+		<meta property="og:description" content="<?php echo $page_description?>">
+		<meta property="og:site_name" content="<?php echo $brand_title?>">
 		<?php
 		if((isset($options['business_type'])) && (in_array($options['business_type'], array('FoodEstablishment', 'Bakery','BarOrPub','Brewery', 'CafeOrCoffeeShop', 'FastFoodRestaurant', 'IceCreamShop', 'Restaurant', 'Winery')))){
 			
@@ -389,7 +389,7 @@ class HiiWP_Schema {
 		  "@context" : "http://schema.org",
 		  "@type" : "WebSite",';
 	 		if(isset($options['business_name']))$WebSite .= ' "name" : "'.$options['business_name'].'",';
-		 $WebSite .= '"url" : "'.get_bloginfo('url').'"';
+		 $WebSite .= '"url" : "'.home_url().'"';
 		$WebSite .= '}</script>';
 		echo $WebSite;
 		
@@ -401,7 +401,7 @@ class HiiWP_Schema {
 		$html = '<script type="application/ld+json">{
 			"@context" : "http://schema.org",
 			"@type" : "Organization",';
-		$html .= '"url" : "'.get_bloginfo('url').'",';
+		$html .= '"url" : "'.home_url().'",';
 		if(isset($options['business_logo']))$html .= '"logo" : "'.$options['business_logo'].'",';
 		if(isset($options['business_email']))$html .= '"email" : "'.$options['business_email'].'",';
 		if(isset($options['business_faxNumber']))$html .= '"faxNumber" : "'.$options['business_faxNumber'].'",';
@@ -447,7 +447,7 @@ class HiiWP_Schema {
 			$html = '<script type="application/ld+json">{
 			  "@context" : "http://schema.org",
 			  "@type" : "'.$options['business_type'].'",';
-			$html .= '"url" : "'.get_bloginfo('url').'",';
+			$html .= '"url" : "'.home_url().'",';
 			 
 			if(isset($options['business_logo']))$html .= '"logo" : "'.$options['business_logo'].'",';
 			if(isset($options['business_logo']))$html .= '"image" : "'.$options['business_logo'].'",';

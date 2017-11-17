@@ -19,9 +19,12 @@
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
 }
+get_header( 'shop' );
 
-get_header( 'shop' ); ?>
-	<header class="woocommerce-products-header page-title">
+$page_bg_color = (get_post_meta ( get_the_ID(), 'page_title_bg', true))?get_post_meta ( get_the_ID(), 'page_title_bg', true):false;
+$page_bg_img = (get_post_meta ( $post->ID, 'page_title_bgimg', false))?get_post_meta ( $post->ID, 'page_title_bgimg'):false;
+ ?>
+	<header class="woocommerce-products-header page-title" style="<?=($page_bg_img)?'background-image:url('.$page_bg_img[0].');':'';?><?=($page_bg_color)?'background-color:'.$page_bg_color.';':'';?>">
 		<div class="in_grid content-box">
 	<?php
 		/**
@@ -34,7 +37,7 @@ get_header( 'shop' ); ?>
 	?>
 		</div>
     </header>
-	<div class="row ">
+	<div id="product-<?php the_ID(); ?>" <?php post_class('row'); ?>>
 		<div class="in_grid content-box">
 	
 		<?php while ( have_posts() ) : the_post(); ?>
@@ -50,15 +53,6 @@ get_header( 'shop' ); ?>
 		 * @hooked woocommerce_output_content_wrapper_end - 10 (outputs closing divs for the content)
 		 */
 		do_action( 'woocommerce_after_main_content' );
-	?>
-	
-	<?php
-		/**
-		 * woocommerce_sidebar hook.
-		 *
-		 * @hooked woocommerce_get_sidebar - 10
-		 */
-		do_action( 'woocommerce_sidebar' );
 	?>
 		</div>
 	</div>

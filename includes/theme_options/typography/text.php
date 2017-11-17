@@ -8,25 +8,17 @@ $section = 'typography_text_section';
 Kirki::add_field( 'hiiwp', array(
     'type'        => 'typography',
     'settings'    => 'text_font',
-    'label'       => esc_attr__( 'Paragraph Font', 'kirki' ),
-    'description' => __( 'Define styles for paragraph text' ),
+    'label'       => esc_attr__( 'Paragraph Font', 'hiiwp' ),
+    'description' => __( 'Define styles for paragraph text', 'hiiwp' ),
     'section'     => $section,
-    'default'     => array(
-        'font-family'    => ' ',
-        'variant'        => ' ',
-        'font-size'      => ' ',
-        'line-height'    => ' ',
-        'letter-spacing' => '0px',
-        'text-transform' => ' ',
-        'color'          => ' ',
-    ),
+    'default'     => $hiilite_options['text_font'],
     'priority'    => 1,
 ) );
 Kirki::add_field( 'hiiwp', array(
     'type'        => 'dimension',
     'settings'    => 'text_margin',
-    'label'       => esc_attr__( 'Paragraph Bottom Margin', 'kirki' ),
-    'description' => __( 'Define the paragraph tags margin-bottom' ),
+    'label'       => esc_attr__( 'Paragraph Bottom Margin', 'hiiwp' ),
+    'description' => __( 'Define the paragraph tags margin-bottom', 'hiiwp' ),
     'section'     => $section,
     'default'     => '1em',
     'priority'    => 1,
@@ -49,8 +41,8 @@ Kirki::add_field( 'hiiwp', array(
 Kirki::add_field( 'hiiwp', array(
 	'type'        => 'multicolor',
 	'settings'    => 'link_color',
-	'label'       => __( 'Link Colors', 'my_textdomain' ),
-	'description' => __('Define styles for link text'),
+	'label'       => __( 'Link Colors', 'hiiwp' ),
+	'description' => __('Define styles for link text', 'hiiwp'),
 	'section'     => $section,
 	'priority'    => 1,
 	'choices'     => array(
@@ -65,7 +57,7 @@ Kirki::add_field( 'hiiwp', array(
 Kirki::add_field( 'hiiwp', array(
 	'type'        => 'code',
 	'settings'    => 'typography_link_custom_css',
-	'label'       => __( 'Link Custom CSS (a)', 'my_textdomain' ),
+	'label'       => __( 'Link Custom CSS (a)', 'hiiwp' ),
 	'section'     => $section,
 	'default'     => '{
 	text-decoration:none;
@@ -88,8 +80,8 @@ Kirki::add_field( 'hiiwp', array(
 Kirki::add_field( 'hiiwp', array(
 	'type'        => 'code',
 	'settings'    => 'custom_format_1',
-	'label'       => __( 'Custom Format 1 (.custom_format_1)', 'my_textdomain' ),
-	'description' => __( 'Custom format that can be used in the visual editor', 'textdomain' ),
+	'label'       => __( 'Custom Format 1 (.custom_format_1)', 'hiiwp' ),
+	'description' => __( 'Custom format that can be used in the visual editor', 'hiiwp' ),
 	'section'     => $section,
 	'default'     => '',
 	'priority'    => 1,
@@ -97,14 +89,13 @@ Kirki::add_field( 'hiiwp', array(
 		'language' => 'css',
 		'theme'    => 'monokai',
 		'height'   => '100',
-	),
-	'output' => '.custom_format_1',
+	)
 ) );
 Kirki::add_field( 'hiiwp', array(
 	'type'        => 'code',
 	'settings'    => 'custom_format_2',
-	'label'       => __( 'Custom Format 2 (.custom_format_2)', 'my_textdomain' ),
-	'description' => __( 'Custom format that can be used in the visual editor', 'textdomain' ),
+	'label'       => __( 'Custom Format 2 (.custom_format_2)', 'hiiwp' ),
+	'description' => __( 'Custom format that can be used in the visual editor', 'hiiwp' ),
 	'section'     => $section,
 	'default'     => '',
 	'priority'    => 1,
@@ -112,14 +103,13 @@ Kirki::add_field( 'hiiwp', array(
 		'language' => 'css',
 		'theme'    => 'monokai',
 		'height'   => '100',
-	),
-	'output' => '.custom_format_2',
+	)
 ) );
 Kirki::add_field( 'hiiwp', array(
 	'type'        => 'code',
 	'settings'    => 'custom_format_3',
-	'label'       => __( 'Custom Format 3 (.custom_format_3)', 'my_textdomain' ),
-	'description' => __( 'Custom format that can be used in the visual editor', 'textdomain' ),
+	'label'       => __( 'Custom Format 3 (.custom_format_3)', 'hiiwp' ),
+	'description' => __( 'Custom format that can be used in the visual editor', 'hiiwp' ),
 	'section'     => $section,
 	'default'     => '',
 	'priority'    => 1,
@@ -127,7 +117,6 @@ Kirki::add_field( 'hiiwp', array(
 		'language' => 'css',
 		'theme'    => 'monokai',
 		'height'   => '100',
-	),
-	'output' => '.custom_format_3',
+	)
 ) );
 ?>

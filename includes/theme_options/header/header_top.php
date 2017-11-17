@@ -3,8 +3,8 @@ $section = 'header_header_top_section';
 
 Kirki::add_section( $section, array(
     'priority'    => 1,
-    'title'       => __( 'Header Top', 'textdomain' ),
-    'description' => __( 'Header Top settings', 'textdomain' ),
+    'title'       => __( 'Header Top', 'hiiwp' ),
+    'description' => __( 'Header Top settings', 'hiiwp' ),
     'panel'		 => 'header_panel',
 ) );
 
@@ -45,11 +45,10 @@ Kirki::add_field( 'hiiwp', array(
 	'type'        => 'color',
 	'settings'    => 'header_top_background_color',
 	'label'       => __( 'Header Top Background Color', 'hiiwp' ),
-	'description' => __('Choose a background color for Header Top area'),
+	'description' => __('Choose a background color for Header Top area', 'hiiwp'),
 	'section'     => $section,
 	'default'     => '#f8f8f8',
 	'priority'    => 7,
-	'alpha'       => true,
 	'required'	  => array(
 		array(
 		    'setting'  => 'header_top_area_yesno',
@@ -76,11 +75,10 @@ Kirki::add_field( 'hiiwp', array(
 	'type'        => 'color',
     'settings'    => 'top_header_border_color',
     'label'       => __( 'Header Top Bottom Border Color', 'hiiwp' ),
-    'description' => __('Define bottom border color for Header Top'),
+    'description' => __('Define bottom border color for Header Top', 'hiiwp'),
     'section'     => $section,
     'priority'    => 7,
     'default'     => '',
-    'alpha'		  => true,
     'required'	  => array(
 		array(
 		    'setting'  => 'header_top_area_yesno',
@@ -133,7 +131,7 @@ Kirki::add_field( 'hiiwp', array(
 Kirki::add_field( 'hiiwp', array(
 	'type'        => 'spacing',
 	'settings'    => 'top_header_area_padding',
-	'label'       => __( 'Header Top Padding', 'my_textdomain' ),
+	'label'       => __( 'Header Top Padding', 'hiiwp' ),
 	'section'     => $section,
 	'default'     => array(
 		'top'    => '0.5em',

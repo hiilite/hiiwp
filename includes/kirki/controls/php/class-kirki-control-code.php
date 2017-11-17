@@ -31,42 +31,32 @@ class Kirki_Control_Code extends Kirki_Control_Base {
 	public $type = 'kirki-code';
 
 	/**
-	 * Enqueue control related scripts/styles.
+	 * An Underscore (JS) template for this control's content (but not its container).
 	 *
-	 * @access public
+	 * Class variables for this control class are available in the `data` JS object;
+	 * export custom variables by overriding {@see WP_Customize_Control::to_json()}.
+	 *
+	 * @see WP_Customize_Control::print_template()
+	 *
+	 * @access protected
 	 */
-	public function enqueue() {
-
-		// Register codemirror.
-		wp_register_script( 'codemirror', kirki_controls()->get_url( 'vendor/codemirror/lib/codemirror.js' ), array( 'jquery' ) );
-		wp_enqueue_script( 'kirki', kirki_controls()->get_url( 'js/kirki.js' ), array( 'jquery', 'customize-base' ), false, true );
-
-		// If we're using html mode, we'll also need to include the multiplex addon
-		// as well as dependencies for XML, JS, CSS languages.
-		switch ( $this->choices['language'] ) {
-			case 'html':
-			case 'htmlmixed':
-				wp_enqueue_script( 'codemirror-multiplex', kirki_controls()->get_url( 'vendor/codemirror/addon/mode/multiplex.js' ), array( 'jquery', 'codemirror' ) );
-				wp_enqueue_script( 'codemirror-language-xml', kirki_controls()->get_url( 'vendor/codemirror/mode/xml/xml.js' ), array( 'jquery', 'codemirror' ) );
-				wp_enqueue_script( 'codemirror-language-javascript', kirki_controls()->get_url( 'vendor/codemirror/mode/javascript/javascript.js' ), array( 'jquery', 'codemirror' ) );
-				wp_enqueue_script( 'codemirror-language-css', kirki_controls()->get_url( 'vendor/codemirror/mode/css/css.js' ), array( 'jquery', 'codemirror' ) );
-				wp_enqueue_script( 'codemirror-language-htmlmixed', kirki_controls()->get_url( 'vendor/codemirror/mode/htmlmixed/htmlmixed.js' ), array( 'jquery', 'codemirror', 'codemirror-multiplex', 'codemirror-language-xml', 'codemirror-language-javascript', 'codemirror-language-css' ) );
-				break;
-			case 'php':
-				wp_enqueue_script( 'codemirror-language-xml', kirki_controls()->get_url( 'vendor/codemirror/mode/xml/xml.js' ), array( 'jquery', 'codemirror' ) );
-				wp_enqueue_script( 'codemirror-language-clike', kirki_controls()->get_url( 'vendor/codemirror/mode/clike/clike.js' ), array( 'jquery', 'codemirror' ) );
-				wp_enqueue_script( 'codemirror-language-php', kirki_controls()->get_url( 'vendor/codemirror/mode/php/php.js' ), array( 'jquery', 'codemirror', 'codemirror-language-xml', 'codemirror-language-clike' ) );
-				break;
-			default:
-				// Add language script.
-				wp_enqueue_script( 'codemirror-language-' . $this->choices['language'], kirki_controls()->get_url( 'vendor/codemirror/mode/' . $this->choices['language'] . '/' . $this->choices['language'] . '.js' ), array( 'jquery', 'codemirror' ) );
-				break;
+	protected function content_template() {
+		global $wp_version;
+		// If we're on WP 4.9+, then we don't need to add anything here.
+		if ( version_compare( $wp_version, '4.9-beta' ) >= 0 ) {
+			return;
 		}
+		?>
+		<label>
+			<# if ( data.label ) { #><span class="customize-control-title">{{{ data.label }}}</span><# } #>
+			<!-- Hardcoded error message for older WordPress versions. -->
+			<ul><li class="notice notice-warning"><?php esc_attr_e( 'Update to WordPress 4.9 or greater for syntax highlighting.', 'kirki' ); ?></li></ul>
 
-		// Add theme styles.
-		wp_enqueue_style( 'codemirror-theme-' . $this->choices['theme'], kirki_controls()->get_url( 'vendor/codemirror/theme/' . $this->choices['theme'] . '.css' ) );
-
-		wp_enqueue_script( 'kirki-code', kirki_controls()->get_url( 'js/code.js' ), array( 'jquery', 'customize-base', 'kirki', 'codemirror' ), false, true );
-		wp_enqueue_style( 'kirki-styles', kirki_controls()->get_url( 'css/styles.css' ), null );
+			<# if ( data.description ) { #><span class="description customize-control-description">{{{ data.description }}}</span><# } #>
+			<div class="codemirror-kirki-wrapper">
+				<textarea {{{ data.inputAttrs }}} data-language="{{ data.choices.language }}" class="kirki-codemirror-editor" {{{ data.link }}}>{{{ data.value }}}</textarea>
+			</div>
+		</label>
+		<?php
 	}
 }

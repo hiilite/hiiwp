@@ -19,5 +19,10 @@
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
 }
-
-get_sidebar( 'shop' ); ?>
+if ( Hii::$options['shop_sidebar_show'] == true ) : ?>
+<div id="shop_sidebar" class="widget-area col-3 sidebar" role="complementary">
+	<?php
+		dynamic_sidebar( 'shop_sidebar' );
+	?>
+</div>
+<?php endif; ?>

@@ -36,25 +36,41 @@ class Kirki_Control_Multicolor extends Kirki_Control_Base {
 	public $alpha = true;
 
 	/**
-	 * Returns an array of extra field dependencies for Kirki controls.
+	 * An Underscore (JS) template for this control's content (but not its container).
+	 *
+	 * Class variables for this control class are available in the `data` JS object;
+	 * export custom variables by overriding {@see WP_Customize_Control::to_json()}.
+	 *
+	 * @see WP_Customize_Control::print_template()
 	 *
 	 * @access protected
-	 * @since 3.0.10
-	 * @return array
 	 */
-	protected function kirki_script_dependencies() {
-		return array( 'wp-color-picker-alpha' );
-	}
-
-	/**
-	 * Enqueue control related scripts/styles.
-	 *
-	 * @access public
-	 */
-	public function enqueue() {
-
-		wp_enqueue_script( 'wp-color-picker-alpha', kirki_controls()->get_url( 'vendor/wp-color-picker-alpha/wp-color-picker-alpha.js' ), array( 'wp-color-picker' ), '1.2', true );
-		wp_enqueue_style( 'wp-color-picker' );
-		parent::enqueue();
+	protected function content_template() {
+		?>
+		<span class="customize-control-title">
+			{{{ data.label }}}
+		</span>
+		<# if ( data.description ) { #>
+			<span class="description customize-control-description">{{{ data.description }}}</span>
+		<# } #>
+		<div class="multicolor-group-wrapper">
+			<# for ( key in data.choices ) { #>
+				<# if ( 'irisArgs' !== key ) { #>
+					<div class="multicolor-single-color-wrapper">
+						<# if ( data.choices[ key ] ) { #>
+							<label for="{{ data.id }}-{{ key }}">{{ data.choices[ key ] }}</label>
+						<# } #>
+						<input {{{ data.inputAttrs }}} id="{{ data.id }}-{{ key }}" type="text" data-palette="{{ data.palette }}" data-default-color="{{ data.default[ key ] }}" data-alpha="{{ data.alpha }}" value="{{ data.value[ key ] }}" class="kirki-color-control color-picker multicolor-index-{{ key }}" />
+					</div>
+				<# } #>
+			<# } #>
+		</div>
+		<div class="iris-target"></div>
+		<?php if ( Kirki_Util::get_wp_version() >= 4.9 ) : ?>
+			<input class="multicolor-hidden-value" type="hidden" {{{ data.link }}}>
+		<?php else : ?>
+			<input class="multicolor-hidden-value" type="hidden" value='{{{ JSON.stringify( data.value ) }}}' {{{ data.link }}}>
+		<?php endif; ?>
+		<?php
 	}
 }

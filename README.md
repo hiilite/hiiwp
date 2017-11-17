@@ -2,6 +2,18 @@
 This theme is currently in Alpha testing and should not be installed without the support of the team at Hiilite Creative Group
 
 ### Change log
+#### v0.4.4
+- Checking the layout of product pages in woocommerce
+- Modified Visual Composer admin css
+- fixes to portfolio hooks
+- added target attribute to buttons
+- Added post formats
+- New icons on post formats
+- New animation on dropdown menues
+- Updated Kirki to 3.0.15
+- Added ability to push social icons to selected menu
+- Search icon is now top menu item
+- Added Shop and Product sidebars for WooCommerce
 #### v0.4.3
 - Added [viewport-units-buggyfill](https://github.com/rodneyrehm/viewport-units-buggyfill)
 - Moved favicon code to hiiwp_head function

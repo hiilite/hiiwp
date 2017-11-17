@@ -1,4 +1,9 @@
 .customize-control-kirki-radio-image {
+  > .image {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
   label {
     position: relative;
     display: inline-block;

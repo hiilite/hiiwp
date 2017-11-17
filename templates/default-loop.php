@@ -70,7 +70,7 @@ do_action( 'hii_before_blog_loop' );
 if(is_customize_preview()) echo '<div class="customizer_quick_links"><button class="customizer-edit" data-control=\'{"name":"blog_layouts"}\'>Blog List</button></div>';?>
 <!--BLOG-LOOP-->
 <article <?php post_class('row blog-article'.$cols); ?> itemscope itemtype="http://schema.org/Article" id="post-<?php the_ID(); ?>" >
-	<meta itemscope itemprop="mainEntityOfPage"  itemType="https://schema.org/WebPage" itemid="<?php bloginfo('url')?>"/>
+	<meta itemscope itemprop="mainEntityOfPage"  itemType="https://schema.org/WebPage" itemid="<?php echo esc_url( home_url() )?>"/>
 	<?php 
 	if($hiilite_options['blog_title_position'] == 'title-above') { 
 		echo '<div class="content-box col-12">';
@@ -94,13 +94,13 @@ if(is_customize_preview()) echo '<div class="customizer_quick_links"><button cla
 		$height = $hiilite_options['logo_height'];
 		$img_src = $hiilite_options['main_logo'];
 	endif;?>
-		<meta itemprop="url" content="<?=$img_src;?>">
-		<meta itemprop="width" content="<?=$width;?>">
-		<meta itemprop="height" content="<?=$height;?>">
-		<a href="<?=get_the_permalink()?>"><img src='<?=$img_src;?>' layout='responsive' width='<?=$width?>' height='<?=$height?>'></a>
+		<meta itemprop="url" content="<?php echo $img_src;?>">
+		<meta itemprop="width" content="<?php echo $width;?>">
+		<meta itemprop="height" content="<?php echo $height;?>">
+		<a href="<?php echo get_the_permalink()?>"><img src='<?php echo $img_src;?>' layout='responsive' width='<?php echo $width?>' height='<?php echo $height?>'></a>
 		<?php
 	echo '</figure>'; ?>
-	<div class="flex-item <?=($hiilite_options['blog_img_pos']=='image-left')?'col-6':'col-12'; ?> content-box" >
+	<div class="flex-item <?php echo ($hiilite_options['blog_img_pos']=='image-left')?'col-6':'col-12'; ?> content-box" >
 		<meta itemprop="datePublished" content="<?php the_time('Y-m-d'); ?>">
 		<meta itemprop="dateModified" content="<?php the_modified_date('Y-m-d'); ?>">
 		<meta itemprop="headline" content="<?php the_title(); ?>">
@@ -117,18 +117,18 @@ if(is_customize_preview()) echo '<div class="customizer_quick_links"><button cla
 			$more_button_class = get_theme_mod( 'blog_more_type', 'button' );
 			$more_button_class .= ($more_button_class != 'link' && $more_button_class != 'button')?' button readmore':' readmore';
 			?>
-			<a class="<?=$more_button_class;?>" href="<?php the_permalink() ?>"><?=$hiilite_options['blog_more_ex'];?></a><?php 
+			<a class="<?php echo $more_button_class;?>" href="<?php the_permalink() ?>"><?php echo $hiilite_options['blog_more_ex'];?></a><?php 
 				
 		endif;?>
 	<div>
 		<?php $options = get_option('hii_seo_settings'); ?>
 		<div itemprop="publisher" itemscope itemtype="https://schema.org/Organization">
 			<div itemprop="logo" itemscope itemtype="https://schema.org/ImageObject">
-			  <meta itemprop="url" content="<?=$options['business_logo']?>">
+			  <meta itemprop="url" content="<?php echo $options['business_logo']?>">
 			  <meta itemprop="width" content="150">
 			  <meta itemprop="height" content="150">
 			</div>
-			<meta itemprop="name" content="<?=$options['business_name']?>">
+			<meta itemprop="name" content="<?php echo $options['business_name']?>">
 		</div>
 
 </article>

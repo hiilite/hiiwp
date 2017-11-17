@@ -150,11 +150,11 @@ class CMB2_hookup extends CMB2_Hookup_Base {
 
 	public function term_hooks() {
 		if ( ! function_exists( 'get_term_meta' ) ) {
-			wp_die( esc_html__( 'Term Metadata is a WordPress 4.4+ feature. Please upgrade your WordPress install.', 'cmb2' ) );
+			wp_die( esc_html__( 'Term Metadata is a WordPress 4.4+ feature. Please upgrade your WordPress install.', 'hiiwp' ) );
 		}
 
 		if ( ! $this->cmb->prop( 'taxonomies' ) ) {
-			wp_die( esc_html__( 'Term metaboxes configuration requires a "taxonomies" parameter.', 'cmb2' ) );
+			wp_die( esc_html__( 'Term metaboxes configuration requires a "taxonomies" parameter.', 'hiiwp' ) );
 		}
 
 		$this->taxonomies = (array) $this->cmb->prop( 'taxonomies' );
@@ -401,7 +401,7 @@ class CMB2_hookup extends CMB2_Hookup_Base {
 		if ( $add_handle ) {
 
 			echo '<button type="button" class="handlediv button-link" aria-expanded="true">';
-				echo '<span class="screen-reader-text">' . sprintf( __( 'Toggle panel: %s' ), $title ) . '</span>';
+				echo '<span class="screen-reader-text">' . sprintf( __( 'Toggle panel: %s', 'hiiwp' ), $title ) . '</span>';
 				echo '<span class="toggle-indicator" aria-hidden="true"></span>';
 			echo '</button>';
 

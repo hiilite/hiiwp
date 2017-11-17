@@ -29,6 +29,10 @@ class HiiWP_Hooks extends Hii {
 		'hii_split_portfolio_sidebar_about',
 		'hii_before_blog_loop',
 		'hii_after_blog_loop',
+		'hii_before_sidebar',
+		'hii_after_sidebar',
+		'before_page_title',
+		'after_page_title'
 		
 	);
 	/**
@@ -65,6 +69,7 @@ class HiiWP_Hooks extends Hii {
 					return;
 			});
 		}
+		
 	}
 	
 		
@@ -79,7 +84,7 @@ class HiiWP_Hooks extends Hii {
 		
 		$cmb = new_cmb2_box( array(
 	        'id'        => 'header',
-	        'title'     => __( 'Header', 'cmb2' ),
+	        'title'     => __( 'Header', 'hiiwp' ),
 	        'show_on'   => $show_on 
 	    ));
 	    	
@@ -240,30 +245,27 @@ class HiiWP_Hooks extends Hii {
 	 * @return void
 	 */
 	public function hii_split_portfolio_sidebar_tags($tags){
-
-			if($tags) { 
-				$portfolio_tags = '<div class="row">
-		        	<div class="tags_text">
-						<span itemprop="keywords" class="labels">
-							<small>';
-								if(is_array($tags)) {
-									foreach($tags as $tag) {
-										$tad_id = get_tag_link($tag->term_id);
-										$portfolio_tags .= '<a href="'.$tad_id.'">#'.$tag->name.'</a> ';
-									}
+		if($tags) { 
+			$portfolio_tags = '<div class="row">
+	        	<div class="tags_text">
+					<span itemprop="keywords" class="labels">
+						<small>';
+							if(is_array($tags)) {
+								foreach($tags as $tag) {
+									$tad_id = get_tag_link($tag->term_id);
+									$portfolio_tags .= '<a href="'.$tad_id.'">#'.$tag->name.'</a> ';
 								}
-								else {
-									$tad_id = get_tag_link($tags->term_id);
-									$portfolio_tags .= '<a href="'.$tad_id.'">#'.$tags->name.'</a> ';
-								}
-							$portfolio_tags .= '</small>
-							</span>
-					</div>
-				</div>';
- 
-			}
-		
-		echo $portfolio_tags;
+							}
+							else {
+								$tad_id = get_tag_link($tags->term_id);
+								$portfolio_tags .= '<a href="'.$tad_id.'">#'.$tags->name.'</a> ';
+							}
+						$portfolio_tags .= '</small>
+						</span>
+				</div>
+			</div>';
+			echo $portfolio_tags;
+		}
 	}
 	
 	/**
@@ -273,23 +275,24 @@ class HiiWP_Hooks extends Hii {
 	 * @return void
 	 */
 	public function hii_split_portfolio_sidebar_team($contributers){
-		
-		$team = '<div class="row project-group">';
-			foreach ( $contributers as $key => $entry ) {
+		if(is_array($contributers)):
+			$team = '<div class="row project-group">';
+				foreach ( $contributers as $key => $entry ) {
+				
+					$role = $name = '';
+				
+					if ( isset( $entry['role'] ) && isset( $entry['name'] )) { 
+						$team .= '<div class="row"><div class="col-6"><strong>';
+						$team .= $entry['role'];
+						$team .= ': </strong>';
+						$team .= $entry['name'];
+						$team .= '</div></div>';
+					}			
+				}	
+			$team .= '</div>';
 			
-				$role = $name = '';
-			
-				if ( isset( $entry['role'] ) && isset( $entry['name'] )) { 
-					$team .= '<div class="row"><div class="col-6"><strong>';
-					$team .= __( $entry['role'], 'hiilite' );
-					$team .= ': </strong>';
-					$team .= $entry['name'];
-					$team .= '</div></div>';
-				}			
-			}	
-		$team .= '</div>';
-		
-		echo $team;
+			echo $team;
+		endif;
 	}
 	
 	/**
@@ -321,7 +324,7 @@ class HiiWP_Hooks extends Hii {
 			}
 
 			$social_share .= '</div>';
-			$social_share .= '<div>'.__( 'Appreciate and Share', 'hiilite' ).'</div>
+			$social_share .= '<div>'.__( 'Appreciate and Share', 'hiiwp' ).'</div>
 		</div>';		
 		
 		echo $social_share;
@@ -334,8 +337,9 @@ class HiiWP_Hooks extends Hii {
 	 * @return void
 	 */
 	public function hii_split_portfolio_sidebar_about($args){
+		
 		$author = get_the_author_meta( 'display_name' , $args[0] );
-		$author_url = get_author_posts_url( $author_id );
+		$author_url = get_author_posts_url( $args[0] );
 		
 		$about = '<div class="row project-author">
 			<div class="col-2 author-icon project-icon">
@@ -345,7 +349,7 @@ class HiiWP_Hooks extends Hii {
 			</div>
 			<div class="col-10">
 				<a href="'.$author_url.'"><h4>'.$author.'</h4></a>
-				<small>'.__( 'Author', 'hiilite' ).'</small>
+				<small>'.__( 'Author', 'hiiwp' ).'</small>
 				
 				<div class="project-description">';
 					if($args[1] != '') {

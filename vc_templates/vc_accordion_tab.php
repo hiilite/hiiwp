@@ -21,7 +21,7 @@ $output = '
 	<details ' . ( isset( $el_id ) && ! empty( $el_id ) ? "id='" . esc_attr( $el_id ) . "'" : '' ) . 'class="' . esc_attr( $css_class ) . '" '.( isset( $is_open ) && $is_open == 'yes' ? "open" : '' ).'>
 		<summary class="wpb_accordion_header ui-accordion-header"><h3>' . $title . '</h3></summary>
 		<div class="wpb_accordion_content ui-accordion-content vc_clearfix">
-			' . ( ( '' === trim( $content ) ) ? __( 'Empty section. Edit page to add content here.', 'js_composer' ) : wpb_js_remove_wpautop( $content ) ) . '
+			' . ( ( '' === trim( $content ) ) ? __( 'Empty section. Edit page to add content here.', 'hiiwp' ) : wpb_js_remove_wpautop( $content ) ) . '
 		</div>
 	</details>
 ';

@@ -149,7 +149,7 @@ class HiiWP_Dashboard {
 			    padding: 0;
 			}
 	        .login #login h1 a {
-	            background-image: url( <?= $hiilite_options['main_logo']; ?> );
+	            background-image: url( <?php echo  $hiilite_options['main_logo']; ?> );
 				background-size: contain;
 				  width: auto;
 				  background-repeat: no-repeat;
@@ -169,7 +169,7 @@ class HiiWP_Dashboard {
 			var hilogo = document.querySelector('#login');
 			var hilink = document.querySelector('#login h1 a'); 
 	
-			document.querySelector('#login h1 a').setAttribute('href', '<?=get_bloginfo('url');?>');
+			document.querySelector('#login h1 a').setAttribute('href', '<?php echo home_url();?>');
 		};
 			
 		</script><?php 

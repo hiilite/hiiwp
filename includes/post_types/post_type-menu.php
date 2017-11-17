@@ -15,25 +15,25 @@ if($hiilite_options['menus_on']):
 
 
 	$labels = array(
-		'name'               => _x( $title, 'restaurant menu', 'hiilite' ),
-		'singular_name'      => _x( $title.'Item', 'post type singular name', 'hiilite' ),
-		'menu_name'          => _x( $title, 'admin menu', 'hiilite' ),
-		'name_admin_bar'     => _x( $title, 'add new on admin bar', 'hiilite' ),
-		'add_new'            => _x( 'Add '.$title.' Item', 'book', 'hiilite' ),
-		'add_new_item'       => __( 'Add New '.$title.' Item', 'hiilite' ),
-		'new_item'           => __( 'New '.$title.' Item', 'hiilite' ),
-		'edit_item'          => __( 'Edit '.$title.' Item', 'hiilite' ),
-		'view_item'          => __( 'View '.$title.' Item', 'hiilite' ),
-		'all_items'          => __( 'All '.$title.' Items', 'hiilite' ),
-		'search_items'       => __( 'Search '.$title, 'hiilite' ),
-		'parent_item_colon'  => __( 'Parent '.$title.' Item:', 'hiilite' ),
-		'not_found'          => __( 'No '.$title.' items found.', 'hiilite' ),
-		'not_found_in_trash' => __( 'No '.$title.' items found in Trash.', 'hiilite' )
+		'name'               => sprintf(_x('%s', 'restaurant menu', 'hiiwp'), $title),
+		'singular_name'      => sprintf(_x('%s Item', 'post type singular name', 'hiiwp'), $title ),
+		'menu_name'          => sprintf(_x('%s', 'admin food menu', 'hiiwp'), $title ),
+		'name_admin_bar'     => sprintf(_x('%s', 'add new on admin bar', 'hiiwp'), $title ),
+		'add_new'            => sprintf(_x('Add %s Item', 'food', 'hiiwp'), $title ),
+		'add_new_item'       => sprintf(__( "Add New %s Item", 'hiiwp' ), $title ),
+		'new_item'           => sprintf(__( "New %s Item", 'hiiwp' ), $title ),
+		'edit_item'          => sprintf(__( "Edit %s Item", 'hiiwp' ), $title ),
+		'view_item'          => sprintf(__( "View %s Item", 'hiiwp' ), $title ),
+		'all_items'          => sprintf(__( "All %s Items", 'hiiwp' ), $title ),
+		'search_items'       => sprintf(__( "Search %s", 'hiiwp' ), $title ),
+		'parent_item_colon'  => sprintf(__( "Parent %s Item:", 'hiiwp' ), $title ),
+		'not_found'          => sprintf(__( "No %s items found.", 'hiiwp' ), $title ),
+		'not_found_in_trash' => sprintf(__( "No %s items found in Trash.", 'hiiwp' ), $title )
 	);
 
 	$args = array(
 		'labels'             => $labels,
-        'description'        => __( 'Description.', 'hiilite' ),
+        'description'        => __( 'Description.', 'hiiwp' ),
 		'public'             => true,
 		'publicly_queryable' => true,
 		'show_ui'            => true,
@@ -53,17 +53,17 @@ if($hiilite_options['menus_on']):
 	
 	// Register Taxonomy
     $labels = array(
-        'name'              => _x( $tax_title, 'taxonomy general name', 'textdomain' ),
-        'singular_name'     => _x( $tax_title, 'taxonomy singular name', 'textdomain' ),
-        'search_items'      => __( 'Search '.$tax_title, 'textdomain' ),
-        'all_items'         => __( 'All '.$tax_title, 'textdomain' ),
-        'parent_item'       => __( 'Parent '.$tax_title, 'textdomain' ),
-        'parent_item_colon' => __( 'Parent '.$tax_title.':', 'textdomain' ),
-        'edit_item'         => __( 'Edit '.$tax_title, 'textdomain' ),
-        'update_item'       => __( 'Update '.$tax_title, 'textdomain' ),
-        'add_new_item'      => __( 'Add New '.$tax_title, 'textdomain' ),
-        'new_item_name'     => __( 'New '.$tax_title.' Name', 'textdomain' ),
-        'menu_name'         => __( $tax_title, 'textdomain' ),
+        'name'              => sprintf(_x( '%s', 'taxonomy general name', 'hiiwp' ), $tax_title ),
+        'singular_name'     => sprintf(_x( '%s', 'taxonomy singular name', 'hiiwp' ), $tax_title ),
+        'search_items'      => sprintf(__( 'Search %s', 'hiiwp' ), $tax_title ),
+        'all_items'         => sprintf(__( 'All %s', 'hiiwp' ), $tax_title ),
+        'parent_item'       => sprintf(__( 'Parent %s', 'hiiwp' ), $tax_title ),
+        'parent_item_colon' => sprintf(__( 'Parent %s:', 'hiiwp' ), $tax_title ),
+        'edit_item'         => sprintf(__( 'Edit %s', 'hiiwp' ), $tax_title ),
+        'update_item'       => sprintf(__( 'Update %s', 'hiiwp' ), $tax_title ),
+        'add_new_item'      => sprintf(__( 'Add New %s', 'hiiwp' ), $tax_title ),
+        'new_item_name'     => sprintf(__( 'New %s Name', 'hiiwp' ), $tax_title ),
+        'menu_name'         => sprintf(__( '%s', 'hiiwp' ), $tax_title ),
     );
  
     $args = array(

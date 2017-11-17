@@ -38,9 +38,9 @@ $tags = get_the_terms( $post->ID, 'porfolio_tag');
 do_action( 'hii_before_split_portfolio' );
 ?>
 <!--PORTFOLIO-CONTENT-SPLIT-->
-<article  <?php post_class('row'); ?> itemscope itemtype="http://schema.org/Article" id="post-<?php the_ID(); ?>" style="<?=($page_bg)?'background-color:'.$page_bg.';':'';?>">
+<article  <?php post_class('row'); ?> itemscope itemtype="http://schema.org/Article" id="post-<?php the_ID(); ?>" style="<?php echo ($page_bg)?'background-color:'.$page_bg.';':'';?>">
 	
-	<meta itemscope itemprop="mainEntityOfPage"  itemType="https://schema.org/WebPage" itemid="<?php bloginfo('url')?>"/>
+	<meta itemscope itemprop="mainEntityOfPage"  itemType="https://schema.org/WebPage" itemid="<?php echo esc_url( home_url() )?>"/>
 <?php
 echo '<div class="container_inner">';
 
@@ -84,8 +84,8 @@ echo '<div class="in_grid  align-top">';
 						$image = wp_get_attachment_image_src( get_post_thumbnail_id( get_the_id() ), 'large' );
 						$hratio = (300 / $image[2]);
 					?>
-				<a href="<?=get_the_permalink()?>" class="slide">
-			    	<img src="<?=$image[0]?>" width="<?=$image[1]*$hratio?>" height="<?=$image[2]*$hratio?>" alt="<?=get_the_title()?>">
+				<a href="<?php echo get_the_permalink()?>" class="slide">
+			    	<img src="<?php echo $image[0]?>" width="<?php echo $image[1]*$hratio?>" height="<?php echo $image[2]*$hratio?>" alt="<?php echo get_the_title()?>">
  				</a>
 			  <?php
 				  	}

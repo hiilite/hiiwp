@@ -2,8 +2,8 @@
 $section = 'sidebar_section';
 Kirki::add_section( $section, array(
     'priority'    => 6,
-    'title'       => __( 'Sidebar', 'textdomain' ),
-    'description' => __( 'Widget Styles', 'textdomain' ),
+    'title'       => __( 'Sidebar', 'hiiwp' ),
+    'description' => __( 'Widget Styles', 'hiiwp' ),
     'icon' => 'dashicons-editor-indent'
 ) );
 
@@ -14,14 +14,13 @@ Kirki::add_field( 'hiiwp', array(
     'section'     => $section,
     'priority'    => 1,
     'default'     => $hiilite_options['sidebar_background'],
-    'alpha'		  => true,
 ));
 
 Kirki::add_field( 'hiiwp', array(
     'type'        => 'typography',
     'settings'    => 'sidebar_widget_title_font',
-    'label'       => esc_attr__( 'Title Style', 'kirki' ),
-    'description' => __( 'Define styles for widgets title' ),
+    'label'       => esc_attr__( 'Title Style', 'hiiwp' ),
+    'description' => __( 'Define styles for widgets title', 'hiiwp' ),
     'section'     => $section,
     'default'     => array(
         'font-family'    => ' ',
@@ -39,8 +38,8 @@ Kirki::add_field( 'hiiwp', array(
 Kirki::add_field( 'hiiwp', array(
     'type'        => 'typography',
     'settings'    => 'sidebar_widget_text_font',
-    'label'       => esc_attr__( 'Text Style', 'kirki' ),
-    'description' => __( 'Define styles for widget text' ),
+    'label'       => esc_attr__( 'Text Style', 'hiiwp' ),
+    'description' => __( 'Define styles for widget text', 'hiiwp' ),
     'section'     => $section,
     'default'     => array(
         'font-family'    => ' ',
@@ -57,8 +56,8 @@ Kirki::add_field( 'hiiwp', array(
 Kirki::add_field( 'hiiwp', array(
     'type'        => 'typography',
     'settings'    => 'sidebar_widget_link_font',
-    'label'       => esc_attr__( 'Link Style', 'kirki' ),
-    'description' => __( 'Define styles for widget links' ),
+    'label'       => esc_attr__( 'Link Style', 'hiiwp' ),
+    'description' => __( 'Define styles for widget links', 'hiiwp' ),
     'section'     => $section,
     'default'     => array(
         'font-family'    => ' ',
@@ -76,8 +75,8 @@ Kirki::add_field( 'hiiwp', array(
 Kirki::add_field( 'hiiwp', array(
     'type'        => 'spacing',
     'settings'    => 'sidebar_padding',
-    'label'       => esc_attr__( 'Sidebar Padding', 'kirki' ),
-    'description' => __( 'Define padding around the sidebar' ),
+    'label'       => esc_attr__( 'Sidebar Padding', 'hiiwp' ),
+    'description' => __( 'Define padding around the sidebar', 'hiiwp' ),
     'section'     => $section,
     'default'     => $hiilite_options['sidebar_padding'],
     'priority'    => 1,
@@ -85,8 +84,8 @@ Kirki::add_field( 'hiiwp', array(
 Kirki::add_field( 'hiiwp', array(
     'type'        => 'spacing',
     'settings'    => 'sidebar_widget_margin',
-    'label'       => esc_attr__( 'Widget Margin', 'kirki' ),
-    'description' => __( 'Define margin around the individual widgets within the sidebar' ),
+    'label'       => esc_attr__( 'Widget Margin', 'hiiwp' ),
+    'description' => __( 'Define margin around the individual widgets within the sidebar', 'hiiwp' ),
     'section'     => $section,
     'default'     => $hiilite_options['sidebar_widget_margin'],
     'priority'    => 1,

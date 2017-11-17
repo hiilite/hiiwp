@@ -1,3 +1,7 @@
+.wp-core-ui .button, .wp-core-ui .button-secondary,
+.wp-core-ui .button.focus, .wp-core-ui .button.hover, .wp-core-ui .button:focus, .wp-core-ui .button:hover, .wp-core-ui .button-secondary.focus, .wp-core-ui .button-secondary.hover, .wp-core-ui .button-secondary:focus, .wp-core-ui .button-secondary:hover, .customize-panel-back, .customize-section-back {
+    text-shadow: none !important;
+}
 /*
 Admin Styles
 */
@@ -101,59 +105,9 @@ a {
 	color: #2FB6C4;
 }
 
-#adminmenu .wp-submenu a {
-    
-}
- 
-/* change color of arrow to submenus */
-#adminmenu li.wp-not-current-submenu .wp-menu-arrow,
-#adminmenu li.wp-not-current-submenu .wp-menu-arrow div {
-    
-}
- 
-/* active screen as seen in menu - change the background and arrow colour */
-#adminmenu li.wp-has-current-submenu a.wp-has-current-submenu,
-#adminmenu li.current a.menu-top,
-.folded #adminmenu li.wp-has-current-submenu,
-.folded #adminmenu li.current.menu-top,
-#adminmenu .wp-menu-arrow,
-#adminmenu .wp-has-current-submenu .wp-submenu .wp-submenu-head {
-    
-}
-#adminmenu li.wp-has-current-submenu .wp-menu-arrow,
-#adminmenu li.wp-has-current-submenu .wp-menu-arrow div {
-   
-}
 
-/* links elsewhere */
-a:hover, a:active {
-}
-
-.wp-core-ui .button, .wp-core-ui .button-secondary {
-    color: #000;
-    border-color: #ccc;
-    background: rgb(244,244,244);
-    box-shadow: 0px 1px 1px rgba(0,0,0,0.3);
-    border: none;
-    border-radius: 1px;
-}
 
 /* buttons */
-.wp-core-ui .button-primary, .login .button-primary {
-    background: rgb(33,150,243);
-    border-color: none; 
-    color: white;
-    -webkit-box-shadow: none;
-    box-shadow: 0px 1px 1px rgba(0,0,0,0.3);
-    text-shadow: none;
-	border-radius: 1px;
-}
-.wp-core-ui .button-primary.active,
-.wp-core-ui .button-primary:hover,
-.wp-core-ui .button-primary:active,
-.wp-core-ui .button-primary:focus {
-
-}
 
 .wp-admin select {
     padding: 2px;
@@ -321,14 +275,20 @@ ul.cmb2-checkbox-list.cmb2-list li {
 #adminmenu .wp-menu-image img {
     padding: 5px 0 0;
 }
-.row-actions {
+tr td, tr th {
+    position: relative;
+}
+.row-actions, .row-actions.visible {
     position: absolute;
 }
+
 .comment-item:hover .row-actions, tr:hover .row-actions {
     position: absolute;
-    left: 4em;
+    left: 0;
     background: white;
     padding: 0.3em;
+    z-index: 99;
+
     box-shadow: 1px 1px 4px black;
 }
 .wp-list-table .row-title {
@@ -340,4 +300,25 @@ ul.cmb2-checkbox-list.cmb2-list li {
 td.date.column-date, td.categories.column-categories {
     font-size: 10px;
     line-height: 1;
+}
+.wpb_row_container>.wpb_vc_column, .wpb_row_container>.wpb_vc_column>.wpb_element_wrapper {
+    padding-left: 2px;
+    padding-right: 2px;
+}
+
+.wpb_row_container>.wpb_vc_column_inner {
+    padding-left: 2px;
+    box-sizing: border-box;
+    padding-right: 2px;
+}
+
+.vc_row.vc_row-fluid.wpb_row_container.vc_container_for_children.ui-sortable {
+    margin-left: 0;
+    margin-right: 0;
+}
+
+.vc_controls.vc_controls-row.controls_row.vc_clearfix {
+    margin-left: 2px;
+    margin-right: 2px;
+    display: in;
 }

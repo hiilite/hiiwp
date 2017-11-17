@@ -4,7 +4,7 @@ $post_meta = get_post_meta(get_the_id());
 ?>
 <!--PORTFOLIO-LOOP-->
 <article  <?php post_class('portfolio-piece flex-item half-width'); ?> id="post-<?php the_ID(); ?>" >
-	<meta itemscope itemprop="mainEntityOfPage"  itemType="https://schema.org/WebPage" itemid="<?php bloginfo('url')?>" content="<?php bloginfo('url')?>"/>
+	<meta itemscope itemprop="mainEntityOfPage"  itemType="https://schema.org/WebPage" itemid="<?php echo esc_url( home_url() )?>" content="<?php echo esc_url( home_url() )?>"/>
 	<?php 
 	if(has_post_thumbnail($post->id)): 
 			
@@ -15,7 +15,7 @@ $post_meta = get_post_meta(get_the_id());
 		$height = $img[2];
 	?>
 	<figure class="flex-item full-width">
-		<a href="<?=get_the_permalink()?>"><img src='<?=$img[0];?>' width='<?=$width?>' height='<?=$height?>' alt='<?=get_the_title()?>'></a>
+		<a href="<?php echo get_the_permalink()?>"><img src='<?php echo $img[0];?>' width='<?php echo $width?>' height='<?php echo $height?>' alt='<?php echo get_the_title()?>'></a>
 	</figure><?php endif; ?>
 	<div class="flex-item full-width content-box" >
 		<span itemprop="articleSection" class="labels"><?php the_category(', '); ?></span>
@@ -25,7 +25,7 @@ $post_meta = get_post_meta(get_the_id());
 			$terms = get_the_terms( $post->id, $hiilite_options['portfolio_tax_slug']);
 			if(!empty($terms))echo $terms[0]->name;
 			?></span></span>
-		<a href="<?=get_the_permalink()?>"><span itemprop="headline"><?php the_title(); ?></span></a></h5>
+		<a href="<?php echo get_the_permalink()?>"><span itemprop="headline"><?php the_title(); ?></span></a></h5>
 	<div>
 </article>
 <?php

@@ -30,17 +30,26 @@ class Kirki_Control_Editor extends Kirki_Control_Base {
 	public $type = 'kirki-editor';
 
 	/**
-	 * Returns an array of translation strings.
+	 * An Underscore (JS) template for this control's content (but not its container).
+	 *
+	 * Class variables for this control class are available in the `data` JS object;
+	 * export custom variables by overriding {@see WP_Customize_Control::to_json()}.
+	 *
+	 * The actual editor is added from the Kirki_Field_Editor class.
+	 * All this template contains is a button that triggers the global editor on/off
+	 * and a hidden textarea element that is used to mirror save the options.
+	 *
+	 * @see WP_Customize_Control::print_template()
 	 *
 	 * @access protected
-	 * @since 3.0.0
-	 * @return array
 	 */
-	protected function l10n() {
-		return array(
-			'openEditor'   => esc_attr__( 'Open Editor', 'kirki' ),
-			'closeEditor'  => esc_attr__( 'Close Editor', 'kirki' ),
-			'switchEditor' => esc_attr__( 'Switch Editor', 'kirki' ),
-		);
+	protected function content_template() {
+		?>
+		<label>
+			<# if ( data.label ) { #><span class="customize-control-title">{{{ data.label }}}</span><# } #>
+			<# if ( data.description ) { #><span class="description customize-control-description">{{{ data.description }}}</span><# } #>
+		</label>
+		<textarea id="kirki-editor-{{{ data.id.replace( '[', '' ).replace( ']', '' ) }}}" {{{ data.inputAttrs }}} {{{ data.link }}}>{{ data.value }}</textarea>
+		<?php
 	}
 }

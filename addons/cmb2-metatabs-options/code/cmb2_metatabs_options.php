@@ -973,7 +973,7 @@ class Cmb2_Metatabs_Options {
 		}
 		
 		// add notifications
-		add_settings_error( self::$props[ $id ]['key'] . '-notices', '', __( 'Settings updated.', 'cmb2' ), 'updated' );
+		add_settings_error( self::$props[ $id ]['key'] . '-notices', '', __( 'Settings updated.', 'hiiwp' ), 'updated' );
 		settings_errors( self::$props[ $id ]['key'] . '-notices' );
 		
 		// set the flag so we don't pile up notices

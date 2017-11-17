@@ -75,8 +75,8 @@ class HiiWP_Admin {
 	    wp_register_script( 'meta_uploader', get_template_directory_uri() . '/js/meta_uploader.js', array( 'jquery' ) );
 	    wp_localize_script( 'meta_uploader', 'meta_image',
 	        array(
-	            'title' => __( 'Choose or Upload an Image', 'prfx-textdomain' ),
-	            'button' => __( 'Use this image', 'prfx-textdomain' ),
+	            'title' => __( 'Choose or Upload an Image', 'hiiwp' ),
+	            'button' => __( 'Use this image', 'hiiwp' ),
 	        )
 	    );
 	    wp_enqueue_script( 'meta_uploader' );
@@ -110,7 +110,7 @@ class HiiWP_Admin {
 	{
 	    add_meta_box(
 	        'page_seo_options', // id, used as the html id att
-	        __( 'HiiWP SEO Options' ), // meta box title, like "Page Attributes"
+	        __( 'HiiWP SEO Options', 'hiiwp' ), // meta box title, like "Page Attributes"
 	        array($this, 'page_seo_options_meta_box_cb'), // callback function, spits out the content
 	        array('page','post','portfolio','team','menu'), // post type or page. We'll add this to pages only
 	        'normal', // context (where on the screen
@@ -142,12 +142,12 @@ class HiiWP_Admin {
 	    ?>
 	    <p>
 		<label for="page_seo_title">SEO Title</label><br>
-	        <input id="page_seo_title" name="page_seo_title" maxlength="65" type="text" size="70" placeholder="%%title%% %%sep%% %%sitename%%" value="<?=$page_seo_title?>" />
+	        <input id="page_seo_title" name="page_seo_title" maxlength="65" type="text" size="70" placeholder="%%title%% %%sep%% %%sitename%%" value="<?php echo $page_seo_title?>" />
 	    </p>
 	    
 	    <p>
 	        <label for="page_seo_description">Meta Description</label><br>
-	        <textarea id="page_seo_description" name="page_seo_description" cols="70" rows="4" maxlength="165"><?=$page_seo_description?></textarea>
+	        <textarea id="page_seo_description" name="page_seo_description" cols="70" rows="4" maxlength="165"><?php echo $page_seo_description?></textarea>
 	    </p>
 	    <?php    
 	    else :
@@ -210,29 +210,29 @@ class HiiWP_Admin {
 	    
 	    $cmb = new_cmb2_box( array(
 	        'id'        => 'site_analytics',
-	        'title'     => __( 'Analytics', 'cmb2' ),
+	        'title'     => __( 'Analytics', 'hiiwp' ),
 	        'show_on'   => $show_on 
 	    ));
 	    
 	    if(class_exists('GADWP_Manager')):
 		    /*$cmb->add_field( array(
-		        'name'       => __( 'Google Analytics Connect', 'cmb2' ),
-		        'desc'       => __( 'Connect directly with Google Analytics to display all your information right in your dashboard and input all the correct tracking code within your site.', 'cmb2' ),
+		        'name'       => __( 'Google Analytics Connect', 'hiiwp' ),
+		        'desc'       => __( 'Connect directly with Google Analytics to display all your information right in your dashboard and input all the correct tracking code within your site.', 'hiiwp' ),
 		        'id'         => 'google_authorization',
 		        'type'       => 'google_authorization',
 		    ));*/
 	    else:
 	    	$cmb->add_field( array(
-		        'name'       => __( 'Google Analytics Code', 'cmb2' ),
-		        'desc'       => __( 'Add your Google Analytics UA code', 'cmb2' ),
+		        'name'       => __( 'Google Analytics Code', 'hiiwp' ),
+		        'desc'       => __( 'Add your Google Analytics UA code', 'hiiwp' ),
 		        'id'         => 'google_analytics_ua_code',
 		        'type'       => 'text',
 		    ));
 	    endif;
 	    
 	    $cmb->add_field( array(
-	        'name'       => __( 'Manually enter Tracking Code', 'cmb2' ),
-	        'desc'       => __( 'If you want to use a custom tracking code enter it here, without script tag.', 'cmb2' ),
+	        'name'       => __( 'Manually enter Tracking Code', 'hiiwp' ),
+	        'desc'       => __( 'If you want to use a custom tracking code enter it here, without script tag.', 'hiiwp' ),
 	        'id'         => 'business_custom_tracking_code',
 	        'type'       => 'textarea_code',
 	    ));
@@ -243,15 +243,15 @@ class HiiWP_Admin {
 	    // of the show_on parameter and call to object_type method, both essential
 	    $cmb_ = new_cmb2_box( array(
 	        'id'        => 'site_validation',
-	        'title'     => __( 'Site Validation', 'cmb2' ),
-	        'desc'		=> __('Note that <strong>verifying your site with these services is not necessary</strong> in order for your site to be indexed by search engines. To use these advanced search engine tools and verify your site with a service, paste the HTML Tag code below. Read the <a target=_blank href=https://en.support.wordpress.com/webmaster-tools/>full instructions</a> if you are having trouble. Supported verification services: <a target=_blank href=http://g.co/SearchConsole>Google Search Console</a>, <a target=_blank href=http://www.bing.com/webmaster>Bing Webmaster Center</a>, <a target=_blank href=http://pinterest.com/>Pinterest</a>'),
+	        'title'     => __( 'Site Validation', 'hiiwp' ),
+	        'desc'		=> __('Note that <strong>verifying your site with these services is not necessary</strong> in order for your site to be indexed by search engines. To use these advanced search engine tools and verify your site with a service, paste the HTML Tag code below. Read the <a target=_blank href=https://en.support.wordpress.com/webmaster-tools/>full instructions</a> if you are having trouble. Supported verification services: <a target=_blank href=http://g.co/SearchConsole>Google Search Console</a>, <a target=_blank href=http://www.bing.com/webmaster>Bing Webmaster Center</a>, <a target=_blank href=http://pinterest.com/>Pinterest</a>', 'hiiwp'),
 	        'show_on'   => $show_on,
 	    ));
 	    
 	   
 	    $cmb->add_field( array(
-	        'name'       => __( 'Google Webmaster Tools', 'cmb2' ),
-	        'desc'       => __( 'Enter your Google Search Console meta value to verify your site', 'cmb2' ),
+	        'name'       => __( 'Google Webmaster Tools', 'hiiwp' ),
+	        'desc'       => __( 'Enter your Google Search Console meta value to verify your site', 'hiiwp' ),
 	        'id'         => 'business_google_site_verification',
 	        'type'       => 'textarea_code',
 	        'attributes'	=> array(
@@ -259,8 +259,8 @@ class HiiWP_Admin {
 	        ),
 	    ));
 	    $cmb->add_field( array(
-	        'name'       => __( 'Bing Webmaster Tools', 'cmb2' ),
-	        'desc'       => __( 'Enter your Bing Search Console meta value to verify your site', 'cmb2' ),
+	        'name'       => __( 'Bing Webmaster Tools', 'hiiwp' ),
+	        'desc'       => __( 'Enter your Bing Search Console meta value to verify your site', 'hiiwp' ),
 	        'id'         => 'business_bing_site_verification',
 	        'type'       => 'textarea_code',
 	        'attributes'	=> array(
@@ -268,8 +268,8 @@ class HiiWP_Admin {
 	        ),
 	    ));
 	    $cmb->add_field( array(
-	        'name'       => __( 'Pinterest Site Verification', 'cmb2' ),
-	        'desc'       => __( 'Enter your Pinterest meta value to verify your site', 'cmb2' ),
+	        'name'       => __( 'Pinterest Site Verification', 'hiiwp' ),
+	        'desc'       => __( 'Enter your Pinterest meta value to verify your site', 'hiiwp' ),
 	        'id'         => 'business_pinterest_site_verification',
 	        'type'       => 'textarea_code',
 	        'attributes'	=> array(
@@ -277,8 +277,8 @@ class HiiWP_Admin {
 	        ),
 	    ));
 	    $cmb->add_field( array(
-	        'name'       => __( 'Facebook Instant Articles ID', 'cmb2' ),
-	        'desc'       => __( '', 'cmb2' ),
+	        'name'       => __( 'Facebook Instant Articles ID', 'hiiwp' ),
+	        'desc'       => __( '', 'hiiwp' ),
 	        'id'         => 'business_fb_article_claim',
 	        'type'       => 'textarea_code',
 	        'attributes'	=> array(
@@ -295,13 +295,13 @@ class HiiWP_Admin {
 	    //
 	    $cmb = new_cmb2_box( array(
 	        'id'        => 'main_company_info',
-	        'title'     => __( 'Main Company Info', 'cmb2' ),
+	        'title'     => __( 'Main Company Info', 'hiiwp' ),
 	        'show_on'   => $show_on,
 	    ));
 	    
 	    $cmb->add_field( array(
-	        'name'       => __( 'Business Type', 'cmb2' ),
-	        'desc'       => __( '', 'cmb2' ),
+	        'name'       => __( 'Business Type', 'hiiwp' ),
+	        'desc'       => __( '', 'hiiwp' ),
 	        'id'         => 'business_type',
 	        'type'       => 'pw_select',
 	        'options'	=>	array(
@@ -368,8 +368,8 @@ class HiiWP_Admin {
 	        ),
 	    ));
 	    $cmb->add_field( array(
-	        'name'       => __( 'Business Name', 'cmb2' ),
-	        'desc'       => __( 'Use structured data markup on your official website to indicate the preferred name you want Google Search to display in Search results. <a target=_blank href=https://developers.google.com/search/docs/data-types/sitename>Read More...</a>', 'cmb2' ),
+	        'name'       => __( 'Business Name', 'hiiwp' ),
+	        'desc'       => __( 'Use structured data markup on your official website to indicate the preferred name you want Google Search to display in Search results. <a target=_blank href=https://developers.google.com/search/docs/data-types/sitename>Read More...</a>', 'hiiwp' ),
 	        'id'         => 'business_name',
 	        'type'       => 'text',
 	    ));
@@ -379,17 +379,17 @@ class HiiWP_Admin {
 	    $business_telephone_group = $cmb->add_field( array(
 		    'id'          => 'business_telephone_numbers',
 		    'type'        => 'group',
-		    'description' => __( 'Use corporate contact markup on your official website to add your company\'s contact information to the Google Knowledge panel in some searches, for example when a user enters your company’s name into the Search bar. <a target=_blank href=https://developers.google.com/search/docs/data-types/corporate-contacts>Read More...</a>', 'cmb2' ),
+		    'description' => __( 'Use corporate contact markup on your official website to add your company\'s contact information to the Google Knowledge panel in some searches, for example when a user enters your company’s name into the Search bar. <a target=_blank href=https://developers.google.com/search/docs/data-types/corporate-contacts>Read More...</a>', 'hiiwp' ),
 		    'options'     => array(
-		        'group_title'   => __( 'Phone Numbers', 'cmb2' ),
-		        'add_button'    => __( 'Add Another Number', 'cmb2' ),
-		        'remove_button' => __( 'Remove Number', 'cmb2' ),
+		        'group_title'   => __( 'Phone Numbers', 'hiiwp' ),
+		        'add_button'    => __( 'Add Another Number', 'hiiwp' ),
+		        'remove_button' => __( 'Remove Number', 'hiiwp' ),
 		        'sortable'      => true
 		    ),
 		) );
 		$cmb->add_group_field($business_telephone_group, array(
-	        'name'       => __( 'Contact Type', 'cmb2' ),
-	        'desc'       => __( '', 'cmb2' ),
+	        'name'       => __( 'Contact Type', 'hiiwp' ),
+	        'desc'       => __( '', 'hiiwp' ),
 	        'id'         => 'business_contactType',
 	        'type'       => 'select',
 	        'options'	=> array(
@@ -409,8 +409,8 @@ class HiiWP_Admin {
 	        
 	    ));
 	    $cmb->add_group_field($business_telephone_group, array(
-	        'name'       => __( 'Phone Number', 'cmb2' ),
-	        'desc'       => __( '', 'cmb2' ),
+	        'name'       => __( 'Phone Number', 'hiiwp' ),
+	        'desc'       => __( '', 'hiiwp' ),
 	        'id'         => 'business_telephone',
 	        'type'       => 'text',
 	        'show_names' => false,
@@ -420,36 +420,36 @@ class HiiWP_Admin {
 	    ));
 	    
 	    $cmb->add_field(array(
-	        'name'       => __( 'Fax Number', 'cmb2' ),
-	        'desc'       => __( '', 'cmb2' ),
+	        'name'       => __( 'Fax Number', 'hiiwp' ),
+	        'desc'       => __( '', 'hiiwp' ),
 	        'id'         => 'business_faxNumber',
 	        'type'       => 'text',
 	    ));
 	    
 	    $cmb->add_field(array(
-	        'name'       => __( 'Email', 'cmb2' ),
-	        'desc'       => __( '', 'cmb2' ),
+	        'name'       => __( 'Email', 'hiiwp' ),
+	        'desc'       => __( '', 'hiiwp' ),
 	        'id'         => 'business_email',
 	        'type'       => 'text_email',
 	    ));
 	    
 	    $cmb->add_field(array(
-	        'name'       => __( 'Email', 'cmb2' ),
-	        'desc'       => __( '', 'cmb2' ),
+	        'name'       => __( 'Email', 'hiiwp' ),
+	        'desc'       => __( '', 'hiiwp' ),
 	        'id'         => 'business_email',
 	        'type'       => 'text_email',
 	    ));
 	    
 	    $cmb->add_field(array(
-	        'name'       => __( 'Logo', 'cmb2' ),
-	        'desc'       => __( 'Specify the image Google Search uses for your organization\'s logo in Search results and in the Knowledge Graph. <a target=_blank href=https://developers.google.com/search/docs/data-types/logo>Read More...</a>', 'cmb2' ),
+	        'name'       => __( 'Logo', 'hiiwp' ),
+	        'desc'       => __( 'Specify the image Google Search uses for your organization\'s logo in Search results and in the Knowledge Graph. <a target=_blank href=https://developers.google.com/search/docs/data-types/logo>Read More...</a>', 'hiiwp' ),
 	        'id'         => 'business_logo',
 	        'type'       => 'file',
 	    ));
 	    
 	    $cmb->add_field(array(
-	        'name'       => __( 'Description', 'cmb2' ),
-	        'desc'       => __( 'Maximum 250 characters', 'cmb2' ),
+	        'name'       => __( 'Description', 'hiiwp' ),
+	        'desc'       => __( 'Maximum 250 characters', 'hiiwp' ),
 	        'id'         => 'business_description',
 	        'type'       => 'textarea',
 	        'attributes'	=> array(
@@ -466,12 +466,12 @@ class HiiWP_Admin {
 	    //
 	    $cmb = new_cmb2_box( array(
 	        'id'        => 'company_address_info',
-	        'title'     => __( 'Address', 'cmb2' ),
+	        'title'     => __( 'Address', 'hiiwp' ),
 	        'show_on'   => $show_on,
 	    ));
 	    $cmb->add_field(array(
-	        'name'       => __( 'Address', 'cmb2' ),
-	        'desc'       => __( '', 'cmb2' ),
+	        'name'       => __( 'Address', 'hiiwp' ),
+	        'desc'       => __( '', 'hiiwp' ),
 	        'id'         => 'business_address',
 	        'type'       => 'address',
 	    ));
@@ -484,18 +484,18 @@ class HiiWP_Admin {
 	    //
 	    $cmb = new_cmb2_box( array(
 	        'id'        => 'company_geo_info',
-	        'title'     => __( 'GEO', 'cmb2' ),
+	        'title'     => __( 'GEO', 'hiiwp' ),
 	        'show_on'   => $show_on,
 	    ));
 	    $cmb->add_field(array(
-	        'name'       => __( 'Latitude', 'cmb2' ),
-	        'desc'       => __( '', 'cmb2' ),
+	        'name'       => __( 'Latitude', 'hiiwp' ),
+	        'desc'       => __( '', 'hiiwp' ),
 	        'id'         => 'business_geo_latitude',
 	        'type'       => 'text',
 	    ));
 	    $cmb->add_field(array(
-	        'name'       => __( 'Longitude', 'cmb2' ),
-	        'desc'       => __( '', 'cmb2' ),
+	        'name'       => __( 'Longitude', 'hiiwp' ),
+	        'desc'       => __( '', 'hiiwp' ),
 	        'id'         => 'business_geo_longitude',
 	        'type'       => 'text',
 	    ));
@@ -507,23 +507,23 @@ class HiiWP_Admin {
 	    //
 	    $cmb = new_cmb2_box( array(
 	        'id'        => 'company_hours_info',
-	        'title'     => __( 'Store Info', 'cmb2' ),
+	        'title'     => __( 'Store Info', 'hiiwp' ),
 	        'show_on'   => $show_on,
 	    ));
 	    $business_hours_group = $cmb->add_field( array(
 		    'id'          => 'business_openingHoursSpecification',
 		    'type'        => 'group',
-		    'description' => __( '', 'cmb2' ),
+		    'description' => __( '', 'hiiwp' ),
 		    'options'     => array(
-		        'group_title'   => __( 'Open Hours', 'cmb2' ), // since version 1.1.4, {#} gets replaced by row number
-		        'add_button'    => __( 'Add Another Hours Set', 'cmb2' ),
-		        'remove_button' => __( 'Remove Hours', 'cmb2' ),
+		        'group_title'   => __( 'Open Hours', 'hiiwp' ), // since version 1.1.4, {#} gets replaced by row number
+		        'add_button'    => __( 'Add Another Hours Set', 'hiiwp' ),
+		        'remove_button' => __( 'Remove Hours', 'hiiwp' ),
 		        'sortable'      => true, // beta
 		    ),
 		) );
 		$cmb->add_group_field($business_hours_group, array(
-	        'name'       => __( 'Days', 'cmb2' ),
-	        'desc'       => __( '', 'cmb2' ),
+	        'name'       => __( 'Days', 'hiiwp' ),
+	        'desc'       => __( '', 'hiiwp' ),
 	        'id'         => 'dayOfWeek',
 	        'type'       => 'multicheck',
 	        'options'	=> array(
@@ -538,8 +538,8 @@ class HiiWP_Admin {
 	        
 	    ));
 	    $cmb->add_group_field($business_hours_group, array(
-	        'name'       => __( 'Opens', 'cmb2' ),
-	        'desc'       => __( '', 'cmb2' ),
+	        'name'       => __( 'Opens', 'hiiwp' ),
+	        'desc'       => __( '', 'hiiwp' ),
 	        'id'         => 'opens',
 	        'type'       => 'select',
 	        'attributes' => array(
@@ -597,8 +597,8 @@ class HiiWP_Admin {
 	        )
 	    ));
 	    $cmb->add_group_field($business_hours_group, array(
-	        'name'       => __( 'Closes', 'cmb2' ),
-	        'desc'       => __( '', 'cmb2' ),
+	        'name'       => __( 'Closes', 'hiiwp' ),
+	        'desc'       => __( '', 'hiiwp' ),
 	        'id'         => 'closes',
 	        'type'       => 'select',
 	        'attributes' => array(
@@ -657,8 +657,8 @@ class HiiWP_Admin {
 	    ));
 	
 		$cmb->add_field(array(
-	        'name'       => __( 'Accepts Reservations', 'cmb2' ),
-	        'desc'       => __( '', 'cmb2' ),
+	        'name'       => __( 'Accepts Reservations', 'hiiwp' ),
+	        'desc'       => __( '', 'hiiwp' ),
 	        'id'         => 'business_acceptsReservations',
 	        'type'       => 'checkbox',
 	        'attributes' => array(
@@ -667,8 +667,8 @@ class HiiWP_Admin {
 			),
 	    ));
 	    $cmb->add_field(array(
-	        'name'       => __( 'Menu URL', 'cmb2' ),
-	        'desc'       => __( '', 'cmb2' ),
+	        'name'       => __( 'Menu URL', 'hiiwp' ),
+	        'desc'       => __( '', 'hiiwp' ),
 	        'id'         => 'business_menu',
 	        'type'       => 'text_url',
 	        'attributes' => array(
@@ -687,24 +687,24 @@ class HiiWP_Admin {
 	    //
 	    $cmb = new_cmb2_box( array(
 	        'id'        => 'company_social_info',
-	        'title'     => __( 'Social Info', 'cmb2' ),
+	        'title'     => __( 'Social Info', 'hiiwp' ),
 	        'show_on'   => $show_on,
 	    ));
 	    
 	    $social_profiles_group = $cmb->add_field( array(
 		    'id'          => 'business_social',
 		    'type'        => 'group',
-		    'description' => __( 'Use markup on your official website to add your social profile information to a Google Knowledge panel. Knowledge panels prominently display your social profile information in some Google Search results. <a target=_blank href=https://developers.google.com/search/docs/data-types/social-profile-links>Read More...</a>', 'cmb2' ),
+		    'description' => __( 'Use markup on your official website to add your social profile information to a Google Knowledge panel. Knowledge panels prominently display your social profile information in some Google Search results. <a target=_blank href=https://developers.google.com/search/docs/data-types/social-profile-links>Read More...</a>', 'hiiwp' ),
 		    'options'     => array(
-		        'group_title'   => __( 'Social Profiles', 'cmb2' ), // since version 1.1.4, {#} gets replaced by row number
-		        'add_button'    => __( 'Add Social Profile', 'cmb2' ),
-		        'remove_button' => __( 'Remove Profile', 'cmb2' ),
+		        'group_title'   => __( 'Social Profiles', 'hiiwp' ), // since version 1.1.4, {#} gets replaced by row number
+		        'add_button'    => __( 'Add Social Profile', 'hiiwp' ),
+		        'remove_button' => __( 'Remove Profile', 'hiiwp' ),
 		        'sortable'      => true, // beta
 		    ),
 		) );
 		$cmb->add_group_field($social_profiles_group, array(
-	        'name'       => __( 'Site', 'cmb2' ),
-	        'desc'       => __( '', 'cmb2' ),
+	        'name'       => __( 'Site', 'hiiwp' ),
+	        'desc'       => __( '', 'hiiwp' ),
 	        'id'         => 'social_site',
 	        'type'       => 'select',
 	        'show_names' => false,
@@ -724,14 +724,27 @@ class HiiWP_Admin {
 	    ));
 	    
 	    $cmb->add_group_field($social_profiles_group, array(
-	        'name'       => __( 'URL', 'cmb2' ),
-	        'desc'       => __( '', 'cmb2' ),
+	        'name'       => __( 'URL', 'hiiwp' ),
+	        'desc'       => __( '', 'hiiwp' ),
 	        'id'         => 'social_url',
 	        'type'       => 'text_url',
 	        'show_names' => false,
 	        'attributes'	=> array(
 		        'placeholder'	=> 'URL',
 	        ),
+	    ));
+	    $list_nav_menus = wp_get_nav_menus();
+	    $menus_list = array();
+	    foreach($list_nav_menus as $menu):
+	    	$menus_list[$menu->slug] = $menu->name;
+	    endforeach;
+	    
+	    $cmb->add_field(array(
+	        'name'       => __( 'Add Social Icons to Menu', 'hiiwp' ),
+	        'desc'       => __( '', 'hiiwp' ),
+	        'id'         => 'add_social_to_menu',
+	        'type'       => 'multicheck',
+	        'options' => $menus_list,
 	    ));
 	    
 	    $cmb->object_type( 'options-page' );

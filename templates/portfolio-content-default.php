@@ -12,7 +12,7 @@ $imgs_in_grid = (get_post_meta ( $post->ID, 'imgs_in_grid', true))?get_post_meta
 <!--PORTFOLIO-CONTENT-DEFAULT-->
 <article  <?php post_class('row'); ?> itemscope itemtype="http://schema.org/Article" id="post-<?php the_ID(); ?>" >
 	
-	<meta itemscope itemprop="mainEntityOfPage"  itemType="https://schema.org/WebPage" itemid="<?php bloginfo('url')?>"/>
+	<meta itemscope itemprop="mainEntityOfPage"  itemType="https://schema.org/WebPage" itemid="<?php echo esc_url( home_url() )?>"/>
 <?php
 echo '<div class="container_inner">';
 $show_featureimage = false;
@@ -28,10 +28,10 @@ if($show_featureimage):
 		$height = $img[2];
 	?>
 	<figure class="flex-item full-width" itemprop="image" itemscope itemtype="https://schema.org/ImageObject">
-		<meta itemprop="url" content="<?=$img[0];?>">
-		<meta itemprop="width" content="<?=$img[1];?>">
-		<meta itemprop="height" content="<?=$img[2];?>">
-		<img src='<?=$img[0];?>' layout='responsive' width='<?=$width?>' height='<?=$height?>'>
+		<meta itemprop="url" content="<?php echo $img[0];?>">
+		<meta itemprop="width" content="<?php echo $img[1];?>">
+		<meta itemprop="height" content="<?php echo $img[2];?>">
+		<img src='<?php echo $img[0];?>' layout='responsive' width='<?php echo $width?>' height='<?php echo $height?>'>
 	</figure>
 	<?php endif; ?>
 </div><?php
@@ -73,8 +73,8 @@ echo '<div class="full-width  align-top">';
 	<br>
 	<div class="articleSource labels">
 		<p>
-			<strong class="label">Source</strong> <a href="<?=get_post_meta( $post->ID, 'source_article_link', true); ?>"><?=get_post_meta ( $post->ID, 'source_article_title', true); ?></a> <span class="label"><?=get_post_meta( $post->ID, 'source_site_title', true); ?></span>
-		<meta itemprop="sameAs" content="<?=get_post_meta( $post->ID, 'source_article_link'); ?>">
+			<strong class="label">Source</strong> <a href="<?php echo get_post_meta( $post->ID, 'source_article_link', true); ?>"><?php echo get_post_meta ( $post->ID, 'source_article_title', true); ?></a> <span class="label"><?php echo get_post_meta( $post->ID, 'source_site_title', true); ?></span>
+		<meta itemprop="sameAs" content="<?php echo get_post_meta( $post->ID, 'source_article_link'); ?>">
 		</p>
 	</div>
 	<?php } 
@@ -91,11 +91,11 @@ echo '<div class="full-width  align-top">';
 	$options = get_option('hii_seo_settings'); ?>
 			<div itemprop="publisher" itemscope itemtype="https://schema.org/Organization">
 				<div itemprop="logo" itemscope itemtype="https://schema.org/ImageObject">
-				  <meta itemprop="url" content="<?=$options['business_logo']?>">
+				  <meta itemprop="url" content="<?php echo $options['business_logo']?>">
 				  <meta itemprop="width" content="150">
 				  <meta itemprop="height" content="150">
 				</div>
-				<meta itemprop="name" content="<?=$options['business_name']?>">
+				<meta itemprop="name" content="<?php echo $options['business_name']?>">
 			</div><?php
 		echo '</div>';
 		
@@ -123,16 +123,16 @@ if($hiilite_options['show_more_projects']):
 			if ( has_post_thumbnail() ) {
 				$image = wp_get_attachment_image_src( get_post_thumbnail_id( get_the_id() ));
 				?>
-				<a href="<?=get_the_permalink()?>"  class="relatedarticle slide">
-			    	<figure><img src="<?=$image[0]?>" width="200" height="200" alt="<?=get_the_title()?>"></figure>
-			    	<p><?=get_the_title();?></p>
+				<a href="<?php echo get_the_permalink()?>"  class="relatedarticle slide">
+			    	<figure><img src="<?php echo $image[0]?>" width="200" height="200" alt="<?php echo get_the_title()?>"></figure>
+			    	<p><?php echo get_the_title();?></p>
 				</a>
 				<?php
 			} else {
 				?>
-				<a href="<?=get_the_permalink()?>"  class="relatedarticle slide">
-			    	<img src="<?=$hiilite_options['main_logo']?>" width="200" height="200" alt="<?=get_the_title()?>">
-			    	<p><?=get_the_title();?></p>
+				<a href="<?php echo get_the_permalink()?>"  class="relatedarticle slide">
+			    	<img src="<?php echo $hiilite_options['main_logo']?>" width="200" height="200" alt="<?php echo get_the_title()?>">
+			    	<p><?php echo get_the_title();?></p>
 				</a>
 				<?php
 			}	

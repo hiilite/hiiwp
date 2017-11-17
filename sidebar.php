@@ -7,7 +7,22 @@
  * @package     hiiwp
  * @copyright   Copyright (c) 2016, Peter Vigilante
  * @license     http://opensource.org/licenses/gpl-2.0.php GNU Public License
- * @since       0.3.5
+ * @since       0.5.0
  */
-do_action( 'hii_sidebar' );
+$hiilite_options = Hii::get_options();
+if ( ! is_active_sidebar( 'blog_sidebar' ) ) {
+	return;
+}
+if ( $hiilite_options['blog_sidebar_show'] == true ) :
 ?>
+<aside id="blog_sidebar" class="widget-area col-3" role="complementary">
+	<?php
+	do_action( 'hii_before_sidebar' );
+	
+	dynamic_sidebar( 'blog_sidebar' );
+	
+	do_action( 'hii_after_sidebar' );
+	?>
+</aside>
+<?php
+endif;?>

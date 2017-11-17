@@ -12,116 +12,154 @@ TODO:
 - Turn Related posts into widget and shortcode
 - Turn about the author into widget and shortcode	
 */
-$hiilite_options = Hii::$hiiwp->get_options();
+$hiilite_options = Hii::get_options();
 
 $post_meta = get_post_meta(get_the_id());
+$post_format_icon = $article_title = $dateline = $article_cat = '';
 
-?>
-<!--POST-LOOP-->
-<article <?php post_class('row blog-article'); ?> itemscope itemtype="http://schema.org/Article" id="post-<?php the_ID(); ?>" >
-	<header class="page-title <?php echo get_post_meta ( $post->ID, 'page_title_bg', true); ?>">
-		<div class="container_inner">
-			<div class="in_grid content-box">
-				
-				<meta itemprop="datePublished" content="<?php the_time('Y-m-d'); ?>">
-				<meta itemprop="dateModified" content="<?php the_modified_date('Y-m-d'); ?>">
-				<meta itemprop="headline" content="<?php the_title(); ?>"><?php
-				if(is_single() && get_post_meta(get_the_id(), 'show_page_title', true) != 'on'){
-					echo '<a class="back_to_blog" href="'.get_permalink( get_option( 'page_for_posts' ) ).'">Back to blog</a><br>';
-					echo '<h1 class="col-12">'.get_the_title().'</h1>';
-				}
-				?>
-				<div class="post_meta">
-					<address class="post_author">
-						<a itemprop="author" itemscope itemtype="https://schema.org/Person" class="post_author_link" href="<?php echo get_author_posts_url( get_the_author_meta( 'ID' ) ); ?>">
-							<span itemprop="name"><?php the_author_meta('display_name'); ?></span>
-						</a>
-					</address> 
-					<time class="time op-published" datetime="<?php the_time('c'); ?>">
-						<small><span class="date"><?php the_time('F j, Y'); ?></span> <?php the_time('h:i a'); ?></small>
-					</time>
-				
-				<?php
-if($hiilite_options['blog_cats_show']):
-	echo '<span itemprop="articleSection" class="labels">'.get_the_category_list(' ').'</span>';
+if($hiilite_options['blog_cats_show'] == 'true' || $hiilite_options['blog_cats_show'] == true):
+	$article_cat .= '<span class="cat-links"><span class="screen-reader-text">Tags</span>'.get_the_category_list(', ').'</span>';
 else:
 	$categories = get_the_category();$cats ='';
 	foreach($categories as $cat){
-		$cats .= $cat->name;
+		$cats .= $cat->name.' ';
 	}
-	echo '<meta itemprop="articleSection" content="'.$cats.'">';
 endif;
-?>				</div>
-				
+
+if($hiilite_options['blog_meta_show'] == 'true'):
+	$dateline .= '<div class="entry-meta">';
+		$dateline .= '<span class="posted-on"><span class="screen-reader-text">Posted on</span>';
+			$dateline .= '<a href="'.get_the_permalink().'" rel="bookmark">';
+				$dateline .= '<time class="time op-published" datetime="' . get_the_time('c') . '">';
+					$dateline .= get_the_time('d F, Y');
+				$dateline .= '</time></a>';
+		$dateline .= '<span class="byline"> by <span class="author vcard">';
+			$dateline .= '<a class="post_author_link" href="'.get_author_posts_url( get_the_author_meta( 'ID' ) ).'">';
+				$dateline .= get_the_author_meta('display_name'); 
+			$dateline .= '</a>';
+		$dateline .= '</span></span>';
+		$dateline .= HiiWP_Templates::edit_link();
+	$dateline .= '</div>';
+endif;
+
+if($hiilite_options['blog_title_show'] == 'true' || $hiilite_options['blog_title_show'] == true) {
+	if ( is_sticky() ) {
+		$post_format_icon .= '<i class="fa fa-thumb-tack post-format-icon"> </i>';
+	}
+	if (get_post_format() !== NULL) {
+		switch (get_post_format() ) {
+			case 'video':
+				$post_format_icon .= '<i class="fa fa-film post-format-icon"> </i>';
+			break;
+			case 'audio':
+				$post_format_icon .= '<i class="fa fa-music post-format-icon"> </i>';
+			break;
+			case 'link':
+				$post_format_icon .= '<i class="fa fa-link post-format-icon"> </i>';
+			break;
+			case 'image':
+			case 'gallery':
+				$post_format_icon .= '<i class="fa fa-picture-o post-format-icon"> </i>';
+			break;
+			case 'chat':
+				$post_format_icon .= '<i class="fa fa-wechat post-format-icon"> </i>';
+			break;
+			case 'quote':
+				$post_format_icon .= '<i class="fa fa-quote-left post-format-icon"> </i>';
+			break;
+			case 'aside':
+				$post_format_icon .= '<i class="fa fa-sticky-note post-format-icon"> </i>';
+			break;
+		} 
+	}
+	
+	$article_title .= '<h1 class="entry-title">' . $post_format_icon . get_the_title() . '</h1>';
+} 
+
+
+$article_title = $article_title.$dateline;
+
+
+?>
+<!--POST-LOOP-->
+<article <?php post_class('row blog-article'); ?> id="post-<?php the_ID(); ?>" >
+	<header class="page-title entry-header <?php echo get_post_meta ( $post->ID, 'page_title_bg', true); ?>">
+		<div class="container_inner">
+			<div class="in_grid content-box">
+			<?php
+				if(is_single() && get_post_meta(get_the_id(), 'show_page_title', true) != 'on'){
+					echo '<a class="back_to_blog" href="'.get_permalink( get_option( 'page_for_posts' ) ).'"><i class="fa fa-angle-left"></i>Back to blog</a><br>';
+					echo $article_title;
+				}
+				?>
 			</div>
 		</div>
 	</header>
 	
 	<div class="<?php if($hiilite_options['single_full'] == false) { echo 'in_grid'; } ?>">
-		<meta itemscope itemprop="mainEntityOfPage"  itemType="https://schema.org/WebPage" itemid="<?php bloginfo('url')?>" content="<?php bloginfo('url')?>"/>
 		<div class="container_inner">
+		<?php
+		echo '<div class="col-9 content-box align-top">';
+
+		
+			if(has_post_thumbnail($post->id) && ($hiilite_options[ 'blog_show_featured_image' ] && get_post_meta( $post->ID, 'hide_page_feature_image', true) != 'hide')): 
+					
+				$tn_id = get_post_thumbnail_id( $post->ID );
 			
-			<?php
-			echo '<div class="threequarter-width content-box  align-top">';
-
+				$img = wp_get_attachment_image_src( $tn_id, 'large' );
+				$width = $img[1];
+				$height = $img[2];
+			?>
+				<figure class="flex-item full-width post-thumbnail">
+					<img src='<?php echo $img[0];?>'  width='<?php echo $width?>' height='<?php echo $height?>' alt="<?php echo get_the_title()?>">
+				</figure><?php 
+			endif;
+			
+			echo '<div class="entry-content">';
+				the_content();
+			echo '</div>';
+			
+			//////////////////
+			/* translators: used between list items, there is a space after the comma */
+			$separate_meta = __( ', ', 'hiiwp' );
 		
-if(has_post_thumbnail($post->id) && ($hiilite_options[ 'blog_show_featured_image' ] && get_post_meta( $post->ID, 'hide_page_feature_image', true) != 'hide')): 
+			// Get Categories for posts.
+			$categories_list = get_the_category_list( $separate_meta );
 		
-	$tn_id = get_post_thumbnail_id( $post->ID );
-
-	$img = wp_get_attachment_image_src( $tn_id, 'large' );
-	$width = $img[1];
-	$height = $img[2];
-?>
-	<figure class="flex-item full-width" itemprop="image" itemscope itemtype="https://schema.org/ImageObject">
-		<meta itemprop="url" content="<?=$img[0];?>">
-		<meta itemprop="width" content="<?=$img[1];?>">
-		<meta itemprop="height" content="<?=$img[2];?>">
-		<img src='<?=$img[0];?>'  width='<?=$width?>' height='<?=$height?>' alt="<?=get_the_title()?>">
-	</figure><?php 
-endif;
-	
-the_content();
-
-
-$source = get_post_meta( $post->ID, 'source_article_link');
-if(is_array($source) && 
-	isset($source[0])){ ?>
-	<br>
-	<div class="articleSource labels">
-		<p>
-			<strong class="label">Source</strong> <a href="<?=get_post_meta( $post->ID, 'source_article_link', true); ?>"><?=get_post_meta ( $post->ID, 'source_article_title', true); ?><span class="label"><?=get_post_meta( $post->ID, 'source_site_title', true); ?></span></a>
-		<meta itemprop="sameAs" content="<?=get_post_meta( $post->ID, 'source_article_link', true); ?>">
-		</p>
-	</div>
-<?php 
-} 
-	
-if( has_tag()) { ?>
-    <div class="tags_text">
-		<span itemprop="keywords" class="labels">
-		<?php 
-			the_tags('', ' ', '');
-		?></span>
-	</div>
-<?php 
-}
-	
-$options = get_option('hii_seo_settings'); ?>
-		<div itemprop="publisher" itemscope itemtype="https://schema.org/Organization">
-			<div itemprop="logo" itemscope itemtype="https://schema.org/ImageObject">
-			  <meta itemprop="url" content="<?=$options['business_logo']?>">
-			  <meta itemprop="width" content="150">
-			  <meta itemprop="height" content="150">
-			</div>
-			<meta itemprop="name" content="<?=$options['business_name']?>">
-		</div><?php
-
-	echo '</div>';
-	
+			// Get Tags for posts.
+			$tags_list = get_the_tag_list( '', $separate_meta );
+		
+			// We don't want to output .entry-footer if it will be empty, so make sure its not.
+			if ( ( $categories_list || $tags_list ) || get_edit_post_link() ) {
+		
+				echo '<footer class="entry-footer">';
+		
+					if ( 'post' === get_post_type() ) {
+						if ( $categories_list || $tags_list ) {
+							echo '<span class="cat-tags-links">';
+		
+								// Make sure there's more than one category before displaying.
+								if ( $categories_list ) {
+									echo '<span class="cat-links"><i class="fa fa-folder-open"></i><span class="screen-reader-text">' . __( 'Categories', 'twentyseventeen' ) . '</span>' . $categories_list . '</span>';
+								}
+		
+								if ( $tags_list && ! is_wp_error( $tags_list ) ) {
+									echo '<span class="tags-links"><i class="fa fa-hashtag"></i><span class="screen-reader-text">' . __( 'Tags', 'twentyseventeen' ) . '</span>' . $tags_list . '</span>';
+								}
+		
+							echo '</span>';
+						}
+					}
+		
+					echo HiiWP_Templates::edit_link();
+		
+				echo '</footer> <!-- .entry-footer -->';
+			}
+			//////////////////
+		echo '</div>';
 					
 	if(is_active_sidebar('post_sidebar')){	
-		echo '<aside id="post_sidebar" class="quarter-width content-box  align-top">';
+		echo '<aside id="post_sidebar" class="col-3 content-box">';
 			dynamic_sidebar( 'post_sidebar' );
 		echo '</aside>'; 
 	}
@@ -179,16 +217,16 @@ if($hiilite_options['blog_rel_articles'] == true):
 				if ( has_post_thumbnail() ) {
 					$image = wp_get_attachment_image_src( get_post_thumbnail_id( get_the_id() ));
 					?>
-					<a href="<?=get_the_permalink()?>"  class="relatedarticle slide">
-				    	<img src="<?=$image[0]?>" width="200" height="200" alt="<?=get_the_title()?>">
-				    	<p><?=get_the_title();?></p>
+					<a href="<?php echo get_the_permalink()?>"  class="relatedarticle slide">
+				    	<img src="<?php echo $image[0]?>" width="200" height="200" alt="<?php echo get_the_title()?>">
+				    	<p><?php echo get_the_title();?></p>
 					</a>
 					<?php
 				} else {
 					?>
-					<a href="<?=get_the_permalink()?>"  class="relatedarticle slide">
-				    	<img src="<?=$hiilite_options['main_logo']?>" width="200" height="200" alt="<?=get_the_title()?>">
-				    	<p><?=get_the_title();?></p>
+					<a href="<?php echo get_the_permalink()?>"  class="relatedarticle slide">
+				    	<img src="<?php echo $hiilite_options['main_logo']?>" width="200" height="200" alt="<?php echo get_the_title()?>">
+				    	<p><?php echo get_the_title();?></p>
 					</a>
 					<?php
 				}
@@ -207,11 +245,20 @@ if($hiilite_options['blog_rel_articles'] == true):
 //end related Posts
 endif;
 
-if($hiilite_options['blog_comments_show']):
-		echo '<div class="container_inner">';
-			comments_template();
-		echo '</div>';
+if($hiilite_options['blog_comments_show'] == true):
+	echo '<div class="container_inner">';
+	// If comments are open or we have at least one comment, load up the comment template.
+	if ( comments_open() || get_comments_number() ) :
+		comments_template();
 	endif;
+	echo '</div>';
+endif;
+echo '<div class="container_inner">';
+	the_post_navigation( array(
+						'prev_text' => '<span class="screen-reader-text">' . __( 'Previous Post', 'hiiwp' ) . '</span><span aria-hidden="true" class="nav-subtitle">' . __( 'Previous', 'hiiwp' ) . '</span> <span class="nav-title"><span class="nav-title-icon-wrapper"><i class="fa fa-angle-left"></i></span>%title</span>',
+						'next_text' => '<span class="screen-reader-text">' . __( 'Next Post', 'hiiwp' ) . '</span><span aria-hidden="true" class="nav-subtitle">' . __( 'Next', 'hiiwp' ) . '</span> <span class="nav-title">%title<span class="nav-title-icon-wrapper"><i class="fa fa-angle-right"></i></span></span>',
+					) );
+echo '</div>';
 ?>
 	</div>
 </article>

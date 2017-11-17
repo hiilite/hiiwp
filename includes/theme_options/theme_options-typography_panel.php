@@ -1,41 +1,41 @@
 <?php
 Kirki::add_panel( 'typography_panel', array(
     'priority'    => 6,
-    'title'       => __( 'Fonts', 'textdomain' ),
-    'description' => __( 'Typography settings', 'textdomain' ),
+    'title'       => __( 'Fonts', 'hiiwp' ),
+    'description' => __( 'Typography settings', 'hiiwp' ),
     'icon' => 'dashicons-editor-textcolor'
 ) );
 Kirki::add_section( 'typography_headings_section', array(
     'priority'    => 6,
-    'title'       => __( 'Headings', 'textdomain' ),
-    'description' => __( 'Typography settings', 'textdomain' ),
+    'title'       => __( 'Headings', 'hiiwp' ),
+    'description' => __( 'Typography settings', 'hiiwp' ),
     'panel'		 => 'typography_panel',
 ) );
 
 Kirki::add_section( 'typography_text_section', array(
     'priority'    => 6,
-    'title'       => __( 'Text', 'textdomain' ),
-    'description' => __( 'Customize fonts for Paragraphs, Links, and Custom Formats', 'textdomain' ),
+    'title'       => __( 'Text', 'hiiwp' ),
+    'description' => __( 'Customize fonts for Paragraphs, Links, and Custom Formats', 'hiiwp' ),
     'panel'		 => 'typography_panel',
 ) );
 
 Kirki::add_section( 'typography_social_icons_section', array(
     'priority'    => 6,
-    'title'       => __( 'Social Icons', 'textdomain' ),
-    'description' => __( 'Customize the default social icons', 'textdomain' ),
+    'title'       => __( 'Social Icons', 'hiiwp' ),
+    'description' => __( 'Customize the default social icons', 'hiiwp' ),
     'panel'		 => 'typography_panel',
 ) );
 
 Kirki::add_section( 'typography_header_menu_section', array(
     'priority'    => 6,
-    'title'       => __( 'Header & Menu', 'textdomain' ),
+    'title'       => __( 'Header & Menu', 'hiiwp' ),
     'panel'		 => 'typography_panel',
 ) );
 
 Kirki::add_section( 'typography_page_title_section', array(
     'priority'    => 6,
-    'title'       => __( 'Page Title', 'textdomain' ),
-    'description' => __( 'Page Title font settings', 'textdomain' ),
+    'title'       => __( 'Page Title', 'hiiwp' ),
+    'description' => __( 'Page Title font settings', 'hiiwp' ),
     'panel'		 => 'typography_panel',
 ) );
 
@@ -43,8 +43,8 @@ Kirki::add_section( 'typography_page_title_section', array(
 
 Kirki::add_section( 'typography_footer_section', array(
     'priority'    => 6,
-    'title'       => __( 'Footer', 'textdomain' ),
-    'description' => __( 'Footer title and text properties', 'textdomain' ),
+    'title'       => __( 'Footer', 'hiiwp' ),
+    'description' => __( 'Footer title and text properties', 'hiiwp' ),
     'panel'		 => 'typography_panel',
 ) );
 

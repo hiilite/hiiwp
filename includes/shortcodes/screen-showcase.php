@@ -34,22 +34,22 @@ if (!function_exists('screen_showcase')) {
  
         $html .=  '<div ' . implode( ' ', $wrapper_attributes ) . '>';
 		$html .= ($imac_image!='')?'<div class="imac_scrolling_screen screen">
-			<img src="'.get_bloginfo('template_url').'/images/icons/iMac.png">
+			<img src="'.esc_url( get_template_directory_uri() ).'/images/icons/iMac.png">
 			<div class="screen_area"></div>
 		</div>':'';
 		
 		$html .= ($macbook_image!='')?'<div class="macbook_scrolling_screen screen">
-			<img src="'.get_bloginfo('template_url').'/images/icons/Macbook.png">
+			<img src="'.esc_url( get_template_directory_uri() ).'/images/icons/Macbook.png">
 			<div class="screen_area"></div>
 		</div>':'';
 		
 		$html .= ($ipad_image!='')?'<div class="ipad_scrolling_screen screen">
-			<img src="'.get_bloginfo('template_url').'/images/icons/iPad.png">
+			<img src="'.esc_url( get_template_directory_uri() ).'/images/icons/iPad.png">
 			<div class="screen_area"></div>
 		</div>':'';
 		
 		$html .= ($iphone_image!='')?'<div class="iphone_scrolling_screen screen">
-			<img src="'.get_bloginfo('template_url').'/images/icons/iPhone.png">
+			<img src="'.esc_url( get_template_directory_uri() ).'/images/icons/iPhone.png">
 			<div class="screen_area"></div>
 		</div>':'';
 	
