@@ -157,8 +157,8 @@ $article_title = $article_title.$dateline;
 			}
 			//////////////////
 		echo '</div>';
-					
-	if(is_active_sidebar('post_sidebar')){	
+		
+	if(is_active_sidebar('post_sidebar') && $hiilite_options['blog_show_sidebar']){	
 		echo '<aside id="post_sidebar" class="col-3 content-box">';
 			dynamic_sidebar( 'post_sidebar' );
 		echo '</aside>'; 

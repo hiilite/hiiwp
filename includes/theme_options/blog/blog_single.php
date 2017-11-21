@@ -46,6 +46,16 @@ Kirki::add_field( 'hiiwp', array(
     'default'     => true,
     'priority'    => 1,
 ) );
+
+Kirki::add_field( 'hiiwp', array(
+    'type'        => 'switch',
+    'settings'    => 'blog_show_sidebar',
+    'label'       => __( 'Show Sidebar', 'hiiwp' ),
+    'section'     => $section,
+    'default'     => $hiilite_options['blog_show_sidebar'],
+    'priority'    => 1,
+) );
+
 Kirki::add_field( 'hiiwp', array(
     'type'        => 'switch',
     'settings'    => 'blog_comments_show',

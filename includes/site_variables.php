@@ -436,7 +436,9 @@ $hiilite_options['typography_footer_headings_font']				= get_theme_mod( 'typogra
         'color'          => ' ',
     ) );
 
-$hiilite_options['typography_link_custom_css']	= get_theme_mod( 'typography_link_custom_css', '{text-decoration:none;}' );
+$hiilite_options['typography_link_custom_css']	= get_theme_mod( 'typography_link_custom_css', 'a {
+	text-decoration:none;
+}' );
 $hiilite_options['link_color']				=get_theme_mod( 'link_color', array(
         'link'    => $hiilite_options['color_one'],
         'hover'   => $hiilite_options['color_two'],
@@ -483,10 +485,11 @@ $hiilite_options['typography_button_default_border_color'] =  get_theme_mod( 'ty
 ));
 $hiilite_options['typography_button_default_border_width'] =  get_theme_mod( 'typography_button_default_border_width', '2px');
 $hiilite_options['typography_button_default_border_radius'] =  get_theme_mod( 'typography_button_default_border_radius', '2px');
-$hiilite_options['typography_button_custom_css']	= get_theme_mod( 'typography_button_custom_css', '
+$hiilite_options['typography_button_custom_css']	= get_theme_mod( 'typography_button_custom_css', '.button {
 	margin: 1em 0;
 	text-decoration: none;
-	display: inline-block;' );
+	display: inline-block;
+}' );
 
 /*
 *	Primary Button
@@ -516,7 +519,7 @@ $hiilite_options['typography_button_primary_border_color'] =  get_theme_mod( 'ty
 ));
 $hiilite_options['typography_button_primary_border_width'] =  get_theme_mod( 'typography_button_primary_border_width', '2px');
 $hiilite_options['typography_button_primary_border_radius'] =  get_theme_mod( 'typography_button_primary_border_radius', '2px');
-$hiilite_options['typography_button_primary_custom_css']	= get_theme_mod( 'typography_button_primary_custom_css', '' );
+$hiilite_options['typography_button_primary_custom_css']	= get_theme_mod( 'typography_button_primary_custom_css', '.button-primary {}' );
 
 /*
 *	Secondary Button
@@ -546,14 +549,14 @@ $hiilite_options['typography_button_secondary_border_color'] =  get_theme_mod( '
 ));
 $hiilite_options['typography_button_secondary_border_width'] =  get_theme_mod( 'typography_button_secondary_border_width', '2px');
 $hiilite_options['typography_button_secondary_border_radius'] =  get_theme_mod( 'typography_button_secondary_border_radius', '2px');
-$hiilite_options['typography_button_secondary_custom_css']	= get_theme_mod( 'typography_button_secondary_custom_css', '' );
+$hiilite_options['typography_button_secondary_custom_css']	= get_theme_mod( 'typography_button_secondary_custom_css', '.button-secondary {}' );
 
 /*
 *	Custom Formats
 */
-$hiilite_options['custom_format_1']			= get_theme_mod( 'custom_format_1', '' );
-$hiilite_options['custom_format_2']			= get_theme_mod( 'custom_format_2', '' );
-$hiilite_options['custom_format_3']			= get_theme_mod( 'custom_format_3', '' );
+$hiilite_options['custom_format_1']			= get_theme_mod( 'custom_format_1', '.custom_format_1 {}' );
+$hiilite_options['custom_format_2']			= get_theme_mod( 'custom_format_2', '.custom_format_2 {}' );
+$hiilite_options['custom_format_3']			= get_theme_mod( 'custom_format_3', '.custom_format_3 {}' );
 
 $hiilite_options['h1_color']					= '#635d5d';
 $hiilite_options['h2_color']					= '#58b8a6';
@@ -637,6 +640,7 @@ $hiilite_options['blog_comments_show']		= get_theme_mod( 'blog_comments_show', t
 $hiilite_options['blog_rel_articles']		= get_theme_mod( 'blog_rel_articles', true );
 $hiilite_options['single_full']				= get_theme_mod( 'single_full', false );
 $hiilite_options['blog_show_featured_image']= get_theme_mod('blog_show_featured_image', true);
+$hiilite_options['blog_show_sidebar']		= get_theme_mod('blog_show_sidebar', true);
 
 // SIDEBAR
 $hiilite_options['sidebar_background']		= get_theme_mod( 'sidebar_background', '#efefef');

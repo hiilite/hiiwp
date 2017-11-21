@@ -2,6 +2,11 @@
 This theme is currently in Alpha testing and should not be installed without the support of the team at Hiilite Creative Group
 
 ### Change log
+#### v0.4.5
+- Updated Kirki to 3.0.17
+- Updated packaged plugins
+- Fixes to site variables
+- All custom CSS fields now must include proper CSS rule structure
 #### v0.4.4
 - Checking the layout of product pages in woocommerce
 - Modified Visual Composer admin css
@@ -10,7 +15,7 @@ This theme is currently in Alpha testing and should not be installed without the
 - Added post formats
 - New icons on post formats
 - New animation on dropdown menues
-- Updated Kirki to 3.0.15
+- Updated Kirki to 3.0.16
 - Added ability to push social icons to selected menu
 - Search icon is now top menu item
 - Added Shop and Product sidebars for WooCommerce

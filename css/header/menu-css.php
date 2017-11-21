@@ -18,17 +18,20 @@ $second_level_menu_colors = Hii::$options['second_level_menu_colors'];
     display: flex;
     justify-content: space-evenly;
 }
-.menu .menu-item  {
+#main_header .menu .menu-item  {
 	position: relative;
 	cursor: pointer;
 }
-.menu .menu-item a{
+#main_header .menu .menu-item a {
 	text-decoration: none;
 	display:block;
 	<?php 
 	get_font_css(Hii::$options['main_menu_font']);
 	?>
 	<?php echo Hii::$options['main_menu_links_css'];?>
+}
+#main_header .menu .menu-item .fa {
+	color: <?php echo Hii::$options['main_menu_font']['color']; ?>;
 }
 
 #main_header .menu li:hover {
@@ -37,7 +40,8 @@ $second_level_menu_colors = Hii::$options['second_level_menu_colors'];
 #main_header .menu .current-menu-item a {
 	color:<?php echo $main_menu_colors['active'];?>;
 }
-#main_header .menu li:hover a {
+#main_header .menu li:hover a,
+#main_header .menu li:hover .fa {
 	color:<?php echo $main_menu_colors['hover'];?>;
 }
 

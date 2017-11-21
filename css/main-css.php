@@ -335,8 +335,6 @@ h3,
 h4, 
 h5, 
 h6 {
-	<?php 
-	get_font_css(Hii::$options['heading_font']); ?>
 	clear: both;
 	line-height:1.4;
 	margin: 0;
@@ -1593,14 +1591,13 @@ border-top-style:solid;
 if(get_theme_mod( 'show_footer_top_yesno', true )): ?>
  #footer_top {
 	<?php 
-	echo 'background-image:url('.get_theme_mod('footer_top_background_image').');';
-	echo 'background-repeat:'.get_theme_mod('footer_top_background_repeat').';';
-	echo 'background-size:'.get_theme_mod('footer_top_background_size').';';
-	echo 'background-attachment:'.get_theme_mod('footer_top_background_attach').';';
-	echo 'background-position:'.str_replace('-', ' ', get_theme_mod('footer_top_background_position')).';';
-	echo 'background-color:'.get_theme_mod('footer_top_background_color').';';
+	get_background_css(Hii::$options['footer_top_background']);
 	if($footer_top_colors['text']) echo 'color:'.$footer_top_colors['text'];
 ?>
+}
+
+#footer_top .menu {
+    display: block;
 }
 <?php endif; ?>
 
@@ -1713,6 +1710,7 @@ if(get_theme_mod( 'show_footer_top_yesno', true )): ?>
 	padding: 1rem;
 	box-sizing: border-box;
 	display: block;
+    width: 100%;
 }
 
 
@@ -1925,11 +1923,18 @@ endif; ?>
 
 
 
-<?php echo Hii::$options['typography_icon_custom_css'];?>
-
-.custom_format_1 { <?php echo Hii::$options['custom_format_1'];?> }
-.custom_format_2 { <?php echo Hii::$options['custom_format_2'];?> }
-.custom_format_3 { <?php echo Hii::$options['custom_format_3'];?> }
+<?php 
+echo Hii::$options['typography_icon_custom_css'];
+	
+if(strpos(Hii::$options['custom_format_1'], '.custom_format_1') === false) echo '.custom_format_1 { '.Hii::$options['custom_format_1']. '}';
+else echo Hii::$options['custom_format_1'];
+	
+if(strpos(Hii::$options['custom_format_2'], '.custom_format_2') === false) echo '.custom_format_2 { '.Hii::$options['custom_format_2']. '}';
+else echo Hii::$options['custom_format_2'];
+	
+if(strpos(Hii::$options['custom_format_3'], '.custom_format_3') === false) echo '.custom_format_3 { '.Hii::$options['custom_format_3']. '}';
+else echo Hii::$options['custom_format_3'];
+?>
 
 
 /*
@@ -1973,6 +1978,9 @@ endif; ?>
 	echo 'padding:'.get_spacing(Hii::$options['sidebar_padding']).';';	
 	?>
 	background: <?php echo Hii::$options['sidebar_background'];?>;
+}
+.sidebar ul {
+	display:block;
 }
 .sidebar .widget,
 #post_sidebar .widget, 

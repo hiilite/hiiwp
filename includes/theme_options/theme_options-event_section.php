@@ -1,4 +1,5 @@
 <?php
+	/*
 //////////////////////
 //
 //	EVENT PANEL
@@ -260,5 +261,5 @@ Kirki::add_field( 'hiiwp', array(
     'default'     => true,
     'priority'    => 1,
 ) );
-
+*/
 	?>

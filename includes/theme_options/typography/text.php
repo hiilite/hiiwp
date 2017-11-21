@@ -59,9 +59,7 @@ Kirki::add_field( 'hiiwp', array(
 	'settings'    => 'typography_link_custom_css',
 	'label'       => __( 'Link Custom CSS (a)', 'hiiwp' ),
 	'section'     => $section,
-	'default'     => '{
-	text-decoration:none;
-}',
+	'default'     => $hiilite_options['typography_link_custom_css'],
 	'priority'    => 1,
 	'choices'     => array(
 		'language' => 'css',
@@ -83,7 +81,7 @@ Kirki::add_field( 'hiiwp', array(
 	'label'       => __( 'Custom Format 1 (.custom_format_1)', 'hiiwp' ),
 	'description' => __( 'Custom format that can be used in the visual editor', 'hiiwp' ),
 	'section'     => $section,
-	'default'     => '',
+	'default'     => $hiilite_options['custom_format_1'],
 	'priority'    => 1,
 	'choices'     => array(
 		'language' => 'css',
@@ -97,7 +95,7 @@ Kirki::add_field( 'hiiwp', array(
 	'label'       => __( 'Custom Format 2 (.custom_format_2)', 'hiiwp' ),
 	'description' => __( 'Custom format that can be used in the visual editor', 'hiiwp' ),
 	'section'     => $section,
-	'default'     => '',
+	'default'     => $hiilite_options['custom_format_2'],
 	'priority'    => 1,
 	'choices'     => array(
 		'language' => 'css',
@@ -111,7 +109,7 @@ Kirki::add_field( 'hiiwp', array(
 	'label'       => __( 'Custom Format 3 (.custom_format_3)', 'hiiwp' ),
 	'description' => __( 'Custom format that can be used in the visual editor', 'hiiwp' ),
 	'section'     => $section,
-	'default'     => '',
+	'default'     => $hiilite_options['custom_format_3'],
 	'priority'    => 1,
 	'choices'     => array(
 		'language' => 'css',
