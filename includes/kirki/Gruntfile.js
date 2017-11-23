@@ -69,11 +69,6 @@ module.exports = function( grunt ) {
 			}
 		},
 
-		// Delete the json array
-		clean: [
-			'modules/webfonts/webfonts.json'
-		],
-
 		// Watch task (run with "grunt watch")
 		watch: {
 			css: {
@@ -96,24 +91,23 @@ module.exports = function( grunt ) {
 
 		concat: {
 			options: {
-				separator: ';'
+				separator: ''
 			},
 			dist: {
 				src: [
 					'controls/js/src/set-setting-value.js',
+					'controls/js/src/kirki.js',
 					'controls/js/src/dynamic-control.js',
 
 					'controls/js/src/background.js',
 					'controls/js/src/code.js',
 					'controls/js/src/color-palette.js',
-					'controls/js/src/color.js',
 					'controls/js/src/dashicons.js',
 					'controls/js/src/date.js',
 					'controls/js/src/dimension.js',
 					'controls/js/src/dimensions.js',
 					'controls/js/src/editor.js',
 					'controls/js/src/fontawesome.js',
-					'controls/js/src/generic.js',
 					'controls/js/src/image.js',
 					'controls/js/src/multicheck.js',
 					'controls/js/src/multicolor.js',
@@ -122,9 +116,7 @@ module.exports = function( grunt ) {
 					'controls/js/src/preset.js',
 					'controls/js/src/radio-buttonset.js',
 					'controls/js/src/radio-image.js',
-					'controls/js/src/radio.js',
 					'controls/js/src/repeater.js',
-					'controls/js/src/select.js',
 					'controls/js/src/slider.js',
 					'controls/js/src/sortable.js',
 					'controls/js/src/switch.js',
@@ -136,19 +128,18 @@ module.exports = function( grunt ) {
 			legacy: {
 				src: [
 					'controls/js/src/set-setting-value.js',
+					'controls/js/src/kirki.js',
 					'controls/js/src/dynamic-control.js',
 
 					'controls/js/src/background-legacy.js',
 					'controls/js/src/code.js',
 					'controls/js/src/color-palette.js',
-					'controls/js/src/color.js',
 					'controls/js/src/dashicons.js',
 					'controls/js/src/date.js',
 					'controls/js/src/dimension.js',
 					'controls/js/src/dimensions.js',
 					'controls/js/src/editor.js',
 					'controls/js/src/fontawesome.js',
-					'controls/js/src/generic.js',
 					'controls/js/src/image.js',
 					'controls/js/src/multicheck.js',
 					'controls/js/src/multicolor-legacy.js',
@@ -157,9 +148,7 @@ module.exports = function( grunt ) {
 					'controls/js/src/preset.js',
 					'controls/js/src/radio-buttonset.js',
 					'controls/js/src/radio-image.js',
-					'controls/js/src/radio.js',
 					'controls/js/src/repeater.js',
-					'controls/js/src/select.js',
 					'controls/js/src/slider.js',
 					'controls/js/src/sortable.js',
 					'controls/js/src/switch.js',
@@ -197,12 +186,11 @@ module.exports = function( grunt ) {
 	grunt.loadNpmTasks( 'grunt-curl' );
 	grunt.loadNpmTasks( 'grunt-wp-readme-to-markdown' );
 	grunt.loadNpmTasks( 'grunt-json2php' );
-	grunt.loadNpmTasks( 'grunt-contrib-clean' );
 	grunt.loadNpmTasks( 'grunt-jscs' );
 
-	grunt.registerTask( 'default', ['sass:dist', 'concat', 'uglify', 'curl:google-fonts-source', 'json2php', 'clean', 'wp_readme_to_markdown'] );
+	grunt.registerTask( 'default', ['sass:dist', 'concat', 'uglify', 'curl:google-fonts-source', 'json2php', 'wp_readme_to_markdown'] );
 	grunt.registerTask( 'dev', ['sass', 'jscs', 'watch'] );
-	grunt.registerTask( 'googlefonts', ['curl:google-fonts-source', 'json2php', 'clean'] );
+	grunt.registerTask( 'googlefonts', ['curl:google-fonts-source', 'json2php'] );
 	grunt.registerTask( 'readme', ['wp_readme_to_markdown'] );
 	grunt.registerTask( 'customBuild', ['sass:customBuild', 'uglify:customBuild'] );
 

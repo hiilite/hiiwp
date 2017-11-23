@@ -16,6 +16,9 @@
     padding-left: 0;
     box-sizing: border-box; 
 }
+.woocommerce .sidebar ul.product-categories {
+	display: block;
+}
 .woocommerce div.product .product_title {
     font-size: 40px;
     line-height: 1.5;

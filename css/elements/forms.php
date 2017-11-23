@@ -132,7 +132,7 @@ textarea {
 	padding: 1em;
 	width: 100%;	
 	border: 1px solid rgba(203, 203, 203, 1); 
-	font-size: 1rem;
+	font-size: 1em;
 }
 
 input[type="text"]:focus,

@@ -13,9 +13,12 @@
 		' solid '.
 		Hii::$options['typography_button_default_border_color']['base'].
 		';';
-	echo 'border-radius:'.Hii::$options[ 'typography_button_default_border_radius' ].';';
-	echo preg_replace('/[{}]/','',Hii::$options['typography_button_custom_css']);?>
+	echo 'border-radius:'.Hii::$options[ 'typography_button_default_border_radius' ].';';?>
 }
+<?php
+if(strpos(Hii::$options['typography_button_custom_css'], '.button') === false) echo '.button { '.Hii::$options['typography_button_custom_css']. '}';
+else echo Hii::$options['typography_button_custom_css'];
+?>	
 .button:hover {
 	color: white;
 	background: <?php echo Hii::$options['typography_button_default_background']['hover']?>;
@@ -31,9 +34,12 @@
 		' solid '.
 		Hii::$options['typography_button_primary_border_color']['base'].
 		';';
-	echo 'border-radius:'.Hii::$options['typography_button_primary_border_radius'].';';
-	echo preg_replace('/[{}]/','',Hii::$options['typography_button_primary_custom_css']);?>
+	echo 'border-radius:'.Hii::$options['typography_button_primary_border_radius'].';';?>
 }
+<?php 
+if(strpos(Hii::$options['typography_button_primary_custom_css'], '.button-primary') === false) echo '.button-primary { '.Hii::$options['typography_button_primary_custom_css']. '}';
+else echo Hii::$options['typography_button_primary_custom_css'];
+?>
 .button-primary:hover {
 	color: white;
 	background: <?php echo Hii::$options['typography_button_primary_background']['hover']?>;
@@ -45,9 +51,12 @@
 	echo 'background:'.Hii::$options[ 'typography_button_secondary_background']['base'].';';
 	echo 'padding:'.get_spacing(Hii::$options[ 'typography_button_secondary_padding' ]).';';
 	echo 'border: '.Hii::$options[ 'typography_button_secondary_border_width'].' solid '.Hii::$options['typography_button_secondary_border_color']['base'].';';
-	echo 'border-radius:'.Hii::$options['typography_button_secondary_border_radius'].';';
-	echo preg_replace('/[{}]/','',Hii::$options['typography_button_secondary_custom_css']);?>
+	echo 'border-radius:'.Hii::$options['typography_button_secondary_border_radius'].';';?>
 }
+<?php
+if(strpos(Hii::$options['typography_button_secondary_custom_css'], '.button-secondary') === false) echo '.button-secondary { '.Hii::$options['typography_button_secondary_custom_css']. '}';
+else echo Hii::$options['typography_button_secondary_custom_css'];
+?>
 .button-secondary:hover {
 	color: <?php echo Hii::$options['color_two']?>;
 	background: <?php echo Hii::$options['typography_button_secondary_background']['hover']?>;
@@ -57,6 +66,6 @@
 	border: 2px solid #989898;
 	color: #989898;
 }
+<?php
 
-
-<?php /* */ ?>
+	 /* */ ?>

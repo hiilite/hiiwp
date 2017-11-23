@@ -103,7 +103,8 @@ if(Hii::$options['header_top_area_yesno'] == true):
 		get_font_css(Hii::$options['header_top_font']);
 	?>
 	}
-	#header_top a{
+	#header_top a,
+	#header_top a .fa {
 		color:<?php echo $header_top_colors['link'];?>;
 	}
 	#header_top a:hover{

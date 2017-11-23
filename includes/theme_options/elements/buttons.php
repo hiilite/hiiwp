@@ -48,6 +48,7 @@ Kirki::add_field( 'hiiwp', array(
         'base'  => esc_attr__( 'Base Color', 'hiiwp' ),
         'hover'  => esc_attr__( 'Hover Color', 'hiiwp' ),
     ),
+    'alpha' 	  => true,
     'default'     => $hiilite_options['typography_button_default_background'],
 	'priority'    => 1,
 ) );
@@ -60,6 +61,7 @@ Kirki::add_field( 'hiiwp', array(
         'base'  => esc_attr__( 'Base Color', 'hiiwp' ),
         'hover'  => esc_attr__( 'Hover Color', 'hiiwp' ),
     ),
+    'alpha' 	  => true,
 	'default'     => $hiilite_options['typography_button_default_border_color'],
 	'priority'    => 1,
 ) );
@@ -68,12 +70,7 @@ Kirki::add_field( 'hiiwp', array(
 	'settings'    => 'typography_button_default_padding',
 	'label'       => __( 'Button Padding (.button)', 'hiiwp' ),
 	'section'     => $section,
-	'default'     => array(
-		'top'    => '0.5em',
-		'right'  => '1em',
-		'bottom' => '0.5em',
-		'left'   => '1em',
-	),
+	'default'     => $hiilite_options['typography_button_default_padding'],
 	'priority'    => 1,
 ) );
 
@@ -100,10 +97,7 @@ Kirki::add_field( 'hiiwp', array(
 	'label'       => __( 'Button Custom CSS (.button)', 'hiiwp' ),
 	'description' => __( 'Custom style for standard buttons across the site', 'hiiwp' ),
 	'section'     => $section,
-	'default'     => '
-	margin: 1em 0;
-	text-decoration: none;
-	display: inline-block;',
+	'default'     => $hiilite_options['typography_button_custom_css'],
 	'priority'    => 1,
 	'choices'     => array(
 		'language' => 'css',
@@ -155,12 +149,7 @@ Kirki::add_field( 'hiiwp', array(
 	'settings'    => 'typography_button_primary_padding',
 	'label'       => __( 'Button Padding (.button-primary)', 'hiiwp' ),
 	'section'     => $section,
-	'default'     => array(
-		'top'    => '0.5em',
-		'right'  => '1em',
-		'bottom' => '0.5em',
-		'left'   => '1em',
-	),
+	'default'     => $hiilite_options['typography_button_primary_padding'],
 	'priority'    => 2,
 ) );
 
@@ -198,7 +187,7 @@ Kirki::add_field( 'hiiwp', array(
 	'label'       => __( 'Button Custom CSS (.button-primary)', 'hiiwp' ),
 	'description' => __( 'Custom style for standard buttons across the site', 'hiiwp' ),
 	'section'     => $section,
-	'default'     => '',
+	'default'     => $hiilite_options['typography_button_primary_custom_css'],
 	'priority'    => 2,
 	'choices'     => array(
 		'language' => 'css',
@@ -249,12 +238,7 @@ Kirki::add_field( 'hiiwp', array(
 	'settings'    => 'typography_button_secondary_padding',
 	'label'       => __( 'Button Padding (.button-secondary)', 'hiiwp' ),
 	'section'     => $section,
-	'default'     => array(
-		'top'    => '0.5em',
-		'right'  => '1em',
-		'bottom' => '0.5em', 
-		'left'   => '1em',
-	),
+	'default'     => $hiilite_options['typography_button_secondary_padding'],
 	'priority'    => 3,
 ) );
 
@@ -292,7 +276,7 @@ Kirki::add_field( 'hiiwp', array(
 	'label'       => __( 'Button Custom CSS (.button-secondary)', 'hiiwp' ),
 	'description' => __( 'Custom style for standard buttons across the site', 'hiiwp' ),
 	'section'     => $section,
-	'default'     => '',
+	'default'     => $hiilite_options['typography_button_secondary_custom_css'],
 	'priority'    => 3,
 	'choices'     => array(
 		'language' => 'css',

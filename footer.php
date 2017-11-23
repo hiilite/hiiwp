@@ -114,7 +114,6 @@ do_action( 'hii_before_footer' );
 		do_action ( 'hii_before_footer_menu' );
 		
 		wp_nav_menu(array(
-						'menu' =>  'footer-menu',
 						'container' => 'nav',
 						'container_class' => 'flex-item',
 						'container_id' => 'footer-nav',

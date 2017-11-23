@@ -360,6 +360,9 @@ Kirki::add_field( 'hiiwp', array(
     'section'     => $section,
     'default'     => $hiilite_options['default_font'],
     'priority'    => 1,
+    'choice'	  => array(
+	    'alpha'		=> true
+    )
 ) );
 
 Kirki::add_field( 'hiiwp', array(

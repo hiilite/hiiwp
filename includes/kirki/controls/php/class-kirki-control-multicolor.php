@@ -60,7 +60,7 @@ class Kirki_Control_Multicolor extends Kirki_Control_Base {
 						<# if ( data.choices[ key ] ) { #>
 							<label for="{{ data.id }}-{{ key }}">{{ data.choices[ key ] }}</label>
 						<# } #>
-						<input {{{ data.inputAttrs }}} id="{{ data.id }}-{{ key }}" type="text" data-palette="{{ data.palette }}" data-default-color="{{ data.default[ key ] }}" data-alpha="{{ data.alpha }}" value="{{ data.value[ key ] }}" class="kirki-color-control color-picker multicolor-index-{{ key }}" />
+						<input {{{ data.inputAttrs }}} id="{{ data.id }}-{{ key }}" type="text" data-palette="{{ data.palette }}" data-default-color="{{ data.default[ key ] }}" data-alpha="true" value="{{ data.value[ key ] }}" class="kirki-color-control color-picker multicolor-index-{{ key }}" />
 					</div>
 				<# } #>
 			<# } #>
@@ -68,9 +68,9 @@ class Kirki_Control_Multicolor extends Kirki_Control_Base {
 		<div class="iris-target"></div>
 		<?php if ( Kirki_Util::get_wp_version() >= 4.9 ) : ?>
 			<input class="multicolor-hidden-value" type="hidden" {{{ data.link }}}>
-		<?php else : ?>
-			<input class="multicolor-hidden-value" type="hidden" value='{{{ JSON.stringify( data.value ) }}}' {{{ data.link }}}>
+			<?php return; ?>
 		<?php endif; ?>
+		<input class="multicolor-hidden-value" type="hidden" value='{{{ JSON.stringify( data.value ) }}}' {{{ data.link }}}>
 		<?php
 	}
 }

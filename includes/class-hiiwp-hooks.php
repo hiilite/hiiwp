@@ -164,9 +164,8 @@ class HiiWP_Hooks extends Hii {
 	 */
 	public function hii_header_bottom_left(){
 		if ( is_active_sidebar( 'header_bottom_left' ) ) :
-			$header_bottom_left = dynamic_sidebar( 'header_bottom_left' );
+			dynamic_sidebar( 'header_bottom_left' );
 		endif;
-		echo $header_bottom_left;
 	}
 	
 	/**
@@ -177,9 +176,8 @@ class HiiWP_Hooks extends Hii {
 	 */
 	public function hii_header_bottom_right(){
 		if ( is_active_sidebar( 'header_bottom_right' ) ) :
-			$header_bottom_right = dynamic_sidebar( 'header_bottom_right' );
+			dynamic_sidebar( 'header_bottom_right' );
 		endif;
-		echo $header_bottom_right;
 	}
 	
 	/**
