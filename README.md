@@ -2,6 +2,8 @@
 This theme is currently in Alpha testing and should not be installed without the support of the team at Hiilite Creative Group
 
 ### Change log
+#### v0.4.6
+- Updated CMB2 Libraries
 #### v0.4.5
 - Updated Kirki to 3.0.17
 - Updated packaged plugins

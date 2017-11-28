@@ -8,7 +8,7 @@
  *
  * @category  WordPress_Plugin
  * @package   CMB2
- * @author    WebDevStudios
+ * @author    CMB2 team
  * @license   GPL-2.0+
  */
 class CMB2_Ajax {
@@ -72,7 +72,7 @@ class CMB2_Ajax {
 
 		// Send back error if empty
 		if ( empty( $oembed_string ) ) {
-			wp_send_json_error( '<p class="ui-state-error-text">' . esc_html__( 'Please Try Again', 'hiiwp' ) . '</p>' );
+			wp_send_json_error( '<p class="ui-state-error-text">' . esc_html__( 'Please Try Again', 'cmb2' ) . '</p>' );
 		}
 
 		// Set width of embed
@@ -82,7 +82,9 @@ class CMB2_Ajax {
 		$oembed_url = esc_url( $oembed_string );
 
 		// Set args
-		$embed_args = array( 'width' => $embed_width );
+		$embed_args = array(
+			'width' => $embed_width,
+		);
 
 		$this->ajax_update = true;
 
@@ -115,14 +117,14 @@ class CMB2_Ajax {
 
 		$args = wp_parse_args( $args, array(
 			'object_type' => 'post',
-			'oembed_args' => $this->embed_args,
+			'oembed_args' => array(),
 			'field_id'    => false,
 			'wp_error'    => false,
 		) );
 
 		$this->embed_args =& $args;
 
-		/**
+		/*
 		 * Set the post_ID so oEmbed won't fail
 		 * wp-includes/class-wp-embed.php, WP_Embed::shortcode()
 		 */
@@ -176,7 +178,7 @@ class CMB2_Ajax {
 
 		// Send back our embed
 		if ( $oembed['embed'] && $oembed['embed'] != $oembed['fallback'] ) {
-			return '<div class="cmb2-oembed embed-status">' . $oembed['embed'] . '<p class="cmb2-remove-wrapper"><a href="#" class="cmb2-remove-file-button" rel="' . $oembed['args']['field_id'] . '">' . esc_html__( 'Remove Embed', 'hiiwp' ) . '</a></p></div>';
+			return '<div class="cmb2-oembed embed-status">' . $oembed['embed'] . '<p class="cmb2-remove-wrapper"><a href="#" class="cmb2-remove-file-button" rel="' . $oembed['args']['field_id'] . '">' . esc_html__( 'Remove Embed', 'cmb2' ) . '</a></p></div>';
 		}
 
 		// Otherwise, send back error info that no oEmbeds were found
@@ -184,7 +186,7 @@ class CMB2_Ajax {
 			'<p class="ui-state-error-text">%s</p>',
 			sprintf(
 				/* translators: 1: results for. 2: link to codex.wordpress.org/Embeds */
-				esc_html__( 'No oEmbed Results Found for %1$s. View more info at %2$s.', 'hiiwp' ),
+				esc_html__( 'No oEmbed Results Found for %1$s. View more info at %2$s.', 'cmb2' ),
 				$oembed['fallback'],
 				'<a href="https://codex.wordpress.org/Embeds" target="_blank">codex.wordpress.org/Embeds</a>'
 			)
@@ -265,7 +267,7 @@ class CMB2_Ajax {
 		} else {
 
 			$args = array( $this->object_type, $this->object_id, $meta_key );
-			$args[] = 'update' === $action ? $func_args : true;
+			$args[] = 'update' === $action ? $func_args[1] : true;
 
 			// Cache the result to our metadata
 			$status = call_user_func_array( $action . '_metadata', $args );
@@ -301,7 +303,8 @@ class CMB2_Ajax {
 						unset( $options[ $key ] );
 						unset( $options[ str_replace( '_oembed_time_', '_oembed_', $key ) ] );
 					}
-				} // Remove the cached unknown values
+				} // End if().
+				// Remove the cached unknown values.
 				elseif ( '{{unknown}}' === $value ) {
 					$modified = true;
 					unset( $options[ $key ] );

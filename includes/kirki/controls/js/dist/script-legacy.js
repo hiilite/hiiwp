@@ -462,7 +462,8 @@ var kirki = {
 					'data-id': control.id,
 					inputAttrs: control.params.inputAttrs,
 					choices: control.params.choices,
-					value: kirki.setting.get( control.id )
+					value: kirki.setting.get( control.id ),
+					multiple: control.params.multiple || 1
 			    } ) );
 			}
 		}
@@ -538,7 +539,7 @@ var kirki = {
 					clear = jQuery( '.kirki-input-container[data-id="' + control.id + '"] .wp-picker-clear' );
 					if ( clear.length ) {
 						clear.click( function() {
-							control.setting.set( '' );
+							kirki.setting.set( control.id, '' );
 						});
 					}
 				}, 200 );
@@ -617,7 +618,7 @@ var kirki = {
 			 * @returns {void}
 			 */
 			init: function( control ) {
-				var element  = jQuery( 'select[data-id="' + control.id + '"' ),
+				var element  = jQuery( 'select[data-id="' + control.id + '"]' ),
 				    multiple = parseInt( element.data( 'multiple' ), 10 ),
 				    selectValue,
 				    selectWooOptions = {
@@ -631,6 +632,7 @@ var kirki = {
 				}
 				jQuery( element ).selectWoo( selectWooOptions ).on( 'change', function() {
 					selectValue = jQuery( this ).val();
+					selectValue = ( null === selectValue && 1 < multiple ) ? [] : selectValue;
 					kirki.setting.set( control.id, selectValue );
 				});
 			}
@@ -1206,6 +1208,10 @@ kirki.initialize();
 				return true;
 			}
 
+			if ( 'auto' === value || 'inherit' === value || 'initial' === value ) {
+				return true;
+			}
+
 			// Get the numeric value.
 			numericValue = parseFloat( value );
 
@@ -1567,28 +1573,23 @@ wp.customize.controlConstructor['kirki-dimensions'] = wp.customize.kirkiDynamicC
 
 				setting.notifications.remove( code );
 
-				_.each( ['top', 'bottom', 'left', 'right'], function( direction ) {
-					if ( ! _.isUndefined( value[ direction ] ) ) {
-						if ( false === control.kirkiValidateCSSValue( value[ direction ] ) ) {
-							subs[ direction ] = dimensionskirkiL10n[ direction ];
-						} else {
-							delete subs[ direction ];
-						}
+				_.each( value, function( val, direction ) {
+					if ( false === control.kirkiValidateCSSValue( val ) ) {
+						subs[ direction ] = val;
+					} else {
+						delete subs[ direction ];
 					}
-				});
+				} );
 
 				if ( ! _.isEmpty( subs ) ) {
 					message = dimensionskirkiL10n['invalid-value'] + ' (' + _.values( subs ).toString() + ') ';
-					setting.notifications.add( code, new wp.customize.Notification(
-						code,
-						{
-							type: 'warning',
-							message: message
-						}
-					) );
-				} else {
-					setting.notifications.remove( code );
+					setting.notifications.add( code, new wp.customize.Notification( code, {
+						type: 'warning',
+						message: message
+					} ) );
+					return;
 				}
+				setting.notifications.remove( code );
 			} );
 		} );
 	}
@@ -3098,15 +3099,7 @@ wp.customize.controlConstructor['kirki-switch'] = wp.customize.kirkiDynamicContr
 		'use strict';
 
 		var control       = this,
-		    checkboxValue = control.setting._value,
-		    on            = jQuery( control.container.find( '.switch-on' ) ),
-		    off           = jQuery( control.container.find( '.switch-off' ) );
-
-		// CSS modifications depending on label sizes.
-		jQuery( control.container.find( '.switch label ' ) ).css( 'width', ( on.width() + off.width() + 40 ) + 'px' );
-		jQuery( '#customize-control-' + control.id.replace( '[', '-' ).replace( ']', '' ) ).append(
-			'<style>#customize-control-' + control.id.replace( '[', '-' ).replace( ']', '' ) + ' .switch label:after{width:' + ( on.width() + 13 ) + 'px;}#customize-control-' + control.id.replace( '[', '-' ).replace( ']', '' ) + ' .switch input:checked + label:after{left:' + ( on.width() + 22 ) + 'px;width:' + ( off.width() + 13 ) + 'px;}</style>'
-		);
+		    checkboxValue = control.setting._value;
 
 		// Save the value
 		this.container.on( 'change', 'input', function() {

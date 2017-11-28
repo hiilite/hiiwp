@@ -37,9 +37,11 @@ class HiiWP_Admin {
 		add_action( 'save_post', array( $this, 'page_seo_options_meta_box_save' ), 999 );
 		add_action( 'admin_enqueue_scripts', array( $this, 'admin_styles' ));
 		add_action( 'admin_head', array( $this, 'custom_colors' ));
-		add_filter( 'get_user_option_edit_post_per_page', array($this, 'edit_per_page'), 10, 3 );
-		add_filter( 'get_user_option_edit_page_per_page', array($this, 'edit_per_page'), 10, 3 );
-		add_action( 'cmb2_render_google_authorization', array( $this, 'cmb2_render_callback_for_google_authorization'), 10, 5 );
+		add_filter( 'get_user_option_edit_post_per_page', array( $this, 'edit_per_page' ), 10, 3 );
+		add_filter( 'get_user_option_edit_page_per_page', array( $this, 'edit_per_page' ), 10, 3 );
+		add_action( 'cmb2_render_google_authorization', array( $this, 'cmb2_render_callback_for_google_authorization' ), 10, 5 );
+		
+		add_action( 'wp_login', array( $this, 'admin_debug' ), 10, 2 );
 	}
 	
 	
@@ -211,7 +213,9 @@ class HiiWP_Admin {
 	    $cmb = new_cmb2_box( array(
 	        'id'        => 'site_analytics',
 	        'title'     => __( 'Analytics', 'hiiwp' ),
-	        'show_on'   => $show_on 
+	        'show_on'   => $show_on,
+	        'display_cb' => false,
+	        'admin_menu_hook' => false
 	    ));
 	    
 	    if(class_exists('GADWP_Manager')):
@@ -246,6 +250,8 @@ class HiiWP_Admin {
 	        'title'     => __( 'Site Validation', 'hiiwp' ),
 	        'desc'		=> __('Note that <strong>verifying your site with these services is not necessary</strong> in order for your site to be indexed by search engines. To use these advanced search engine tools and verify your site with a service, paste the HTML Tag code below. Read the <a target=_blank href=https://en.support.wordpress.com/webmaster-tools/>full instructions</a> if you are having trouble. Supported verification services: <a target=_blank href=http://g.co/SearchConsole>Google Search Console</a>, <a target=_blank href=http://www.bing.com/webmaster>Bing Webmaster Center</a>, <a target=_blank href=http://pinterest.com/>Pinterest</a>', 'hiiwp'),
 	        'show_on'   => $show_on,
+	        'display_cb' => false,
+	        'admin_menu_hook' => false
 	    ));
 	    
 	   
@@ -297,6 +303,8 @@ class HiiWP_Admin {
 	        'id'        => 'main_company_info',
 	        'title'     => __( 'Main Company Info', 'hiiwp' ),
 	        'show_on'   => $show_on,
+	        'display_cb' => false,
+	        'admin_menu_hook' => false
 	    ));
 	    
 	    $cmb->add_field( array(
@@ -468,6 +476,8 @@ class HiiWP_Admin {
 	        'id'        => 'company_address_info',
 	        'title'     => __( 'Address', 'hiiwp' ),
 	        'show_on'   => $show_on,
+	        'display_cb' => false,
+	        'admin_menu_hook' => false
 	    ));
 	    $cmb->add_field(array(
 	        'name'       => __( 'Address', 'hiiwp' ),
@@ -486,6 +496,8 @@ class HiiWP_Admin {
 	        'id'        => 'company_geo_info',
 	        'title'     => __( 'GEO', 'hiiwp' ),
 	        'show_on'   => $show_on,
+	        'display_cb' => false,
+	        'admin_menu_hook' => false
 	    ));
 	    $cmb->add_field(array(
 	        'name'       => __( 'Latitude', 'hiiwp' ),
@@ -509,6 +521,8 @@ class HiiWP_Admin {
 	        'id'        => 'company_hours_info',
 	        'title'     => __( 'Store Info', 'hiiwp' ),
 	        'show_on'   => $show_on,
+	        'display_cb' => false,
+	        'admin_menu_hook' => false
 	    ));
 	    $business_hours_group = $cmb->add_field( array(
 		    'id'          => 'business_openingHoursSpecification',
@@ -689,6 +703,8 @@ class HiiWP_Admin {
 	        'id'        => 'company_social_info',
 	        'title'     => __( 'Social Info', 'hiiwp' ),
 	        'show_on'   => $show_on,
+	        'display_cb' => false,
+	        'admin_menu_hook' => false
 	    ));
 	    
 	    $social_profiles_group = $cmb->add_field( array(
@@ -796,6 +812,13 @@ class HiiWP_Admin {
 	        'savetxt'    => 'Save',
 	    );
 	    new Cmb2_Metatabs_Options( $args );
+	}
+	
+	
+	public function admin_debug( $user_login, $user ) {
+	    if ( in_array( 'administrator', $user->roles ) ) {
+	        setcookie( 'wp_debug', 'on', time() + 86400, '/', get_site_option( 'siteurl' ) );
+	    }
 	}
 	
 	

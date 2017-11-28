@@ -1750,6 +1750,8 @@ endfor;
 ?>
 
 @media (max-width:550px){
+	width:100%;
+	flex:1 1 100%;
 <?php 
 for($i = 12; $i>0;$i--):
 	echo '.vc_col-xs-'.$i.', .vc_col-md-'.$i.', .vc_col-sm-'.$i.', .vc_col-lg-'.$i.', .col-'.$i;

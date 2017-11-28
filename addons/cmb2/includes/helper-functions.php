@@ -4,9 +4,9 @@
  *
  * @category  WordPress_Plugin
  * @package   CMB2
- * @author    WebDevStudios
+ * @author    CMB2 team
  * @license   GPL-2.0+
- * @link      http://webdevstudios.com
+ * @link      https://cmb2.io
  */
 
 /**
@@ -102,7 +102,7 @@ function cmb2_get_oembed( $args = array() ) {
 
 	$error = sprintf(
 		/* translators: 1: results for. 2: link to codex.wordpress.org/Embeds */
-		esc_html__( 'No oEmbed Results Found for %1$s. View more info at %2$s.', 'hiiwp' ),
+		esc_html__( 'No oEmbed Results Found for %1$s. View more info at %2$s.', 'cmb2' ),
 		$oembed['fallback'],
 		'<a href="https://codex.wordpress.org/Embeds" target="_blank">codex.wordpress.org/Embeds</a>'
 	);
@@ -300,7 +300,7 @@ function cmb2_print_metabox_form( $meta_box, $object_id = 0, $args = array() ) {
 
 	$args = wp_parse_args( $args, array(
 		'form_format' => '<form class="cmb-form" method="post" id="%1$s" enctype="multipart/form-data" encoding="multipart/form-data"><input type="hidden" name="object_id" value="%2$s">%3$s<input type="submit" name="submit-cmb" value="%4$s" class="button-primary"></form>',
-		'save_button' => esc_html__( 'Save', 'hiiwp' ),
+		'save_button' => esc_html__( 'Save', 'cmb2' ),
 		'object_type' => $cmb->mb_object_type(),
 		'cmb_styles'  => $cmb->prop( 'cmb_styles' ),
 		'enqueue_js'  => $cmb->prop( 'enqueue_js' ),
@@ -403,4 +403,19 @@ if ( ! function_exists( 'date_create_from_format' ) ) {
 
 		return new DateTime( $ymd );
 	}
-}
+}// End if().
+
+if ( ! function_exists( 'date_timestamp_get' ) ) {
+
+	/**
+	 * Returns the Unix timestamp representing the date.
+	 * Reimplementation of DateTime::getTimestamp for PHP < 5.3. :(
+	 *
+	 * @param DateTime
+	 *
+	 * @return int
+	 */
+	function date_timestamp_get( DateTime $date ) {
+		return $date->format( 'U' );
+	}
+}// End if().

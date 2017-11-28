@@ -4,16 +4,16 @@
  *
  * @category  WordPress_Plugin
  * @package   CMB2
- * @author    WebDevStudios
+ * @author    CMB2 team
  * @license   GPL-2.0+
- * @link      http://webdevstudios.com
+ * @link      https://cmb2.io
  */
 
 /**
  * Retrieves an instance of CMB2_Option based on the option key
  *
  * @package   CMB2
- * @author    WebDevStudios
+ * @author    CMB2 team
  */
 class CMB2_Options {
 	/**
@@ -39,7 +39,7 @@ class CMB2_Options {
  * for a specific option key
  *
  * @package   CMB2
- * @author    WebDevStudios
+ * @author    CMB2 team
  */
 class CMB2_Option {
 
@@ -164,9 +164,11 @@ class CMB2_Option {
 	 * @return bool           Success/Failure
 	 */
 	public function set( $options = array() ) {
-		$this->options = ! empty( $options ) || empty( $options ) && empty( $this->key )
-			? $options
-			: $this->options;
+		if ( ! empty( $options ) || empty( $options ) && empty( $this->key ) ) {
+			$this->options = $options;
+		}
+
+		$this->options = wp_unslash( $this->options ); // get rid of those evil magic quotes
 
 		if ( empty( $this->key ) ) {
 			return false;
@@ -204,6 +206,7 @@ class CMB2_Option {
 				$this->options = get_option( $this->key, $default );
 			}
 		}
+
 		$this->options = (array) $this->options;
 
 		return $this->options;

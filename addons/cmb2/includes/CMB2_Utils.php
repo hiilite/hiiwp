@@ -6,9 +6,9 @@
  *
  * @category  WordPress_Plugin
  * @package   CMB2
- * @author    WebDevStudios
+ * @author    CMB2 team
  * @license   GPL-2.0+
- * @link      http://webdevstudios.com
+ * @link      https://cmb2.io
  */
 class CMB2_Utils {
 
@@ -176,7 +176,7 @@ class CMB2_Utils {
 			}
 		} elseif ( ! empty( $image_sizes[ $size ] ) ) {
 			$data = $size;
-		}
+		}// End if().
 
 		// If we still don't have a match at this point, return false.
 		if ( empty( $data ) ) {
@@ -208,7 +208,6 @@ class CMB2_Utils {
 			} catch ( Exception $e ) {
 				self::log_if_debug( __METHOD__, __LINE__, $e->getMessage() );
 			}
-
 		}
 
 		return $tz_offset;
@@ -385,7 +384,7 @@ class CMB2_Utils {
 		}
 
 		// Check to see if it's anywhere in the root directory
-		$site_dir = self::normalize_path( self::$ABSPATH );
+		$site_dir = self::get_normalized_abspath();
 		$site_url = trailingslashit( is_multisite() ? network_site_url() : site_url() );
 
 		$url = str_replace(
@@ -395,6 +394,17 @@ class CMB2_Utils {
 		);
 
 		return set_url_scheme( $url );
+	}
+
+	/**
+	 * Get the normalized absolute path defined by WordPress.
+	 *
+	 * @since  2.2.6
+	 *
+	 * @return string  Normalized absolute path.
+	 */
+	protected static function get_normalized_abspath() {
+		return self::normalize_path( self::$ABSPATH );
 	}
 
 	/**
@@ -442,7 +452,7 @@ class CMB2_Utils {
 	 * Takes a php date() format string and returns a string formatted to suit for the date/time pickers
 	 * It will work with only with the following subset ot date() options:
 	 *
-	 *  d, j, z, m, n, y, and Y.
+	 *  d, l, j, z, m, F, n, y, and Y.
 	 *
 	 * A slight effort is made to deal with escaped characters.
 	 *
@@ -457,30 +467,41 @@ class CMB2_Utils {
 
 		// order is relevant here, since the replacement will be done sequentially.
 		$supported_options = array(
-			'd' => 'dd',  // Day, leading 0
-			'j' => 'd',   // Day, no 0
-			'z' => 'o',   // Day of the year, no leading zeroes,
+			'd'    => 'dd',  // Day, leading 0
+			'j'    => 'd',   // Day, no 0
+			'z'    => 'o',   // Day of the year, no leading zeroes,
 			// 'D' => 'D',   // Day name short, not sure how it'll work with translations
-			// 'l' => 'DD',  // Day name full, idem before
-			'm' => 'mm',  // Month of the year, leading 0
-			'n' => 'm',   // Month of the year, no leading 0
+			'l '   => 'DD ',  // Day name full, idem before
+			'l, '  => 'DD, ',  // Day name full, idem before
+			'm'    => 'mm',  // Month of the year, leading 0
+			'n'    => 'm',   // Month of the year, no leading 0
 			// 'M' => 'M',   // Month, Short name
-			// 'F' => 'MM',  // Month, full name,
-			'y' => 'y',   // Year, two digit
-			'Y' => 'yy',  // Year, full
-			'H' => 'HH',  // Hour with leading 0 (24 hour)
-			'G' => 'H',   // Hour with no leading 0 (24 hour)
-			'h' => 'hh',  // Hour with leading 0 (12 hour)
-			'g' => 'h',   // Hour with no leading 0 (12 hour),
-			'i' => 'mm',  // Minute with leading 0,
-			's' => 'ss',  // Second with leading 0,
-			'a' => 'tt',  // am/pm
-			'A' => 'TT',// AM/PM
+			'F '   => 'MM ',  // Month, full name,
+			'F, '  => 'MM, ',  // Month, full name,
+			'y'    => 'y',   // Year, two digit
+			'Y'    => 'yy',  // Year, full
+			'H'    => 'HH',  // Hour with leading 0 (24 hour)
+			'G'    => 'H',   // Hour with no leading 0 (24 hour)
+			'h'    => 'hh',  // Hour with leading 0 (12 hour)
+			'g'    => 'h',   // Hour with no leading 0 (12 hour),
+			'i'    => 'mm',  // Minute with leading 0,
+			's'    => 'ss',  // Second with leading 0,
+			'a'    => 'tt',  // am/pm
+			'A'    => 'TT',// AM/PM
 		);
 
 		foreach ( $supported_options as $php => $js ) {
 			// replaces every instance of a supported option, but skips escaped characters
 			$format = preg_replace( "~(?<!\\\\)$php~", $js, $format );
+		}
+
+		$supported_options = array(
+			'l' => 'DD',  // Day name full, idem before
+			'F' => 'MM',  // Month, full name,
+		);
+
+		if ( isset( $supported_options[ $format ] ) ) {
+			$format = $supported_options[ $format ];
 		}
 
 		$format = preg_replace_callback( '~(?:\\\.)+~', array( __CLASS__, 'wrap_escaped_chars' ), $format );
@@ -489,7 +510,7 @@ class CMB2_Utils {
 	}
 
 	/**
-	 * Helper function for CMB_Utils->php_to_js_dateformat, because php 5.2 was retarded.
+	 * Helper function for CMB_Utils::php_to_js_dateformat().
 	 *
 	 * @since  2.2.0
 	 * @param  $value Value to wrap/escape
@@ -566,11 +587,24 @@ class CMB2_Utils {
 			$empty    = false === $val && 'value' !== $attr;
 			if ( ! $excluded && ! $empty ) {
 				// if data attribute, use single quote wraps, else double
-				$quotes = false !== stripos( $attr, 'data-' ) ? "'" : '"';
+				$quotes = self::is_data_attribute( $attr, 'data-' ) ? "'" : '"';
 				$attributes .= sprintf( ' %1$s=%3$s%2$s%3$s', $attr, $val, $quotes );
 			}
 		}
 		return $attributes;
+	}
+
+	/**
+	 * Check if given attribute is a data attribute.
+	 *
+	 * @since  2.2.5
+	 *
+	 * @param  string  $att HTML attribute
+	 *
+	 * @return boolean
+	 */
+	public static function is_data_attribute( $att ) {
+		return 0 === stripos( $att, 'data-' );
 	}
 
 	/**
@@ -600,4 +634,20 @@ class CMB2_Utils {
 		return (array) $value;
 	}
 
+	/**
+	 * If number is numeric, normalize it with floatval or intval, depending on if decimal is found.
+	 *
+	 * @since  2.2.6
+	 *
+	 * @param  mixed  $value Value to normalize (if numeric).
+	 *
+	 * @return mixed         Possibly normalized value.
+	 */
+	public static function normalize_if_numeric( $value ) {
+		if ( is_numeric( $value ) ) {
+			$value = false !== strpos( $value, '.' ) ? floatval( $value ) : intval( $value );
+		}
+
+		return $value;
+	}
 }

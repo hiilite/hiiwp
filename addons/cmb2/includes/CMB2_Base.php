@@ -4,9 +4,9 @@
  *
  * @category  WordPress_Plugin
  * @package   CMB2
- * @author    WebDevStudios
+ * @author    CMB2 team
  * @license   GPL-2.0+
- * @link      http://webdevstudios.com
+ * @link      https://cmb2.io
  *
  * @property-read $args        The objects array of properties/arguments.
  * @property-read $meta_box    The objects array of properties/arguments.
@@ -289,14 +289,30 @@ abstract class CMB2_Base {
 	}
 
 	/**
+	 * Unset the cached results of the param callback.
+	 *
+	 * @since  2.2.6
+	 * @param  string $param Field parameter
+	 * @return CMB2_Base
+	 */
+	public function unset_param_callback_cache( $param ) {
+		if ( isset( $this->callback_results[ $param ] ) ) {
+			unset( $this->callback_results[ $param ] );
+		}
+
+		return $this;
+	}
+
+	/**
 	 * Handles the parameter callbacks, and passes this object as parameter.
 	 *
 	 * @since  2.2.3
-	 * @param  callable $cb The callback method/function/closure
-	 * @return mixed        Return of the callback function.
+	 * @param  callable $cb                The callback method/function/closure
+	 * @param  mixed    $additional_params Any additoinal parameters which should be passed to the callback.
+	 * @return mixed                       Return of the callback function.
 	 */
-	protected function do_callback( $cb ) {
-		return call_user_func( $cb, $this->{$this->properties_name}, $this );
+	protected function do_callback( $cb, $additional_params = null ) {
+		return call_user_func( $cb, $this->{$this->properties_name}, $this, $additional_params );
 	}
 
 	/**
@@ -403,11 +419,11 @@ abstract class CMB2_Base {
 			switch ( $message ) {
 
 				case self::DEPRECATED_PARAM:
-					$message = sprintf( __( 'The "%1$s" field parameter has been deprecated in favor of the "%1$s" parameter.', 'hiiwp' ), $args[3], $args[4] );
+					$message = sprintf( __( 'The "%1$s" field parameter has been deprecated in favor of the "%1$s" parameter.', 'cmb2' ), $args[3], $args[4] );
 					break;
 
 				case self::DEPRECATED_CB_PARAM:
-					$message = sprintf( __( 'Using the "%1$s" field parameter as a callback has been deprecated in favor of the "%1$s" parameter.', 'hiiwp' ), $args[3], $args[4] );
+					$message = sprintf( __( 'Using the "%1$s" field parameter as a callback has been deprecated in favor of the "%1$s" parameter.', 'cmb2' ), $args[3], $args[4] );
 					break;
 
 				default:
@@ -437,9 +453,9 @@ abstract class CMB2_Base {
 		if ( defined( 'WP_DEBUG' ) && WP_DEBUG && apply_filters( 'deprecated_argument_trigger_error', true ) ) {
 			if ( function_exists( '__' ) ) {
 				if ( ! is_null( $message ) ) {
-					trigger_error( sprintf( __( '%1$s was called with a parameter that is <strong>deprecated</strong> since version %2$s! %3$s', 'hiiwp' ), $function, $version, $message ) );
+					trigger_error( sprintf( __( '%1$s was called with a parameter that is <strong>deprecated</strong> since version %2$s! %3$s', 'cmb2' ), $function, $version, $message ) );
 				} else {
-					trigger_error( sprintf( __( '%1$s was called with a parameter that is <strong>deprecated</strong> since version %2$s with no alternative available.', 'hiiwp' ), $function, $version ) );
+					trigger_error( sprintf( __( '%1$s was called with a parameter that is <strong>deprecated</strong> since version %2$s with no alternative available.', 'cmb2' ), $function, $version ) );
 				}
 			} else {
 				if ( ! is_null( $message ) ) {
@@ -472,7 +488,7 @@ abstract class CMB2_Base {
 			case 'object_type':
 				return $this->{$field};
 			default:
-				throw new Exception( sprintf( esc_html__( 'Invalid %1$s property: %2$s', 'hiiwp' ), __CLASS__, $field ) );
+				throw new Exception( sprintf( esc_html__( 'Invalid %1$s property: %2$s', 'cmb2' ), __CLASS__, $field ) );
 		}
 	}
 
@@ -487,7 +503,7 @@ abstract class CMB2_Base {
 		$object_class = strtolower( get_class( $this ) );
 
 		if ( ! has_filter( "{$object_class}_inherit_{$method}" ) ) {
-			throw new Exception( sprintf( esc_html__( 'Invalid %1$s method: %2$s', 'hiiwp' ), get_class( $this ), $method ) );
+			throw new Exception( sprintf( esc_html__( 'Invalid %1$s method: %2$s', 'cmb2' ), get_class( $this ), $method ) );
 		}
 
 		array_unshift( $args, $this );

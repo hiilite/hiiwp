@@ -407,6 +407,22 @@ my_config_kirki_add_field(
 	)
 );
 
+my_config_kirki_add_field(
+	array(
+		'type'        => 'spacing',
+		'settings'    => 'spacing_0',
+		'label'       => esc_attr__( 'Spacing Control', 'kirki' ),
+		'description' => esc_attr__( 'Description Here.', 'kirki' ),
+		'section'     => 'dimensions_section',
+		'default'     => array(
+			'top'    => '1em',
+			'bottom' => '10rem',
+			'left'   => '1vh',
+			'right'  => '10px',
+		),
+	)
+);
+
 /**
  * Font-Awesome Control.
  */
@@ -541,6 +557,7 @@ my_config_kirki_add_field(
 			'hover'   => esc_attr__( 'Hover', 'kirki' ),
 			'active'  => esc_attr__( 'Active', 'kirki' ),
 		),
+		'alpha'       => true,
 		'default'     => array(
 			'link'    => '#0088cc',
 			'hover'   => '#00aaff',
@@ -666,6 +683,25 @@ my_config_kirki_add_field(
 	)
 );
 
+my_config_kirki_add_field(
+	array(
+		'type'        => 'select',
+		'settings'    => 'select_setting_multiple',
+		'label'       => esc_attr__( 'Select Control', 'kirki' ),
+		'description' => esc_attr__( 'The description here.', 'kirki' ),
+		'section'     => 'select_section',
+		'default'     => 'option-3',
+		'multiple'    => 3,
+		'choices'     => array(
+			'option-1' => esc_attr__( 'Option 1', 'kirki' ),
+			'option-2' => esc_attr__( 'Option 2', 'kirki' ),
+			'option-3' => esc_attr__( 'Option 3', 'kirki' ),
+			'option-4' => esc_attr__( 'Option 4', 'kirki' ),
+			'option-5' => esc_attr__( 'Option 5', 'kirki' ),
+		),
+	)
+);
+
 /**
  * Slider Control.
  */
@@ -718,6 +754,21 @@ my_config_kirki_add_field(
 		'description' => esc_attr__( 'Description', 'kirki' ),
 		'section'     => 'switch_section',
 		'default'     => true,
+	)
+);
+
+my_config_kirki_add_field(
+	array(
+		'type'        => 'switch',
+		'settings'    => 'switch_setting_custom_label',
+		'label'       => esc_attr__( 'Switch Control with custom labels', 'kirki' ),
+		'description' => esc_attr__( 'Description', 'kirki' ),
+		'section'     => 'switch_section',
+		'default'     => true,
+		'choices'     => array(
+			'on'  => esc_attr__( 'Enabled', 'kirki' ),
+			'off' => esc_attr__( 'Disabled', 'kirki' ),
+		),
 	)
 );
 

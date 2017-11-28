@@ -85,7 +85,9 @@ class HiiWP_Hooks extends Hii {
 		$cmb = new_cmb2_box( array(
 	        'id'        => 'header',
 	        'title'     => __( 'Header', 'hiiwp' ),
-	        'show_on'   => $show_on 
+	        'show_on'   => $show_on,
+	        'display_cb' => false,
+	        'admin_menu_hook' => false
 	    ));
 	    	
 	    	

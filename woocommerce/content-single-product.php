@@ -73,11 +73,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<?php
 			
 			woocommerce_template_single_excerpt();
-			
+			woocommerce_template_single_price();
 			woocommerce_template_single_add_to_cart();
 			woocommerce_template_single_rating();
 			woocommerce_template_single_sharing();
 			woocommerce_template_single_meta();
+			WC_Structured_Data::generate_product_data();
 			/**
 			 * woocommerce_single_product_summary hook.
 			 *

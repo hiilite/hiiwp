@@ -252,7 +252,8 @@ var kirki = {
 					'data-id': control.id,
 					inputAttrs: control.params.inputAttrs,
 					choices: control.params.choices,
-					value: kirki.setting.get( control.id )
+					value: kirki.setting.get( control.id ),
+					multiple: control.params.multiple || 1
 			    } ) );
 			}
 		}
@@ -328,7 +329,7 @@ var kirki = {
 					clear = jQuery( '.kirki-input-container[data-id="' + control.id + '"] .wp-picker-clear' );
 					if ( clear.length ) {
 						clear.click( function() {
-							control.setting.set( '' );
+							kirki.setting.set( control.id, '' );
 						});
 					}
 				}, 200 );
@@ -407,7 +408,7 @@ var kirki = {
 			 * @returns {void}
 			 */
 			init: function( control ) {
-				var element  = jQuery( 'select[data-id="' + control.id + '"' ),
+				var element  = jQuery( 'select[data-id="' + control.id + '"]' ),
 				    multiple = parseInt( element.data( 'multiple' ), 10 ),
 				    selectValue,
 				    selectWooOptions = {
@@ -421,6 +422,7 @@ var kirki = {
 				}
 				jQuery( element ).selectWoo( selectWooOptions ).on( 'change', function() {
 					selectValue = jQuery( this ).val();
+					selectValue = ( null === selectValue && 1 < multiple ) ? [] : selectValue;
 					kirki.setting.set( control.id, selectValue );
 				});
 			}
