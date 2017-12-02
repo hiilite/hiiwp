@@ -41,15 +41,15 @@ echo '<div class="twothird-width content-box">';
 	$exclude = array(get_the_id());
 echo '</div>';
 if(has_excerpt($post->id)){
-echo '<div class="row"><div class="container_inner"><div class="in_grid">';
-		the_content();
-echo '</div></div></div>';
+	echo '<div class="row"><div class="container_inner"><div class="in_grid">';
+			the_content();
+	echo '</div></div></div>';
 }
-endif;
 
 
 
-if($hiilite_options['subdomain'] != 'iframe'):
+
+
 echo '</div>';
 echo '</article>';
 
@@ -76,5 +76,5 @@ echo '<div class="row"><div class="container_inner"><div class="in_grid content-
 echo '<a class="button full-width align-center" href="/team/">Meet the Whole Team</a>';
 echo '</div></div></div>';
 
-endif;
+
 ?>

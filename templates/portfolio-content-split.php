@@ -133,7 +133,31 @@ echo '<div class="in_grid  align-top">';
 		
 		
 		if($project_share){
-			do_action( 'hii_split_portfolio_sidebar_share', $project_share);
+			$social_share = '<div class="row project-social">
+				<div>';
+				foreach($project_share as $share) {
+					if($share == 'fb') {
+						$social_share .= '<a href="https://www.facebook.com/sharer/sharer.php?u='.urlencode($social_url).'"><i class="fa fa-facebook" aria-hidden="true"></i></a>';	
+					} 
+					elseif($share == 'tw') {
+						$social_share .= '<a href="https://twitter.com/home?status='.urlencode($social_url).'"><i class="fa fa-twitter" aria-hidden="true"></i></a>';	
+					}
+					elseif($share == 'gp') {
+						$social_share .= '<a href="https://plus.google.com/share?url='.urlencode($social_url).'"><i class="fa fa-google-plus" aria-hidden="true"></i></a>';	
+					}
+					elseif($share == 'pn') {
+						$social_share .= '<a href="https://pinterest.com/pin/create/button/?url='.urlencode($social_url).'"><i class="fa fa-pinterest-p" aria-hidden="true"></i></a>';	
+					}
+					elseif($share == 'ln') {
+						$social_share .= '<a href="https://www.linkedin.com/shareArticle?mini=true&url='.urlencode(get_the_permalink(get_the_ID())).'"><i class="fa fa-linkedin" aria-hidden="true"></i></a>';	
+					}
+				}
+	
+				$social_share .= '</div>';
+				$social_share .= '<div>'.__( 'Appreciate and Share', 'hiiwp' ).'</div>
+			</div>';		
+			
+			echo $social_share;
 		}
 		
 		do_action( 'hii_split_portfolio_sidebar_about', array($author_id, $portfolio_description));

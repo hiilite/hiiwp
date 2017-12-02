@@ -579,8 +579,8 @@ h5 a:hover,
 h6 a:hover  {
 	color:<?php echo $link_color['hover'];?>;
 	outline: 0;
-	-webkit-box-shadow: inset 0 0 0 rgba(0, 0, 0, 0), 0 3px 0 rgba(0, 0, 0, 1);
-	box-shadow: inset 0 0 0 rgba(0, 0, 0, 0), 0 3px 0 rgba(0, 0, 0, 1);
+	-webkit-box-shadow: inset 0 0 0 rgba(0, 0, 0, 0), 0 2px 0 <?php echo $link_color['hover'];?>;
+	box-shadow: inset 0 0 0 rgba(0, 0, 0, 0), 0 2px 0 <?php echo $link_color['hover'];?>;
 }
 
 
@@ -1963,6 +1963,10 @@ else echo Hii::$options['custom_format_3'];
 .widget ul ul{
 	list-style: none;
 	padding-left: 1em;
+}
+aside .widget ul li {
+	padding: 5px 0;
+	border-bottom: 1px solid rgba(204, 204, 204, 0.2);
 }
 .sidebar {
 	background: <?php echo Hii::$options['sidebar_background'];?>;	

@@ -57,7 +57,6 @@ class Kirki_Controls {
 	 *
 	 * @access public
 	 * @since 3.0.17
-	 * @return void
 	 */
 	public function underscore_templates() {
 		foreach ( $this->templates as $template ) {

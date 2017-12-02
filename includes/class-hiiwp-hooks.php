@@ -25,7 +25,6 @@ class HiiWP_Hooks extends Hii {
 		'hii_split_portfolio_sidebar_date',
 		'hii_split_portfolio_sidebar_tags',
 		'hii_split_portfolio_sidebar_team',
-		'hii_split_portfolio_sidebar_share',
 		'hii_split_portfolio_sidebar_about',
 		'hii_before_blog_loop',
 		'hii_after_blog_loop',
@@ -57,7 +56,6 @@ class HiiWP_Hooks extends Hii {
 		add_action('hii_split_portfolio_sidebar_date', array($this,'hii_split_portfolio_sidebar_date'));
 		add_action('hii_split_portfolio_sidebar_tags', array($this,'hii_split_portfolio_sidebar_tags'));
 		add_action('hii_split_portfolio_sidebar_team', array($this,'hii_split_portfolio_sidebar_team'));	
-		add_action('hii_split_portfolio_sidebar_share', array($this,'hii_split_portfolio_sidebar_share'));	
 		add_action('hii_split_portfolio_sidebar_about', array($this,'hii_split_portfolio_sidebar_about'));	
 		
 		foreach($this->hii_hooks as $hook) {
@@ -293,41 +291,6 @@ class HiiWP_Hooks extends Hii {
 			
 			echo $team;
 		endif;
-	}
-	
-	/**
-	 * hii_split_portfolio_sidebar_share function.
-	 * 
-	 * @access public
-	 * @return void
-	 */
-	public function hii_split_portfolio_sidebar_share($project_share){
-		
-		$social_share = '<div class="row project-social">
-			<div>';
-			foreach($project_share as $share) {
-				if($share == 'fb') {
-					$social_share .= '<a href="https://www.facebook.com/sharer/sharer.php?u='.$social_url.'"><i class="fa fa-facebook" aria-hidden="true"></i></a>';	
-				}
-				if($share == 'tw') {
-					$social_share .= '<a href="https://twitter.com/home?status='.$social_url.'"><i class="fa fa-twitter" aria-hidden="true"></i></a>';	
-				}
-				if($share == 'gp') {
-					$social_share .= '<a href="https://plus.google.com/share?url='.$social_url.'"><i class="fa fa-google-plus" aria-hidden="true"></i></a>';	
-				}
-				if($share == 'pn') {
-					$social_share .= '<a href="https://pinterest.com/pin/create/button/?url='.$social_url.'"><i class="fa fa-pinterest-p" aria-hidden="true"></i></a>';	
-				}
-				if($share == 'ln') {
-					$social_share .= '<a href="https://www.linkedin.com/shareArticle?mini=true&url='.$social_url.'"><i class="fa fa-linkedin" aria-hidden="true"></i></a>';	
-				}
-			}
-
-			$social_share .= '</div>';
-			$social_share .= '<div>'.__( 'Appreciate and Share', 'hiiwp' ).'</div>
-		</div>';		
-		
-		echo $social_share;
 	}
 	
 	/**
