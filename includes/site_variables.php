@@ -700,5 +700,6 @@ $hiilite_options['testimonials_author_font']	= get_theme_mod( 'testimonials_auth
     ) );
 
 
+$hiilite_options['product_default_image'] 		= get_theme_mod('product_default_image', '/wp-content/plugins/woocommerce/assets/images/placeholder.png');
 	
 ?>
