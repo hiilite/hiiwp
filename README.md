@@ -3,7 +3,12 @@ This theme is currently in Alpha testing and should not be installed without the
 
 ### Change log
 #### v0.4.6
-- Updated CMB2 Libraries
+- Updated CMB2 & Kirki Libraries
+- also added missing controls stylesheet
+- Fix to WooCommerce
+- Updated packaged plugins
+- Fixes to site variables
+- All custom CSS fields now must include proper CSS rule structure
 #### v0.4.5
 - Updated Kirki to 3.0.17
 - Updated packaged plugins
