@@ -39,6 +39,14 @@ class Kirki_Output {
 	protected $styles = array();
 
 	/**
+	 * The field.
+	 *
+	 * @access protected
+	 * @var array
+	 */
+	protected $field = array();
+
+	/**
 	 * The value.
 	 *
 	 * @access protected
@@ -53,12 +61,14 @@ class Kirki_Output {
 	 * @param string       $config_id The config ID.
 	 * @param array        $output    The output argument.
 	 * @param string|array $value     The value.
+	 * @param array        $field     The field.
 	 */
-	public function __construct( $config_id, $output, $value ) {
+	public function __construct( $config_id, $output, $value, $field ) {
 
 		$this->config_id = $config_id;
 		$this->value     = $value;
 		$this->output    = $output;
+		$this->field     = $field;
 
 		$this->parse_output();
 	}
@@ -164,11 +174,8 @@ class Kirki_Output {
 				$replacement = ( false === $replacement ) ? '' : $replacement;
 				if ( is_array( $value ) ) {
 					foreach ( $value as $k => $v ) {
-						if ( isset( $value[ $v ] ) ) {
-							$value[ $k ] = str_replace( $search, $replacement, $value[ $v ] );
-						} else {
-							$value[ $k ] = str_replace( $search, $replacement, $v );
-						}
+						$_val = ( isset( $value[ $v ] ) ) ? $value[ $v ] : $v;
+						$value[ $k ] = str_replace( $search, $replacement, $_val );
 					}
 					return $value;
 				}

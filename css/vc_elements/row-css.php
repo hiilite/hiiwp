@@ -154,8 +154,3 @@ body .bg-img-pos-cc {
 body .bg-img-pos-cb {
 	background-position: center bottom !important;
 }
-
-
-<?php
-	
-?>

@@ -32,7 +32,9 @@ class HiiWP_Theme_Options extends Hii {
 		
 		add_filter( 'kirki/config', array( $this, 'update_kirki_url' ) );
 		add_filter( 'kirki/config', array( $this, 'kirki_configuration_styling' ));
-		
+		wp_enqueue_style( 'kirki-control-styles', trailingslashit( Kirki::$url ) . 'controls/css/styles.css', array(), KIRKI_VERSION );
+
+
 		Kirki::add_config( 'hiiwp', array(
 			'capability'    => 'edit_theme_options',
 			'option_type'   => 'theme_mod',

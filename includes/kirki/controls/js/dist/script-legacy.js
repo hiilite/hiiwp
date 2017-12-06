@@ -1,4 +1,5 @@
 /* jshint -W079 */
+/* jshint unused:false */
 if ( _.isUndefined( window.kirkiSetSettingValue ) ) {
 	var kirkiSetSettingValue = { // jscs:ignore requireVarDeclFirst
 
@@ -208,7 +209,6 @@ if ( _.isUndefined( window.kirkiSetSettingValue ) ) {
 		}
 	};
 }
-/* global ajaxurl, kirkiL10n */
 var kirki = {
 
 	initialized: false,
@@ -227,11 +227,20 @@ var kirki = {
 			return;
 		}
 
-		self.util.webfonts.google.initialize();
+		setTimeout( function() {
+			kirki.util.webfonts.standard.initialize();
+			kirki.util.webfonts.google.initialize();
+		}, 150 );
 
 		// Mark as initialized.
 		self.initialized = true;
-	},
+	}
+};
+
+// Initialize the kirki object.
+kirki.initialize();
+var kirki = kirki || {};
+kirki = jQuery.extend( kirki, {
 
 	/**
 	 * An object containing definitions for controls.
@@ -467,8 +476,11 @@ var kirki = {
 			    } ) );
 			}
 		}
-	},
-
+	}
+} );
+/* global kirkiL10n */
+var kirki = kirki || {};
+kirki = jQuery.extend( kirki, {
 	/**
 	 * An object containing definitions for input fields.
 	 *
@@ -705,11 +717,13 @@ var kirki = {
 			 * @param {Object} control - The control object.
 			 * @returns {null}
 			 */
-			init: function( control ) {
+			init: function( control ) { // jshint ignore:line
 			}
 		}
-	},
-
+	}
+} );
+var kirki = kirki || {};
+kirki = jQuery.extend( kirki, {
 	/**
 	 * An object containing definitions for settings.
 	 *
@@ -858,8 +872,11 @@ var kirki = {
 			}
 			wp.customize.control( foundNode ).setting.set( value );
 		}
-	},
-
+	}
+} );
+/* global ajaxurl */
+var kirki = kirki || {};
+kirki = jQuery.extend( kirki, {
 	/**
 	 * A collection of utility methods.
 	 *
@@ -909,23 +926,18 @@ var kirki = {
 				 * @returns {null}
 				 */
 				setFonts: function() {
-					var self = this,
-					    fonts;
+					var self = this;
 
 					// No need to run if we already have the fonts.
 					if ( ! _.isEmpty( self.fonts ) ) {
 						return;
 					}
 
-					// Make an AJAX call to set the fonts object.
+					// Make an AJAX call to set the fonts object (alpha).
 					jQuery.post( ajaxurl, { 'action': 'kirki_fonts_google_all_get' }, function( response ) {
 
 						// Get fonts from the JSON array.
-						fonts = JSON.parse( response );
-
-						_.each( fonts.items, function( font ) {
-							self.fonts[ font.family ] = font;
-						} );
+						self.fonts = JSON.parse( response );
 					} );
 				},
 
@@ -937,9 +949,46 @@ var kirki = {
 				 * @returns {Object}
 				 */
 				getFont: function( family ) {
-					var self = this;
+					var self = this,
+					    fonts = self.getFonts();
 
-					return _.isUndefined( self.fonts[ family ] ) ? false : self.fonts[ family ];
+					if ( 'undefined' === typeof fonts[ family ] ) {
+						return false;
+					}
+					return fonts[ family ];
+				},
+
+				/**
+				 * Gets all properties of a font-family.
+				 *
+				 * @since 3.0.17
+				 * @param {string} order - How to order the fonts (alpha|popularity|trending).
+				 * @param {int}    number - How many to get. 0 for all.
+				 * @returns {Object}
+				 */
+				getFonts: function( order, number ) {
+					var self    = this,
+					    ordered = {},
+					    partial = [];
+
+					// Make sure order is correct.
+					order  = order || 'alpha';
+					order  = ( 'alpha' !== order && 'popularity' !== order && 'trending' !== order ) ? 'alpha' : order;
+
+					// Make sure number is correct.
+					number = number || 0;
+					number = parseInt( number, 10 );
+
+					if ( 'alpha' === order || 0 === number ) {
+						ordered = self.fonts.items;
+					} else {
+						partial = _.first( self.fonts.order[ order ], number );
+						_.each( partial, function( family ) {
+							ordered[ family ] = self.fonts.items[ family ];
+						} );
+					}
+
+					return ordered;
 				},
 
 				/**
@@ -947,7 +996,7 @@ var kirki = {
 				 *
 				 * @since 3.0.17
 				 * @param {string} family - The font-family we're interested in.
-				 * @returns {Object}
+				 * @returns {Array}
 				 */
 				getVariants: function( family ) {
 					var self = this,
@@ -991,13 +1040,71 @@ var kirki = {
 					// Return the variants.
 					return font.subsets;
 				}
+			},
+
+			/**
+			 * Standard fonts related methods.
+			 *
+			 * @since 3.0.17
+			 */
+			standard: {
+
+				/**
+				 * An object containing all Standard fonts.
+				 *
+				 * to set this call this.setFonts();
+				 *
+				 * @since 3.0.17
+				 */
+				fonts: {},
+
+				/**
+				 * Init for google-fonts.
+				 *
+				 * @since 3.0.17
+				 * @returns {null}
+				 */
+				initialize: function() {
+					var self = this;
+
+					self.setFonts();
+				},
+
+				/**
+				 * Set fonts in this.fonts
+				 *
+				 * @since 3.0.17
+				 * @returns {null}
+				 */
+				setFonts: function() {
+					var self = this;
+
+					// No need to run if we already have the fonts.
+					if ( ! _.isEmpty( self.fonts ) ) {
+						return;
+					}
+
+					// Make an AJAX call to set the fonts object.
+					jQuery.post( ajaxurl, { 'action': 'kirki_fonts_standard_all_get' }, function( response ) {
+
+						// Get fonts from the JSON array.
+						self.fonts = JSON.parse( response );
+					} );
+				},
+
+				/**
+				 * Gets the variants for a font-family.
+				 *
+				 * @since 3.0.17
+				 * @returns {Array}
+				 */
+				getVariants: function( family ) { // jshint ignore: line
+					return ['regular', 'italic', '700', '700italic'];
+				}
 			}
 		}
 	}
-};
-
-// Initialize the kirki object.
-kirki.initialize();
+} );
 /* global kirki */
 /**
  * The majority of the code in this file
@@ -1697,7 +1804,7 @@ wp.customize.controlConstructor['kirki-image'] = wp.customize.Control.extend({
 
 		// Tweaks for save_as = id.
 		if ( ( 'id' === saveAs || 'ID' === saveAs ) && '' !== value ) {
-			wp.media.attachment( value ).fetch().then( function( mediaData ) {
+			wp.media.attachment( value ).fetch().then( function() {
 				setTimeout( function() {
 					var url = wp.media.attachment( value ).get( 'url' );
 					preview.removeClass().addClass( 'thumbnail thumbnail-image' ).html( '<img src="' + url + '" alt="" />' );
@@ -2967,7 +3074,11 @@ wp.customize.controlConstructor.repeater = wp.customize.Control.extend({
 				selectWooOptions.maximumSelectionLength = multiple;
 			}
 		}
-		$select   = jQuery( dropdown ).selectWoo( selectWooOptions ).val( data[ dataField ] );
+
+		data = data || {};
+		data[ dataField ] = data[ dataField ] || '';
+
+		$select = jQuery( dropdown ).selectWoo( selectWooOptions ).val( data[ dataField ] );
 
 		this.container.on( 'change', '.repeater-field select', function( event ) {
 

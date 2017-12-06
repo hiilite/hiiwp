@@ -2001,7 +2001,7 @@ aside .widget ul li {
 .color_three{ color: <?php echo Hii::$options['color_three'];?>; }
 .color_four { color: <?php echo Hii::$options['color_four'];?>; }
 .white, .page-title h1.white, 
-.white h1, .white h2, .white h3, .white h4, .white h5, .white h6, .white p { color:white; }
+.white h1, .white h2, .white h3, .white h4, .white h5, .white h6, .white p, .white label { color:white; }
 .bg_color_one  { background-color: <?php echo Hii::$options['color_one'];?>; }
 .bg_color_two 	{ background-color: <?php echo Hii::$options['color_two'];?>; }
 .bg_color_three{ background-color: <?php echo Hii::$options['color_three'];?>; }
@@ -2430,7 +2430,9 @@ if(Hii::$options['testimonials_on']):
 details.wpb_accordion_section.group {
     margin: 1em;
 }
-
+.wpb_gmaps_widget .wpb_wrapper {
+	padding:0;
+}
 /*
  //	note: Tribe_Events	
  */
