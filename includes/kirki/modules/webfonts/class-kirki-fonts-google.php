@@ -82,6 +82,8 @@ final class Kirki_Fonts_Google {
 
 		add_action( 'wp_ajax_kirki_fonts_google_all_get', array( $this, 'get_googlefonts_json' ) );
 		add_action( 'wp_ajax_noprinv_kirki_fonts_google_all_get', array( $this, 'get_googlefonts_json' ) );
+		add_action( 'wp_ajax_kirki_fonts_standard_all_get', array( $this, 'get_strandardfonts_json' ) );
+		add_action( 'wp_ajax_noprinv_kirki_fonts_standard_all_get', array( $this, 'get_strandardfonts_json' ) );
 
 		// Populate the array of google fonts.
 		$this->google_fonts = Kirki_Fonts::get_google_fonts();
@@ -263,7 +265,18 @@ final class Kirki_Fonts_Google {
 	 * @return void
 	 */
 	public function get_googlefonts_json() {
-		echo file_get_contents( wp_normalize_path( dirname( __FILE__ ) . '/webfonts.json' ) ); // WPCS: XSS ok.
+		include wp_normalize_path( dirname( __FILE__ ) . '/webfonts.json' );
+		exit();
+	}
+
+	/**
+	 * Get the standard fonts JSON.
+	 *
+	 * @since 3.0.17
+	 * @return void
+	 */
+	public function get_strandardfonts_json() {
+		echo wp_json_encode( Kirki_Fonts::get_standard_fonts() ); // WPCS: XSS ok.
 		exit();
 	}
 }

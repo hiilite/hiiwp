@@ -12,6 +12,7 @@ Kirki::add_field( 'hiiwp', array(
     'description' => __( 'Define styles for paragraph text', 'hiiwp' ),
     'section'     => $section,
     'priority'    => 1,
+    'default'	  => $hiilite_options['product_default_image'] 
     
 ) );
 

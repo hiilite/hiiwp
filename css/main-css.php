@@ -579,8 +579,8 @@ h5 a:hover,
 h6 a:hover  {
 	color:<?php echo $link_color['hover'];?>;
 	outline: 0;
-	-webkit-box-shadow: inset 0 0 0 rgba(0, 0, 0, 0), 0 3px 0 rgba(0, 0, 0, 1);
-	box-shadow: inset 0 0 0 rgba(0, 0, 0, 0), 0 3px 0 rgba(0, 0, 0, 1);
+	-webkit-box-shadow: inset 0 0 0 rgba(0, 0, 0, 0), 0 2px 0 <?php echo $link_color['hover'];?>;
+	box-shadow: inset 0 0 0 rgba(0, 0, 0, 0), 0 2px 0 <?php echo $link_color['hover'];?>;
 }
 
 
@@ -1750,6 +1750,8 @@ endfor;
 ?>
 
 @media (max-width:550px){
+	width:100%;
+	flex:1 1 100%;
 <?php 
 for($i = 12; $i>0;$i--):
 	echo '.vc_col-xs-'.$i.', .vc_col-md-'.$i.', .vc_col-sm-'.$i.', .vc_col-lg-'.$i.', .col-'.$i;
@@ -1962,6 +1964,10 @@ else echo Hii::$options['custom_format_3'];
 	list-style: none;
 	padding-left: 1em;
 }
+aside .widget ul li {
+	padding: 5px 0;
+	border-bottom: 1px solid rgba(204, 204, 204, 0.2);
+}
 .sidebar {
 	background: <?php echo Hii::$options['sidebar_background'];?>;	
 }
@@ -1995,7 +2001,7 @@ else echo Hii::$options['custom_format_3'];
 .color_three{ color: <?php echo Hii::$options['color_three'];?>; }
 .color_four { color: <?php echo Hii::$options['color_four'];?>; }
 .white, .page-title h1.white, 
-.white h1, .white h2, .white h3, .white h4, .white h5, .white h6, .white p { color:white; }
+.white h1, .white h2, .white h3, .white h4, .white h5, .white h6, .white p, .white label { color:white; }
 .bg_color_one  { background-color: <?php echo Hii::$options['color_one'];?>; }
 .bg_color_two 	{ background-color: <?php echo Hii::$options['color_two'];?>; }
 .bg_color_three{ background-color: <?php echo Hii::$options['color_three'];?>; }
@@ -2424,7 +2430,9 @@ if(Hii::$options['testimonials_on']):
 details.wpb_accordion_section.group {
     margin: 1em;
 }
-
+.wpb_gmaps_widget .wpb_wrapper {
+	padding:0;
+}
 /*
  //	note: Tribe_Events	
  */

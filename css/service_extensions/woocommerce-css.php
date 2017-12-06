@@ -272,12 +272,12 @@ ul.download-versions {
     vertical-align: middle;
     box-sizing: border-box;
     margin:auto;
-
+	max-height: 40px;
 }
 
-.woocommerce ul.product-categories li.product a h2 {
+.woocommerce ul.product-categories li.product a h2.woocommerce-loop-category__title {
     display: inline-block;
-    padding: 0;
+    padding-left: 30px;
 }
 
 .woocommerce ul.product-categories li.product {
@@ -285,9 +285,16 @@ ul.download-versions {
     max-width: 100%;
     margin: 0.1em;
 }
-
+/* SUBSCRIPTIONS */
 .woocommerce .subscription-details span.woocommerce-Price-amount.amount {
     margin-top: 0.5em;
+}
+
+/* CART */
+.woocommerce-cart table.cart td.actions .coupon .input-text {
+    padding: 7px;
+    width: auto;
+    line-height: 1.2;
 }
 
 

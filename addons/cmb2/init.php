@@ -4,22 +4,24 @@
  *
  * @category     WordPress_Plugin
  * @package      CMB2
- * @author       WebDevStudios
+ * @author       CMB2 team
  * @license      GPL-2.0+
- * @link         http://webdevstudios.com
+ * @link         https://cmb2.io
  *
  * Plugin Name:  CMB2
- * Plugin URI:   https://github.com/WebDevStudios/CMB2
+ * Plugin URI:   https://github.com/CMB2/CMB2
  * Description:  CMB2 will create metaboxes and forms with custom fields that will blow your mind.
- * Author:       WebDevStudios
- * Author URI:   http://webdevstudios.com
- * Contributors: WebDevStudios (@webdevstudios / webdevstudios.com)
- *               Justin Sternberg (@jtsternberg / dsgnwrks.pro)
+ * Author:       CMB2 team
+ * Author URI:   https://cmb2.io
+ * Contributors: Justin Sternberg (@jtsternberg / dsgnwrks.pro)
+ *               WebDevStudios (@webdevstudios / webdevstudios.com)
+ *               Zao (zao.is)
+ *               Human Made (@humanmadeltd / hmn.md)
  *               Jared Atchison (@jaredatch / jaredatchison.com)
  *               Bill Erickson (@billerickson / billerickson.net)
  *               Andrew Norcross (@norcross / andrewnorcross.com)
  *
- * Version:      2.2.4
+ * Version:      2.2.6
  *
  * Text Domain:  cmb2
  * Domain Path:  languages
@@ -52,7 +54,7 @@
  * ***********************************************************************
  */
 
-if ( ! class_exists( 'CMB2_Bootstrap_225_Trunk', false ) ) {
+if ( ! class_exists( 'CMB2_Bootstrap_226_Trunk', false ) ) {
 
 	/**
 	 * Handles checking for and loading the newest version of CMB2
@@ -61,11 +63,11 @@ if ( ! class_exists( 'CMB2_Bootstrap_225_Trunk', false ) ) {
 	 *
 	 * @category  WordPress_Plugin
 	 * @package   CMB2
-	 * @author    WebDevStudios
+	 * @author    CMB2 team
 	 * @license   GPL-2.0+
-	 * @link      http://webdevstudios.com
+	 * @link      https://cmb2.io
 	 */
-	class CMB2_Bootstrap_225_Trunk {
+	class CMB2_Bootstrap_226_Trunk {
 
 		/**
 		 * Current version number
@@ -73,7 +75,7 @@ if ( ! class_exists( 'CMB2_Bootstrap_225_Trunk', false ) ) {
 		 * @var   string
 		 * @since 1.0.0
 		 */
-		const VERSION = '2.2.4';
+		const VERSION = '2.2.6';
 
 		/**
 		 * Current version hook priority.
@@ -82,20 +84,20 @@ if ( ! class_exists( 'CMB2_Bootstrap_225_Trunk', false ) ) {
 		 * @var   int
 		 * @since 2.0.0
 		 */
-		const PRIORITY = 9977;
+		const PRIORITY = 9972;
 
 		/**
-		 * Single instance of the CMB2_Bootstrap_225_Trunk object
+		 * Single instance of the CMB2_Bootstrap_226_Trunk object
 		 *
-		 * @var CMB2_Bootstrap_225_Trunk
+		 * @var CMB2_Bootstrap_226_Trunk
 		 */
 		public static $single_instance = null;
 
 		/**
-		 * Creates/returns the single instance CMB2_Bootstrap_225_Trunk object
+		 * Creates/returns the single instance CMB2_Bootstrap_226_Trunk object
 		 *
 		 * @since  2.0.0
-		 * @return CMB2_Bootstrap_225_Trunk Single instance object
+		 * @return CMB2_Bootstrap_226_Trunk Single instance object
 		 */
 		public static function initiate() {
 			if ( null === self::$single_instance ) {
@@ -147,15 +149,15 @@ if ( ! class_exists( 'CMB2_Bootstrap_225_Trunk', false ) ) {
 			$this->l10ni18n();
 
 			// Include helper functions.
-			require_once 'includes/CMB2_Base.php';
-			require_once 'includes/CMB2.php';
-			require_once 'includes/helper-functions.php';
+			require_once CMB2_DIR . 'includes/CMB2_Base.php';
+			require_once CMB2_DIR . 'includes/CMB2.php';
+			require_once CMB2_DIR . 'includes/helper-functions.php';
 
 			// Now kick off the class autoloader.
 			spl_autoload_register( 'cmb2_autoload_classes' );
 
 			// Kick the whole thing off.
-			require_once 'bootstrap.php';
+			require_once( cmb2_dir( 'bootstrap.php' ) );
 			cmb2_bootstrap();
 		}
 
@@ -177,7 +179,7 @@ if ( ! class_exists( 'CMB2_Bootstrap_225_Trunk', false ) ) {
 			}
 
 			if ( ! $loaded ) {
-				$locale = apply_filters( 'plugin_locale', get_locale(), 'hiiwp' );
+				$locale = apply_filters( 'plugin_locale', get_locale(), 'cmb2' );
 				$mofile = dirname( __FILE__ ) . '/languages/cmb2-' . $locale . '.mo';
 				load_textdomain( 'cmb2', $mofile );
 			}
@@ -187,6 +189,6 @@ if ( ! class_exists( 'CMB2_Bootstrap_225_Trunk', false ) ) {
 	}
 
 	// Make it so...
-	CMB2_Bootstrap_225_Trunk::initiate();
+	CMB2_Bootstrap_226_Trunk::initiate();
 
-}
+}// End if().

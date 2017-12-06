@@ -1,4 +1,5 @@
 /* jshint -W079 */
+/* jshint unused:false */
 if ( _.isUndefined( window.kirkiSetSettingValue ) ) {
 	var kirkiSetSettingValue = { // jscs:ignore requireVarDeclFirst
 
@@ -208,7 +209,6 @@ if ( _.isUndefined( window.kirkiSetSettingValue ) ) {
 		}
 	};
 }
-/* global ajaxurl, kirkiL10n */
 var kirki = {
 
 	initialized: false,
@@ -217,7 +217,7 @@ var kirki = {
 	 * Initialize the object.
 	 *
 	 * @since 3.0.17
-	 * @returns {void}
+	 * @returns {null}
 	 */
 	initialize: function() {
 		var self = this;
@@ -227,11 +227,20 @@ var kirki = {
 			return;
 		}
 
-		self.util.webfonts.google.initialize();
+		setTimeout( function() {
+			kirki.util.webfonts.standard.initialize();
+			kirki.util.webfonts.google.initialize();
+		}, 150 );
 
 		// Mark as initialized.
 		self.initialized = true;
-	},
+	}
+};
+
+// Initialize the kirki object.
+kirki.initialize();
+var kirki = kirki || {};
+kirki = jQuery.extend( kirki, {
 
 	/**
 	 * An object containing definitions for controls.
@@ -252,7 +261,7 @@ var kirki = {
 			 *
 			 * @since 3.0.17
 			 * @param {Object} control - The customizer control object.
-			 * @returns {void}
+			 * @returns {null}
 			 */
 			init: function( control ) {
 				var self = this;
@@ -277,7 +286,7 @@ var kirki = {
 			 * @param {string} control.params.default - The default value.
 			 * @param {Object} control.params.choices - Any extra choices we may need.
 			 * @param {string} control.id - The setting.
-			 * @returns {void}
+			 * @returns {null}
 			 */
 			template: function( control ) {
 				var template = wp.template( 'kirki-input-radio' );
@@ -305,7 +314,7 @@ var kirki = {
 			 *
 			 * @since 3.0.16
 			 * @param {Object} control - The customizer control object.
-			 * @returns {void}
+			 * @returns {null}
 			 */
 			init: function( control ) {
 				var self = this;
@@ -335,7 +344,7 @@ var kirki = {
 			 * @param {Object}     control.params.choices - Any extra choices we may need.
 			 * @param {boolean}    control.params.choices.alpha - should we add an alpha channel?
 			 * @param {string}     control.id - The setting.
-			 * @returns {void}
+			 * @returns {null}
 			 */
 			template: function( control ) {
 				var template = wp.template( 'kirki-input-color' );
@@ -368,7 +377,7 @@ var kirki = {
 			 * @param {Object} control.params - Control parameters.
 			 * @param {Object} control.params.choices - Define the specifics for this input.
 			 * @param {string} control.params.choices.element - The HTML element we want to use ('input', 'div', 'span' etc).
-			 * @returns {void}
+			 * @returns {null}
 			 */
 			init: function( control ) {
 				var self = this;
@@ -397,7 +406,7 @@ var kirki = {
 			 * @param {Object}  control.params.choices - Any extra choices we may need.
 			 * @param {boolean} control.params.choices.alpha - should we add an alpha channel?
 			 * @param {string}  control.id - The setting.
-			 * @returns {void}
+			 * @returns {null}
 			 */
 			template: function( control ) {
 				var args = {
@@ -427,7 +436,7 @@ var kirki = {
 			 *
 			 * @since 3.0.17
 			 * @param {Object} control - The customizer control object.
-			 * @returns {void}
+			 * @returns {null}
 			 */
 			init: function( control ) {
 				var self = this;
@@ -451,7 +460,7 @@ var kirki = {
 			 * @param {Object}  control.params.default - The default value.
 			 * @param {Object}  control.params.choices - The choices for the select dropdown.
 			 * @param {string}  control.id - The setting.
-			 * @returns {void}
+			 * @returns {null}
 			 */
 			template: function( control ) {
 				var template = wp.template( 'kirki-input-select' );
@@ -462,12 +471,16 @@ var kirki = {
 					'data-id': control.id,
 					inputAttrs: control.params.inputAttrs,
 					choices: control.params.choices,
-					value: kirki.setting.get( control.id )
+					value: kirki.setting.get( control.id ),
+					multiple: control.params.multiple || 1
 			    } ) );
 			}
 		}
-	},
-
+	}
+} );
+/* global kirkiL10n */
+var kirki = kirki || {};
+kirki = jQuery.extend( kirki, {
 	/**
 	 * An object containing definitions for input fields.
 	 *
@@ -488,7 +501,7 @@ var kirki = {
 			 * @since 3.0.17
 			 * @param {Object} control - The control object.
 			 * @param {Object} control.id - The setting.
-			 * @returns {void}
+			 * @returns {null}
 			 */
 			init: function( control ) {
 				var input = jQuery( 'input[data-id="' + control.id + '"]' );
@@ -517,7 +530,7 @@ var kirki = {
 			 * @param {Object} control.params - Control parameters.
 			 * @param {Object} control.params.choices - alias for control.choices.
 
-			 * @returns {void}
+			 * @returns {null}
 			 */
 			init: function( control ) {
 				var picker = jQuery( '.kirki-color-control[data-id="' + control.id + '"]' ),
@@ -538,7 +551,7 @@ var kirki = {
 					clear = jQuery( '.kirki-input-container[data-id="' + control.id + '"] .wp-picker-clear' );
 					if ( clear.length ) {
 						clear.click( function() {
-							control.setting.set( '' );
+							kirki.setting.set( control.id, '' );
 						});
 					}
 				}, 200 );
@@ -569,7 +582,7 @@ var kirki = {
 			 * @since 3.0.17
 			 * @param {Object} control - The control object.
 			 * @param {Object} control.id - The setting.
-			 * @returns {void}
+			 * @returns {null}
 			 */
 			init: function( control ) {
 				var input = jQuery( 'input[data-id="' + control.id + '"]' );
@@ -594,7 +607,7 @@ var kirki = {
 			 * @since 3.0.17
 			 * @param {Object} control - The control object.
 			 * @param {Object} control.id - The setting.
-			 * @returns {void}
+			 * @returns {null}
 			 */
 			init: function( control ) {
 				var textarea = jQuery( 'textarea[data-id="' + control.id + '"]' );
@@ -614,10 +627,10 @@ var kirki = {
 			 * @since 3.0.17
 			 * @param {Object} control - The control object.
 			 * @param {Object} control.id - The setting.
-			 * @returns {void}
+			 * @returns {null}
 			 */
 			init: function( control ) {
-				var element  = jQuery( 'select[data-id="' + control.id + '"' ),
+				var element  = jQuery( 'select[data-id="' + control.id + '"]' ),
 				    multiple = parseInt( element.data( 'multiple' ), 10 ),
 				    selectValue,
 				    selectWooOptions = {
@@ -631,6 +644,7 @@ var kirki = {
 				}
 				jQuery( element ).selectWoo( selectWooOptions ).on( 'change', function() {
 					selectValue = jQuery( this ).val();
+					selectValue = ( null === selectValue && 1 < multiple ) ? [] : selectValue;
 					kirki.setting.set( control.id, selectValue );
 				});
 			}
@@ -701,13 +715,15 @@ var kirki = {
 			 *
 			 * @since 3.0.17
 			 * @param {Object} control - The control object.
-			 * @returns {void}
+			 * @returns {null}
 			 */
-			init: function( control ) {
+			init: function( control ) { // jshint ignore:line
 			}
 		}
-	},
-
+	}
+} );
+var kirki = kirki || {};
+kirki = jQuery.extend( kirki, {
 	/**
 	 * An object containing definitions for settings.
 	 *
@@ -772,7 +788,7 @@ var kirki = {
 		 * @param {mixed}         value - Depends on the control-type.
 		 * @param {string}        key - If we only want to save an item in an object
 		 *                                  we can define the key here.
-		 * @returns {void}
+		 * @returns {null}
 		 */
 		set: function( element, value, key ) {
 			var setting,
@@ -856,8 +872,11 @@ var kirki = {
 			}
 			wp.customize.control( foundNode ).setting.set( value );
 		}
-	},
-
+	}
+} );
+/* global ajaxurl */
+var kirki = kirki || {};
+kirki = jQuery.extend( kirki, {
 	/**
 	 * A collection of utility methods.
 	 *
@@ -892,7 +911,7 @@ var kirki = {
 				 * Init for google-fonts.
 				 *
 				 * @since 3.0.17
-				 * @returns {void}
+				 * @returns {null}
 				 */
 				initialize: function() {
 					var self = this;
@@ -904,26 +923,21 @@ var kirki = {
 				 * Set fonts in this.fonts
 				 *
 				 * @since 3.0.17
-				 * @returns {void}
+				 * @returns {null}
 				 */
 				setFonts: function() {
-					var self = this,
-					    fonts;
+					var self = this;
 
 					// No need to run if we already have the fonts.
 					if ( ! _.isEmpty( self.fonts ) ) {
 						return;
 					}
 
-					// Make an AJAX call to set the fonts object.
+					// Make an AJAX call to set the fonts object (alpha).
 					jQuery.post( ajaxurl, { 'action': 'kirki_fonts_google_all_get' }, function( response ) {
 
 						// Get fonts from the JSON array.
-						fonts = JSON.parse( response );
-
-						_.each( fonts.items, function( font ) {
-							self.fonts[ font.family ] = font;
-						} );
+						self.fonts = JSON.parse( response );
 					} );
 				},
 
@@ -935,9 +949,46 @@ var kirki = {
 				 * @returns {Object}
 				 */
 				getFont: function( family ) {
-					var self = this;
+					var self = this,
+					    fonts = self.getFonts();
 
-					return _.isUndefined( self.fonts[ family ] ) ? false : self.fonts[ family ];
+					if ( 'undefined' === typeof fonts[ family ] ) {
+						return false;
+					}
+					return fonts[ family ];
+				},
+
+				/**
+				 * Gets all properties of a font-family.
+				 *
+				 * @since 3.0.17
+				 * @param {string} order - How to order the fonts (alpha|popularity|trending).
+				 * @param {int}    number - How many to get. 0 for all.
+				 * @returns {Object}
+				 */
+				getFonts: function( order, number ) {
+					var self    = this,
+					    ordered = {},
+					    partial = [];
+
+					// Make sure order is correct.
+					order  = order || 'alpha';
+					order  = ( 'alpha' !== order && 'popularity' !== order && 'trending' !== order ) ? 'alpha' : order;
+
+					// Make sure number is correct.
+					number = number || 0;
+					number = parseInt( number, 10 );
+
+					if ( 'alpha' === order || 0 === number ) {
+						ordered = self.fonts.items;
+					} else {
+						partial = _.first( self.fonts.order[ order ], number );
+						_.each( partial, function( family ) {
+							ordered[ family ] = self.fonts.items[ family ];
+						} );
+					}
+
+					return ordered;
 				},
 
 				/**
@@ -945,7 +996,7 @@ var kirki = {
 				 *
 				 * @since 3.0.17
 				 * @param {string} family - The font-family we're interested in.
-				 * @returns {Object}
+				 * @returns {Array}
 				 */
 				getVariants: function( family ) {
 					var self = this,
@@ -989,13 +1040,71 @@ var kirki = {
 					// Return the variants.
 					return font.subsets;
 				}
+			},
+
+			/**
+			 * Standard fonts related methods.
+			 *
+			 * @since 3.0.17
+			 */
+			standard: {
+
+				/**
+				 * An object containing all Standard fonts.
+				 *
+				 * to set this call this.setFonts();
+				 *
+				 * @since 3.0.17
+				 */
+				fonts: {},
+
+				/**
+				 * Init for google-fonts.
+				 *
+				 * @since 3.0.17
+				 * @returns {null}
+				 */
+				initialize: function() {
+					var self = this;
+
+					self.setFonts();
+				},
+
+				/**
+				 * Set fonts in this.fonts
+				 *
+				 * @since 3.0.17
+				 * @returns {null}
+				 */
+				setFonts: function() {
+					var self = this;
+
+					// No need to run if we already have the fonts.
+					if ( ! _.isEmpty( self.fonts ) ) {
+						return;
+					}
+
+					// Make an AJAX call to set the fonts object.
+					jQuery.post( ajaxurl, { 'action': 'kirki_fonts_standard_all_get' }, function( response ) {
+
+						// Get fonts from the JSON array.
+						self.fonts = JSON.parse( response );
+					} );
+				},
+
+				/**
+				 * Gets the variants for a font-family.
+				 *
+				 * @since 3.0.17
+				 * @returns {Array}
+				 */
+				getVariants: function( family ) { // jshint ignore: line
+					return ['regular', 'italic', '700', '700italic'];
+				}
 			}
 		}
 	}
-};
-
-// Initialize the kirki object.
-kirki.initialize();
+} );
 /* global kirki */
 /**
  * The majority of the code in this file
@@ -1042,7 +1151,7 @@ kirki.initialize();
 		 * should be changed in Core to be applied once the control is embedded.
 		 *
 		 * @private
-		 * @returns {void}
+		 * @returns {null}
 		 */
 		_setUpSettingRootLinks: function() {
 			var control = this,
@@ -1064,7 +1173,7 @@ kirki.initialize();
 		 * Add bidirectional data binding links between inputs and the setting properties.
 		 *
 		 * @private
-		 * @returns {void}
+		 * @returns {null}
 		 */
 		_setUpSettingPropertyLinks: function() {
 			var control = this,
@@ -1125,7 +1234,7 @@ kirki.initialize();
 		 * so that the control isn't embedded on load,
 		 * unless the containing section is already expanded.
 		 *
-		 * @returns {void}
+		 * @returns {null}
 		 */
 		embed: function() {
 			var control   = this,
@@ -1154,7 +1263,7 @@ kirki.initialize();
 		 * This function is called in Section.onChangeExpanded() so the control
 		 * will only get embedded when the Section is first expanded.
 		 *
-		 * @returns {void}
+		 * @returns {null}
 		 */
 		actuallyEmbed: function() {
 			var control = this;
@@ -1169,7 +1278,7 @@ kirki.initialize();
 		 * This is not working with autofocus.
 		 *
 		 * @param {object} [args] Args.
-		 * @returns {void}
+		 * @returns {null}
 		 */
 		focus: function( args ) {
 			var control = this;
@@ -1181,7 +1290,7 @@ kirki.initialize();
 		 * Additional actions that run on ready.
 		 *
 		 * @param {object} [args] Args.
-		 * @returns {void}
+		 * @returns {null}
 		 */
 		initKirkiControl: function( control ) {
 			if ( 'undefined' !== typeof kirki.control[ control.params.type ] ) {
@@ -1203,6 +1312,10 @@ kirki.initialize();
 
 			// 0 is always a valid value, and we can't check calc() values effectively.
 			if ( '0' === value || ( 0 <= value.indexOf( 'calc(' ) && 0 <= value.indexOf( ')' ) ) ) {
+				return true;
+			}
+
+			if ( 'auto' === value || 'inherit' === value || 'initial' === value ) {
 				return true;
 			}
 
@@ -1567,28 +1680,23 @@ wp.customize.controlConstructor['kirki-dimensions'] = wp.customize.kirkiDynamicC
 
 				setting.notifications.remove( code );
 
-				_.each( ['top', 'bottom', 'left', 'right'], function( direction ) {
-					if ( ! _.isUndefined( value[ direction ] ) ) {
-						if ( false === control.kirkiValidateCSSValue( value[ direction ] ) ) {
-							subs[ direction ] = dimensionskirkiL10n[ direction ];
-						} else {
-							delete subs[ direction ];
-						}
+				_.each( value, function( val, direction ) {
+					if ( false === control.kirkiValidateCSSValue( val ) ) {
+						subs[ direction ] = val;
+					} else {
+						delete subs[ direction ];
 					}
-				});
+				} );
 
 				if ( ! _.isEmpty( subs ) ) {
 					message = dimensionskirkiL10n['invalid-value'] + ' (' + _.values( subs ).toString() + ') ';
-					setting.notifications.add( code, new wp.customize.Notification(
-						code,
-						{
-							type: 'warning',
-							message: message
-						}
-					) );
-				} else {
-					setting.notifications.remove( code );
+					setting.notifications.add( code, new wp.customize.Notification( code, {
+						type: 'warning',
+						message: message
+					} ) );
+					return;
 				}
+				setting.notifications.remove( code );
 			} );
 		} );
 	}
@@ -1696,7 +1804,7 @@ wp.customize.controlConstructor['kirki-image'] = wp.customize.Control.extend({
 
 		// Tweaks for save_as = id.
 		if ( ( 'id' === saveAs || 'ID' === saveAs ) && '' !== value ) {
-			wp.media.attachment( value ).fetch().then( function( mediaData ) {
+			wp.media.attachment( value ).fetch().then( function() {
 				setTimeout( function() {
 					var url = wp.media.attachment( value ).get( 'url' );
 					preview.removeClass().addClass( 'thumbnail thumbnail-image' ).html( '<img src="' + url + '" alt="" />' );
@@ -2966,7 +3074,11 @@ wp.customize.controlConstructor.repeater = wp.customize.Control.extend({
 				selectWooOptions.maximumSelectionLength = multiple;
 			}
 		}
-		$select   = jQuery( dropdown ).selectWoo( selectWooOptions ).val( data[ dataField ] );
+
+		data = data || {};
+		data[ dataField ] = data[ dataField ] || '';
+
+		$select = jQuery( dropdown ).selectWoo( selectWooOptions ).val( data[ dataField ] );
 
 		this.container.on( 'change', '.repeater-field select', function( event ) {
 
@@ -3098,15 +3210,7 @@ wp.customize.controlConstructor['kirki-switch'] = wp.customize.kirkiDynamicContr
 		'use strict';
 
 		var control       = this,
-		    checkboxValue = control.setting._value,
-		    on            = jQuery( control.container.find( '.switch-on' ) ),
-		    off           = jQuery( control.container.find( '.switch-off' ) );
-
-		// CSS modifications depending on label sizes.
-		jQuery( control.container.find( '.switch label ' ) ).css( 'width', ( on.width() + off.width() + 40 ) + 'px' );
-		jQuery( '#customize-control-' + control.id.replace( '[', '-' ).replace( ']', '' ) ).append(
-			'<style>#customize-control-' + control.id.replace( '[', '-' ).replace( ']', '' ) + ' .switch label:after{width:' + ( on.width() + 13 ) + 'px;}#customize-control-' + control.id.replace( '[', '-' ).replace( ']', '' ) + ' .switch input:checked + label:after{left:' + ( on.width() + 22 ) + 'px;width:' + ( off.width() + 13 ) + 'px;}</style>'
-		);
+		    checkboxValue = control.setting._value;
 
 		// Save the value
 		this.container.on( 'change', 'input', function() {

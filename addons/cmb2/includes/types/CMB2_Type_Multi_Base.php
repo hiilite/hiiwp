@@ -6,9 +6,9 @@
  *
  * @category  WordPress_Plugin
  * @package   CMB2
- * @author    WebDevStudios
+ * @author    CMB2 team
  * @license   GPL-2.0+
- * @link      http://webdevstudios.com
+ * @link      https://cmb2.io
  */
 abstract class CMB2_Type_Multi_Base extends CMB2_Type_Base {
 
@@ -78,9 +78,7 @@ abstract class CMB2_Type_Multi_Base extends CMB2_Type_Base {
 			? $field->escaped_value()
 			: $field->get_default();
 
-		if ( is_numeric( $value ) ) {
-			$value = intval( $value );
-		}
+		$value = CMB2_Utils::normalize_if_numeric( $value );
 
 		$concatenated_items = '';
 		$i = 1;
@@ -99,7 +97,7 @@ abstract class CMB2_Type_Multi_Base extends CMB2_Type_Base {
 			$a['label'] = $opt_label;
 
 			// Check if this option is the value of the input
-			if ( $value === $opt_value ) {
+			if ( $value === CMB2_Utils::normalize_if_numeric( $opt_value ) ) {
 				$a['checked'] = 'checked';
 			}
 
