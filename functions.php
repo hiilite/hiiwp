@@ -135,7 +135,9 @@ class Hii {
 		if(class_exists('WooCommerce')){
 			add_theme_support( 'wc-product-gallery-zoom' );
 			add_theme_support( 'wc-product-gallery-lightbox' );
-			add_theme_support( 'wc-product-gallery-slider' );
+			include_once(  HIILITE_DIR . '/includes/service_extensions/woocommerce.php' );
+			
+			add_theme_support( 'sensei' );
 		}
 		
 		if(class_exists('WP_User_Manager')):
@@ -307,9 +309,7 @@ function hii_the_title() {
 	echo hii_get_the_title();
 }
 
-if(class_exists('WooCommerce')){
-	include_once( HIILITE_DIR . '/includes/service_extensions/woocommerce.php' );
-}
+
 /*
 Include Support Add-ons	
 */

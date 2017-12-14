@@ -34,7 +34,7 @@
     float: none;
     text-align: center;
 }
-.woocommerce, .woocommerce div.product, .woocommerce_before_shop_loop{
+.woocommerce, .woocommerce div.product, .woocommerce_before_shop_loop, .woocommerce-page amp-carousel .slide li.product {
 	width: 100%;
 }
 

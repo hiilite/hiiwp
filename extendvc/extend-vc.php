@@ -2600,6 +2600,89 @@ vc_map( array(
 		)
 ) );
 
+// HII ROTATING CAROUSEL 
+vc_map( array(
+        "name" => "Hii Rotating Carousel",
+		"base" => "hii_rotating_carousel",
+		"category" => 'by Hiilite',
+		"icon" => "icon-wpb-images-carousel",
+		"description" => __("Carousel of posts.", 'hiiwp' ),
+		"allowed_container_element" => 'vc_row',
+		"params" => array(
+			array(
+				"type" => "textfield",
+				"heading" => "Post IDs",
+				"param_name" => "post_ids",
+				"value" => "",
+				"description" => __( 'Enter posts IDs to display, minimum of 3. Note: separate values by commas (,)', 'hiiwp' ),
+				'save_always' => true,
+				'admin_label' => true
+
+			),
+            array(
+                "type" => "dropdown",
+                "heading" => "Show Title",
+                "param_name" => "show_title",
+                "value" => array(
+                    "Yes" => "yes",
+                    "No" => "no"
+                ),
+                "default" => "yes",
+                "description" => __( 'Show the post title', 'hiiwp' ),
+				'save_always' => true,
+				'admin_label' => true
+            ),
+            array(
+                "type" => "dropdown",
+                "heading" => "Show Excerpt",
+                "param_name" => "show_excerpt",
+                "value" => array(
+                    "Yes" => "yes",
+                    "No" => "no"
+                ),
+                "default" => "yes",
+                "description" => __( 'Show the post excerpt', 'hiiwp' ),
+				'save_always' => true,
+                "description" => "",
+				'admin_label' => true
+            ),
+            array(
+                "type" => "dropdown",
+                "heading" => "Show More Button",
+                "param_name" => "show_btn",
+                "value" => array(
+                    "Yes" => "yes",
+                    "No" => "no"
+                ),
+                "default" => "yes",
+                "description" => __( 'Show Read More button', 'hiiwp' ),
+				'save_always' => true,
+                "description" => "",
+				'admin_label' => true
+            ),
+            array(
+                "type" => "textfield",
+                "heading" => "Button Text",
+                "param_name" => "btn_text",
+                "value" => "Read More",
+                "description" => __( 'Change Read More button text', 'hiiwp' ),
+				'save_always' => true,
+				'admin_label' => true,
+				'dependency' => array(
+					'element' => 'show_btn',
+					'value' => 'yes',
+				)
+			),
+			array(
+				'type' => 'css_editor',
+				'heading' => __( 'CSS box', 'hiiwp' ),
+				'param_name' => 'css',
+				'group' => __( 'Design Options', 'hiiwp' ),
+			)
+		)
+) );
+
+
 // TESTIMONIALS
 if($hiilite_options['testimonials_on']){
 	$title = get_theme_mod( 'testimonials_title', 'Testimonials' );

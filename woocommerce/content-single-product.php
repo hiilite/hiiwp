@@ -71,7 +71,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	
 		<div class="col-4 product_summary">
 		<?php
-			
+			/*
 			woocommerce_template_single_excerpt();
 			woocommerce_template_single_price();
 			woocommerce_template_single_add_to_cart();
@@ -91,10 +91,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 			 * @hooked woocommerce_template_single_sharing - 50
 			 * @hooked WC_Structured_Data::generate_product_data() - 60
 			 */
-			//do_action( 'woocommerce_single_product_summary' );
+			do_action( 'woocommerce_single_product_summary' );
 		?>
 		</div>
-		<div>
+		<div class="col-12">
 			<?php
 			woocommerce_output_related_products();
 			?>
