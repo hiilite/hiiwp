@@ -38,6 +38,11 @@ include_once('font-awesome/css/font-awesome.min.css');
 /*--------------------------------------------------------------
 1.0 Normalize
 --------------------------------------------------------------*/
+body * {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
 html {
 	-webkit-font-smoothing: antialiased;
     text-shadow: 1px 1px 1px rgba(0,0,0,0.004);
@@ -1969,7 +1974,8 @@ aside .widget ul li {
 	border-bottom: 1px solid rgba(204, 204, 204, 0.2);
 }
 .sidebar {
-	background: <?php echo Hii::$options['sidebar_background'];?>;	
+	background: <?php echo Hii::$options['sidebar_background'];?>;
+	border: <?php echo Hii::$options['sidebar_border_width'].' solid '.Hii::$options['sidebar_border_color'];?>;
 }
 .sidebar .depth_2 {
 	padding-left:1em;	
@@ -1994,6 +2000,12 @@ aside .widget ul li {
 	<?php
 	echo 'margin:'.get_spacing(Hii::$options['sidebar_widget_margin']).';';	
 	?>
+}
+.sidebar > .widget {
+	<?php
+	echo 'padding:'.get_spacing(Hii::$options['sidebar_widget_padding']).';';	
+	?>
+	border: <?php echo Hii::$options['sidebar_widget_border_width'].' solid '.Hii::$options['sidebar_widget_border_color'];?>;
 }
 /* Re coloring*/
 .color_one  { color: <?php echo Hii::$options['color_one'];?>; }
@@ -2448,8 +2460,7 @@ details.wpb_accordion_section.group {
 /*
  //	note: WP_User_Manager	
  */
-if(class_exists('WP_User_Manager')):
-	?>
+if(class_exists('WP_User_Manager')): ?>
 	.wpum-profile-card .wpum-profile-img {
 	    position: relative;
 	    left: 0;
@@ -2470,8 +2481,6 @@ if(class_exists('WP_User_Manager')):
 		border: none;
 		padding: 0;
 	}
-	
-	
 	<?php
 endif;
 
@@ -2481,71 +2490,29 @@ endif;
 if(class_exists('WooCommerce')):
 	get_template_part('css/service_extensions/woocommerce', 'css');	
 endif;
+if(class_exists('Sensei_Main')):
+	get_template_part('css/service_extensions/sensei', 'css');	
+endif;
 if(class_exists('GFForms')):
 	get_template_part('css/service_extensions/gravityforms', 'css');	
 endif;
 
-if ( is_customize_preview() ) :
-?>
-.customizer_quick_links {
-	position: absolute;
-	top: 0;
-	right: 0;
-}
-
-.customizer-edit {
-	border: none;
-    background: #555d66;
-    color: white;
-    position: relative;
-    right: 0;
-    overflow: hidden;
-    max-width: 1.5em;
-    white-space: nowrap;
-    padding: 2px 4px;
-    box-sizing: border-box;
-    line-height: 1;
-    cursor: context-menu;
-    height: 1.5em;
-}
-.customizer_quick_links .customizer-edit:first-child {
-	border-radius: 10px 0px 0px 10px;
-}
-button.customizer-edit:hover {
-    max-width: 100%;
-    z-index: 9999;
-}
-.customizer-edit:before {
-	content: "\f040";
-	padding-right:0.5em;
-	display: inline-block;
-    font: normal normal normal 14px/1 FontAwesome;
-    font-size: inherit;
-    text-rendering: auto;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-}
-.customizer-edit.font-edit:before {
-	content: "\f031";
-}
-<?php
-endif;
-
 if(is_user_logged_in()):
-?>
-li#wp-admin-bar-new_draft, li#wp-admin-bar-edit, li#wp-admin-bar-new-content, li#wp-admin-bar-customize, li#wp-admin-bar-site-name {
-    max-width: 2.5em;
-    text-overflow: clip;
-    white-space: nowrap;
-}
-li#wp-admin-bar-my-account span.display-name {
-    display: none;
-}
-a.ab-item {
-    overflow: hidden;
-} 
-<?php
+	?>
+	li#wp-admin-bar-new_draft, li#wp-admin-bar-edit, li#wp-admin-bar-new-content, li#wp-admin-bar-customize, li#wp-admin-bar-site-name {
+	    max-width: 2.5em;
+	    text-overflow: clip;
+	    white-space: nowrap;
+	}
+	li#wp-admin-bar-my-account span.display-name {
+	    display: none;
+	}
+	a.ab-item {
+	    overflow: hidden;
+	} 
+	<?php
 endif;
+
 $custom_formats = '
 .custom_format_1 {
 	'.preg_replace('/[{}]/','',Hii::$options['custom_format_1']).'

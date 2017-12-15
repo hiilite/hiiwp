@@ -250,6 +250,15 @@ kirki = jQuery.extend( kirki, {
 	control: {
 
 		/**
+		 * The code control.
+		 *
+		 * @since 3.0.18
+		 */
+		'kirki-code': {
+
+		},
+
+		/**
 		 * The radio control.
 		 *
 		 * @since 3.0.17
@@ -1101,6 +1110,35 @@ kirki = jQuery.extend( kirki, {
 				getVariants: function( family ) { // jshint ignore: line
 					return ['regular', 'italic', '700', '700italic'];
 				}
+			},
+
+			/**
+			 * Figure out what this font-family is (google/standard)
+			 *
+			 * @since 3.0.20
+			 * @param {string} family - The font-family.
+			 * @returns {string|false} - Returns string if found (google|standard)
+			 *                           and false in case the font-family is an arbitrary value
+			 *                           not found anywhere in our font definitions.
+			 */
+			getFontType: function( family ) {
+				var self = this;
+
+				// Check for standard fonts first.
+				if (
+					'undefined' !== typeof self.standard.fonts[ family ] || (
+						'undefined' !== typeof self.standard.fonts.stack &&
+						'undefined' !== typeof self.standard.fonts.stack[ family ]
+					)
+				) {
+					return 'standard';
+				}
+
+				// Check in googlefonts.
+				if ( 'undefined' !== typeof self.google.fonts.items[ family ] ) {
+					return 'google';
+				}
+				return false;
 			}
 		}
 	}
@@ -3373,7 +3411,7 @@ wp.customize.controlConstructor['kirki-typography'] = wp.customize.kirkiDynamicC
 		}
 
 		// Hide if we're not on a google-font.
-		if ( false === kirki.util.webfonts.google.getFont( fontFamily ) ) {
+		if ( 'google' !== kirki.util.webfonts.getFontType( fontFamily ) ) {
 			jQuery( control.selector + ' .font-backup' ).hide();
 			return;
 		}
@@ -3416,17 +3454,17 @@ wp.customize.controlConstructor['kirki-typography'] = wp.customize.kirkiDynamicC
 		var control    = this,
 		    value      = control.setting._value,
 		    fontFamily = value['font-family'],
-		    variants   = kirki.util.webfonts.google.getVariants( fontFamily ),
 		    selector   = control.selector + ' .variant select',
 		    data       = [],
 		    isValid    = false,
+		    fontType   = kirki.util.webfonts.getFontType( fontFamily ),
+		    variants   = ['regular', 'italic', '700', '700italic'],
 		    fontWeight,
 		    variantSelector,
 		    fontStyle;
 
-		if ( false === kirki.util.webfonts.google.getFont( fontFamily ) ) {
-			jQuery( control.selector + ' .variant' ).hide();
-			return;
+		if ( 'google' === fontType ) {
+			variants = kirki.util.webfonts.google.getVariants( fontFamily );
 		}
 
 		jQuery( control.selector + ' .variant' ).show();
@@ -3539,7 +3577,7 @@ wp.customize.controlConstructor['kirki-typography'] = wp.customize.kirkiDynamicC
 
 			} else {
 				_.each( control.params.choices.fonts.google, function( fontName ) {
-					if ( 'undefined' !== typeof initialGoogleFonts[ fontName ] ) {
+					if ( 'undefined' !== typeof initialGoogleFonts[ fontName ] && ! _.isEmpty( initialGoogleFonts[ fontName ] ) ) {
 						googleFonts[ fontName ] = initialGoogleFonts[ fontName ];
 					}
 				} );
@@ -3549,19 +3587,19 @@ wp.customize.controlConstructor['kirki-typography'] = wp.customize.kirkiDynamicC
 		}
 
 		// Get standard fonts.
-		if ( 'undefined' !== typeof control.params.choices && 'undefined' !== typeof control.params.choices && 'undefined' !== typeof control.params.choices.fonts && 'undefined' !== typeof control.params.choices.fonts.standard ) {
+		if ( ! _.isEmpty( control.params.choices.fonts.standard ) ) {
 			_.each( control.params.choices.fonts.standard, function( fontName ) {
-				if ( 'undefined' !== typeof kirki.util.webfonts.standard.fonts[ fontName ] ) {
+				if ( 'undefined' !== typeof kirki.util.webfonts.standard.fonts[ fontName ] && ! _.isEmpty( kirki.util.webfonts.standard.fonts[ fontName ] ) ) {
 					standardFonts[ fontName ] = {};
-					if ( 'undefined' !== kirki.util.webfonts.standard.fonts[ fontName ].stack ) {
+					if ( 'undefined' !== kirki.util.webfonts.standard.fonts[ fontName ].stack && ! _.isEmpty( kirki.util.webfonts.standard.fonts[ fontName ].stack ) ) {
 						standardFonts[ fontName ].family = kirki.util.webfonts.standard.fonts[ fontName ].stack;
 					} else {
 						standardFonts[ fontName ].family = googleFonts[ fontName ];
 					}
-					if ( 'undefined' !== kirki.util.webfonts.standard.fonts[ fontName ].label ) {
+					if ( 'undefined' !== kirki.util.webfonts.standard.fonts[ fontName ].label && ! _.isEmpty( kirki.util.webfonts.standard.fonts[ fontName ].label ) ) {
 						standardFonts[ fontName ].label = kirki.util.webfonts.standard.fonts[ fontName ].label;
-					} else {
-						standardFonts[ fontName ].label = googleFonts[ fontName ];
+					} else if ( ! _.isEmpty( standardFonts[ fontName ] ) ) {
+						standardFonts[ fontName ].label = standardFonts[ fontName ];
 					}
 				} else {
 					standardFonts[ fontName ] = {

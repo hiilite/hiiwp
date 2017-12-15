@@ -49,6 +49,8 @@ class HiiWP extends Hii {
 		add_action('admin_menu', array( $this, 'hiiwp_adminmenu'), 10);
 		
 		add_action( 'after_setup_theme', array( $this, 'woocommerce_support') );
+		add_action( 'after_setup_theme', array( $this, 'sensei_support') );
+		
 		add_action( 'after_switch_theme', array( $this, 'set_permalink_structure') ); // Load admin JavaScript. Do an is_admin() check before calling My_Custom_Plugin
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_admin_scripts' ), 100 );
 		add_action( 'wp_ajax_hiiwp_disable_tour_mode', array( $this, 'hiiwp_disable_tour_mode' )); //Used to disable tour mode
@@ -250,6 +252,12 @@ class HiiWP extends Hii {
 	 */
 	public function woocommerce_support() {
     	add_theme_support( 'woocommerce' );
+    	add_theme_support( 'wc-product-gallery-zoom' );
+		add_theme_support( 'wc-product-gallery-lightbox' );
+	}
+	
+	public function sensei_support() {
+    	add_theme_support( 'sensei' );
 	}
 	
 	

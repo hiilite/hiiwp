@@ -323,7 +323,7 @@ $hiilite_options['title_padding']			= get_theme_mod( 'title_padding', array(
 	));
 $hiilite_options['title_font']				= get_theme_mod( 'title_font', array(
 	'font-family'    => 'Open Sans',
-    'variant'        => '800',
+    'variant'        => '600',
     'font-size'      => '4em',
     'line-height'    => '1',
     'letter-spacing' => '0',
@@ -351,7 +351,7 @@ $hiilite_options['typography_h1_font']				= get_theme_mod( 'typography_h1_font',
         'font-family'    => $hiilite_options['default_font']['font-family'],
         'variant'        => '300',
         'font-size'      => '2.5rem',
-        'line-height'    => ' ',
+        'line-height'    => '1.5',
         'letter-spacing' => '0',
         'text-transform' => ' ',
         'color'          => ' ',
@@ -361,7 +361,7 @@ $hiilite_options['typography_h2_font']				= get_theme_mod( 'typography_h2_font',
         'font-family'    => $hiilite_options['default_font']['font-family'],
         'variant'        => '300',
         'font-size'      => '2rem',
-        'line-height'    => ' ',
+        'line-height'    => '1.5',
         'letter-spacing' => '0',
         'text-transform' => ' ',
         'color'          => '#666',
@@ -369,9 +369,9 @@ $hiilite_options['typography_h2_font']				= get_theme_mod( 'typography_h2_font',
     
 $hiilite_options['typography_h3_font']				= get_theme_mod( 'typography_h3_font', array(
         'font-family'    => $hiilite_options['default_font']['font-family'],
-        'variant'        => ' ',
+        'variant'        => '400',
         'font-size'      => '1.57rem',
-        'line-height'    => ' ',
+        'line-height'    => '1.5',
         'letter-spacing' => '0',
         'text-transform' => ' ',
         'color'          => '#333',
@@ -379,9 +379,9 @@ $hiilite_options['typography_h3_font']				= get_theme_mod( 'typography_h3_font',
     
 $hiilite_options['typography_h4_font']				= get_theme_mod( 'typography_h4_font', array(
         'font-family'    => $hiilite_options['default_font']['font-family'],
-        'variant'        => '800',
+        'variant'        => '600',
         'font-size'      => '1.33rem',
-        'line-height'    => ' ',
+        'line-height'    => '1.5',
         'letter-spacing' => '0',
         'text-transform' => ' ',
         'color'          => '#333',
@@ -389,9 +389,9 @@ $hiilite_options['typography_h4_font']				= get_theme_mod( 'typography_h4_font',
     
 $hiilite_options['typography_h5_font']				= get_theme_mod( 'typography_h5_font', array(
         'font-family'    => $hiilite_options['default_font']['font-family'],
-        'variant'        => '800',
+        'variant'        => '600',
         'font-size'      => '0.84rem',
-        'line-height'    => ' ',
+        'line-height'    => '1.5',
         'letter-spacing' => '0.15em',
         'text-transform' => 'uppercase',
         'color'          => '#767676',
@@ -399,9 +399,9 @@ $hiilite_options['typography_h5_font']				= get_theme_mod( 'typography_h5_font',
     
 $hiilite_options['typography_h6_font']				= get_theme_mod( 'typography_h6_font', array(
         'font-family'    => $hiilite_options['default_font']['font-family'],
-        'variant'        => '800',
+        'variant'        => '600',
         'font-size'      => '0.6375rem',
-        'line-height'    => ' ',
+        'line-height'    => '1.5',
         'letter-spacing' => '0',
         'text-transform' => ' ',
         'color'          => '#333',
@@ -650,12 +650,23 @@ $hiilite_options['sidebar_padding'] 				= get_theme_mod( 'sidebar_padding', arra
 		'bottom' => '1em',
 		'left'   => '1em',
 	));
+$hiilite_options['sidebar_border_width']		= get_theme_mod( 'sidebar_border_width', '0px');
+$hiilite_options['sidebar_border_color']		= get_theme_mod( 'sidebar_border_color', '');
+
 $hiilite_options['sidebar_widget_margin'] 				= get_theme_mod( 'sidebar_widget_margin', array(
 		'top'    => '1em',
 		'right'  => '0em',
 		'bottom' => '1em',
 		'left'   => '0em',
 	));
+$hiilite_options['sidebar_widget_padding'] 				= get_theme_mod( 'sidebar_widget_padding', array(
+		'top'    => '0em',
+		'right'  => '0em',
+		'bottom' => '0em',
+		'left'   => '0em',
+	));
+$hiilite_options['sidebar_widget_border_width']		= get_theme_mod( 'sidebar_widget_border_width', '0px');
+$hiilite_options['sidebar_widget_border_color']		= get_theme_mod( 'sidebar_widget_border_color', '');
 
 // PORTFOLIO
 $hiilite_options['portfolio_slug']		= get_theme_mod( 'portfolio_slug', 'portfolio' );

@@ -133,11 +133,11 @@ class Hii {
 	
 	private function add_service_extensions(){
 		if(class_exists('WooCommerce')){
-			add_theme_support( 'wc-product-gallery-zoom' );
-			add_theme_support( 'wc-product-gallery-lightbox' );
 			include_once(  HIILITE_DIR . '/includes/service_extensions/woocommerce.php' );
-			
-			add_theme_support( 'sensei' );
+		}
+		
+		if(class_exists('Sensei_Main')){
+			include_once(  HIILITE_DIR . '/includes/service_extensions/sensei.php' );
 		}
 		
 		if(class_exists('WP_User_Manager')):
