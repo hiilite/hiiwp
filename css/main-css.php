@@ -759,7 +759,9 @@ h6 a:hover  {
 }
 
 /* Blog landing, search, archives */
-
+#home_blog_loop .blog-article:first-child {
+	margin-top: 1em;
+}
 .blog .site-main > article,
 .archive .site-main > article,
 .search .site-main > article {
@@ -1491,7 +1493,7 @@ for($h=1;$h<=6;$h++):
 	
 	$font_size = preg_match('/([0-9]+\.[0-9]+)/', Hii::$options['typography_h'.$h.'_font']['font-size'],$fs_int);
 	$font_unit = preg_replace("/[^a-zA-Z]+/", "", Hii::$options['typography_h'.$h.'_font']['font-size']);
-	if($font_size && $font_unit){
+	if(isset($font_size) && $font_unit){
 		$tablet_heading_sizes .= $heading_rule . 'font-size:' . ($fs_int[0]* 0.85) . $font_unit . '}';
 		$mobile_heading_sizes .= $heading_rule . 'font-size:' . ($fs_int[0]* 0.75) . $font_unit . '}';
 	}

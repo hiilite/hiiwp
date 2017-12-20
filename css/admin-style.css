@@ -1,10 +1,27 @@
+/*--------------------------------------------------------------
+>>> TABLE OF CONTENTS:
+----------------------------------------------------------------
+1.0 Core
+1.1 Admin Style
+1.2 Admin Footer
+1.3 Admin Bar
+1.4 Buttons
+2.0 Kirki Style
+2.1 CMB2
+2.2 Visual Composer
+--------------------------------------------------------------*/
+
+
+/*--------------------------------------------------------------
+1.0 Core
+--------------------------------------------------------------*/
 .wp-core-ui .button, .wp-core-ui .button-secondary,
 .wp-core-ui .button.focus, .wp-core-ui .button.hover, .wp-core-ui .button:focus, .wp-core-ui .button:hover, .wp-core-ui .button-secondary.focus, .wp-core-ui .button-secondary.hover, .wp-core-ui .button-secondary:focus, .wp-core-ui .button-secondary:hover, .customize-panel-back, .customize-section-back {
     text-shadow: none !important;
 }
-/*
-Admin Styles
-*/
+/*--------------------------------------------------------------
+1.1 Admin Styles
+--------------------------------------------------------------*/
 h1 { 
 	border-width: 1px;
 }
@@ -32,7 +49,9 @@ li#toplevel_page_customize .wp-menu-name, li#toplevel_page_customize .wp-menu-im
 	width: 2.3em;
 }
 
-/* styling for the footer */
+/*--------------------------------------------------------------
+1.2 Admin Footer
+--------------------------------------------------------------*/
 #wpfooter #footer-left img {
 	height: 1.5em;
 	width: auto;
@@ -71,7 +90,9 @@ a.ab-item {
     
 }
  
-/* links in admin menu */
+/*--------------------------------------------------------------
+1.3 Admin Bar
+--------------------------------------------------------------*/
 #adminmenu li.wp-has-current-submenu a.wp-has-current-submenu {
 	background: #2FB6C4;
 }
@@ -107,7 +128,9 @@ a {
 
 
 
-/* buttons */
+/*--------------------------------------------------------------
+1.4 Buttons
+--------------------------------------------------------------*/
 
 .wp-admin select {
     padding: 2px;
@@ -158,9 +181,9 @@ a {
 	float: left;
 }
 
-/******************
-	KIRKI STYLES
-******************/
+/*--------------------------------------------------------------
+2.0 Kirki Styles
+--------------------------------------------------------------*/
 li[id*=testimonials].customize-control,li[id*=menu].customize-control,li[id*=team].customize-control, li[id*=portfolio].customize-control {
     background: rgba(0,0,0,0.1);
     margin-bottom: 0;
@@ -174,7 +197,51 @@ ul li[id*=testimonials_on].customize-control,ul li[id*=menus_on].customize-contr
     margin-top: 1em;
 }
 
+/* Customizer */
+.wp-full-overlay-main {
+	background-color: white;
+}
+.customize-control.customize-control-select {
+    display: inline-block !important;
+    width: 46%;
+    float: left;
+    clear: none;
+    margin-right: 2%;
+}  
 
+#adminmenu .wp-menu-image img {
+    padding: 5px 0 0;
+}
+tr td, tr th {
+    position: relative;
+}
+.row-actions, .row-actions.visible {
+    position: absolute;
+}
+
+.comment-item:hover .row-actions, tr:hover .row-actions {
+    position: absolute;
+    left: 0;
+    background: white;
+    padding: 0.3em;
+    z-index: 99;
+
+    box-shadow: 1px 1px 4px black;
+}
+.wp-list-table .row-title {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    display: block;
+}
+td.date.column-date, td.categories.column-categories {
+    font-size: 10px;
+    line-height: 1;
+}
+
+/*--------------------------------------------------------------
+2.1 CMB2
+--------------------------------------------------------------*/
 .cmb-row.cmb-type-select.cmb-repeat-group-field {
     width: 25%;
     float: left;
@@ -260,47 +327,57 @@ ul.cmb2-checkbox-list.cmb2-list li {
     width: auto;
 }
 
-/* Customizer */
-.wp-full-overlay-main {
-	background-color: white;
-}
-.customize-control.customize-control-select {
-    display: inline-block !important;
-    width: 46%;
-    float: left;
-    clear: none;
-    margin-right: 2%;
-}  
 
-#adminmenu .wp-menu-image img {
-    padding: 5px 0 0;
+.cmb-type-textarea-code pre {
+    margin: 0;
+    display: inline-block;
 }
-tr td, tr th {
-    position: relative;
+span.select2 {
+    min-width: 150px;
 }
-.row-actions, .row-actions.visible {
-    position: absolute;
+.postbox.cmb-row.cmb-repeatable-grouping {
+    box-sizing: border-box;
+} 
+p.cmb-add-row {
+    margin-top: 0;
+} 
+
+.cmb-row.cmb-type-text.cmb-repeat.cmb-repeat-group-field.table-layout {
+    background: rgb(250,250,250);
+    padding: 10px !important;
+    box-sizing: border-box;
+    margin-bottom: 10px;
+    border-right: 10px solid white;
 }
 
-.comment-item:hover .row-actions, tr:hover .row-actions {
-    position: absolute;
-    left: 0;
-    background: white;
-    padding: 0.3em;
-    z-index: 99;
+.cmb-type-group .cmb-row:not(:last-of-type), .cmb2-postbox .cmb-row:not(:last-of-type) {
+    border-bottom:none;
+}
 
-    box-shadow: 1px 1px 4px black;
+.cmb-type-group .cmb-repeat-row .cmb-td, .cmb2-postbox .cmb-repeat-row .cmb-td {
+    padding-bottom: 0;
 }
-.wp-list-table .row-title {
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    overflow: hidden;
-    display: block;
+
+.cmb2-postbox .cmb2-metabox>.cmb-row .cmb-row.table-layout .cmb-repeat-table .cmb-tbody .cmb-row:not(.hidden):not(.empty-row), .cmb2-postbox .cmb2-metabox>.cmb-row .cmb-row.table-layout .cmb-repeat-table .cmb-tbody .cmb-row:not(:first-of-type) .cmb-td {
+    padding-top: 0;
 }
-td.date.column-date, td.categories.column-categories {
-    font-size: 10px;
-    line-height: 1;
+.cmo-options-page.cmb2-options-page {
+	max-width: 100%;
 }
+
+.cmo-options-page.cmb2-options-page .cmb2-metabox > .cmb-row {
+	border: none;
+	box-shadow: none;
+}
+
+.cmo-options-page.cmb2-options-page .cmb2-metabox > .cmb-row:not(:first-of-type) {
+	border-top: 1px solid #e9e9e9;
+}
+
+
+/*--------------------------------------------------------------
+2.2 Visual Composer
+--------------------------------------------------------------*/
 .wpb_row_container>.wpb_vc_column, .wpb_row_container>.wpb_vc_column>.wpb_element_wrapper {
     padding-left: 2px;
     padding-right: 2px;
@@ -321,4 +398,41 @@ td.date.column-date, td.categories.column-categories {
     margin-left: 2px;
     margin-right: 2px;
     display: in;
+}
+
+/*--------------------------------------------------------------
+4.0 Welcome Screen
+--------------------------------------------------------------*/
+/* Logo */
+.svg .wp-badge.welcome__logo {
+    background: url('../images/Hiilite_Hii_Logo-White.png') center 30% no-repeat #f05225;
+    background-size: 70% auto;
+    color: #fff;
+    box-shadow: none;
+}
+ 
+/* Responsive Youtube Video*/
+.embed-container {
+    height: 0;
+    max-width: 100%;
+    overflow: hidden;
+    padding-bottom: 56.25%;
+    position: relative;
+}
+ 
+.embed-container iframe,
+.embed-container object,
+.embed-container embed {
+    top: 0;
+    height: 100%;
+    left: 0;
+    position: absolute;
+    width: 100%;
+}
+.about-wrap img.plugin-icon {
+    position: relative;
+    float: left;
+    top: 0;
+    left: 0;
+    margin-right: 20px;
 }

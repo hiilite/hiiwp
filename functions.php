@@ -8,7 +8,7 @@
  * @author      Peter Vigilante
  * @copyright   Copyright (c) 2017, Hiilite Creative Group
  * @license     http://opensource.org/licenses/https://opensource.org/licenses/MIT
- * @since       0.4.5
+ * @since       0.4.7
  */
 
 
@@ -55,7 +55,7 @@ class Hii {
 	 */
 	private function define_constants(){
 	    if ( ! defined( 'HIIWP_VERSION' ) ) {                
-			 define( 'HIIWP_VERSION', '0.4.6' );
+			 define( 'HIIWP_VERSION', '0.4.7' );
 		}
 		if ( ! defined( 'HIIWP_SLUG' ) ) {                
 		    define( 'HIIWP_SLUG', 'hiiwp' );           
@@ -133,15 +133,15 @@ class Hii {
 	
 	private function add_service_extensions(){
 		if(class_exists('WooCommerce')){
-			include_once(  HIILITE_DIR . '/includes/service_extensions/woocommerce.php' );
+			get_template_part( 'includes/service_extensions/woocommerce' );
 		}
 		
 		if(class_exists('Sensei_Main')){
-			include_once(  HIILITE_DIR . '/includes/service_extensions/sensei.php' );
+			get_template_part( 'includes/service_extensions/sensei' );
 		}
 		
 		if(class_exists('WP_User_Manager')):
-			require_once( HIILITE_DIR . '/includes/shortcodes/wpum.php');
+			get_template_part( 'includes/shortcodes/wpum');
 		endif;
 		
 		

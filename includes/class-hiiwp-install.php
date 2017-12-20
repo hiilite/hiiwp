@@ -10,9 +10,12 @@ class HiiWP_Install {
 	/**
 	 * install function.
 	 * 
+	 * Adds transients and loads welcome screen
+	 *
 	 * @access public
 	 * @static
 	 * @return void
+	 * @since 0.4.7
 	 */
 	public static function install() {
 		global $wpdb;
@@ -24,6 +27,7 @@ class HiiWP_Install {
 		
 		delete_transient( 'hiiwp_addons_html' );
 		update_option( 'hiiwp_version', HIIWP_VERSION );
+		
 	}
 	
 }

@@ -82,7 +82,7 @@
 }
 
 .woocommerce div.product p.price, .woocommerce div.product span.price {
-    color: black;
+    color: #525252;
 }
 .woocommerce ul.products li.product .price {
 	font-size: 100%;

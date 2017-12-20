@@ -29,8 +29,13 @@ class HiiWP_Admin {
 		foreach (glob(HIILITE_DIR."/includes/admin/class-hiiwp-*.php") as $filename) {
 		    include_once( $filename );
 		} 
+		if ( file_exists( HIILITE_DIR . '/includes/admin/hiiwp-welcome-screen.php' ) ) {
+		    require_once( HIILITE_DIR . '/includes/admin/hiiwp-welcome-screen.php' );
+		}
 		
-		$this->dashboard	= new HiiWP_Dashboard();
+		$this->dashboard		= new HiiWP_Dashboard();
+
+		$this->welcome_screen	= new HiiWP_Welcome_Screen();
 		
 		add_action( 'cmb2_admin_init', array( $this, 'hii_seo_options_page' ) );
 		add_action( 'add_meta_boxes', array( $this, 'page_options_meta_box' ));
@@ -42,6 +47,8 @@ class HiiWP_Admin {
 		add_action( 'cmb2_render_google_authorization', array( $this, 'cmb2_render_callback_for_google_authorization' ), 10, 5 );
 		
 		add_action( 'wp_login', array( $this, 'admin_debug' ), 10, 2 );
+		
+		
 	}
 	
 	
