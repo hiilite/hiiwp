@@ -2237,11 +2237,11 @@ vc_add_param( 'vc_tta_section', array(
 ));
 
 
-
 vc_add_param( 'vc_single_image', array(
-    'type' => 'textfield',
-    'heading' => __( 'Banner Text', 'hiiwp' ),
-    'param_name' => 'banner_text',
+    'type' => 'checkbox',
+    'heading' => __( 'Default Padding', 'hiiwp' ),
+    'param_name' => 'default_padding',
+    'description' => __('Add default theme padding of 1em to match text blocks.', 'hiiwp'),
 ));
 
 vc_add_param( 'vc_single_image', array(
@@ -2251,15 +2251,13 @@ vc_add_param( 'vc_single_image', array(
     'dependency' => array(
 	    'element' => 'onclick',
 	    'value'	=> 'custom_link',
-	    
-	    
     )
 ));
 
 vc_add_param( 'vc_single_image', array(
     'type' => 'textfield',
     'heading' => __( 'Image size', 'hiiwp' ),
-    'description' => __('Enter image size (Example: "thumbnail", "medium", "large", "full" or other sizes defined by theme). Alternatively enter size in pixels (Example: 200x100 (Width x Height)).', 'hiiwp'),
+    'description' => __('Enter image size (Example: "thumbnail", "medium", "large", "full" or other sizes defined by theme).', 'hiiwp'),
     'param_name' => 'img_size',
     'value' => 'full',
 ));
@@ -2270,11 +2268,24 @@ vc_add_param( 'vc_single_image', array(
     'description'	=> __('The hover image should be the same dimensions as the original image','hiiwp'),
     'param_name' => 'hover_image',
 ));
-//vc_remove_param( "vc_single_image", "onclick" ); 
+vc_remove_param( "vc_single_image", "title" ); 
 vc_remove_param( "vc_single_image", "style" ); 
 vc_remove_param( "vc_single_image", "img_link_target" );
 
+/*
+ *	vc_video
+ */
+vc_add_param( 'vc_video', array(
+    'type' => 'checkbox',
+    'heading' => __( 'Default Padding', 'hiiwp' ),
+    'param_name' => 'default_padding',
+    'description' => __('Add default theme padding of 1em to match text blocks.', 'hiiwp'),
+));
+vc_remove_param( "vc_video", "title" );
 
+/*
+ *	WooCommerce
+ */
 if ( class_exists( 'WooCommerce' ) ) {
 	vc_map( array(
 		"name" => "Cart Page",

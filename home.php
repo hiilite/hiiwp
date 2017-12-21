@@ -8,8 +8,7 @@ if ( $hiilite_options['blog_sidebar_show'] == true ) $colcount .= ' col-9';
 
 $grid = ($hiilite_options['blog_full_width'] == false) ? 'in_grid' : '';
 
-echo '
-<div class="row content-area" id="home_blog_loop"><div class="container_inner '.$grid.'">
+echo '<div class="row content-area" id="home_blog_loop"><div class="container_inner '.$grid.'">
 	<div class="site-main '.$grid.' '.$hiilite_options['blog_layouts'].$colcount.'" role="main">';
 if(have_posts()):
 
@@ -22,9 +21,9 @@ if(have_posts()):
 	if($hiilite_options['blog_pag_show'] == true):
 		echo '<div class="pagination '.$grid.' content-box">';
 		the_posts_pagination( array(
-			'prev_text' => '<span class="screen-reader-text">' . __( 'Previous page', 'twentyseventeen' ) . '</span><i class="fa fa-angle-left"></i>',
-			'next_text' => '<span class="screen-reader-text">' . __( 'Next page', 'twentyseventeen' ) . '</span><i class="fa fa-angle-right"></i>',
-			'before_page_number' => '<span class="meta-nav screen-reader-text">' . __( 'Page', 'twentyseventeen' ) . ' </span>',
+			'prev_text' => '<span class="screen-reader-text">' . __( 'Previous page', 'hiiwp' ) . '</span><i class="fa fa-angle-left"></i>',
+			'next_text' => '<span class="screen-reader-text">' . __( 'Next page', 'hiiwp' ) . '</span><i class="fa fa-angle-right"></i>',
+			'before_page_number' => '<span class="meta-nav screen-reader-text">' . __( 'Page', 'hiiwp' ) . ' </span>',
 		) );
 		echo '</div>';
 	endif;

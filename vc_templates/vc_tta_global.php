@@ -57,6 +57,8 @@ switch($shortcode_type){
 						  layout="responsive"
 						  width="'.$atts['slider_width'].'"
 						  height="'.$atts['slider_height'].'"
+						  style="width:'.$atts['slider_width'].'px;
+						  	height:'.$atts['slider_height'].'px;"
 						  type="slides"';
 		$output .= ($atts['autoplay'] != 'none')?' autoplay delay="'.$atts['autoplay'].'000">':'>';
 		if(isset($atts['title']) && $atts['title'] != '')

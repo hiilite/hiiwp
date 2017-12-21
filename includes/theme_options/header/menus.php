@@ -51,7 +51,7 @@ Kirki::add_field( 'hiiwp', array(
 	'label'       => __( 'Mobile Menu Background Color', 'hiiwp' ),
 	'description' => __('Choose color for mobile menu background', 'hiiwp'),
 	'section'     => $section,
-	'default'     => '',
+	'default'     => $hiilite_options['moblie_menu_background_color'],
 	'priority'    => 7,
 	'output' => array(
 		array(

@@ -227,6 +227,10 @@ template,
 img.alignright {
 	float:right;
 }
+p img.alignright,
+figure.alignright {
+	margin-left: 1em;
+}
 .align-left, 
 .alignleft {
 	text-align: left;
@@ -235,6 +239,10 @@ img.alignright {
 }
 img.alignleft {
 	float:left;
+}
+p img.alignleft,
+figure.alignright {
+	margin-right: 1em;
 }
 .align-center, 
 .aligncenter {
@@ -610,7 +618,6 @@ h6 a:hover  {
 --------------------------------------------------------------*/
 
 /* Post Landing Page */
-
 .sticky {
 	position: relative;
 }
@@ -1526,7 +1533,7 @@ table td {
 }
 
 .container_inner, .in_grid {
-	margin: auto;
+	margin: 0 auto auto auto;
 	display: flex;
 	width: 100%;
 	align-items: stretch;
@@ -1928,6 +1935,7 @@ endif; ?>
 	<?php get_font_css(get_theme_mod('icon_settings_bg')); ?>
 	border:<?php echo get_theme_mod('icon_settings_border', '0'); ?> solid;
 	border-radius:<?php echo get_theme_mod('icon_settings_border_r', '0'); ?>;
+	box-sizing: content-box;
 }
 
 
@@ -2486,6 +2494,9 @@ if(class_exists('WP_User_Manager')): ?>
 	<?php
 endif;
 
+if(class_exists('Vc_Manager')): 
+	get_template_part('css/service_extensions/js_composer', 'css');	
+endif;
 if(class_exists('BuddyPress')): 
 	get_template_part('css/service_extensions/buddypress', 'css');	
 endif;

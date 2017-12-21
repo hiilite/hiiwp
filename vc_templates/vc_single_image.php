@@ -179,6 +179,8 @@ if ( vc_has_class( 'prettyphoto', $el_class ) ) {
 
 $wrapperClass = 'single_image-wrapper ' . $style . ' ' . $border_color;
 
+
+
 if ( $hover_image ) {
 	
 	$hover_html = $hover_img['thumbnail'];
@@ -204,6 +206,7 @@ if ( ! empty( $el_id ) ) {
 
 $class_to_filter = 'single-image';
 if($hover_html) $class_to_filter .= ' hover-image';
+if( $default_padding ) $class_to_filter .= ' text-block';
 $class_to_filter .= '  align-' . $alignment . ' ' . $this->getCSSAnimation( $css_animation );
 $class_to_filter .= vc_shortcode_custom_css_class( $css, ' ' ) . $this->getExtraClass( $el_class );
 $css_class = apply_filters( VC_SHORTCODE_CUSTOM_CSS_FILTER_TAG, $class_to_filter, $this->settings['base'], $atts );
@@ -218,9 +221,7 @@ if ( in_array( $source, array( 'media_library', 'featured_image' ) ) && 'yes' ==
 		$add_caption = 'yes';
 	}
 }
-if ( $banner_text != '' ) {
-	$html .= '<div class="img_banner_text">' .  $banner_text  . '</div>';
-}
+
 if ( 'yes' === $add_caption && '' !== $caption ) {
 	$html .= '<figcaption class="vc_figure-caption">' .  $caption  . '</figcaption>';
 }

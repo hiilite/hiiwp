@@ -8,13 +8,7 @@ function add_amp_carousel_shortcode( $atts ){
 	*/
 	
 	$post_id = get_the_id();
-	if(get_post_meta($post_id, 'amp', true) == 'nonamp'){
-		$hiilite_options['amp'] = false;
-	} else {
-		$hiilite_options['amp'] = (!isset($hiilite_options['amp']))?get_theme_mod('amp'):false;
-	}
-	if($hiilite_options['amp']) $_amp = 'amp-'; else $_amp = '';
-	
+		
 	$slug = get_theme_mod( 'portfolio_slug', 'portfolio' );
 	extract( shortcode_atts( array(
       'args'  => null,
@@ -25,7 +19,6 @@ function add_amp_carousel_shortcode( $atts ){
       'media_grid_images' => null,
       'css' => '',
     ), $atts ) );
-    
     
     /*
 	VC CSS    
@@ -42,7 +35,6 @@ function add_amp_carousel_shortcode( $atts ){
 	$wrapper_attributes = array();
 	$css_class = preg_replace( '/\s+/', ' ', apply_filters( VC_SHORTCODE_CUSTOM_CSS_FILTER_TAG, implode( ' ', array_filter( $css_classes ) ), '.vc_custom_', $atts ) );
 	$wrapper_attributes[] = 'class="' . esc_attr( trim( $css_class ) ) . '"';
-
 		
     $args = ($args==null)?array('post_type'=>$slug,'posts_per_page'=> -1,'nopaging'=>true,'order'=>'ASC','orderby'=>'menu_order'):$args;
     if($media_grid_images != null){
@@ -58,8 +50,8 @@ function add_amp_carousel_shortcode( $atts ){
     $query = new WP_Query($args);
     
     $output = '';
-    $output .= '<amp-carousel height="'.$height.'" width="'.$width.'" layout="fixed-height" type="'.$type.'" '.implode( ' ', $wrapper_attributes ).'>';
-    if(!$_amp && $type == 'carousel') $output .= '<div class="carousel-wrapper" style="white-space: nowrap; position: absolute; z-index: 1; top: 0px; left: 0px; bottom: 0px;">';
+    $output .= '<amp-carousel style="display:block;height:'.$height.'px;width:'.$width.'px" layout="fixed-height" type="'.$type.'" '.implode( ' ', $wrapper_attributes ).'>';
+    if($type == 'carousel') $output .= '<div class="carousel-wrapper" style="white-space: nowrap; position: absolute; z-index: 1; top: 0px; left: 0px; bottom: 0px;">';
     if($args['post_type'] == 'attachment'):
     	$count = 0;
 		foreach ( $query->posts as $attachment) :
@@ -97,7 +89,7 @@ function add_amp_carousel_shortcode( $atts ){
 		endwhile;
     endif;
     
-    if(!$_amp && $type == 'carousel') $output .= '</div>';
+    if($type == 'carousel') $output .= '</div>';
     $output .= '</amp-carousel>';
     
 	return $output;

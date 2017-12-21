@@ -87,8 +87,10 @@ $article_title = $article_title.$dateline;
 		<div class="container_inner">
 			<div class="in_grid content-box">
 			<?php
-				if(is_single() && get_post_meta(get_the_id(), 'show_page_title', true) != 'on'){
-					echo '<a class="back_to_blog" href="'.get_permalink( get_option( 'page_for_posts' ) ).'"><i class="fa fa-angle-left"></i>Back to blog</a><br>';
+				if(is_single() && get_post_meta(get_the_id(), 'show_page_title', true) != 'on') {
+					
+					$blog_link = ( get_option( 'page_for_posts' ) != false ) ? get_permalink( get_option( 'page_for_posts' ) ) : get_bloginfo( 'url' );
+					echo '<a class="back_to_blog" href="' . $blog_link . '"><i class="fa fa-angle-left"></i>Back to blog</a><br>';
 					echo $article_title;
 				}
 				?>

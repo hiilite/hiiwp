@@ -287,7 +287,9 @@ $hiilite_options['main_menu_colors']		= get_theme_mod('main_menu_colors', array(
         'active'  => '',
         'hover_background'  => '',
     ));
-    
+  
+$hiilite_options['moblie_menu_background_color'] = get_theme_mod( 'moblie_menu_background_color', '#ffffff' );
+  
 $hiilite_options['second_level_menu_font']	= get_theme_mod( 'second_level_menu_font', array(
         'font-family'    => ' ',
         'variant'        => ' ',
@@ -486,7 +488,7 @@ $hiilite_options['typography_button_default_border_color'] =  get_theme_mod( 'ty
 $hiilite_options['typography_button_default_border_width'] =  get_theme_mod( 'typography_button_default_border_width', '2px');
 $hiilite_options['typography_button_default_border_radius'] =  get_theme_mod( 'typography_button_default_border_radius', '2px');
 $hiilite_options['typography_button_custom_css']	= get_theme_mod( 'typography_button_custom_css', '.button {
-	margin: 1em 0;
+	margin: 1em;
 	text-decoration: none;
 	display: inline-block;
 }' );

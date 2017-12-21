@@ -123,7 +123,7 @@ class Hii {
 	
 	
 	private function add_dependencies(){
-		include_once( HIILITE_DIR . '/addons/cmb2-functions.php' );
+		include_once( HIILITE_DIR . '/addons/cmb2-functions.php' ); 
 		if(!class_exists('Cmb2_Metatabs_Options'))	include_once( HIILITE_DIR . '/addons/cmb2-metatabs-options/cmb2_metatabs_options.php' );
 		if(!class_exists('CMB2_Conditionals'))		include_once( HIILITE_DIR . '/addons/cmb2-conditionals/cmb2-conditionals.php' );
 		if(!class_exists('PW_CMB2_Field_Select2'))	include_once( HIILITE_DIR . '/addons/cmb-field-select2/cmb-field-select2.php' );
@@ -289,9 +289,9 @@ function hii_get_the_title(){
 	if( is_archive() )
 		$page_title = get_the_archive_title();
 	elseif( is_home() && ! is_front_page() ) 
-		$page_title = get_the_title( get_option('page_for_posts', true) );
-	elseif( is_front_page() )
-		$page_title = __( 'Posts', 'hiiwp' );
+		$page_title = get_the_title( get_option( 'page_for_posts', true ) );
+	elseif( is_front_page() && ! is_home( ) )
+		$page_title = get_the_title( get_the_id( ) );
 	else
 		$page_title = get_the_title( get_the_id( ));
 	

@@ -2,12 +2,15 @@
 <?php 
 global $post;
 $hiilite_options = HiiWP::get_options();
-if( isset($post) && ( get_post_meta(get_the_id(), 'show_page_title', true) != 'hide' || is_post_type_archive()) ): 
-
+if( isset($post)
+	&& $hiilite_options['show_page_titles'] == true 
+	&& ( get_post_meta(get_the_id(), 'show_page_title', true) != 'hide' || is_post_type_archive())
+	&& ( ! is_front_page() || is_home() ) ): 
+	$page_title = $page_title_color = $page_bg_img = $page_bg_color = $post_meta = '';
 	$show_title_on = $hiilite_options['show_title_on'];
 	if( ( in_array(get_post_type($post), $show_title_on) )):
 		$post_meta = get_post_meta(get_the_id());
-
+		
 		$page_title = hii_get_the_title();
 		
 		$page_title_color = (get_post_meta ( $post->ID, 'page_title_color', true))?get_post_meta ( $post->ID, 'page_title_color', true):false;
@@ -28,7 +31,6 @@ if( isset($post) && ( get_post_meta(get_the_id(), 'show_page_title', true) != 'h
 				</div>
 			</div>
 		</div>
-	
 	<?php 
 		}
 	endif;

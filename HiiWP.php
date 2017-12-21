@@ -225,7 +225,7 @@ class HiiWP extends Hii {
 		} 
 		elseif( get_theme_mod('site_seo_title') != '' && is_front_page() ) {
 			$title['title'] = get_theme_mod('site_seo_title');
-		} 
+		}
 		
 	    return $title;
 	}

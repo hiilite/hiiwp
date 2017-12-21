@@ -399,7 +399,14 @@ p.cmb-add-row {
     margin-right: 2px;
     display: in;
 }
-
+.vc_edit_form_elements .vc_column+.vc_column,
+.wpb_el_type_dropdown.vc_wrapper-param-type-dropdown.vc_shortcode-param.vc_column,
+.vc_col-xs-12.wpb_el_type_checkbox.vc_wrapper-param-type-checkbox.vc_shortcode-param.vc_column {
+    width: 50%;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 15px;
+    padding-top: 15px !important;
+}
 /*--------------------------------------------------------------
 4.0 Welcome Screen
 --------------------------------------------------------------*/
