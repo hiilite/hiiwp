@@ -2710,7 +2710,7 @@ vc_map( array(
 
 vc_map( array(
 	'name' => __( 'Hii Infinite Carousel Item', 'hiiwp' ),
-	'base' => 'vc_tta_section',
+	'base' => 'hii_infinite_carousel_item',
 	'icon' => 'icon-wpb-ui-tta-section',
 	'allowed_container_element' => 'vc_row',
 	'is_container' => true,
