@@ -1,6 +1,7 @@
 (function($){
 	
 $(document).ready(function(){	
+	console.log('test');
 	window.viewportUnitsBuggyfill.init();  
 	
 	/* HII INFINITE CAROUSEL */
@@ -9,7 +10,7 @@ $(document).ready(function(){
 	
 	/* get total width of items and set as ul left (negative) in css. ex. left:-210px; */
 	
-	console.log('test');
+	
 	
 	var hii_carousel_item_count = $('.hii_infinite_carousel > .slide').length;
 	
