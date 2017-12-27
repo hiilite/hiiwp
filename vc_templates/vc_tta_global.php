@@ -96,6 +96,7 @@ switch($shortcode_type){
 			}
 			$output .= $prepareContent;
 			$output .= '</amp-carousel>';
+		}
 	break;
 
 //////////////////////////////////////////////////////
