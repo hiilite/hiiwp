@@ -9,7 +9,9 @@ $(document).ready(function(){
 	
 	/* get total width of items and set as ul left (negative) in css. ex. left:-210px; */
 	
-	var hii_carousel_item_count = $('.hii_infinite_carousel .slide').length;
+	console.log('test');
+	
+	var hii_carousel_item_count = $('.hii_infinite_carousel > .slide').length;
 	
 	console.log(hii_carousel_item_count);
 	
