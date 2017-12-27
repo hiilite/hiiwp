@@ -2709,7 +2709,7 @@ vc_map( array(
 
 
 vc_map( array(
-	'name' => __( 'Slide', 'hiiwp' ),
+	'name' => __( 'Hii Infinite Carousel Item', 'hiiwp' ),
 	'base' => 'vc_tta_section',
 	'icon' => 'icon-wpb-ui-tta-section',
 	'allowed_container_element' => 'vc_row',
@@ -2719,7 +2719,7 @@ vc_map( array(
 		'only' => 'vc_tta_tour,vc_tta_tabs,vc_tta_accordion',
 	),
 	'category' => __( 'Content', 'hiiwp' ),
-	'description' => __( 'Section for Tabs, Tours, Accordions.', 'hiiwp' ),
+	'description' => __( 'Section for Hii Infinite Carousel.', 'hiiwp' ),
 	'js_view' => 'VcBackendTtaSectionView',
 	'custom_markup' => '
 		<div class="vc_tta-panel-heading">
