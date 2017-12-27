@@ -2616,7 +2616,7 @@ vc_map( array(
 // HII INFINITE CAROUSEL 
 vc_map( array(
 	'name' => __( 'Hii Infinite Carousel', 'hiiwp' ),
-	'base' => 'hii_infinite_carousel',
+	'base' => 'vc_tta_pageable',
 	'icon' => 'icon-wpb-images-carousel',
 	'is_container' => true,
 	'show_settings_on_create' => true,
@@ -2629,6 +2629,11 @@ vc_map( array(
 		array(
 			'type' => 'hidden',
 			'param_name' => 'no_fill_content_area',
+			'std' => true,
+		),
+		array(
+			'type' => 'hidden',
+			'param_name' => 'is_hii_carousel',
 			'std' => true,
 		),
 		array(
