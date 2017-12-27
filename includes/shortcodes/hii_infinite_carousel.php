@@ -12,41 +12,6 @@
 
 function add_hii_infinite_carousel_shortcode( $atts ){
 
-
-
-$title = $el_class = '';
-$atts = vc_map_get_attributes( $this->getShortcode(), $atts );
-extract( $atts );
-
-
-$el_class = $this->getExtraClass( $el_class );
-$css_class = apply_filters( VC_SHORTCODE_CUSTOM_CSS_FILTER_TAG, 'carousel wpb_content_element ' . $el_class . ' not-column-inherit', $this->settings['base'], $atts );
-
-
-$output = '
-	<div class="' . esc_attr( $css_class ) . '">
-		<div class="wpb_infinite_carousel_wrapper">
-			<div id="left_scroll"><img src="left.png" /></div> 
-			 <div id="hii_carousel_inner">  
-			 	<ul id="carousel_ul">  
-			 		<li></li>
-			 	</ul>
-			 </div>
-		
-			<div id="right_scroll"><img src="right.png" /></div>  
-' . wpb_js_remove_wpautop( $content ) . '
-		</div>
-	</div>
-';
-
-
-
-
-
-
-
-
-
 $el_class = $css = '';
 $shortcode_type =  $this->getShortcode();
 $atts = vc_map_get_attributes( $shortcode_type, $atts );

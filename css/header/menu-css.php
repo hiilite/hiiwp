@@ -128,7 +128,7 @@ ul.sub-menu {
 }
 
 @media (min-width:<?php echo Hii::$options['mobile_menu_switch'];?>){
-	.menu li:hover > ul.sub-menu {
+	#main_header .menu li:hover > ul.sub-menu {
 		box-shadow: 0 0 1px rgba(0,0,0,0.4);
 	    transform: scaleY(1) rotateY(0deg);
 		opacity: 1;
