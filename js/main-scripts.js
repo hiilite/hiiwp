@@ -13,7 +13,9 @@ $(document).ready(function(){
 	
 	var hii_carousel_item_count = $('.hii_infinite_carousel > .slide').length;
 	
-	console.log(hii_carousel_item_count);
+	if(hii_carousel_item_count > 1) {
+		
+	}
 	
 	
 	
