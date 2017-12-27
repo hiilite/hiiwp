@@ -11,6 +11,8 @@
 
 
 function add_hii_infinite_carousel_shortcode( $atts ){
+	
+	$this = WPBakeryShortCode_VC_Tta_Section;
 
 	$is_vc = (class_exists('Vc_Manager'))?true:false;
     extract( shortcode_atts( array(
@@ -38,8 +40,8 @@ function add_hii_infinite_carousel_shortcode( $atts ){
     
     $html = '';
     
-    $html .= '<div '.implode( ' ', $wrapper_attributes ).'>xxxxxxxxxxxxx';
-    
+    $html .= '<div '.implode( ' ', $wrapper_attributes ).'>';
+    $$html .= $this->getTemplateVariable( 'content' );
     $html .= '</div>';
     
     return $html;
