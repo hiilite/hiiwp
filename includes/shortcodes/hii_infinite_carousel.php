@@ -20,7 +20,6 @@ function add_hii_infinite_carousel_shortcode( $atts ){
 
 
 
-
 }
 add_shortcode( 'hii_infinite_carousel', 'add_hii_infinite_carousel_shortcode' );
 ?>
