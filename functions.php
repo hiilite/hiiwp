@@ -1567,7 +1567,7 @@ function get_portfolio($args = null, $options = null){
 	    //////////////////////////
 	    
 	    if($args['post_type'] == 'attachment'):
-		    if($portfolio_layout == 'masonry') $html .= '<div class="row masonry col-count-'.$portfolio_columns.'">';
+		    if($portfolio_layout == 'masonry' || $portfolio_layout == false) $html .= '<div class="row masonry col-count-'.$portfolio_columns.'">';
 		    if($portfolio_layout == 'full-width') $html .= '<div class="row masonry col-count-12">';
 		    $css .= '.masonry article{padding:'.$add_padding.';}';
 		    foreach ( $query->posts as $attachment) :
