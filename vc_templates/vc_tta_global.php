@@ -35,7 +35,7 @@ switch($shortcode_type){
 		if($atts['is_hii_carousel']){
 			$wrapper_attributes = array();
 			$css_classes = array(
-				'hii_infinite-carousel',
+				'hii_infinite_carousel',
 				$atts['slider_type'],
 			);
 			$css_class = preg_replace( '/\s+/', ' ', apply_filters( VC_SHORTCODE_CUSTOM_CSS_FILTER_TAG, implode( ' ', array_filter( $css_classes ) ), $this->settings['base'], $atts ) );
