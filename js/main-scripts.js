@@ -1,7 +1,6 @@
 (function($){
 	
 $(document).ready(function(){	
-	echo 'test';
 	window.viewportUnitsBuggyfill.init();  
 	
 	/* HII INFINITE CAROUSEL */
@@ -15,12 +14,6 @@ $(document).ready(function(){
 	var hii_carousel_item_count = $('.hii_infinite_carousel > .slide').length;
 	
 	console.log(hii_carousel_item_count);
-	
-	if(hii_carousel_item_count > 0) {
-		
-		$('.hii_infinit_carousel').append(hii_carousel_item_count+'xxxxxxxxxx');
-			
-	}
 	
 	
 	
