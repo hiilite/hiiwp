@@ -12,7 +12,7 @@
 
 function add_hii_infinite_carousel_shortcode( $atts ){
 
-$is_vc = (class_exists('Vc_Manager'))?true:false;
+	$is_vc = (class_exists('Vc_Manager'))?true:false;
     extract( shortcode_atts( array(
       'post_ids' => null,
       'show_title'	=> true,
@@ -25,7 +25,6 @@ $is_vc = (class_exists('Vc_Manager'))?true:false;
     $vc_css = ($is_vc)?vc_shortcode_custom_css_class( $css ):null;
 	$css_classes = array(
 		'hii_infinite_carousel',
-		$classes,
 		$vc_css, 
 	); 
 	
