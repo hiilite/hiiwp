@@ -2632,25 +2632,41 @@ vc_map( array(
 			'std' => true,
 		),
 		array(
+			'type' => 'dropdown',
+			'param_name' => 'slider_type',
+			'value' => array(
+				__( 'Default', 'hiiwp' ) => 'default',
+				'Angled' => 'angled',
+			),
+			'default' => 'default',
+			'heading' => __( 'Slider Type', 'hiiwp' ),
+		),
+		array(
 			'type' => 'textfield',
-			'heading' => __( 'Carousel Width', 'hiiwp' ),
-			'param_name' => 'hii_carousel_width',
+			'heading' => __( 'Slider Width', 'hiiwp' ),
+			'param_name' => 'slider_width',
 			'value'		 => '1100',
 			'description' => __( '(px) Slider is responsive, but needs a set width and height to calculate ratio for images', 'hiiwp' ),
 		),
 		array(
 			'type' => 'textfield',
-			'heading' => __( 'Carousel Height', 'hiiwp' ),
-			'param_name' => 'hii_carousel_height',
+			'heading' => __( 'Slider Height', 'hiiwp' ),
+			'param_name' => 'slider_height',
 			'value'		 => '530',
 			'description' => __( '(px) Slider is responsive, but needs a set width and height to calculate ratio for images', 'hiiwp' ),
 		),
 		array(
+			'type' => 'checkbox',
+			'heading' => __( 'Full Height', 'hiiwp' ),
+			'param_name' => 'slider_full_height',
+			'value'		 => false,
+			'description' => __( 'Set the slider to be the full height of the screen', 'hiiwp' ),
+		),
+		array(
 			'type' => 'dropdown',
-			'param_name' => 'hii_carousel_speed',
+			'param_name' => 'autoplay',
 			'value' => array(
 				__( 'None', 'hiiwp' ) => 'none',
-				'Continuous' => '0',
 				'1' => '1',
 				'2' => '2',
 				'3' => '3',
@@ -2668,8 +2684,8 @@ vc_map( array(
 				'60' => '60',
 			),
 			'std' => 'none',
-			'heading' => __( 'Speed', 'hiiwp' ),
-			'description' => __( 'Select auto rotate speed in seconds (Note: disabled by default).', 'hiiwp' ),
+			'heading' => __( 'Autoplay', 'hiiwp' ),
+			'description' => __( 'Select auto rotate for pageable in seconds (Note: disabled by default).', 'hiiwp' ),
 		),
 		array(
 			'type' => 'textfield',
@@ -2699,8 +2715,8 @@ vc_map( array(
 	</div>
 </div>',
 	'default_content' => '
-[vc_tta_section title="' . sprintf( '%s %d', __( 'Item', 'hiiwp' ), 1 ) . '"][/vc_tta_section]
-[vc_tta_section title="' . sprintf( '%s %d', __( 'Item', 'hiiwp' ), 2 ) . '"][/vc_tta_section]
+[vc_tta_section title="' . sprintf( '%s %d', __( 'Slide', 'hiiwp' ), 1 ) . '"][/vc_tta_section]
+[vc_tta_section title="' . sprintf( '%s %d', __( 'Slide', 'hiiwp' ), 2 ) . '"][/vc_tta_section]
 	',
 	'admin_enqueue_js' => array(
 		vc_asset_url( 'lib/vc_tabs/vc-tabs.min.js' ),
@@ -2709,7 +2725,7 @@ vc_map( array(
 
 
 vc_map( array(
-	'name' => __( 'Hii Infinite Carousel Item', 'hiiwp' ),
+	'name' => __( 'Slide', 'hiiwp' ),
 	'base' => 'vc_tta_section',
 	'icon' => 'icon-wpb-ui-tta-section',
 	'allowed_container_element' => 'vc_row',
@@ -2719,7 +2735,7 @@ vc_map( array(
 		'only' => 'vc_tta_tour,vc_tta_tabs,vc_tta_accordion',
 	),
 	'category' => __( 'Content', 'hiiwp' ),
-	'description' => __( 'Section for Hii Infinite Carousel.', 'hiiwp' ),
+	'description' => __( 'Section for Tabs, Tours, Accordions.', 'hiiwp' ),
 	'js_view' => 'VcBackendTtaSectionView',
 	'custom_markup' => '
 		<div class="vc_tta-panel-heading">
