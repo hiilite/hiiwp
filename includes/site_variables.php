@@ -61,8 +61,8 @@ $hiilite_options['testimonials_tax_slug'] 		= get_theme_mod('testimonials_tax_sl
 $hiilite_options['testimonials_body_font'] 			= get_theme_mod('testimonials_body_font', array(
         'font-family'    => ' ',
         'variant'        => ' ',
-        'font-size'      => ' ',
-        'line-height'    => ' ',
+        'font-size'      => '1em',
+        'line-height'    => '1.5',
         'letter-spacing' => '0px',
         'text_transform'    => ' ',
         'color'          => get_theme_mod('color_four','#333333'),
@@ -72,8 +72,8 @@ $hiilite_options['testimonials_body_font'] 			= get_theme_mod('testimonials_body
 $hiilite_options['testimonials_author_font'] 		= get_theme_mod('testimonials_author_font', array(
         'font-family'    => ' ',
         'variant'        => ' ',
-        'font-size'      => ' ',
-        'line-height'    => ' ',
+        'font-size'      => '1em',
+        'line-height'    => '1.5',
         'letter-spacing' => '0px',
         'text_transform'    => ' ',
         'color'          => get_theme_mod('color_four','#333333'),
@@ -475,6 +475,8 @@ $hiilite_options['typography_button_default_background'] =  get_theme_mod( 'typo
 		'base' 	=> 'none',
 		'hover' => $hiilite_options['color_one'],
 ));
+$hiilite_options['typography_button_default_hover_color'] =  get_theme_mod( 'typography_button_default_hover_color', '#ffffff');
+
 $hiilite_options['typography_button_default_padding'] =  get_theme_mod('typography_button_default_padding', array(
 		'top'    => '0.5em',
 		'right'  => '1.5em',
@@ -503,12 +505,15 @@ $hiilite_options['typography_button_primary_font']	= get_theme_mod( 'typography_
         'line-height'    => '1.5',
         'letter-spacing' => '0px',
         'text-align'	 => 'center',
+        'text-transform' => 'uppercase',
         'color'          => '#ffffff',
     ) );
 $hiilite_options['typography_button_primary_background'] =  get_theme_mod( 'typography_button_primary_background', array(
 	'base'	=> $hiilite_options['color_two'],
 	'hover'	=> $hiilite_options['color_one']
 ));
+$hiilite_options['typography_button_primary_hover_color'] =  get_theme_mod( 'typography_button_primary_hover_color', '#ffffff');
+
 $hiilite_options['typography_button_primary_padding'] =  get_theme_mod('typography_button_primary_padding', array(
 		'top'    => '0.5em',
 		'right'  => '1em',
@@ -533,12 +538,15 @@ $hiilite_options['typography_button_secondary_font']	= get_theme_mod( 'typograph
         'line-height'    => '1.5',
         'letter-spacing' => '0px',
         'text-align'	 => 'center',
+        'text-transform' => 'uppercase',
         'color'          => $hiilite_options['color_four'],
     ) );
 $hiilite_options['typography_button_secondary_background'] =  get_theme_mod( 'typography_button_secondary_background', array(
 	'base'	=>'none',
 	'hover'	=>$hiilite_options['color_three']
 ));
+$hiilite_options['typography_button_secondary_hover_color'] =  get_theme_mod( 'typography_button_secondary_hover_color', '#303030');
+
 $hiilite_options['typography_button_secondary_padding'] =  get_theme_mod('typography_button_secondary_padding', array(
 		'top'    => '0.5em',
 		'right'  => '1em',

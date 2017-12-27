@@ -2,6 +2,19 @@
 	
 $(document).ready(function(){	
 	window.viewportUnitsBuggyfill.init();  
+	
+	/* HII INFINITE CAROUSEL */
+	
+	/* based on: web . enavu . com/tutorials/making-an-infinite-jquery-carousel */
+	
+	/* get total width of items and set as ul left (negative) in css. ex. left:-210px; */
+	
+	
+	
+	
+	
+	
+	
 	/* HII POST CAROUSEL */
 		
 	/* get number of items */

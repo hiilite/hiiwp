@@ -1208,9 +1208,10 @@ if(class_exists('GFForms')) {
 //
 /////////////////////////////
 vc_map( array( 
-		"name" => "Button", 
+		"name" => "Hii Button", 
 		"base" => "button",
 		"category" => 'HiiWP',
+		"description" => "HiiWP Themes default button",
 		"icon" => "icon-wpb-ui-button",
 		"allowed_container_element" => 'vc_row',
 		"params" => array(
@@ -1801,7 +1802,7 @@ vc_map( array(
 
 ////////////////////////////
 //
-//	AMP Slider
+//	Hii Slider
 //
 /////////////////////////////
 vc_map( array(
@@ -2271,6 +2272,7 @@ vc_add_param( 'vc_single_image', array(
 vc_remove_param( "vc_single_image", "title" ); 
 vc_remove_param( "vc_single_image", "style" ); 
 vc_remove_param( "vc_single_image", "img_link_target" );
+vc_remove_param( "vc_single_image", "border_color" );
 
 /*
  *	vc_video
@@ -2536,6 +2538,88 @@ vc_map( array(
 		"category" => 'by Hiilite',
 		"icon" => "icon-wpb-images-carousel",
 		"description" => __("Carousel of posts.", 'hiiwp' ),
+		"allowed_container_element" => 'vc_row',
+		"params" => array(
+			array(
+				"type" => "textfield",
+				"heading" => "Post IDs",
+				"param_name" => "post_ids",
+				"value" => "",
+				"description" => __( 'Enter posts IDs to display, minimum of 3. Note: separate values by commas (,)', 'hiiwp' ),
+				'save_always' => true,
+				'admin_label' => true
+
+			),
+            array(
+                "type" => "dropdown",
+                "heading" => "Show Title",
+                "param_name" => "show_title",
+                "value" => array(
+                    "Yes" => "yes",
+                    "No" => "no"
+                ),
+                "default" => "yes",
+                "description" => __( 'Show the post title', 'hiiwp' ),
+				'save_always' => true,
+				'admin_label' => true
+            ),
+            array(
+                "type" => "dropdown",
+                "heading" => "Show Excerpt",
+                "param_name" => "show_excerpt",
+                "value" => array(
+                    "Yes" => "yes",
+                    "No" => "no"
+                ),
+                "default" => "yes",
+                "description" => __( 'Show the post excerpt', 'hiiwp' ),
+				'save_always' => true,
+                "description" => "",
+				'admin_label' => true
+            ),
+            array(
+                "type" => "dropdown",
+                "heading" => "Show More Button",
+                "param_name" => "show_btn",
+                "value" => array(
+                    "Yes" => "yes",
+                    "No" => "no"
+                ),
+                "default" => "yes",
+                "description" => __( 'Show Read More button', 'hiiwp' ),
+				'save_always' => true,
+                "description" => "",
+				'admin_label' => true
+            ),
+            array(
+                "type" => "textfield",
+                "heading" => "Button Text",
+                "param_name" => "btn_text",
+                "value" => "Read More",
+                "description" => __( 'Change Read More button text', 'hiiwp' ),
+				'save_always' => true,
+				'admin_label' => true,
+				'dependency' => array(
+					'element' => 'show_btn',
+					'value' => 'yes',
+				)
+			),
+			array(
+				'type' => 'css_editor',
+				'heading' => __( 'CSS box', 'hiiwp' ),
+				'param_name' => 'css',
+				'group' => __( 'Design Options', 'hiiwp' ),
+			)
+		)
+) );
+
+// HII INFINITE CAROUSEL 
+vc_map( array(
+        "name" => "Hii Infinite Carousel",
+		"base" => "hii_infinite_carousel",
+		"category" => 'by Hiilite',
+		"icon" => "icon-wpb-images-carousel",
+		"description" => __("Infinite carousel.", 'hiiwp' ),
 		"allowed_container_element" => 'vc_row',
 		"params" => array(
 			array(

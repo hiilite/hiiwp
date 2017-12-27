@@ -21,7 +21,7 @@ if(strpos(Hii::$options['typography_button_custom_css'], '.button') === false) e
 else echo Hii::$options['typography_button_custom_css'];
 ?>	
 .button:hover {
-	color: white;
+	color: <?php echo Hii::$options['typography_button_default_hover_color']?>;
 	background: <?php echo Hii::$options['typography_button_default_background']['hover']?>;
 	border-color: <?php echo Hii::$options['typography_button_default_border_color']['hover']?>;
 }
@@ -43,7 +43,7 @@ if(strpos(Hii::$options['typography_button_primary_custom_css'], '.button-primar
 else echo Hii::$options['typography_button_primary_custom_css'];
 ?>
 .button-primary:hover {
-	color: white;
+	color: <?php echo Hii::$options['typography_button_primary_hover_color']?>;
 	background: <?php echo Hii::$options['typography_button_primary_background']['hover']?>;
 	border-color: <?php echo Hii::$options['typography_button_primary_border_color']['hover']?>;
 }
@@ -61,7 +61,7 @@ if(strpos(Hii::$options['typography_button_secondary_custom_css'], '.button-seco
 else echo Hii::$options['typography_button_secondary_custom_css'];
 ?>
 .button-secondary:hover {
-	color: <?php echo Hii::$options['color_two']?>;
+	color: <?php echo Hii::$options['typography_button_secondary_hover_color']?>;
 	background: <?php echo Hii::$options['typography_button_secondary_background']['hover']?>;
 	border-color: <?php echo Hii::$options['typography_button_secondary_border_color']['hover']?>;
 }

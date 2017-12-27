@@ -25,10 +25,6 @@ Kirki::add_field( 'hiiwp', array(
     'default'     => '<h1>Default Button</h1>',
     'priority'    => 1,
 ) );
-$button_font = $hiilite_options['default_font'];
-$button_font['color']	= $hiilite_options['color_two'];
-$button_font['text-transform'] = 'uppercase';
-$button_font['text-align']	= 'center';
 
 Kirki::add_field( 'hiiwp', array(
     'type'        => 'typography',
@@ -38,7 +34,14 @@ Kirki::add_field( 'hiiwp', array(
     'default'     => $hiilite_options['typography_button_default_font'], 
     'priority'    => 1,
 ) );
-
+Kirki::add_field( 'hiiwp', array(
+	'type'        => 'color',
+	'settings'    => 'typography_button_default_hover_color',
+	'label'       => __( 'Hover Color (.button)', 'hiiwp' ),
+	'section'     => $section,
+    'default'     => $hiilite_options['typography_button_default_hover_color'],
+	'priority'    => 1,
+) );
 Kirki::add_field( 'hiiwp', array(
 	'type'        => 'multicolor',
 	'settings'    => 'typography_button_default_background',
@@ -73,8 +76,6 @@ Kirki::add_field( 'hiiwp', array(
 	'default'     => $hiilite_options['typography_button_default_padding'],
 	'priority'    => 1,
 ) );
-
-
 Kirki::add_field( 'hiiwp', array(
 	'type'        => 'dimension',
 	'settings'    => 'typography_button_default_border_width',
@@ -121,7 +122,6 @@ Kirki::add_field( 'hiiwp', array(
     'default'     => '<hr><h1>Primary Button</h1>',
     'priority'    => 1,
 ) );
-$button_font['color']	= '#ffffff';
 
 Kirki::add_field( 'hiiwp', array(
     'type'        => 'typography',
@@ -131,7 +131,14 @@ Kirki::add_field( 'hiiwp', array(
     'default'     => $hiilite_options['typography_button_primary_font'], 
     'priority'    => 2,
 ) );
-
+Kirki::add_field( 'hiiwp', array(
+	'type'        => 'color',
+	'settings'    => 'typography_button_primary_hover_color',
+	'label'       => __( 'Hover Color (.button-primary)', 'hiiwp' ),
+	'section'     => $section,
+    'default'     => $hiilite_options['typography_button_primary_hover_color'],
+	'priority'    => 2,
+) );
 Kirki::add_field( 'hiiwp', array(
 	'type'        => 'multicolor',
 	'settings'    => 'typography_button_primary_background',
@@ -145,15 +152,6 @@ Kirki::add_field( 'hiiwp', array(
 	'priority'    => 2,
 ) );
 Kirki::add_field( 'hiiwp', array(
-	'type'        => 'spacing',
-	'settings'    => 'typography_button_primary_padding',
-	'label'       => __( 'Button Padding (.button-primary)', 'hiiwp' ),
-	'section'     => $section,
-	'default'     => $hiilite_options['typography_button_primary_padding'],
-	'priority'    => 2,
-) );
-
-Kirki::add_field( 'hiiwp', array(
 	'type'        => 'multicolor',
 	'settings'    => 'typography_button_primary_border_color',
 	'label'       => __( 'Border Color (.button-primary)', 'hiiwp' ),
@@ -163,6 +161,14 @@ Kirki::add_field( 'hiiwp', array(
         'hover'  => esc_attr__( 'Hover Color', 'hiiwp' ),
     ),
 	'default'     => $hiilite_options['typography_button_primary_border_color'],
+	'priority'    => 2,
+) );
+Kirki::add_field( 'hiiwp', array(
+	'type'        => 'spacing',
+	'settings'    => 'typography_button_primary_padding',
+	'label'       => __( 'Button Padding (.button-primary)', 'hiiwp' ),
+	'section'     => $section,
+	'default'     => $hiilite_options['typography_button_primary_padding'],
 	'priority'    => 2,
 ) );
 Kirki::add_field( 'hiiwp', array(
@@ -209,8 +215,6 @@ Kirki::add_field( 'hiiwp', array(
     'default'     => '<hr><h1>Secondary Button</h1>',
     'priority'    => 3,
 ) );
-$button_font['color']	= '#ffffff';
-
 Kirki::add_field( 'hiiwp', array(
     'type'        => 'typography',
     'settings'    => 'typography_button_secondary_font',
@@ -219,8 +223,14 @@ Kirki::add_field( 'hiiwp', array(
     'default'     => $hiilite_options['typography_button_secondary_font'], 
     'priority'    => 3,
 ) );
-
-
+Kirki::add_field( 'hiiwp', array(
+	'type'        => 'color',
+	'settings'    => 'typography_button_secondary_hover_color',
+	'label'       => __( 'Hover Color (.button-secondary)', 'hiiwp' ),
+	'section'     => $section,
+    'default'     => $hiilite_options['typography_button_secondary_hover_color'],
+	'priority'    => 3,
+) );
 Kirki::add_field( 'hiiwp', array(
 	'type'        => 'multicolor',
 	'settings'    => 'typography_button_secondary_background',
@@ -234,15 +244,6 @@ Kirki::add_field( 'hiiwp', array(
 	'priority'    => 3,
 ) );
 Kirki::add_field( 'hiiwp', array(
-	'type'        => 'spacing',
-	'settings'    => 'typography_button_secondary_padding',
-	'label'       => __( 'Button Padding (.button-secondary)', 'hiiwp' ),
-	'section'     => $section,
-	'default'     => $hiilite_options['typography_button_secondary_padding'],
-	'priority'    => 3,
-) );
-
-Kirki::add_field( 'hiiwp', array(
 	'type'        => 'multicolor',
 	'settings'    => 'typography_button_secondary_border_color',
 	'label'       => __( 'Border Color (.button-secondary)', 'hiiwp' ),
@@ -252,6 +253,14 @@ Kirki::add_field( 'hiiwp', array(
         'hover'  => esc_attr__( 'Hover Color', 'hiiwp' ),
     ),
 	'default'     => $hiilite_options['typography_button_secondary_border_color'],
+	'priority'    => 3,
+) );
+Kirki::add_field( 'hiiwp', array(
+	'type'        => 'spacing',
+	'settings'    => 'typography_button_secondary_padding',
+	'label'       => __( 'Button Padding (.button-secondary)', 'hiiwp' ),
+	'section'     => $section,
+	'default'     => $hiilite_options['typography_button_secondary_padding'],
 	'priority'    => 3,
 ) );
 Kirki::add_field( 'hiiwp', array(

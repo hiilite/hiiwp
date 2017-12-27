@@ -1485,6 +1485,7 @@ p .alignright {
 
 
 <?php 
+	
 //////////////////////
 //
 //	note: Generate Heading tags
@@ -1498,11 +1499,13 @@ for($h=1;$h<=6;$h++):
 	get_font_css(Hii::$options['typography_h'.$h.'_font']);
 	echo '}';
 	
-	$font_size = preg_match('/([0-9]+\.[0-9]+)/', Hii::$options['typography_h'.$h.'_font']['font-size'],$fs_int);
+	preg_match('/^[0-9]+(\.[0-9]{1,2})?/', Hii::$options['typography_h'.$h.'_font']['font-size'], $font_size);
+	
+	
 	$font_unit = preg_replace("/[^a-zA-Z]+/", "", Hii::$options['typography_h'.$h.'_font']['font-size']);
 	if(isset($font_size) && $font_unit){
-		$tablet_heading_sizes .= $heading_rule . 'font-size:' . ($fs_int[0]* 0.85) . $font_unit . '}';
-		$mobile_heading_sizes .= $heading_rule . 'font-size:' . ($fs_int[0]* 0.75) . $font_unit . '}';
+		$tablet_heading_sizes .= $heading_rule . 'font-size:' . ($font_size[0] * 0.83) . $font_unit . '}';
+		$mobile_heading_sizes .= $heading_rule . 'font-size:' . ($font_size[0] * 0.75) . $font_unit . '}';
 	}
 endfor; 
 
