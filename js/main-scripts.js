@@ -1,7 +1,7 @@
 (function($){
 	
 $(document).ready(function(){	
-	console.log('test');
+	echo 'test';
 	window.viewportUnitsBuggyfill.init();  
 	
 	/* HII INFINITE CAROUSEL */
