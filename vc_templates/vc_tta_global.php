@@ -31,42 +31,71 @@ $class_to_filter .= vc_shortcode_custom_css_class( $css, ' ' ) . $this->getExtra
 
 switch($shortcode_type){
 	case 'vc_tta_pageable':
-		$slider_type = '';
-		$wrapper_attributes = array();
-		$css_classes = array(
-			'slider',
-			$atts['slider_type'],
-		);
-		if($atts['slider_full_height'] == true){
-			$css_classes[] = 'slider_full_height';
-		}
-		$css_class = preg_replace( '/\s+/', ' ', apply_filters( VC_SHORTCODE_CUSTOM_CSS_FILTER_TAG, implode( ' ', array_filter( $css_classes ) ), $this->settings['base'], $atts ) );
 		
-		
-		if(isset($atts['shape']) && $atts['shape'] != '')
-		{
-			$wrapper_attributes[] = 'class="' . esc_attr( trim( $css_class ) ) . ' ' . $atts['shape'] . ' ' . $atts['c_align'] . '"';
-		}
-		else
-		{
+		if($atts['is_hii_carousel']){
+			$wrapper_attributes = array();
+			$css_classes = array(
+				'hii_infinite-carousel',
+				$atts['slider_type'],
+			);
+			$css_class = preg_replace( '/\s+/', ' ', apply_filters( VC_SHORTCODE_CUSTOM_CSS_FILTER_TAG, implode( ' ', array_filter( $css_classes ) ), $this->settings['base'], $atts ) );
+			
 			$wrapper_attributes[] = 'class="' . esc_attr( trim( $css_class ) ) . '"';
+			
+			$output = '<div ' . implode( ' ', $wrapper_attributes ) . '
+							  layout="responsive"
+							  width="'.$atts['slider_width'].'"
+							  height="'.$atts['slider_height'].'"
+							  style="width:'.$atts['slider_width'].'px;
+							  	height:'.$atts['slider_height'].'px;"
+							  type="slides"';
+			$output .= ($atts['autoplay'] != 'none')?' autoplay delay="'.$atts['autoplay'].'000">':'>';
+			if(isset($atts['title']) && $atts['title'] != '')
+			{
+				$output .= '<strong>'.$atts['title'].'</strong>';
+			}
+			$output .= $prepareContent;
+			$output .= '</div>';
+			
 		}
-		
-		
-		$output = '<amp-carousel ' . implode( ' ', $wrapper_attributes ) . '
-						  layout="responsive"
-						  width="'.$atts['slider_width'].'"
-						  height="'.$atts['slider_height'].'"
-						  style="width:'.$atts['slider_width'].'px;
-						  	height:'.$atts['slider_height'].'px;"
-						  type="slides"';
-		$output .= ($atts['autoplay'] != 'none')?' autoplay delay="'.$atts['autoplay'].'000">':'>';
-		if(isset($atts['title']) && $atts['title'] != '')
+		else 
 		{
-			$output .= '<strong>'.$atts['title'].'</strong>';
-		}
-		$output .= $prepareContent;
-		$output .= '</amp-carousel>';
+			$slider_type = '';
+			$wrapper_attributes = array();
+			$css_classes = array(
+				'slider',
+				$atts['slider_type'],
+			);
+			if($atts['slider_full_height'] == true){
+				$css_classes[] = 'slider_full_height';
+			}
+			$css_class = preg_replace( '/\s+/', ' ', apply_filters( VC_SHORTCODE_CUSTOM_CSS_FILTER_TAG, implode( ' ', array_filter( $css_classes ) ), $this->settings['base'], $atts ) );
+			
+			
+			if(isset($atts['shape']) && $atts['shape'] != '')
+			{
+				$wrapper_attributes[] = 'class="' . esc_attr( trim( $css_class ) ) . ' ' . $atts['shape'] . ' ' . $atts['c_align'] . '"';
+			}
+			else
+			{
+				$wrapper_attributes[] = 'class="' . esc_attr( trim( $css_class ) ) . '"';
+			}
+			
+			
+			$output = '<amp-carousel ' . implode( ' ', $wrapper_attributes ) . '
+							  layout="responsive"
+							  width="'.$atts['slider_width'].'"
+							  height="'.$atts['slider_height'].'"
+							  style="width:'.$atts['slider_width'].'px;
+							  	height:'.$atts['slider_height'].'px;"
+							  type="slides"';
+			$output .= ($atts['autoplay'] != 'none')?' autoplay delay="'.$atts['autoplay'].'000">':'>';
+			if(isset($atts['title']) && $atts['title'] != '')
+			{
+				$output .= '<strong>'.$atts['title'].'</strong>';
+			}
+			$output .= $prepareContent;
+			$output .= '</amp-carousel>';
 	break;
 
 //////////////////////////////////////////////////////

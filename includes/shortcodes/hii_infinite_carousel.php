@@ -13,24 +13,38 @@
 function add_hii_infinite_carousel_shortcode( $atts ){
 
 
-$title = $el_class = $collapsible = $disable_keyboard = $active_tab = '';
-$atts = vc_map_get_attributes( $this->getShortcode(), $atts );
-extract( $atts );
 
-wp_enqueue_script( 'jquery-ui-accordion' );
-$el_class = $this->getExtraClass( $el_class );
-$css_class = apply_filters( VC_SHORTCODE_CUSTOM_CSS_FILTER_TAG, 'wpb_accordion wpb_content_element ' . $el_class . ' not-column-inherit', $this->settings['base'], $atts );
+	$is_vc = (class_exists('Vc_Manager'))?true:false;
+    extract( shortcode_atts( array(
+      'post_ids' => null,
+      'show_title'	=> true,
+      'show_excerpt'	=> true,
+      'show_btn'	=> true,
+      'btn_text' => __('Read More', 'hiiwp'),
+      'css' => '',
+    ), $atts ) );
+    
+    $vc_css = ($is_vc)?vc_shortcode_custom_css_class( $css ):null;
+	$css_classes = array(
+		'hii_infinite_carousel',
+		$vc_css, 
+	); 
+	
+	if ($is_vc && vc_shortcode_custom_css_has_property( $css, array('border', 'background') )) {
+		$css_classes[]='';
+	}
+	$wrapper_attributes = array();
 
-$output = '
-	<div class="' . esc_attr( $css_class ) . '" data-collapsible="' . esc_attr( $collapsible ) . '" data-vc-disable-keydown="' . ( esc_attr( ( 'yes' === $disable_keyboard ? 'true' : 'false' ) ) ) . '" data-active-tab="' . $active_tab . '">
-		<div class="wpb_wrapper wpb_accordion_wrapper ui-accordion">
-' . wpb_widget_title( array( 'title' => $title, 'extraclass' => 'wpb_accordion_heading' ) ) . '
-' . wpb_js_remove_wpautop( $content ) . '
-		</div>
-	</div>
-';
-
-echo $output;
+	$css_class = ($is_vc)?preg_replace( '/\s+/', ' ', apply_filters( VC_SHORTCODE_CUSTOM_CSS_FILTER_TAG, implode( ' ', array_filter( $css_classes ) ), '.vc_custom_', $atts ) ):implode( ' ', array_filter( $css_classes ) );
+	$wrapper_attributes[] = 'class="' . esc_attr( trim( $css_class ) ) . '"';
+    
+    $html = '';
+    
+    $html .= '<div '.implode( ' ', $wrapper_attributes ).'>';
+	$html .= print_r($atts,true);
+    $html .= '</div>';
+    
+    return $html;
 
 
 }
