@@ -53,6 +53,7 @@ if($atts['active'] == true):
 	$output .= '<div ' . implode( ' ', $wrapper_attributes ) . ' style="background:url('.$src.'); background-size:cover;">';
 	$output .= '<div class="slide-text-overlay">';
 	$output .= $this->getTemplateVariable( 'content' );
+	$output .= $self_count;
 	$output .= '</div></div>';
 	echo $output;
 endif;
