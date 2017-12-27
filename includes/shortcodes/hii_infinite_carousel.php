@@ -16,11 +16,6 @@ function add_hii_infinite_carousel_shortcode( $atts ){
 
 	$is_vc = (class_exists('Vc_Manager'))?true:false;
     extract( shortcode_atts( array(
-      'post_ids' => null,
-      'show_title'	=> true,
-      'show_excerpt'	=> true,
-      'show_btn'	=> true,
-      'btn_text' => __('Read More', 'hiiwp'),
       'css' => '',
     ), $atts ) );
     
