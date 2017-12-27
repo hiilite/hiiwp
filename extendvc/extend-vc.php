@@ -2650,7 +2650,7 @@ vc_map( array(
 			'param_name' => 'hii_carousel_speed',
 			'value' => array(
 				__( 'None', 'hiiwp' ) => 'none',
-				'0' => '0'
+				'0' => '0',
 				'1' => '1',
 				'2' => '2',
 				'3' => '3',
