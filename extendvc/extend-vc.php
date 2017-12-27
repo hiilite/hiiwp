@@ -2650,7 +2650,7 @@ vc_map( array(
 			'param_name' => 'hii_carousel_speed',
 			'value' => array(
 				__( 'None', 'hiiwp' ) => 'none',
-				'0' => '0',
+				'Continuous' => '0',
 				'1' => '1',
 				'2' => '2',
 				'3' => '3',
@@ -2669,7 +2669,7 @@ vc_map( array(
 			),
 			'std' => 'none',
 			'heading' => __( 'Speed', 'hiiwp' ),
-			'description' => __( 'Select auto rotate speed in seconds (Note: disabled by default). For continuous sliding, select 0.', 'hiiwp' ),
+			'description' => __( 'Select auto rotate speed in seconds (Note: disabled by default).', 'hiiwp' ),
 		),
 		array(
 			'type' => 'textfield',
