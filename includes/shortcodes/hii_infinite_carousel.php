@@ -36,7 +36,7 @@ function add_hii_infinite_carousel_shortcode( $atts ){
 	$css_class = ($is_vc)?preg_replace( '/\s+/', ' ', apply_filters( VC_SHORTCODE_CUSTOM_CSS_FILTER_TAG, implode( ' ', array_filter( $css_classes ) ), '.vc_custom_', $atts ) ):implode( ' ', array_filter( $css_classes ) );
 	$wrapper_attributes[] = 'class="' . esc_attr( trim( $css_class ) ) . '"';
     
-    
+    $html = '';
     
     $html .= '<div '.implode( ' ', $wrapper_attributes ).'>';
     $html .= '</div>';
