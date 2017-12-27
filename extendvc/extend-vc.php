@@ -2537,7 +2537,7 @@ vc_map( array(
 		"base" => "hii_post_carousel",
 		"category" => 'by Hiilite',
 		"icon" => "icon-wpb-images-carousel",
-		"description" => __("Carousel of postsy.", 'hiiwp' ),
+		"description" => __("Carousel of posts.", 'hiiwp' ),
 		"allowed_container_element" => 'vc_row',
 		"params" => array(
 			array(
