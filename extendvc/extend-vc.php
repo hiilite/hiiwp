@@ -2533,7 +2533,7 @@ vc_map( array(
 
 // HII POST CAROUSEL 
 vc_map( array(
-        "name" => "Hii Post CarouselX",
+        "name" => "Hii Post CarouselY",
 		"base" => "hii_post_carousel",
 		"category" => 'by Hiilite',
 		"icon" => "icon-wpb-images-carousel",
