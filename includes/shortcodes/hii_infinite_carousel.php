@@ -13,8 +13,17 @@
 function add_hii_infinite_carousel_shortcode( $atts ){
 
 
-$atts = vc_map_get_attributes( $this->getShortcode(), $atts );
-$this->resetVariables( $atts, $content );
+$is_vc = (class_exists('Vc_Manager'))?true:false;
+/*extract( shortcode_atts( array(
+      'post_ids' => null,
+      'show_title'	=> true,
+      'show_excerpt'	=> true,
+      'show_btn'	=> true,
+      'btn_text' => __('Read More', 'hiiwp'),
+      'css' => '',
+    ), $atts ) );*/
+    
+    
 WPBakeryShortCode_VC_Tta_Section::$self_count ++;
 WPBakeryShortCode_VC_Tta_Section::$section_info[] = $atts;
 $isPageEditable = vc_is_page_editable();
