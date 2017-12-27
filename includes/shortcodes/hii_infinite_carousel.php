@@ -41,7 +41,7 @@ function add_hii_infinite_carousel_shortcode( $atts ){
     $html = '';
     
     $html .= '<div '.implode( ' ', $wrapper_attributes ).'>';
-    $html .= $this->getTemplateVariable( 'content' );
+ 
     $html .= '</div>';
     
     return $html;
