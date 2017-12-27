@@ -41,6 +41,8 @@ function add_hii_infinite_carousel_shortcode( $atts ){
     $html .= '<div '.implode( ' ', $wrapper_attributes ).'>xxxxxxxxxxxxx';
     
     $html .= '</div>';
+    
+    return $html;
 
 
 }
