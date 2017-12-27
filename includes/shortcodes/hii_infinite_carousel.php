@@ -23,19 +23,7 @@ $is_vc = (class_exists('Vc_Manager'))?true:false;
       'css' => '',
     ), $atts ) );*/
     
-    
-WPBakeryShortCode_VC_Tta_Section::$self_count ++;
-WPBakeryShortCode_VC_Tta_Section::$section_info[] = $atts;
 $isPageEditable = vc_is_page_editable();
-
-/*if($atts['show_tab'] == 'yes')
-{
-	$show = 'show';	
-}
-else
-{
-	$show = 'hide';
-}*/
 
 $output = '';
 
