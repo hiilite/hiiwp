@@ -45,7 +45,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
             <h3><?php _e( 'Install Child Theme', 'hiiwp' ); ?></h3>
             <p><?php _e( 'We are constantly updating the HiiWP theme to make it better for our customers. So if you plan on making edits to the theme files, and don\'t want your edits overwritten, the it\'s best to install the HiiWP Child Theme', 'hiiwp' ); ?></p>
             <a class="button button-primary" href="<?php echo get_template_directory_uri() . '/hiiwp-child.zip'; ?>">Download Child Theme</a>
-            <a href="https://hiilite.com/knowledge-base/hiiwp-wordpress-theme/installation/" target="_blank">How do I install the child theme?</a>
+            <a href="https://hiilite.com/hiiwp/installation/" target="_blank">How do I install the child theme?</a>
         </div>
     </div>
  
@@ -102,7 +102,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
             <h3><?php _e( 'Support', 'hiiwp' ); ?></h3>
             <p>To get your support related question answered in the fastest timing, please head over to our <a href="https://hiilite.com/support/request-product-support/" target="_blank">support page</a> and open Support ticket. To open a support ticket you should have a valid support subscription in case if your support has expired you can <a href="https://hiilite.com/shop/wordpress/themes/hiiwp/" target="_blank">purchase support extension from Hiilite</a>.</p>
 <p>
-Before applying for support please make sure you understand the rules of support and go through all steps described and listed in <a href="https://hiilite.com/knowledge-base/support-policy/" target="_blank">Support Policy</a> in order to get your issues solved as soon as possible.</p>
+Before applying for support please make sure you understand the rules of support and go through all steps described and listed in <a href="https://hiilite.com/hiiwp/support-policy/" target="_blank">Support Policy</a> in order to get your issues solved as soon as possible.</p>
         </div>
         
     </div>

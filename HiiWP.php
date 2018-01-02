@@ -550,7 +550,8 @@ class HiiWP extends Hii {
 			array(
 	            'name'               => 'WPBakery Visual Composer', // The plugin name.
 	            'slug'               => 'js_composer', // The plugin slug (typically the folder name).
-	            'source'             => HIILITE_DIR . '/includes/Plugin-Activation/plugins/js_composer.zip', // The plugin source.
+	            'source'             => 'https://hiilite.com/download/9034/', // The plugin source.
+	            'version'			 => '5.4.5',
 	            'required'           => true, // If false, the plugin is only 'recommended' instead of required.
 	            'force_activation'   => true, // If true, plugin is activated upon theme activation and cannot be deactivated until theme switch.
 	            'force_deactivation' => false, // If true, plugin is deactivated upon theme switch, useful for theme-specific plugins.
@@ -558,22 +559,13 @@ class HiiWP extends Hii {
 			array(
 	            'name'      => 'Google Analytics Dashboard',
 	            'slug'      => 'google-analytics-dashboard-for-wp',
-	            'required'  => true,
+	            'required'  => false,
 	        ),
 	        array(
-	            'name'      => 'Google XML Sitemaps',
-	            'slug'      => 'google-sitemap-generator',
-	            'required'  => true,
+	            'name'      => 'Yoast SEO',
+	            'slug'      => 'wordpress-seo',
+	            'required'  => false,
 	        ),
-	        array(
-	            'name'               => 'Gravity Forms',
-	            'slug'               => 'gravityforms', 
-	            'source'             => HIILITE_DIR . '/includes/Plugin-Activation/plugins/gravityforms.zip',
-	            'required'           => false, 
-	            'force_activation'   => false, 
-	            'force_deactivation' => false, 
-	        ),
-	        
 	        array(
 	            'name'      => 'Imsanity',
 	            'slug'      => 'imsanity',
@@ -590,14 +582,23 @@ class HiiWP extends Hii {
 	            'required'  => false,
 	        ),
 	        array(
+	            'name'      => 'Optimus',
+	            'slug'      => 'optimus',
+	            'required'  => false,
+	        ),
+	        array(
 	            'name'      => 'Cloudflare',
 	            'slug'      => 'cloudflare',
 	            'required'  => false,
 	        ),
 	        array(
-	            'name'      => 'Optimus',
-	            'slug'      => 'optimus',
-	            'required'  => false,
+	            'name'               => 'Gravity Forms',
+	            'slug'               => 'gravityforms', 
+	            'source'             => 'https://hiilite.com/download/9030/',
+	            'version'			 => '2.2.5.20',
+	            'required'           => false, 
+	            'force_activation'   => false, 
+	            'force_deactivation' => false, 
 	        ),
 			array(
 	            'name'      => 'Gravity Forms Google Analytics Event Tracking',
@@ -622,7 +623,8 @@ class HiiWP extends Hii {
 	        array(
 	            'name'               => 'Backup Buddy', // The plugin name.
 	            'slug'               => 'backupbuddy', // The plugin slug (typically the folder name).
-	            'source'             => HIILITE_DIR . '/includes/Plugin-Activation/plugins/backupbuddy.zip', // The plugin source.
+	            'source'             => 'https://hiilite.com/download/9037/', // The plugin source.
+	            'version'			 => '8.2.0.2',
 	            'required'           => false, // If false, the plugin is only 'recommended' instead of required.
 	            'force_activation'   => false, // If true, plugin is activated upon theme activation and cannot be deactivated until theme switch.
 	            'force_deactivation' => false, // If true, plugin is deactivated upon theme switch, useful for theme-specific plugins

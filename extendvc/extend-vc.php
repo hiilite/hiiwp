@@ -840,6 +840,24 @@ vc_add_param( 'vc_basic_grid',  array(
 						__( 'Use Grid Builder', 'hiiwp' ) => 'false'
 					)
 				));
+
+vc_add_param( 'vc_basic_grid',  array(
+				"type" => "dropdown",
+				"class" => "",
+				'holder'	=> 'div',
+				"heading" => "Grid Elements Per Row",
+				"param_name" => "element_width",
+				'save_always' => true,
+				'std'	=> 'true',
+				'description' => 'Layout must be set to Boxed or Masonry in the item design tab',
+				'value' => array(
+						'1' => '1',
+						'2' => '2',
+						'3' => '3',
+						'4' => '4',
+						'6' => '6'
+					)
+				));			
 				
 vc_add_param( 'vc_basic_grid',  array(
 				"type" => "dropdown",
@@ -2637,7 +2655,7 @@ vc_map( array(
 			'std' => true,
 		),
 		array(
-			'type' => 'dropdown',
+			'type' => 'hidden',
 			'param_name' => 'slider_type',
 			'value' => array(
 				__( 'Default', 'hiiwp' ) => 'default',
@@ -2648,20 +2666,20 @@ vc_map( array(
 		),
 		array(
 			'type' => 'textfield',
-			'heading' => __( 'Slider Width', 'hiiwp' ),
+			'heading' => __( 'Carousel Width', 'hiiwp' ),
 			'param_name' => 'slider_width',
 			'value'		 => '1100',
 			'description' => __( '(px) Slider is responsive, but needs a set width and height to calculate ratio for images', 'hiiwp' ),
 		),
 		array(
 			'type' => 'textfield',
-			'heading' => __( 'Slider Height', 'hiiwp' ),
+			'heading' => __( 'Carousel Height', 'hiiwp' ),
 			'param_name' => 'slider_height',
 			'value'		 => '530',
 			'description' => __( '(px) Slider is responsive, but needs a set width and height to calculate ratio for images', 'hiiwp' ),
 		),
 		array(
-			'type' => 'checkbox',
+			'type' => 'hidden',
 			'heading' => __( 'Full Height', 'hiiwp' ),
 			'param_name' => 'slider_full_height',
 			'value'		 => false,
@@ -2672,6 +2690,7 @@ vc_map( array(
 			'param_name' => 'autoplay',
 			'value' => array(
 				__( 'None', 'hiiwp' ) => 'none',
+				'Continuous' => '0',
 				'1' => '1',
 				'2' => '2',
 				'3' => '3',
