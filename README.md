@@ -2,6 +2,11 @@
 This theme is currently in Alpha testing and should not be installed without the support of the team at Hiilite Creative Group
 
 ### Change log
+#### v0.4.7
+- Adding Sensei support (in development) 
+- Updates to Kirki
+- Moved files for required plugins to remote downloads.
+
 #### v0.4.6
 - Updated CMB2 & Kirki Libraries
 - also added missing controls stylesheet

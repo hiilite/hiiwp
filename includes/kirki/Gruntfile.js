@@ -34,17 +34,6 @@ module.exports = function( grunt ) {
 					'controls/css/styles.css': 'controls/scss/styles.scss',
 					'controls/css/styles-legacy.css': 'controls/scss/styles-legacy.scss'
 				}
-			},
-
-			customBuild: {
-				dist: {
-					options: {
-						style: 'compressed'
-					},
-					files: {
-						'build.css': 'build.scss'
-					}
-				}
 			}
 		},
 
@@ -265,8 +254,7 @@ module.exports = function( grunt ) {
 		grunt.task.run( 'googlefontsProcess' );
 		grunt.task.run( 'json2php' );
 	} );
-	grunt.registerTask( 'default', ['sass:dist', 'concat', 'uglify', 'googlefonts', 'wp_readme_to_markdown'] );
+	grunt.registerTask( 'default', ['sass:dist', 'concat', 'uglify'] );
 	grunt.registerTask( 'readme', ['wp_readme_to_markdown'] );
-	grunt.registerTask( 'customBuild', ['sass:customBuild', 'uglify:customBuild'] );
-
+	grunt.registerTask( 'all', ['default', 'googlefonts', 'wp_readme_to_markdown'] );
 };

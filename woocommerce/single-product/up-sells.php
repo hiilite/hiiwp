@@ -27,18 +27,20 @@ if ( $upsells ) : ?>
 		<h2><?php esc_html_e( 'You may also like&hellip;', 'hiiwp' ) ?></h2>
 
 		<?php woocommerce_product_loop_start(); ?>
-
+<amp-carousel layout="fixed-height" type="carousel" class="relatedposts">
+			<div class="carousel-wrapper" style="white-space: nowrap; position: absolute; z-index: 1; top: 0px; left: 0px; bottom: 0px;">
 			<?php foreach ( $upsells as $upsell ) : ?>
-
+				<div class="relatedarticle slide">
 				<?php
 				 	$post_object = get_post( $upsell->get_id() );
 
 					setup_postdata( $GLOBALS['post'] =& $post_object );
 
 					wc_get_template_part( 'content', 'product' ); ?>
-
+				</div>
 			<?php endforeach; ?>
-
+			</div>
+</amp-carousel>
 		<?php woocommerce_product_loop_end(); ?>
 
 	</section>

@@ -64,6 +64,9 @@ $second_level_menu_colors = Hii::$options['second_level_menu_colors'];
  */
 ?>
 ul.sub-menu {
+	background: none;
+}
+#main_header ul.sub-menu {
     position: absolute;
     margin-left: 0;
     list-style: none;
@@ -78,7 +81,7 @@ ul.sub-menu {
 	z-index: 10; 
 	background-color: <?php echo Hii::$options['dropdown_background_color'];?>;
 }
-ul.sub-menu ul.sub-menu {
+#main_header ul.sub-menu ul.sub-menu {
 	left:100%;
     top: 0;
 }
@@ -125,7 +128,7 @@ ul.sub-menu ul.sub-menu {
 }
 
 @media (min-width:<?php echo Hii::$options['mobile_menu_switch'];?>){
-	.menu li:hover > ul.sub-menu {
+	#main_header .menu li:hover > ul.sub-menu {
 		box-shadow: 0 0 1px rgba(0,0,0,0.4);
 	    transform: scaleY(1) rotateY(0deg);
 		opacity: 1;
@@ -140,10 +143,10 @@ ul.sub-menu ul.sub-menu {
 	}
 }
 @media (max-width:<?php echo Hii::$options['mobile_menu_switch'];?>){
-	ul.sub-menu {
+	#main_header ul.sub-menu {
 		height: 0;
 	}
-	.menu li.open > ul.sub-menu {
+	#main_header .menu li.open > ul.sub-menu {
 		box-shadow: 0 0 1px rgba(0,0,0,0.4);
 	    transform: scaleY(1) rotateY(0deg);
 		opacity: 1;

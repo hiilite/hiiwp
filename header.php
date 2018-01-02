@@ -132,9 +132,7 @@ do_action( 'hii_before_header' );
 					
 					
 					if(get_theme_mod('hide_logo') != true):
-						?><div id="logo_container" class="<?php if($hiilite_options['header_center_right_on'] && !$hiilite_options['header_center_left_on']){ echo 'align-left';} ?>">
-<?php if(is_customize_preview()) echo '<div class="customizer_quick_links"><button class="customizer-edit" data-control=\'{"name":"main_logo"}\'>Edit Logo</button></div>';?>
-		
+						?><div id="logo_container" class="<?php if($hiilite_options['header_center_right_on'] && !$hiilite_options['header_center_left_on']){ echo 'align-left';} ?>">		
 							
 							<a href="<?php echo esc_url( home_url() ); ?>">
 								<img src="<?php echo $hiilite_options['main_logo'];?>" width="<?php echo $hiilite_options['logo_width'];?>" alt="<?php echo hii_get_the_title();?>">

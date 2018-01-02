@@ -81,6 +81,37 @@ Kirki::add_field( 'hiiwp', array(
     'default'     => $hiilite_options['sidebar_padding'],
     'priority'    => 1,
 ) );
+
+Kirki::add_field( 'hiiwp', array(
+    'type'        => 'dimension',
+    'settings'    => 'sidebar_border_width',
+    'label'       => esc_attr__( 'Sidebar Border Width', 'hiiwp' ),
+    'description' => __( 'Define border width around the sidebar', 'hiiwp' ),
+    'section'     => $section,
+    'default'     => $hiilite_options['sidebar_border_width'],
+    'priority'    => 1,
+) );
+
+Kirki::add_field( 'hiiwp', array(
+    'type'        => 'color',
+    'settings'    => 'sidebar_border_color',
+    'label'       => esc_attr__( 'Sidebar Border Color', 'hiiwp' ),
+    'description' => __( 'Define border color around the sidebar', 'hiiwp' ),
+    'section'     => $section,
+    'default'     => $hiilite_options['sidebar_border_color'],
+    'priority'    => 1,
+) );
+
+Kirki::add_field( 'hiiwp', array(
+    'type'        => 'spacing',
+    'settings'    => 'sidebar_widget_padding',
+    'label'       => esc_attr__( 'Widget Padding', 'hiiwp' ),
+    'description' => __( 'Define padding around the individual widgets in the sidebar', 'hiiwp' ),
+    'section'     => $section,
+    'default'     => $hiilite_options['sidebar_widget_padding'],
+    'priority'    => 1,
+) );
+
 Kirki::add_field( 'hiiwp', array(
     'type'        => 'spacing',
     'settings'    => 'sidebar_widget_margin',
@@ -90,4 +121,25 @@ Kirki::add_field( 'hiiwp', array(
     'default'     => $hiilite_options['sidebar_widget_margin'],
     'priority'    => 1,
 ) );
+
+Kirki::add_field( 'hiiwp', array(
+    'type'        => 'dimension',
+    'settings'    => 'sidebar_widget_border_width',
+    'label'       => esc_attr__( 'Widget Border Width', 'hiiwp' ),
+    'description' => __( 'Define border width around the individual widgets in the sidebar', 'hiiwp' ),
+    'section'     => $section,
+    'default'     => $hiilite_options['sidebar_widget_border_width'],
+    'priority'    => 1,
+) );
+Kirki::add_field( 'hiiwp', array(
+    'type'        => 'color',
+    'settings'    => 'sidebar_widget_border_color',
+    'label'       => esc_attr__( 'Widget Border Color', 'hiiwp' ),
+    'description' => __( 'Define border color around the individual widgets in the sidebar', 'hiiwp' ),
+    'section'     => $section,
+    'default'     => $hiilite_options['sidebar_widget_border_color'],
+    'priority'    => 1,
+) );
+
+
 ?>

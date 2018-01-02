@@ -35,7 +35,7 @@ class HiiWP_Sidebars {
 		add_action( 'hii_sidebar', 			array( $this, 'hii_sidebar_widget_area') );
 		add_action( 'hii_blog_sidebar', 	array( $this, 'hii_blog_sidebar_widget_area' ));
 		add_action( 'hii_header_top_right', array( $this, 'hii_header_top_right_widget_area' ));
-		add_action( 'hii_header_top_left', 	array( $this, 'hii_header_top_center_widget_area' ));
+		add_action( 'hii_header_top_center',array( $this, 'hii_header_top_center_widget_area' ));
 		add_action( 'hii_header_top_left', 	array( $this, 'hii_header_top_left_widget_area' ));
 	}
 	

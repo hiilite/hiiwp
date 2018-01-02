@@ -46,12 +46,11 @@ class HiiWP_Dashboard {
 	
 	public function hiilite_add_welcome_widget(){ ?>
 	 
-		<h3>This Site is Managed by Hiilite Creative Group</h3>
-	<p>Hiilite works with a mix of local, regional, provincial and international clients. We are equally happy working face-to-face and working remotely. We serve BC, Western Canada and beyond from a little corner of paradise - Kelowna, BC.<br><br>
-	
-	115-1690 Water Street<br>
-	Kelowna, BC, V1Y 8T8, Canada<br>
-	<a href="tel:+18883033444">1.888.303.3444</a><br>
+		<h3>You are running the HiiWP WordPress Theme - <a href="https://hiilite.com" target="_blank">By Hiilite Creative Group</a></h3>
+	<p>Hiilite works with a mix of local, regional, provincial and international clients. We are equally happy working face-to-face and working remotely. We serve BC, Western Canada and beyond from a little corner of paradise - Kelowna, BC.</p>
+	<h4>Need Help</h4>
+	<p>
+		<a href="https://hiilite.com/knowledge-base/hiiwp-wordpress-theme/" target="_blank">Read Knowledge Base</a> | <a href="https://hiilite.com/support/request-product-support/" target="_blank">Submit a Support Ticket</a>
 	</p><div id="social-icons">
 	<a href="https://www.facebook.com/hiilite" target="_blank"><img src="https://hiilite.com/wp-content/uploads/2014/11/Facebook-32.png" width="32" height="32" alt="Facebook" scale="0"></a><a href="https://twitter.com/hiilite" target="_blank"><img src="https://hiilite.com/wp-content/uploads/2014/11/Twitter-Bird-32.png" width="32" height="32" alt="Twitter" scale="0"></a><a href="https://plus.google.com/u/0/b/107657092449987968512/107657092449987968512" target="_blank"><img src="https://hiilite.com/wp-content/uploads/2014/11/Google-Plus-32.png" width="32" height="32" alt="Google" scale="0"></a>
 	</div><?php 
@@ -105,31 +104,23 @@ class HiiWP_Dashboard {
 		$wp_admin_bar->add_node( $args );
 		
 		$args = array(
-			'id'    => 'hiilite_marketing',
-			'title' => 'Marketing',
-			'href'  => 'https://hiilite.com/marketing-strategy/',
-			'meta'  => array( 'class' => 'hiilite_marketing' ),
+			'id'    => 'hiilite_support_ticket',
+			'title' => 'Submit Support Ticket',
+			'href'  => 'https://hiilite.com/support/request-product-support/',
+			'meta'  => array( 'class' => 'hiilite_support_ticket' ),
 			'parent' => $wplogo_id
 		);
 		$wp_admin_bar->add_node( $args );
 		
 		$args = array(
-			'id'    => 'hiilite_webdesign',
-			'title' => 'Web Design',
-			'href'  => 'https://hiilite.com/website-design/',
-			'meta'  => array( 'class' => 'hiilite_webdesign' ),
+			'id'    => 'hiilite_knowledgebase',
+			'title' => 'Knowledge Base',
+			'href'  => 'https://hiilite.com/knowledgebase/',
+			'meta'  => array( 'class' => 'hiilite_knowledgebase' ),
 			'parent' => $wplogo_id
 		);
 		$wp_admin_bar->add_node( $args );
 		
-		$args = array(
-			'id'    => 'hiilite_seo',
-			'title' => 'SEO',
-			'href'  => 'https://hiilite.com/seo-social-media/',
-			'meta'  => array( 'class' => 'hiilite_seo' ),
-			'parent' => $wplogo_id
-		);
-		$wp_admin_bar->add_node( $args );
 	}
 
 	public function hiilite_login_logo() { 

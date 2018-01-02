@@ -8,7 +8,7 @@
  * @author      Peter Vigilante
  * @copyright   Copyright (c) 2017, Hiilite Creative Group
  * @license     http://opensource.org/licenses/https://opensource.org/licenses/MIT
- * @since       0.4.3
+ * @since       0.4.7
  */
 if ( ! defined( 'ABSPATH' ) )	exit;
 /**
@@ -49,6 +49,8 @@ class HiiWP extends Hii {
 		add_action('admin_menu', array( $this, 'hiiwp_adminmenu'), 10);
 		
 		add_action( 'after_setup_theme', array( $this, 'woocommerce_support') );
+		add_action( 'after_setup_theme', array( $this, 'sensei_support') );
+		
 		add_action( 'after_switch_theme', array( $this, 'set_permalink_structure') ); // Load admin JavaScript. Do an is_admin() check before calling My_Custom_Plugin
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_admin_scripts' ), 100 );
 		add_action( 'wp_ajax_hiiwp_disable_tour_mode', array( $this, 'hiiwp_disable_tour_mode' )); //Used to disable tour mode
@@ -179,10 +181,6 @@ class HiiWP extends Hii {
 		
 		add_submenu_page('hii_seo_settings', __('Install Plugins', 'hiiwp'), __('Install Plugins', 'hiiwp'), 'manage_options', 'themes.php?page=tgmpa-install-plugins');
 		
-	    add_menu_page( __('About HiiWP SEO', 'hiiwp'), __('About', 'hiiwp'), 'manage_options', 'admin.php?page=about_hii_seo','hii_about_page');
-	    remove_menu_page( 'admin.php?page=about_hii_seo' );
-	    
-	    add_submenu_page( 'hii_seo_settings', __('About HiiWP', 'hiiwp'), __('About', 'hiiwp'), 'manage_options', 'admin.php?page=about_hii_seo','hii_about_page');
 	}
 	
 	
@@ -227,7 +225,7 @@ class HiiWP extends Hii {
 		} 
 		elseif( get_theme_mod('site_seo_title') != '' && is_front_page() ) {
 			$title['title'] = get_theme_mod('site_seo_title');
-		} 
+		}
 		
 	    return $title;
 	}
@@ -238,8 +236,8 @@ class HiiWP extends Hii {
 	 * @access public
 	 * @return void
 	 */
-	public function hii_about_page(){
-		require_once( HIILITE_DIR . '/includes/about.php');
+	public function hiiwp_welcome(){
+		require_once( HIILITE_DIR . '/includes/admin/hiiwp-welcome-screen.php');
 	}
 	
 	/**
@@ -250,6 +248,12 @@ class HiiWP extends Hii {
 	 */
 	public function woocommerce_support() {
     	add_theme_support( 'woocommerce' );
+    	add_theme_support( 'wc-product-gallery-zoom' );
+		add_theme_support( 'wc-product-gallery-lightbox' );
+	}
+	
+	public function sensei_support() {
+    	add_theme_support( 'sensei' );
 	}
 	
 	
@@ -393,7 +397,6 @@ class HiiWP extends Hii {
 	public function enqueue_admin_scripts() {
 		wp_enqueue_script( HIIWP_SLUG . '-pointer-js', HIIWP_URL.'/js/hiiwp-pointer.js', array( 'jquery' ), HIIWP_VERSION );
 		
-		wp_register_style( HIIWP_SLUG . '-admin-css', HIIWP_URL . '/css/hiiwp-admin.css', false, HIIWP_VERSION );
         wp_enqueue_style( HIIWP_SLUG . '-admin-css' );
 		
 		$tour_pointer_messages['hiiwp_intro_tour'] =  $this->load_intro_tour();
@@ -547,7 +550,8 @@ class HiiWP extends Hii {
 			array(
 	            'name'               => 'WPBakery Visual Composer', // The plugin name.
 	            'slug'               => 'js_composer', // The plugin slug (typically the folder name).
-	            'source'             => HIILITE_DIR . '/includes/Plugin-Activation/plugins/js_composer.zip', // The plugin source.
+	            'source'             => 'https://hiilite.com/download/9034/', // The plugin source.
+	            'version'			 => '5.4.5',
 	            'required'           => true, // If false, the plugin is only 'recommended' instead of required.
 	            'force_activation'   => true, // If true, plugin is activated upon theme activation and cannot be deactivated until theme switch.
 	            'force_deactivation' => false, // If true, plugin is deactivated upon theme switch, useful for theme-specific plugins.
@@ -555,22 +559,13 @@ class HiiWP extends Hii {
 			array(
 	            'name'      => 'Google Analytics Dashboard',
 	            'slug'      => 'google-analytics-dashboard-for-wp',
-	            'required'  => true,
+	            'required'  => false,
 	        ),
 	        array(
-	            'name'      => 'Google XML Sitemaps',
-	            'slug'      => 'google-sitemap-generator',
-	            'required'  => true,
+	            'name'      => 'Yoast SEO',
+	            'slug'      => 'wordpress-seo',
+	            'required'  => false,
 	        ),
-	        array(
-	            'name'               => 'Gravity Forms',
-	            'slug'               => 'gravityforms', 
-	            'source'             => HIILITE_DIR . '/includes/Plugin-Activation/plugins/gravityforms.zip',
-	            'required'           => false, 
-	            'force_activation'   => false, 
-	            'force_deactivation' => false, 
-	        ),
-	        
 	        array(
 	            'name'      => 'Imsanity',
 	            'slug'      => 'imsanity',
@@ -587,14 +582,23 @@ class HiiWP extends Hii {
 	            'required'  => false,
 	        ),
 	        array(
+	            'name'      => 'Optimus',
+	            'slug'      => 'optimus',
+	            'required'  => false,
+	        ),
+	        array(
 	            'name'      => 'Cloudflare',
 	            'slug'      => 'cloudflare',
 	            'required'  => false,
 	        ),
 	        array(
-	            'name'      => 'Optimus',
-	            'slug'      => 'optimus',
-	            'required'  => false,
+	            'name'               => 'Gravity Forms',
+	            'slug'               => 'gravityforms', 
+	            'source'             => 'https://hiilite.com/download/9030/',
+	            'version'			 => '2.2.5.20',
+	            'required'           => false, 
+	            'force_activation'   => false, 
+	            'force_deactivation' => false, 
 	        ),
 			array(
 	            'name'      => 'Gravity Forms Google Analytics Event Tracking',
@@ -619,7 +623,8 @@ class HiiWP extends Hii {
 	        array(
 	            'name'               => 'Backup Buddy', // The plugin name.
 	            'slug'               => 'backupbuddy', // The plugin slug (typically the folder name).
-	            'source'             => HIILITE_DIR . '/includes/Plugin-Activation/plugins/backupbuddy.zip', // The plugin source.
+	            'source'             => 'https://hiilite.com/download/9037/', // The plugin source.
+	            'version'			 => '8.2.0.2',
 	            'required'           => false, // If false, the plugin is only 'recommended' instead of required.
 	            'force_activation'   => false, // If true, plugin is activated upon theme activation and cannot be deactivated until theme switch.
 	            'force_deactivation' => false, // If true, plugin is deactivated upon theme switch, useful for theme-specific plugins
@@ -666,6 +671,38 @@ class HiiWP extends Hii {
 	
 	    tgmpa( $plugins, $config );
 	
+	}
+	
+	/**
+	 *
+	 * @desc registers a theme activation hook
+	 * @param string $code : Code of the theme. This can be the base folder of your theme. Eg if your theme is in folder 'mytheme' then code will be 'mytheme'
+	 * @param callback $function : Function to call when theme gets activated.
+	 */
+	public static function register_theme_activation_hook($code, $function) {
+	    $optionKey="theme_is_activated_" . $code;
+	    if(!get_option($optionKey)) {
+	        call_user_func($function);
+	        update_option($optionKey , 1);
+	    }
+	}
+	
+	/**
+	 * @desc registers deactivation hook
+	 * @param string $code : Code of the theme. This must match the value you provided in wp_register_theme_activation_hook function as $code
+	 * @param callback $function : Function to call when theme gets deactivated.
+	 */
+	public static function register_theme_deactivation_hook($code, $function) {
+	    // store function in code specific global
+	    $GLOBALS["register_theme_deactivation_hook_function" . $code]=$function;
+	
+	    // create a runtime function which will delete the option set while activation of this theme and will call deactivation function provided in $function
+	    $fn=create_function('$theme', ' call_user_func($GLOBALS["register_theme_deactivation_hook_function' . $code . '"]); delete_option("theme_is_activated_' . $code. '");');
+	
+	    // add above created function to switch_theme action hook. This hook gets called when admin changes the theme.
+	    // Due to wordpress core implementation this hook can only be received by currently active theme (which is going to be deactivated as admin has chosen another one.
+	    // Your theme can perceive this hook as a deactivation hook.
+	    add_action("switch_theme", $fn);
 	}
 }
 

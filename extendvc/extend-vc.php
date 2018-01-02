@@ -840,6 +840,24 @@ vc_add_param( 'vc_basic_grid',  array(
 						__( 'Use Grid Builder', 'hiiwp' ) => 'false'
 					)
 				));
+
+vc_add_param( 'vc_basic_grid',  array(
+				"type" => "dropdown",
+				"class" => "",
+				'holder'	=> 'div',
+				"heading" => "Grid Elements Per Row",
+				"param_name" => "element_width",
+				'save_always' => true,
+				'std'	=> 'true',
+				'description' => 'Layout must be set to Boxed or Masonry in the item design tab',
+				'value' => array(
+						'1' => '1',
+						'2' => '2',
+						'3' => '3',
+						'4' => '4',
+						'6' => '6'
+					)
+				));			
 				
 vc_add_param( 'vc_basic_grid',  array(
 				"type" => "dropdown",
@@ -1208,9 +1226,10 @@ if(class_exists('GFForms')) {
 //
 /////////////////////////////
 vc_map( array( 
-		"name" => "Button", 
+		"name" => "Hii Button", 
 		"base" => "button",
 		"category" => 'HiiWP',
+		"description" => "HiiWP Themes default button",
 		"icon" => "icon-wpb-ui-button",
 		"allowed_container_element" => 'vc_row',
 		"params" => array(
@@ -1801,7 +1820,7 @@ vc_map( array(
 
 ////////////////////////////
 //
-//	AMP Slider
+//	Hii Slider
 //
 /////////////////////////////
 vc_map( array(
@@ -2237,11 +2256,11 @@ vc_add_param( 'vc_tta_section', array(
 ));
 
 
-
 vc_add_param( 'vc_single_image', array(
-    'type' => 'textfield',
-    'heading' => __( 'Banner Text', 'hiiwp' ),
-    'param_name' => 'banner_text',
+    'type' => 'checkbox',
+    'heading' => __( 'Default Padding', 'hiiwp' ),
+    'param_name' => 'default_padding',
+    'description' => __('Add default theme padding of 1em to match text blocks.', 'hiiwp'),
 ));
 
 vc_add_param( 'vc_single_image', array(
@@ -2251,15 +2270,13 @@ vc_add_param( 'vc_single_image', array(
     'dependency' => array(
 	    'element' => 'onclick',
 	    'value'	=> 'custom_link',
-	    
-	    
     )
 ));
 
 vc_add_param( 'vc_single_image', array(
     'type' => 'textfield',
     'heading' => __( 'Image size', 'hiiwp' ),
-    'description' => __('Enter image size (Example: "thumbnail", "medium", "large", "full" or other sizes defined by theme). Alternatively enter size in pixels (Example: 200x100 (Width x Height)).', 'hiiwp'),
+    'description' => __('Enter image size (Example: "thumbnail", "medium", "large", "full" or other sizes defined by theme).', 'hiiwp'),
     'param_name' => 'img_size',
     'value' => 'full',
 ));
@@ -2270,11 +2287,25 @@ vc_add_param( 'vc_single_image', array(
     'description'	=> __('The hover image should be the same dimensions as the original image','hiiwp'),
     'param_name' => 'hover_image',
 ));
-//vc_remove_param( "vc_single_image", "onclick" ); 
+vc_remove_param( "vc_single_image", "title" ); 
 vc_remove_param( "vc_single_image", "style" ); 
 vc_remove_param( "vc_single_image", "img_link_target" );
+vc_remove_param( "vc_single_image", "border_color" );
 
+/*
+ *	vc_video
+ */
+vc_add_param( 'vc_video', array(
+    'type' => 'checkbox',
+    'heading' => __( 'Default Padding', 'hiiwp' ),
+    'param_name' => 'default_padding',
+    'description' => __('Add default theme padding of 1em to match text blocks.', 'hiiwp'),
+));
+vc_remove_param( "vc_video", "title" );
 
+/*
+ *	WooCommerce
+ */
 if ( class_exists( 'WooCommerce' ) ) {
 	vc_map( array(
 		"name" => "Cart Page",
@@ -2599,6 +2630,298 @@ vc_map( array(
 			)
 		)
 ) );
+
+// HII INFINITE CAROUSEL 
+vc_map( array(
+	'name' => __( 'Hii Infinite Carousel', 'hiiwp' ),
+	'base' => 'vc_tta_pageable',
+	'icon' => 'icon-wpb-images-carousel',
+	'is_container' => true,
+	'show_settings_on_create' => true,
+	'as_parent' => array(
+		'only' => 'vc_tta_section',
+	),
+	'category' => 'by Hiilite',
+	'description' => __( 'Infinite carousel', 'hiiwp' ),
+	'params' => array(
+		array(
+			'type' => 'hidden',
+			'param_name' => 'no_fill_content_area',
+			'std' => true,
+		),
+		array(
+			'type' => 'hidden',
+			'param_name' => 'is_hii_carousel',
+			'std' => true,
+		),
+		array(
+			'type' => 'hidden',
+			'param_name' => 'slider_type',
+			'value' => array(
+				__( 'Default', 'hiiwp' ) => 'default',
+				'Angled' => 'angled',
+			),
+			'default' => 'default',
+			'heading' => __( 'Slider Type', 'hiiwp' ),
+		),
+		array(
+			'type' => 'textfield',
+			'heading' => __( 'Carousel Width', 'hiiwp' ),
+			'param_name' => 'slider_width',
+			'value'		 => '1100',
+			'description' => __( '(px) Slider is responsive, but needs a set width and height to calculate ratio for images', 'hiiwp' ),
+		),
+		array(
+			'type' => 'textfield',
+			'heading' => __( 'Carousel Height', 'hiiwp' ),
+			'param_name' => 'slider_height',
+			'value'		 => '530',
+			'description' => __( '(px) Slider is responsive, but needs a set width and height to calculate ratio for images', 'hiiwp' ),
+		),
+		array(
+			'type' => 'hidden',
+			'heading' => __( 'Full Height', 'hiiwp' ),
+			'param_name' => 'slider_full_height',
+			'value'		 => false,
+			'description' => __( 'Set the slider to be the full height of the screen', 'hiiwp' ),
+		),
+		array(
+			'type' => 'dropdown',
+			'param_name' => 'autoplay',
+			'value' => array(
+				__( 'None', 'hiiwp' ) => 'none',
+				'Continuous' => '0',
+				'1' => '1',
+				'2' => '2',
+				'3' => '3',
+				'4' => '4',
+				'5' => '5',
+				'6' => '6',
+				'7' => '7',
+				'8' => '8',
+				'9' => '9',
+				'10' => '10',
+				'20' => '20',
+				'30' => '30',
+				'40' => '40',
+				'50' => '50',
+				'60' => '60',
+			),
+			'std' => 'none',
+			'heading' => __( 'Autoplay', 'hiiwp' ),
+			'description' => __( 'Select auto rotate for pageable in seconds (Note: disabled by default).', 'hiiwp' ),
+		),
+		array(
+			'type' => 'textfield',
+			'heading' => __( 'Extra class name', 'hiiwp' ),
+			'param_name' => 'el_class',
+			'description' => __( 'If you wish to style particular content element differently, then use this field to add a class name and then refer to it in your css file.', 'hiiwp' ),
+		),
+		array(
+			'type' => 'css_editor',
+			'heading' => __( 'CSS box', 'hiiwp' ),
+			'param_name' => 'css',
+			'group' => __( 'Design Options', 'hiiwp' ),
+		),
+	),
+	'js_view' => 'VcBackendTtaPageableView',
+	'custom_markup' => '
+<div class="vc_tta-container vc_tta-o-non-responsive" data-vc-action="collapse">
+	<div class="vc_general vc_tta vc_tta-tabs vc_tta-pageable vc_tta-color-backend-tabs-white vc_tta-style-flat vc_tta-shape-rounded vc_tta-spacing-1 vc_tta-tabs-position-top vc_tta-controls-align-left">
+		<div class="vc_tta-tabs-container">'
+	                   . '<ul class="vc_tta-tabs-list">'
+	                   . '<li class="vc_tta-tab" data-vc-tab data-vc-target-model-id="{{ model_id }}" data-element_type="vc_tta_section"><a href="javascript:;" data-vc-tabs data-vc-container=".vc_tta" data-vc-target="[data-model-id=\'{{ model_id }}\']" data-vc-target-model-id="{{ model_id }}"><span class="vc_tta-title-text">{{ section_title }}</span></a></li>'
+	                   . '</ul>
+		</div>
+		<div class="vc_tta-panels vc_clearfix {{container-class}}">
+		  {{ content }}
+		</div>
+	</div>
+</div>',
+	'default_content' => '
+[vc_tta_section title="' . sprintf( '%s %d', __( 'Slide', 'hiiwp' ), 1 ) . '"][/vc_tta_section]
+[vc_tta_section title="' . sprintf( '%s %d', __( 'Slide', 'hiiwp' ), 2 ) . '"][/vc_tta_section]
+	',
+	'admin_enqueue_js' => array(
+		vc_asset_url( 'lib/vc_tabs/vc-tabs.min.js' ),
+	),
+));
+
+
+vc_map( array(
+	'name' => __( 'Slide', 'hiiwp' ),
+	'base' => 'vc_tta_section',
+	'icon' => 'icon-wpb-ui-tta-section',
+	'allowed_container_element' => 'vc_row',
+	'is_container' => true,
+	'show_settings_on_create' => false,
+	'as_child' => array(
+		'only' => 'vc_tta_tour,vc_tta_tabs,vc_tta_accordion',
+	),
+	'category' => __( 'Content', 'hiiwp' ),
+	'description' => __( 'Section for Tabs, Tours, Accordions.', 'hiiwp' ),
+	'js_view' => 'VcBackendTtaSectionView',
+	'custom_markup' => '
+		<div class="vc_tta-panel-heading">
+		    <h4 class="vc_tta-panel-title vc_tta-controls-icon-position-left"><a href="javascript:;" data-vc-target="[data-model-id=\'{{ model_id }}\']" data-vc-accordion data-vc-container=".vc_tta-container"><span class="vc_tta-title-text">{{ section_title }}</span><i class="vc_tta-controls-icon vc_tta-controls-icon-plus"></i></a></h4>
+		</div>
+		<div class="vc_tta-panel-body">
+			{{ editor_controls }}
+			<div class="{{ container-class }}">
+			{{ content }}
+			</div>
+		</div>',
+	'default_content' => '',
+	'params' => array(
+		array(
+			'type' => 'checkbox',
+			'heading' => __( 'Active', 'hiiwp' ),
+			'param_name' => 'active',
+			'description' => __( 'If unchecked, slide will not be displayed', 'hiiwp' ),
+			'value' => array( __( 'Yes', 'hiiwp' ) => 'yes' ),
+			'std'	=> 'yes',
+		),
+		/*array(
+			'type' => 'checkbox',
+			'heading' => __( 'Show on page load', 'hiiwp' ),
+			'param_name' => 'show_tab',
+			'description' => __( 'The content will start out visible', 'hiiwp' ),
+			'value' => array( __( 'Yes', 'hiiwp' ) => 'yes' ),
+		),*/
+		array(
+			'type' => 'textfield',
+			'param_name' => 'title',
+			'heading' => __( 'Title', 'hiiwp' ),
+			'description' => __( 'Enter section title (Note: you can leave it empty).', 'hiiwp' ),
+		),
+		array(
+			'type' => 'attach_image',
+			'heading' => __( 'Slide Image', 'hiiwp' ),
+			'param_name' => 'image',
+			'value' => '',
+			'description' => __( 'Select image from media library.', 'hiiwp' ),
+		),
+		array(
+			'type' => 'dropdown',
+			'heading' => __( 'Image Position', 'hiiwp' ),
+			'param_name' => 'bg_img_pos',
+			'value' => array(
+				__( 'Default', 'hiiwp' ) => '',
+				__( 'Left Top', 'hiiwp' ) => 'lt',
+				__( 'Left Center', 'hiiwp' ) => 'lc',
+				__( 'Left Bottom', 'hiiwp' ) => 'lb',
+				__( 'Right Top', 'hiiwp' ) => 'rt',
+				__( 'Right Center', 'hiiwp' ) => 'rc',
+				__( 'Right Bottom', 'hiiwp' ) => 'rb',
+				__( 'Center Top', 'hiiwp' ) => 'ct',
+				__( 'Center Center', 'hiiwp' ) => 'cc',
+				__( 'Center Bottom', 'hiiwp' ) => 'cb',
+			),
+			'description' => __( 'Positioning of image.', 'hiiwp' ),
+			),	
+		array(
+			'type' => 'el_id',
+			'param_name' => 'tab_id',
+			'settings' => array(
+				'auto_generate' => true,
+			),
+			'heading' => __( 'Section ID', 'hiiwp' ),
+			'description' => __( 'Enter section ID (Note: make sure it is unique and valid according to <a href="%s" target="_blank">w3c specification</a>).', 'hiiwp' ),
+		),
+	),
+) );
+
+
+
+
+
+
+
+
+
+
+// HII ROTATING CAROUSEL 
+vc_map( array(
+        "name" => "Hii Rotating Carousel",
+		"base" => "hii_rotating_carousel",
+		"category" => 'by Hiilite',
+		"icon" => "icon-wpb-images-carousel",
+		"description" => __("Carousel of posts.", 'hiiwp' ),
+		"allowed_container_element" => 'vc_row',
+		"params" => array(
+			array(
+				"type" => "textfield",
+				"heading" => "Post IDs",
+				"param_name" => "post_ids",
+				"value" => "",
+				"description" => __( 'Enter posts IDs to display, minimum of 3. Note: separate values by commas (,)', 'hiiwp' ),
+				'save_always' => true,
+				'admin_label' => true
+
+			),
+            array(
+                "type" => "dropdown",
+                "heading" => "Show Title",
+                "param_name" => "show_title",
+                "value" => array(
+                    "Yes" => "yes",
+                    "No" => "no"
+                ),
+                "default" => "yes",
+                "description" => __( 'Show the post title', 'hiiwp' ),
+				'save_always' => true,
+				'admin_label' => true
+            ),
+            array(
+                "type" => "dropdown",
+                "heading" => "Show Excerpt",
+                "param_name" => "show_excerpt",
+                "value" => array(
+                    "Yes" => "yes",
+                    "No" => "no"
+                ),
+                "default" => "yes",
+                "description" => __( 'Show the post excerpt', 'hiiwp' ),
+				'save_always' => true,
+                "description" => "",
+				'admin_label' => true
+            ),
+            array(
+                "type" => "dropdown",
+                "heading" => "Show More Button",
+                "param_name" => "show_btn",
+                "value" => array(
+                    "Yes" => "yes",
+                    "No" => "no"
+                ),
+                "default" => "yes",
+                "description" => __( 'Show Read More button', 'hiiwp' ),
+				'save_always' => true,
+                "description" => "",
+				'admin_label' => true
+            ),
+            array(
+                "type" => "textfield",
+                "heading" => "Button Text",
+                "param_name" => "btn_text",
+                "value" => "Read More",
+                "description" => __( 'Change Read More button text', 'hiiwp' ),
+				'save_always' => true,
+				'admin_label' => true,
+				'dependency' => array(
+					'element' => 'show_btn',
+					'value' => 'yes',
+				)
+			),
+			array(
+				'type' => 'css_editor',
+				'heading' => __( 'CSS box', 'hiiwp' ),
+				'param_name' => 'css',
+				'group' => __( 'Design Options', 'hiiwp' ),
+			)
+		)
+) );
+
 
 // TESTIMONIALS
 if($hiilite_options['testimonials_on']){

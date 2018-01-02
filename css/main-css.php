@@ -38,6 +38,11 @@ include_once('font-awesome/css/font-awesome.min.css');
 /*--------------------------------------------------------------
 1.0 Normalize
 --------------------------------------------------------------*/
+body * {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
 html {
 	-webkit-font-smoothing: antialiased;
     text-shadow: 1px 1px 1px rgba(0,0,0,0.004);
@@ -222,6 +227,10 @@ template,
 img.alignright {
 	float:right;
 }
+p img.alignright,
+figure.alignright {
+	margin-left: 1em;
+}
 .align-left, 
 .alignleft {
 	text-align: left;
@@ -230,6 +239,10 @@ img.alignright {
 }
 img.alignleft {
 	float:left;
+}
+p img.alignleft,
+figure.alignright {
+	margin-right: 1em;
 }
 .align-center, 
 .aligncenter {
@@ -605,7 +618,6 @@ h6 a:hover  {
 --------------------------------------------------------------*/
 
 /* Post Landing Page */
-
 .sticky {
 	position: relative;
 }
@@ -754,7 +766,9 @@ h6 a:hover  {
 }
 
 /* Blog landing, search, archives */
-
+#home_blog_loop .blog-article:first-child {
+	margin-top: 1em;
+}
 .blog .site-main > article,
 .archive .site-main > article,
 .search .site-main > article {
@@ -1471,6 +1485,7 @@ p .alignright {
 
 
 <?php 
+	
 //////////////////////
 //
 //	note: Generate Heading tags
@@ -1484,11 +1499,13 @@ for($h=1;$h<=6;$h++):
 	get_font_css(Hii::$options['typography_h'.$h.'_font']);
 	echo '}';
 	
-	$font_size = preg_match('/([0-9]+\.[0-9]+)/', Hii::$options['typography_h'.$h.'_font']['font-size'],$fs_int);
+	preg_match('/^[0-9]+(\.[0-9]{1,2})?/', Hii::$options['typography_h'.$h.'_font']['font-size'], $font_size);
+	
+	
 	$font_unit = preg_replace("/[^a-zA-Z]+/", "", Hii::$options['typography_h'.$h.'_font']['font-size']);
-	if($font_size && $font_unit){
-		$tablet_heading_sizes .= $heading_rule . 'font-size:' . ($fs_int[0]* 0.85) . $font_unit . '}';
-		$mobile_heading_sizes .= $heading_rule . 'font-size:' . ($fs_int[0]* 0.75) . $font_unit . '}';
+	if(isset($font_size) && $font_unit){
+		$tablet_heading_sizes .= $heading_rule . 'font-size:' . ($font_size[0] * 0.83) . $font_unit . '}';
+		$mobile_heading_sizes .= $heading_rule . 'font-size:' . ($font_size[0] * 0.75) . $font_unit . '}';
 	}
 endfor; 
 
@@ -1519,7 +1536,7 @@ table td {
 }
 
 .container_inner, .in_grid {
-	margin: auto;
+	margin: 0 auto auto auto;
 	display: flex;
 	width: 100%;
 	align-items: stretch;
@@ -1921,6 +1938,7 @@ endif; ?>
 	<?php get_font_css(get_theme_mod('icon_settings_bg')); ?>
 	border:<?php echo get_theme_mod('icon_settings_border', '0'); ?> solid;
 	border-radius:<?php echo get_theme_mod('icon_settings_border_r', '0'); ?>;
+	box-sizing: content-box;
 }
 
 
@@ -1969,7 +1987,8 @@ aside .widget ul li {
 	border-bottom: 1px solid rgba(204, 204, 204, 0.2);
 }
 .sidebar {
-	background: <?php echo Hii::$options['sidebar_background'];?>;	
+	background: <?php echo Hii::$options['sidebar_background'];?>;
+	border: <?php echo Hii::$options['sidebar_border_width'].' solid '.Hii::$options['sidebar_border_color'];?>;
 }
 .sidebar .depth_2 {
 	padding-left:1em;	
@@ -1994,6 +2013,12 @@ aside .widget ul li {
 	<?php
 	echo 'margin:'.get_spacing(Hii::$options['sidebar_widget_margin']).';';	
 	?>
+}
+.sidebar > .widget {
+	<?php
+	echo 'padding:'.get_spacing(Hii::$options['sidebar_widget_padding']).';';	
+	?>
+	border: <?php echo Hii::$options['sidebar_widget_border_width'].' solid '.Hii::$options['sidebar_widget_border_color'];?>;
 }
 /* Re coloring*/
 .color_one  { color: <?php echo Hii::$options['color_one'];?>; }
@@ -2448,8 +2473,7 @@ details.wpb_accordion_section.group {
 /*
  //	note: WP_User_Manager	
  */
-if(class_exists('WP_User_Manager')):
-	?>
+if(class_exists('WP_User_Manager')): ?>
 	.wpum-profile-card .wpum-profile-img {
 	    position: relative;
 	    left: 0;
@@ -2470,82 +2494,41 @@ if(class_exists('WP_User_Manager')):
 		border: none;
 		padding: 0;
 	}
-	
-	
 	<?php
 endif;
 
+if(class_exists('Vc_Manager')): 
+	get_template_part('css/service_extensions/js_composer', 'css');	
+endif;
 if(class_exists('BuddyPress')): 
 	get_template_part('css/service_extensions/buddypress', 'css');	
 endif;
 if(class_exists('WooCommerce')):
 	get_template_part('css/service_extensions/woocommerce', 'css');	
 endif;
+if(class_exists('Sensei_Main')):
+	get_template_part('css/service_extensions/sensei', 'css');	
+endif;
 if(class_exists('GFForms')):
 	get_template_part('css/service_extensions/gravityforms', 'css');	
 endif;
 
-if ( is_customize_preview() ) :
-?>
-.customizer_quick_links {
-	position: absolute;
-	top: 0;
-	right: 0;
-}
-
-.customizer-edit {
-	border: none;
-    background: #555d66;
-    color: white;
-    position: relative;
-    right: 0;
-    overflow: hidden;
-    max-width: 1.5em;
-    white-space: nowrap;
-    padding: 2px 4px;
-    box-sizing: border-box;
-    line-height: 1;
-    cursor: context-menu;
-    height: 1.5em;
-}
-.customizer_quick_links .customizer-edit:first-child {
-	border-radius: 10px 0px 0px 10px;
-}
-button.customizer-edit:hover {
-    max-width: 100%;
-    z-index: 9999;
-}
-.customizer-edit:before {
-	content: "\f040";
-	padding-right:0.5em;
-	display: inline-block;
-    font: normal normal normal 14px/1 FontAwesome;
-    font-size: inherit;
-    text-rendering: auto;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-}
-.customizer-edit.font-edit:before {
-	content: "\f031";
-}
-<?php
-endif;
-
 if(is_user_logged_in()):
-?>
-li#wp-admin-bar-new_draft, li#wp-admin-bar-edit, li#wp-admin-bar-new-content, li#wp-admin-bar-customize, li#wp-admin-bar-site-name {
-    max-width: 2.5em;
-    text-overflow: clip;
-    white-space: nowrap;
-}
-li#wp-admin-bar-my-account span.display-name {
-    display: none;
-}
-a.ab-item {
-    overflow: hidden;
-} 
-<?php
+	?>
+	li#wp-admin-bar-new_draft, li#wp-admin-bar-edit, li#wp-admin-bar-new-content, li#wp-admin-bar-customize, li#wp-admin-bar-site-name {
+	    max-width: 2.5em;
+	    text-overflow: clip;
+	    white-space: nowrap;
+	}
+	li#wp-admin-bar-my-account span.display-name {
+	    display: none;
+	}
+	a.ab-item {
+	    overflow: hidden;
+	} 
+	<?php
 endif;
+
 $custom_formats = '
 .custom_format_1 {
 	'.preg_replace('/[{}]/','',Hii::$options['custom_format_1']).'

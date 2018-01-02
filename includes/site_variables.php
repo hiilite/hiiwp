@@ -61,8 +61,8 @@ $hiilite_options['testimonials_tax_slug'] 		= get_theme_mod('testimonials_tax_sl
 $hiilite_options['testimonials_body_font'] 			= get_theme_mod('testimonials_body_font', array(
         'font-family'    => ' ',
         'variant'        => ' ',
-        'font-size'      => ' ',
-        'line-height'    => ' ',
+        'font-size'      => '1em',
+        'line-height'    => '1.5',
         'letter-spacing' => '0px',
         'text_transform'    => ' ',
         'color'          => get_theme_mod('color_four','#333333'),
@@ -72,8 +72,8 @@ $hiilite_options['testimonials_body_font'] 			= get_theme_mod('testimonials_body
 $hiilite_options['testimonials_author_font'] 		= get_theme_mod('testimonials_author_font', array(
         'font-family'    => ' ',
         'variant'        => ' ',
-        'font-size'      => ' ',
-        'line-height'    => ' ',
+        'font-size'      => '1em',
+        'line-height'    => '1.5',
         'letter-spacing' => '0px',
         'text_transform'    => ' ',
         'color'          => get_theme_mod('color_four','#333333'),
@@ -287,7 +287,9 @@ $hiilite_options['main_menu_colors']		= get_theme_mod('main_menu_colors', array(
         'active'  => '',
         'hover_background'  => '',
     ));
-    
+  
+$hiilite_options['moblie_menu_background_color'] = get_theme_mod( 'moblie_menu_background_color', '#ffffff' );
+  
 $hiilite_options['second_level_menu_font']	= get_theme_mod( 'second_level_menu_font', array(
         'font-family'    => ' ',
         'variant'        => ' ',
@@ -323,7 +325,7 @@ $hiilite_options['title_padding']			= get_theme_mod( 'title_padding', array(
 	));
 $hiilite_options['title_font']				= get_theme_mod( 'title_font', array(
 	'font-family'    => 'Open Sans',
-    'variant'        => '800',
+    'variant'        => '600',
     'font-size'      => '4em',
     'line-height'    => '1',
     'letter-spacing' => '0',
@@ -351,7 +353,7 @@ $hiilite_options['typography_h1_font']				= get_theme_mod( 'typography_h1_font',
         'font-family'    => $hiilite_options['default_font']['font-family'],
         'variant'        => '300',
         'font-size'      => '2.5rem',
-        'line-height'    => ' ',
+        'line-height'    => '1.5',
         'letter-spacing' => '0',
         'text-transform' => ' ',
         'color'          => ' ',
@@ -361,7 +363,7 @@ $hiilite_options['typography_h2_font']				= get_theme_mod( 'typography_h2_font',
         'font-family'    => $hiilite_options['default_font']['font-family'],
         'variant'        => '300',
         'font-size'      => '2rem',
-        'line-height'    => ' ',
+        'line-height'    => '1.5',
         'letter-spacing' => '0',
         'text-transform' => ' ',
         'color'          => '#666',
@@ -369,9 +371,9 @@ $hiilite_options['typography_h2_font']				= get_theme_mod( 'typography_h2_font',
     
 $hiilite_options['typography_h3_font']				= get_theme_mod( 'typography_h3_font', array(
         'font-family'    => $hiilite_options['default_font']['font-family'],
-        'variant'        => ' ',
+        'variant'        => '400',
         'font-size'      => '1.57rem',
-        'line-height'    => ' ',
+        'line-height'    => '1.5',
         'letter-spacing' => '0',
         'text-transform' => ' ',
         'color'          => '#333',
@@ -379,9 +381,9 @@ $hiilite_options['typography_h3_font']				= get_theme_mod( 'typography_h3_font',
     
 $hiilite_options['typography_h4_font']				= get_theme_mod( 'typography_h4_font', array(
         'font-family'    => $hiilite_options['default_font']['font-family'],
-        'variant'        => '800',
+        'variant'        => '600',
         'font-size'      => '1.33rem',
-        'line-height'    => ' ',
+        'line-height'    => '1.5',
         'letter-spacing' => '0',
         'text-transform' => ' ',
         'color'          => '#333',
@@ -389,9 +391,9 @@ $hiilite_options['typography_h4_font']				= get_theme_mod( 'typography_h4_font',
     
 $hiilite_options['typography_h5_font']				= get_theme_mod( 'typography_h5_font', array(
         'font-family'    => $hiilite_options['default_font']['font-family'],
-        'variant'        => '800',
+        'variant'        => '600',
         'font-size'      => '0.84rem',
-        'line-height'    => ' ',
+        'line-height'    => '1.5',
         'letter-spacing' => '0.15em',
         'text-transform' => 'uppercase',
         'color'          => '#767676',
@@ -399,9 +401,9 @@ $hiilite_options['typography_h5_font']				= get_theme_mod( 'typography_h5_font',
     
 $hiilite_options['typography_h6_font']				= get_theme_mod( 'typography_h6_font', array(
         'font-family'    => $hiilite_options['default_font']['font-family'],
-        'variant'        => '800',
+        'variant'        => '600',
         'font-size'      => '0.6375rem',
-        'line-height'    => ' ',
+        'line-height'    => '1.5',
         'letter-spacing' => '0',
         'text-transform' => ' ',
         'color'          => '#333',
@@ -473,6 +475,8 @@ $hiilite_options['typography_button_default_background'] =  get_theme_mod( 'typo
 		'base' 	=> 'none',
 		'hover' => $hiilite_options['color_one'],
 ));
+$hiilite_options['typography_button_default_hover_color'] =  get_theme_mod( 'typography_button_default_hover_color', '#ffffff');
+
 $hiilite_options['typography_button_default_padding'] =  get_theme_mod('typography_button_default_padding', array(
 		'top'    => '0.5em',
 		'right'  => '1.5em',
@@ -486,7 +490,7 @@ $hiilite_options['typography_button_default_border_color'] =  get_theme_mod( 'ty
 $hiilite_options['typography_button_default_border_width'] =  get_theme_mod( 'typography_button_default_border_width', '2px');
 $hiilite_options['typography_button_default_border_radius'] =  get_theme_mod( 'typography_button_default_border_radius', '2px');
 $hiilite_options['typography_button_custom_css']	= get_theme_mod( 'typography_button_custom_css', '.button {
-	margin: 1em 0;
+	margin: 1em;
 	text-decoration: none;
 	display: inline-block;
 }' );
@@ -501,12 +505,15 @@ $hiilite_options['typography_button_primary_font']	= get_theme_mod( 'typography_
         'line-height'    => '1.5',
         'letter-spacing' => '0px',
         'text-align'	 => 'center',
+        'text-transform' => 'uppercase',
         'color'          => '#ffffff',
     ) );
 $hiilite_options['typography_button_primary_background'] =  get_theme_mod( 'typography_button_primary_background', array(
 	'base'	=> $hiilite_options['color_two'],
 	'hover'	=> $hiilite_options['color_one']
 ));
+$hiilite_options['typography_button_primary_hover_color'] =  get_theme_mod( 'typography_button_primary_hover_color', '#ffffff');
+
 $hiilite_options['typography_button_primary_padding'] =  get_theme_mod('typography_button_primary_padding', array(
 		'top'    => '0.5em',
 		'right'  => '1em',
@@ -531,12 +538,15 @@ $hiilite_options['typography_button_secondary_font']	= get_theme_mod( 'typograph
         'line-height'    => '1.5',
         'letter-spacing' => '0px',
         'text-align'	 => 'center',
+        'text-transform' => 'uppercase',
         'color'          => $hiilite_options['color_four'],
     ) );
 $hiilite_options['typography_button_secondary_background'] =  get_theme_mod( 'typography_button_secondary_background', array(
 	'base'	=>'none',
 	'hover'	=>$hiilite_options['color_three']
 ));
+$hiilite_options['typography_button_secondary_hover_color'] =  get_theme_mod( 'typography_button_secondary_hover_color', '#303030');
+
 $hiilite_options['typography_button_secondary_padding'] =  get_theme_mod('typography_button_secondary_padding', array(
 		'top'    => '0.5em',
 		'right'  => '1em',
@@ -650,12 +660,23 @@ $hiilite_options['sidebar_padding'] 				= get_theme_mod( 'sidebar_padding', arra
 		'bottom' => '1em',
 		'left'   => '1em',
 	));
+$hiilite_options['sidebar_border_width']		= get_theme_mod( 'sidebar_border_width', '0px');
+$hiilite_options['sidebar_border_color']		= get_theme_mod( 'sidebar_border_color', '');
+
 $hiilite_options['sidebar_widget_margin'] 				= get_theme_mod( 'sidebar_widget_margin', array(
 		'top'    => '1em',
 		'right'  => '0em',
 		'bottom' => '1em',
 		'left'   => '0em',
 	));
+$hiilite_options['sidebar_widget_padding'] 				= get_theme_mod( 'sidebar_widget_padding', array(
+		'top'    => '0em',
+		'right'  => '0em',
+		'bottom' => '0em',
+		'left'   => '0em',
+	));
+$hiilite_options['sidebar_widget_border_width']		= get_theme_mod( 'sidebar_widget_border_width', '0px');
+$hiilite_options['sidebar_widget_border_color']		= get_theme_mod( 'sidebar_widget_border_color', '');
 
 // PORTFOLIO
 $hiilite_options['portfolio_slug']		= get_theme_mod( 'portfolio_slug', 'portfolio' );

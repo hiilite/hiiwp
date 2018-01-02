@@ -8,7 +8,7 @@
  * @author      Peter Vigilante
  * @copyright   Copyright (c) 2017, Hiilite Creative Group
  * @license     http://opensource.org/licenses/https://opensource.org/licenses/MIT
- * @since       0.4.5
+ * @since       0.4.7
  */
 
 
@@ -55,7 +55,7 @@ class Hii {
 	 */
 	private function define_constants(){
 	    if ( ! defined( 'HIIWP_VERSION' ) ) {                
-			 define( 'HIIWP_VERSION', '0.4.6' );
+			 define( 'HIIWP_VERSION', '0.4.7' );
 		}
 		if ( ! defined( 'HIIWP_SLUG' ) ) {                
 		    define( 'HIIWP_SLUG', 'hiiwp' );           
@@ -123,7 +123,7 @@ class Hii {
 	
 	
 	private function add_dependencies(){
-		include_once( HIILITE_DIR . '/addons/cmb2-functions.php' );
+		include_once( HIILITE_DIR . '/addons/cmb2-functions.php' ); 
 		if(!class_exists('Cmb2_Metatabs_Options'))	include_once( HIILITE_DIR . '/addons/cmb2-metatabs-options/cmb2_metatabs_options.php' );
 		if(!class_exists('CMB2_Conditionals'))		include_once( HIILITE_DIR . '/addons/cmb2-conditionals/cmb2-conditionals.php' );
 		if(!class_exists('PW_CMB2_Field_Select2'))	include_once( HIILITE_DIR . '/addons/cmb-field-select2/cmb-field-select2.php' );
@@ -133,13 +133,15 @@ class Hii {
 	
 	private function add_service_extensions(){
 		if(class_exists('WooCommerce')){
-			add_theme_support( 'wc-product-gallery-zoom' );
-			add_theme_support( 'wc-product-gallery-lightbox' );
-			add_theme_support( 'wc-product-gallery-slider' );
+			get_template_part( 'includes/service_extensions/woocommerce' );
+		}
+		
+		if(class_exists('Sensei_Main')){
+			get_template_part( 'includes/service_extensions/sensei' );
 		}
 		
 		if(class_exists('WP_User_Manager')):
-			require_once( HIILITE_DIR . '/includes/shortcodes/wpum.php');
+			get_template_part( 'includes/shortcodes/wpum');
 		endif;
 		
 		
@@ -287,9 +289,9 @@ function hii_get_the_title(){
 	if( is_archive() )
 		$page_title = get_the_archive_title();
 	elseif( is_home() && ! is_front_page() ) 
-		$page_title = get_the_title( get_option('page_for_posts', true) );
-	elseif( is_front_page() )
-		$page_title = __( 'Posts', 'hiiwp' );
+		$page_title = get_the_title( get_option( 'page_for_posts', true ) );
+	elseif( is_front_page() && ! is_home( ) )
+		$page_title = get_the_title( get_the_id( ) );
 	else
 		$page_title = get_the_title( get_the_id( ));
 	
@@ -307,9 +309,7 @@ function hii_the_title() {
 	echo hii_get_the_title();
 }
 
-if(class_exists('WooCommerce')){
-	include_once( HIILITE_DIR . '/includes/service_extensions/woocommerce.php' );
-}
+
 /*
 Include Support Add-ons	
 */
@@ -1567,7 +1567,7 @@ function get_portfolio($args = null, $options = null){
 	    //////////////////////////
 	    
 	    if($args['post_type'] == 'attachment'):
-		    if($portfolio_layout == 'masonry') $html .= '<div class="row masonry col-count-'.$portfolio_columns.'">';
+		    if($portfolio_layout == 'masonry' || $portfolio_layout == false) $html .= '<div class="row masonry col-count-'.$portfolio_columns.'">';
 		    if($portfolio_layout == 'full-width') $html .= '<div class="row masonry col-count-12">';
 		    $css .= '.masonry article{padding:'.$add_padding.';}';
 		    foreach ( $query->posts as $attachment) :
