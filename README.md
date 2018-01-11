@@ -2,6 +2,10 @@
 This theme is currently in Alpha testing and should not be installed without the support of the team at Hiilite Creative Group
 
 ### Change log
+#### v0.4.8
+- Fixes for colors in customizer
+- Removed BackupBuddy from default plugins
+
 #### v0.4.7
 - Adding Sensei support (in development) 
 - Updates to Kirki

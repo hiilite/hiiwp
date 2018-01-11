@@ -83,7 +83,7 @@ $hiilite_options['testimonials_author_font'] 		= get_theme_mod('testimonials_aut
 
 
 
-$hiilite_options['color_one']					= get_theme_mod( 'color_one', '#000000');
+$hiilite_options['color_one']					= get_theme_mod( 'color_one', 'rgba(0,0,0,1)');
 $hiilite_options['color_two']					= get_theme_mod( 'color_two', '#303030');
 $hiilite_options['color_three']					= get_theme_mod( 'color_three', '#b4b4b4');
 $hiilite_options['color_four']					= get_theme_mod( 'color_four', '#b4b4b4');
@@ -355,8 +355,8 @@ $hiilite_options['typography_h1_font']				= get_theme_mod( 'typography_h1_font',
         'font-size'      => '2.5rem',
         'line-height'    => '1.5',
         'letter-spacing' => '0',
-        'text-transform' => ' ',
-        'color'          => ' ',
+        'text-transform' => 'none',
+        'color'          => '#333',
     ) );
     
 $hiilite_options['typography_h2_font']				= get_theme_mod( 'typography_h2_font', array(
@@ -365,7 +365,7 @@ $hiilite_options['typography_h2_font']				= get_theme_mod( 'typography_h2_font',
         'font-size'      => '2rem',
         'line-height'    => '1.5',
         'letter-spacing' => '0',
-        'text-transform' => ' ',
+        'text-transform' => 'none',
         'color'          => '#666',
     ) );
     
@@ -375,7 +375,7 @@ $hiilite_options['typography_h3_font']				= get_theme_mod( 'typography_h3_font',
         'font-size'      => '1.57rem',
         'line-height'    => '1.5',
         'letter-spacing' => '0',
-        'text-transform' => ' ',
+        'text-transform' => 'none',
         'color'          => '#333',
     ) );
     
@@ -385,7 +385,7 @@ $hiilite_options['typography_h4_font']				= get_theme_mod( 'typography_h4_font',
         'font-size'      => '1.33rem',
         'line-height'    => '1.5',
         'letter-spacing' => '0',
-        'text-transform' => ' ',
+        'text-transform' => 'none',
         'color'          => '#333',
     ) );
     
@@ -405,7 +405,7 @@ $hiilite_options['typography_h6_font']				= get_theme_mod( 'typography_h6_font',
         'font-size'      => '0.6375rem',
         'line-height'    => '1.5',
         'letter-spacing' => '0',
-        'text-transform' => ' ',
+        'text-transform' => 'none',
         'color'          => '#333',
     ) );
     
@@ -472,7 +472,7 @@ $hiilite_options['typography_button_default_font']	= get_theme_mod( 'typography_
         
     ) );
 $hiilite_options['typography_button_default_background'] =  get_theme_mod( 'typography_button_default_background', array(
-		'base' 	=> 'none',
+		'base' 	=> 'rgba(0,0,0,0)',
 		'hover' => $hiilite_options['color_one'],
 ));
 $hiilite_options['typography_button_default_hover_color'] =  get_theme_mod( 'typography_button_default_hover_color', '#ffffff');
@@ -542,8 +542,8 @@ $hiilite_options['typography_button_secondary_font']	= get_theme_mod( 'typograph
         'color'          => $hiilite_options['color_four'],
     ) );
 $hiilite_options['typography_button_secondary_background'] =  get_theme_mod( 'typography_button_secondary_background', array(
-	'base'	=>'none',
-	'hover'	=>$hiilite_options['color_three']
+	'base'	=> 'rgba(255,255,255,1)',
+	'hover'	=> $hiilite_options['color_three']
 ));
 $hiilite_options['typography_button_secondary_hover_color'] =  get_theme_mod( 'typography_button_secondary_hover_color', '#303030');
 

@@ -39,7 +39,7 @@ class Kirki_Control_FontAwesome extends Kirki_Control_Base {
 
 		ob_start();
 		$json_path = wp_normalize_path( Kirki::$path . '/assets/vendor/fontawesome/fontawesome.json' );
-		include( $json_path );
+		include $json_path;
 		$font_awesome_json = ob_get_clean();
 
 		wp_localize_script( 'kirki-script', 'fontAwesomeJSON', $font_awesome_json );
@@ -58,7 +58,7 @@ class Kirki_Control_FontAwesome extends Kirki_Control_Base {
 	protected function content_template() {
 		?>
 		<label>
-			<# if ( data.label ) { #><span class="customize-control-title">{{ data.label }}</span><# } #>
+			<# if ( data.label ) { #><span class="customize-control-title">{{{ data.label }}}</span><# } #>
 			<# if ( data.description ) { #><span class="description customize-control-description">{{{ data.description }}}</span><# } #>
 			<select {{{ data.inputAttrs }}} {{{ data.link }}}></select>
 		</label>

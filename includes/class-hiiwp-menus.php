@@ -26,11 +26,11 @@ class HiiWP_Menus {
 	public function __construct() {
 		if(Hii::$options['enable_search_bar_yesno'] == true) {
 			$theme_locations = get_nav_menu_locations();
-			
-			$menu_obj = get_term( $theme_locations['header-menu'], 'nav_menu' );
+			if(isset($theme_locations['header-menu'])){
+				$menu_obj = get_term( $theme_locations['header-menu'], 'nav_menu' );
 		
-			add_filter( "wp_nav_menu_{$menu_obj->slug}_items", array( $this, 'add_search_button' ), 20 );
-
+				add_filter( "wp_nav_menu_{$menu_obj->slug}_items", array( $this, 'add_search_button' ), 20 );
+			}
 		}
 		$options = get_option('hii_seo_settings');
 		if(isset($options['add_social_to_menu'])):

@@ -22,7 +22,7 @@ $post_meta = get_post_meta(get_the_id());
 	<?php endif; 
 		
 	echo '<div class="twothird-width content-box">';
-	if(is_single() && get_post_meta(get_the_id(), 'show_page_title', true) != 'on'){
+	if( (is_single() && get_post_meta(get_the_id(), 'show_page_title', true) != 'on' ) || is_archive(  )){
 		?>
 		<span itemprop="articleSection" class="labels"><a rel="category tag"><?php 
 			$terms = get_the_terms( $post->id, 'menu-section');
@@ -79,7 +79,7 @@ $post_meta = get_post_meta(get_the_id());
 	
 	echo '</div>';
 	echo '</article>';
-
+if(! is_archive(  )):
 
 	echo '<div class="row"><div class="container_inner"><div class="in_grid">';
 	echo '<div class="flex-item text-block align-center">';
@@ -101,6 +101,5 @@ $post_meta = get_post_meta(get_the_id());
 	echo '<div class="row"><div class="container_inner"><div class="in_grid content-box">';
 	echo '<a class="button full-width align-center" href="/menu/">See Whole Menu</a>';
 	echo '</div></div></div>';
-
 endif;
 ?>

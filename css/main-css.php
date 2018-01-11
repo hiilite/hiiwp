@@ -1589,10 +1589,14 @@ $footer_bottom_colors = get_theme_mod('footer_bottom_colors');
 	position: relative;
 	<?php 
 	get_background_css(Hii::$options['footer_background']);
-	get_font_css(Hii::$options['typography_footer_text_font']);
-	
-?>
-border-top-style:solid;
+	get_font_css(Hii::$options['typography_footer_text_font'])
+	?>
+	border-top-style:solid;
+} 
+#main_footer p {
+	<?php 
+	get_font_css(Hii::$options['typography_footer_text_font'])
+	?>
 } 
 
 #main_footer h1,#main_footer h2,#main_footer h3,#main_footer h4,#main_footer h5,#main_footer h6 {
