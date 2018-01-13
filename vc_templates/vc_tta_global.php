@@ -32,34 +32,7 @@ $class_to_filter .= vc_shortcode_custom_css_class( $css, ' ' ) . $this->getExtra
 switch($shortcode_type){
 	case 'vc_tta_pageable':
 		
-		if($atts['is_hii_carousel']){
-			$wrapper_attributes = array();
-			$css_classes = array(
-				'hii_infinite_carousel',
-				$atts['slider_type'],
-			);
-			$css_class = preg_replace( '/\s+/', ' ', apply_filters( VC_SHORTCODE_CUSTOM_CSS_FILTER_TAG, implode( ' ', array_filter( $css_classes ) ), $this->settings['base'], $atts ) );
-			
-			$wrapper_attributes[] = 'class="' . esc_attr( trim( $css_class ) ) . '"';
-			
-			$output = '<div ' . implode( ' ', $wrapper_attributes ) . '
-							  layout="responsive"
-							  width="'.$atts['slider_width'].'"
-							  height="'.$atts['slider_height'].'"
-							  style="width:'.$atts['slider_width'].'px;
-							  	height:'.$atts['slider_height'].'px;"
-							  type="slides"';
-			$output .= ($atts['autoplay'] != 'none')?' autoplay delay="'.$atts['autoplay'].'000">':'>';
-			if(isset($atts['title']) && $atts['title'] != '')
-			{
-				$output .= '<strong>'.$atts['title'].'</strong>';
-			}
-			$output .= $prepareContent;
-			$output .= '</div>';
-			
-		}
-		else 
-		{
+		
 			$slider_type = '';
 			$wrapper_attributes = array();
 			$css_classes = array(
@@ -96,7 +69,7 @@ switch($shortcode_type){
 			}
 			$output .= $prepareContent;
 			$output .= '</amp-carousel>';
-		}
+		
 	break;
 
 //////////////////////////////////////////////////////

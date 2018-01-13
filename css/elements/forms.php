@@ -129,7 +129,7 @@ textarea {
 	-webkit-border-radius: 3px;
 	border-radius: 0px;
 	display: block;
-	padding: 1em;
+	padding: 1em 0;
 	width: 100%;	
 	border: 1px solid rgba(203, 203, 203, 1); 
 	font-size: 1em;
@@ -195,23 +195,20 @@ input[type="checkbox"] + label {
 button,
 input[type="button"],
 input[type="submit"] {
-	background-color: #222;
-	border: 0;
-	-webkit-border-radius: 2px;
-	border-radius: 2px;
-	-webkit-box-shadow: none;
-	box-shadow: none;
-	color: #fff;
-	cursor: pointer;
-	display: inline-block;
-	font-size: 14px;
-	font-size: 0.875rem;
-	font-weight: 800;
-	line-height: 1;
-	padding: 1em 2em;
-	text-shadow: none;
 	-webkit-transition: background 0.2s;
 	transition: background 0.2s;
+	cursor: pointer;
+	<?php
+	get_font_css(Hii::$options[ 'typography_button_primary_font' ]);
+	echo 'background:'.Hii::$options[ 'typography_button_primary_background']['base'].';';
+	echo 'padding:'.get_spacing(Hii::$options[ 'typography_button_primary_padding' ]).';';
+	echo 'border: '.
+		Hii::$options[ 'typography_button_primary_border_width'].
+		' solid '.
+		Hii::$options['typography_button_primary_border_color']['base'].
+		';';
+	echo 'border-radius:'.Hii::$options['typography_button_primary_border_radius'].';';?>
+	display: inline-block;	
 }
 
 input + button,
@@ -224,9 +221,14 @@ button.secondary,
 input[type="reset"],
 input[type="button"].secondary,
 input[type="reset"].secondary,
-input[type="submit"].secondary {
-	background-color: #ddd;
-	color: #222;
+input[type="submit"].secondary { 
+	<?php
+	get_font_css(Hii::$options[ 'typography_button_secondary_font' ]);
+	echo 'background:'.Hii::$options[ 'typography_button_secondary_background']['base'].';';
+	echo 'padding:'.get_spacing(Hii::$options[ 'typography_button_secondary_padding' ]).';';
+	echo 'border: '.Hii::$options[ 'typography_button_secondary_border_width'].' solid '.Hii::$options['typography_button_secondary_border_color']['base'].';';
+	echo 'border-radius:'.Hii::$options['typography_button_secondary_border_radius'].';';?>
+	display: inline-block;
 }
 
 button:hover,
@@ -235,7 +237,9 @@ input[type="button"]:hover,
 input[type="button"]:focus,
 input[type="submit"]:hover,
 input[type="submit"]:focus {
-	background: #767676;
+	color: <?php echo Hii::$options['typography_button_primary_hover_color']?>;
+	background: <?php echo Hii::$options['typography_button_primary_background']['hover']?>;
+	border-color: <?php echo Hii::$options['typography_button_primary_border_color']['hover']?>;
 }
 
 button.secondary:hover,
@@ -248,7 +252,9 @@ input[type="reset"].secondary:hover,
 input[type="reset"].secondary:focus,
 input[type="submit"].secondary:hover,
 input[type="submit"].secondary:focus {
-	background: #bbb;
+	color: <?php echo Hii::$options['typography_button_secondary_hover_color']?>;
+	background: <?php echo Hii::$options['typography_button_secondary_background']['hover']?>;
+	border-color: <?php echo Hii::$options['typography_button_secondary_border_color']['hover']?>;
 }
 
 /* Placeholder text color -- selectors need to be separate to work. */

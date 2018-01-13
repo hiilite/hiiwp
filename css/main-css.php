@@ -556,16 +556,18 @@ td:last-child {
 /*--------------------------------------------------------------
 10.0 Links
 --------------------------------------------------------------*/
-
+<?php
+	$link_color = Hii::$options['link_color']; ?>
 a,  
 a .fa {
-	color:<?php echo $link_color['link'];?>;<?php echo preg_replace('/[{}]/','',Hii::$options['typography_link_custom_css']); ?>
-	text-decoration: none;
+	color:<?php echo $link_color['link'];?>;
+	
 	-webkit-transition: color 80ms ease-in, -webkit-box-shadow 130ms ease-in-out;
 	transition: color 80ms ease-in, -webkit-box-shadow 130ms ease-in-out;
 	transition: color 80ms ease-in, box-shadow 130ms ease-in-out;
 	transition: color 80ms ease-in, box-shadow 130ms ease-in-out, -webkit-box-shadow 130ms ease-in-out;
 }
+<?php echo Hii::$options['typography_link_custom_css']; ?>
 
 h1 a, 
 h2 a, 
