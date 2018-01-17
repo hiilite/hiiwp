@@ -2,6 +2,7 @@
 global $hiilite_options;
 $post_meta = get_post_meta(get_the_id());
 	?>
+	<!-- MENU ITEM -->
 	<article  <?php post_class('row blog-article'); ?> id="post-<?php the_ID(); ?>" >
 		<div class="in_grid">
 	<?php
@@ -22,16 +23,16 @@ $post_meta = get_post_meta(get_the_id());
 	<?php endif; 
 		
 	echo '<div class="twothird-width content-box">';
-	if(is_single() && get_post_meta(get_the_id(), 'show_page_title', true) != 'on'){
+	if( (is_single() && get_post_meta(get_the_id(), 'show_page_title', true) != 'on' ) || is_archive(  )){
 		?>
 		<span itemprop="articleSection" class="labels"><a rel="category tag"><?php 
 			$terms = get_the_terms( $post->id, 'menu-section');
 			if($terms){ echo '<a href="/menu-section/'.$terms[0]->slug.'">'.$terms[0]->name.'</a>'; }
 		?></a>
 		<?php
-		echo '<h1>';
+		echo '<a href="'.get_the_permalink().'"><h1>';
 		the_title();
-		echo '</h1>';
+		echo '</h1></a>';
 	}
 	$output = '';
 	$post_id = get_the_id();
@@ -79,7 +80,7 @@ $post_meta = get_post_meta(get_the_id());
 	
 	echo '</div>';
 	echo '</article>';
-
+if(! is_archive(  )):
 
 	echo '<div class="row"><div class="container_inner"><div class="in_grid">';
 	echo '<div class="flex-item text-block align-center">';
@@ -101,6 +102,5 @@ $post_meta = get_post_meta(get_the_id());
 	echo '<div class="row"><div class="container_inner"><div class="in_grid content-box">';
 	echo '<a class="button full-width align-center" href="/menu/">See Whole Menu</a>';
 	echo '</div></div></div>';
-
 endif;
 ?>

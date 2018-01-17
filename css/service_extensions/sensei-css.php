@@ -2200,25 +2200,40 @@ ul.list_2 li a:hover {
   font-weight: bold;
 }
 .circ-wrapper.course_detail h3 {
-  margin: 0;
-  padding: 25px 0 0 0;
-  font-weight: bold;
+	margin: 0;
+    padding: 0;
+    font-weight: bold;
+    font-size: 20px;
+    line-height: 40px;
+}
+.circ-wrapper + .media-body {
+	float:left;
+    max-width: calc(100% - 50px);
+    border-bottom: 1px dotted #ccc;
+}
+.media-body .media-heading {
+	margin-top: 10px;
+}
+.course img.thumbnail.alignleft {
+	display: none;	
 }
 .circ-wrapper {
-  width: 80px;
-  height: 80px;
-  text-align: center;
-  background: #0cbdaa;
-  color: #FFF;
-  overflow: hidden;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-  text-shadow: #0aa594 1px 1px, #0aa594 2px 2px, #0aa594 3px 3px, #0aa594 4px 4px, #0aa594 5px 5px, #0aa594 6px 6px, #0aa594 7px 7px, #0aa594 8px 8px, #0aa594 9px 9px, #0aa594 10px 10px, #0aa594 11px 11px, #0aa594 12px 12px, #0aa594 13px 13px, #0aa594 14px 14px, #0aa594 15px 15px, #0aa594 16px 16px, #0aa594 17px 17px, #0aa594 18px 18px, #0aa594 19px 19px, #0aa594 20px 20px, #0aa594 21px 21px, #0aa594 22px 22px, #0aa594 23px 23px, #0aa594 24px 24px, #0aa594 25px 25px, #0aa594 26px 26px, #0aa594 27px 27px, #0aa594 28px 28px, #0aa594 29px 29px, #0aa594 30px 30px, #0aa594 31px 31px, #0aa594 32px 32px, #0aa594 33px 33px, #0aa594 34px 34px, #0aa594 35px 35px, #0aa594 36px 36px, #0aa594 37px 37px, #0aa594 38px 38px, #0aa594 39px 39px, #0aa594 40px 40px, #0aa594 41px 41px, #0aa594 42px 42px, #0aa594 43px 43px, #0aa594 44px 44px, #0aa594 45px 45px, #0aa594 46px 46px, #0aa594 47px 47px, #0aa594 48px 48px, #0aa594 49px 49px, #0aa594 50px 50px, #0aa594 51px 51px, #0aa594 52px 52px, #0aa594 53px 53px, #0aa594 54px 54px, #0aa594 55px 55px, #0aa594 56px 56px, #0aa594 57px 57px, #0aa594 58px 58px, #0aa594 59px 59px, #0aa594 60px 60px, #0aa594 61px 61px, #0aa594 62px 62px, #0aa594 63px 63px, #0aa594 64px 64px, #0aa594 65px 65px, #0aa594 66px 66px, #0aa594 67px 67px, #0aa594 68px 68px, #0aa594 69px 69px, #0aa594 70px 70px, #0aa594 71px 71px, #0aa594 72px 72px, #0aa594 73px 73px, #0aa594 74px 74px, #0aa594 75px 75px, #0aa594 76px 76px, #0aa594 77px 77px, #0aa594 78px 78px, #0aa594 79px 79px, #0aa594 80px 80px, #0aa594 81px 81px, #0aa594 82px 82px, #0aa594 83px 83px, #0aa594 84px 84px, #0aa594 85px 85px, #0aa594 86px 86px;
+	width: 40px;
+	height: 40px;
+    text-align: center;
+	background: #0cbdaa;
+	color: #FFF;
+	overflow: hidden;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	float: left;
+	margin-top: 10px;
+	border-radius: 20px;
 }
 .circ-wrapper.red {
-  width: 80px;
-  height: 80px;
+  width: 40px;
+  height: 40px;
   text-align: center;
   background: #f26965;
   color: #FFF;
@@ -2226,11 +2241,10 @@ ul.list_2 li a:hover {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
-  text-shadow: #c95754 1px 1px, #c95754 2px 2px, #c95754 3px 3px, #c95754 4px 4px, #c95754 5px 5px, #c95754 6px 6px, #c95754 7px 7px, #c95754 8px 8px, #c95754 9px 9px, #c95754 10px 10px, #c95754 11px 11px, #c95754 12px 12px, #c95754 13px 13px, #c95754 14px 14px, #c95754 15px 15px, #c95754 16px 16px, #c95754 17px 17px, #c95754 18px 18px, #c95754 19px 19px, #c95754 20px 20px, #c95754 21px 21px, #c95754 22px 22px, #c95754 23px 23px, #c95754 24px 24px, #c95754 25px 25px, #c95754 26px 26px, #c95754 27px 27px, #c95754 28px 28px, #c95754 29px 29px, #c95754 30px 30px, #c95754 31px 31px, #c95754 32px 32px, #c95754 33px 33px, #c95754 34px 34px, #c95754 35px 35px, #c95754 36px 36px, #c95754 37px 37px, #c95754 38px 38px, #c95754 39px 39px, #c95754 40px 40px, #c95754 41px 41px, #c95754 42px 42px, #c95754 43px 43px, #c95754 44px 44px, #c95754 45px 45px, #c95754 46px 46px, #c95754 47px 47px, #c95754 48px 48px, #c95754 49px 49px, #c95754 50px 50px, #c95754 51px 51px, #c95754 52px 52px, #c95754 53px 53px, #c95754 54px 54px, #c95754 55px 55px, #c95754 56px 56px, #c95754 57px 57px, #c95754 58px 58px, #c95754 59px 59px, #c95754 60px 60px, #c95754 61px 61px, #c95754 62px 62px, #c95754 63px 63px, #c95754 64px 64px, #c95754 65px 65px, #c95754 66px 66px, #c95754 67px 67px, #c95754 68px 68px, #c95754 69px 69px, #c95754 70px 70px, #c95754 71px 71px, #c95754 72px 72px, #c95754 73px 73px, #c95754 74px 74px, #c95754 75px 75px, #c95754 76px 76px, #c95754 77px 77px, #c95754 78px 78px, #c95754 79px 79px, #c95754 80px 80px, #c95754 81px 81px, #c95754 82px 82px, #c95754 83px 83px, #c95754 84px 84px, #c95754 85px 85px, #c95754 86px 86px;
 }
 .circ-wrapper.blue {
-  width: 80px;
-  height: 80px;
+  width: 40px;
+  height: 40px;
   text-align: center;
   background: #00aeef;
   color: #FFF;
@@ -2238,7 +2252,7 @@ ul.list_2 li a:hover {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
-  text-shadow: #008bc0 1px 1px, #008bc0 2px 2px, #008bc0 3px 3px, #008bc0 4px 4px, #008bc0 5px 5px, #008bc0 6px 6px, #008bc0 7px 7px, #008bc0 8px 8px, #008bc0 9px 9px, #008bc0 10px 10px, #008bc0 11px 11px, #008bc0 12px 12px, #008bc0 13px 13px, #008bc0 14px 14px, #008bc0 15px 15px, #008bc0 16px 16px, #008bc0 17px 17px, #008bc0 18px 18px, #008bc0 19px 19px, #008bc0 20px 20px, #008bc0 21px 21px, #008bc0 22px 22px, #008bc0 23px 23px, #008bc0 24px 24px, #008bc0 25px 25px, #008bc0 26px 26px, #008bc0 27px 27px, #008bc0 28px 28px, #008bc0 29px 29px, #008bc0 30px 30px, #008bc0 31px 31px, #008bc0 32px 32px, #008bc0 33px 33px, #008bc0 34px 34px, #008bc0 35px 35px, #008bc0 36px 36px, #008bc0 37px 37px, #008bc0 38px 38px, #008bc0 39px 39px, #008bc0 40px 40px, #008bc0 41px 41px, #008bc0 42px 42px, #008bc0 43px 43px, #008bc0 44px 44px, #008bc0 45px 45px, #008bc0 46px 46px, #008bc0 47px 47px, #008bc0 48px 48px, #008bc0 49px 49px, #008bc0 50px 50px, #008bc0 51px 51px, #008bc0 52px 52px, #008bc0 53px 53px, #008bc0 54px 54px, #008bc0 55px 55px, #008bc0 56px 56px, #008bc0 57px 57px, #008bc0 58px 58px, #008bc0 59px 59px, #008bc0 60px 60px, #008bc0 61px 61px, #008bc0 62px 62px, #008bc0 63px 63px, #008bc0 64px 64px, #008bc0 65px 65px, #008bc0 66px 66px, #008bc0 67px 67px, #008bc0 68px 68px, #008bc0 69px 69px, #008bc0 70px 70px, #008bc0 71px 71px, #008bc0 72px 72px, #008bc0 73px 73px, #008bc0 74px 74px, #008bc0 75px 75px, #008bc0 76px 76px, #008bc0 77px 77px, #008bc0 78px 78px, #008bc0 79px 79px, #008bc0 80px 80px, #008bc0 81px 81px, #008bc0 82px 82px, #008bc0 83px 83px, #008bc0 84px 84px, #008bc0 85px 85px, #008bc0 86px 86px;
+  
 }
 .circ-wrapper i.icon-4x {
   font-size: 40px;
@@ -2574,6 +2588,9 @@ div.wpb_column {
 div.wpb_content_element {
   margin-bottom: 0;
 }
+.course.row .col-8, .lesson.post .col-8, .quiz .in_grid {
+	padding:1em;
+}
 .vc-row-full-width .row {
   margin: 0;
 }
@@ -2712,6 +2729,7 @@ div.vc_tta-color-grey.vc_tta-style-classic .vc_tta-panel .vc_tta-panel-body {
   overflow: hidden;
   background: #f5f5f5;
   margin-right: 40px;
+  margin-bottom: 1em;
 }
 .course .meter > span {
   border-radius: 4px;
@@ -2720,6 +2738,7 @@ div.vc_tta-color-grey.vc_tta-style-classic .vc_tta-panel .vc_tta-panel-body {
   font-size: 12px;
   text-align: center;
   font-weight: 300;
+  vertical-align: text-top;
 }
 .course-lessons > header {
   display: none;
@@ -2767,17 +2786,58 @@ div.vc_tta-color-grey.vc_tta-style-classic .vc_tta-panel .vc_tta-panel-body {
 }
 .post-entries {
   margin-bottom: 40px;
+  margin-top: 20px;
+  border-top: 1px dotted #ccc;
+  padding-top: 20px;
   overflow: hidden;
-}
-.post-entries > div a {
-  font-size: 0;
-}
-.post-entries > div a span {
-  font-size: 25px;
-  border: 2px solid;
-  padding: 4px 12px 8px;
+  width: 100%;
   font-weight: bold;
-  display: inline-block;
+}
+.post-entries .nav-prev.fl:before {
+    content: "Previous Lesson";
+    color: #767676;
+    display: block;
+    font-size: 11px;
+    font-size: 0.6875rem;
+    letter-spacing: 0.1818em;
+    margin-bottom: 1em;
+    text-transform: uppercase;
+}
+.post-entries .nav-next.fr:before {
+    content: "Next Lesson";
+    color: #767676;
+    display: block;
+    font-size: 11px;
+    font-size: 0.6875rem;
+    letter-spacing: 0.1818em;
+    margin-bottom: 1em;
+    text-transform: uppercase;
+}
+.post-entries .nav-next {
+	float: right;
+}
+.post-entries .nav-prev {
+	float: left;
+}
+.post-entries .nav-prev a:before {
+	    content: "\f104";
+	display: inline-block;
+    font: normal normal normal 14px/1 FontAwesome;
+    font-size: inherit;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+        margin-right: 0.5em;
+}
+.post-entries .nav-next a:after {
+	    content: "\f105";
+	display: inline-block;
+    font: normal normal normal 14px/1 FontAwesome;
+    font-size: inherit;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+        margin-left: 0.5em;
 }
 .module .module-lessons ul > li {
   margin-right: 10px!important;
@@ -2938,6 +2998,13 @@ div.vc_tta-color-grey.vc_tta-style-classic .vc_tta-panel .vc_tta-panel-body {
 .col-md-8 .sensei-message.info.checkout-mess {
   margin: 0;
 }
+.sensei-message.info {
+    width: 100%;
+    clear: both;
+    background: rgba(240,240,240,0.7);
+    padding: 10px;
+    border-radius: 6px;
+}
 .sensei-message.info:before {
   margin-right: 2px!important;
 }
@@ -3053,13 +3120,21 @@ input[type="submit"] {
   list-style: none;
   padding-left: 0;
 }
-#sensei-user-courses ul li,
+
 #sensei-user-courses .course .meter {
   margin-bottom: 0;
   padding-left: 0;
   padding-bottom: 0;
 }
+#sensei-user-courses ul li{
+  margin-bottom: 0;
+  padding:1em;
+  border-bottom: 1px dotted #ccc;
+}
 /*Quiz*/
+.quiz {
+    background: rgb(248,248,248);
+}
 .quiz header h1 {
   font-size: 30px;
   text-transform: none;
@@ -3070,12 +3145,21 @@ input[type="submit"] {
 }
 .quiz form ol#sensei-quiz-list > li {
   float: left;
-  width: 50%;
-  padding: 20px;
+     width: 100%;
+    padding: 20px;
+    background: white;
+    margin: 10px;
+    border-radius: 10px;
+}
+.quiz form span.question.question-title {
+	font-weight: bold;
+	padding-bottom: 1em;
+	display: block;
 }
 .quiz form ol#sensei-quiz-list li ul {
   padding: 0;
   padding-right: 25px;
+  list-style: none;
 }
 /*404*/
 .error404 #sub-header {
@@ -3728,4 +3812,12 @@ ul#legend li.legend_start{
 	line-height:30px;
 	font-weight:600;
 	text-shadow: 1px 1px 0px rgba(0,0,0,.3); 
+}
+
+
+.pagination, .comments-pagination {
+	list-style: none;
+}
+.pagination, .comments-pagination li {
+    display: block;
 }

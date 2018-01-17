@@ -10,11 +10,11 @@
  * @category    Templates
  * @version     1.9.0
  */
-?>
 
-<?php  get_sensei_header();  ?>
-
-    <?php
+get_sensei_header();  
+	
+	
+	get_template_part( 'templates/title' );	
 
         /**
          * Action before lesson archive loop. This action runs within the archive-lesson.php.
@@ -24,7 +24,7 @@
         do_action( 'sensei_archive_before_lesson_loop' );
 
     ?>
-
+<section class="entry fix in_grid">
     <?php if ( have_posts() ): ?>
 
         <?php sensei_load_template( 'loop-lesson.php' ); ?>
@@ -45,4 +45,5 @@
          */
         do_action( 'sensei_archive_after_lesson_loop' );
     ?>
+</section>
 <?php get_sensei_footer(); ?>

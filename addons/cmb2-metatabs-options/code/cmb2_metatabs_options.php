@@ -550,13 +550,13 @@ class Cmb2_Metatabs_Options {
 		if ( ! self::$props[ $id ]['jsuri'] ) {
 			throw new Exception( 'CMB2_Metatabs_Options: Tabs included but JS file not specified.' );
 		}
-		
+		/*
 		// check to see if file exists, throws exception if it does not
 		$headers = @get_headers( self::$props[ $id ]['jsuri'] );
 		if ( $headers[0] == 'HTTP/1.1 404 Not Found' ) {
 			throw new Exception( 'CMB2_Metatabs_Options: Passed Javascript file missing.' );
 		}
-		
+		*/
 		// enqueue the script
 		wp_enqueue_script(
 			self::$props[ $id ]['page'] . '-admin',

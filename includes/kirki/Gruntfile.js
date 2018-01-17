@@ -46,15 +46,6 @@ module.exports = function( grunt ) {
 			}
 		},
 
-		// Convert json array to PHP array
-		json2php: {
-			convert: {
-				expand: true,
-				ext: '.php',
-				src: ['modules/webfonts/webfonts.json']
-			}
-		},
-
 		// Check JS syntax
 		jscs: {
 			src: [
@@ -106,7 +97,6 @@ module.exports = function( grunt ) {
 					'controls/js/src/dynamic-control.js',
 
 					'controls/js/src/background.js',
-					'controls/js/src/code.js',
 					'controls/js/src/color-palette.js',
 					'controls/js/src/dashicons.js',
 					'controls/js/src/date.js',
@@ -129,7 +119,7 @@ module.exports = function( grunt ) {
 					'controls/js/src/toggle.js',
 					'controls/js/src/typography.js'
 				],
-				dest: 'controls/js/dist/script.js'
+				dest: 'controls/js/script.js'
 			},
 			legacy: {
 				src: [
@@ -143,7 +133,6 @@ module.exports = function( grunt ) {
 					'controls/js/src/dynamic-control.js',
 
 					'controls/js/src/background-legacy.js',
-					'controls/js/src/code.js',
 					'controls/js/src/color-palette.js',
 					'controls/js/src/dashicons.js',
 					'controls/js/src/date.js',
@@ -166,7 +155,7 @@ module.exports = function( grunt ) {
 					'controls/js/src/toggle.js',
 					'controls/js/src/typography-legacy.js'
 				],
-				dest: 'controls/js/dist/script-legacy.js'
+				dest: 'controls/js/script-legacy.js'
 			}
 		},
 
@@ -179,7 +168,7 @@ module.exports = function( grunt ) {
 				},
 				files: [{
 					expand: true,
-					src: ['controls/js/dist/*.js', '!controls/js/dist/*.min.js'],
+					src: ['controls/js/*.js', '!controls/js/*.min.js'],
 					dest: '.',
 					cwd: '.',
 					rename: function( dst, src ) {
@@ -196,7 +185,6 @@ module.exports = function( grunt ) {
 	grunt.loadNpmTasks( 'grunt-contrib-watch' );
 	grunt.loadNpmTasks( 'grunt-curl' );
 	grunt.loadNpmTasks( 'grunt-wp-readme-to-markdown' );
-	grunt.loadNpmTasks( 'grunt-json2php' );
 	grunt.loadNpmTasks( 'grunt-jscs' );
 
 	grunt.registerTask( 'dev', ['sass', 'jscs', 'watch'] );
@@ -252,7 +240,6 @@ module.exports = function( grunt ) {
 	grunt.registerTask( 'googlefonts', function() {
 		grunt.task.run( 'curl' );
 		grunt.task.run( 'googlefontsProcess' );
-		grunt.task.run( 'json2php' );
 	} );
 	grunt.registerTask( 'default', ['sass:dist', 'concat', 'uglify'] );
 	grunt.registerTask( 'readme', ['wp_readme_to_markdown'] );

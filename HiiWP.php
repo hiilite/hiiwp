@@ -620,6 +620,8 @@ class HiiWP extends Hii {
 	            'slug'      => 'ssl-insecure-content-fixer',
 	            'required'  => false,
 	        ),
+	        /*
+		    // Awaiting to Confirming Licence
 	        array(
 	            'name'               => 'Backup Buddy', // The plugin name.
 	            'slug'               => 'backupbuddy', // The plugin slug (typically the folder name).
@@ -628,7 +630,7 @@ class HiiWP extends Hii {
 	            'required'           => false, // If false, the plugin is only 'recommended' instead of required.
 	            'force_activation'   => false, // If true, plugin is activated upon theme activation and cannot be deactivated until theme switch.
 	            'force_deactivation' => false, // If true, plugin is deactivated upon theme switch, useful for theme-specific plugins
-	        ),
+	        ),*/
 	       
 	    );
 	

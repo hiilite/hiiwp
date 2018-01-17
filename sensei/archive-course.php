@@ -14,7 +14,7 @@ get_template_part( 'templates/title' );
                 <?php dynamic_sidebar( 'sidebar-course' ); ?>
             </aside>
             <div class="col-9">
-                <div class="container_inner">                
+                <div class="container_inner woocommerce">                
                 <?php 
 
                 while (have_posts()) : the_post();
@@ -43,32 +43,28 @@ get_template_part( 'templates/title' );
                             <?php foreach ( $terms as $term ) { ?>
                                 <a href="<?php echo esc_url(get_term_link($term, 'course-category')); ?>"><?php echo esc_html($term->name); ?></a>
                           <?php } } ?>
-                          <span class="pull-right"><i class=" icon-clock"></i><?php echo esc_html($diff->days) . esc_html__(' Days', 'learn'); ?></span>
                         </div>
                     </div>
                     <div class="info">
                         <div class="row">
                             <div class="course_info col-12">
                                 <h4 class="black-color"><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h4>
+                                <div class="price aligncenter"><?php echo sensei_simple_course_price($post->ID); ?></div>
                                 <p><?php the_excerpt(); ?></p>
-                                <div class="rating">
-                                  <?php learn_get_rating_course(); ?>
-                                </div>
-                                <div class="price pull-right"><?php echo sensei_simple_course_price($post->ID); ?></div>
                             </div>
                         </div>
-                        <div class="separator clearfix">
+                        <div class="separator clearfix aligncenter">
 	                        <?php
 		                        $wc_post_id = get_post_meta( $post->ID, '_course_woocommerce_product', true ); 
 	                            if($wc_post_id > 0) { 
 		                            $_product = wc_get_product( $wc_post_id );
 		                            
-									echo '<p class="btn-add"><a href="'.$_product->get_permalink() .'"><i class="fa fa-share"></i>';
-									esc_html_e(' Subscribe','learn');
-									echo '</a></p>';
+									echo '<a href="'.$_product->get_permalink() .'" class="button" style="font-size:80%">';
+									esc_html_e(' Buy Now','learn');
+									echo '</a>';
 	                            }
 	                        ?>
-                            <p class="btn-details"><a href="<?php the_permalink(); ?>"><i class="fa fa-list"></i><?php esc_html_e(' Details','learn'); ?></a></p>
+              
                         </div>
                     </div>
                   </div>

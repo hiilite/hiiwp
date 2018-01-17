@@ -2483,7 +2483,7 @@ if ( class_exists( 'WooCommerce' ) ) {
 vc_map( array(
         "name" => "Blockquote",
 		"base" => "blockquote",
-		"category" => 'by Hiilite',
+		"category" => 'Content',
 		"icon" => "extended-custom-icon-qode icon-wpb-blockquote",
 		"allowed_container_element" => 'vc_row',
 		"params" => array(
@@ -2633,25 +2633,20 @@ vc_map( array(
 
 // HII INFINITE CAROUSEL 
 vc_map( array(
-	'name' => __( 'Hii Infinite Carousel', 'hiiwp' ),
-	'base' => 'vc_tta_pageable',
+	'name' => __( 'Hii Content Slider', 'hiiwp' ),
+	'base' => 'hii_infinite_carousel', 
 	'icon' => 'icon-wpb-images-carousel',
 	'is_container' => true,
 	'show_settings_on_create' => true,
 	'as_parent' => array(
 		'only' => 'vc_tta_section',
 	),
-	'category' => 'by Hiilite',
-	'description' => __( 'Infinite carousel', 'hiiwp' ),
+	'category' => 'HiiWP',
+	'description' => __( 'Simple content slider', 'hiiwp' ),
 	'params' => array(
 		array(
 			'type' => 'hidden',
 			'param_name' => 'no_fill_content_area',
-			'std' => true,
-		),
-		array(
-			'type' => 'hidden',
-			'param_name' => 'is_hii_carousel',
 			'std' => true,
 		),
 		array(
@@ -2690,7 +2685,6 @@ vc_map( array(
 			'param_name' => 'autoplay',
 			'value' => array(
 				__( 'None', 'hiiwp' ) => 'none',
-				'Continuous' => '0',
 				'1' => '1',
 				'2' => '2',
 				'3' => '3',

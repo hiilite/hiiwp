@@ -51,9 +51,8 @@ Kirki::add_field( 'hiiwp', array(
         'base'  => esc_attr__( 'Base Color', 'hiiwp' ),
         'hover'  => esc_attr__( 'Hover Color', 'hiiwp' ),
     ),
-    'alpha' 	  => true,
     'default'     => $hiilite_options['typography_button_default_background'],
-	'priority'    => 1,
+	'priority'    => 1
 ) );
 Kirki::add_field( 'hiiwp', array(
 	'type'        => 'multicolor',

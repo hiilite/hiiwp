@@ -252,6 +252,7 @@ td.date.column-date, td.categories.column-categories {
     float: left;
 }
 
+
 ul.cmb2-checkbox-list.cmb2-list li {
     display: inline-block;
     margin-right: 1em;
@@ -406,6 +407,10 @@ p.cmb-add-row {
     border-bottom: 1px solid #ccc;
     padding-bottom: 15px;
     padding-top: 15px !important;
+}
+.vc_edit_form_elements .vc_column+.vc_column[data-param_type="column_offset"] {
+    width: 100% !important;
+    float: none;
 }
 /*--------------------------------------------------------------
 4.0 Welcome Screen

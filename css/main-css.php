@@ -556,16 +556,18 @@ td:last-child {
 /*--------------------------------------------------------------
 10.0 Links
 --------------------------------------------------------------*/
-
+<?php
+	$link_color = Hii::$options['link_color']; ?>
 a,  
 a .fa {
-	color:<?php echo $link_color['link'];?>;<?php echo preg_replace('/[{}]/','',Hii::$options['typography_link_custom_css']); ?>
-	text-decoration: none;
+	color:<?php echo $link_color['link'];?>;
+	
 	-webkit-transition: color 80ms ease-in, -webkit-box-shadow 130ms ease-in-out;
 	transition: color 80ms ease-in, -webkit-box-shadow 130ms ease-in-out;
 	transition: color 80ms ease-in, box-shadow 130ms ease-in-out;
 	transition: color 80ms ease-in, box-shadow 130ms ease-in-out, -webkit-box-shadow 130ms ease-in-out;
 }
+<?php echo Hii::$options['typography_link_custom_css']; ?>
 
 h1 a, 
 h2 a, 
@@ -1465,6 +1467,10 @@ figure.single-image.hover-image .hover_image-img {
     right: 0;
     opacity: 0;
     transition: all 0.5s;
+    width:100%;
+}
+figure.single-image.hover-image.text-block .hover_image-img {
+    padding: 1em;
 }
 figure.single-image.hover-image:hover .hover_image-img {
     opacity: 1;
@@ -1589,10 +1595,14 @@ $footer_bottom_colors = get_theme_mod('footer_bottom_colors');
 	position: relative;
 	<?php 
 	get_background_css(Hii::$options['footer_background']);
-	get_font_css(Hii::$options['typography_footer_text_font']);
-	
-?>
-border-top-style:solid;
+	get_font_css(Hii::$options['typography_footer_text_font'])
+	?>
+	border-top-style:solid;
+} 
+#main_footer p {
+	<?php 
+	get_font_css(Hii::$options['typography_footer_text_font'])
+	?>
 } 
 
 #main_footer h1,#main_footer h2,#main_footer h3,#main_footer h4,#main_footer h5,#main_footer h6 {
@@ -1752,37 +1762,58 @@ img.full-width, .row, .wpb_content_element {
 
 <?php 
 $alt_cols =	array(false,false,false,'quarter-width','third-width',false,'half-width',false,'twothird-width','threequarter-width',false,false,'full-width');
+
 for($i = 12; $i>0;$i--):
-	echo '.vc_col-xs-'.$i.', .vc_col-md-'.$i.', .vc_col-sm-'.$i.', .vc_col-lg-'.$i.', .col-'.$i;
+	echo '.vc_col-sm-'.$i.', .col-'.$i;
 	echo ($alt_cols[$i])?', .'.$alt_cols[$i]:'';
 	echo '{';
 		$perc_ratio = floor((($i/12)*100));
-		echo ($i > 12)?'max-width:'.$perc_ratio.'em;':'max-width:100%;';
-		echo 'width:'.$perc_ratio.'%;';
 		$min_width = ($i>4)?'320':'160';
-		echo 'flex:1 1 '.$perc_ratio.'%;';
+		echo ($i < 12)?'min-width:'.$min_width.'px;':'max-width:100%;';
+		echo 'width:'.$perc_ratio.'%;'.
+			 'flex:1 1 '.$perc_ratio.'%;';
 		if($is_IE) echo 'flex-basis: '.($perc_ratio - 5).'%;';
 	echo '}';
-endfor;
-?>
+endfor; ?>
 
-@media (max-width:550px){
-	width:100%;
-	flex:1 1 100%;
-<?php 
-for($i = 12; $i>0;$i--):
-	echo '.vc_col-xs-'.$i.', .vc_col-md-'.$i.', .vc_col-sm-'.$i.', .vc_col-lg-'.$i.', .col-'.$i;
-	echo ($alt_cols[$i])?', .'.$alt_cols[$i]:'';
-	echo '{';
+/* 
+	MOBILE
+*/
+@media (max-width:768px){ <?php 
+	for($i = 12; $i>0;$i--):
 		$perc_ratio = floor((($i/12)*100));
-		echo 'width:'.$perc_ratio.'%;';
-		$min_width = ($i>2)?'320':'160';
-		echo 'flex:1 1 '.$min_width.'px;';
-	echo '}';
-endfor;
-?>
+		echo '.vc_col-xs-'.$i.'{'.
+			 'width:'.$perc_ratio.'%;'.
+			 'flex:1 1 '.$perc_ratio.'%;'.
+			 '}';
+	endfor; ?>
 }
 
+/* 
+	TABLET
+*/
+@media (min-width:768px){ <?php 
+	for($i = 12; $i>0;$i--):
+		$perc_ratio = floor((($i/12)*100));
+		echo '.vc_col-md-'.$i.'{'.
+			 'width:'.$perc_ratio.'%;'.
+			 'flex:1 1 '.$perc_ratio.'%;'.
+			 '}';
+	endfor; ?>
+}
+
+/* 
+	DESKTOP
+*/
+@media (min-width:992px){ <?php 
+	for($i = 12; $i>0;$i--):
+		$perc_ratio = floor((($i/12)*100));
+		echo '.vc_col-lg-'.$i.'{'.
+			 'width:'.$perc_ratio.'%;'.
+			 'flex:1 1 '.$perc_ratio.'%;'.
+			 '}';
+	endfor; ?>
+}
 
 
 .fixed_columns .flex-item {
