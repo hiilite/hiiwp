@@ -2,6 +2,7 @@
 global $hiilite_options;
 $post_meta = get_post_meta(get_the_id());
 	?>
+	<!-- MENU ITEM -->
 	<article  <?php post_class('row blog-article'); ?> id="post-<?php the_ID(); ?>" >
 		<div class="in_grid">
 	<?php
@@ -29,9 +30,9 @@ $post_meta = get_post_meta(get_the_id());
 			if($terms){ echo '<a href="/menu-section/'.$terms[0]->slug.'">'.$terms[0]->name.'</a>'; }
 		?></a>
 		<?php
-		echo '<h1>';
+		echo '<a href="'.get_the_permalink().'"><h1>';
 		the_title();
-		echo '</h1>';
+		echo '</h1></a>';
 	}
 	$output = '';
 	$post_id = get_the_id();

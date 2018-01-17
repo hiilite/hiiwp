@@ -14,6 +14,12 @@
 <?php  
 get_header();
 global $post, $woothemes_sensei; 
+
+add_action( 'before_page_title', 'add_course_to_title');
+function add_course_to_title(){
+	echo  '<h4 class="white">Course<h4>';
+}
+
 get_template_part( 'templates/title' );
 	  ?>
 
@@ -51,29 +57,36 @@ get_template_part( 'templates/title' );
 
                     
                     <?php
+	                remove_action( 'sensei_single_course_content_inside_before', array( 'Sensei_Course', 'the_progress_statement' ), 15 );
 					the_content(  );
                     /**
                      * @hooked Sensei()->course->the_progress_statement - 15
                      * @hooked Sensei()->course->the_progress_meter - 16
                      */
-                    
-                    do_action( 'learn_course_single_meta' ); ?>
-                    <?php do_action( 'sensei_single_course_content_inside_after', get_the_ID() ); ?>
+                     ?>
 
                 </article><!-- .post -->
 
-                <?php //comments_template( '', true ); ?>
-
                 
             </div>
-            <aside class="col-4 sidebar">
-
-                <?php 
+            <aside class="col-4 sidebar"><?php 
                 $s_date = get_post_meta(get_the_ID(),'_cmb_sd_course', true); 
-                if ( ! current_user_can('administrator') && $s_date < date('Y-m-d')) do_action( 'learn_course_single_btncart' ); ?>
-
-                <?php $checkout = new Sensei_Course(); $checkout->the_course_enrolment_actions(); ?>
-
+                if ( ! current_user_can('administrator') && $s_date < date('Y-m-d')) do_action( 'learn_course_single_btncart' );
+                
+                $checkout = new Sensei_Course(); $checkout->the_course_enrolment_actions(); 
+	                
+	                
+	            
+	            do_action( 'learn_course_single_meta' );
+                do_action( 'sensei_single_course_content_inside_after', get_the_ID() ); 
+                    
+	            /*
+	            // TODO: Tie into Cusomizer to toggle on/off
+	            */ 
+	            $show_course_sidebar = false;
+	            if($show_course_sidebar):
+                ?>
+				
                 <div class="box_style_1 widget">
                     <h4><?php esc_html_e('Lessons', 'learn'); ?> 
                         <span class="pull-right">
@@ -135,6 +148,9 @@ get_template_part( 'templates/title' );
                      </ul>
                 </div>
                 <?php
+	             endif; // End show_course_sidebar
+	             
+	             
                     $related = new WP_Query(
                         array(
                             'post_type'           => 'course',

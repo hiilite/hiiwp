@@ -331,6 +331,7 @@ $hiilite_options['title_font']				= get_theme_mod( 'title_font', array(
     'letter-spacing' => '0',
     'text-transform' => 'uppercase',
     'color'          => '#222',
+    'text-align'	 => '',
 ) );
 
 $default_show_title_on = get_post_types(array(), 'names');
@@ -357,6 +358,7 @@ $hiilite_options['typography_h1_font']				= get_theme_mod( 'typography_h1_font',
         'letter-spacing' => '0',
         'text-transform' => 'none',
         'color'          => '#333',
+        'text-align'	 => '',
     ) );
     
 $hiilite_options['typography_h2_font']				= get_theme_mod( 'typography_h2_font', array(
@@ -367,6 +369,7 @@ $hiilite_options['typography_h2_font']				= get_theme_mod( 'typography_h2_font',
         'letter-spacing' => '0',
         'text-transform' => 'none',
         'color'          => '#666',
+        'text-align'	 => '',
     ) );
     
 $hiilite_options['typography_h3_font']				= get_theme_mod( 'typography_h3_font', array(
@@ -377,6 +380,7 @@ $hiilite_options['typography_h3_font']				= get_theme_mod( 'typography_h3_font',
         'letter-spacing' => '0',
         'text-transform' => 'none',
         'color'          => '#333',
+        'text-align'	 => '',
     ) );
     
 $hiilite_options['typography_h4_font']				= get_theme_mod( 'typography_h4_font', array(
@@ -387,6 +391,7 @@ $hiilite_options['typography_h4_font']				= get_theme_mod( 'typography_h4_font',
         'letter-spacing' => '0',
         'text-transform' => 'none',
         'color'          => '#333',
+        'text-align'	 => '',
     ) );
     
 $hiilite_options['typography_h5_font']				= get_theme_mod( 'typography_h5_font', array(
@@ -397,6 +402,7 @@ $hiilite_options['typography_h5_font']				= get_theme_mod( 'typography_h5_font',
         'letter-spacing' => '0.15em',
         'text-transform' => 'uppercase',
         'color'          => '#767676',
+        'text-align'	 => '',
     ) );
     
 $hiilite_options['typography_h6_font']				= get_theme_mod( 'typography_h6_font', array(
@@ -407,6 +413,7 @@ $hiilite_options['typography_h6_font']				= get_theme_mod( 'typography_h6_font',
         'letter-spacing' => '0',
         'text-transform' => 'none',
         'color'          => '#333',
+        'text-align'	 => '',
     ) );
     
     
@@ -418,6 +425,7 @@ $hiilite_options['typography_footer_headings_font']				= get_theme_mod( 'typogra
         'letter-spacing' => '0',
         'text-transform' => ' ',
         'color'          => ' ',
+        'text-align'	 => '',
     ) );
     $hiilite_options['typography_footer_text_font']				= get_theme_mod( 'typography_footer_text_font', array(
         'font-family'    => ' ',
@@ -427,6 +435,7 @@ $hiilite_options['typography_footer_headings_font']				= get_theme_mod( 'typogra
         'letter-spacing' => ' ',
         'text-transform' => ' ',
         'color'          => ' ',
+        'text-align'	 => '',
     ) );
     $hiilite_options['typography_footer_links_font']				= get_theme_mod( 'typography_footer_links_font', array(
         'font-family'    => ' ',

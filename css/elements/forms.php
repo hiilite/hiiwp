@@ -190,6 +190,7 @@ input[type="checkbox"] {
 input[type="radio"] + label,
 input[type="checkbox"] + label {
 	font-weight: 400;
+	display: inline-block;
 }
 
 button,
