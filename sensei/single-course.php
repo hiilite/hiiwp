@@ -9,9 +9,8 @@
  * @category    Templates
  * @version     1.9.0
  */
-?>
 
-<?php  
+  
 get_header();
 global $post, $woothemes_sensei; 
 

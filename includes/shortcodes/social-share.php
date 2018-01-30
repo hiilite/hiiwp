@@ -32,6 +32,7 @@ function add_social_share_shortcode( $atts ){
 	}	
    
    $permalink = $protocol.$_SERVER["HTTP_HOST"].$_SERVER["REQUEST_URI"];
+   $permalink = get_the_permalink( );
    
    
    	$css_classes = array(

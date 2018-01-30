@@ -1131,6 +1131,10 @@ object {
 	max-width: 100%;
 }
 
+.blog-article embed, .blog-article iframe, .blog-article object {
+    height:auto;
+}
+
 .wp-caption,
 .gallery-caption {
 	color: #666;

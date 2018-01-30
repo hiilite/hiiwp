@@ -24,6 +24,9 @@ class HiiWP_Menus {
 	}
 	
 	public function __construct() {
+		add_action( 'init', array( $this, 'register_my_menus' ) );
+		
+		
 		if(Hii::$options['enable_search_bar_yesno'] == true) {
 			$theme_locations = get_nav_menu_locations();
 			if(isset($theme_locations['header-menu'])){
@@ -58,6 +61,21 @@ class HiiWP_Menus {
 	    $items = $items . $searchbutton;
 	    return $items;
 	}
+	
+	
+	// REGISTER MENU AREAS
+	public function register_my_menus() {
+	  register_nav_menus(
+	    array(
+	      'header-menu' => __( 'Header Menu', 'hiiwp' ),
+	      'left-menu' => __( 'Left Menu', 'hiiwp' ),
+	      'right-menu' => __( 'Right Menu', 'hiiwp' ),
+	      'footer-menu' => __( 'Footer Menu', 'hiiwp' ),
+	      'bottom-menu' => __( 'Header Bottom Menu', 'hiiwp' )
+	    )
+	  );
+	}
+	
 	
 }
 

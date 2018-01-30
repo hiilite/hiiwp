@@ -2,8 +2,9 @@
 global $post;
 if(!isset($atts)) $hiilite_options = Hii::get_options();
 $post_meta = get_post_meta(get_the_id());
+$post_format_icon = $article_title = $dateline = $article_cat = $embedded_media = '';
 
-$post_format_icon = $article_title = $dateline = $article_cat = '';
+$_post_format = get_post_format();
 
 if($hiilite_options['blog_cats_show'] == 'true' || $hiilite_options['blog_cats_show'] == true):
 	$article_cat .= '<span class="cat-links"><span class="screen-reader-text">Tags</span>'.get_the_category_list(', ').'</span>';
@@ -32,22 +33,21 @@ if($hiilite_options['blog_meta_show'] == 'true'):
 	$dateline .= '</div>';
 endif;
 
-/* if (get_post_format() === 'video') {
-	$video = get_media_embedded_in_content( $content, array( 'video', 'object', 'embed', 'iframe' ) );
-} */
-
 
 if($hiilite_options['blog_title_show'] == 'true' || $hiilite_options['blog_title_show'] == true) {
 	if ( is_sticky() ) {
 		$post_format_icon .= '<i class="fa fa-thumb-tack post-format-icon"> </i>';
 	}
-	if (get_post_format() !== NULL) {
-		switch (get_post_format() ) {
+	if ($_post_format !== NULL) {
+		switch ($_post_format ) {
 			case 'video':
 				$post_format_icon .= '<i class="fa fa-film post-format-icon"> </i>';
+				$embedded_media = get_media_embedded_in_content( apply_filters( 'the_content', get_the_content() ), array( 'video', 'object', 'embed', 'iframe' ) );
 			break;
 			case 'audio':
 				$post_format_icon .= '<i class="fa fa-music post-format-icon"> </i>';
+				$embedded_media = get_media_embedded_in_content(  apply_filters( 'the_content', get_the_content() ), array( 'audio', 'object', 'embed', 'iframe' ) );
+			
 			break;
 			case 'link':
 				$post_format_icon .= '<i class="fa fa-link post-format-icon"> </i>';
@@ -107,20 +107,37 @@ do_action( 'hii_before_blog_loop' );
 		echo $article_title;
 		echo '</header>';
 	}
-	if(has_post_thumbnail($post->ID)): 
-		$thumb_size = ($hiilite_options['blog_img_pos']=='image-left')?'col-6':'col-12';
-		echo '<figure class="flex-item post-thumbnail ' . $thumb_size . '">';
-		$tn_id = get_post_thumbnail_id( $post->ID );
-		$img = wp_get_attachment_image_src( $tn_id, 'large' );
-		$width = ($img[1])?$img[1]:$hiilite_options['logo_width'];
-		$height = ($img[2])?$img[2]:$hiilite_options['logo_height'];
-		$img_src = ($img[0] != '')?$img[0]:$hiilite_options['main_logo'];
-		
-		echo '<a href="' . get_the_permalink() . '">';
-		echo '<img src=' . $img_src . ' width=' . $width . ' height=' . $height . ' alt=' . get_the_title() . '>';
-		echo '</a>';
-		echo '</figure>';
-	endif;
+	$thumb_size = ($hiilite_options['blog_img_pos']=='image-left')?'col-6':'col-12';
+	switch ($_post_format ) {
+		case 'video':
+			echo '<figure class="flex-item post-thumbnail ' . $thumb_size . '">';
+				echo $embedded_media[0];			
+			echo '</figure>';
+		break;
+		case 'audio':
+			echo '<figure class="flex-item post-thumbnail ' . $thumb_size . '">';
+				echo $embedded_media[0];			
+			echo '</figure>';
+		break;
+		default:
+			if(has_post_thumbnail($post->ID)): 
+				echo '<figure class="flex-item post-thumbnail ' . $thumb_size . '">';
+				$tn_id = get_post_thumbnail_id( $post->ID );
+				$img = wp_get_attachment_image_src( $tn_id, 'large' );
+				$width = ($img[1])?$img[1]:$hiilite_options['logo_width'];
+				$height = ($img[2])?$img[2]:$hiilite_options['logo_height'];
+				$img_src = ($img[0] != '')?$img[0]:$hiilite_options['main_logo'];
+				
+				
+					echo '<a href="' . get_the_permalink() . '">';
+					echo '<img src=' . $img_src . ' width=' . $width . ' height=' . $height . ' alt=' . get_the_title() . '>';
+					echo '</a>';
+				
+				echo '</figure>';
+			endif;
+		break;
+	} 
+	
 	?>
 	<div class="flex-item <?php echo ($hiilite_options['blog_img_pos']=='image-left')?'col-6':'col-12'; ?> content-box">
 		<?php 

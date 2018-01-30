@@ -43,10 +43,11 @@ class HiiWP extends Hii {
 		add_action( 'wp_head', array($this, 'add_favicons'));
 		add_action( 'wp_head', array($this, 'add_tracking_codes'));
 		add_action( 'wp_head', array($this, 'canonical_for_comments') );
+		add_filter('upload_mimes', array( $this, 'cc_mime_types' ) );
 		
 		add_action( 'wp_footer', array( $this, 'print_inline_script'), 100 );
 		
-		add_action('admin_menu', array( $this, 'hiiwp_adminmenu'), 10);
+		add_action( 'admin_menu', array( $this, 'hiiwp_adminmenu'), 10);
 		
 		add_action( 'after_setup_theme', array( $this, 'woocommerce_support') );
 		add_action( 'after_setup_theme', array( $this, 'sensei_support') );
@@ -59,6 +60,14 @@ class HiiWP extends Hii {
         add_filter( 'wp_calculate_image_srcset_meta', '__return_null' );
         add_action( 'tgmpa_register', array($this, 'hiilite_register_required_plugins' ));
         add_filter( 'get_the_archive_title', array($this, 'modify_archive_title' ));
+        
+        
+        /*
+	     // TODO: More testing and adding option to remove before turning on again  
+	    */
+        //add_action('wp_print_scripts','add_load_css',7);
+		//add_action('wp_head','add_load_css',7);
+		//add_filter('style_loader_tag', 'link_to_loadCSS_script',9999,3);
         
 		
         if ( ! function_exists( '_wp_render_title_tag' ) ) :
@@ -103,6 +112,62 @@ class HiiWP extends Hii {
      */
     public function hiiwp_init(){}
 	
+	
+	
+	
+	/**
+	 * add_load_css function.
+	 * 
+	 * @access public
+	 * @return void
+	 */
+	public function add_load_css(){ 
+	    ?>
+	    <script>/*! 
+			loadCSS: load a CSS file asynchronously. 
+			[c]2014 @scottjehl, Filament Group, Inc. 
+			Licensed MIT 
+			*/
+			
+			function loadCSS( href, before, media ){ 
+				"use strict"; 
+				var ss = window.document.createElement( "link" ); 
+				var ref = before || window.document.getElementsByTagName( "script" )[ 0 ]; 
+				ss.rel = "stylesheet"; 
+				ss.href = href; 
+				ss.media = "only x"; 
+				ref.parentNode.insertBefore( ss, ref ); 
+				setTimeout( function(){ 
+					ss.media = media || "all"; 
+				} ); 
+				return ss; 
+			}
+		</script><?php
+	}
+	
+	
+	/**
+	 * link_to_loadCSS_script function.
+	 * 
+	 * @access public
+	 * @param mixed $html
+	 * @param mixed $handle
+	 * @param mixed $href
+	 * @return void
+	 */
+	public function link_to_loadCSS_script($html, $handle, $href ) {
+		if(!is_admin()){
+			$dom = new DOMDocument();
+		    $dom->loadHTML($html);
+		    $a = $dom->getElementById($handle.'-css');
+		    if($a)
+		    	return "<script>if (typeof loadCSS == 'function') { loadCSS('" . $a->getAttribute('href') . "',0,'" . $a->getAttribute('media') . "'); }</script>\n";	
+		    else
+		    	return $html;
+		} else {
+			return $html;
+		}
+	}
 	 
 	/**
 	 * hiiwp_head function.
@@ -706,6 +771,20 @@ class HiiWP extends Hii {
 	    // Your theme can perceive this hook as a deactivation hook.
 	    add_action("switch_theme", $fn);
 	}
+	
+	
+	/**
+	 * cc_mime_types function.
+	 * 
+	 * @access public
+	 * @param mixed $mimes
+	 * @return void
+	 */
+	public function cc_mime_types($mimes) {
+	  $mimes['svg'] = 'image/svg+xml';
+	  return $mimes;
+	}
+	
 }
 
 new HiiWP();

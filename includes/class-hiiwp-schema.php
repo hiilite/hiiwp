@@ -312,15 +312,16 @@ class HiiWP_Schema {
 			$page_image = get_theme_mod( 'main_logo' );
 		}
 		 
-			
-		?>
-		<meta property="op:markup_version" content="v1.0">
-		<meta property="og:title" content="<?php echo $page_title?>">
-		<meta property="og:url" content="<?php echo 'https://'.$_SERVER["HTTP_HOST"].$_SERVER["REQUEST_URI"]?>">
-		<meta property="og:image" content="<?php echo $page_image?>">
-		<meta property="og:description" content="<?php echo $page_description?>">
-		<meta property="og:site_name" content="<?php echo $brand_title?>">
-		<?php
+		if(! defined('WPSEO_VERSION')):
+			?>
+			<meta property="op:markup_version" content="v1.0">
+			<meta property="og:title" content="<?php echo $page_title?>">
+			<meta property="og:url" content="<?php echo 'https://'.$_SERVER["HTTP_HOST"].$_SERVER["REQUEST_URI"]?>">
+			<meta property="og:image" content="<?php echo $page_image?>">
+			<meta property="og:description" content="<?php echo $page_description?>">
+			<meta property="og:site_name" content="<?php echo $brand_title?>">
+			<?php
+		endif;
 		if((isset($options['business_type'])) && (in_array($options['business_type'], array('FoodEstablishment', 'Bakery','BarOrPub','Brewery', 'CafeOrCoffeeShop', 'FastFoodRestaurant', 'IceCreamShop', 'Restaurant', 'Winery')))){
 			
 			if(is_page('menu') || is_tax('menu-section')){

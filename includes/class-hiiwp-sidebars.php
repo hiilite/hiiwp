@@ -30,7 +30,7 @@ class HiiWP_Sidebars {
 	}
 	
 	public function __construct() {
-		add_action( 'widgets_init', 		array( $this, 'register_sidebars' ) );
+		add_action( 'widgets_init', 		array( $this, 'register_sidebars' ), 15 );
 		
 		add_action( 'hii_sidebar', 			array( $this, 'hii_sidebar_widget_area') );
 		add_action( 'hii_blog_sidebar', 	array( $this, 'hii_blog_sidebar_widget_area' ));
@@ -44,6 +44,26 @@ class HiiWP_Sidebars {
 	        'name' => __( 'Blog Sidebar', 'hiiwp' ),
 	        'id' => 'blog_sidebar',
 	        'description' => __( 'Shows in the right sidebar of the blog page', 'hiiwp' ),
+	        'before_widget' => '<div id="%1$s" class="flex-item widget %2$s">',
+		'after_widget'  => '</div>',
+		'before_title'  => '<h4 class="widgettitle">',
+		'after_title'   => '</h4>',
+	    ) );
+	    
+	    register_sidebar( array(
+	        'name' => __( 'Single Post Sidebar', 'hiiwp' ),
+	        'id' => 'post_sidebar',
+	        'description' => __( 'Shows in the right sidebar of a post', 'hiiwp' ),
+	        'before_widget' => '<div id="%1$s" class="flex-item widget %2$s">',
+		'after_widget'  => '</div>',
+		'before_title'  => '<h4 class="widgettitle">',
+		'after_title'   => '</h4>',
+	    ) );
+	    
+	    register_sidebar( array(
+	        'name' => __( 'Post Bottom', 'hiiwp' ),
+	        'id' => 'post_bottom',
+	        'description' => __( 'Shows at the bottom of a post', 'hiiwp' ),
 	        'before_widget' => '<div id="%1$s" class="flex-item widget %2$s">',
 		'after_widget'  => '</div>',
 		'before_title'  => '<h4 class="widgettitle">',
@@ -186,28 +206,6 @@ class HiiWP_Sidebars {
 	        'id' => 'footer_bottom_right',
 	        'description' => __( 'Footer Bottom Right', 'hiiwp' ),
 	        'before_widget' => '<div id="%1$s" class="flex-item %2$s">',
-		'after_widget'  => '</div>',
-		'before_title'  => '<h4 class="widgettitle">',
-		'after_title'   => '</h4>',
-	    ) );
-	    
-	    
-	    
-	    register_sidebar( array(
-	        'name' => __( 'Single Post Sidebar', 'hiiwp' ),
-	        'id' => 'post_sidebar',
-	        'description' => __( 'Shows in the right sidebar of a post', 'hiiwp' ),
-	        'before_widget' => '<div id="%1$s" class="flex-item widget %2$s">',
-		'after_widget'  => '</div>',
-		'before_title'  => '<h4 class="widgettitle">',
-		'after_title'   => '</h4>',
-	    ) );
-	    
-	    register_sidebar( array(
-	        'name' => __( 'Post Bottom', 'hiiwp' ),
-	        'id' => 'post_bottom',
-	        'description' => __( 'Shows at the bottom of a post', 'hiiwp' ),
-	        'before_widget' => '<div id="%1$s" class="flex-item widget %2$s">',
 		'after_widget'  => '</div>',
 		'before_title'  => '<h4 class="widgettitle">',
 		'after_title'   => '</h4>',

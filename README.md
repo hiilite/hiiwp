@@ -2,6 +2,10 @@
 This theme is currently in Alpha testing and should not be installed without the support of the team at Hiilite Creative Group
 
 ### Change log
+#### v0.4.9
+- Fixes to schema
+- General Code cleanup
+
 #### v0.4.8
 - Fixes for colors in customizer
 - Removed BackupBuddy from default plugins

@@ -11,7 +11,10 @@ if( isset($post)
 	if( ( in_array(get_post_type($post), $show_title_on) )):
 		$post_meta = get_post_meta(get_the_id());
 		
-		$page_title = hii_get_the_title();
+		if(is_front_page()) 
+			$page_title = get_bloginfo('name');
+		else
+			$page_title = hii_get_the_title();
 		
 		$page_title_color = (get_post_meta ( $post->ID, 'page_title_color', true))?get_post_meta ( $post->ID, 'page_title_color', true):false;
 		$page_bg_color = (get_post_meta ( $post->ID, 'page_title_bg', true))?get_post_meta ( $post->ID, 'page_title_bg', true):false;

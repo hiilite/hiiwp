@@ -18,4 +18,12 @@
  * @since 0.4.3
  */
 class HiiWP_Shortcodes extends HiiWP {
+	
+	public function __construct(){
+		/* Add with options in Custumizer */
+		if(get_theme_mod( 'blog_author_bio' ) == true){
+			require_once( HIILITE_DIR . '/includes/shortcodes/author-info.php');
+		}
+	}
+	
 }

@@ -24,6 +24,8 @@ class HiiWP_Theme_Options extends Hii {
 		
 		$this->init_kirki();
 
+		add_action( 'customize_preview_init', array( $this, 'customize_preview_js' ) );
+		add_action( 'customize_controls_enqueue_scripts', array( $this, 'customize_control_js' ) );
 	}
 	
 	private function init_kirki(){
@@ -69,6 +71,23 @@ class HiiWP_Theme_Options extends Hii {
 		    include_once( $filename );
 		} 
 	}
+	
+	
+	/*
+	//	note: customize_preview_init
+	*/
+	public function customize_preview_js() {
+	    wp_enqueue_script( 'hiiwp_customizer_preview', get_template_directory_uri() . '/js/customizer-preview.js', array( 'customize-preview' ), null, true );
+	}
+	
+	 
+	/*
+	//	note: customize_controls_enqueue_scripts
+	*/
+	public function customize_control_js() {
+	    wp_enqueue_script( 'hiiwp_customizer_control', get_template_directory_uri() . '/js/customizer-control.js', array( 'customize-controls', 'jquery' ), null, true );
+	}
+	
 }
 
 add_action( 'customize_register', function( $wp_customize ) {
