@@ -97,7 +97,7 @@ class HiiWP_Hooks extends Hii {
 		    $cmb->add_field( array(
 		        'name'       => $hook,
 		        'id'         => $hook,
-		        'type'       => 'text',
+		        'type'       => 'textarea_code',
 		        'default'	 => '',
 		    ));
 	    }
@@ -310,7 +310,7 @@ class HiiWP_Hooks extends Hii {
 		$about = '<div class="row project-author">
 			<div class="col-2 author-icon project-icon">
 				<a href="'.$author_url.'">
-					<img src="'.get_avatar_url( $args[0] ).'" width="50" height="50" class="avatar" alt="'.$author.'" />
+					'.get_avatar( $args[0],50,NULL,$author,array(50,50,50,'avatar_default',false,'G',NULL,'avatar') ).'
 				</a>
 			</div>
 			<div class="col-10">

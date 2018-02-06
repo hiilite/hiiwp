@@ -49,7 +49,9 @@ class HiiWP extends Hii {
 		
 		add_action( 'admin_menu', array( $this, 'hiiwp_adminmenu'), 10);
 		
+		add_action( 'after_setup_theme', array( $this, 'default_content_setup' ) );
 		add_action( 'after_setup_theme', array( $this, 'woocommerce_support') );
+		add_action( 'after_setup_theme', array( $this, 'sportspress_support') );
 		add_action( 'after_setup_theme', array( $this, 'sensei_support') );
 		
 		add_action( 'after_switch_theme', array( $this, 'set_permalink_structure') ); // Load admin JavaScript. Do an is_admin() check before calling My_Custom_Plugin
@@ -305,6 +307,59 @@ class HiiWP extends Hii {
 		require_once( HIILITE_DIR . '/includes/admin/hiiwp-welcome-screen.php');
 	}
 	
+	public function default_content_setup(){
+		// Add starter content.
+		add_theme_support( 'starter-content', array(
+			/*
+			// Add Widget Content
+			'widgets' => array(
+				'footer-1' => array(
+					'text_about',
+				),
+				'footer-2' => array(
+					'text_business_info',
+				),
+				'footer-3' => array(
+					'meta',
+				),
+			),*/
+			
+			
+			'posts' => HiiWP::starter_content_posts(),
+	
+			// Add Widget Menus
+			'nav_menus' => array(
+				'main_menu' => array(
+					'name' => __( 'Main Menu', 'hiiwp' ),
+					'items' => array(
+						'page_home',
+						'page_about',
+						'page_blog',
+						'page_contact',
+					),
+				),
+			),
+	
+			// Set default options
+			'options' => array(
+				'show_on_front' => 'page',
+				'page_on_front' => '{{home}}',
+				'page_for_posts' => '{{blog}}',
+			),
+		) );
+	}
+	
+	private function starter_content_posts() {
+		$posts = array(
+			'home',
+			'about',
+			'contact',
+			'blog',
+		);
+
+		return $posts;
+	}
+	
 	/**
 	 * woocommerce_support function.
 	 * 
@@ -319,6 +374,10 @@ class HiiWP extends Hii {
 	
 	public function sensei_support() {
     	add_theme_support( 'sensei' );
+	}
+	
+	public function sportspress_support(){
+		add_theme_support( 'sportspress' );
 	}
 	
 	

@@ -421,9 +421,11 @@ class HiiWP_Schema {
 			 $html .= '"sameAs" : [';
 			 $comma = '';
 			foreach($options['business_social'] as $socialprofile):
-				$html .= $comma.'"'.$socialprofile['social_url'].'"';
-				$comma = ',';
-		endforeach;
+				if(isset($socialprofile['social_url'])):
+					$html .= $comma.'"'.$socialprofile['social_url'].'"';
+					$comma = ',';
+				endif;
+			endforeach;
 		}
 		if (isset($options['business_address'])){
 			$html.= ' ],

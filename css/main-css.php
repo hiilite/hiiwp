@@ -2547,6 +2547,9 @@ endif;
 if(class_exists('GFForms')):
 	get_template_part('css/service_extensions/gravityforms', 'css');	
 endif;
+if(class_exists('SportsPress')):
+	get_template_part( 'css/service_extensions/sportspress', 'css');
+endif;
 
 if(is_user_logged_in()):
 	?>
