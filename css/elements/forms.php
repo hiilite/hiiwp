@@ -5,8 +5,8 @@ optgroup,
 select,
 textarea {
 	font-family: sans-serif;
-	font-size: 100%;
-	line-height: 1.15;
+	font-size: 1rem;
+	line-height: 1.5;
 	margin: 0;
 }
 
@@ -122,17 +122,18 @@ input[type="time"],
 input[type="datetime"],
 input[type="datetime-local"],
 input[type="color"],
-textarea {
+textarea
+ {
 	color: #666;
 	background: #fff;
 	background-image: -webkit-linear-gradient(rgba(255, 255, 255, 0), rgba(255, 255, 255, 0));
 	-webkit-border-radius: 3px;
 	border-radius: 0px;
 	display: block;
-	padding: 1em 0;
+	padding: 13px;
 	width: 100%;	
 	border: 1px solid rgba(203, 203, 203, 1); 
-	font-size: 1em;
+	margin: 2px 0;
 }
 
 input[type="text"]:focus,
@@ -152,23 +153,23 @@ input[type="datetime-local"]:focus,
 input[type="color"]:focus,
 textarea:focus {
 	color: #222;
-	border-color: #333;
-	
+	border-color: <?php echo Hii::$options['color_one'];?>;
 	box-shadow: 0 1px 4px rgb(77, 144, 254), inset 0 1px 4px rgb(77, 144, 254);
 }
 
 select {
 	-webkit-appearance: none;
-	border: 1px solid #bbb;
-	height: 3em;
+	border: 1px solid rgba(203, 203, 203, 1);
 	max-width: 100%;
     border-radius: 0;
+    background-color: white;
     background-image: linear-gradient(45deg, transparent 50%, gray 50%), linear-gradient(135deg, gray 50%, transparent 50%), linear-gradient(to right, #ccc, #ccc);
     background-position: calc(100% - 20px) 50%, calc(100% - 15px) 50%, calc(100% - 43px) 30%;
     background-size: 5px 5px, 5px 5px, 1px 2em;
     background-repeat: no-repeat;
-    padding-right: 3em;
-    text-indent: 1em;
+    padding:13px 3em 13px 13px;
+    margin:2px 0;
+    box-shadow: 0 0 3px #fff inset, 0 1px 1px rgba(0,0,0,.1);
 }
 
 select:focus {
@@ -177,6 +178,7 @@ select:focus {
     background-size: 5px 5px,4px 5px,1px 2em;
     background-repeat: no-repeat;
     border-color: <?php echo Hii::$options['color_one'];?>;
+    box-shadow: 0 1px 4px rgb(77, 144, 254), inset 0 1px 4px rgb(77, 144, 254);
     outline: 0;
 }
 

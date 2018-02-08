@@ -112,11 +112,13 @@
       position: absolute;
       width: 1em;
       overflow: hidden; }
-      .wp-customizer div.ui-datepicker .ui-datepicker-header .ui-datepicker-next:after, .wp-customizer div.ui-datepicker .ui-datepicker-header .ui-datepicker-next:before,
+      .wp-customizer div.ui-datepicker .ui-datepicker-header .ui-datepicker-next:after,
+      .wp-customizer div.ui-datepicker .ui-datepicker-header .ui-datepicker-next:before,
       .wp-customizer div.ui-datepicker .ui-datepicker-header .ui-datepicker-prev:after,
       .wp-customizer div.ui-datepicker .ui-datepicker-header .ui-datepicker-prev:before {
         font-family: dashicons; }
-        .wp-customizer div.ui-datepicker .ui-datepicker-header .ui-datepicker-next:after:hover, .wp-customizer div.ui-datepicker .ui-datepicker-header .ui-datepicker-next:before:hover,
+        .wp-customizer div.ui-datepicker .ui-datepicker-header .ui-datepicker-next:after:hover,
+        .wp-customizer div.ui-datepicker .ui-datepicker-header .ui-datepicker-next:before:hover,
         .wp-customizer div.ui-datepicker .ui-datepicker-header .ui-datepicker-prev:after:hover,
         .wp-customizer div.ui-datepicker .ui-datepicker-header .ui-datepicker-prev:before:hover {
           cursor: pointer; }
@@ -146,10 +148,12 @@
         padding: 5px;
         color: #333;
         text-decoration: none; }
-        .wp-customizer div.ui-datepicker .ui-datepicker-calendar tr td a.ui-state-active, .wp-customizer div.ui-datepicker .ui-datepicker-calendar tr td a:hover {
+        .wp-customizer div.ui-datepicker .ui-datepicker-calendar tr td a.ui-state-active,
+        .wp-customizer div.ui-datepicker .ui-datepicker-calendar tr td a:hover {
           color: #fff;
           background-color: #0073aa; }
-      .wp-customizer div.ui-datepicker .ui-datepicker-calendar tr td.ui-state-disabled a, .wp-customizer div.ui-datepicker .ui-datepicker-calendar tr td.ui-state-disabled .ui-state-default a {
+      .wp-customizer div.ui-datepicker .ui-datepicker-calendar tr td.ui-state-disabled a,
+      .wp-customizer div.ui-datepicker .ui-datepicker-calendar tr td.ui-state-disabled .ui-state-default a {
         color: #999; }
 
 .customize-control-kirki-dimensions {
@@ -173,17 +177,27 @@
 
 .customize-control-kirki-generic input {
   width: 100%; }
+
 .customize-control-kirki-generic textarea {
   width: 100%;
   border: 1px solid rgba(0, 0, 0, 0.1);
   -webkit-box-shadow: none;
   box-shadow: none; }
 
-.customize-control-kirki-multicolor .multicolor-single-color-wrapper {
+.customize-control-kirki-multicolor .multicolor-group-wrapper {
   display: flex;
-  justify-content: space-between; }
+  justify-content: space-evenly; }
+
+.customize-control-kirki-multicolor .multicolor-single-color-wrapper {
+  flex: 1 1 auto; }
+  .customize-control-kirki-multicolor .multicolor-single-color-wrapper label {
+    width: 100%;
+    text-align: center;
+    vertical-align: top; }
+
 .customize-control-kirki-multicolor .multicolor-single-label {
   order: 2; }
+
 .customize-control-kirki-multicolor .wp-picker-container {
   width: 100%; }
   .customize-control-kirki-multicolor .wp-picker-container > .wp-color-result {
@@ -197,7 +211,8 @@
   .customize-control-kirki-number .customize-control-content input {
     width: 100%;
     -moz-appearance: textfield; }
-    .customize-control-kirki-number .customize-control-content input::-webkit-inner-spin-button, .customize-control-kirki-number .customize-control-content input::-webkit-outer-spin-button {
+    .customize-control-kirki-number .customize-control-content input::-webkit-inner-spin-button,
+    .customize-control-kirki-number .customize-control-content input::-webkit-outer-spin-button {
       -webkit-appearance: none;
       margin: 0; }
   .customize-control-kirki-number .customize-control-content .quantity {
@@ -224,7 +239,7 @@
       flex-grow: 1;
       font-size: 0;
       line-height: 10px;
-      color: rgba(0, 0, 0, 0);
+      color: transparent;
       -webkit-transition: all 200ms ease-in-out;
       -moz-transition: all 200ms ease-in-out;
       -ms-transition: all 200ms ease-in-out;
@@ -250,7 +265,7 @@
   .customize-control-kirki-radio-buttonset .buttonset .switch-label {
     background: rgba(0, 0, 0, 0.1);
     border: 1px rgba(0, 0, 0, 0.1);
-    color: rgba(50, 55, 60, 0.5);
+    color: #555d66;
     margin: 0;
     text-align: center;
     padding: 0.5em 1em;
@@ -262,6 +277,7 @@
 .customize-control-kirki-radio-image > .image {
   display: flex;
   flex-wrap: wrap; }
+
 .customize-control-kirki-radio-image label {
   position: relative;
   display: inline-block; }
@@ -282,6 +298,7 @@
       vertical-align: middle; }
   .customize-control-kirki-radio-image label:hover .image-label {
     display: block; }
+
 .customize-control-kirki-radio-image input {
   display: none; }
   .customize-control-kirki-radio-image input img {
@@ -579,7 +596,8 @@
     cursor: pointer;
     user-select: none;
     transition: background 350ms ease; }
-    .customize-control-kirki-toggle .switch:after, .customize-control-kirki-toggle .switch:before {
+    .customize-control-kirki-toggle .switch:after,
+    .customize-control-kirki-toggle .switch:before {
       content: "";
       display: block;
       width: 20px;
@@ -626,7 +644,6 @@
     .customize-control-kirki-typography .wrapper .line-height,
     .customize-control-kirki-typography .wrapper .margin-bottom,
     .customize-control-kirki-typography .wrapper .margin-top,
-    .customize-control-kirki-typography .wrapper .subsets,
     .customize-control-kirki-typography .wrapper .text-align,
     .customize-control-kirki-typography .wrapper .text-transform,
     .customize-control-kirki-typography .wrapper .variant {
@@ -654,4 +671,4 @@
     .customize-control-kirki-typography .wrapper .color {
       width: auto; }
 
-/*# sourceMappingURL=styles.css.map */
+/*# sourceMappingURL=../css/styles.map */

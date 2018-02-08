@@ -1,8 +1,4 @@
-<style>
-<?php 
-global $is_IE;
-include_once('font-awesome/css/font-awesome.min.css'); 
-?>
+<?php global $is_IE; ?><style>
 /*--------------------------------------------------------------
 >>> TABLE OF CONTENTS:
 ----------------------------------------------------------------
@@ -52,14 +48,7 @@ html {
 
 body {
 	margin: 0;
-}
-
-body,
-button,
-input,
-select,
-textarea {<?php 
-	get_font_css(Hii::$options['default_font']); ?>
+<?php get_font_css(Hii::$options['default_font']); ?>
 }
 
 article,

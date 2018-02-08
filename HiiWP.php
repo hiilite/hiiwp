@@ -8,7 +8,7 @@
  * @author      Peter Vigilante
  * @copyright   Copyright (c) 2017, Hiilite Creative Group
  * @license     http://opensource.org/licenses/https://opensource.org/licenses/MIT
- * @since       0.4.7
+ * @since       0.4.9
  */
 if ( ! defined( 'ABSPATH' ) )	exit;
 /**

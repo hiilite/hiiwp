@@ -105,7 +105,10 @@ the_post();
         </div>
         <?php if ( is_user_logged_in() && $user_taking_course ) { ?>
         <aside  class="col-4 sidebar">
+	        
             <div class="box_style_1">
+	            <h4>Actions</h4>
+	            <div class="content-box">
 	            <?php 
 		            
 		        do_action( 'sensei_single_lesson_content_inside_after', get_the_ID() );
@@ -127,7 +130,7 @@ the_post();
 						  	$fi = $file['url']; ?>
                   <h4><a href='<?php echo esc_url($fi); ?>'><?php esc_html_e('Download files', 'learn'); ?> <i class="icon-download pull-right"></i></a></h4><br>
                 <?php } } } ?>
-                                           
+	            </div>              
             </div>
 
             <?php if ( is_active_sidebar( 'lesson-widget' ) ) : ?>

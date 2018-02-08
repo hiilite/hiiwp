@@ -50,11 +50,8 @@ get_template_part( 'templates/title' );
                             <div class="course_info col-12">
                                 <h4 class="black-color"><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h4>
                                 <div class="price aligncenter"><?php echo sensei_simple_course_price($post->ID); ?></div>
-                                <p><?php the_excerpt(); ?></p>
-                            </div>
-                        </div>
-                        <div class="separator clearfix aligncenter">
-	                        <?php
+                                <div class="aligncenter">
+                                <?php
 		                        $wc_post_id = get_post_meta( $post->ID, '_course_woocommerce_product', true ); 
 	                            if($wc_post_id > 0) { 
 		                            $_product = wc_get_product( $wc_post_id );
@@ -64,8 +61,14 @@ get_template_part( 'templates/title' );
 									echo '</a>';
 	                            }
 	                        ?>
-              
+	                        </div>
+                                <p class="clearfix"><?php the_excerpt(); ?></p>
+                            </div>
                         </div>
+                        
+	                        
+              
+                        
                     </div>
                   </div>
                 </div>
