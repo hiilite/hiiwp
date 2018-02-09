@@ -13,7 +13,7 @@
  * @see     https://docs.woocommerce.com/document/template-structure/
  * @author  WooThemes
  * @package WooCommerce/Templates
- * @version 3.1.0
+ * @version 3.3.0
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -39,9 +39,8 @@ do_action( 'woocommerce_before_cart' ); ?>
 			</tr>
 		</thead>
 		<tbody>
-			<?php do_action( 'woocommerce_before_cart_contents' ); ?>
-
-			<?php
+			<?php do_action( 'woocommerce_before_cart_contents' ); 
+				
 			foreach ( WC()->cart->get_cart() as $cart_item_key => $cart_item ) {
 				$_product   = apply_filters( 'woocommerce_cart_item_product', $cart_item['data'], $cart_item, $cart_item_key );
 				$product_id = apply_filters( 'woocommerce_cart_item_product_id', $cart_item['product_id'], $cart_item, $cart_item_key );
@@ -83,8 +82,8 @@ do_action( 'woocommerce_before_cart' ); ?>
 									echo apply_filters( 'woocommerce_cart_item_name', sprintf( '<a href="%s">%s</a>', esc_url( $product_permalink ), $_product->get_name() ), $cart_item, $cart_item_key );
 								}
 
-								// Meta data
-								echo WC()->cart->get_item_data( $cart_item );
+								// Meta data.
+								echo wc_get_formatted_cart_item_data( $cart_item );
 
 								// Backorder notification
 								if ( $_product->backorders_require_notification() && $_product->is_on_backorder( $cart_item['quantity'] ) ) {
@@ -125,9 +124,8 @@ do_action( 'woocommerce_before_cart' ); ?>
 					<?php
 				}
 			}
-			?>
-
-			<?php do_action( 'woocommerce_cart_contents' ); ?>
+			
+			do_action( 'woocommerce_cart_contents' ); ?>
 
 			<tr>
 				<td colspan="6" class="actions">
@@ -139,11 +137,11 @@ do_action( 'woocommerce_before_cart' ); ?>
 						</div>
 					<?php } ?>
 
-					<input type="submit" class="button" name="update_cart" value="<?php esc_attr_e( 'Update cart', 'hiiwp' ); ?>" />
+					<button type="submit" class="button" name="update_cart" value="<?php esc_attr_e( 'Update cart', 'woocommerce' ); ?>"><?php esc_html_e( 'Update cart', 'woocommerce' ); ?></button>
 
-					<?php do_action( 'woocommerce_cart_actions' ); ?>
-
-					<?php wp_nonce_field( 'woocommerce-cart' ); ?>
+					<?php 
+					do_action( 'woocommerce_cart_actions' ); 
+					wp_nonce_field( 'woocommerce-cart' ); ?>
 				</td>
 			</tr>
 
