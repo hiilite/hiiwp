@@ -127,6 +127,7 @@ class Hii {
 		if(!class_exists('Cmb2_Metatabs_Options'))	include_once( HIILITE_DIR . '/addons/cmb2-metatabs-options/cmb2_metatabs_options.php' );
 		if(!class_exists('CMB2_Conditionals'))		include_once( HIILITE_DIR . '/addons/cmb2-conditionals/cmb2-conditionals.php' );
 		if(!class_exists('PW_CMB2_Field_Select2'))	include_once( HIILITE_DIR . '/addons/cmb-field-select2/cmb-field-select2.php' );
+		if(!class_exists('WDS_CMB2_Attached_Posts_Field_127'))	include_once( HIILITE_DIR . '/addons/cmb2-attached-posts/cmb2-attached-posts-field.php' );
 		if(!class_exists('CMB2_Taxonomy'))			include_once( HIILITE_DIR . '/addons/cmb2-taxonomy/init.php' );
 		include_once( HIILITE_DIR . '/addons/custom-field-types/address-field-type.php' );
 	}

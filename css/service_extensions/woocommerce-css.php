@@ -16,7 +16,6 @@
     margin: 0 3.8% 2.992em 0;
     padding: 0;
     position: relative;
-    width: 22.05%;
     margin-left: 0;
 }
 .woocommerce .products ul, .woocommerce ul.products,
@@ -277,6 +276,7 @@ ul.products li.product, ul.product-categories li.product {
     margin: 1em;
     text-align: center;
     max-width: 300px;
+    min-width: 160px;
 }
 
 .woocommerce ul.product-categories li.product a img {
@@ -311,7 +311,13 @@ ul.product-categories li.product {
     width: auto;
     line-height: 1.2;
 }
-
-
-
-
+@media only screen and (max-width: 1000px) {
+	.woocommerce ul.products li.last, .woocommerce-page ul.products li.last {
+		margin-right: 3.8% !important;
+	}
+}
+@media only screen and (max-width: 768px) {
+	.woocommerce ul.products li.product, .woocommerce-page ul.products li.product {
+		width:46%;
+	}
+}

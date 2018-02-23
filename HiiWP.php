@@ -730,11 +730,6 @@ class HiiWP extends Hii {
 	            'required'  => false,
 	        ),
 			array(
-	            'name'      => 'Sucuri Security - Auditing, Malware Scanner and Security Hardening',
-	            'slug'      => 'sucuri-scanner',
-	            'required'  => false,
-	        ),
-			array(
 	            'name'      => 'Loginizer',
 	            'slug'      => 'loginizer',
 	            'required'  => false,

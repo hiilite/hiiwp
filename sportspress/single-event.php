@@ -17,7 +17,6 @@ get_template_part( 'templates/title' ); ?>
 			endwhile; // end of the loop. ?>
 
 		</main><!-- #main -->
-		<?php get_sidebar(); ?>
 		</div>
 	</section><!-- #primary -->
 <?php get_footer(); ?>
