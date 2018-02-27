@@ -233,6 +233,7 @@ p img.alignleft,
 figure.alignright {
 	margin-right: 1em;
 }
+
 .align-center, 
 .aligncenter {
 	text-align: center;
@@ -595,7 +596,14 @@ h6 a:hover  {
 	-webkit-box-shadow: 0 0 0 8px #fff;
 	box-shadow: 0 0 0 8px #fff;
 }
-
+.entry-content img.alignleft {
+	padding-right:1em;
+	padding-bottom: 1em;
+}
+.entry-content img.alignright {
+	padding-left:1em;
+	padding-bottom: 1em;
+}
 .post-navigation a:focus .icon,
 .post-navigation a:hover .icon {
 	color: #222;
@@ -645,7 +653,7 @@ h6 a:hover  {
 }
 
 .entry-meta {
-	color: #767676;
+	color: <?php echo Hii::$options['title_font']['color'];?>;
 	font-size: 11px;
 	font-size: 0.6875rem;
 	font-weight: 800;
@@ -663,7 +671,7 @@ h6 a:hover  {
     text-transform: uppercase;
 }
 .entry-meta a {
-	color: #767676;
+	color: <?php echo Hii::$options['title_font']['color'];?>;
 }
 
 .byline,
@@ -684,6 +692,9 @@ h6 a:hover  {
 	font-weight: 800;
 	padding: 2em 0 3em;
 	text-align: center;
+}
+div#disqus_thread {
+    width: 100%;
 }
 
 .pagination .icon,
@@ -1435,6 +1446,9 @@ a,
 }
 .back_to_blog {
   font-size:14px;
+}
+.back_to_blog .fa {
+	color:<?php echo Hii::$options['title_font']['color'];?>;
 }
 
 
@@ -2193,6 +2207,26 @@ amp-carousel.carousel {
 	width: 100%;
 	height: 300px;
 	overflow: hidden;
+	white-space: nowrap;
+}
+
+amp-carousel.carousel .slide {
+	display: inline-block;
+	white-space: normal;
+	text-align: center;
+	padding: 20px;
+}
+amp-carousel.carousel .slide  .slide_img_container {
+	width: 300px;
+	padding-top: 75%;
+	overflow: hidden;
+}
+amp-carousel.carousel .slide  .slide_img_container img {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: auto;
 }
 amp-carousel.carousel .carousel-wrapper{
 	white-space: nowrap; position: absolute; z-index: 1; top: 0px; left: 0px; bottom: 0px;

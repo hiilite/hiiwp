@@ -87,7 +87,8 @@ class HiiWP extends Hii {
 		 * Auto include all shortcodes
 		 */
 		foreach (glob(HIILITE_DIR."/includes/shortcodes/*.php") as $filename) {
-		    include_once( $filename );
+			preg_match('/[^\/]+?(?=\.)/', $filename, $template_file);
+		    get_template_part( '/includes/shortcodes/'.$template_file[0] );
 		} 
 		
 	}

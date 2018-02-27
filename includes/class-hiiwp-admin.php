@@ -90,8 +90,11 @@ class HiiWP_Admin {
 	 * @return void
 	 */
 	public function admin_styles() {
-	    wp_register_style( 'hiilite_admin_stylesheet', get_template_directory_uri(). '/css/admin-style.css' );
+	    wp_register_style( 'hiilite_admin_stylesheet', get_template_directory_uri() . '/css/admin-style.css' );
 	    wp_enqueue_style( 'hiilite_admin_stylesheet' );
+	    
+	    wp_register_style('hiilite_dashicons', get_template_directory_uri() .'/css/hiilite-font/css/Hiilite.css', array('dashicons'), '1.0');
+		wp_enqueue_style('hiilite_dashicons');
 	    
 	    wp_enqueue_media();
 	 
@@ -824,7 +827,7 @@ class HiiWP_Admin {
 	        'key'        => $opt_key,
 	        'title'      => 'HiiWP Settings',
 	        'menuargs' => array(
-	        	'icon_url'	=>	get_template_directory_uri().'/images/hii-dashicon.png',
+	        	'icon_url'	=>	'dashicons-hii-hii', 
 	        	'position'	=> 2,
 	        ),
 	        

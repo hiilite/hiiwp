@@ -37,6 +37,7 @@ class HiiWP_Dashboard {
 		add_action( 'wp_dashboard_setup', 	array( $this, 'hiilite_remove_dashboard_widgets' ));
 		add_action( 'wp_dashboard_setup', 	array( $this, 'hiilite_add_dashboard_widgets' ));
 		add_action( 'login_enqueue_scripts',array( $this, 'hiilite_login_logo' ));
+		
 	}
 	
 	

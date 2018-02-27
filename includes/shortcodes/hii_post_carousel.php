@@ -1,5 +1,6 @@
 <?php
 function add_hii_post_carousel_shortcode( $atts ){
+	$html = $classes = '';
     $is_vc = (class_exists('Vc_Manager'))?true:false;
     extract( shortcode_atts( array(
       'post_ids' => null,
