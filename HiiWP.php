@@ -14,12 +14,12 @@ if ( ! defined( 'ABSPATH' ) )	exit;
 /**
  * HiiWP class.
  *
- * @since 1.0
+ * @since 0.4.9
  */
 class HiiWP extends Hii {
 	
 	private static $_instance = null;
-		
+	
 	public static $options = array();
 	public static $hiilite_options = null;
 
@@ -28,6 +28,8 @@ class HiiWP extends Hii {
 			self::$_instance = new self();
 		}
 		return self::$_instance;
+		
+		
 	}
 	
 	/**
@@ -38,6 +40,8 @@ class HiiWP extends Hii {
 	 */
 	public function __construct() {
 		$hiilite_options = self::$hiilite_options = self::get_options();
+		
+		
 		add_action( 'init', array( $this, 'hiiwp_init') );
 		add_action( 'wp_head', array($this, 'hiiwp_head') );
 		add_action( 'wp_head', array($this, 'add_favicons'));
@@ -521,6 +525,12 @@ class HiiWP extends Hii {
 	 */
 	public function enqueue_admin_scripts() {
 		wp_enqueue_script( HIIWP_SLUG . '-pointer-js', HIIWP_URL.'/js/hiiwp-pointer.js', array( 'jquery' ), HIIWP_VERSION );
+		
+		wp_enqueue_style( HIIWP_SLUG . '-select2', HIIWP_URL . '/js/vender/select2/css/select2.css', HIIWP_VERSION );
+		wp_enqueue_script( HIIWP_SLUG . '-select2', HIIWP_URL . '/js/vender/select2/js/select2.min.js', 'jQuery', HIIWP_VERSION, true );
+		
+		wp_enqueue_script( HIIWP_SLUG .'-admin-js', HIIWP_URL . '/js/hiiwp-admin.js', array('jquery'), HIIWP_VERSION, true );
+		
 		
         wp_enqueue_style( HIIWP_SLUG . '-admin-css' );
 		

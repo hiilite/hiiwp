@@ -28,6 +28,14 @@ class Hii {
 	private $rest_api = null;
 	
 	public static $options = array();
+	
+	/**
+	 * HTML Element Helper Object
+	 *
+	 * @var object
+	 * @since 0.4.9
+	 */
+	 public static $html;
 
 	/**
 	 * Main HiiWP Instance.
@@ -55,7 +63,7 @@ class Hii {
 	 */
 	private function define_constants(){
 	    if ( ! defined( 'HIIWP_VERSION' ) ) {                
-			 define( 'HIIWP_VERSION', '0.4.8' );
+			 define( 'HIIWP_VERSION', '0.4.9' );
 		}
 		if ( ! defined( 'HIIWP_SLUG' ) ) {                
 		    define( 'HIIWP_SLUG', 'hiiwp' );           
@@ -104,7 +112,7 @@ class Hii {
 		$this->sidebars		= new HiiWP_Sidebars();
 		$this->theme_options= new HiiWP_Theme_Options();
 		$this->menus		= new HiiWP_Menus();
-		
+		self::$html 		= new HiiWP_HTML_Elements();
 				
 		
 		
@@ -143,6 +151,10 @@ class Hii {
 		
 		if(class_exists('WP_User_Manager')):
 			get_template_part( 'includes/shortcodes/wpum');
+		endif;
+		
+		if(class_exists('Sportspress')):
+			get_template_part( 'includes/service_extensions/sportspress');
 		endif;
 		
 		if(class_exists('bbPress')):
@@ -818,5 +830,30 @@ function tofloat($num) {
         preg_replace("/[^0-9]/", "", substr($num, 0, $sep)) . '.' .
         preg_replace("/[^0-9]/", "", substr($num, $sep+1, strlen($num)))
     );
+}
+
+
+/**
+ * Retrieve a list of all user roles
+ *
+ * On large sites this can be expensive, so only load if on the settings page or $force is set to true
+ *
+ * @since 0.4.9
+ * @param bool    $force Force the roles to be loaded even if not on settings
+ * @return array $roles An array of the roles
+ */
+function hii_get_roles( $force = false ) {
+
+	$roles_options = array( 0 => '' ); // Blank option
+
+	if ( ( ! isset( $_GET['page'] ) || 'hiiwp-settings' != $_GET['page'] ) && ! $force ) {
+		return $roles_options;
+	}
+
+	global $wp_roles;
+
+	$roles = $wp_roles->get_names();
+
+	return apply_filters( 'hiiwp_get_roles', $roles );
 }
 ?>

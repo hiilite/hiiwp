@@ -493,3 +493,115 @@
 .sp-template-league-gallery dl {
 	padding: 0.75em;
 }
+
+
+
+/* Player Profile Page */
+.sp-top_information_wrapper {
+	padding-bottom: 50px;	
+}
+.sp-section-content.sp-section-content-content,
+.sp-section-content.sp-section-content-excerpt {
+    max-width: 1100px;
+    padding: 1em;
+    margin: auto;
+}
+
+.sp-section-content.sp-section-content-photo,
+.sp-section-content.sp-section-content-details {
+	min-width: 320px;
+    width: 50%;
+    flex: 1 1 50%;
+}
+.sp-section-content.sp-section-content-selector {
+	width: 100%;
+}
+.sp-template.sp-template-player-photo.sp-template-photo.sp-player-photo {
+    position: relative;
+}
+
+.sp-team-colors {
+    position: absolute;
+    height: 80%;
+    width: 80%;
+    top: 10%;
+    left: 0;
+}
+.sp-team-colors > div {
+	 height: 28%;
+    margin-bottom: 5%;
+}
+.sp-team-color-one {
+    background: #20c1a1;
+}
+
+.sp-team-color-two {
+    background: #2a2744;
+}
+
+.sp-team-color-three {
+    background: #20c1a1;
+}
+
+.sp-player-photo figure img{
+    padding-left: 40px;
+    padding-right: 40px;
+}
+.sp-template-details dl {
+    background: none;
+    border: none;
+    line-height: 1.6;
+    font-size:19px;
+}
+
+.sp-template-details dt {
+    width: auto;
+    margin-bottom: 0;
+    text-transform: uppercase;
+}
+
+.sp-template-details dd {
+    margin: 0;
+    padding-left: 1em;
+    color: #20c1a1;
+    min-width: 10px;
+    min-height: 30px;
+}
+
+.sp-section-content-statistics,
+.sp-section-content-events {
+    background-color: #2a2744;
+    padding-top: 50px;
+    padding-bottom: 80px;
+    background-size: cover;
+    flex: 1 1 auto;
+    min-width: 360px;
+}
+
+.sp-template.sp-template-player-statistics,
+.sp-fixtures-results {
+    max-width: 1100px;
+    margin: auto;
+    padding: 16px;
+}
+
+h4.sp-table-caption {
+    font-size: 16px;
+    text-transform: none;
+    background: #2a2744;
+    padding: 5px 16px;
+}
+
+.sp-table-wrapper {
+    background: white;
+}
+
+.sp-data-table thead th, .sp-data-table td {
+    padding-left: 1em;
+}
+.sp-section-content.sp-section-content-tweets {
+    max-width: 280px;
+    flex: 1 1 auto;
+    min-width: 250px;
+    margin: auto;
+}

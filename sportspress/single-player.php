@@ -14,16 +14,16 @@ $edit = ($author_id == $current_user) ? true : false;
 ?>
 
 	<section id="primary" class="row"> 
-		<div class="in_grid">
-		<main id="main" role="main" class="col-9 content-box">
+		
+		<main id="main" role="main" class="container_inner">
 			<?php 
-			if($edit) echo "<div>This is you! would you like to <a href='/wp-admin/post.php?post=".get_the_id()."&action=edit'>edit you player profile?</a></div>";
+			if($edit) echo "<div class='edit_link aligncenter'>This is you! would you like to <a href='/wp-admin/post.php?post=".get_the_id()."&action=edit'>edit you player profile?</a></div>";
 	
 			while ( have_posts() ) : the_post();
 				the_content(  )	;
 			endwhile; // end of the loop. ?>
 
 		</main><!-- #main -->
-		</div>
+		
 	</section><!-- #primary -->
 <?php get_footer(); ?>

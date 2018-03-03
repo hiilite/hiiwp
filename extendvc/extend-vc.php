@@ -2112,6 +2112,7 @@ vc_map( array(
 //	Multi Screen Showcase
 //
 ///////////////////////////// 
+/*
 vc_map( array(
 		"name" => "Multi Screen Showcase",
 		"base" => "screen-showcase",
@@ -2156,7 +2157,7 @@ vc_map( array(
 	        ),
 		)
 ) );
-
+*/
 ////////////////////////////
 //
 //	Empty Space
