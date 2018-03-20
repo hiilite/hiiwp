@@ -2,6 +2,7 @@
 
 $main_menu_colors = Hii::$options['main_menu_colors'];
 $second_level_menu_colors = Hii::$options['second_level_menu_colors'];	
+$third_level_menu_colors = Hii::$options['third_level_menu_colors'];
 ?>
 #main-nav {
 	margin:<?php echo get_spacing(Hii::$options['menu_margin']);?>;
@@ -111,6 +112,12 @@ ul.sub-menu {
 	get_font_css(get_theme_mod('third_level_menu_font'));
 	echo get_theme_mod('third_level_menu_links_css');
 	?>
+}
+#main_header .menu ul.sub-menu ul.sub-menu .menu-item a:hover {
+	color:<?php echo $third_level_menu_colors['hover'];?>;
+}
+#main_header .menu ul.sub-menu ul.sub-menu .menu-item:hover {
+	background-color:<?php echo $third_level_menu_colors['hover_background'];?>;
 }
 
 .mobile_menu_button {

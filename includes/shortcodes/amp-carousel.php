@@ -18,8 +18,10 @@ function add_amp_carousel_shortcode( $atts ){
       'thumbnails'	=> false,
       'media_grid_images' => null,
       'css' => '',
+      'id'	=> ''
     ), $atts ) );
     
+    $id = ($id != '')?"id={$id}":"id='hii_rc_".rand(100,999)."'";
     /*
 	VC CSS    
 	*/
@@ -50,7 +52,7 @@ function add_amp_carousel_shortcode( $atts ){
     $query = new WP_Query($args);
     
     $output = '';
-    $output .= '<amp-carousel style="display:block;height:'.$height.'px;width:'.$width.'px" layout="fixed-height" type="'.$type.'" '.implode( ' ', $wrapper_attributes ).'>';
+    $output .= '<amp-carousel style="display:block;height:'.$height.'px;width:'.$width.'px" layout="fixed-height" type="'.$type.'" '.implode( ' ', $wrapper_attributes ).' '.$id.'>';
     if($type == 'carousel') $output .= '<div class="carousel-wrapper" style="white-space: nowrap; position: absolute; z-index: 1; top: 0px; left: 0px; bottom: 0px;">';
     if($args['post_type'] == 'attachment'):
     	$count = 0;

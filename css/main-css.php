@@ -1967,7 +1967,7 @@ endif; ?>
 
 <?php echo Hii::$options['typography_icon_custom_css'];?>
 
-.fa {
+a .fa, .fa {
 	display: inline-block;
 	width: 1.5em;
 	text-align: center;

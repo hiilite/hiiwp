@@ -8,34 +8,37 @@ function add_hii_rotating_carousel_shortcode( $atts ){
 	
 	$slug = get_theme_mod( 'portfolio_slug', 'portfolio' );
 	extract( shortcode_atts( array(
+		'id'		=> '',
 		'post_type' => 'post',
 		'filter_source' => 'category',
-		'orderby' => '',
-		'order' => 'DESC',
-		'meta_key' => '',
+		'orderby' 	=> '',
+		'order' 	=> 'DESC',
+		'meta_key' 	=> '',
 		'max_items' => '10',
-		'offset' => '0',
+		'offset' 	=> '0',
 		'taxonomies' => '',
 		'custom_query' => '',
 		'data_type' => 'query',
 		'filter_source' => 'category',
-		'include' => '',
-		'exclude' => '',
-		'loop' => '',
-		'autoplay' => '',
-		'args'  => null,
-		'height' => 400,
-		'width'	=> 1000,
-		'type'	=> 'carousel',
+		'include' 	=> '',
+		'exclude' 	=> '',
+		'loop'		=> '',
+		'autoplay' 	=> '',
+		'args'  	=> null,
+		'height' 	=> 400,
+		'width'		=> 1000,
+		'type'		=> 'carousel',
 		'thumbnails'	=> false,
 		'media_grid_images' => null,
-		'show_btn' => true,
+		'show_btn' 	=> true,
 		'btn_text'	=> 'Read More',
 		'show_title' => true,
 		'show_excerpt' => true,
 		'css' => '',
     ), $atts ) );
     
+    $id = ($id != '')?"id={$id}":'id="hii_rc_'.rand(100,999).'"';
+    $autoplay = ($autoplay != '')?"delay={$autoplay}":'';
     /*
 	VC CSS    
 	*/
@@ -115,13 +118,14 @@ function add_hii_rotating_carousel_shortcode( $atts ){
 	} else {
 		return;
 	}
-
+	
+	
 
 //////////////
     $query = new WP_Query($settings);
     
     $output = '';
-    $output .= '<amp-carousel height="'.$height.'" width="'.$width.'" layout="fixed-height" type="'.$type.'" '.implode( ' ', $wrapper_attributes ).'>';
+    $output .= '<amp-carousel hii height="'.$height.'" width="'.$width.'" layout="fixed-height" type="'.$type.'" '.implode( ' ', $wrapper_attributes ).' '.$id.' '.$autoplay.'>';
     if($type == 'carousel') $output .= '<div class="carousel-wrapper" style="white-space: nowrap; position: absolute; z-index: 1; top: 0px; left: 0px; bottom: 0px;">';
     if($args['post_type'] == 'attachment'):
     	$count = 0;

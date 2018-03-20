@@ -16,10 +16,17 @@ Kirki::add_field( 'hiiwp', array(
 	'type'        => 'background',
     'settings'    => 'footer_background',
     'label'       => __( 'Footer Background', 'hiiwp' ),
-    'description' => __('Choose a background image and color for the entire footer.', 'hiiwp'),
+    'description' => __('Choose a background image and color for the entire footer.', 'hiiwp'),    
     'section'     => $section,
     'priority'    => 1,
-    'default'     => $hiilite_options['footer_background'],
+    'default'     => array(
+		'background-color'    => ' ',
+		'background-image'    => '',
+		'background-repeat'   => 'no-repeat',
+		'background-size'     => 'cover',
+		'background-attachment'   => 'scroll',
+		'background-position' => 'left-top',
+	),
 ) );
 // Footer  order Top
 Kirki::add_field( 'hiiwp', array(

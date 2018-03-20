@@ -160,14 +160,14 @@ Kirki::add_field( 'hiiwp', array(
         'text-transform' => 'None',
         'color'			 => ' ',
     ),
-    'priority'    => 3,
+    'priority'    => 5,
 ) );
 Kirki::add_field( 'hiiwp', array(
 	'type'        => 'multicolor',
     'settings'    => 'third_level_menu_colors',
     'label'       => __( 'Colors', 'hiiwp' ),
     'section'     => $section,
-    'priority'    => 3,
+    'priority'    => 5,
     'choices'     => array(
         'hover'   => esc_attr__( 'Hover Color', 'hiiwp' ),
         'active'  => esc_attr__( 'Active Color', 'hiiwp' ),
@@ -191,7 +191,7 @@ Kirki::add_field( 'hiiwp', array(
 		'bottom' => '1em',
 		'left'   => '1em',
 	),
-	'priority'    => 3,
+	'priority'    => 5,
 	'transport'   => 'postMessage',
     'output' => array(
 		array(
@@ -212,7 +212,7 @@ Kirki::add_field( 'hiiwp', array(
 	'label'       => __( 'Menu Custom CSS (.menu .menu-item a)', 'hiiwp' ),
 	'section'     => $section,
 	'default'     => '',
-	'priority'    => 4,
+	'priority'    => 5,
 	'choices'     => array(
 		'language' => 'css',
 		'theme'    => 'monokai',
@@ -238,7 +238,7 @@ Kirki::add_field( 'hiiwp', array(
         'letter-spacing' => '0px',
         'color'          => ' ',
     ),
-	'priority'    => 5,
+	'priority'    => 6,
 	'required'	  => array(
 		array(
 		    'setting'  => 'header_top_area_yesno',
@@ -253,7 +253,7 @@ Kirki::add_field( 'hiiwp', array(
     'label'       => __( 'Link Colors', 'hiiwp' ),
     'description' => __('Header Top link colors', 'hiiwp'),
     'section'     => $section,
-    'priority'    => 6,
+    'priority'    => 7,
     'choices'     => array(
 	    'link'   => esc_attr__( 'Link Color', 'hiiwp' ),
         'hover'   => esc_attr__( 'Hover Color', 'hiiwp' ),
@@ -282,7 +282,7 @@ Kirki::add_field( 'hiiwp', array(
         'letter-spacing' => '0px',
         'color'          => ' ',
     ),
-	'priority'    => 7,
+	'priority'    => 8,
 	'required'	  => array(
 		array(
 		    'setting'  => 'header_bottom_on',

@@ -952,8 +952,8 @@ vc_add_param( 'vc_basic_grid',  array(
 				'group' => 'Item Design',
 				'value' => array(
 						__( 'Theme Default', 'hiiwp' ) => '',
-						__( 'On', 'hiiwp' ) => true,
-						__( 'Off', 'hiiwp' ) => false,
+						__( 'On', 'hiiwp' ) => 'true',
+						__( 'Off', 'hiiwp' ) => 'false',
 						
 					),
 				"dependency" => array (
@@ -3099,6 +3099,39 @@ vc_map( array(
 					'element' => 'show_btn',
 					'value' => 'yes',
 				)
+			),
+			array(
+				'type' => 'dropdown',
+				'param_name' => 'autoplay',
+				'value' => array(
+					__( 'None', 'hiiwp' ) => 'none',
+					'1' => '1',
+					'2' => '2',
+					'3' => '3',
+					'4' => '4',
+					'5' => '5',
+					'6' => '6',
+					'7' => '7',
+					'8' => '8',
+					'9' => '9',
+					'10' => '10',
+					'20' => '20',
+					'30' => '30',
+					'40' => '40',
+					'50' => '50',
+					'60' => '60',
+				),
+				'std' => 'none',
+				'heading' => __( 'Autoplay', 'hiiwp' ),
+				'description' => __( 'Select auto rotate for carousel in seconds (Note: disabled by default).', 'hiiwp' ),
+			),
+
+			array(
+				"type" => "textfield",
+				"holder" => "div",
+				"class" => "",
+				"heading" => "ID",
+				"param_name" => "id"
 			),
 			array(
 				'type' => 'css_editor',

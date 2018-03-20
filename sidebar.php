@@ -15,7 +15,7 @@ if ( ! is_active_sidebar( 'blog_sidebar' ) ) {
 }
 if ( $hiilite_options['blog_sidebar_show'] == true ) :
 ?>
-<aside id="blog_sidebar" class="widget-area col-3" role="complementary">
+<aside id="blog_sidebar" class="widget-area col-3 sidebar" role="complementary">
 	<?php
 	do_action( 'hii_before_sidebar' );
 	

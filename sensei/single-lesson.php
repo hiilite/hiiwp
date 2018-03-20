@@ -112,8 +112,15 @@ the_post();
 	            <?php 
 		            
 		        do_action( 'sensei_single_lesson_content_inside_after', get_the_ID() );
-		         
-		         
+				///////////////////////
+
+
+ 
+
+				//////////////////////
+
+				do_action( 'sensei_lesson_single_meta' );
+				
 		        if( $view_lesson ) {
 			        if ( $access_permission || ( is_user_logged_in() && $user_taking_course ) || $is_preview ) {
 	                    do_action( 'sensei_lesson_single_meta' );

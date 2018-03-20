@@ -84,16 +84,16 @@ if(isset($atts)) {
 	$use_blog_layouts = (isset($atts['use_blog_layouts']) && $atts['use_blog_layouts'] == 'true')?true:false;
 	
 	switch ($hiilite_options['blog_col']) {
-		case '6': 
+		case '2': 
 			$hiilite_options['blog_col'] = '2'; 
 		break;
 		case '4': 
-			$hiilite_options['blog_col'] = '3'; 
-		break;
-		case '3': 
 			$hiilite_options['blog_col'] = '4'; 
 		break;
-		case '2': 
+		case '3': 
+			$hiilite_options['blog_col'] = '3'; 
+		break;
+		case '6': 
 			$hiilite_options['blog_col'] = '6'; 
 		break;
 		case '1': 

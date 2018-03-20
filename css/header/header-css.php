@@ -98,6 +98,7 @@ if(Hii::$options['header_top_area_yesno'] == true):
 	#header_top {
 		background: <?php echo get_theme_mod('header_top_background_color', '#f8f8f8');?>;
 		border-top: <?php echo get_theme_mod('header_top_border_width', '0px').' solid '.get_theme_mod('header_top_border_color', 'transparent');?>;
+		border-bottom-style: solid;
 		
 		<?php 
 		get_font_css(Hii::$options['header_top_font']);

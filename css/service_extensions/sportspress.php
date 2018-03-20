@@ -506,7 +506,10 @@
     padding: 1em;
     margin: auto;
 }
-
+.sp-section-content-excerpt,
+.sp-section-content-content {
+	width: 100%;
+}
 .sp-section-content.sp-section-content-photo,
 .sp-section-content.sp-section-content-details {
 	min-width: 320px;
@@ -574,8 +577,9 @@
     padding-top: 50px;
     padding-bottom: 80px;
     background-size: cover;
-    flex: 1 1 auto;
+    flex: 1 1 50%;
     min-width: 360px;
+    width: 100%;
 }
 
 .sp-template.sp-template-player-statistics,
@@ -601,7 +605,6 @@ h4.sp-table-caption {
 }
 .sp-section-content.sp-section-content-tweets {
     max-width: 280px;
-    flex: 1 1 auto;
-    min-width: 250px;
+    flex: 0 1 auto;
     margin: auto;
 }

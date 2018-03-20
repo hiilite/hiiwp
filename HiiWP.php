@@ -190,7 +190,7 @@ class HiiWP extends Hii {
 		wp_enqueue_script('modernizr', HIIWP_URL.'/js/vender/modernizr-custom.js');
 		wp_enqueue_script('viewportUnitsBuggyfill', HIIWP_URL.'/js/vender/viewport-units-buggyfill.js');
 		
-		wp_enqueue_script('main-scripts', HIIWP_URL.'/js/main-scripts.js', array( 'jquery' ), '0.0.2', true);	
+		wp_enqueue_script('main-scripts', HIIWP_URL.'/js/main-scripts.js', array( 'jquery' ), HIIWP_VERSION, true);	
 		wp_localize_script('main-scripts', 'mobile_menu_switch', self::$hiilite_options['mobile_menu_switch']);
 		
 		/*Removed due to conflict with other caching plugins*/

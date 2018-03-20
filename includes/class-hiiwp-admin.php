@@ -59,6 +59,9 @@ class HiiWP_Admin {
 		add_action( 'customize_save', array( $this, 'my_rewrite_flush' ) );
 		
 		add_filter( 'heartbeat_settings', array( $this, 'optimize_heartbeat_settings' ) );
+		
+		add_action( 'admin_head', array( $this, 'admin_custom_styles' ) );
+		
 	}
 	
 	
@@ -107,6 +110,12 @@ class HiiWP_Admin {
 	        )
 	    );
 	    wp_enqueue_script( 'meta_uploader' );
+	}
+	
+	public function admin_custom_styles() {
+		
+			include_once(HIILITE_DIR . '/css/admin-css.php');
+		
 	}
 	
 	

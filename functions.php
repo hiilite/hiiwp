@@ -373,36 +373,38 @@ function hii_the_title() {
  * @param mixed $background
  * @return void
  */
-function get_background_css($background){ 
-	foreach($background as $rule => $value){
-		if($value != ''){
-			switch ($rule){
-				case 'background-image':case 'image':
-					echo "background-image:url($value);";
-					break;
-				case 'background-attach':case 'attach':
-					echo "background-attachment:$value;";
-					break;
-				case 'background-position':case 'position':
-					echo 'background-position:'.str_replace('-', ' ', $value).';';
-					break;
-				case 'background-size':case 'size':
-					echo "background-size:$value;";
-					break;
-				case 'background-repeat':case 'repeat':
-					echo "background-repeat:$value;";
-					break;
-				case 'background-color':case 'color':
-					echo "background-color:$value;";
-					break;
-				default:
-					echo "$rule:$value;";
-					break;
-					
+ if(!function_exists('get_background_css')):
+	function get_background_css($background){ 
+		foreach($background as $rule => $value){
+			if($value != ''){
+				switch ($rule){
+					case 'background-image':case 'image':
+						echo "background-image:url($value);";
+						break;
+					case 'background-attach':case 'attach':
+						echo "background-attachment:$value;";
+						break;
+					case 'background-position':case 'position':
+						echo 'background-position:'.str_replace('-', ' ', $value).';';
+						break;
+					case 'background-size':case 'size':
+						echo "background-size:$value;";
+						break;
+					case 'background-repeat':case 'repeat':
+						echo "background-repeat:$value;";
+						break;
+					case 'background-color':case 'color':
+						echo "background-color:$value;";
+						break;
+					default:
+						echo "$rule:$value;";
+						break;
+						
+				}
 			}
 		}
 	}
-}
+endif;
 
 
 /**
@@ -646,24 +648,16 @@ function content($limit) {
  */
 function content_excerpt( $length = 55 ) { 
 	global $post;
-	$exc = get_the_excerpt();
-	if($exc != NULL && strlen($exc) > 0)
-	{   
-	    $excerpt = $exc;
-	    
+	
+	$length = (int)($length);
+	if( has_excerpt() ) {		    
+		$excerpt = strip_shortcodes(excerpt($length));
+	} else {
+		$content = get_the_content('');
+		$content = preg_replace("/\[[^\]]+\]/", '', $content);
+		$excerpt = wp_trim_words( $content , $length );
 	}
-	else
-	{
-	    if( $post->post_excerpt ) {
-		    
-	        $excerpt = strip_shortcodes(excerpt($length));
-	    } else {
-		    $content = get_the_content('');
-	        $content = preg_replace("/\[[^\]]+\]/", '', $content);
-	        $excerpt = wp_trim_words( $content , $length );
-	    }
-	}
-    return $excerpt;
+	return $excerpt;
 }
 
 

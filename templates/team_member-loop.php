@@ -24,14 +24,11 @@ echo '<div class="container_inner">';
 echo '<div class="twothird-width content-box">';
 	if(is_single() && get_post_meta(get_the_id(), 'show_page_title', true) != 'on'){
 		?>
-		<span itemprop="articleSection" class="labels"><a rel="category tag"><?php 
+		<span itemprop="articleSection" class="labels"><span rel="category tag"><?php 
 			$terms = get_the_terms( $post->id, 'position');
 			if($terms)echo $terms[0]->name;
-		?></a>
+		?></span>
 		<?php
-		echo '<h1>';
-		the_title();
-		echo '</h1>';
 	}
 	if(has_excerpt($post->id)){
 		the_excerpt();
@@ -62,13 +59,15 @@ array(	'post_type'=>'team',
 if($team->have_posts()):
 	echo '<div class="row"><div class="container_inner"><div class="in_grid">';
 	echo '<h2 class="full-width">Meet the rest of the team</h2>';
+	/*
 	while($team->have_posts()):
 		$team->the_post();
 		
 		get_template_part('templates/team', 'loop');
 		
 		
-	endwhile;
+	endwhile;*/
+	echo do_shortcode( '[hii_rotating_carousel post_type="custom" show_title="yes" show_excerpt="yes" show_btn="yes" btn_text="Read More" custom_query="post_type=team&order=ASC&orderby=rand"]' );
 	echo '</div></div></div>';
 
 endif;

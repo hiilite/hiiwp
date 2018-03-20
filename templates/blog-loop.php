@@ -72,7 +72,7 @@ if($hiilite_options['blog_title_show'] == 'true' || $hiilite_options['blog_title
 	$article_title .= '<' . $hiilite_options['blog_heading_tag'] . ' class="entry-title"><a href="' . get_the_permalink() . '">' . $post_format_icon . get_the_title().'</a></' . $hiilite_options['blog_heading_tag'] . '>';
 } 
 
-if($hiilite_options['blog_cats_show'] == 'true' || $hiilite_options['blog_cats_show'] == true):
+if($hiilite_options['blog_cats_show'] == 'true' || $hiilite_options['blog_cats_show'] === true):
 	$dateline = $article_cat.$dateline;
 endif;
 
@@ -86,6 +86,9 @@ endif;
 $cols = 'col-12';
 if($hiilite_options['blog_layouts'] =='boxed'){
 	switch ($hiilite_options['blog_col']) {
+		case '1':
+			$cols = ' col-12';
+		break;
 		case '2': 
 			$cols = ' col-6'; 
 		break;
@@ -95,6 +98,9 @@ if($hiilite_options['blog_layouts'] =='boxed'){
 		case '4': 
 			$cols = ' col-3'; 
 		break;		
+		case '6':
+			$cols = ' col-2';
+		break;
 	}
 }
 do_action( 'hii_before_blog_loop' );

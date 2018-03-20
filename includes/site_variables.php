@@ -90,7 +90,7 @@ $hiilite_options['color_four']					= get_theme_mod( 'color_four', '#b4b4b4');
 $hiilite_options['color_five']					= get_theme_mod( 'color_five', '');
 $hiilite_options['default_background_color']	= get_theme_mod( 'default_background_color', '');
 $hiilite_options['secondary_background_color']	= get_theme_mod( 'secondary_background_color', '');
-$hiilite_options['selection_color']				= get_theme_mod( 'selection_color', '');
+/*$hiilite_options['selection_color']				= get_theme_mod( 'selection_color', '');*/
 
 $hiilite_options['grid_width']					= get_theme_mod( 'grid_width', '1100px');
 
@@ -154,12 +154,12 @@ $hiilite_options['header_padding'] 				= get_theme_mod( 'header_padding', array(
 	));
 
 $hiilite_options['header_background'] = get_theme_mod( 'header_background', array(
-	'color' => '#ffffff',
-	'image' => '',
-	'repeat' => 'no-repeat',
-	'position' => 'left-top',
-	'size' => 'cover',
-	'attach' => 'fixed',
+	'background-color'    => '#fff',
+	'background-image'    => '',
+	'background-repeat'   => 'no-repeat',
+	'background-size'     => 'cover',
+	'background-attachment'   => 'scroll',
+	'background-position' => 'left-top',
 ));
 
 $hiilite_options['header_above_content'] = get_theme_mod('header_above_content', $hiilite_options['header_content_under']);
@@ -185,6 +185,9 @@ $hiilite_options['header_top_home_content']		= get_theme_mod( 'header_top_home_c
 
 $hiilite_options['header_top_pages_background_color']	= get_theme_mod( 'header_top_pages_background_color', '#fff' );
 $hiilite_options['header_top_pages_background_image']	= get_theme_mod( 'header_top_pages_background_image', '' );
+
+$hiilite_options['header_top_bottom_border_width']	= get_theme_mod( 'header_top_bottom_border_width', '0px' );
+$hiilite_options['header_top_bottom_border_color']	= get_theme_mod( 'header_top_bottom_border_color', '' );
 
 $hiilite_options['header_top_pages_height']		= get_theme_mod( 'header_top_pages_height', '100px' );
 
@@ -219,17 +222,18 @@ $hiilite_options['footer_font_color']			= '#8c8880';
 
 // FOOTER
 $hiilite_options['footer_background'] = get_theme_mod( 'footer_background', array(
-	'color' => '#ffffff',
-	'image' => '',
-	'repeat' => 'no-repeat',
-	'position' => 'left-top',
-	'size' => 'cover',
-	'attach' => 'fixed',
+	'background-color'    => '#fff',
+	'background-image'    => '',
+	'background-repeat'   => 'no-repeat',
+	'background-size'     => 'cover',
+	'background-attachment'   => 'scroll',
+	'background-position' => 'left-top',
 ));
     
 
 $hiilite_options['footer_top_border_color']	= get_theme_mod( 'footer_top_border_color', '#eee' );
 $hiilite_options['footer_top_border_width']	= get_theme_mod( 'footer_top_border_width', '1px' );
+$hiilite_options['footer_top_background']	= get_theme_mod( 'footer_top_background', '#fff' );
 
 $hiilite_options['footer_in_grid']			= get_theme_mod( 'footer_in_grid', true );
 
@@ -303,6 +307,29 @@ $hiilite_options['second_level_menu_font']	= get_theme_mod( 'second_level_menu_f
         'color'			 => ' ',
     ) );
  $hiilite_options['second_level_menu_colors']= get_theme_mod('second_level_menu_colors', array(
+        'hover'   => '',
+        'active'  => '',
+        'hover_background'  => '',
+    ));
+
+
+
+
+
+
+
+
+
+$hiilite_options['third_level_menu_font']	= get_theme_mod( 'third_level_menu_font', array(
+        'font-family'    => ' ',
+        'variant'        => ' ',
+        'font-size'      => ' ',
+        'line-height'    => ' ',
+        'letter-spacing' => '0px',
+        'text-transform' => 'None',
+        'color'			 => ' ',
+    ) );
+ $hiilite_options['third_level_menu_colors']= get_theme_mod('third_level_menu_colors', array(
         'hover'   => '',
         'active'  => '',
         'hover_background'  => '',
@@ -484,7 +511,7 @@ $hiilite_options['typography_button_default_font']	= get_theme_mod( 'typography_
         
     ) );
 $hiilite_options['typography_button_default_background'] =  get_theme_mod( 'typography_button_default_background', array(
-		'base' 	=> 'rgba(0,0,0,0)',
+		'base' 	=> '#fff',
 		'hover' => $hiilite_options['color_one'],
 ));
 $hiilite_options['typography_button_default_hover_color'] =  get_theme_mod( 'typography_button_default_hover_color', '#ffffff');
