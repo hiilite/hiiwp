@@ -665,6 +665,7 @@ $hiilite_options['typography_icon_custom_css']		= get_theme_mod('typography_icon
 // BLOG
 $hiilite_options['blog_layouts']			= get_theme_mod( 'blog_layouts', 'full-width' );
 $hiilite_options['blog_full_width']			= get_theme_mod( 'blog_full_width', false );
+$hiilite_options['blog_hide_password_protected_posts']= get_theme_mod( 'blog_hide_password_protected_posts', true );
 $hiilite_options['blog_col']				= get_theme_mod( 'blog_col', '' );
 $hiilite_options['blog_img_pos']			= get_theme_mod( 'blog_img_pos', 'image-left' );
 $hiilite_options['blog_title_position']		= get_theme_mod( 'blog_title_position', 'title-below' );
