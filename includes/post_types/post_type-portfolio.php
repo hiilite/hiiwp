@@ -91,7 +91,7 @@ if($hiilite_options['portfolio_on']):
 	    $cmb = new_cmb2_box( array(
 	        'id'            => 'portfolio_options',
 	        'title'         => 'Portfolio Options',
-	        'object_types'  => array( 'portfolio' ), // post type
+	        'object_types'  => array( get_theme_mod( 'portfolio_slug', 'portfolio' ) ), // post type
 	        'context'       => 'normal', // 'normal', 'advanced' or 'side'
 	        'priority'      => 'high', // 'high', 'core', 'default' or 'low'
 	        'show_names'    => true, // show field names on the left
@@ -230,15 +230,7 @@ if($hiilite_options['portfolio_on']):
 	}
 	
 	
-	function cmb2_output_portfolio_imgs( $portfolio_images ) {
-		if(!empty($portfolio_images)):
-			foreach($portfolio_images as $port_img) {
-				echo '<div class="col-12 port-img">';
-				echo '<img src="'.$port_img.'" >';
-				echo '</div>';	
-			}
-		endif;
-	}
+	
 	
 	
 	//////////////////////////////////

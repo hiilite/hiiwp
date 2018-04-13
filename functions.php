@@ -112,6 +112,7 @@ class Hii {
 		$this->sidebars		= new HiiWP_Sidebars();
 		$this->theme_options= new HiiWP_Theme_Options();
 		$this->menus		= new HiiWP_Menus();
+		$this->shortcodes	= new HiiWP_Shortcodes();
 		self::$html 		= new HiiWP_HTML_Elements();
 				
 		
@@ -850,4 +851,24 @@ function hii_get_roles( $force = false ) {
 
 	return apply_filters( 'hiiwp_get_roles', $roles );
 }
+
+
+
+/**
+ * cmb2_output_portfolio_imgs function.
+ * 
+ * @access public
+ * @param mixed $portfolio_images
+ * @return void
+ */
+function cmb2_output_portfolio_imgs( $portfolio_images ) {
+	if(!empty($portfolio_images)):
+		foreach($portfolio_images as $port_img) {
+			echo '<div class="col-12 port-img">';
+			echo '<img src="'.$port_img.'" >';
+			echo '</div>';	
+		}
+	endif;
+}
+
 ?>

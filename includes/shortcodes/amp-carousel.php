@@ -1,14 +1,12 @@
 <?php
-
 function add_amp_carousel_shortcode( $atts ){
 	
 	/*
 		TODO:
 
 	*/
-	
 	$post_id = get_the_id();
-		
+
 	$slug = get_theme_mod( 'portfolio_slug', 'portfolio' );
 	extract( shortcode_atts( array(
       'args'  => null,
@@ -59,7 +57,7 @@ function add_amp_carousel_shortcode( $atts ){
 		foreach ( $query->posts as $attachment) :
 			$count++;
 	       $image = wp_get_attachment_image_src( $attachment->ID, 'full' );
-	       $hratio = ($height / $image[2]);
+	       $hratio = ((int) $height / (int) $image[2]);
 	       $output .= '<a class="slide">';
 		   $output .= '<img src="'.$image[0].'" width="'.($image[1]*$hratio).'" height="'.($image[2]*$hratio).'" alt="'.get_the_title().'">';
 		   $output .= '</a>';

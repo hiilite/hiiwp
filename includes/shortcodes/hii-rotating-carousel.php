@@ -157,11 +157,11 @@ function add_hii_rotating_carousel_shortcode( $atts ){
 			if ( has_post_thumbnail() ) {
 				$image = wp_get_attachment_image_src( get_post_thumbnail_id( get_the_id() ), 'large' );
 				$hratio = ($height / $image[2]);
-				$output .= '<div href="'.get_the_permalink().'" class="slide">';
-				$output .= '<figure class="slide_img_container"><img src="'.$image[0].'" width="'.($image[1]*$hratio).'" height="'.($image[2]*$hratio).'" alt="'.get_the_title().'"></figure>';
+				$output .= '<div class="slide">';
+				$output .= '<figure class="slide_img_container"><a href="'.get_the_permalink().'"><img src="'.$image[0].'" width="'.($image[1]*$hratio).'" height="'.($image[2]*$hratio).'" alt="'.get_the_title().'"></a></figure>';
 				
-				$output .= '<h4 class="slide_title">'.get_the_title().'</h4>';
-				$output .= '<a href="'.get_the_permalink( ).'" class="button slide_button">'.$btn_text.'</a>';
+				$output .= ($atts['show_title'] === true)?'<h4 class="slide_title">'.get_the_title().'</h4>':'';
+				$output .= ($atts['show_btn'] === true)?'<a href="'.get_the_permalink( ).'" class="button slide_button">'.$btn_text.'</a>':'';
 				$output .= '</div>';
 		  	}
 		endwhile;

@@ -86,15 +86,6 @@ class HiiWP extends Hii {
         include_once( HIILITE_DIR . '/includes/Plugin-Activation/class-tgm-plugin-activation.php');
 		require_once( HIILITE_DIR . '/addons/tinymce_edits/tinymce_edits.php');
 		
-		
-		/*
-		 * Auto include all shortcodes
-		 */
-		foreach (glob(HIILITE_DIR."/includes/shortcodes/*.php") as $filename) {
-			preg_match('/[^\/]+?(?=\.)/', $filename, $template_file);
-		    get_template_part( '/includes/shortcodes/'.$template_file[0] );
-		} 
-		
 	}
 	
 	
