@@ -176,12 +176,19 @@ class HiiWP extends Hii {
 	public function hiiwp_head(){
 		global $cpage, $post, $wp_scripts, $woocommerce, $hiilite_options;
 		
-		wp_enqueue_script("jquery");
+		wp_enqueue_script( "jquery" );
+		wp_enqueue_script( "jquery-ui-core" );
+		wp_enqueue_script( "jquery-ui-widget" );
 		
 		wp_enqueue_script('modernizr', HIIWP_URL.'/js/vender/modernizr-custom.js');
 		wp_enqueue_script('viewportUnitsBuggyfill', HIIWP_URL.'/js/vender/viewport-units-buggyfill.js');
 		
-		wp_enqueue_script('main-scripts', HIIWP_URL.'/js/main-scripts.js', array( 'jquery' ), HIIWP_VERSION, true);	
+		wp_enqueue_script('kinetic', HIIWP_URL.'/js/vender/jquery.kinetic.min.js');
+		wp_enqueue_script('smoothTouchScroll', HIIWP_URL.'/js/vender/jquery.smoothTouchScroll.min.js', array('jquery', 'jquery-ui-widget'));
+		wp_enqueue_script('touchSwipe', HIIWP_URL.'/js/vender/jquery.touchSwipe.min.js', array('jquery', 'jquery-ui-widget'));
+		
+		
+		wp_enqueue_script('main-scripts', HIIWP_URL.'/js/main-scripts.js', array( 'jquery', 'smoothTouchScroll' ), HIIWP_VERSION, true);	
 		wp_localize_script('main-scripts', 'mobile_menu_switch', self::$hiilite_options['mobile_menu_switch']);
 		
 		/*Removed due to conflict with other caching plugins*/
@@ -198,7 +205,7 @@ class HiiWP extends Hii {
 	
 	
 	/**
-	 * hiiwp_head function.
+	 * add_favicons function.
 	 * 
 	 * @access public
 	 * @return void

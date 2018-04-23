@@ -185,12 +185,15 @@ $(document).ready(function(){
 	
 	$('.search_button').on( 'click', function(e){
 		$('#main_search').slideToggle(250);
-		$('#main_search .search-field').focus();
+		$('#main_search input[name=s]').focus();
 	});
 	/*
 	AMP-CAROUSEL carousel	
 	*/
 	$('amp-carousel').each(function(index){
+		
+		
+			
 		var $carousel = $(this);
 		var width = ($carousel.attr('width') != undefined)?$carousel.attr('width'):1000,
 			height = ($carousel.attr('height') != undefined)?$carousel.attr('height'):500,
@@ -198,7 +201,7 @@ $(document).ready(function(){
 			length = $carousel.find('.slide').length,
 			delay = ($carousel.attr('delay') != undefined)?$carousel.attr('delay'):false,
 			type = $carousel.attr('type');
-		
+			
 			
 		/* testimonial slider */
 		if($carousel.hasClass('testimonial-slider')){
@@ -297,6 +300,7 @@ $(document).ready(function(){
 		$carousel.height(height);
 		
 		if(length > 1) {
+			
 			
 			$carousel.append('<div class="amp-carousel-button amp-carousel-button-prev" role="button" aria-label="previous"></div><div class="amp-carousel-button amp-carousel-button-next" role="button" aria-label="next"></div>');
 			
@@ -474,14 +478,23 @@ $(document).ready(function(){
 			
 			/* CAROUSEL */
 			else if(type == 'carousel') {
-				$prev_button.hide();
-				var total_width = 0,
-					$wrapper = $carousel.find('.carousel-wrapper'),
-					position = $wrapper.position();
+				
+				$carousel.smoothTouchScroll({
+					continuousScrolling: false,
+					scrollWrapperClass:  'smooth-scroll-wrapper',
+					scrollableAreaClass: 'carousel-wrapper'
+				}); 
+				
+				//$prev_button.hide();
+				var total_width = 1,
+					$wrapper = $carousel.find('.smooth-scroll-wrapper'),
+					position = $wrapper.scrollLeft();
 					
 				$wrapper.find('.slide').each(function(){
 					total_width += $(this).outerWidth(true);
 				});
+				
+				$wrapper.find('.carousel-wrapper').width(total_width);
 				
 				var item_width = total_width / length,
 					left_indent = position.left;
@@ -491,17 +504,17 @@ $(document).ready(function(){
 						$prev_button = $(this).siblings('.amp-carousel-button-prev');
 					
 					width = $carousel.width();
-					position = $wrapper.position();
-					left_indent = position.left - item_width;
-					
-					if(left_indent < (-total_width + width)){ 
+					position = $wrapper.scrollLeft();
+					left_indent = position + item_width;
+					console.log(left_indent);
+					/*if(left_indent > (-total_width + width)){ 
 						left_indent = -total_width + width;
 						$next_button.hide();
-					}
+					}*/
 					
-					if(position.left > (-total_width + width)){
-						$wrapper.animate({left: left_indent}, 500, function(){});
-					}
+					//if(position > (-total_width + width)){
+					$wrapper.animate({scrollLeft: left_indent}, 500, function(){});
+					//}
 					$prev_button.show();
 				});
 				
@@ -509,18 +522,14 @@ $(document).ready(function(){
 					var $prev_button = $(this),
 						$next_button = $(this).siblings('.amp-carousel-button-next');
 					width = $carousel.width();
-					position = $wrapper.position();
-					left_indent = position.left + item_width;
-					
-					if(left_indent > 0) {left_indent = 0;
-						$prev_button.hide();
-					}
+					position = $wrapper.scrollLeft();
+					left_indent = position - item_width;
 					
 					
-					if(position.left <= 0){
-						$wrapper.animate({left: left_indent}, 500, function(){});
+					//if(position <= 0){
+						$wrapper.animate({scrollLeft: left_indent}, 500, function(){});
 						$next_button.show();
-					}
+					//}
 				});
 				
 				

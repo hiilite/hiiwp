@@ -51,7 +51,7 @@ function add_amp_carousel_shortcode( $atts ){
     
     $output = '';
     $output .= '<amp-carousel style="display:block;height:'.$height.'px;width:'.$width.'px" layout="fixed-height" type="'.$type.'" '.implode( ' ', $wrapper_attributes ).' '.$id.'>';
-    if($type == 'carousel') $output .= '<div class="carousel-wrapper" style="white-space: nowrap; position: absolute; z-index: 1; top: 0px; left: 0px; bottom: 0px;">';
+    if($type == 'carousel') $output .= '<div class="carousel-wrapper">';
     if($args['post_type'] == 'attachment'):
     	$count = 0;
 		foreach ( $query->posts as $attachment) :

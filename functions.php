@@ -125,11 +125,14 @@ class Hii {
 		add_action( 'after_switch_theme', array( $this->post_types, 'register_post_types'), 11);
 		add_action( 'after_switch_theme', 'flush_rewrite_rules', 15);
 		
-		
+		add_action('wp_enqueue_scripts', array( $this, 'add_scripts' ));
 		
 		
 	}
 	
+	public function add_scripts() {
+		
+	}
 	
 	private function add_dependencies(){
 		include_once( HIILITE_DIR . '/addons/cmb2-functions.php' ); 

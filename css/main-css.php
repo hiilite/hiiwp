@@ -15,7 +15,7 @@
 11.0 Featured Image Hover
 12.0 Navigation
 13.0 Layout
-   13.1 Header
+   13.1 Header 
    13.2 Front Page
    13.3 Regular Content
    13.4 Posts
@@ -2206,15 +2206,25 @@ amp-carousel.slider img {
 amp-carousel.carousel {
 	width: 100%;
 	height: 300px;
-	overflow: hidden;
-	white-space: nowrap;
+	position: relative;
+}
+.smooth-scroll-wrapper.kinetic-active {
+    height: 100%;
+    overflow: hidden;
 }
 
 amp-carousel.carousel .slide {
-	display: inline-block;
-	white-space: normal;
+	display: block;
+	float:left;
 	text-align: center;
-	padding: 20px;
+	padding: 10px;
+	height: 100%;
+}
+amp-carousel.carousel .slide > img {
+    max-height: 100%;
+    height: 100%;
+    width: auto;
+    display: block;
 }
 amp-carousel.carousel .slide  .slide_img_container {
 	width: 300px;
@@ -2229,7 +2239,9 @@ amp-carousel.carousel .slide  .slide_img_container img {
 	height: auto;
 }
 amp-carousel.carousel .carousel-wrapper{
-	white-space: nowrap; position: absolute; z-index: 1; top: 0px; left: 0px; bottom: 0px;
+	position: relative;
+	width: auto;
+	height: 100%;
 }
 amp-carousel.slider .hide {
 	display:none;	

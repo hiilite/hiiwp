@@ -154,9 +154,9 @@ class HiiWP_Hooks extends Hii {
 	 * @return void
 	 */
 	public function hii_header_hgroup(){
-		$page_title = hii_get_the_title();
+		/*$page_title = hii_get_the_title();
 		$hgroup = "<h1 style='display: none;'>$page_title</h1>";
-		echo $hgroup;
+		echo $hgroup;*/
 	}
 	
 	/**
