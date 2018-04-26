@@ -800,6 +800,39 @@ class HiiWP_Admin {
 	    $cmb->object_type( 'options-page' );
 	    $boxes[] = $cmb;
 	    
+	    //
+	    //	Optimization Option
+	    //
+	    $cmb = new_cmb2_box( array(
+	        'id'        => 'optimization_options',
+	        'title'     => __( 'Optimization', 'hiiwp' ),
+	        'show_on'   => $show_on,
+	        'display_cb' => false,
+	        'admin_menu_hook' => false
+	    ));
+	    $cmb->add_field( array(
+	        'name'       => __( 'Defer all Javascript', 'hiiwp' ),
+	        'desc'       => __( 'Set all Javascript to Defer. Turn this off if it conflicts with some plugins that add inline scripts', 'hiiwp' ),
+	        'id'         => 'defer_all_javascript',
+	        'type'       => 'checkbox',
+	    ));
+	    $cmb->add_field( array(
+	        'name'       => __( 'Async all CSS', 'hiiwp' ),
+	        'desc'       => __( 'Have all CSS load in dynamically after the document is ready to improve performance. Turn off if conflicting with other plugins.', 'hiiwp' ),
+	        'id'         => 'async_all_css',
+	        'type'       => 'checkbox',
+	    ));
+	    $cmb->add_field( array(
+	        'name'       => __( 'Load Viewport Units Buggyfill™', 'hiiwp' ),
+	        'desc'       => __( 'Provides hacks for you to get viewport units working in old IE and Android Stock Browser', 'hiiwp' ),
+	        'id'         => 'load_viewport_units_buggyfill',
+	        'type'       => 'checkbox',
+	    ));
+	    
+	    $cmb->object_type( 'options-page' );
+	    $boxes[] = $cmb;
+	    
+	    
 	    // Tabs - an array of configuration arrays.
 	    $tabs[] = array(
 	         'id'    => 'hiilite_main_tab',
@@ -827,6 +860,14 @@ class HiiWP_Admin {
 	        'desc'  => '<p>Input links to all your social networks, or connect them to your social networks for automatic posting.</p>',
 	        'boxes' => array(
 	            'company_social_info'
+	        ),
+	    );
+	    $tabs[] = array(
+	        'id'    => 'hiilite_advanced_tab',
+	        'title' => 'Advanced',
+	        'desc'  => '<p>Control some of the more advanced options of the HiiWP theme.</p>',
+	        'boxes' => array(
+	            'optimization_options'
 	        ),
 	    );
 	

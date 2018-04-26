@@ -2,11 +2,56 @@
 All notable changes to this project will be documented in this file.
 
 ## Unreleased
+
 ### Enhancements
 
-* Add the ability to add an alpha (transparency) slider to the colorpicker by adding the `'alpha'` option [to the field options array](https://github.com/CMB2/CMB2/blob/6fce2e7ba8f41345a23bc2064e30433bdb11c16c/example-functions.php#L263-L265). 
+* Enable linking options pages via tabbed-navigation. Will output tabbed navigation for options-pages which share the same `'tab_group'` CMB2 box property. [This snippet](https://github.com/CMB2/CMB2-Snippet-Library/blob/master/options-and-settings-pages/options-pages-with-tabs-and-submenus.php) demonstrates how to create a top-level menu options page with multiple submenu pages, each with the tabbed navigation. To specify a different tab title than the options-page title, set the `'tab_title'` CMB2 box property. See [#301](https://github.com/CMB2/CMB2/issues/301), [#627](https://github.com/CMB2/CMB2/issues/627).
+* Complete the `zh-CN` translation. Props [@uicestone](https://github.com/uicestone) ([#1089](https://github.com/CMB2/CMB2/issues/1089)).
+* Update the `nl_NL` translation. Props [@tammohaannl](https://github.com/tammohaannl) ([#1101](https://github.com/CMB2/CMB2/issues/1101)).
+* Better display for white images (e.g. logos) by using a checkered background for images. ([#1103](https://github.com/CMB2/CMB2/issues/1103))
+* Ability to disable the options autoload parameter via filter (`"cmb2_should_autoload_{$options_key}"`) or via a box parameter for `'options-page'` box registrations (`'autoload' => false,`). ([#1093](https://github.com/CMB2/CMB2/issues/1093))
+* `'textarea_code'` field type now uses CodeMirror that is [used by WordPress](https://make.wordpress.org/core/2017/10/22/code-editing-improvements-in-wordpress-4-9/) ([#1096](https://github.com/CMB2/CMB2/issues/1096)). A field can opt-out to return to the previous behavior by specifying an `'options'` parameter:  
+`'options' => array( 'disable_codemirror' => true )`  
+	As with the other javascript-enabled fields, the code-editor defaults can be overridden via a `data-codeeditor` attribute. E.g:
+
+	```php
+	'attributes' => array(
+		'data-codeeditor' => json_encode( array(
+			'codemirror' => array(
+				'mode' => 'css',
+			),
+		) ),
+	),
+	```   
+* Improve/add banners in CMB2 css files.
+
+## [2.3.0 - 2017-12-20](https://github.com/CMB2/CMB2/releases/tag/v2.3.0)
+
+### Enhancements
+
+* Updated Italian translation. Props [@Mte90](https://github.com/Mte90) ([#1067](https://github.com/CMB2/CMB2/issues/1067)).
+* Starting with this release, we are fully switching to the more communicative and standard [Semantic Versioning](https://semver.org/). ([#1061](https://github.com/CMB2/CMB2/issues/1061)).
 
 ### Bug Fixes
+
+* Update for compatibility with PHP 7.2 (e.g. fixes `Fatal error: Declaration of CMB2_Type_Colorpicker::render() must be compatible with CMB2_Type_Text::render($args = Array)...`). ([#1070](https://github.com/CMB2/CMB2/issues/1070), [#1074](https://github.com/CMB2/CMB2/issues/1074), [#1075](https://github.com/CMB2/CMB2/issues/1075)).
+
+## [2.2.6.2 - 2017-11-24](https://github.com/CMB2/CMB2/releases/tag/v2.2.6.2)
+
+### Bug Fixes
+
+* Fix another issue (introduced in 2.2.6) with repeatable fields not being able to save additional fields. Props [@anhskohbo](https://github.com/anhskohbo) ([#1059](https://github.com/CMB2/CMB2/pull/1059), [#1058](https://github.com/CMB2/CMB2/issues/1058)).
+* Only dequeue `jw-cmb2-rgba-picker-js` script (and enqueue our `wp-color-picker-alpha`) if it is actually found.
+
+## [2.2.6.1 - 2017-11-24](https://github.com/CMB2/CMB2/releases/tag/v2.2.6.1)
+
+### Enhancements
+
+* Merge in the [CMB2 RGBa Colorpicker](https://github.com/JayWood/CMB2_RGBa_Picker) field type functionality to the CMB2 colopicker field type. Adds the ability to add an alpha (transparency) slider to the colorpicker by adding the `'alpha'` option [to the field options array](https://github.com/CMB2/CMB2/blob/6fce2e7ba8f41345a23bc2064e30433bdb11c16c/example-functions.php#L263-L265). Thank you to [JayWood](https://github.com/JayWood) for his work on his custom field type. 
+
+### Bug Fixes
+
+* Fix issue (introduced in 2.2.6) with complex fields set as repeatable not being able to save additional fields. Fixes [#1054](https://github.com/CMB2/CMB2/issues/1054).
 
 ## [2.2.6 - 2017-11-14](https://github.com/CMB2/CMB2/releases/tag/v2.2.6)
 

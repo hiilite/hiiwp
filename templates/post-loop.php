@@ -42,7 +42,7 @@ if($hiilite_options['blog_meta_show'] == 'true'):
 	$dateline .= '</div>';
 endif;
 
-if($hiilite_options['blog_title_show'] == 'true' || $hiilite_options['blog_title_show'] == true) {
+if(in_array('post', $hiilite_options['show_title_on'])) {
 	if ( is_sticky() ) {
 		$post_format_icon .= '<i class="fa fa-thumb-tack post-format-icon"> </i>';
 	}

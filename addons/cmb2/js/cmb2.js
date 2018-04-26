@@ -30,6 +30,7 @@ window.CMB2 = window.CMB2 || {};
 			time_picker  : l10n.defaults.time_picker,
 			date_picker  : l10n.defaults.date_picker,
 			color_picker : l10n.defaults.color_picker || {},
+			code_editor  : l10n.defaults.code_editor,
 		},
 		media : {
 			frames : {},
@@ -55,10 +56,11 @@ window.CMB2 = window.CMB2 || {};
 		var $metabox     = cmb.metabox();
 		var $repeatGroup = $metabox.find('.cmb-repeatable-group');
 
-		/**
-		 * Initialize time/date/color pickers
-		 */
+		 // Init time/date/color pickers
 		cmb.initPickers( $metabox.find('input[type="text"].cmb2-timepicker'), $metabox.find('input[type="text"].cmb2-datepicker'), $metabox.find('input[type="text"].cmb2-colorpicker') );
+
+		// Init code editors.
+		cmb.initCodeEditors( $metabox.find( '.cmb2-textarea-code:not(.disable-codemirror)' ) );
 
 		// Insert toggle button into DOM wherever there is multicheck. credit: Genesis Framework
 		$( '<p><span class="button-secondary cmb-multicheck-toggle">' + l10n.strings.check_toggle + '</span></p>' ).insertBefore( '.cmb2-checkbox-list:not(.no-select-all)' );
@@ -102,7 +104,52 @@ window.CMB2 = window.CMB2 || {};
 		// and on window resize
 		$( window ).on( 'resize', cmb.resizeoEmbeds );
 
+		if ( $id( 'addtag' ).length ) {
+			cmb.listenTagAdd();
+		}
+
 		cmb.trigger( 'cmb_init' );
+	};
+
+	cmb.listenTagAdd = function() {
+		$document.ajaxSuccess( function( evt, xhr, settings ) {
+			if ( settings.data && settings.data.length && -1 !== settings.data.indexOf( 'action=add-tag' ) ) {
+				cmb.resetBoxes( $id( 'addtag' ).find( '.cmb2-wrap > .cmb2-metabox' ) );
+			}
+		});
+	};
+
+	cmb.resetBoxes = function( $boxes ) {
+		$.each( $boxes, function() {
+			cmb.resetBox( $( this ) );
+		});
+	};
+
+	cmb.resetBox = function( $box ) {
+		$box.find( '.wp-picker-clear' ).trigger( 'click' );
+		$box.find( '.cmb2-remove-file-button' ).trigger( 'click' );
+		$box.find( '.cmb-row.cmb-repeatable-grouping:not(:first-of-type) .cmb-remove-group-row' ).click();
+		$box.find( '.cmb-repeat-row:not(:first-child)' ).remove();
+
+		$box.find( 'input:not([type="button"]),select,textarea' ).each( function() {
+			var $element = $( this );
+			var tagName = $element.prop('tagName');
+
+			if ( 'INPUT' === tagName ) {
+				var elType = $element.attr( 'type' );
+				if ( 'checkbox' === elType || 'radio' === elType ) {
+					$element.prop( 'checked', false );
+				} else {
+					$element.val( '' );
+				}
+			}
+			if ( 'SELECT' === tagName ) {
+				$( 'option:selected', this ).prop( 'selected', false );
+			}
+			if ( 'TEXTAREA' === tagName ) {
+				$element.html( '' );
+			}
+		});
 	};
 
 	cmb.resetTitlesAndIterator = function( evt ) {
@@ -402,7 +449,6 @@ window.CMB2 = window.CMB2 || {};
 		if ( group ) {
 
 			var $other = $row.find( '[id]' ).not( cmb.repeatUpdate );
-			var $empty = $row.find('.empty-row').find( cmb.repeatUpdate );
 
 			// Remove extra ajaxed rows
 			$row.find('.cmb-repeat-table .cmb-repeat-row:not(:first-child)').remove();
@@ -420,21 +466,6 @@ window.CMB2 = window.CMB2 || {};
 					if ( $buttons.length ) {
 						$buttons.attr( 'data-selector', newID ).data( 'selector', newID );
 					}
-				});
-			}
-
-			// Fix hidden empty rows
-			if ( $empty.length ) {
-				$empty.each(function() {
-					var $emptyField = $( this );
-					var oldIndex    = $emptyField.attr('id').split('_').pop();
-					var NameRegex   = new RegExp( '\\['+oldIndex+'\\]$' );
-					var IdRegex     = new RegExp( '_'+oldIndex+'$' );
-					var newName     = $emptyField.attr('name').replace( NameRegex, '[' + (prevNum + 1) + ']' );
-					var newId       = $emptyField.attr('id').replace( IdRegex, '_' + ( prevNum + 1 ) );
-
-					$emptyField.attr('name', newName);
-					$emptyField.attr('id', newId);
 				});
 			}
 		}
@@ -468,7 +499,8 @@ window.CMB2 = window.CMB2 || {};
 		} else {
 			var oldName = $newInput.attr( 'name' );
 			var newName;
-			oldID       = $newInput.attr( 'id' );
+			oldID = $newInput.attr( 'id' );
+
 			// Handle adding groups vs rows.
 			if ( group ) {
 				// Expect another bracket after group's index closing bracket.
@@ -478,16 +510,13 @@ window.CMB2 = window.CMB2 || {};
 			}
 			else {
 				// Row indexes are at the very end of the string.
-				var lastNameIndex = new RegExp( '\\[' + prevNum + '\\]$' );
-				var lastIdIndex   = new RegExp( '_' + prevNum + '$' );
-				newName = oldName ? oldName.replace( lastNameIndex, '[' + cmb.idNumber + ']' ) : '';
-				newID   = oldID ? oldID.replace( lastIdIndex, '_' + cmb.idNumber ) : '';
+				newName = oldName ? cmb.replaceLast( oldName, '[' + prevNum + ']', '[' + cmb.idNumber + ']' ) : '';
+				newID   = oldID ? cmb.replaceLast( oldID, '_' + prevNum, '_' + cmb.idNumber ) : '';
 			}
 
 			attrs = {
 				id: newID,
-				name: newName,
-				'data-iterator': cmb.idNumber,
+				name: newName
 			};
 
 		}
@@ -499,6 +528,10 @@ window.CMB2 = window.CMB2 || {};
 
 		if ( checkable ) {
 			$newInput.removeAttr( 'checked' );
+		}
+
+		if ( ! group && $newInput[0].hasAttribute( 'data-iterator' ) ) {
+			attrs['data-iterator'] = cmb.idNumber;
 		}
 
 		$newInput
@@ -879,6 +912,34 @@ window.CMB2 = window.CMB2 || {};
 		}
 	};
 
+	cmb.initCodeEditors = function( $selector ) {
+		if ( ! cmb.defaults.code_editor || ! wp || ! wp.codeEditor || ! $selector.length ) {
+			return;
+		}
+
+
+		$selector.each( function() {
+			wp.codeEditor.initialize(
+				this.id,
+				cmb.codeEditorArgs( $( this ).data( 'codeeditor' ) )
+			);
+		} );
+	};
+
+	cmb.codeEditorArgs = function( overrides ) {
+		var props = [ 'codemirror', 'csslint', 'jshint', 'htmlhint' ];
+		var args = $.extend( {}, cmb.defaults.code_editor );
+		overrides = overrides || {};
+
+		for ( var i = props.length - 1; i >= 0; i-- ) {
+			if ( overrides.hasOwnProperty( props[i] ) ) {
+				args[ props[i] ] = $.extend( {}, args[ props[i] ] || {}, overrides[ props[i] ] );
+			}
+		}
+
+		return args;
+	};
+
 	cmb.makeListSortable = function() {
 		var $filelist = cmb.metabox().find( '.cmb2-media-status.cmb-attach-list' );
 		if ( $filelist.length ) {
@@ -1050,6 +1111,15 @@ window.CMB2 = window.CMB2 || {};
 		var args = Array.prototype.slice.call( arguments, 2 );
 		args.push( cmb );
 		$el.trigger( evtName, args );
+	};
+
+	cmb.replaceLast = function( string, search, replace ) {
+		// find the index of last time word was used
+		var n = string.lastIndexOf( search );
+
+		// slice the string in 2, one from the start to the lastIndexOf
+		// and then replace the word in the rest
+		return string.slice( 0, n ) + string.slice( n ).replace( search, replace );
 	};
 
 	$( cmb.init );

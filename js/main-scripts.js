@@ -1,7 +1,10 @@
 (function($){
 	
 $(document).ready(function(){	
-	window.viewportUnitsBuggyfill.init();  
+	if (typeof window.viewportUnitsBuggyfill == 'function') { 
+		window.viewportUnitsBuggyfill.init(); 
+	}
+	 
 	
 	/* HII POST CAROUSEL */
 	

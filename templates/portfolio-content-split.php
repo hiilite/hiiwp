@@ -51,6 +51,11 @@ echo '<div class="in_grid  align-top">';
 	<meta itemprop="datePublished" content="<?php the_time('Y-m-d'); ?>">
 	
 	<!-- Gallery -->
+	<div class="col-12 before-portfolio-gallery">
+	    <?php
+	    do_action( 'hii_before_split_portfolio_gallery' );
+	    ?>
+	</div>
 	<div class="col-8 portfolio-gallery">
 		<?php 
 		do_action( 'hii_before_split_portfolio_gallery_content' );

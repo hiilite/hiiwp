@@ -20,7 +20,7 @@ Kirki::add_field( 'hiiwp', array(
     'label'       => esc_attr__( 'Paragraph Bottom Margin', 'hiiwp' ),
     'description' => __( 'Define the paragraph tags margin-bottom', 'hiiwp' ),
     'section'     => $section,
-    'default'     => '1em',
+    'default'     => $hiilite_options['text_margin'],
     'priority'    => 1,
     'transport'   => 'postMessage',
     'output' => array(

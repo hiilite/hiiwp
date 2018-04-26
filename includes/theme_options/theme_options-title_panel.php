@@ -20,6 +20,10 @@ Kirki::add_field( 'hiiwp', array(
 
 function add_show_title_on_control() {
 	global $hiilite_options;
+	
+	$post_types = Hii::get_post_types(array(), 'objects');
+	$post_types[] = 'blog';
+	
 	Kirki::add_field( 'hiiwp', array(
 	    'type'        => 'multicheck',
 	    'settings'    => 'show_title_on',
@@ -27,8 +31,8 @@ function add_show_title_on_control() {
 	    'description'  => __( 'Which post types should the title show on', 'hiiwp' ),
 	    'section'     => 'title_section',
 	    'priority'    => 1,
-	    'default'     => Hii::get_post_types(array(), 'objects'),
-	    'choices'     => Hii::get_post_types(array(), 'objects'),
+	    'default'     => $post_types,
+	    'choices'     => $post_types,
 	    'active_callback'	=> array(
 			array(
 				'setting'  => 'show_page_titles',

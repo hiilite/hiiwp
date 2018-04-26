@@ -136,7 +136,7 @@ do_action( 'hii_before_blog_loop' );
 				
 				
 					echo '<a href="' . get_the_permalink() . '">';
-					echo '<img src=' . $img_src . ' width=' . $width . ' height=' . $height . ' alt=' . get_the_title() . '>';
+					echo '<img src=' . $img_src . ' width="' . $width . '" height="' . $height . '" alt="Read more on ' . get_the_title() . '">';
 					echo '</a>';
 				
 				echo '</figure>';
@@ -160,7 +160,7 @@ do_action( 'hii_before_blog_loop' );
 			$more_button_class = get_theme_mod( 'blog_more_type', 'button' );
 			$more_button_class .= ($more_button_class != 'link' && $more_button_class != 'button')?' button readmore':' readmore';
 			?>
-			<a class="<?php echo $more_button_class;?>" href="<?php the_permalink() ?>"><?php echo $hiilite_options['blog_more_ex'];?></a><?php 
+			<a class="<?php echo $more_button_class;?>" href="<?php the_permalink() ?>" title="<?php echo 'Read more on ' . get_the_title(); ?>"><?php echo $hiilite_options['blog_more_ex'];?></a><?php 
 		endif;
 		echo '</div>';
 		?>

@@ -77,7 +77,7 @@ function add_social_share_shortcode( $atts ){
 	}
 	$output = '<span '.implode( ' ', $wrapper_attributes ).'>';
 	
-	$output .= '<a title="Share On Facebook" target="_blank" href="http://www.facebook.com/sharer.php?u='.$permalink.'"><i class="fa fa-facebook"></i></a>  ';
+	$output .= '<a title="Share On Facebook" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u='.$permalink.'"><i class="fa fa-facebook"></i></a>  ';
 	
 	if($gp) $output .= '<a title="Share On Google+" target="_blank" href="https://plus.google.com/share?url='.$permalink.'"><i class="fa fa-google-plus"></i></a>  ';
 	

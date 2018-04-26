@@ -47,7 +47,7 @@ class HiiWP_Dashboard {
 	
 	public function hiilite_add_welcome_widget(){ ?>
 	 
-		<h3>You are running the HiiWP WordPress Theme - <a href="https://hiilite.com" target="_blank">By Hiilite Creative Group</a></h3>
+		<h3>You are running the HiiWP WordPress Theme - <a href="https://hiilite.com" target="_blank" rel="noopener">By Hiilite Creative Group</a></h3>
 	<p>Hiilite works with a mix of local, regional, provincial and international clients. We are equally happy working face-to-face and working remotely. We serve BC, Western Canada and beyond from a little corner of paradise - Kelowna, BC.</p>
 	<h4>Need Help</h4>
 	<p>

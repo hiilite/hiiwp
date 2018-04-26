@@ -12,6 +12,7 @@ vc_remove_element("vc_cta_button2");
 //vc_remove_element("vc_tta_accordion");
 //vc_remove_element("vc_tta_tour");
 vc_remove_element('vc_button2');
+vc_remove_element('vc_btn');
 
 
 ////////////////////////////
@@ -108,21 +109,6 @@ $vc_row_params = array(
 			'description' => __( 'Select wrapping option.', 'hiiwp' ),
 			'group' => __( 'Flex Options', 'hiiwp' ),
 		),
-		/*array(
-			'type' => 'dropdown',
-			'heading' => __( 'Justify Content', 'hiiwp' ),
-			'param_name' => 'justify_content',
-			'value' => array(
-				__( 'Default', 'hiiwp' ) => '',
-				__( 'Start', 'hiiwp' ) => 'flex-start',
-				__( 'End', 'hiiwp' ) => 'flex-end',
-				__( 'Center', 'hiiwp' ) => 'center',
-				__( 'Full Width - Space Between', 'hiiwp' ) => 'space-between',
-				__( 'Full Width - Space Around', 'hiiwp' ) => 'space-around',
-			),
-			'description' => __( 'Select content justification within container.', 'hiiwp' ),
-			'group' => __( 'Flex Options', 'hiiwp' ),
-		),*/
 		array(
 			'type' => 'dropdown',
 			'heading' => __( 'Columns position', 'hiiwp' ),
@@ -138,22 +124,6 @@ $vc_row_params = array(
 			'description' => __( 'Select columns position within row.', 'hiiwp' ),
 			'group' => __( 'Flex Options', 'hiiwp' ),
 		),
-		/*array(
-			'type' => 'dropdown',
-			'heading' => __( 'Vertically Justify Wrapped Content', 'hiiwp' ),
-			'param_name' => 'v_align_w_content',
-			'value' => array(
-				__( 'Default', 'hiiwp' ) => '',
-				__( 'Top', 'hiiwp' ) => 'flex-start',
-				__( 'Bottom', 'hiiwp' ) => 'flex-end',
-				__( 'Middle', 'hiiwp' ) => 'center',
-				__( 'Stretch', 'hiiwp' ) => 'stretch',
-				__( 'Full Height - Space Between', 'hiiwp' ) => 'space-between',
-				__( 'Full Height - Space Around', 'hiiwp' ) => 'space-around',
-			),
-			'description' => __( 'Vertically justify wrapped content within the container.', 'hiiwp' ),
-			'group' => __( 'Flex Options', 'hiiwp' ),
-		),*/
 		array(
 			'type' => 'css_editor',
 			'heading' => __( 'CSS box', 'hiiwp' ),
@@ -1987,8 +1957,23 @@ vc_map( array(
 			'description' => __( 'Select image from media library.', 'hiiwp' ),
 		),
 		array(
+			'type' => 'el_id',
+			'param_name' => 'tab_id',
+			'settings' => array(
+				'auto_generate' => true,
+			),
+			'heading' => __( 'Section ID', 'hiiwp' ),
+			'description' => __( 'Enter section ID (Note: make sure it is unique and valid according to <a href="%s" target="_blank">w3c specification</a>).', 'hiiwp' ),
+		),
+		array(
+			'type' => 'css_editor',
+			'heading' => __( 'CSS box', 'hiiwp' ),
+			'param_name' => 'css',
+			'group' => __( 'Design Options', 'hiiwp' ),
+		),
+		array(
 			'type' => 'dropdown',
-			'heading' => __( 'Image Position', 'hiiwp' ),
+			'heading' => __( 'Background Position', 'hiiwp' ),
 			'param_name' => 'bg_img_pos',
 			'value' => array(
 				__( 'Default', 'hiiwp' ) => '',
@@ -2002,17 +1987,9 @@ vc_map( array(
 				__( 'Center Center', 'hiiwp' ) => 'cc',
 				__( 'Center Bottom', 'hiiwp' ) => 'cb',
 			),
-			'description' => __( 'Positioning of image.', 'hiiwp' ),
-			),	
-		array(
-			'type' => 'el_id',
-			'param_name' => 'tab_id',
-			'settings' => array(
-				'auto_generate' => true,
-			),
-			'heading' => __( 'Section ID', 'hiiwp' ),
-			'description' => __( 'Enter section ID (Note: make sure it is unique and valid according to <a href="%s" target="_blank">w3c specification</a>).', 'hiiwp' ),
-		),
+			'description' => __( 'Positioning of background image.', 'hiiwp' ),
+			'group' => __( 'Design options', 'hiiwp' ),
+		)
 	),
 ) );
 

@@ -1,20 +1,12 @@
 .customize-control-kirki-multicolor {
-	.multicolor-group-wrapper {
-	    display: flex;
-        justify-content: space-evenly;
-	}
-	.multicolor-single-color-wrapper {
-		flex: 1 1 auto;
-	    label {
-		    width: 100%;
-		    text-align: center;
-		    vertical-align: top;
-	    }
-  	}
+  .multicolor-single-color-wrapper {
+    display: flex;
+    justify-content: space-between;
+  }
 
-  	.multicolor-single-label {
-  		order: 2; 
-  	}
+  .multicolor-single-label {
+    order: 2;
+  }
 
   .wp-picker-container {
     width: 100%;

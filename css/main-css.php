@@ -186,7 +186,7 @@ template,
 	clip: auto !important;
 	color: #21759b;
 	display: block;
-	font-size: 14px;
+	font-size: 16px;
 	font-size: 0.875rem;
 	font-weight: 700;
 	height: auto;
@@ -390,7 +390,7 @@ address {
 pre {
 	background: #eee;
 	font-family: "Courier 10 Pitch", Courier, monospace;
-	font-size: 15px;
+	font-size: 16px;
 	font-size: 0.9375rem;
 	line-height: 1.6;
 	margin-bottom: 1.6em;
@@ -404,7 +404,7 @@ kbd,
 tt,
 var {
 	font-family: Monaco, Consolas, "Andale Mono", "DejaVu Sans Mono", monospace;
-	font-size: 15px;
+	font-size: 16px;
 	font-size: 0.9375rem;
 }
 
@@ -687,7 +687,7 @@ h6 a:hover  {
 .pagination,
 .comments-pagination {
 	border-top: 1px solid #eee;
-	font-size: 14px;
+	font-size: 16px;
 	font-size: 0.875rem;
 	font-weight: 800;
 	padding: 2em 0 3em;
@@ -816,7 +816,7 @@ div#disqus_thread {
 }
 
 .page-links {
-	font-size: 14px;
+	font-size: 16px;
 	font-size: 0.875rem;
 	font-weight: 800;
 	padding: 2em 0 3em;
@@ -886,7 +886,7 @@ div#disqus_thread {
 	box-shadow: none;
 	color: #fff;
 	display: inline-block;
-	font-size: 14px;
+	font-size: 16px;
 	font-size: 0.875rem;
 	font-weight: 800;
 	margin-top: 2em;
@@ -972,7 +972,7 @@ div#disqus_thread {
 
 .nav-title {
 	color: #333;
-	font-size: 15px;
+	font-size: 16px;
 	font-size: 0.9375rem;
 }
 
@@ -1057,7 +1057,7 @@ div#disqus_thread {
 
 .comment-body {
 	color: #333;
-	font-size: 14px;
+	font-size: 16px;
 	font-size: 0.875rem;
 	margin-bottom: 4em;
 }
@@ -1090,7 +1090,7 @@ div#disqus_thread {
 .no-comments,
 .comment-awaiting-moderation {
 	color: #767676;
-	font-size: 14px;
+	font-size: 16px;
 	font-size: 0.875rem;
 	font-style: italic;
 }
@@ -1445,7 +1445,7 @@ a,
     color: #bebebe;
 }
 .back_to_blog {
-  font-size:14px;
+  font-size:16px;
 }
 .back_to_blog .fa {
 	color:<?php echo Hii::$options['title_font']['color'];?>;
@@ -1491,7 +1491,7 @@ p .alignright {
 }
 .wp-caption-text {
 	color: #637282;
-	font-size: 14px;
+	font-size: 16px;
     font-style: italic;
 }
 

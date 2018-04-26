@@ -66,7 +66,7 @@ class HiiWP_Menus {
 		$options = get_option('hii_seo_settings');
 		if(isset($options['business_social']) && count($options['business_social']) > 0) {
 			foreach($options['business_social'] as $socialprofile):	
-				$output .= '<li class="menu-item social-menu-item"><a href="'.$socialprofile['social_url'].'" target="_blank"><i class="fa fa-'.strtolower($socialprofile['social_site']).'"></i></a></li>';
+				$output .= '<li class="menu-item social-menu-item"><a href="'.$socialprofile['social_url'].'" target="_blank" rel="noopener"><i class="fa fa-'.strtolower($socialprofile['social_site']).'"></i></a></li>';
 			endforeach;
 		}
 		
