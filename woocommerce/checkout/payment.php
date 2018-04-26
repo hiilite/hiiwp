@@ -13,7 +13,7 @@
  * @see 	    https://docs.woocommerce.com/document/template-structure/
  * @author 		WooThemes
  * @package 	WooCommerce/Templates
- * @version     2.5.0
+ * @version     3.3.0
  */
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -40,18 +40,14 @@ if ( ! is_ajax() ) {
 	<div class="form-row place-order">
 		<noscript>
 			<?php _e( 'Since your browser does not support JavaScript, or it is disabled, please ensure you click the <em>Update Totals</em> button before placing your order. You may be charged more than the amount stated above if you fail to do so.', 'hiiwp' ); ?>
-			<br/><input type="submit" class="button alt" name="woocommerce_checkout_update_totals" value="<?php esc_attr_e( 'Update totals', 'hiiwp' ); ?>" />
+			<br/><button type="submit" class="button alt" name="woocommerce_checkout_update_totals" value="<?php esc_attr_e( 'Update totals', 'woocommerce' ); ?>"><?php esc_html_e( 'Update totals', 'woocommerce' ); ?></button>
 		</noscript>
 
-		<?php wc_get_template( 'checkout/terms.php' ); ?>
-
-		<?php do_action( 'woocommerce_review_order_before_submit' ); ?>
-
-		<?php echo apply_filters( 'woocommerce_order_button_html', '<input type="submit" class="button alt" name="woocommerce_checkout_place_order" id="place_order" value="' . esc_attr( $order_button_text ) . '" data-value="' . esc_attr( $order_button_text ) . '" />' ); ?>
-
-		<?php do_action( 'woocommerce_review_order_after_submit' ); ?>
-
-		<?php wp_nonce_field( 'woocommerce-process_checkout' ); ?>
+		<?php wc_get_template( 'checkout/terms.php' );
+			do_action( 'woocommerce_review_order_before_submit' );
+			echo apply_filters( 'woocommerce_order_button_html', '<input type="submit" class="button alt" name="woocommerce_checkout_place_order" id="place_order" value="' . esc_attr( $order_button_text ) . '" data-value="' . esc_attr( $order_button_text ) . '" />' ); 
+			do_action( 'woocommerce_review_order_after_submit' );
+			wp_nonce_field( 'woocommerce-process_checkout' ); ?>
 	</div>
 </div>
 <?php

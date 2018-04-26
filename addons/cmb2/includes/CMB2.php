@@ -121,6 +121,9 @@ class CMB2 extends CMB2_Base {
 		'display_cb'       => false, // Override the options-page form output (CMB2_Hookup::options_page_output()).
 		'save_button'      => '', // The text for the options-page save button. Defaults to 'Save'.
 		'disable_settings_errors' => false, // On settings pages (not options-general.php sub-pages), allows disabling.
+		'tab_group'        => '', // Tab-group identifier, enables options page tab navigation.
+		// 'tab_title'    => null, // Falls back to 'title' (above). Do not define here so we can set a fallback.
+		// 'autoload'     => true, // Defaults to true, the options-page option will be autloaded.
 	);
 
 	/**
@@ -789,19 +792,22 @@ class CMB2 extends CMB2_Base {
 	 * @return CMB2
 	 */
 	public function pre_process() {
+		$object_type = $this->object_type();
+
 		/**
 		 * Fires before fields have been processed/saved.
 		 *
-		 * The dynamic portion of the hook name, $this->cmb_id, is the meta_box id.
+		 * The dynamic portion of the hook name, $object_type, refers to the
+		 * metabox/form's object type
+		 *    Usually `post` (this applies to all post-types).
+		 *    Could also be `comment`, `user` or `options-page`.
 		 *
-		 * The dynamic portion of the hook name, $object_type, refers to the metabox/form's object type
-		 * 	Usually `post` (this applies to all post-types).
-		 *  	Could also be `comment`, `user` or `options-page`.
+		 * The dynamic portion of the hook name, $this->cmb_id, is the meta_box id.
 		 *
 		 * @param array $cmb       This CMB2 object
 		 * @param int   $object_id The ID of the current object
 		 */
-		do_action( "cmb2_{$this->object_type()}_process_fields_{$this->cmb_id}", $this, $this->object_id() );
+		do_action( "cmb2_{$object_type}_process_fields_{$this->cmb_id}", $this, $this->object_id() );
 
 		return $this;
 	}
@@ -1660,11 +1666,8 @@ class CMB2 extends CMB2_Base {
 	 * @param  mixed    $additional_params Any additoinal parameters which should be passed to the callback.
 	 * @return mixed                       Return of the callback function.
 	 */
-	/*public function do_callback( $cb, $additional_params = null ) {
-		return call_user_func( $cb, $this, $additional_params );
-	}*/
 	public function do_callback( $cb, $additional_params = null ) {
-		return call_user_func( $cb, $this->{$this->properties_name}, $this, $additional_params );
+		return call_user_func( $cb, $this, $additional_params );
 	}
 
 	/**

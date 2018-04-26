@@ -51,7 +51,7 @@ global $course;
 
 	            ?>
 
-                <h3> <?php echo $module->name; ?></h3>
+                <h4> <?php echo $module->name; ?></h4>
 
                 <?php
                 $count = 0;
@@ -68,7 +68,7 @@ global $course;
                         }
                     }
                     ?>
-                    <h2>
+                    <p>
 
                         <a href="<?php esc_url_raw( get_permalink( $lesson->ID ) ); ?>"
                            title="<?php esc_attr_e( sprintf( __( 'Start %s', 'learn' ), $lesson->post_title ) ); ?>">
@@ -81,7 +81,7 @@ global $course;
                             <?php echo $lesson_grade; ?>
                         </span>
 
-                    </h2>
+                    </p>
 
                 <?php
 

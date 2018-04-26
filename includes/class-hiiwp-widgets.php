@@ -31,6 +31,16 @@ class HiiWP_Widgets {
 	}
 	
 	public function __construct() {
+		add_action( 'widgets_init', array( $this, 'remove_recent_comments_style' ) );
 	}
 	
+	
+	/*
+	on WIDGET_INIT	
+	*/
+	// REMOVE COMMENT CSS FROM HEADER
+	public function remove_recent_comments_style() {
+		global $wp_widget_factory;
+		remove_action( 'wp_head', array( $wp_widget_factory->widgets['WP_Widget_Recent_Comments'], 'recent_comments_style'  ) );
+	}
 }

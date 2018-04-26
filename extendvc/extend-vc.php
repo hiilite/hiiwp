@@ -12,6 +12,7 @@ vc_remove_element("vc_cta_button2");
 //vc_remove_element("vc_tta_accordion");
 //vc_remove_element("vc_tta_tour");
 vc_remove_element('vc_button2');
+vc_remove_element('vc_btn');
 
 
 ////////////////////////////
@@ -108,21 +109,6 @@ $vc_row_params = array(
 			'description' => __( 'Select wrapping option.', 'hiiwp' ),
 			'group' => __( 'Flex Options', 'hiiwp' ),
 		),
-		/*array(
-			'type' => 'dropdown',
-			'heading' => __( 'Justify Content', 'hiiwp' ),
-			'param_name' => 'justify_content',
-			'value' => array(
-				__( 'Default', 'hiiwp' ) => '',
-				__( 'Start', 'hiiwp' ) => 'flex-start',
-				__( 'End', 'hiiwp' ) => 'flex-end',
-				__( 'Center', 'hiiwp' ) => 'center',
-				__( 'Full Width - Space Between', 'hiiwp' ) => 'space-between',
-				__( 'Full Width - Space Around', 'hiiwp' ) => 'space-around',
-			),
-			'description' => __( 'Select content justification within container.', 'hiiwp' ),
-			'group' => __( 'Flex Options', 'hiiwp' ),
-		),*/
 		array(
 			'type' => 'dropdown',
 			'heading' => __( 'Columns position', 'hiiwp' ),
@@ -138,22 +124,6 @@ $vc_row_params = array(
 			'description' => __( 'Select columns position within row.', 'hiiwp' ),
 			'group' => __( 'Flex Options', 'hiiwp' ),
 		),
-		/*array(
-			'type' => 'dropdown',
-			'heading' => __( 'Vertically Justify Wrapped Content', 'hiiwp' ),
-			'param_name' => 'v_align_w_content',
-			'value' => array(
-				__( 'Default', 'hiiwp' ) => '',
-				__( 'Top', 'hiiwp' ) => 'flex-start',
-				__( 'Bottom', 'hiiwp' ) => 'flex-end',
-				__( 'Middle', 'hiiwp' ) => 'center',
-				__( 'Stretch', 'hiiwp' ) => 'stretch',
-				__( 'Full Height - Space Between', 'hiiwp' ) => 'space-between',
-				__( 'Full Height - Space Around', 'hiiwp' ) => 'space-around',
-			),
-			'description' => __( 'Vertically justify wrapped content within the container.', 'hiiwp' ),
-			'group' => __( 'Flex Options', 'hiiwp' ),
-		),*/
 		array(
 			'type' => 'css_editor',
 			'heading' => __( 'CSS box', 'hiiwp' ),
@@ -952,8 +922,8 @@ vc_add_param( 'vc_basic_grid',  array(
 				'group' => 'Item Design',
 				'value' => array(
 						__( 'Theme Default', 'hiiwp' ) => '',
-						__( 'On', 'hiiwp' ) => true,
-						__( 'Off', 'hiiwp' ) => false,
+						__( 'On', 'hiiwp' ) => 'true',
+						__( 'Off', 'hiiwp' ) => 'false',
 						
 					),
 				"dependency" => array (
@@ -1987,8 +1957,23 @@ vc_map( array(
 			'description' => __( 'Select image from media library.', 'hiiwp' ),
 		),
 		array(
+			'type' => 'el_id',
+			'param_name' => 'tab_id',
+			'settings' => array(
+				'auto_generate' => true,
+			),
+			'heading' => __( 'Section ID', 'hiiwp' ),
+			'description' => __( 'Enter section ID (Note: make sure it is unique and valid according to <a href="%s" target="_blank">w3c specification</a>).', 'hiiwp' ),
+		),
+		array(
+			'type' => 'css_editor',
+			'heading' => __( 'CSS box', 'hiiwp' ),
+			'param_name' => 'css',
+			'group' => __( 'Design Options', 'hiiwp' ),
+		),
+		array(
 			'type' => 'dropdown',
-			'heading' => __( 'Image Position', 'hiiwp' ),
+			'heading' => __( 'Background Position', 'hiiwp' ),
 			'param_name' => 'bg_img_pos',
 			'value' => array(
 				__( 'Default', 'hiiwp' ) => '',
@@ -2002,17 +1987,9 @@ vc_map( array(
 				__( 'Center Center', 'hiiwp' ) => 'cc',
 				__( 'Center Bottom', 'hiiwp' ) => 'cb',
 			),
-			'description' => __( 'Positioning of image.', 'hiiwp' ),
-			),	
-		array(
-			'type' => 'el_id',
-			'param_name' => 'tab_id',
-			'settings' => array(
-				'auto_generate' => true,
-			),
-			'heading' => __( 'Section ID', 'hiiwp' ),
-			'description' => __( 'Enter section ID (Note: make sure it is unique and valid according to <a href="%s" target="_blank">w3c specification</a>).', 'hiiwp' ),
-		),
+			'description' => __( 'Positioning of background image.', 'hiiwp' ),
+			'group' => __( 'Design options', 'hiiwp' ),
+		)
 	),
 ) );
 
@@ -2112,6 +2089,7 @@ vc_map( array(
 //	Multi Screen Showcase
 //
 ///////////////////////////// 
+/*
 vc_map( array(
 		"name" => "Multi Screen Showcase",
 		"base" => "screen-showcase",
@@ -2156,7 +2134,7 @@ vc_map( array(
 	        ),
 		)
 ) );
-
+*/
 ////////////////////////////
 //
 //	Empty Space
@@ -2551,11 +2529,11 @@ vc_map( array(
 
 // HII POST CAROUSEL 
 vc_map( array(
-        "name" => "Hii Post Carousel",
+        "name" => "Hii Waterwheel Carousel",
 		"base" => "hii_post_carousel",
 		"category" => 'by Hiilite',
 		"icon" => "icon-wpb-images-carousel",
-		"description" => __("Carousel of posts.", 'hiiwp' ),
+		"description" => __("Create a rotating carousel with a waterwheel effect of posts.", 'hiiwp' ),
 		"allowed_container_element" => 'vc_row',
 		"params" => array(
 			array(
@@ -2632,6 +2610,8 @@ vc_map( array(
 ) );
 
 // HII INFINITE CAROUSEL 
+// TODO: Finish shortcode before activating on frontend
+/* 
 vc_map( array(
 	'name' => __( 'Hii Content Slider', 'hiiwp' ),
 	'base' => 'hii_infinite_carousel', 
@@ -2740,7 +2720,7 @@ vc_map( array(
 		vc_asset_url( 'lib/vc_tabs/vc-tabs.min.js' ),
 	),
 ));
-
+*/
 
 vc_map( array(
 	'name' => __( 'Slide', 'hiiwp' ),
@@ -2829,9 +2809,32 @@ vc_map( array(
 
 
 
-
-
-
+$postTypes = get_post_types( array() );
+$postTypesList = array();
+$excludedPostTypes = array(
+	'revision',
+	'nav_menu_item',
+	'vc_grid_item',
+);
+if ( is_array( $postTypes ) && ! empty( $postTypes ) ) {
+	foreach ( $postTypes as $postType ) {
+		if ( ! in_array( $postType, $excludedPostTypes ) ) {
+			$label = ucfirst( $postType );
+			$postTypesList[] = array(
+				$postType,
+				$label,
+			);
+		}
+	}
+}
+$postTypesList[] = array(
+	'custom',
+	__( 'Custom query', 'js_composer' ),
+);
+$postTypesList[] = array(
+	'ids',
+	__( 'List of IDs', 'js_composer' ),
+);
 
 
 // HII ROTATING CAROUSEL 
@@ -2844,15 +2847,182 @@ vc_map( array(
 		"allowed_container_element" => 'vc_row',
 		"params" => array(
 			array(
-				"type" => "textfield",
-				"heading" => "Post IDs",
-				"param_name" => "post_ids",
-				"value" => "",
-				"description" => __( 'Enter posts IDs to display, minimum of 3. Note: separate values by commas (,)', 'hiiwp' ),
+				'type' => 'dropdown',
+				'heading' => __( 'Data source', 'js_composer' ),
+				'param_name' => 'post_type',
+				'value' => $postTypesList,
 				'save_always' => true,
-				'admin_label' => true
-
+				'description' => __( 'Select content type for your grid.', 'js_composer' ),
+				'admin_label' => true,
 			),
+			array(
+				'type' => 'autocomplete',
+				'heading' => __( 'Include only', 'js_composer' ),
+				'param_name' => 'include',
+				'description' => __( 'Add posts, pages, etc. by title.', 'js_composer' ),
+				'settings' => array(
+					'multiple' => true,
+					'sortable' => true,
+					'groups' => true,
+				),
+				'dependency' => array(
+					'element' => 'post_type',
+					'value' => array( 'ids' ),
+				),
+			),
+			// Custom query tab
+			array(
+				'type' => 'textarea_safe',
+				'heading' => __( 'Custom query', 'js_composer' ),
+				'param_name' => 'custom_query',
+				'description' => __( 'Build custom query according to <a href="http://codex.wordpress.org/Function_Reference/query_posts">WordPress Codex</a>.', 'js_composer' ),
+				'dependency' => array(
+					'element' => 'post_type',
+					'value' => array( 'custom' ),
+				),
+			),
+			array(
+				'type' => 'autocomplete',
+				'heading' => __( 'Narrow data source', 'js_composer' ),
+				'param_name' => 'taxonomies',
+				'settings' => array(
+					'multiple' => true,
+					'min_length' => 1,
+					'groups' => true,
+					// In UI show results grouped by groups, default false
+					'unique_values' => true,
+					// In UI show results except selected. NB! You should manually check values in backend, default false
+					'display_inline' => true,
+					// In UI show results inline view, default false (each value in own line)
+					'delay' => 500,
+					// delay for search. default 500
+					'auto_focus' => true,
+					// auto focus input, default true
+				),
+				'param_holder_class' => 'vc_not-for-custom',
+				'description' => __( 'Enter categories, tags or custom taxonomies.', 'js_composer' ),
+				'dependency' => array(
+					'element' => 'post_type',
+					'value_not_equal_to' => array(
+						'ids',
+						'custom',
+					),
+				),
+			),
+			array(
+				'type' => 'textfield',
+				'heading' => __( 'Total items', 'js_composer' ),
+				'param_name' => 'max_items',
+				'value' => 10,
+				// default value
+				'param_holder_class' => 'vc_not-for-custom',
+				'description' => __( 'Set max limit for items in grid or enter -1 to display all (limited to 1000).', 'js_composer' ),
+				'dependency' => array(
+					'element' => 'post_type',
+					'value_not_equal_to' => array(
+						'ids',
+						'custom',
+					),
+				),
+			),
+			// Data settings
+			array(
+				'type' => 'dropdown',
+				'heading' => __( 'Order by', 'js_composer' ),
+				'param_name' => 'orderby',
+				'value' => array(
+					__( 'Date', 'js_composer' ) => 'date',
+					__( 'Order by post ID', 'js_composer' ) => 'ID',
+					__( 'Author', 'js_composer' ) => 'author',
+					__( 'Title', 'js_composer' ) => 'title',
+					__( 'Last modified date', 'js_composer' ) => 'modified',
+					__( 'Post/page parent ID', 'js_composer' ) => 'parent',
+					__( 'Number of comments', 'js_composer' ) => 'comment_count',
+					__( 'Menu order/Page Order', 'js_composer' ) => 'menu_order',
+					__( 'Meta value', 'js_composer' ) => 'meta_value',
+					__( 'Meta value number', 'js_composer' ) => 'meta_value_num',
+					__( 'Random order', 'js_composer' ) => 'rand',
+				),
+				'description' => __( 'Select order type. If "Meta value" or "Meta value Number" is chosen then meta key is required.', 'js_composer' ),
+				'group' => __( 'Data Settings', 'js_composer' ),
+				'param_holder_class' => 'vc_grid-data-type-not-ids',
+				'dependency' => array(
+					'element' => 'post_type',
+					'value_not_equal_to' => array(
+						'ids',
+						'custom',
+					),
+				),
+			),
+			array(
+				'type' => 'dropdown',
+				'heading' => __( 'Sort order', 'js_composer' ),
+				'param_name' => 'order',
+				'group' => __( 'Data Settings', 'js_composer' ),
+				'value' => array(
+					__( 'Descending', 'js_composer' ) => 'DESC',
+					__( 'Ascending', 'js_composer' ) => 'ASC',
+				),
+				'param_holder_class' => 'vc_grid-data-type-not-ids',
+				'description' => __( 'Select sorting order.', 'js_composer' ),
+				'dependency' => array(
+					'element' => 'post_type',
+					'value_not_equal_to' => array(
+						'ids',
+						'custom',
+					),
+				),
+			),
+			array(
+				'type' => 'textfield',
+				'heading' => __( 'Meta key', 'js_composer' ),
+				'param_name' => 'meta_key',
+				'description' => __( 'Input meta key for grid ordering.', 'js_composer' ),
+				'group' => __( 'Data Settings', 'js_composer' ),
+				'param_holder_class' => 'vc_grid-data-type-not-ids',
+				'dependency' => array(
+					'element' => 'orderby',
+					'value' => array(
+						'meta_value',
+						'meta_value_num',
+					),
+				),
+			),
+			array(
+				'type' => 'textfield',
+				'heading' => __( 'Offset', 'js_composer' ),
+				'param_name' => 'offset',
+				'description' => __( 'Number of grid elements to displace or pass over.', 'js_composer' ),
+				'group' => __( 'Data Settings', 'js_composer' ),
+				'param_holder_class' => 'vc_grid-data-type-not-ids',
+				'dependency' => array(
+					'element' => 'post_type',
+					'value_not_equal_to' => array(
+						'ids',
+						'custom',
+					),
+				),
+			),
+			array(
+				'type' => 'autocomplete',
+				'heading' => __( 'Exclude', 'js_composer' ),
+				'param_name' => 'exclude',
+				'description' => __( 'Exclude posts, pages, etc. by title.', 'js_composer' ),
+				'group' => __( 'Data Settings', 'js_composer' ),
+				'settings' => array(
+					'multiple' => true,
+				),
+				'param_holder_class' => 'vc_grid-data-type-not-ids',
+				'dependency' => array(
+					'element' => 'post_type',
+					'value_not_equal_to' => array(
+						'ids',
+						'custom',
+					),
+					'callback' => 'vc_grid_exclude_dependency_callback',
+				),
+			),
+			// Extras
             array(
                 "type" => "dropdown",
                 "heading" => "Show Title",
@@ -2906,6 +3076,39 @@ vc_map( array(
 					'element' => 'show_btn',
 					'value' => 'yes',
 				)
+			),
+			array(
+				'type' => 'dropdown',
+				'param_name' => 'autoplay',
+				'value' => array(
+					__( 'None', 'hiiwp' ) => 'none',
+					'1' => '1',
+					'2' => '2',
+					'3' => '3',
+					'4' => '4',
+					'5' => '5',
+					'6' => '6',
+					'7' => '7',
+					'8' => '8',
+					'9' => '9',
+					'10' => '10',
+					'20' => '20',
+					'30' => '30',
+					'40' => '40',
+					'50' => '50',
+					'60' => '60',
+				),
+				'std' => 'none',
+				'heading' => __( 'Autoplay', 'hiiwp' ),
+				'description' => __( 'Select auto rotate for carousel in seconds (Note: disabled by default).', 'hiiwp' ),
+			),
+
+			array(
+				"type" => "textfield",
+				"holder" => "div",
+				"class" => "",
+				"heading" => "ID",
+				"param_name" => "id"
 			),
 			array(
 				'type' => 'css_editor',

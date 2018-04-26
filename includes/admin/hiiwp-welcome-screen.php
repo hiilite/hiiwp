@@ -17,7 +17,7 @@ class HiiWP_Welcome_Screen {
 		HiiWP::register_theme_deactivation_hook( 'hiiwp', array( $this, 'welcome_deactivate') );
 		
 		add_action( 'admin_init', array( $this, 'safe_welcome_redirect' ) );
-		add_action( 'admin_menu', array( $this, 'welcome_page' ) );
+		add_action( 'admin_menu', array( $this, 'welcome_page' ), 10 );
 		
 	}
 	

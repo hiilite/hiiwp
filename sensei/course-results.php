@@ -9,11 +9,18 @@
  * @category    Templates
  * @version     1.9.0
  */
-?>
 
-<?php  get_sensei_header();  ?>
+get_header();
+global $post, $woothemes_sensei; 
 
-<?php
+add_action( 'before_page_title', 'add_course_to_title');
+function add_course_to_title(){
+	echo  '<h4 class="white">Course<h4>';
+}
+
+get_template_part( 'templates/title' );
+
+
 /**
  * This hook fire inside learner-profile.php before the content
  *
@@ -22,16 +29,14 @@
  * @hooked Sensei_Course_Results::deprecate_sensei_course_results_content_hook() - 20
  */
 do_action( 'sensei_course_results_content_before' );
-?>
 
-<?php
 global $course;
 $course = get_page_by_path( $wp_query->query_vars['course_results'], OBJECT, 'course' );
 ?>
 
 <article <?php post_class( array( 'course', 'post','course-results' ) ); ?> >
 
-    <section class="entry fix">
+    <section class="entry fix in_grid">
 
         <?php
         /**
@@ -45,7 +50,7 @@ $course = get_page_by_path( $wp_query->query_vars['course_results'], OBJECT, 'co
         do_action( 'sensei_course_results_content_inside_before', $course->ID );
         ?>
 
-        <header>
+        <header class="col-12">
 
             <h1>
                 <?php echo $course->post_title; ?>
@@ -69,7 +74,7 @@ $course = get_page_by_path( $wp_query->query_vars['course_results'], OBJECT, 'co
             ?>
 
 
-            <section class="course-results-lessons">
+            <section class="course-results-lessons col-12">
                 <?php
                 $started_course = Sensei_Utils::user_started_course( $course->ID, get_current_user_id() );
                 if( $started_course ) {

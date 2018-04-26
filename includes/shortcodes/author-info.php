@@ -54,7 +54,7 @@ function add_author_info_shortcode( $atts ){
 		// Check if author has a website in their profile
 		if ( ! empty( $user_website ) ) {
 			// Display author website link
-			$author_details .= ' <br> <a href="' . $user_website .'" target="_blank">Website</a>';
+			$author_details .= ' <br> <a href="' . $user_website .'" target="_blank" rel="noopener">Website</a>';
 		
 		} else { 
 			// if there is no author website then just close the paragraph

@@ -154,7 +154,13 @@ switch ( $onclick ) {
 
 	case 'custom_link':
 		$link = vc_build_link( $link );
+		if(is_array($link)):
+			$img_link_target = $link['target'];
+		else:
+			$img_link_target = '';
+		endif;
 		$link = $link['url'];
+		
 		break;
 
 	case 'zoom':
@@ -193,7 +199,7 @@ if ( $link ) {
 		$wrapperClass .= ' ' . $a_attrs['class'];
 		unset( $a_attrs['class'] );
 	}
-	$html = '<a ' . vc_stringify_attributes( $a_attrs ) . ' class="' . $wrapperClass . '">' . $img['thumbnail'].$hover_html . '</a>';
+	$html = '<a ' . vc_stringify_attributes( $a_attrs ) . ' class="' . $wrapperClass . '" target="'.$img_link_target.'">' . $img['thumbnail'].$hover_html . '</a>';
 } else {
 	$html =  $img['thumbnail'].$hover_html;
 }

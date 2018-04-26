@@ -13,7 +13,7 @@
  * @see      https://docs.woocommerce.com/document/template-structure/
  * @author   WooThemes
  * @package  WooCommerce/Templates
- * @version  2.5.0
+ * @version  3.3.0
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -32,9 +32,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 			</tr>
 		</thead>
 		<tbody>
-			<?php if ( sizeof( $order->get_items() ) > 0 ) : ?>
-				<?php foreach ( $order->get_items() as $item_id => $item ) : ?>
-					<?php
+			<?php if ( sizeof( $order->get_items() ) > 0 ) :
+				    foreach ( $order->get_items() as $item_id => $item ) : 
 						if ( ! apply_filters( 'woocommerce_order_item_visible', true, $item ) ) {
 							continue;
 						}
@@ -52,18 +51,18 @@ if ( ! defined( 'ABSPATH' ) ) {
 						<td class="product-quantity"><?php echo apply_filters( 'woocommerce_order_item_quantity_html', ' <strong class="product-quantity">' . sprintf( '&times; %s', esc_html( $item['qty'] ) ) . '</strong>', $item ); ?></td>
 						<td class="product-subtotal"><?php echo $order->get_formatted_line_subtotal( $item ); ?></td>
 					</tr>
-				<?php endforeach; ?>
-			<?php endif; ?>
+				<?php endforeach; 
+				endif; ?>
 		</tbody>
 		<tfoot>
-			<?php if ( $totals = $order->get_order_item_totals() ) : ?>
-				<?php foreach ( $totals as $total ) : ?>
+			<?php if ( $totals = $order->get_order_item_totals() ) : 
+				foreach ( $totals as $total ) : ?>
 					<tr>
 						<th scope="row" colspan="2"><?php echo $total['label']; ?></th>
 						<td class="product-total"><?php echo $total['value']; ?></td>
 					</tr>
-				<?php endforeach; ?>
-			<?php endif; ?>
+				<?php endforeach;
+				endif; ?>
 		</tfoot>
 	</table>
 
@@ -82,17 +81,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 			</ul>
 		<?php endif; ?>
 		<div class="form-row">
-			<input type="hidden" name="woocommerce_pay" value="1" />
-
-			<?php wc_get_template( 'checkout/terms.php' ); ?>
-
-			<?php do_action( 'woocommerce_pay_order_before_submit' ); ?>
-
-			<?php echo apply_filters( 'woocommerce_pay_order_button_html', '<input type="submit" class="button alt" id="place_order" value="' . esc_attr( $order_button_text ) . '" data-value="' . esc_attr( $order_button_text ) . '" />' ); ?>
-
-			<?php do_action( 'woocommerce_pay_order_after_submit' ); ?>
-
-			<?php wp_nonce_field( 'woocommerce-pay' ); ?>
+			<input type="hidden" name="woocommerce_pay" value="1" /><?php
+			wc_get_template( 'checkout/terms.php' );
+			do_action( 'woocommerce_pay_order_before_submit' );
+			eecho apply_filters( 'woocommerce_pay_order_button_html', '<button type="submit" class="button alt" id="place_order" value="' . esc_attr( $order_button_text ) . '" data-value="' . esc_attr( $order_button_text ) . '">' . esc_html( $order_button_text ) . '</button>' ); // @codingStandardsIgnoreLine
+			do_action( 'woocommerce_pay_order_after_submit' ); 
+			wp_nonce_field( 'woocommerce-pay' ); ?>
 		</div>
 	</div>
 </form>

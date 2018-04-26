@@ -35,7 +35,6 @@ do_action('hii_doctype');
 ?>
 <head>
 <meta charset="utf-8">
-<meta name="description" content="<?php echo $page_description?>">
 <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
 <?php 
 wp_head(); 

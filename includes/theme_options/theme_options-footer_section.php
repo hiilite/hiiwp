@@ -16,10 +16,17 @@ Kirki::add_field( 'hiiwp', array(
 	'type'        => 'background',
     'settings'    => 'footer_background',
     'label'       => __( 'Footer Background', 'hiiwp' ),
-    'description' => __('Choose a background image and color for the entire footer.', 'hiiwp'),
+    'description' => __('Choose a background image and color for the entire footer.', 'hiiwp'),    
     'section'     => $section,
     'priority'    => 1,
-    'default'     => $hiilite_options['footer_background'],
+    'default'     => array(
+		'background-color'    => ' ',
+		'background-image'    => '',
+		'background-repeat'   => 'no-repeat',
+		'background-size'     => 'cover',
+		'background-attachment'   => 'scroll',
+		'background-position' => 'left-top',
+	),
 ) );
 // Footer  order Top
 Kirki::add_field( 'hiiwp', array(
@@ -457,7 +464,7 @@ Kirki::add_field( 'hiiwp', array(
 	'label'       => __( 'Copyright Text', 'hiiwp' ),
 	'description' => __('Change the copy right text in the footer bottom', 'hiiwp'),
 	'section'     => $section,
-	'default'     => '<small>Copyright © '.date('Y').' All rights reserved. <a href="https://hiilite.com/services/website-design/" target="_blank" title="Web Design by Hiilite">Web Design</a> and <a href="https://hiilite.com/services/seo/" target="_blank" title="SEO by Hiilite">SEO</a> by <a href="https://hiilite.com/" target="_blank" title="Web Design and SEO by Hiilite">Hiilite</a></small>',
+	'default'     => '<small>Copyright © '.date('Y').' All rights reserved. <a href="https://hiilite.com/services/website-design/" target="_blank" rel="noopener" title="Web Design by Hiilite">Web Design</a> and <a href="https://hiilite.com/services/seo/" target="_blank" rel="noopener" title="SEO by Hiilite">SEO</a> by <a href="https://hiilite.com/" target="_blank" rel="noopener" title="Web Design and SEO by Hiilite">Hiilite</a></small>',
 	'priority'    => 8,
     'active_callback'	=> array(
 		array(

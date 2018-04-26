@@ -1,8 +1,4 @@
-<style>
-<?php 
-global $is_IE;
-include_once('font-awesome/css/font-awesome.min.css'); 
-?>
+<?php global $is_IE; ?><style>
 /*--------------------------------------------------------------
 >>> TABLE OF CONTENTS:
 ----------------------------------------------------------------
@@ -19,7 +15,7 @@ include_once('font-awesome/css/font-awesome.min.css');
 11.0 Featured Image Hover
 12.0 Navigation
 13.0 Layout
-   13.1 Header
+   13.1 Header 
    13.2 Front Page
    13.3 Regular Content
    13.4 Posts
@@ -52,14 +48,7 @@ html {
 
 body {
 	margin: 0;
-}
-
-body,
-button,
-input,
-select,
-textarea {<?php 
-	get_font_css(Hii::$options['default_font']); ?>
+<?php get_font_css(Hii::$options['default_font']); ?>
 }
 
 article,
@@ -197,7 +186,7 @@ template,
 	clip: auto !important;
 	color: #21759b;
 	display: block;
-	font-size: 14px;
+	font-size: 16px;
 	font-size: 0.875rem;
 	font-weight: 700;
 	height: auto;
@@ -244,6 +233,7 @@ p img.alignleft,
 figure.alignright {
 	margin-right: 1em;
 }
+
 .align-center, 
 .aligncenter {
 	text-align: center;
@@ -400,7 +390,7 @@ address {
 pre {
 	background: #eee;
 	font-family: "Courier 10 Pitch", Courier, monospace;
-	font-size: 15px;
+	font-size: 16px;
 	font-size: 0.9375rem;
 	line-height: 1.6;
 	margin-bottom: 1.6em;
@@ -414,7 +404,7 @@ kbd,
 tt,
 var {
 	font-family: Monaco, Consolas, "Andale Mono", "DejaVu Sans Mono", monospace;
-	font-size: 15px;
+	font-size: 16px;
 	font-size: 0.9375rem;
 }
 
@@ -606,7 +596,14 @@ h6 a:hover  {
 	-webkit-box-shadow: 0 0 0 8px #fff;
 	box-shadow: 0 0 0 8px #fff;
 }
-
+.entry-content img.alignleft {
+	padding-right:1em;
+	padding-bottom: 1em;
+}
+.entry-content img.alignright {
+	padding-left:1em;
+	padding-bottom: 1em;
+}
 .post-navigation a:focus .icon,
 .post-navigation a:hover .icon {
 	color: #222;
@@ -656,7 +653,7 @@ h6 a:hover  {
 }
 
 .entry-meta {
-	color: #767676;
+	color: <?php echo Hii::$options['title_font']['color'];?>;
 	font-size: 11px;
 	font-size: 0.6875rem;
 	font-weight: 800;
@@ -674,7 +671,7 @@ h6 a:hover  {
     text-transform: uppercase;
 }
 .entry-meta a {
-	color: #767676;
+	color: <?php echo Hii::$options['title_font']['color'];?>;
 }
 
 .byline,
@@ -690,11 +687,14 @@ h6 a:hover  {
 .pagination,
 .comments-pagination {
 	border-top: 1px solid #eee;
-	font-size: 14px;
+	font-size: 16px;
 	font-size: 0.875rem;
 	font-weight: 800;
 	padding: 2em 0 3em;
 	text-align: center;
+}
+div#disqus_thread {
+    width: 100%;
 }
 
 .pagination .icon,
@@ -816,7 +816,7 @@ h6 a:hover  {
 }
 
 .page-links {
-	font-size: 14px;
+	font-size: 16px;
 	font-size: 0.875rem;
 	font-weight: 800;
 	padding: 2em 0 3em;
@@ -886,7 +886,7 @@ h6 a:hover  {
 	box-shadow: none;
 	color: #fff;
 	display: inline-block;
-	font-size: 14px;
+	font-size: 16px;
 	font-size: 0.875rem;
 	font-weight: 800;
 	margin-top: 2em;
@@ -972,7 +972,7 @@ h6 a:hover  {
 
 .nav-title {
 	color: #333;
-	font-size: 15px;
+	font-size: 16px;
 	font-size: 0.9375rem;
 }
 
@@ -1057,7 +1057,7 @@ h6 a:hover  {
 
 .comment-body {
 	color: #333;
-	font-size: 14px;
+	font-size: 16px;
 	font-size: 0.875rem;
 	margin-bottom: 4em;
 }
@@ -1090,7 +1090,7 @@ h6 a:hover  {
 .no-comments,
 .comment-awaiting-moderation {
 	color: #767676;
-	font-size: 14px;
+	font-size: 16px;
 	font-size: 0.875rem;
 	font-style: italic;
 }
@@ -1129,6 +1129,10 @@ iframe,
 object {
 	margin-bottom: 1.5em;
 	max-width: 100%;
+}
+
+.blog-article embed, .blog-article iframe, .blog-article object {
+    height:auto;
 }
 
 .wp-caption,
@@ -1441,7 +1445,10 @@ a,
     color: #bebebe;
 }
 .back_to_blog {
-  font-size:14px;
+  font-size:16px;
+}
+.back_to_blog .fa {
+	color:<?php echo Hii::$options['title_font']['color'];?>;
 }
 
 
@@ -1484,7 +1491,7 @@ p .alignright {
 }
 .wp-caption-text {
 	color: #637282;
-	font-size: 14px;
+	font-size: 16px;
     font-style: italic;
 }
 
@@ -1960,7 +1967,7 @@ endif; ?>
 
 <?php echo Hii::$options['typography_icon_custom_css'];?>
 
-.fa {
+a .fa, .fa {
 	display: inline-block;
 	width: 1.5em;
 	text-align: center;
@@ -2199,10 +2206,42 @@ amp-carousel.slider img {
 amp-carousel.carousel {
 	width: 100%;
 	height: 300px;
+	position: relative;
+}
+.smooth-scroll-wrapper.kinetic-active {
+    height: 100%;
+    overflow: hidden;
+}
+
+amp-carousel.carousel .slide {
+	display: block;
+	float:left;
+	text-align: center;
+	padding: 10px;
+	height: 100%;
+}
+amp-carousel.carousel .slide > img {
+    max-height: 100%;
+    height: 100%;
+    width: auto;
+    display: block;
+}
+amp-carousel.carousel .slide  .slide_img_container {
+	width: 300px;
+	padding-top: 75%;
 	overflow: hidden;
 }
+amp-carousel.carousel .slide  .slide_img_container img {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: auto;
+}
 amp-carousel.carousel .carousel-wrapper{
-	white-space: nowrap; position: absolute; z-index: 1; top: 0px; left: 0px; bottom: 0px;
+	position: relative;
+	width: auto;
+	height: 100%;
 }
 amp-carousel.slider .hide {
 	display:none;	
@@ -2542,6 +2581,9 @@ if(class_exists('Sensei_Main')):
 endif;
 if(class_exists('GFForms')):
 	get_template_part('css/service_extensions/gravityforms', 'css');	
+endif;
+if(class_exists('SportsPress')):
+	get_template_part( 'css/service_extensions/sportspress', 'css');
 endif;
 
 if(is_user_logged_in()):

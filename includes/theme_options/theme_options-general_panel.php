@@ -471,7 +471,7 @@ Kirki::add_field( 'hiiwp', array(
 	),
 ) );
 
-
+/*
 // Color Palete
 Kirki::add_field( 'hiiwp', array(
 	'type'        => 'color',
@@ -511,7 +511,7 @@ Kirki::add_field( 'hiiwp', array(
 	'default'     => $hiilite_options['color_four'],
 	'priority'    => 1,
 ) );
-/*
+
 Kirki::add_field( 'hiiwp', array(
 	'type'        => 'color',
 	'settings'    => 'color_five',
@@ -544,7 +544,7 @@ Kirki::add_field( 'hiiwp', array(
 		),
 	),
 ) );
-
+/*
 Kirki::add_field( 'hiiwp', array(
 	'type'        => 'color',
 	'settings'    => 'secondary_background_color',
@@ -590,7 +590,7 @@ Kirki::add_field( 'hiiwp', array(
 		),
 	),
 ) );
-
+*/
 // Enable Overlapping Content
 /*
 Kirki::add_field( 'hiiwp', array(

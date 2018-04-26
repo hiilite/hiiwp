@@ -47,23 +47,25 @@ $paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
 $query;
 
 if(isset($atts)) {
-
 	if (isset($atts['blog_layouts']) && $atts['blog_layouts'] != '') $hiilite_options['blog_layouts'] = $atts['blog_layouts'];
 	
 	if(isset($atts['post_type']) && $atts['post_type'] != 'custom'){
 		$taxquery = array();
 		if(isset($atts['taxonomies'])) {
 			$terms = get_object_taxonomies($atts['post_type'], 'names');
-		
-			$taxquery = array(
-				array(
-					'taxonomy'	=> $terms[1],
-					'field'		=> 'term_id',
-					'terms' 	=> array($atts['taxonomies']),
-					'operator'	=> 'IN',
-				)
-			);
-		
+			foreach($terms as $term) {
+				$term_info = get_term_by( 'id', $atts['taxonomies'], $term );
+				if($term_info){
+					$taxquery = array(
+						array(
+							'taxonomy'	=> $term,
+							'field'		=> 'term_id',
+							'terms' 	=> array($atts['taxonomies']),
+							'operator'	=> 'IN',
+						)
+					);
+				}
+			}
 		} 
 		$query = array(
 			'post_type' => $atts['post_type'],
@@ -84,16 +86,16 @@ if(isset($atts)) {
 	$use_blog_layouts = (isset($atts['use_blog_layouts']) && $atts['use_blog_layouts'] == 'true')?true:false;
 	
 	switch ($hiilite_options['blog_col']) {
-		case '6': 
+		case '2': 
 			$hiilite_options['blog_col'] = '2'; 
 		break;
 		case '4': 
-			$hiilite_options['blog_col'] = '3'; 
-		break;
-		case '3': 
 			$hiilite_options['blog_col'] = '4'; 
 		break;
-		case '2': 
+		case '3': 
+			$hiilite_options['blog_col'] = '3'; 
+		break;
+		case '6': 
 			$hiilite_options['blog_col'] = '6'; 
 		break;
 		case '1': 
@@ -105,6 +107,7 @@ $colcount = ' col-count-'.$hiilite_options['blog_col'];
 
 echo '<div class="vc_grid-container-wrapper vc_clearfix container_inner '.$grid.' '.$hiilite_options['blog_layouts'].' '.$colcount.'" '.implode( ' ', $wrapper_attributes ).'>';
 if(($use_blog_layouts == true)){
+	
 	if (isset($atts['blog_img_pos'])) 		$hiilite_options['blog_img_pos'] 			= (string)$atts['blog_img_pos'];
 	if (isset($atts['blog_title_show'])) 	$hiilite_options['blog_title_show'] 		= $atts['blog_title_show'];
 	if (isset($atts['blog_title_position']))$hiilite_options['blog_title_position'] 	= $atts['blog_title_position'];
@@ -115,7 +118,6 @@ if(($use_blog_layouts == true)){
 	if (isset($atts['blog_excerpt_len']))	$hiilite_options['blog_excerpt_len']		= $atts['blog_excerpt_len'];
 	if (isset($atts['blog_more_show'])) 	$hiilite_options['blog_more_show']			= $atts['blog_more_show'];
 	if (isset($atts['blog_pag_show'])) 		$hiilite_options['blog_pag_show']			= $atts['blog_pag_show'];
-
 
 	$bg_query = new WP_Query($query);
 	while ( $bg_query->have_posts() ) {

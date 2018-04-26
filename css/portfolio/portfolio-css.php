@@ -45,6 +45,19 @@ ul.portfolio_child_terms {
     border-bottom: 1px solid;
 }
 
+.layout-boxed {
+	display:flex;
+	flex-direction:row;
+	flex-wrap:wrap;	
+}
+
+<?php
+$portfolio_add_padding = Hii::$options['portfolio_add_padding'];
+?>
+.post-type-archive-portfolio .blog-article, .portfolio-masonry-item {
+	padding:<?php echo $portfolio_add_padding;?>;
+}
+
 ul.portfolio_terms li a {
     line-height: 3;
 }

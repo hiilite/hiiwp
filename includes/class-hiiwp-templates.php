@@ -1,7 +1,7 @@
 <?php
 /**
  * The HiiWP Templats class.
- * Handles adding all admin options
+ * Handles adding all template functions
  *
  * @package     HiiWP
  * @category    Core

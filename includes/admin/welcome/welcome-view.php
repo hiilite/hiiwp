@@ -10,7 +10,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
  
 ?>
 <?php add_thickbox(); ?>
-<div class="wrap about-wrap">
+<div class="wrap about-wrap"> 
  
     <h1><?php printf( __( 'Welcome to HiiWP &nbsp; %s', 'hiiwp' ), HIIWP_VERSION ); ?></h1>
  
@@ -25,15 +25,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 		<a class="button button-primary" href="<?php echo admin_url( 'themes.php?page=tgmpa-install-plugins' ); ?>">Install Plugins</a>
 		<a class="button button-primary" href="<?php echo admin_url( 'customize.php' ); ?>">Customize</a>
 	</p>
-    <div class="feature-section one-col">
-        <h3><?php _e( 'Getting Started', 'hiiwp' ); ?></h3>
-        <div class="headline-feature feature-video">
-            <div class='embed-container'>
-                <iframe src='https://www.youtube.com/embed/3RLE_vWJ73c' frameborder='0' allowfullscreen></iframe>
-            </div>
-        </div>
-    </div>
-	<h2>Next Steps</h2>
+   	<h2>Getting Started</h2>
     <div class="feature-section two-col">
 	    
         <div class="col">
@@ -57,7 +49,8 @@ if ( ! defined( 'ABSPATH' ) ) exit;
  
         <div class="col">
             <h3><?php _e( 'Learn How To Use HiiWP', 'hiiwp' ); ?></h3>
-            <p><?php _e( 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras sed sapien quam. Sed dapibus est id enim facilisis, at posuere turpis adipiscing. Quisque sit amet dui dui.', 'WPW' ); ?></p>
+            <p><?php _e( 'In this section, you will find quick tips and video tutorials on how to operate with HiiWP Theme.', 'hiiwp' ); ?></p>
+            <a class="button button-primary" href="https://hiilite.com/hiiwp/" target="_blank">Learn</a>
         </div>
     </div>
     
@@ -102,7 +95,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
             <h3><?php _e( 'Support', 'hiiwp' ); ?></h3>
             <p>To get your support related question answered in the fastest timing, please head over to our <a href="https://hiilite.com/support/request-product-support/" target="_blank">support page</a> and open Support ticket. To open a support ticket you should have a valid support subscription in case if your support has expired you can <a href="https://hiilite.com/shop/wordpress/themes/hiiwp/" target="_blank">purchase support extension from Hiilite</a>.</p>
 <p>
-Before applying for support please make sure you understand the rules of support and go through all steps described and listed in <a href="https://hiilite.com/hiiwp/support-policy/" target="_blank">Support Policy</a> in order to get your issues solved as soon as possible.</p>
+Before applying for support please make sure you understand the rules of support and go through all steps described and listed in <a href="https://hiilite.com/hiiwp-docs/support-policy/" target="_blank">Support Policy</a> in order to get your issues solved as soon as possible.</p>
         </div>
         
     </div>

@@ -7,7 +7,7 @@
  * @license     http://opensource.org/licenses/gpl-2.0.php GNU Public License
  * @since       0.1.0
  */
-/*
+/* 
 TODO:
 - Turn Related posts into widget and shortcode
 - Turn about the author into widget and shortcode	
@@ -42,7 +42,7 @@ if($hiilite_options['blog_meta_show'] == 'true'):
 	$dateline .= '</div>';
 endif;
 
-if($hiilite_options['blog_title_show'] == 'true' || $hiilite_options['blog_title_show'] == true) {
+if(in_array('post', $hiilite_options['show_title_on'])) {
 	if ( is_sticky() ) {
 		$post_format_icon .= '<i class="fa fa-thumb-tack post-format-icon"> </i>';
 	}
@@ -119,6 +119,13 @@ $article_title = $article_title.$dateline;
 			
 			echo '<div class="entry-content">';
 				the_content();
+				echo '<div class="post-navigation">';
+					wp_link_pages(array(
+						'next_or_number'	=>'next', 
+						'previouspagelink' 	=> '<span class="screen-reader-text">' . __( 'Previous Page', 'hiiwp' ) . '</span><span aria-hidden="true" class="nav-subtitle">' . __( 'Go back to', 'hiiwp' ) . '</span> <span class="nav-title"><span class="nav-title-icon-wrapper"><i class="fa fa-angle-left"></i></span>' . __( 'Previous Page', 'hiiwp' ) . '</span>', 
+						'nextpagelink' 		=> '<span class="screen-reader-text">' . __( 'Next Page', 'hiiwp' ) . '</span><span aria-hidden="true" class="nav-subtitle">' . __( 'Continue Reading on', 'hiiwp' ) . '</span> <span class="nav-title">' . __( 'Next Page', 'hiiwp' ) . '<span class="nav-title-icon-wrapper"><i class="fa fa-angle-right"></i></span></span>', 
+						'before'			=> ''));
+				echo '</div>';
 			echo '</div>';
 			
 			//////////////////

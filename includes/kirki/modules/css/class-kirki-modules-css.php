@@ -59,6 +59,16 @@ class Kirki_Modules_CSS {
 	protected $css_to_file;
 
 	/**
+	 * Should we enqueue font-awesome?
+	 *
+	 * @static
+	 * @access protected
+	 * @since 3.0.26
+	 * @var bool
+	 */
+	protected static $enqueue_fa = false;
+
+	/**
 	 * Constructor
 	 *
 	 * @access protected
@@ -192,11 +202,20 @@ class Kirki_Modules_CSS {
 				$styles = self::loop_controls( $config_id );
 				$styles = apply_filters( "kirki_{$config_id}_dynamic_css", $styles );
 				if ( ! empty( $styles ) ) {
+					$stylesheet = apply_filters( "kirki_{$config_id}_stylesheet", false );
+					if ( $stylesheet ) {
+						wp_add_inline_style( $stylesheet, $styles );
+						continue;
+					}
 					wp_enqueue_style( 'kirki-styles-' . $config_id, trailingslashit( Kirki::$url ) . 'assets/css/kirki-styles.css', array(), KIRKI_VERSION );
 					wp_add_inline_style( 'kirki-styles-' . $config_id, $styles );
 				}
 			}
 			$this->processed = true;
+		}
+
+		if ( self::$enqueue_fa && apply_filters( 'kirki_load_fontawesome', true ) ) {
+			wp_enqueue_script( 'kirki-fontawesome-font', 'https://use.fontawesome.com/30858dc40a.js', array(), '4.0.7', true );
 		}
 	}
 
@@ -283,5 +302,18 @@ class Kirki_Modules_CSS {
 		if ( is_array( $css ) ) {
 			return Kirki_Modules_CSS_Generator::styles_parse( Kirki_Modules_CSS_Generator::add_prefixes( $css ) );
 		}
+	}
+
+	/**
+	 * Runs when we're adding a font-awesome field to allow enqueueing the
+	 * fontawesome script on the frontend.
+	 *
+	 * @static
+	 * @since 3.0.26
+	 * @access public
+	 * @return void
+	 */
+	public static function add_fontawesome_script() {
+		self::$enqueue_fa = true;
 	}
 }

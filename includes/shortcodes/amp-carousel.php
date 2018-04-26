@@ -1,14 +1,12 @@
 <?php
-
 function add_amp_carousel_shortcode( $atts ){
 	
 	/*
 		TODO:
 
 	*/
-	
 	$post_id = get_the_id();
-		
+
 	$slug = get_theme_mod( 'portfolio_slug', 'portfolio' );
 	extract( shortcode_atts( array(
       'args'  => null,
@@ -18,8 +16,10 @@ function add_amp_carousel_shortcode( $atts ){
       'thumbnails'	=> false,
       'media_grid_images' => null,
       'css' => '',
+      'id'	=> ''
     ), $atts ) );
     
+    $id = ($id != '')?"id={$id}":"id='hii_rc_".rand(100,999)."'";
     /*
 	VC CSS    
 	*/
@@ -50,14 +50,14 @@ function add_amp_carousel_shortcode( $atts ){
     $query = new WP_Query($args);
     
     $output = '';
-    $output .= '<amp-carousel style="display:block;height:'.$height.'px;width:'.$width.'px" layout="fixed-height" type="'.$type.'" '.implode( ' ', $wrapper_attributes ).'>';
-    if($type == 'carousel') $output .= '<div class="carousel-wrapper" style="white-space: nowrap; position: absolute; z-index: 1; top: 0px; left: 0px; bottom: 0px;">';
+    $output .= '<amp-carousel style="display:block;height:'.$height.'px;width:'.$width.'px" layout="fixed-height" type="'.$type.'" '.implode( ' ', $wrapper_attributes ).' '.$id.'>';
+    if($type == 'carousel') $output .= '<div class="carousel-wrapper">';
     if($args['post_type'] == 'attachment'):
     	$count = 0;
 		foreach ( $query->posts as $attachment) :
 			$count++;
 	       $image = wp_get_attachment_image_src( $attachment->ID, 'full' );
-	       $hratio = ($height / $image[2]);
+	       $hratio = ((int) $height / (int) $image[2]);
 	       $output .= '<a class="slide">';
 		   $output .= '<img src="'.$image[0].'" width="'.($image[1]*$hratio).'" height="'.($image[2]*$hratio).'" alt="'.get_the_title().'">';
 		   $output .= '</a>';

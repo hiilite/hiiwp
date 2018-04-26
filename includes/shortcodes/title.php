@@ -24,7 +24,7 @@ if (!function_exists('hii_title')) {
 
         extract(shortcode_atts($args, $atts));
         //init variables
-		$id = ($id != '')?"id='{$id}'":'';
+		$id = ($id != '')?"id={$id}":'';
         $font_container = isset($atts['font_container'])?explode('|',$atts['font_container']):null;
         $tag = str_replace('tag:','',$font_container[0]);
         if((!isset($tag) || $tag == NULL) && isset($size))

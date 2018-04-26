@@ -528,6 +528,9 @@ class Cmb2_Metatabs_Options {
 		global $hook_suffix;
 		
 		// do not run if not a CMO page
+		if ( !isset( self::$props[ $id ]['hook'] ) ) {
+			return;
+		}
 		if ( $hook_suffix !== self::$props[ $id ]['hook'] ) {
 			return;
 		}

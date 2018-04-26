@@ -61,6 +61,15 @@ Kirki::add_field( 'hiiwp', array(
 ) );
 
 Kirki::add_field( 'hiiwp', array(
+    'type'        => 'switch',
+    'settings'    => 'blog_hide_password_protected_posts',
+    'label'       => __( 'Hide Password Protected Posts', 'hiiwp' ),
+    'section'     => $section,
+    'default'     => $hiilite_options['blog_hide_password_protected_posts'],
+    'priority'    => 1,
+) );
+
+Kirki::add_field( 'hiiwp', array(
 	'type'        => 'radio-image',
     'settings'    => 'blog_img_pos',
     'label'       => __( 'Image Position', 'hiiwp' ),

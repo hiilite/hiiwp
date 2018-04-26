@@ -49,6 +49,18 @@ class HiiWP_Admin {
 		
 		add_action( 'wp_login', array( $this, 'admin_debug' ), 10, 2 );
 		
+		add_action( 'personal_options_update', array( $this, 'be_save_custom_avatar_field' ) );
+		add_action( 'edit_user_profile_update', array( $this, 'be_save_custom_avatar_field' ) );
+		add_filter( 'get_avatar', array( $this, 'be_gravatar_filter' ), 10, 5);
+		add_action( 'show_user_profile', array( $this, 'be_custom_avatar_field' ) );
+		add_action( 'edit_user_profile', array( $this, 'be_custom_avatar_field' ) );
+		
+		add_action( 'after_switch_theme', array( $this, 'my_rewrite_flush' ) );
+		add_action( 'customize_save', array( $this, 'my_rewrite_flush' ) );
+		
+		add_filter( 'heartbeat_settings', array( $this, 'optimize_heartbeat_settings' ) );
+		
+		add_action( 'admin_head', array( $this, 'admin_custom_styles' ) );
 		
 	}
 	
@@ -67,6 +79,11 @@ class HiiWP_Admin {
 		return 50;
 	}
 	 
+	/*
+	Flush rewrites on customizer save and theme update
+	*/
+	public function my_rewrite_flush() { flush_rewrite_rules(); }
+	
 	
 
 	/**
@@ -76,8 +93,11 @@ class HiiWP_Admin {
 	 * @return void
 	 */
 	public function admin_styles() {
-	    wp_register_style( 'hiilite_admin_stylesheet', get_template_directory_uri(). '/css/admin-style.css' );
+	    wp_register_style( 'hiilite_admin_stylesheet', get_template_directory_uri() . '/css/admin-style.css' );
 	    wp_enqueue_style( 'hiilite_admin_stylesheet' );
+	    
+	    wp_register_style('hiilite_dashicons', get_template_directory_uri() .'/css/hiilite-font/css/Hiilite.css', array('dashicons'), '1.0');
+		wp_enqueue_style('hiilite_dashicons');
 	    
 	    wp_enqueue_media();
 	 
@@ -90,6 +110,12 @@ class HiiWP_Admin {
 	        )
 	    );
 	    wp_enqueue_script( 'meta_uploader' );
+	}
+	
+	public function admin_custom_styles() {
+		
+			include_once(HIILITE_DIR . '/css/admin-css.php');
+		
 	}
 	
 	
@@ -774,6 +800,39 @@ class HiiWP_Admin {
 	    $cmb->object_type( 'options-page' );
 	    $boxes[] = $cmb;
 	    
+	    //
+	    //	Optimization Option
+	    //
+	    $cmb = new_cmb2_box( array(
+	        'id'        => 'optimization_options',
+	        'title'     => __( 'Optimization', 'hiiwp' ),
+	        'show_on'   => $show_on,
+	        'display_cb' => false,
+	        'admin_menu_hook' => false
+	    ));
+	    $cmb->add_field( array(
+	        'name'       => __( 'Defer all Javascript', 'hiiwp' ),
+	        'desc'       => __( 'Set all Javascript to Defer. Turn this off if it conflicts with some plugins that add inline scripts', 'hiiwp' ),
+	        'id'         => 'defer_all_javascript',
+	        'type'       => 'checkbox',
+	    ));
+	    $cmb->add_field( array(
+	        'name'       => __( 'Async all CSS', 'hiiwp' ),
+	        'desc'       => __( 'Have all CSS load in dynamically after the document is ready to improve performance. Turn off if conflicting with other plugins.', 'hiiwp' ),
+	        'id'         => 'async_all_css',
+	        'type'       => 'checkbox',
+	    ));
+	    $cmb->add_field( array(
+	        'name'       => __( 'Load Viewport Units Buggyfill™', 'hiiwp' ),
+	        'desc'       => __( 'Provides hacks for you to get viewport units working in old IE and Android Stock Browser', 'hiiwp' ),
+	        'id'         => 'load_viewport_units_buggyfill',
+	        'type'       => 'checkbox',
+	    ));
+	    
+	    $cmb->object_type( 'options-page' );
+	    $boxes[] = $cmb;
+	    
+	    
 	    // Tabs - an array of configuration arrays.
 	    $tabs[] = array(
 	         'id'    => 'hiilite_main_tab',
@@ -803,6 +862,14 @@ class HiiWP_Admin {
 	            'company_social_info'
 	        ),
 	    );
+	    $tabs[] = array(
+	        'id'    => 'hiilite_advanced_tab',
+	        'title' => 'Advanced',
+	        'desc'  => '<p>Control some of the more advanced options of the HiiWP theme.</p>',
+	        'boxes' => array(
+	            'optimization_options'
+	        ),
+	    );
 	
 	
 		// Arguments array. See the arguments page for more detail
@@ -810,7 +877,7 @@ class HiiWP_Admin {
 	        'key'        => $opt_key,
 	        'title'      => 'HiiWP Settings',
 	        'menuargs' => array(
-	        	'icon_url'	=>	get_template_directory_uri().'/images/hii-dashicon.png',
+	        	'icon_url'	=>	'dashicons-hii-hii', 
 	        	'position'	=> 2,
 	        ),
 	        
@@ -829,6 +896,76 @@ class HiiWP_Admin {
 	    }
 	}
 	
+	
+	
+	/**
+	 * Add Custom Avatar Field
+	 * @author Bill Erickson
+	 * @link http://www.billerickson.net/wordpress-custom-avatar/
+	 *
+	 * @param object $user
+	 */
+	public function be_custom_avatar_field( $user ) { ?>
+		<h3>Custom Avatar</h3>
+		 
+		<table>
+		<tr>
+		<th><label for="be_custom_avatar">Custom Avatar URL:</label></th>
+		<td>
+		<input type="text" name="be_custom_avatar" id="be_custom_avatar" value="<?php echo esc_attr( get_the_author_meta( 'be_custom_avatar', $user->ID ) ); ?>" /><br />
+		<span>Type in the URL of the image you'd like to use as your avatar. This will override your default Gravatar, or show up if you don't have a Gravatar. <br /><strong>Image should be 70x70 pixels.</strong></span>
+		</td>
+		</tr>
+		</table>
+		<?php 
+	}
+	
+	
+	/**
+	 * Save Custom Avatar Field
+	 * @author Bill Erickson
+	 * @link http://www.billerickson.net/wordpress-custom-avatar/
+	 *
+	 * @param int $user_id
+	 */
+	public function be_save_custom_avatar_field( $user_id ) {
+		if ( !current_user_can( 'edit_user', $user_id ) ) { return false; }
+			update_user_meta( $user_id, 'be_custom_avatar', $_POST['be_custom_avatar'] );
+	}
+	
+	
+	/**
+	 * Use Custom Avatar if Provided
+	 * @author Bill Erickson
+	 * @link http://www.billerickson.net/wordpress-custom-avatar/
+	 *
+	 */
+	public function be_gravatar_filter($avatar, $id_or_email, $size, $default, $alt) {
+		
+		// If provided an email and it doesn't exist as WP user, return avatar since there can't be a custom avatar
+		$email = is_object( $id_or_email ) ? $id_or_email->comment_author_email : $id_or_email;
+		if( is_email( $email ) && ! email_exists( $email ) )
+			return $avatar;
+		
+		$custom_avatar = get_the_author_meta('be_custom_avatar');
+		if ($custom_avatar) 
+			$return = '<img src="'.$custom_avatar.'" width="'.$size.'" height="'.$size.'" alt="'.$alt.'" />';
+		elseif ($avatar) 
+			$return = $avatar;
+		else 
+			$return = '<img src="'.$default.'" width="'.$size.'" height="'.$size.'" alt="'.$alt.'" />';
+		return $return;
+	}
+	
+	/*
+	Speed up the WP Admin by removing or slowing down heartbeat	
+	*/
+	public function optimize_heartbeat_settings( $settings ) {
+	    $settings['autostart'] = false;
+	    $settings['interval'] = 60;
+	    return $settings;
+	}
+
 	
 
 }

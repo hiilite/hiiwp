@@ -2,6 +2,16 @@
 This theme is currently in Alpha testing and should not be installed without the support of the team at Hiilite Creative Group
 
 ### Change log
+#### v0.4.9
+- Fixes to schema
+- General Code cleanup
+- Updated [Kirki to 3.0.25](https://github.com/aristath/kirki/releases/tag/v3.0.25)
+- Modified form styling for all form elements including Gravity Forms
+- Now loading fontawesome from a CDN. smaller footprint for the plugin and async loading will improve performance for everyone
+- Added option to hide password protected posts.
+- Update for compatibility with PHP 7.2
+- Updated [CMB2 to 2.3.0](https://github.com/CMB2/CMB2/releases/tag/v2.3.0)
+
 #### v0.4.8
 - Fixes for colors in customizer
 - Removed BackupBuddy from default plugins

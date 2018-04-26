@@ -17,11 +17,11 @@
 	 * @augments wp.customize.Control
 	 * @augments wp.customize.Class
 	 */
-	wp.customize.kirkiDynamicControl = wp.customize.Control.extend({
+	wp.customize.kirkiDynamicControl = wp.customize.Control.extend( {
 
 		initialize: function( id, options ) {
 			var control = this,
-			    args    = options || {};
+				args    = options || {};
 
 			args.params = args.params || {};
 			if ( ! args.params.type ) {
@@ -48,7 +48,7 @@
 		 */
 		_setUpSettingRootLinks: function() {
 			var control = this,
-			    nodes   = control.container.find( '[data-customize-setting-link]' );
+				nodes   = control.container.find( '[data-customize-setting-link]' );
 
 			nodes.each( function() {
 				var node = jQuery( this );
@@ -58,8 +58,8 @@
 					control.elements.push( element );
 					element.sync( setting );
 					element.set( setting() );
-				});
-			});
+				} );
+			} );
 		},
 
 		/**
@@ -70,7 +70,7 @@
 		 */
 		_setUpSettingPropertyLinks: function() {
 			var control = this,
-			    nodes;
+				nodes;
 
 			if ( ! control.setting ) {
 				return;
@@ -80,8 +80,8 @@
 
 			nodes.each( function() {
 				var node = jQuery( this ),
-				    element,
-				    propertyName = node.data( 'customizeSettingPropertyLink' );
+					element,
+					propertyName = node.data( 'customizeSettingPropertyLink' );
 
 				element = new wp.customize.Element( node );
 				control.propertyElements.push( element );
@@ -101,7 +101,7 @@
 						element.set( newValue[ propertyName ] );
 					}
 				} );
-			});
+			} );
 		},
 
 		/**
@@ -117,7 +117,7 @@
 
 			control.deferred.embedded.done( function() {
 				control.initKirkiControl( control );
-			});
+			} );
 		},
 
 		/**
@@ -131,7 +131,7 @@
 		 */
 		embed: function() {
 			var control   = this,
-			    sectionId = control.section();
+				sectionId = control.section();
 
 			if ( ! sectionId ) {
 				return;
@@ -194,39 +194,10 @@
 			// Save the value
 			this.container.on( 'change keyup paste click', 'input', function() {
 				control.setting.set( jQuery( this ).val() );
-			});
-		},
-
-		kirkiValidateCSSValue: function( value ) {
-
-			var validUnits = ['rem', 'em', 'ex', '%', 'px', 'cm', 'mm', 'in', 'pt', 'pc', 'ch', 'vh', 'vw', 'vmin', 'vmax'],
-				numericValue,
-				unit;
-
-			// 0 is always a valid value, and we can't check calc() values effectively.
-			if ( '0' === value || ( 0 <= value.indexOf( 'calc(' ) && 0 <= value.indexOf( ')' ) ) ) {
-				return true;
-			}
-
-			if ( 'auto' === value || 'inherit' === value || 'initial' === value ) {
-				return true;
-			}
-
-			// Get the numeric value.
-			numericValue = parseFloat( value );
-
-			// Get the unit
-			unit = value.replace( numericValue, '' );
-
-			// Check the validity of the numeric value and units.
-			if ( isNaN( numericValue ) || -1 === jQuery.inArray( unit, validUnits ) ) {
-				return false;
-			}
-			return true;
+			} );
 		}
-	});
-})();
-
+	} );
+}() );
 _.each( kirki.control, function( obj, type ) {
-	wp.customize.controlConstructor[ type ] = wp.customize.kirkiDynamicControl.extend({});
+	wp.customize.controlConstructor[ type ] = wp.customize.kirkiDynamicControl.extend( {} );
 } );

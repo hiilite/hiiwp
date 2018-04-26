@@ -37,6 +37,7 @@ Use it to make something cool, have fun, and share what you've learned with othe
   font-size: 36px;
   margin-top: 0;
 }
+
 .sub-header-features h1,
 .sub-header-features-2 h1 {
   text-transform: uppercase;
@@ -2998,22 +2999,23 @@ div.vc_tta-color-grey.vc_tta-style-classic .vc_tta-panel .vc_tta-panel-body {
 .col-md-8 .sensei-message.info.checkout-mess {
   margin: 0;
 }
-.sensei-message.info {
+.sensei-message.info, .sensei-message.alert, .sensei-message.tick {
     width: 100%;
     clear: both;
     background: rgba(240,240,240,0.7);
     padding: 10px;
     border-radius: 6px;
+    margin-bottom: 1em;
 }
-.sensei-message.info:before {
-  margin-right: 2px!important;
-}
-.course .sensei-message.tick {
+
+.sensei-message.tick {
   border: 5px solid #fbfbfc!important;
   box-shadow: inset 0 0 0 1px #e0e5e9;
 }
-.sensei div.sensei-message.info a {
-  color: #488dc6;
+div.sensei-message.info a,
+div.sensei-message.alert a,
+div.sensei-message.tick a {
+  color: #488dc6 !important;
   text-decoration: none;
   font-weight: 600;
 }

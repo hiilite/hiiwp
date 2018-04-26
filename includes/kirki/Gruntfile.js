@@ -1,25 +1,21 @@
 /* global module */
 module.exports = function( grunt ) {
 
-	grunt.initConfig({
+	grunt.initConfig( {
 
 		// Get json file from the google-fonts API
-		curl: {
+		http: {
 			'google-fonts-alpha': {
-				src: 'https://www.googleapis.com/webfonts/v1/webfonts?sort=alpha&key=AIzaSyCDiOc36EIOmwdwspLG3LYwCg9avqC5YLs',
+				options: { url: 'https://www.googleapis.com/webfonts/v1/webfonts?sort=alpha&key=AIzaSyCDiOc36EIOmwdwspLG3LYwCg9avqC5YLs' },
 				dest: 'modules/webfonts/webfonts-alpha.json'
 			},
 			'google-fonts-popularity': {
-				src: 'https://www.googleapis.com/webfonts/v1/webfonts?sort=popularity&key=AIzaSyCDiOc36EIOmwdwspLG3LYwCg9avqC5YLs',
+				options: { url: 'https://www.googleapis.com/webfonts/v1/webfonts?sort=popularity&key=AIzaSyCDiOc36EIOmwdwspLG3LYwCg9avqC5YLs' },
 				dest: 'modules/webfonts/webfonts-popularity.json'
 			},
 			'google-fonts-trending': {
-				src: 'https://www.googleapis.com/webfonts/v1/webfonts?sort=trending&key=AIzaSyCDiOc36EIOmwdwspLG3LYwCg9avqC5YLs',
+				options: { url: 'https://www.googleapis.com/webfonts/v1/webfonts?sort=trending&key=AIzaSyCDiOc36EIOmwdwspLG3LYwCg9avqC5YLs' },
 				dest: 'modules/webfonts/webfonts-trending.json'
-			},
-			'jshintrc': {
-				src: 'https://develop.svn.wordpress.org/trunk/.jshintrc',
-				dest: '.jshintrc'
 			}
 		},
 
@@ -30,9 +26,7 @@ module.exports = function( grunt ) {
 					'assets/vendor/selectWoo/kirki.css': 'assets/vendor/selectWoo/kirki.scss',
 					'modules/tooltips/tooltip.css': 'modules/tooltips/tooltip.scss',
 					'modules/custom-sections/sections.css': 'modules/custom-sections/sections.scss',
-					'modules/collapsible/collapsible.css': 'modules/collapsible/collapsible.scss',
-					'controls/css/styles.css': 'controls/scss/styles.scss',
-					'controls/css/styles-legacy.css': 'controls/scss/styles-legacy.scss'
+					'controls/css/styles.css': 'controls/scss/styles.scss'
 				}
 			}
 		},
@@ -70,7 +64,7 @@ module.exports = function( grunt ) {
 					'controls/scss/*.scss',
 					'modules/**/*.scss'
 				],
-				tasks: ['sass']
+				tasks: [ 'sass' ]
 			},
 			scripts: {
 				files: [
@@ -78,7 +72,7 @@ module.exports = function( grunt ) {
 					'controls/js/src/*.js',
 					'modules/**/*.js'
 				],
-				tasks: ['concat', 'uglify']
+				tasks: [ 'concat', 'uglify' ]
 			}
 		},
 
@@ -120,42 +114,6 @@ module.exports = function( grunt ) {
 					'controls/js/src/typography.js'
 				],
 				dest: 'controls/js/script.js'
-			},
-			legacy: {
-				src: [
-					'controls/js/src/set-setting-value.js',
-					'controls/js/src/kirki.js',
-					'controls/js/src/kirki.control.js',
-					'controls/js/src/kirki.input.js',
-					'controls/js/src/kirki.setting.js',
-					'controls/js/src/kirki.util.js',
-					'controls/js/src/dynamic-control.js',
-					'controls/js/src/dynamic-control.js',
-
-					'controls/js/src/background-legacy.js',
-					'controls/js/src/color-palette.js',
-					'controls/js/src/dashicons.js',
-					'controls/js/src/date.js',
-					'controls/js/src/dimension.js',
-					'controls/js/src/dimensions.js',
-					'controls/js/src/editor.js',
-					'controls/js/src/fontawesome.js',
-					'controls/js/src/image.js',
-					'controls/js/src/multicheck.js',
-					'controls/js/src/multicolor-legacy.js',
-					'controls/js/src/number.js',
-					'controls/js/src/palette.js',
-					'controls/js/src/preset.js',
-					'controls/js/src/radio-buttonset.js',
-					'controls/js/src/radio-image.js',
-					'controls/js/src/repeater.js',
-					'controls/js/src/slider.js',
-					'controls/js/src/sortable.js',
-					'controls/js/src/switch.js',
-					'controls/js/src/toggle.js',
-					'controls/js/src/typography-legacy.js'
-				],
-				dest: 'controls/js/script-legacy.js'
 			}
 		},
 
@@ -163,44 +121,45 @@ module.exports = function( grunt ) {
 			dev: {
 				options: {
 					mangle: {
-						reserved: ['jQuery', 'wp', '_']
+						reserved: [ 'jQuery', 'wp', '_' ]
 					}
 				},
-				files: [{
+				files: [ {
 					expand: true,
-					src: ['controls/js/*.js', '!controls/js/*.min.js'],
+					src: [ 'controls/js/*.js', '!controls/js/*.min.js' ],
 					dest: '.',
 					cwd: '.',
 					rename: function( dst, src ) {
 						return dst + '/' + src.replace( '.js', '.min.js' );
 					}
-				}]
+				} ]
 			}
 		}
-	});
+	} );
 
 	grunt.loadNpmTasks( 'grunt-contrib-sass' );
 	grunt.loadNpmTasks( 'grunt-contrib-concat' );
 	grunt.loadNpmTasks( 'grunt-contrib-uglify' );
 	grunt.loadNpmTasks( 'grunt-contrib-watch' );
-	grunt.loadNpmTasks( 'grunt-curl' );
+	grunt.loadNpmTasks( 'grunt-http' );
 	grunt.loadNpmTasks( 'grunt-wp-readme-to-markdown' );
 	grunt.loadNpmTasks( 'grunt-jscs' );
 
-	grunt.registerTask( 'dev', ['sass', 'jscs', 'watch'] );
+	grunt.registerTask( 'dev', [ 'sass', 'jscs', 'watch' ] );
 	grunt.registerTask( 'googlefontsProcess', function() {
 		var alphaFonts,
-		    popularityFonts,
-		    trendingFonts,
-		    finalObject = {
+			popularityFonts,
+			trendingFonts,
+			finalObject = {
 				items: {},
 				order: {
 					popularity: [],
 					trending: []
 				}
-		    },
-		    finalJSON,
-		    i;
+			},
+			finalJSON,
+			i,
+			fontNames = [];
 
 		// Get file contents.
 		alphaFonts      = grunt.file.readJSON( 'modules/webfonts/webfonts-alpha.json' );
@@ -212,15 +171,19 @@ module.exports = function( grunt ) {
 			finalObject.items[ alphaFonts.items[ i ].family ] = {
 				family: alphaFonts.items[ i ].family,
 				category: alphaFonts.items[ i ].category,
-				variants: alphaFonts.items[ i ].variants.sort(),
+				variants: alphaFonts.items[ i ].variants.sort()
+
+				/* Deprecated
 				subsets: alphaFonts.items[ i ].subsets.sort(),
 				files: alphaFonts.items[ i ].files
+				*/
 			};
 		}
 
 		// Add the popularity order.
 		for ( i = 0; i < popularityFonts.items.length; i++ ) {
 			finalObject.order.popularity.push( popularityFonts.items[ i ].family );
+			fontNames.push( popularityFonts.items[ i ].family );
 		}
 
 		// Add the rrending order.
@@ -231,6 +194,7 @@ module.exports = function( grunt ) {
 		// Write the final object to json.
 		finalJSON = JSON.stringify( finalObject );
 		grunt.file.write( 'modules/webfonts/webfonts.json', finalJSON );
+		grunt.file.write( 'modules/webfonts/webfont-names.json', JSON.stringify( fontNames ) );
 
 		// Delete files no longer needed.
 		grunt.file.delete( 'modules/webfonts/webfonts-alpha.json' ); // jshint ignore:line
@@ -238,10 +202,10 @@ module.exports = function( grunt ) {
 		grunt.file.delete( 'modules/webfonts/webfonts-trending.json' ); // jshint ignore:line
 	} );
 	grunt.registerTask( 'googlefonts', function() {
-		grunt.task.run( 'curl' );
+		grunt.task.run( 'http' );
 		grunt.task.run( 'googlefontsProcess' );
 	} );
-	grunt.registerTask( 'default', ['sass:dist', 'concat', 'uglify'] );
-	grunt.registerTask( 'readme', ['wp_readme_to_markdown'] );
-	grunt.registerTask( 'all', ['default', 'googlefonts', 'wp_readme_to_markdown'] );
+	grunt.registerTask( 'default', [ 'sass:dist', 'concat', 'uglify' ] );
+	grunt.registerTask( 'readme', [ 'wp_readme_to_markdown' ] );
+	grunt.registerTask( 'all', [ 'default', 'googlefonts', 'wp_readme_to_markdown' ] );
 };

@@ -1,6 +1,7 @@
 /* global ajaxurl */
 var kirki = kirki || {};
 kirki = jQuery.extend( kirki, {
+
 	/**
 	 * A collection of utility methods.
 	 *
@@ -74,7 +75,7 @@ kirki = jQuery.extend( kirki, {
 				 */
 				getFont: function( family ) {
 					var self = this,
-					    fonts = self.getFonts();
+						fonts = self.getFonts();
 
 					if ( 'undefined' === typeof fonts[ family ] ) {
 						return false;
@@ -90,10 +91,11 @@ kirki = jQuery.extend( kirki, {
 				 * @param {int}    number - How many to get. 0 for all.
 				 * @returns {Object}
 				 */
-				getFonts: function( order, number ) {
-					var self    = this,
-					    ordered = {},
-					    partial = [];
+				getFonts: function( order, category, number ) {
+					var self        = this,
+						ordered     = {},
+						categorized = {},
+						plucked     = {};
 
 					// Make sure order is correct.
 					order  = order || 'alpha';
@@ -103,16 +105,35 @@ kirki = jQuery.extend( kirki, {
 					number = number || 0;
 					number = parseInt( number, 10 );
 
-					if ( 'alpha' === order || 0 === number ) {
-						ordered = self.fonts.items;
+					// Order fonts by the 'order' argument.
+					if ( 'alpha' === order ) {
+						ordered = jQuery.extend( {}, self.fonts.items );
 					} else {
-						partial = _.first( self.fonts.order[ order ], number );
-						_.each( partial, function( family ) {
+						_.each( self.fonts.order[ order ], function( family ) {
 							ordered[ family ] = self.fonts.items[ family ];
 						} );
 					}
 
-					return ordered;
+					// If we have a category defined get only the fonts in that category.
+					if ( '' === category || ! category ) {
+						categorized = ordered;
+					} else {
+						_.each( ordered, function( font, family ) {
+							if ( category === font.category ) {
+								categorized[ family ] = font;
+							}
+						} );
+					}
+
+					// If we only want a number of font-families get the 1st items from the results.
+					if ( 0 < number ) {
+						_.each( _.first( _.keys( categorized ), number ), function( family ) {
+							plucked[ family ] = categorized[ family ];
+						} );
+						return plucked;
+					}
+
+					return categorized;
 				},
 
 				/**
@@ -124,7 +145,7 @@ kirki = jQuery.extend( kirki, {
 				 */
 				getVariants: function( family ) {
 					var self = this,
-					    font = self.getFont( family );
+						font = self.getFont( family );
 
 					// Early exit if font was not found.
 					if ( ! font ) {
@@ -138,31 +159,6 @@ kirki = jQuery.extend( kirki, {
 
 					// Return the variants.
 					return font.variants;
-				},
-
-				/**
-				 * Get the subsets for a font-family.
-				 *
-				 * @since 3.0.17
-				 * @param {string} family - The font-family we're interested in.
-				 * @returns {Object}
-				 */
-				getSubsets: function( family ) {
-					var self = this,
-					    font = self.getFont( family );
-
-					// Early exit if font was not found.
-					if ( ! font ) {
-						return false;
-					}
-
-					// Early exit if font doesn't have subsets.
-					if ( _.isUndefined( font.subsets ) ) {
-						return false;
-					}
-
-					// Return the variants.
-					return font.subsets;
 				}
 			},
 
@@ -222,8 +218,8 @@ kirki = jQuery.extend( kirki, {
 				 * @since 3.0.17
 				 * @returns {Array}
 				 */
-				getVariants: function( family ) { // jshint ignore: line
-					return ['regular', 'italic', '700', '700italic'];
+				getVariants: function() {
+					return [ 'regular', 'italic', '700', '700italic' ];
 				}
 			},
 
@@ -254,6 +250,39 @@ kirki = jQuery.extend( kirki, {
 					return 'google';
 				}
 				return false;
+			}
+		},
+
+		validate: {
+			cssValue: function( value ) {
+
+				var validUnits = [ 'fr', 'rem', 'em', 'ex', '%', 'px', 'cm', 'mm', 'in', 'pt', 'pc', 'ch', 'vh', 'vw', 'vmin', 'vmax' ],
+					numericValue,
+					unit;
+
+				// Whitelist values.
+				if ( 0 === value || '0' === value || 'auto' === value || 'inherit' === value || 'initial' === value ) {
+					return true;
+				}
+
+				// Skip checking if calc().
+				if ( 0 <= value.indexOf( 'calc(' ) && 0 <= value.indexOf( ')' ) ) {
+					return true;
+				}
+
+				// Get the numeric value.
+				numericValue = parseFloat( value );
+
+				// Get the unit
+				unit = value.replace( numericValue, '' );
+
+				// Allow unitless.
+				if ( ! value ) {
+					return;
+				}
+
+				// Check the validity of the numeric value and units.
+				return ( ! isNaN( numericValue ) && -1 < jQuery.inArray( unit, validUnits ) );
 			}
 		}
 	}

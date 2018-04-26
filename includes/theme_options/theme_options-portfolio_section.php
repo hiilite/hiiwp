@@ -168,15 +168,6 @@ Kirki::add_field( 'hiiwp', array(
 
 Kirki::add_field( 'hiiwp', array(
     'type'        => 'switch',
-    'settings'    => 'portfolio_show_author_date',
-    'label'       => __( 'Show Author and Date line', 'hiiwp' ),
-    'section'     => 'portfolio_section',
-    'default'     => false,
-    'priority'    => 1,
-) );
-
-Kirki::add_field( 'hiiwp', array(
-    'type'        => 'switch',
     'settings'    => 'portfolio_show_post_meta',
     'label'       => __( 'Show Meta', 'hiiwp' ),
     'section'     => 'portfolio_section',

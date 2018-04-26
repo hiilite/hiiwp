@@ -62,7 +62,7 @@ echo '<div class="full-width  align-top">';
 	if($imgs_in_grid == true) {
 		echo '<div class="in_grid">';
 	}
-		cmb2_output_portfolio_imgs($portfolio_images);
+	cmb2_output_portfolio_imgs($portfolio_images);
 	
 	if($imgs_in_grid == true) {
 		echo '</div>';

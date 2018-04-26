@@ -46,7 +46,7 @@ function add_social_profiles_shortcode( $atts ){
 			
 			if(isset($atts['icon_style']) && $atts['icon_style'] != '')$style = $atts['icon_style'];
 				
-			$output .= '<a href="'.$socialprofile['social_url'].'" target="_blank"><i class="fa fa-'.strtolower($socialprofile['social_site']).' fa-style-'.$style.'"></i></a> ';
+			$output .= '<a href="'.$socialprofile['social_url'].'" target="_blank" rel="noopener"><i class="fa fa-'.strtolower($socialprofile['social_site']).' fa-style-'.$style.'"></i></a> ';
 		endforeach;
 	}
 	$output .= '</div>';
