@@ -162,13 +162,12 @@ class HiiWP extends Hii {
 	public function add_load_css(){ 
 	    ?>
 	    <style>
-		    html body{
+		    html body {
 		    	visibility: hidden;
-		    	
-		    	-webkit-animation:-amp-start 1s;
-		    	-moz-animation:-amp-start 1s;
-		    	-ms-animation:-amp-start 1s;
-		    	animation:-amp-start 1s
+		    	 -webkit-animation:-amp-start 0.4s;
+		    	-moz-animation:-amp-start 0.4s;
+		    	-ms-animation:-amp-start 0.4s;
+		    	animation:-amp-start 0.4s;
 		    }
 	    	@-webkit-keyframes -amp-start{from{opacity:0}to{opacity:1}}
 	    	@-moz-keyframes -amp-start{from{opacity:0}to{opacity:1}}
@@ -176,11 +175,19 @@ class HiiWP extends Hii {
 	    	@-o-keyframes -amp-start{from{opacity:0}to{opacity:1}}
 	    	@keyframes -amp-start{from{opacity:0}to{opacity:1}}
 		    
-		    .wf-active body{
-			    visibility: visible !important;
+		    .wf-active body
+		    {
+			    visibility: visible;
 		    }
 		</style>
 	    <noscript><style>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
+	    <script>
+		    (function() {
+				if (sessionStorage.fonts) {
+					document.documentElement.classList.add('wf-active');
+				} 
+		    })();
+	    </script>
 	    <?php
 	    if(self::$hiilite_options['async_all_css']) {
 	    ?>
@@ -203,8 +210,10 @@ class HiiWP extends Hii {
 					} ); 
 					return ss; 
 				}
-			</script><?php
+			</script>
+			<?php
 		}
+		
 	}
 	
 	
@@ -448,7 +457,7 @@ class HiiWP extends Hii {
 	public function print_inline_script() {
 	  if ( wp_script_is( 'jquery', 'done' ) ) { 
 	  ?><script type="text/javascript">
-			<?php echo get_theme_mod('custom_js');?>
+			<?php echo get_theme_mod('custom_js');?>	
 		</script><?php
 	  }
 	}
