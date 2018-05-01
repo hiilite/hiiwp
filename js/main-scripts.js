@@ -292,12 +292,13 @@ $(document).ready(function(){
 		/* carousel */
 		else {
 			width = $carousel.parent().width(); 
+			
 			$(window).on('resize',function(){
 				width = $carousel.parent().width();
+				
 				$carousel.width(width);
 			});
 		}
-		
 		
 		$carousel.width(width);
 		$carousel.height(height);
@@ -496,7 +497,7 @@ $(document).ready(function(){
 				$wrapper.find('.slide').each(function(){
 					total_width += $(this).outerWidth(true);
 				});
-				
+
 				$wrapper.find('.carousel-wrapper').width(total_width);
 				
 				var item_width = total_width / length,

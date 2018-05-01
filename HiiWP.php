@@ -844,15 +844,10 @@ class HiiWP extends Hii {
 	    // store function in code specific global
 	    $GLOBALS["register_theme_deactivation_hook_function" . $code]=$function;
 	
-	    // create a runtime function which will delete the option set while activation of this theme and will call deactivation function provided in $function
-	    $fn=create_function('$theme', ' call_user_func($GLOBALS["register_theme_deactivation_hook_function' . $code . '"]); delete_option("theme_is_activated_' . $code. '");');
-	
-	    // add above created function to switch_theme action hook. This hook gets called when admin changes the theme.
-	    // Due to wordpress core implementation this hook can only be received by currently active theme (which is going to be deactivated as admin has chosen another one.
 	    // Your theme can perceive this hook as a deactivation hook.
-	    add_action("switch_theme", $fn);
+	    add_action("switch_theme", 'theme_deactivation');
 	}
-	
+	 
 	
 	/**
 	 * cc_mime_types function.

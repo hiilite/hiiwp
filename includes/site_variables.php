@@ -374,6 +374,10 @@ $hiilite_options['title_background'] = get_theme_mod( 'title_background', array(
 // FONTS
 $hiilite_options['text_font']				= get_theme_mod( 'text_font', $hiilite_options['default_font']);
 $hiilite_options['text_margin']				= get_theme_mod( 'text_margin', '1em');
+$hiilite_options['typography_p_margin']				= get_theme_mod( 'typography_p_margin', array(
+	'top'	=> '0',
+	'bottom'=> $hiilite_options['text_margin'],
+));
 
 $hiilite_options['typography_h1_font']				= get_theme_mod( 'typography_h1_font', array(
         'font-family'    => $hiilite_options['default_font']['font-family'],
@@ -385,7 +389,11 @@ $hiilite_options['typography_h1_font']				= get_theme_mod( 'typography_h1_font',
         'color'          => '#333',
         'text-align'	 => '',
     ) );
-    
+$hiilite_options['typography_h1_margin']			= get_theme_mod( 'typography_h1_margin', array(
+	'top' 		=> '0',
+	'bottom' 	=> '0.83em',
+	) );
+
 $hiilite_options['typography_h2_font']				= get_theme_mod( 'typography_h2_font', array(
         'font-family'    => $hiilite_options['default_font']['font-family'],
         'variant'        => '300',
@@ -396,6 +404,10 @@ $hiilite_options['typography_h2_font']				= get_theme_mod( 'typography_h2_font',
         'color'          => '#666',
         'text-align'	 => '',
     ) );
+$hiilite_options['typography_h2_margin']			= get_theme_mod( 'typography_h2_margin', array(
+	'top' 		=> '0',
+	'bottom' 	=> '0.83em',
+	) );
     
 $hiilite_options['typography_h3_font']				= get_theme_mod( 'typography_h3_font', array(
         'font-family'    => $hiilite_options['default_font']['font-family'],
@@ -407,7 +419,11 @@ $hiilite_options['typography_h3_font']				= get_theme_mod( 'typography_h3_font',
         'color'          => '#333',
         'text-align'	 => '',
     ) );
-    
+$hiilite_options['typography_h3_margin']			= get_theme_mod( 'typography_h3_margin', array(
+	'top' 		=> '0',
+	'bottom' 	=> '0.83em',
+	) );    
+	
 $hiilite_options['typography_h4_font']				= get_theme_mod( 'typography_h4_font', array(
         'font-family'    => $hiilite_options['default_font']['font-family'],
         'variant'        => '600',
@@ -418,6 +434,10 @@ $hiilite_options['typography_h4_font']				= get_theme_mod( 'typography_h4_font',
         'color'          => '#333',
         'text-align'	 => '',
     ) );
+$hiilite_options['typography_h4_margin']			= get_theme_mod( 'typography_h4_margin', array(
+	'top' 		=> '0',
+	'bottom' 	=> '0.83em',
+	) );
     
 $hiilite_options['typography_h5_font']				= get_theme_mod( 'typography_h5_font', array(
         'font-family'    => $hiilite_options['default_font']['font-family'],
@@ -429,6 +449,10 @@ $hiilite_options['typography_h5_font']				= get_theme_mod( 'typography_h5_font',
         'color'          => '#767676',
         'text-align'	 => '',
     ) );
+$hiilite_options['typography_h5_margin']			= get_theme_mod( 'typography_h5_margin', array(
+	'top' 		=> '0',
+	'bottom' 	=> '0.83em',
+	) );
     
 $hiilite_options['typography_h6_font']				= get_theme_mod( 'typography_h6_font', array(
         'font-family'    => $hiilite_options['default_font']['font-family'],
@@ -440,7 +464,10 @@ $hiilite_options['typography_h6_font']				= get_theme_mod( 'typography_h6_font',
         'color'          => '#333',
         'text-align'	 => '',
     ) );
-    
+$hiilite_options['typography_h6_margin']			= get_theme_mod( 'typography_h6_margin', array(
+	'top' 		=> '0',
+	'bottom' 	=> '0.83em',
+	) );    
     
 $hiilite_options['typography_footer_headings_font']				= get_theme_mod( 'typography_footer_headings_font', array(
         'font-family'    => ' ',

@@ -50,7 +50,7 @@ function add_amp_carousel_shortcode( $atts ){
     $query = new WP_Query($args);
     
     $output = '';
-    $output .= '<amp-carousel style="display:block;height:'.$height.'px;width:'.$width.'px" layout="fixed-height" type="'.$type.'" '.implode( ' ', $wrapper_attributes ).' '.$id.'>';
+    $output .= '<amp-carousel style="display:block;height:'.$height.'px;width:'.$width.'px" height="'.$height.'" layout="fixed-height" type="'.$type.'" '.implode( ' ', $wrapper_attributes ).' '.$id.'>';
     if($type == 'carousel') $output .= '<div class="carousel-wrapper">';
     if($args['post_type'] == 'attachment'):
     	$count = 0;
@@ -58,9 +58,9 @@ function add_amp_carousel_shortcode( $atts ){
 			$count++;
 	       $image = wp_get_attachment_image_src( $attachment->ID, 'full' );
 	       $hratio = ((int) $height / (int) $image[2]);
-	       $output .= '<a class="slide">';
-		   $output .= '<img src="'.$image[0].'" width="'.($image[1]*$hratio).'" height="'.($image[2]*$hratio).'" alt="'.get_the_title().'">';
-		   $output .= '</a>';
+	       $output .= '<div class="slide" style="width:'.($image[1]*$hratio).'px;height:'.$height.'px;">';
+		   $output .= '<img src="'.$image[0].'" width="'.($image[1]*$hratio).'" height="'.($image[2]*$hratio).'"  alt="'.get_the_title().'">';
+		   $output .= '</div>';
 	    endforeach;
 	    if($thumbnails):
 	    	$output .= '<div class="thumbnails">';

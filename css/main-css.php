@@ -339,8 +339,6 @@ h4,
 h5, 
 h6 {
 	clear: both;
-	line-height:1.4;
-	margin: 0;
 }
 
 h1:first-child,
@@ -353,7 +351,6 @@ h6:first-child {
 }
 
 p {
-	margin: 0 0 1.5em;
 	padding: 0;
 }
 

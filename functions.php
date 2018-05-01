@@ -354,10 +354,20 @@ function hii_get_the_title(){
 		$page_title = get_the_title( get_the_id( ) );
 	else
 		$page_title = get_the_title( get_the_id( ));
+		
+	$page_title = strip_tags($page_title);
 	
 	return $page_title;
 }
 
+
+/*
+	TEMPORARY until Kirki fixes font-awesome loader.
+*/
+add_action( 'wp_enqueue_scripts', 'enqueue_load_fa' );
+function enqueue_load_fa() {
+    wp_enqueue_style( 'load-fa', 'https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css' );
+}
 
 /**
  * hii_the_title function.
@@ -874,4 +884,8 @@ function cmb2_output_portfolio_imgs( $portfolio_images ) {
 	endif;
 }
 
+function theme_deactivation($theme) {
+	call_user_func($GLOBALS["register_theme_deactivation_hook_functionhiiwp"]); 
+	delete_option("theme_is_activated_hiiwp");
+}
 ?>

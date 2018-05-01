@@ -16,6 +16,21 @@ Kirki::add_field( 'hiiwp', array(
     'default'     => $hiilite_options['typography_h1_font'], 
     'priority'    => 1,
 ) );
+Kirki::add_field( 'hiiwp', array(
+    'type'        => 'spacing',
+    'settings'    => 'typography_h1_margin',
+    'label'       => esc_attr__( 'H1 Margin', 'hiiwp' ),
+    'description' => __( 'Set the top and bottom margin for the h1 elements' , 'hiiwp'),
+    'section'     => $section,
+    'default'     => $hiilite_options['typography_h1_margin'], 
+    'priority'    => 1,
+    'output'	  => array(
+		array(
+			'element'	=> 'h1',
+			'property'	=> 'margin',
+		)  
+    ),
+) );
 
 Kirki::add_field( 'hiiwp', array(
     'type'        => 'typography',
@@ -28,6 +43,28 @@ Kirki::add_field( 'hiiwp', array(
 ) );
 
 Kirki::add_field( 'hiiwp', array(
+    'type'        => 'spacing',
+    'settings'    => 'typography_h2_margin',
+    'label'       => esc_attr__( 'H2 Margin', 'hiiwp' ),
+    'description' => __( 'Set the top and bottom margin for the h2 elements' , 'hiiwp'),
+    'section'     => $section,
+    'default'     => $hiilite_options['typography_h2_margin'], 
+    'priority'    => 1,
+    'output'	  => array(
+		array(
+			'element'	=> 'h2',
+			'property'	=> 'margin',
+		)  
+    ),
+    'js_vars' => array(
+		array(
+			'element'  => 'h2',
+			'property' => 'margin',
+		),
+	),
+) );
+
+Kirki::add_field( 'hiiwp', array(
     'type'        => 'typography',
     'settings'    => 'typography_h3_font',
     'label'       => esc_attr__( 'H3 Style', 'hiiwp' ),
@@ -35,6 +72,21 @@ Kirki::add_field( 'hiiwp', array(
     'section'     => $section,
     'default'     => $hiilite_options['typography_h3_font'],
     'priority'    => 1,
+) );
+Kirki::add_field( 'hiiwp', array(
+    'type'        => 'spacing',
+    'settings'    => 'typography_h3_margin',
+    'label'       => esc_attr__( 'H3 Margin', 'hiiwp' ),
+    'description' => __( 'Set the top and bottom margin for the h3 elements' , 'hiiwp'),
+    'section'     => $section,
+    'default'     => $hiilite_options['typography_h3_margin'], 
+    'priority'    => 1,
+    'output'	  => array(
+		array(
+			'element'	=> 'h3',
+			'property'	=> 'margin',
+		)  
+    ),
 ) );
 
 Kirki::add_field( 'hiiwp', array(
@@ -46,6 +98,21 @@ Kirki::add_field( 'hiiwp', array(
     'default'     => $hiilite_options['typography_h4_font'],
     'priority'    => 1,
 ) );
+Kirki::add_field( 'hiiwp', array(
+    'type'        => 'spacing',
+    'settings'    => 'typography_h4_margin',
+    'label'       => esc_attr__( 'H4 Margin', 'hiiwp' ),
+    'description' => __( 'Set the top and bottom margin for the h4 elements' , 'hiiwp'),
+    'section'     => $section,
+    'default'     => $hiilite_options['typography_h4_margin'], 
+    'priority'    => 1,
+    'output'	  => array(
+		array(
+			'element'	=> 'h4',
+			'property'	=> 'margin',
+		)  
+    ),
+) );
 
 Kirki::add_field( 'hiiwp', array(
     'type'        => 'typography',
@@ -56,6 +123,21 @@ Kirki::add_field( 'hiiwp', array(
     'default'     => $hiilite_options['typography_h5_font'],
     'priority'    => 1,
 ) );
+Kirki::add_field( 'hiiwp', array(
+    'type'        => 'spacing',
+    'settings'    => 'typography_h5_margin',
+    'label'       => esc_attr__( 'H5 Margin', 'hiiwp' ),
+    'description' => __( 'Set the top and bottom margin for the h5 elements' , 'hiiwp'),
+    'section'     => $section,
+    'default'     => $hiilite_options['typography_h5_margin'], 
+    'priority'    => 1,
+    'output'	  => array(
+		array(
+			'element'	=> 'h5',
+			'property'	=> 'margin',
+		)  
+    ),
+) );
 
 Kirki::add_field( 'hiiwp', array(
     'type'        => 'typography',
@@ -65,5 +147,20 @@ Kirki::add_field( 'hiiwp', array(
     'section'     => $section,
     'default'     => $hiilite_options['typography_h6_font'],
     'priority'    => 1,
-) );	
+) );
+Kirki::add_field( 'hiiwp', array(
+    'type'        => 'spacing',
+    'settings'    => 'typography_h6_margin',
+    'label'       => esc_attr__( 'H6 Margin', 'hiiwp' ),
+    'description' => __( 'Set the top and bottom margin for the h6 elements' , 'hiiwp'),
+    'section'     => $section,
+    'default'     => $hiilite_options['typography_h6_margin'], 
+    'priority'    => 1,
+    'output'	  => array(
+		array(
+			'element'	=> 'h6',
+			'property'	=> 'margin',
+		)  
+    ),
+) );
 ?>

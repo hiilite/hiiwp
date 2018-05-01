@@ -14,6 +14,9 @@ Kirki::add_field( 'hiiwp', array(
     'default'     => $hiilite_options['text_font'],
     'priority'    => 1,
 ) );
+
+/*
+// Replaced with typography_p_margin
 Kirki::add_field( 'hiiwp', array(
     'type'        => 'dimension',
     'settings'    => 'text_margin',
@@ -35,6 +38,23 @@ Kirki::add_field( 'hiiwp', array(
 			'property' => 'margin-bottom',
 		),
 	),
+) );
+*/
+
+Kirki::add_field( 'hiiwp', array(
+	'type'        => 'spacing',
+	'settings'    => 'typography_p_margin',
+	'label'       => __( 'Paragraph Margin', 'hiiwp' ),
+	'description' => __( 'Define the paragraph tags margin-bottom', 'hiiwp' ),
+	'section'     => $section,
+	'default'     => $hiilite_options['typography_p_margin'],
+	'priority'    => 1,
+	'output'	  => array(
+		array(
+			'element'	=> 'p',
+			'property'	=> 'margin',
+		)  
+    ),
 ) );
 
 
