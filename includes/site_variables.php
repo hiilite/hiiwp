@@ -248,6 +248,7 @@ $hiilite_options['footer_bottom_center']	= get_theme_mod( 'footer_bottom_center'
 $hiilite_options['footer_bottom_left']		= get_theme_mod( 'footer_bottom_left', false );
 $hiilite_options['footer_bottom_right']		= get_theme_mod( 'footer_bottom_right', false );
 
+$hiilite_options['footer_bottom_copyright_text'] = get_theme_mod('footer_bottom_copyright_text', '<small>Copyright © '.date('Y').' All rights reserved. <a href="https://hiilite.com/services/website-design/" target="_blank" rel="noopener" title="Web Design by Hiilite">Web Design</a>, <a href="https://photography.hiilite.com" target="_blank" rel="noopener" title="Photography Services by Hiilite">Photography</a>, <a href="https://hiilite.com/services/seo/" target="_blank" rel="noopener" title="SEO by Hiilite">SEO</a> by <a href="https://hiilite.com/" target="_blank" rel="noopener" title="Web Design, Photography and SEO by Hiilite">Hiilite</a></small>');
 
 
 // MENU

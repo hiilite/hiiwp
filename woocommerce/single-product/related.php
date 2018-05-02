@@ -28,7 +28,7 @@ if ( $related_products ) : ?>
 		
 		<?php woocommerce_product_loop_start(); ?>
 		<amp-carousel layout="fixed-height" type="carousel" class="relatedposts">
-			<div class="carousel-wrapper" style="white-space: nowrap; position: absolute; z-index: 1; top: 0px; left: 0px; bottom: 0px;">
+			<div class="carousel-wrapper">
 			<?php foreach ( $related_products as $related_product ) : ?>
 				<div class="relatedarticle slide">
 				<?php
