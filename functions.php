@@ -428,7 +428,8 @@ endif;
  * @param mixed $font
  * @return void
  */
-function get_font_css($font){
+if (! function_exists('get_font_css')):
+function get_font_css($font) {
 	if(is_array($font)){
 	
 		$font_family = $font_weight = $text_align = $font_extras = '';
@@ -508,7 +509,7 @@ function get_font_css($font){
 			 $text_align;
 	}
 }
-
+endif;
 
 /**
  * get_justify_content function.

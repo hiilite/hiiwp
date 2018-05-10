@@ -20,7 +20,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
 }
 get_header( 'shop' );
-
+get_template_part( 'tempaltes/title' );
 $page_bg_color = (get_post_meta ( get_the_ID(), 'page_title_bg', true))?get_post_meta ( get_the_ID(), 'page_title_bg', true):false;
 $page_bg_img = (get_post_meta ( $post->ID, 'page_title_bgimg', false))?get_post_meta ( $post->ID, 'page_title_bgimg'):false;
  ?>
@@ -33,7 +33,7 @@ $page_bg_img = (get_post_meta ( $post->ID, 'page_title_bgimg', false))?get_post_
 		 * @hooked woocommerce_output_content_wrapper - 10 (outputs opening divs for the content)
 		 * @hooked woocommerce_breadcrumb - 20
 		 */
-		do_action( 'woocommerce_before_main_content' );
+		//do_action( 'woocommerce_before_main_content' );
 	?>
 		</div>
     </header>

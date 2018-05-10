@@ -16,7 +16,16 @@ function add_amp_carousel_shortcode( $atts ){
       'thumbnails'	=> false,
       'media_grid_images' => null,
       'css' => '',
-      'id'	=> ''
+      'id'	=> '',
+      'show_arrows'	=> 'true',
+      'hide_arrows_on_mobile' => false,
+      'arrow_icon'	=> 'chevron',
+      'arrow_size'	=> 'regular',
+      'arrow_background_type'	=> 'none',
+      'arrow_color'	=> '#333333',
+      'arrow_background_color'	=> '#ffffff',
+      'show_bullets'	=> 'true',
+      'bullet_color'	=> '#ffffff',
     ), $atts ) );
     
     $id = ($id != '')?"id={$id}":"id='hii_rc_".rand(100,999)."'";

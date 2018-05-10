@@ -33,13 +33,6 @@ if ( ! defined( 'ABSPATH' ) ) {
  	return;
  }
 ?>
-<div class="row product_title_row">
-	<?php
-	echo woocommerce_get_product_thumbnail('thumbnail');
-	woocommerce_template_single_title();
-	//woocommerce_template_single_price();
-	?>
-</div>
 <div class="summary entry-summary container_inner">
 	<div <?php post_class('in_grid'); ?>>
 		<div class="col-8 product_images">
