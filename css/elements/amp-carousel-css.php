@@ -4,7 +4,7 @@
  */
  amp-carousel{
 	overflow: hidden;
-	display: block; 
+	display: block;
     position: relative;
     max-width: 100vw;
 }

@@ -184,9 +184,7 @@ $(document).ready(function(){
 					.removeClass('on');
 					
 				/* AUTO SLIDE */
-				
 				if(delay !== false && delay > 0){
-					
 					var autoSlider;
 					var autoPlayInterval = function (){
 						autoSlider = setInterval(function(){
