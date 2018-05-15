@@ -8,6 +8,11 @@
 /*
 	PRODUCT GENERAL
 */
+.woocommerce .woocommerce-breadcrumb,
+.woocommerce .woocommerce-breadcrumb a {
+	margin-bottom: 0;
+	color: <?php echo Hii::$options['title_font']['color']; ?>;
+}
 .woocommerce .products ul li, .woocommerce ul.products li {
     list-style: none outside;
 }
@@ -52,7 +57,8 @@
     float: none;
     width: auto;
 }
-.woocommerce a.button {
+.woocommerce a.button,
+.woocommerce button.button {
 	<?php
 	get_font_css(Hii::$options[ 'typography_button_default_font' ]);
 	echo 'background:'.Hii::$options[ 'typography_button_default_background' ]['base'].';';
@@ -87,16 +93,15 @@
 	font-size: 100%;
 	font-weight: bold;
 }
+/*
 .woocommerce.single-product .product.row {
-    background: #e6e6e6;
+    background: #f2f2f2;
 }
-
 
 .woocommerce.single-product .col-4.product_summary {
-    background: #f2f2f2;
-   
+    background: #f2f2f2; 
 }
-
+*/
 .up-sells h2 {
 	padding-left: 1rem;
 }

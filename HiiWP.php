@@ -122,11 +122,11 @@ class HiiWP extends Hii {
 	public function hiiwp_enqueue_scripts () {
 		
 		// Deregister WordPress default jQuery and load latest version
-		wp_deregister_script( 'jquery' );
+		/*wp_deregister_script( 'jquery' );
 	    wp_register_script( 'jquery', "//code.jquery.com/jquery-3.1.1.min.js", array(), '3.1.1' );
 	    wp_deregister_script( 'jquery-migrate' );
 	    wp_register_script( 'jquery-migrate', "//code.jquery.com/jquery-migrate-3.0.0.min.js", array(), '3.0.0' );
-		
+		*/
 		wp_enqueue_script('modernizr', HIIWP_URL.'/js/vender/modernizr-custom.js');
 		
 		// Add jquery ui for use with carousel sliders

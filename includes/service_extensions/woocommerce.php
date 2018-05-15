@@ -49,4 +49,17 @@ function wc_subscriptions_custom_price_string( $pricestring ) {
 }
 add_filter( 'woocommerce_subscriptions_product_price_string', 'wc_subscriptions_custom_price_string' );
 add_filter( 'woocommerce_subscription_price_string', 'wc_subscriptions_custom_price_string' );
+
+
+add_action( 'before_page_title', 'add_woocommerce_title_content' );
+
+function add_woocommerce_title_content() {
+	if(is_woocommerce()) { 
+		remove_action( 'woocommerce_before_main_content', 'woocommerce_output_content_wrapper', 10 );
+		remove_action( 'woocommerce_after_main_content', 'woocommerce_output_content_wrapper_end', 10 );
+		remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_title', 5 );
+		
+		do_action( 'woocommerce_before_main_content' );
+	}
+}
 ?>
