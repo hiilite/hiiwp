@@ -72,6 +72,7 @@ class HiiWP extends Hii {
 	    */
         //add_action('wp_print_scripts','add_load_css',7);
 		add_action('wp_head', array($this, 'add_load_css' ),7);
+		add_action('hii_body_start', array($this, 'add_loading_svg'));
 		
 	    if(self::$hiilite_options['async_all_css']) {
 			add_filter('style_loader_tag', array($this, 'link_to_loadCSS_script' ),9999,3);
@@ -162,32 +163,26 @@ class HiiWP extends Hii {
 	public function add_load_css(){ 
 	    ?>
 	    <style>
-		    html body {
-		    	visibility: hidden;
-		    	 -webkit-animation:-amp-start 0.4s;
+		    html body > .wrapper {
+		    	/*visibility: hidden;*/
+		    	opacity: 0;
+		    	transition: opacity 0.4s;
+		    	/*-webkit-animation:-amp-start 0.4s;
 		    	-moz-animation:-amp-start 0.4s;
 		    	-ms-animation:-amp-start 0.4s;
-		    	animation:-amp-start 0.4s;
+		    	animation:-amp-start 0.4s;*/
 		    }
-	    	@-webkit-keyframes -amp-start{from{opacity:0}to{opacity:1}}
+	    	/*@-webkit-keyframes -amp-start{from{opacity:0}to{opacity:1}}
 	    	@-moz-keyframes -amp-start{from{opacity:0}to{opacity:1}}
 	    	@-ms-keyframes -amp-start{from{opacity:0}to{opacity:1}}
 	    	@-o-keyframes -amp-start{from{opacity:0}to{opacity:1}}
-	    	@keyframes -amp-start{from{opacity:0}to{opacity:1}}
+	    	@keyframes -amp-start{from{opacity:0}to{opacity:1}}*/
 		    
-		    .wf-active body
-		    {
-			    visibility: visible;
+		    .wf-active body > .wrapper {
+			    opacity: 1;
 		    }
 		</style>
 	    <noscript><style>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
-	    <script>
-		    (function() {
-				if (sessionStorage.fonts) {
-					document.documentElement.classList.add('wf-active');
-				} 
-		    })();
-	    </script>
 	    <?php
 	    if(self::$hiilite_options['async_all_css']) {
 	    ?>
@@ -216,6 +211,15 @@ class HiiWP extends Hii {
 		
 	}
 	
+	public function add_loading_svg(){
+		?><svg id="page-loader" style="width: 150px;height: 150px;position: fixed; z-index: 99999; top: 0; bottom: 0; margin: auto;left: 0;right: 0; transition:all 0.4s; ">
+			<circle cx="75" cy="75" r="20" />
+			<circle cx="75" cy="75" r="35" />
+			<circle cx="75" cy="75" r="50" />
+			<circle cx="75" cy="75" r="65" />
+		</svg>
+		<?php
+	}
 	
 	/**
 	 * link_to_loadCSS_script function.
@@ -458,7 +462,14 @@ class HiiWP extends Hii {
 	  if ( wp_script_is( 'jquery', 'done' ) ) { 
 	  ?><script type="text/javascript">
 			<?php echo get_theme_mod('custom_js');?>	
-		</script><?php
+		</script>
+		<script>
+		    (function() {
+				if (sessionStorage.fonts) {
+					document.documentElement.classList.add('wf-active');
+				} 
+		    })();
+	    </script><?php
 	  }
 	}
 	

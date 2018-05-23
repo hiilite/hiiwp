@@ -1423,7 +1423,70 @@ object {
 	position: relative !important; /* overrides previous !important styles */
 	width: auto;
 }
+/*--------------------------------------------------------------
+18.0 Page Loader
+--------------------------------------------------------------*/
+#page-loader {
+	opacity: 1;
+}
+#page-loader circle {
+	stroke-width: 10;
+	stroke-linecap: round;
+	fill: none;
+}
+#page-loader circle:nth-child(1) {
+	stroke: #e0e0e0;
+	stroke-dasharray: 50;
+}
+#page-loader circle:nth-child(2) {
+	stroke: #ebebeb;
+	stroke-dasharray: 100;
+}
 
+#page-loader circle:nth-child(3) {
+	stroke: #f3f3f3;
+	stroke-dasharray: 180;
+}
+#page-loader circle:nth-child(4) {
+	stroke: #f9f9f9;
+	stroke-dasharray: 350;
+	stroke-dashoffset: -100;
+}
+
+/* 2. Create the keyframe animation. We start at 50% so the circle will rotate back to its original position. */
+@keyframes loader {
+	50% {
+		transform: rotate(360deg);
+	}
+}
+
+#page-loader circle {
+	animation-name: loader;
+	animation-duration: 4s;
+	animation-iteration-count: infinite;
+	animation-timing-function: ease-in-out;
+	transform-origin: center center;
+}
+
+#page-loader circle:nth-of-type(1) {
+	animation-delay: -0.2s;
+}
+
+#page-loader circle:nth-of-type(2) {
+	animation-delay: -0.4s;
+}
+
+#page-loader circle:nth-of-type(3) {
+	animation-delay: -0.6s;
+}
+
+#page-loader circle:nth-of-type(4) {
+	animation-delay: -0.8s;
+}
+.wf-active #page-loader {
+	opacity: 0;
+	display: none !important;
+}
 /*--------------------------------------------------------------
 19.0 Media Queries
 --------------------------------------------------------------*/
