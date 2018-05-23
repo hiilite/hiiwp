@@ -1,5 +1,4 @@
 <?php
-	if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 /*
  * Year Range field type.. two year-pickers, start and end.
  * Screenshot: http://b.ustin.co/15lKk
@@ -12,13 +11,13 @@
  *
  *    $cmb_demo = new_cmb2_box( array(
  *        'id'            => 'demo_metabox',
- *        'title'         => __( 'Test Metabox', 'hiiwp' ),
+ *        'title'         => __( 'Test Metabox', 'cmb2' ),
  *        'object_types'  => array( 'page', ),
  *    ) );
  *
  *    $cmb_demo->add_field( array(
- *        'name'     => __( 'Date Year Range', 'hiiwp' ),
- *        'desc'     => __( 'field description (optional)', 'hiiwp' ),
+ *        'name'     => __( 'Date Year Range', 'cmb2' ),
+ *        'desc'     => __( 'field description (optional)', 'cmb2' ),
  *        'id'       => 'yourprefix_demo_date_year_range',
  *        'type'     => 'date_year_range',
  *        // Optionally set default values.
@@ -176,7 +175,7 @@ function jt_cmb2_date_year_range_options( $type_object, $earliest, $value, $reve
 
 	$not_set = array(
 		'value' => '',
-		'label' => __( 'Not Set', 'hiiwp' ),
+		'label' => __( 'Not Set' ),
 	);
 
 	if ( cmb2_utils()->isempty( $value ) ) {
@@ -195,7 +194,7 @@ function jt_cmb2_date_year_range_options( $type_object, $earliest, $value, $reve
 
 	$a = array(
 		'value' => 'current',
-		'label' => __( 'Current', 'hiiwp' ),
+		'label' => __( 'Current' ),
 	);
 
 	if ( 'current' === $value ) {

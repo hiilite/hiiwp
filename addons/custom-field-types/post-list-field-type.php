@@ -1,5 +1,4 @@
 <?php
-	if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 //By Daniele Mte90 Scasciafratte
 //Based on https://github.com/WebDevStudios/CMB2-Post-Search-field
 //That field have a list separated by a comma of post id and allow to sort and remove
@@ -16,8 +15,8 @@ function cmb2_post_list_render_field( $field, $escaped_value, $object_id, $objec
 	if ( !empty( $field->escaped_value ) ) {
 		$list = explode( ',', $field->escaped_value );
 		foreach ( $list as $value ) {
-			echo '<li data-id="' . trim( $value ) . '"><b>' . __( 'Title', 'hiiwp' ) . ':</b> ' . get_the_title( $value );
-			echo '<div title="' . __( 'Remove', 'hiiwp' ) . '" style="color: #999;margin: -0.1em 0 0 2px; cursor: pointer;" class="cmb-post-list-remove dashicons dashicons-no"></div>';
+			echo '<li data-id="' . trim( $value ) . '"><b>' . __( 'Title' ) . ':</b> ' . get_the_title( $value );
+			echo '<div title="' . __( 'Remove' ) . '" style="color: #999;margin: -0.1em 0 0 2px; cursor: pointer;" class="cmb-post-list-remove dashicons dashicons-no"></div>';
 			echo '</li>';
 		}
 	}

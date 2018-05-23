@@ -204,7 +204,6 @@ do_action( 'hii_before_header' );
 						</div>
 					</div>
 				</aside>
-				</aside>
 				<?php 
 				do_action( 'hii_after_header_bottom' );
 				endif; ?>

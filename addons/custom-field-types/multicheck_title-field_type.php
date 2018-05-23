@@ -1,5 +1,4 @@
 <?php
-	if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 //By Daniele Mte90 Scasciafratte
 //Is multicheck but with section title
 
@@ -49,6 +48,6 @@ function cmb_render_multicheck_title( $field, $escaped_value, $object_id, $objec
 			echo $field_type_object->radio( array( 'class' => $classes, 'options' => $options ), 'title_multicheck' );
 		}
 	} else {
-		echo __( 'Nothing', 'hiiwp' );
+		echo __( 'Nothing' );
 	}
 }

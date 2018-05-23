@@ -41,7 +41,7 @@ function add_hii_post_carousel_shortcode( $atts ){
 	    foreach($posts as $key => $post){
 		    $i++;
 		    $img = the_post_thumbnail($post);
-		    
+		     
 			$html .= '<div id="hii_post-'.$i.'">';
 			//$html .= '<img src="'.get_the_post_thumbnail_url($post, 'medium').'">';
 			$html .= '<a href="'.get_permalink($post).'">'.get_the_post_thumbnail($post, 'medium').'</a>';

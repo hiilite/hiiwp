@@ -1,7 +1,8 @@
 <?php
-	if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 /*
-  * Author: Evan Herman
+ * Plugin Name: CMB2 Custom Field Type - Star Rating
+ * Description: Makes available a 'star_rating' CMB2 Custom Field Type. Based on https://github.com/WebDevStudios/CMB2/wiki/Adding-your-own-field-types#example-4-multiple-inputs-one-field-lets-create-an-address-field
+ * Author: Evan Herman
  * Author URI: https://www.evan-herman.com
  * Version: 0.1.0
  */

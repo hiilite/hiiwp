@@ -220,13 +220,13 @@ if($hiilite_options['blog_rel_articles'] == true):
 	if( $my_query->have_posts() ) :
 		?>
 		<amp-carousel height="300" layout="fixed-height" type="carousel" class="relatedposts carousel">
-			<div class="carousel-wrapper" style="white-space: nowrap; position: absolute; z-index: 1; top: 0px; left: 0px; bottom: 0px;">
+			<div class="carousel-wrapper">
 		      <?php
 			while ($my_query->have_posts()) : $my_query->the_post();
 				if ( has_post_thumbnail() ) {
 					$image = wp_get_attachment_image_src( get_post_thumbnail_id( get_the_id() ));
 					?>
-					<a href="<?php echo get_the_permalink()?>"  class="relatedarticle slide">
+					<a href="<?php echo get_the_permalink()?>"  class="relatedarticle slide" id="post-<?php echo get_the_id() ?>">
 				    	<img src="<?php echo $image[0]?>" width="200" height="200" alt="<?php echo get_the_title()?>">
 				    	<p><?php echo get_the_title();?></p>
 					</a>

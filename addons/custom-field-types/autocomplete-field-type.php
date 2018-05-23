@@ -1,6 +1,8 @@
 <?php
-if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
+
 /*
+ * Plugin Name: CMB2 Custom Field Type - Autocomplete
+ * Description: Makes available an autocomplete custom field type.
  * Author: johnsonpaul1014
  * Version: 1.0.0
  */
@@ -38,13 +40,13 @@ function autocomplete_cmb2_meta_boxes() {
 
 	$cmb = new_cmb2_box( array(
 		'id' => 'autocomplete_test',
-		'title' => __('Autocomplete Field Examples', 'hiiwp' ),
+		'title' => __('Autocomplete Field Examples', 'autocomplete_cmb2'),
 		'object_types' => array('post'),
 	) );
 
 	$cmb->add_field( array(
-		'name' => __('Related Fruit', 'hiiwp' ),
-		'desc' => __('Fruit that is related to this post', 'hiiwp' ),
+		'name' => __('Related Fruit', 'autocomplete_cmb2'),
+		'desc' => __('Fruit that is related to this post', 'autocomplete_cmb2'),
 		'id' => $prefix.'related_fruit',
 		'type' => 'autocomplete',
 		'options' => array(
@@ -54,8 +56,8 @@ function autocomplete_cmb2_meta_boxes() {
 		)
 	) );
 	$cmb->add_field( array(
-		'name' => __('Related Fruits', 'hiiwp' ),
-		'desc' => __('Repeatable related fruits', 'hiiwp' ),
+		'name' => __('Related Fruits', 'autocomplete_cmb2'),
+		'desc' => __('Repeatable related fruits', 'autocomplete_cmb2'),
 		'id' => $prefix.'related_fruits',
 		'type' => 'autocomplete',
 		'repeatable' => true,
@@ -67,16 +69,16 @@ function autocomplete_cmb2_meta_boxes() {
 		)
 	) );
 	$cmb->add_field( array(
-		'name' => __('Related Post', 'hiiwp' ),
-		'desc' => __('Post that is related to this one', 'hiiwp' ),
+		'name' => __('Related Post', 'autocomplete_cmb2'),
+		'desc' => __('Post that is related to this one', 'autocomplete_cmb2'),
 		'id' => $prefix.'related_post',
 		'type' => 'autocomplete',
 		'source' => 'get_post_options',
 		'mapping_function' => 'autocomplete_cmb2_get_post_title_from_id'
 	) );
 	$cmb->add_field( array(
-		'name' => __('Related Posts', 'hiiwp' ),
-		'desc' => __('Posts that are related to this one', 'hiiwp' ),
+		'name' => __('Related Posts', 'autocomplete_cmb2'),
+		'desc' => __('Posts that are related to this one', 'autocomplete_cmb2'),
 		'id' => $prefix.'related_posts',
 		'repeatable' => true,
 		'type' => 'autocomplete',
