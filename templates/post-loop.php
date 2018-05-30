@@ -242,6 +242,7 @@ if($hiilite_options['blog_rel_articles'] == true):
 				
 			  	
 			  endwhile;
+			  wp_reset_postdata(  );
 			  ?>
 			  </div>
 		</amp-carousel> 

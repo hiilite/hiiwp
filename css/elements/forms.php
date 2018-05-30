@@ -167,7 +167,7 @@ select {
     background-position: calc(100% - 20px) 50%, calc(100% - 15px) 50%, calc(100% - 43px) 30%;
     background-size: 5px 5px, 5px 5px, 1px 2em;
     background-repeat: no-repeat;
-    padding:13px 3em 13px 13px;
+    padding:13px 55px 13px 13px !important;
     margin:2px 0;
     box-shadow: 0 0 3px #fff inset, 0 1px 1px rgba(0,0,0,.1);
 }

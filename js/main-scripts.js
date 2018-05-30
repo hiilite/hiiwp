@@ -161,6 +161,19 @@ $(document).ready(function(){
 				
 				$carousel.width(width);
 			});
+			
+			$carousel.find('a.slide').on('touchend', function(e){
+				if($(this).data('moved') == 0){
+					window.location.href = $(this).attr('href');
+	            }
+				
+			})
+			.on('touchstart', function () {
+            	$(this).data('moved', '0');
+	        })
+	        .on('touchmove', function () {
+	            $(this).data('moved', '1');
+	        });
 		}
 		
 		$carousel.width(width);
@@ -287,6 +300,8 @@ $(document).ready(function(){
 				$wrapper.find('.slide').each(function(){
 					total_width += $(this).outerWidth(true);
 				});
+				
+				
 
 				$wrapper.find('.carousel-wrapper').width(total_width);
 				

@@ -325,7 +325,7 @@ ul.cmb2-checkbox-list.cmb2-list li {
 }
 
 .cmb2-wrap .cmb-td input.cmb2-text-small, .cmb2-wrap .cmb-td input.cmb2-timepicker {
-    width: auto;
+    width: 100%;
 }
 
 

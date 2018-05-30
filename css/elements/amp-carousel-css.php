@@ -168,8 +168,6 @@ amp-carousel.carousel .slide {
 }
 amp-carousel.carousel .slide > img {
     max-height: 100%;
-    height: 100%;
-    width: auto;
     display: block;
 }
 amp-carousel.carousel .slide  .slide_img_container {

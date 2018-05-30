@@ -1449,7 +1449,7 @@ object {
 }
 #page-loader circle:nth-child(4) {
 	stroke: #f9f9f9;
-	stroke-dasharray: 350;
+	stroke-dasharray: 350; 
 	stroke-dashoffset: -100;
 }
 
