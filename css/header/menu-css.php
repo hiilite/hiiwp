@@ -124,8 +124,9 @@ ul.sub-menu {
 	display: none;
 }
 .search_button {
-	display: block;
+	display: inline-flex;
 	text-align: center;
+	font-size: 1rem;
 	margin:<?php echo get_spacing(Hii::$options['menu_margin']);?>;
     text-align: right;
     flex: 0 1 auto; 

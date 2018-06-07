@@ -1,13 +1,8 @@
 <?php 
-$hiilite_options = HiiWP::get_options();
-if($hiilite_options['teams_on']):
 /*
 Template Name: Team Page
 */ 
-endif;
-
-
-
+$hiilite_options = HiiWP::get_options();
 get_header();
 get_template_part( 'templates/title' );
 echo '<!--TEAM_PAGE-->';

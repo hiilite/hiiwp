@@ -11,31 +11,15 @@
  */
 
 $hiilite_options = Hii::get_options();
-
-$post_id = get_the_id();
-$post_object = get_post( $post_id );
 $bg_color = '';
 
-// Page Description
-if(get_post_meta(get_the_id(), 'page_seo_description', true) != ''){
-	$page_description = get_post_meta(get_the_id(), 'page_seo_description', true);
-} elseif(get_theme_mod('site_seo_description') != '' && is_front_page()) {
-	$page_description = get_theme_mod('site_seo_description');
-} elseif (!is_tax() && is_singular()) {
-	$the_content = $post_object->post_content;
-	$the_content = substr(preg_replace('/\[.*.\]|\n+/', '', $the_content), 0, 165);
-	$page_description = strip_tags($the_content);
-} elseif( get_post_meta(get_the_ID(), '_yoast_wpseo_metadesc', true) != '' ) {
-	$page_description = get_post_meta(get_the_ID(), '_yoast_wpseo_metadesc', true);
-} else {
-	$page_description = '';
-}
 
 do_action('hii_doctype');
 ?>
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+
 <?php 
 wp_head(); 
 ?></head>
@@ -210,4 +194,3 @@ do_action( 'hii_before_header' );
 			</header><?php
 do_action( 'hii_after_main_header' );
 do_action( 'hii_before_content' );
-?>

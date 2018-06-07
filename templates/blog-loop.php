@@ -6,6 +6,8 @@ $post_format_icon = $article_title = $dateline = $article_cat = $embedded_media 
 
 $_post_format = get_post_format();
 
+$blogs_image_style = $hiilite_options['blogs_image_style'];
+
 if($hiilite_options['blog_cats_show'] == 'true' || $hiilite_options['blog_cats_show'] == true):
 	$article_cat .= '<span class="cat-links"><span class="screen-reader-text">Tags</span>'.get_the_category_list(', ').'</span>';
 else:
@@ -127,7 +129,7 @@ do_action( 'hii_before_blog_loop' );
 		break;
 		default:
 			if(has_post_thumbnail($post->ID)): 
-				echo '<figure class="flex-item post-thumbnail ' . $thumb_size . '">';
+				echo '<div class="flex-item ' . $thumb_size . '"' . '><figure class="post-thumbnail ' . $blogs_image_style . '">';
 				$tn_id = get_post_thumbnail_id( $post->ID );
 				$img = wp_get_attachment_image_src( $tn_id, 'large' );
 				$width = ($img[1])?$img[1]:$hiilite_options['logo_width'];
@@ -139,7 +141,7 @@ do_action( 'hii_before_blog_loop' );
 					echo '<img src=' . $img_src . ' width="' . $width . '" height="' . $height . '" alt="Read more on ' . get_the_title() . '">';
 					echo '</a>';
 				
-				echo '</figure>';
+				echo '</figure></div>';
 			endif;
 		break;
 	} 

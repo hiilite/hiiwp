@@ -1,12 +1,11 @@
 <?php
-$section = 'typography_header_menu_section';
-/*
-*
-*
-*	Header & Menu
-*
-*/
-
+$section = 'menu_menu_fonts_section';
+Kirki::add_section( $section, array(
+    'priority'    => 1,
+    'title'       => __( 'Menu Fonts', 'hiiwp' ),
+    'description' => __( 'Main menu font settings', 'hiiwp' ),
+    'panel'		 => 'header_panel',
+) );
 /*
 *
 *	1st Level Menu
@@ -219,75 +218,3 @@ Kirki::add_field( 'hiiwp', array(
 		'height'   => '100',
 	),
 ) );	
-
-/*
-Header Top	
-*/
-Kirki::add_field( 'hiiwp', array(
-	'type'        => 'typography',
-	'settings'    => 'header_top_font',
-	'label'       => __( 'Header Top Font', 'hiiwp' ),
-	'description' => __('Define styles for Header Top area', 'hiiwp'),
-	'section'     => $section,
-	'default'     => array(
-        'font-family'    => ' ',
-        'variant'        => ' ',
-        'font-size'      => ' ',
-        'text-transform' => 'none',
-        'line-height'    => '1.5',
-        'letter-spacing' => '0px',
-        'color'          => ' ',
-    ),
-	'priority'    => 6,
-	'required'	  => array(
-		array(
-		    'setting'  => 'header_top_area_yesno',
-			'operator' => '==',
-			'value'    => true,
-	    )),
-) );
-
-Kirki::add_field( 'hiiwp', array(
-	'type'        => 'multicolor',
-    'settings'    => 'header_top_colors',
-    'label'       => __( 'Link Colors', 'hiiwp' ),
-    'description' => __('Header Top link colors', 'hiiwp'),
-    'section'     => $section,
-    'priority'    => 7,
-    'choices'     => array(
-	    'link'   => esc_attr__( 'Link Color', 'hiiwp' ),
-        'hover'   => esc_attr__( 'Hover Color', 'hiiwp' ),
-    ),
-    'default'     => array(
-        'link'   => '',
-        'hover'  => '',
-    ),
-) );
-
-/*
-Header Top	
-*/
-Kirki::add_field( 'hiiwp', array(
-	'type'        => 'typography',
-	'settings'    => 'header_bottom_font',
-	'label'       => __( 'Header Bottom Font', 'hiiwp' ),
-	'description' => __('Define styles for Header Bottom area', 'hiiwp'),
-	'section'     => $section,
-	'default'     => array(
-        'font-family'    => ' ',
-        'variant'        => ' ',
-        'font-size'      => ' ',
-        'text-transform' => 'none',
-        'line-height'    => '1.5',
-        'letter-spacing' => '0px',
-        'color'          => ' ',
-    ),
-	'priority'    => 8,
-	'required'	  => array(
-		array(
-		    'setting'  => 'header_bottom_on',
-			'operator' => '==',
-			'value'    => true,
-	    )),
-) );
-?>

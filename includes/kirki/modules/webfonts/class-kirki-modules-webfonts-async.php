@@ -138,7 +138,7 @@ final class Kirki_Modules_Webfonts_Async {
 		if ( ! empty( $this->fonts_to_load ) ) {
 			wp_add_inline_script(
 				'webfont-loader',
-				'window.addEventListener("DOMContentLoaded", function() { WebFont.load({google:{families:[\'' . join( '\', \'', $this->fonts_to_load ) . '\']},active: function() {sessionStorage.fonts = true;}}); });',
+				'WebFont.load({google:{families:[\'' . join( '\', \'', $this->fonts_to_load ) . '\']}});',
 				'after'
 			);
 		}

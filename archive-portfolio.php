@@ -2,7 +2,9 @@
 get_header();
 get_template_part( 'templates/title' );
 echo '<!--ARCHIVE-PORTFOLIO-->';
+$hiilite_options = HiiWP::get_options();
 do_action( 'before_portfolio' );
+/*
 $port_args = array(
 		'show_post_meta'  	=> get_theme_mod( 'portfolio_show_post_meta', false ),
 	    'show_post_title'  	=> get_theme_mod( 'portfolio_show_post_title', false ),
@@ -23,6 +25,21 @@ $port_args = array(
 
 $portfolio = get_portfolio(null, $port_args );
 echo $portfolio;
+*/
+if(have_posts()):
+	echo '<div class="row"><div class="container_inner">';
+	if($hiilite_options['portfolio_in_grid'] == true) echo '<div class="in_grid">';
+	while(have_posts()):
+		the_post();
+		
+		get_template_part('templates/portfolio', 'loop');
+		
+		
+	endwhile;
+	if($hiilite_options['portfolio_in_grid'] == true) echo '</div>';
+	echo '</div></div>';
+	
+endif;
 
 do_action( 'after_portfolio' );
 get_footer(); ?>

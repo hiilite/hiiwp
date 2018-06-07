@@ -50,14 +50,6 @@ ul.portfolio_child_terms {
 	flex-direction:row;
 	flex-wrap:wrap;	
 }
-
-<?php
-$portfolio_add_padding = Hii::$options['portfolio_add_padding'];
-?>
-.post-type-archive-portfolio .blog-article, .portfolio-masonry-item {
-	padding:<?php echo $portfolio_add_padding;?>;
-}
-
 ul.portfolio_terms li a {
     line-height: 3;
 }
@@ -77,13 +69,19 @@ ul.portfolio_terms li a {
 
 
 .portfolio-piece {
-	padding: 0.5em;
+	padding: <?php echo Hii::$options['portfolio_add_padding']; ?>;
+}
+.portfolio-piece img {
+	display: block;
+}
+.portfolio-piece-content {
+	border-style: solid;
 }
 .portfolio-piece .content-box {
 	box-shadow: inset 0 0 1px rgba(0,0,0,0.1);
 }
-.portfolio-piece h5 {
-	margin: 0;
+.portfolio-piece .portfolio-item-title {
+	margin: auto 0 0 0;
 }
 .portfolio_row .post_meta {
 	position: absolute;
@@ -102,9 +100,6 @@ ul.portfolio_terms li a {
     background: rgba(255,255,255,0.8);
     display: inline-block;
     padding: 5px;
-}
-.single-portfolio .page-title {
-	display:none;
 }
 <?php
 if(Hii::$options['portfolio_template'] == 'split') {
@@ -158,22 +153,50 @@ if(Hii::$options['portfolio_template'] == 'split') {
 	font-weight:bold;
 	font-size:1.2em;
 }
-<?php if(isset($portfolio_work_color)): ?>
-.project-info hr {
-		color:<?php echo $portfolio_work_color;?>;
-		border-color: inherit;
-	}
-<?php endif; ?>
-.project-info .project-client {
-	padding-top:2em;	
+
+.portfolio-piece figure {
+	overflow:hidden;
+	position: relative;
 }
-.project-info .project-client h3 {
-	font-weight:bold;
-	font-size:0.9em;
+.portfolio-piece-image.square {
+	position: relative;
+	height: 0;
+	overflow: hidden;
+	padding-top: 100%;
 }
-.project-info .project-client h2 {
-	font-size: 1.1em;
+.portfolio-piece-image.square img {
+	position: absolute;
+	top: 0;
+	left: 0;
 }
+
+.portfolio-piece.image-left .portfolio-piece-wrapper {
+    display: flex;
+}
+.portfolio-piece.image-left .portfolio-piece-wrapper .portfolio-piece-image,
+.portfolio-piece.image-left .portfolio-piece-wrapper .portfolio-piece-content {
+    min-width: 50%;
+}
+.portfolio-piece.image-left .portfolio-piece-image.square {
+    padding-top: 50%;
+}
+
+.portfolio-piece.image-behind .portfolio-piece-wrapper {
+    position: relative;
+    overflow: hidden;
+}
+.portfolio-piece.image-behind .portfolio-piece-content {
+    position: absolute;
+    bottom: -100%;
+    transition: all 0.4s;
+    height:100%;
+    display: flex;
+    flex-direction: column;
+}
+.portfolio-piece.image-behind:hover .portfolio-piece-content {
+	bottom:0;
+}
+
 .project-info .project-icon {
 	width:50px;
 	flex:1 1 50px;

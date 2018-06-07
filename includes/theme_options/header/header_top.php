@@ -33,7 +33,57 @@ Kirki::add_field( 'hiiwp', array(
     'section'     => $section,
     'default'     => false,
     'priority'    => 6,
-    'required'	  => array(
+    'active_callback'	  => array(
+		array(
+		    'setting'  => 'header_top_area_yesno',
+			'operator' => '==',
+			'value'    => true,
+	    )),
+) );
+
+/*
+Header Top	
+*/
+Kirki::add_field( 'hiiwp', array(
+	'type'        => 'typography',
+	'settings'    => 'header_top_font',
+	'label'       => __( 'Header Top Font', 'hiiwp' ),
+	'description' => __('Define styles for Header Top area', 'hiiwp'),
+	'section'     => $section,
+	'default'     => array(
+        'font-family'    => ' ',
+        'variant'        => ' ',
+        'font-size'      => ' ',
+        'text-transform' => 'none',
+        'line-height'    => '1.5',
+        'letter-spacing' => '0px',
+        'color'          => ' ',
+    ),
+	'priority'    => 6,
+	'required'	  => array(
+		array(
+		    'setting'  => 'header_top_area_yesno',
+			'operator' => '==',
+			'value'    => true,
+	    )),
+) );
+
+Kirki::add_field( 'hiiwp', array(
+	'type'        => 'multicolor',
+    'settings'    => 'header_top_colors',
+    'label'       => __( 'Link Colors', 'hiiwp' ),
+    'description' => __('Header Top link colors', 'hiiwp'),
+    'section'     => $section,
+    'priority'    => 7,
+    'choices'     => array(
+	    'link'   => esc_attr__( 'Link Color', 'hiiwp' ),
+        'hover'   => esc_attr__( 'Hover Color', 'hiiwp' ),
+    ),
+    'default'     => array(
+        'link'   => '',
+        'hover'  => '',
+    ),
+    'active_callback'	  => array(
 		array(
 		    'setting'  => 'header_top_area_yesno',
 			'operator' => '==',

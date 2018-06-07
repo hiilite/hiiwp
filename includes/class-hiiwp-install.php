@@ -27,7 +27,6 @@ class HiiWP_Install {
 		
 		delete_transient( 'hiiwp_addons_html' );
 		update_option( 'hiiwp_version', HIIWP_VERSION );
-		
 	}
 	
 }

@@ -151,20 +151,20 @@ amp-carousel.slider img {
 
 amp-carousel.carousel {
 	width: 100%;
-	height: 300px;
 	position: relative;
 }
 .smooth-scroll-wrapper.kinetic-active {
     height: 100%;
     overflow: hidden;
 }
-
+amp-carousel.carousel .carousel-wrapper:after {
+    content: '';
+    display: block;
+    clear: both;
+}
 amp-carousel.carousel .slide {
 	display: block;
 	float:left;
-	text-align: center;
-	padding: 10px;
-	height: 100%;
 }
 amp-carousel.carousel .slide > img {
     max-height: 100%;
@@ -185,7 +185,6 @@ amp-carousel.carousel .slide  .slide_img_container img {
 amp-carousel.carousel .carousel-wrapper{
 	position: relative;
 	width: auto;
-	height: 100%;
 }
 amp-carousel.slider .hide {
 	display:none;	

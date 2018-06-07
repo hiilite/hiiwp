@@ -1,11 +1,10 @@
 <?php
 /*
 
-	TODO:
-	-	Make Title and feature image turn on by default in customizer	
+// TODO: Make Title and feature image turn on by default in customizer	
+// TODO: Add back Category image thumbnail
 */
-$hiilite_options = Hii::$hiiwp->get_options();
-$post_meta = get_post_meta(get_the_id());
+$hiilite_options = HiiWP::get_options();
 $category = get_the_terms( $post->ID, 'work' );
 
 if(is_front_page() || is_archive(  )){ 
@@ -65,22 +64,91 @@ echo '<div class="in_grid  align-top">';
 		
 		do_action( 'hii_after_split_portfolio_gallery_content' );	
 		?>
+	</div>
+	<!-- Sidebar -->
+	<div class="col-4 project-info">
+		<?php
+		echo "<dl>";
+		do_action( 'hii_before_split_portfolio_sidebar_content' );	
 		
+		echo "	<dt itemprop='headline' class='project-title'>{$page_title}</dt>
+				<dd><time class='time op-published' datetime='".get_the_date('c',$work_id)."'><span class='date'>".get_the_date('F jS, Y',$work_id)."</span></time></dd>";
+
+		if($portfolio_client) {
+			echo "<dt class='project-client'>Client</dt>
+				<dd>{$portfolio_client}</dd>";
+
+		}
+		
+		if(is_array($contributers)):
+			$team = '<dt>Project Team</dt><dd>';
+				foreach ( $contributers as $key => $entry ) {
+				
+					$role = $name = '';
+				
+					if ( isset( $entry['role'] ) && isset( $entry['name'] )) { 
+						$team .= $entry['role'];
+						$team .= ': ';
+						$team .= $entry['name'];
+						$team .= '<br>';
+					}			
+				}	
+			$team .= '</dd>';
+			
+			echo $team;
+		endif;
+
+		echo "</dl>";
+		
+		if($portfolio_description) {
+			echo '<dt>About This Project</dt>';
+			echo '<dd>'.$portfolio_description.'</dd>';
+			
+		}
+		 
+		if($project_share){
+			$social_share = '<dt class="project-social">'.__( 'Share', 'hiiwp' ).'</dt><dd>';
+				foreach($project_share as $share) {
+					if($share == 'fb') {
+						$social_share .= '<a href="https://www.facebook.com/sharer/sharer.php?u='.urlencode($social_url).'"><i class="fa fa-facebook" aria-hidden="true"></i></a>';	
+					} 
+					elseif($share == 'tw') {
+						$social_share .= '<a href="https://twitter.com/home?status='.urlencode($social_url).'"><i class="fa fa-twitter" aria-hidden="true"></i></a>';	
+					}
+					elseif($share == 'gp') {
+						$social_share .= '<a href="https://plus.google.com/share?url='.urlencode($social_url).'"><i class="fa fa-google-plus" aria-hidden="true"></i></a>';	
+					}
+					elseif($share == 'pn') {
+						$social_share .= '<a href="https://pinterest.com/pin/create/button/?url='.urlencode($social_url).'"><i class="fa fa-pinterest-p" aria-hidden="true"></i></a>';	
+					}
+					elseif($share == 'ln') {
+						$social_share .= '<a href="https://www.linkedin.com/shareArticle?mini=true&url='.urlencode(get_the_permalink(get_the_ID())).'"><i class="fa fa-linkedin" aria-hidden="true"></i></a>';	
+					}
+				}
+	
+				$social_share .= '</dd>';		
+			
+			echo $social_share;
+		}
+		
+		 ?>
+	</div>
+	<div class="col-12">
 		<?php
 		if($hiilite_options['show_more_projects']):
 		do_action( 'hii_before_split_portfolio_more_projects' );
 		?>
-			<div class="project-comments">
-				<div class="align-center">
-					<h4>More Projects</h4>
-				</div>
-				<?php
-				$slug = get_theme_mod( 'portfolio_slug', 'portfolio' );
-				$args = array('post_type'=>$slug,'posts_per_page'=> '10','nopaging'=>true,'order'=>'ASC','orderby'=>'rand');
-				$query = new WP_Query($args);
-				?>
-				
-				<amp-carousel height="300" layout="fixed-height" type="carousel" class="carousel">
+		<div class="project-comments">
+			<div class="align-center">
+				<h4>More Projects</h4>
+			</div>
+			<?php
+			$slug = get_theme_mod( 'portfolio_slug', 'portfolio' );
+			$args = array('post_type'=>$slug,'posts_per_page'=> '10','nopaging'=>true,'order'=>'ASC','orderby'=>'rand');
+			$query = new WP_Query($args);
+			?>
+			
+			<amp-carousel height="300" layout="fixed-height" type="carousel" class="carousel">
 				<div class="carousel-wrapper">
 			      <?php
 				while($query->have_posts()):
@@ -97,8 +165,8 @@ echo '<div class="in_grid  align-top">';
 				  endwhile;
 				  ?>
 				</div>
-				</amp-carousel>
-			</div>
+			</amp-carousel>
+		</div>
 		<?php
 		do_action( 'hii_after_split_portfolio_more_projects' );
 		endif;
@@ -118,66 +186,7 @@ echo '<div class="in_grid  align-top">';
 		endif;
 		?>
 	</div>
-	
-	<!-- Sidebar -->
-	<div class="col-2 project-info">
-		<?php
-		do_action( 'hii_before_split_portfolio_sidebar_content' );	
-		
-		do_action( 'hii_split_portfolio_sidebar_title', array($page_title,$portfolio_work_image,$portfolio_work_color) );	
 
-		if($portfolio_client) {
-			do_action( 'hii_split_portfolio_sidebar_client', $portfolio_client );
-		}
-		
-		do_action( 'hii_split_portfolio_sidebar_date', array(get_the_date('c',$work_id),get_the_date('F jS, Y',$work_id)) );
-		
-		do_action( 'hii_split_portfolio_sidebar_tags', $tags);
-		
-		do_action( 'hii_split_portfolio_sidebar_team', $contributers);
-		
-		
-		if($project_share){
-			$social_share = '<div class="row project-social">
-				<div>';
-				foreach($project_share as $share) {
-					if($share == 'fb') {
-						$social_share .= '<a href="https://www.facebook.com/sharer/sharer.php?u='.urlencode($social_url).'"><i class="fa fa-facebook" aria-hidden="true"></i></a>';	
-					} 
-					elseif($share == 'tw') {
-						$social_share .= '<a href="https://twitter.com/home?status='.urlencode($social_url).'"><i class="fa fa-twitter" aria-hidden="true"></i></a>';	
-					}
-					elseif($share == 'gp') {
-						$social_share .= '<a href="https://plus.google.com/share?url='.urlencode($social_url).'"><i class="fa fa-google-plus" aria-hidden="true"></i></a>';	
-					}
-					elseif($share == 'pn') {
-						$social_share .= '<a href="https://pinterest.com/pin/create/button/?url='.urlencode($social_url).'"><i class="fa fa-pinterest-p" aria-hidden="true"></i></a>';	
-					}
-					elseif($share == 'ln') {
-						$social_share .= '<a href="https://www.linkedin.com/shareArticle?mini=true&url='.urlencode(get_the_permalink(get_the_ID())).'"><i class="fa fa-linkedin" aria-hidden="true"></i></a>';	
-					}
-				}
-	
-				$social_share .= '</div>';
-				$social_share .= '<div>'.__( 'Appreciate and Share', 'hiiwp' ).'</div>
-			</div>';		
-			
-			echo $social_share;
-		}
-		
-		do_action( 'hii_split_portfolio_sidebar_about', array($author_id, $portfolio_description));
-		
-		do_action( 'hii_after_split_portfolio_sidebar_content' ); ?>
-	</div>
-	
-	
-
-
-
-	
-		
-	
-		
 <?php		
 echo '</div></div>';
 

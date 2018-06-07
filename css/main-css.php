@@ -636,7 +636,6 @@ h6 a:hover  {
 }
 
 .entry-title a {
-	color: #333;
 	text-decoration: none;
 	margin-left: -2px;
 }
@@ -667,7 +666,7 @@ h6 a:hover  {
     position: relative;
     text-transform: uppercase;
 }
-.entry-meta a {
+.page-title .entry-meta a {
 	color: <?php echo Hii::$options['title_font']['color'];?>;
 }
 
@@ -683,7 +682,6 @@ h6 a:hover  {
 
 .pagination,
 .comments-pagination {
-	border-top: 1px solid #eee;
 	font-size: 16px;
 	font-size: 0.875rem;
 	font-weight: 800;
@@ -765,7 +763,7 @@ div#disqus_thread {
 }
 
 /* Blog landing, search, archives */
-#home_blog_loop .blog-article:first-child {
+#home_blog_loop .blog-article .col-12 {
 	margin-top: 1em;
 }
 .blog .site-main > article,
@@ -1130,6 +1128,7 @@ object {
 
 .blog-article embed, .blog-article iframe, .blog-article object {
     height:auto;
+    margin-bottom: 0 !important;
 }
 
 .wp-caption,
@@ -1500,6 +1499,11 @@ a,
 	transition:all 240ms;
 }
 
+.fa.blog-default-icon {
+	color:<?php echo Hii::$options['blog_format_icon'];?>;
+	font-size: 110px;
+	padding-top: 45px;
+}
 
 .blog-article .post_author a {
     color: #bebebe;
@@ -1907,6 +1911,27 @@ endfor; ?>
 .text-block .text-block {
  	padding:0;
 }
+.text-block.with-icon {
+	 display: flex;
+}
+.text-block.with-icon.icon-left { flex-flow: wrap; }
+.text-block.with-icon.icon-right { flex-flow: row-reverse; flex-wrap: wrap; }
+.text-block.with-icon.icon-top { flex-flow: column; }
+.text-block.with-icon.icon-bottom { flex-flow: column-reverse; }
+.text-block.with-icon .text-block-icon {
+	flex: 0 0 auto;
+}
+.text-block.with-icon .with-icon-text {
+    flex: 2 1 100px;
+}
+.text-block-icon {
+	margin: auto;
+	padding: 1em;
+}
+.small { font-size: 16px; }
+.regular { font-size: 20px; }
+.large { font-size: 35px; }
+.extra-large { font-size: 50px; }
 
 .author_details img {
 	margin-right: 1em; 
@@ -1924,16 +1949,26 @@ endfor; ?>
 	flex-wrap: wrap;
 	break-inside:avoid;
 }
+#home_blog_loop .blog-article .content-box {
+	border-style: solid;
+}
 .blog-article header {
 	width: 100%;
 }
 .blog-article .content-box {
 	padding-top: 2px;
-	padding:2px 2em;
+	padding: 2px 1em;
+	margin: 0 auto;
 }
 .blog-article figure {
-	padding: 0 2em;
+	padding: 0 1em;
 	text-align: center;
+}
+.blog-article .single-blog-post figure {
+	padding: 0;
+}
+#home_blog_loop .entry-title .fa {
+	color: <?php echo Hii::$options['blog_title_font']['color']; ?>;
 }
 
 /*
@@ -1998,42 +2033,53 @@ endfor; ?>
 	column-count:4;
 	-moz-column-count:4;
 }
+
+/* Numbered Pagination */
+.num-pagination li a,
+.num-pagination li a:hover,
+.num-pagination li.active a,
+.num-pagination li.disabled {
+    color: <?php echo Hii::$options['pagination_text_color'];?>;
+    text-decoration:none;
+}
+ 
+.num-pagination li {
+    display: inline;
+}
+ 
+.num-pagination li a,
+.num-pagination li a:hover,
+.num-pagination li.active a,
+.num-pagination li.disabled {
+    background-color: <?php echo Hii::$options['pagination_non_active_page_color'];?>;
+    border-radius: 3px;
+    cursor: pointer;
+    padding: 10px;
+    padding: 0.5rem;
+}
+ 
+.num-pagination li a:hover,
+.num-pagination li.active a {
+    background-color: <?php echo Hii::$options['pagination_active_page_color'];?>;
+}
+/* END Numbered Pagination */
+
 <?php 
 
 if(Hii::$options['portfolio_on']): 
 	get_template_part( 'css/portfolio/portfolio', 'css');
-endif; ?>
+endif;
+if(Hii::$options['teams_on']):
+	get_template_part( 'css/elements/teams', 'css');
+endif; 
 
-<?php if(Hii::$options['teams_on']): ?>
-.team-member {
-	padding: 0.5em;
-}
-
-.team-member h5 {
-	margin: 0;
-}
-.team-member figure {
-	overflow:hidden;
-	max-width: 300px;	
-	max-height: 300px;
-	position: relative;
-}
-.team-member figure img {
- 
-}
-<?php endif; ?>
-
-
-
-
-
-<?php echo Hii::$options['typography_icon_custom_css'];?>
+echo Hii::$options['typography_icon_custom_css'];?>
 
 a .fa, .fa {
 	display: inline-block;
 	width: 1.5em;
 	text-align: center;
-	line-height: 1.6em;
+	line-height: 1;
 	<?php get_font_css(get_theme_mod('icon_settings')); ?>
 	<?php get_font_css(get_theme_mod('icon_settings_bg')); ?>
 	border:<?php echo get_theme_mod('icon_settings_border', '0'); ?> solid;
@@ -2145,9 +2191,11 @@ hr.small {
 	border-style: solid;
 }
 
-
+.relatedarticle {
+	max-width: 220px;
+}
 .relatedposts .relatedarticle {
-	max-width: 200px;
+	max-width: 220px;
 	overflow: hidden;
 	display: inline-block;
 	padding: 1em;
@@ -2190,15 +2238,18 @@ if(Hii::$options['testimonials_on']):
 	?>
 	.testimonial_item {
 	    padding: 0 3em;
-	    border-bottom: 1px solid #f2f2f2;
 	}
 	.testimonial_content { 
-		padding:1em 1em 0 1em;
 		<?php get_font_css(Hii::$options[ 'testimonials_body_font' ]); ?>
 	}
 	.testimonial_author {
-		padding: 0 1em 1em 1em;
 		<?php get_font_css(Hii::$options[ 'testimonials_author_font' ]); ?>
+	}
+	.testimonial_item .circle.testimonial_image {
+	    overflow: hidden;
+	    border-radius: 100%;
+	    width: 100px;
+	    height: 100px;
 	}
 <?php endif ?>
 

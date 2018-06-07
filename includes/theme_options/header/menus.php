@@ -1,8 +1,9 @@
 <?php
-$section = 'header_menu_section';
+$section = 'menu_menu_section';
+
 Kirki::add_section( $section, array(
     'priority'    => 1,
-    'title'       => __( 'Menus', 'hiiwp' ),
+    'title'       => __( 'Main Menu', 'hiiwp' ),
     'description' => __( 'Menus settings', 'hiiwp' ),
     'panel'		 => 'header_panel',
 ) );
@@ -11,12 +12,15 @@ Kirki::add_section( $section, array(
 Kirki::add_field( 'hiiwp', array(
 	'type'        => 'color',
 	'settings'    => 'dropdown_background_color',
-	'label'       => __( 'Dropdown Menu Background', 'hiiwp' ),
-	'description' => __('Choose a color and transparency for the main menu background', 'hiiwp'),
+	'label'       => __( 'Dropdown Sub-Menu Background', 'hiiwp' ),
+	'description' => __('Choose a color and transparency for the dropdown sub-menu background', 'hiiwp'),
 	'section'     => $section,
 	'default'     => $hiilite_options['dropdown_background_color'],
 	'priority'    => 7,
 	'transport'   => 'postMessage',
+	'choices'     => array(
+		'alpha' => true,
+	),
     'output' => array(
 		array(
 			'element'  => 'ul.sub-menu',
@@ -36,7 +40,7 @@ Kirki::add_field( 'hiiwp', array(
 	'label'       => __( 'Main Menu Background Color', 'hiiwp' ),
 	'description' => __('Choose color for the main menu background', 'hiiwp'),
 	'section'     => $section,
-	'default'     => '',
+	'default'     => 'rgba(0,0,0,0)',
 	'priority'    => 7,
 	'output' => array(
 		array(
@@ -53,6 +57,9 @@ Kirki::add_field( 'hiiwp', array(
 	'section'     => $section,
 	'default'     => $hiilite_options['moblie_menu_background_color'],
 	'priority'    => 7,
+	'choices'     => array(
+		'alpha' => true,
+	),
 	'output' => array(
 		array(
 			'element'  => 'nav#main-nav .main-menu',

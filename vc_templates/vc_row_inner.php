@@ -26,7 +26,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Shortcode class
  * @var $this WPBakeryShortCode_VC_Row
  */
-$el_class = $full_height = $parallax_speed_bg = $parallax_speed_video = $full_width = $equal_height = $flex_row = $columns_placement = $content_placement = $parallax = $parallax_image = $css = $el_id = $video_bg = $video_bg_url = $video_bg_parallax = '';
+$el_class = $full_height = $parallax_speed_bg = $parallax_speed_video = $full_width = $equal_height = $flex_row = $columns_placement = $content_placement = $parallax = $parallax_image = $css = $el_id = $video_bg = $video_bg_url = $video_bg_parallax = $grid_left = $grid_right = '';
 $output = $after_output = '';
 $atts = vc_map_get_attributes( $this->getShortcode(), $atts );
 extract( $atts );
@@ -45,6 +45,14 @@ $css_classes = array(
 if (vc_shortcode_custom_css_has_property( $css, array('border', 'background') ) || $video_bg || $parallax) {
 	$css_classes[]='vc_row-has-fill';
 }
+
+if ($grid_left == 'yes') {
+	$css_classes[]='grid-left';
+}
+if ($grid_right == 'yes') {
+	$css_classes[]='grid-right';
+}
+
 
 if ($parallax) {
 	$css_classes[]='vc_row-parallax';

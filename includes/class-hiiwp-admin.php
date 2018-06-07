@@ -62,6 +62,8 @@ class HiiWP_Admin {
 		
 		add_action( 'admin_head', array( $this, 'admin_custom_styles' ) );
 		
+		add_filter( 'pt-ocdi/import_files', array($this, 'ocdi_import_files') );
+		
 	}
 	
 	
@@ -828,6 +830,12 @@ class HiiWP_Admin {
 	        'id'         => 'load_viewport_units_buggyfill',
 	        'type'       => 'checkbox',
 	    ));
+	    $cmb->add_field( array(
+	        'name'       => __( 'Developer Mode', 'hiiwp' ),
+	        'desc'       => __( 'Do not turn on unless directed by a Hiilite support member', 'hiiwp' ),
+	        'id'         => 'hiilite_developer',
+	        'type'       => 'checkbox',
+	    ));
 	    
 	    $cmb->object_type( 'options-page' );
 	    $boxes[] = $cmb;
@@ -956,7 +964,7 @@ class HiiWP_Admin {
 			$return = '<img src="'.$default.'" width="'.$size.'" height="'.$size.'" alt="'.$alt.'" />';
 		return $return;
 	}
-	
+	 
 	/*
 	Speed up the WP Admin by removing or slowing down heartbeat	
 	*/
@@ -967,6 +975,30 @@ class HiiWP_Admin {
 	}
 
 	
+	function ocdi_import_files() {
+		return array(
+			array(
+				'import_file_name'           => 'Hii Original',
+				'categories'                 => array( 'Business', 'Corperate' ),
+				'import_file_url'            => 'https://s3.ca-central-1.amazonaws.com/hiiwp/demo-content/hiioriginal/hiiwpcreativemulti-purposewordpresstheme.wordpress.xml',
+				'import_widget_file_url'     => 'https://s3.ca-central-1.amazonaws.com/hiiwp/demo-content/hiioriginal/demo.hiilite.com-hiiwp-widgets.wie',
+				'import_customizer_file_url' => 'https://s3.ca-central-1.amazonaws.com/hiiwp/demo-content/hiioriginal/hiiwp-child-export.dat',
+				'import_preview_image_url'   => 'https://hiilite.com/wp-content/uploads/2018/05/hiioriginal.png',
+				//'import_notice'              => __( 'After you import this demo, you will have to setup the slider separately.', 'hiiwp' ),
+				'preview_url'                => 'https://demo.hiilite.com/hiiwp/',
+			),
+			array(
+				'import_file_name'           => 'Hii Dental',
+				'categories'                 => array( 'Dental', 'Business' ),
+				'import_file_url'            => 'https://s3.ca-central-1.amazonaws.com/hiiwp/demo-content/hiidental/hiidental.wordpress.xml',
+				'import_widget_file_url'     => 'https://s3.ca-central-1.amazonaws.com/hiiwp/demo-content/hiidental/demo.hiilite.com-hiidental-widgets.wie',
+				'import_customizer_file_url' => 'https://s3.ca-central-1.amazonaws.com/hiiwp/demo-content/hiidental/hiiwp-child-export.dat',
+				'import_preview_image_url'   => 'https://hiilite.com/wp-content/uploads/2018/05/hiidental.png',
+				//'import_notice'              => __( 'A special note for this import.', 'your-textdomain' ),
+				'preview_url'                => 'https://demo.hiilite.com/hiidental/',
+			),
+		);
+	}
 
 }
 new HiiWP_Admin();

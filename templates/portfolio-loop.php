@@ -1,33 +1,57 @@
 <?php
-global $hiilite_options;
-$post_meta = get_post_meta(get_the_id());
+global $post;
+$hiilite_options = HiiWP::get_options();
+$image_aspect_style = '';
+//print_r($atts);
+$portfolio_columns = $hiilite_options['portfolio_columns'];
+$portfolio_image_style = (isset($atts['portfolio_image_style']))?$atts['portfolio_image_style']:$hiilite_options['portfolio_image_style'];
+$portfolio_image_pos = (isset($atts['portfolio_image_pos']))?$atts['portfolio_image_pos']:$hiilite_options['portfolio_image_pos'];
+$portfolio_show_info = (isset($atts['portfolio_show_info']))?$atts['portfolio_show_info']:$hiilite_options['portfolio_show_info'];
+$portfolio_heading_size = (isset($atts['portfolio_heading_size']))?$atts['portfolio_heading_size']:$hiilite_options['portfolio_heading_size'];
+
+
+$max_width = 'none';
+if(isset($is_slider) && $is_slider == true) $portfolio_columns .= ' slide';
 ?>
 <!--PORTFOLIO-LOOP-->
-<article  <?php post_class('portfolio-piece flex-item half-width'); ?> id="post-<?php the_ID(); ?>" >
-	<meta itemscope itemprop="mainEntityOfPage"  itemType="https://schema.org/WebPage" itemid="<?php echo esc_url( home_url() )?>" content="<?php echo esc_url( home_url() )?>"/>
-	<?php 
-	if(has_post_thumbnail($post->id)): 
+<article  <?php post_class("portfolio-piece flex-item {$portfolio_columns} {$portfolio_image_pos} "); echo "style='max-width:{$max_width};'"; ?> id="post-<?php the_ID(); ?>" >
+	<div class="portfolio-piece-wrapper"><?php
+		if(has_post_thumbnail($post->id)): 
+				
+			$tn_id = get_post_thumbnail_id( $post->ID );
+	
+			$img = wp_get_attachment_image_src( $tn_id, 'large' );
+			$width = $img[1];
+			$height = $img[2];
+			if($portfolio_image_style == 'square') {
+				$image_aspect_style = ($height < $width)?'height:100%;max-width:none;width:auto;':'height:auto;';
+			} 
+			echo "<figure class='portfolio-piece-image flex-item {$portfolio_image_style}'>";
+			echo "<a href='".get_the_permalink()."'><img src='".$img[0]."' layout='responsive' width='{$width}' height='{$height}' style='{$image_aspect_style}'></a>";
+			echo "</figure>";
+		endif;
+		if($portfolio_show_info == true): ?>
+		<div class="portfolio-piece-content flex-item content-box">
+			<?php 
+			if($hiilite_options['portfolio_show_post_title'] == true):
+				echo "<{$portfolio_heading_size} class='portfolio-item-title'><a href='".get_the_permalink()."'>".get_the_title()."</a></{$portfolio_heading_size}>";
+			endif; 
+			if($hiilite_options['portfolio_show_post_meta']):
+				echo "<div itemprop='articleSection' class='portfolio-item-meta'>"; 
+				$terms = get_the_terms( $post->id, $hiilite_options['portfolio_tax_slug'] );
+				if($terms) echo $terms[0]->name;
+				echo "</div>";
+			endif;
+			if($hiilite_options['portfolio_excerpt_on'] == true) echo "<p class='portfolio-item-excerpt'>".excerpt($hiilite_options['portfolio_excerpt_length'])."</p>";
 			
-		$tn_id = get_post_thumbnail_id( $post->ID );
-
-		$img = wp_get_attachment_image_src( $tn_id, 'large' );
-		$width = $img[1];
-		$height = $img[2];
-	?>
-	<figure class="flex-item full-width">
-		<a href="<?php echo get_the_permalink()?>"><img src='<?php echo $img[0];?>' width='<?php echo $width?>' height='<?php echo $height?>' alt='<?php echo get_the_title()?>'></a>
-	</figure><?php endif; ?>
-	<div class="flex-item full-width content-box" >
-		<span itemprop="articleSection" class="labels"><?php the_category(', '); ?></span>
-		<meta itemprop="datePublished" content="<?php the_time('Y-m-d'); ?>">
-		<meta itemprop="dateModified" content="<?php the_modified_date('Y-m-d'); ?>">
-		<h5><span itemprop="articleSection" class="labels"><span rel="category tag"><?php 
-			$terms = get_the_terms( $post->id, $hiilite_options['portfolio_tax_slug']);
-			if(!empty($terms))echo $terms[0]->name;
-			?></span></span>
-		<a href="<?php echo get_the_permalink()?>"><span itemprop="headline"><?php the_title(); ?></span></a></h5>
-	<div>
-</article>
-<?php
-
-?>
+			if($hiilite_options['portfolio_more_on'] == true) {
+				echo "<div class='align-".$hiilite_options['portfolio_button_align']."'><a class='button ".$hiilite_options['portfolio_button_style']."' href='".get_the_permalink()."'>"; 
+				echo $hiilite_options['portfolio_more_text'];
+				echo "</a></div>"; 
+			}
+			?>
+		<div>
+	</div>
+<?php 
+	endif; // end portfolio_show_info
+echo '</article>';

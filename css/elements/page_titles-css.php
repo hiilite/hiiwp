@@ -7,6 +7,7 @@
 	get_background_css(Hii::$options['title_background']);
 	echo (!empty(Hii::$options['title_height']))?'min-height:'.Hii::$options['title_height'].';':'';
 	echo (!empty(Hii::$options[ 'title_padding' ]))?'padding:'.get_spacing(Hii::$options[ 'title_padding' ]).';':'';
+	echo (!empty(Hii::$options[ 'title_font' ]['text-align']))?'text-align:'.Hii::$options['title_font']['text-align'].';':'';
 	?>
 	display: block;
 	width:100%;

@@ -41,5 +41,76 @@ Kirki::add_field( 'hiiwp', array(
 	    ),
     ),
 ) );
-	
+Kirki::add_field( 'hiiwp', array(
+	'type'        => 'color',
+	'settings'    => 'pagination_active_page_color',
+	'label'       => __( 'Pagination Active Number and Hover Color', 'hiiwp' ),
+	'description' => esc_attr__( 'This controls the active pagination page number and pagination hover color.', 'hiiwp' ),
+	'section'     => $section,
+	'default'     => $hiilite_options['pagination_active_page_color'],
+	'choices'     => array(
+		'alpha' => true,
+	),
+	'output'	  => array(
+		array(
+			'element'	=> '.num-pagination li a:hover, .num-pagination li.active a',
+			'property'	=> 'background-color',
+		)  
+    ),
+    'active_callback'	=> array(
+		array(
+			'setting'  => 'blog_pag_style',
+			'operator' => '==',
+			'value'    => 'option-2',
+		),
+	),
+) );
+Kirki::add_field( 'hiiwp', array(
+	'type'        => 'color',
+	'settings'    => 'pagination_non_active_page_color',
+	'label'       => __( 'Pagination Non-Active Number and Hover Color', 'hiiwp' ),
+	'description' => esc_attr__( 'This controls the non-active pagination page numbers', 'hiiwp' ),
+	'section'     => $section,
+	'default'     => $hiilite_options['pagination_non_active_page_color'],
+	'choices'     => array(
+		'alpha' => true,
+	),
+	'output'	  => array(
+		array(
+			'element'	=> '.num-pagination li a, .num-pagination li a:hover, .num-pagination li.active a, .num-pagination li.disabled',
+			'property'	=> 'background-color',
+		)  
+    ),
+    'active_callback'	=> array(
+		array(
+			'setting'  => 'blog_pag_style',
+			'operator' => '==',
+			'value'    => 'option-2',
+		),
+	),
+) );
+Kirki::add_field( 'hiiwp', array(
+	'type'        => 'color',
+	'settings'    => 'pagination_text_color',
+	'label'       => __( 'Pagination Text Color', 'hiiwp' ),
+	'description' => esc_attr__( 'This controls the pagination text color', 'hiiwp' ),
+	'section'     => $section,
+	'default'     => $hiilite_options['pagination_text_color'],
+	'choices'     => array(
+		'alpha' => true,
+	),
+	'output'	  => array(
+		array(
+			'element'	=> '.num-pagination li a, .num-pagination li a:hover, .num-pagination li.active a, .num-pagination li.disabled ',
+			'property'	=> 'color',
+		)  
+    ),
+    'active_callback'	=> array(
+		array(
+			'setting'  => 'blog_pag_style',
+			'operator' => '==',
+			'value'    => 'option-2',
+		),
+	),
+) );
 ?>

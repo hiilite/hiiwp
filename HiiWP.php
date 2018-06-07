@@ -20,7 +20,7 @@ class HiiWP extends Hii {
 	
 	private static $_instance = null;
 	
-	public static $options = array();
+	public static $options = array(); 
 	public static $hiilite_options = null;
 
 	public static function instance(){
@@ -165,19 +165,9 @@ class HiiWP extends Hii {
 	    ?>
 	    <style>
 		    html body > .wrapper {
-		    	/*visibility: hidden;*/
 		    	opacity: 0;
 		    	transition: opacity 0.4s;
-		    	/*-webkit-animation:-amp-start 0.4s;
-		    	-moz-animation:-amp-start 0.4s;
-		    	-ms-animation:-amp-start 0.4s;
-		    	animation:-amp-start 0.4s;*/
 		    }
-	    	/*@-webkit-keyframes -amp-start{from{opacity:0}to{opacity:1}}
-	    	@-moz-keyframes -amp-start{from{opacity:0}to{opacity:1}}
-	    	@-ms-keyframes -amp-start{from{opacity:0}to{opacity:1}}
-	    	@-o-keyframes -amp-start{from{opacity:0}to{opacity:1}}
-	    	@keyframes -amp-start{from{opacity:0}to{opacity:1}}*/
 		    
 		    .wf-active body > .wrapper {
 			    opacity: 1;
@@ -706,30 +696,9 @@ class HiiWP extends Hii {
 	     * Array of plugin arrays. Required keys are name and slug.
 	     * If the source is NOT from the .org repo, then source is also required.
 	     */
-	    $plugins = array(
-	
-	        // This is an example of how to include a plugin pre-packaged with a theme.
-	        
+		
+		$hiilite_dev_only_plugins = array(
 			array(
-	            'name'               => 'WPBakery Visual Composer', // The plugin name.
-	            'slug'               => 'js_composer', // The plugin slug (typically the folder name).
-	            'source'             => 'https://hiilite.com/download/9034/', // The plugin source.
-	            'version'			 => '5.4.5',
-	            'required'           => true, // If false, the plugin is only 'recommended' instead of required.
-	            'force_activation'   => true, // If true, plugin is activated upon theme activation and cannot be deactivated until theme switch.
-	            'force_deactivation' => false, // If true, plugin is deactivated upon theme switch, useful for theme-specific plugins.
-	        ),
-			array(
-	            'name'      => 'Google Analytics Dashboard',
-	            'slug'      => 'google-analytics-dashboard-for-wp',
-	            'required'  => false,
-	        ),
-	        array(
-	            'name'      => 'Yoast SEO',
-	            'slug'      => 'wordpress-seo',
-	            'required'  => false,
-	        ),
-	        array(
 	            'name'      => 'Imsanity',
 	            'slug'      => 'imsanity',
 	            'required'  => false,
@@ -768,30 +737,48 @@ class HiiWP extends Hii {
 	            'slug'      => 'gravity-forms-google-analytics-event-tracking',
 	            'required'  => false,
 	        ),
-			array(
-	            'name'      => 'Loginizer',
-	            'slug'      => 'loginizer',
-	            'required'  => false,
-	        ),
 	        array(
 	            'name'      => 'SSL Insecure Content Fixer',
 	            'slug'      => 'ssl-insecure-content-fixer',
 	            'required'  => false,
 	        ),
-	        /*
-		    // Awaiting to Confirming Licence
-	        array(
-	            'name'               => 'Backup Buddy', // The plugin name.
-	            'slug'               => 'backupbuddy', // The plugin slug (typically the folder name).
-	            'source'             => 'https://hiilite.com/download/9037/', // The plugin source.
-	            'version'			 => '8.2.0.2',
-	            'required'           => false, // If false, the plugin is only 'recommended' instead of required.
-	            'force_activation'   => false, // If true, plugin is activated upon theme activation and cannot be deactivated until theme switch.
-	            'force_deactivation' => false, // If true, plugin is deactivated upon theme switch, useful for theme-specific plugins
-	        ),*/
-	       
-	    );
+        );
+	    
+	    $plugins = array(
 	
+	        // This is an example of how to include a plugin pre-packaged with a theme.
+	        
+			array(
+	            'name'               => 'WPBakery Visual Composer', // The plugin name.
+	            'slug'               => 'js_composer', // The plugin slug (typically the folder name).
+	            'source'             => 'https://hiilite.com/download/9034/', // The plugin source.
+	            'version'			 => '5.4.5',
+	            'required'           => true, // If false, the plugin is only 'recommended' instead of required.
+	            'force_activation'   => true, // If true, plugin is activated upon theme activation and cannot be deactivated until theme switch.
+	            'force_deactivation' => false, // If true, plugin is deactivated upon theme switch, useful for theme-specific plugins.
+	        ),
+			array(
+	            'name'      => 'Google Analytics Dashboard',
+	            'slug'      => 'google-analytics-dashboard-for-wp',
+	            'required'  => false,
+	        ),
+	        array(
+	            'name'      => 'Yoast SEO',
+	            'slug'      => 'wordpress-seo',
+	            'required'  => false,
+	        ),
+	        
+			array(
+	            'name'      => 'Loginizer',
+	            'slug'      => 'loginizer',
+	            'required'  => false,
+	        ),
+	        
+	    );
+		
+		if( self::$hiilite_options['hiilite_developer'] ) { 
+			$plugins = array_merge($plugins, $hiilite_dev_only_plugins);
+		}
 	    /**
 	     * Array of configuration settings. Amend each line as needed.
 	     * If you want the default strings to be available under your own theme domain,

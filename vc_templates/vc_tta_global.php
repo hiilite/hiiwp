@@ -51,6 +51,7 @@ switch($shortcode_type){
 				'arrow_background_color' 	=> $atts['arrow_background_color'],
 				'show_bullets' 	=> $atts['show_bullets'],
 				'bullet_color' 	=> $atts['bullet_color'],
+				'slider_min_height' => $atts['slider_min_height']
 			);
 			
 			foreach($data_attributes as $key=>$value) {
@@ -75,7 +76,7 @@ switch($shortcode_type){
 							  layout="responsive"
 							  width="'.$atts['slider_width'].'"
 							  height="'.$atts['slider_height'].'"
-							  style="width:'.$atts['slider_width'].'px; height:'.$atts['slider_height'].'px;"
+							  style="width:'.$atts['slider_width'].'px; height:'.$atts['slider_height'].'px;min-height:'.$atts['slider_min_height'].'px;"
 							  type="slides"';
 			$output .= ($atts['autoplay'] != 'none')?' autoplay delay="'.$atts['autoplay'].'000">':'>';
 			if(isset($atts['title']) && $atts['title'] != '')

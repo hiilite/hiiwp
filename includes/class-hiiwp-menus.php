@@ -26,15 +26,25 @@ class HiiWP_Menus {
 	public function __construct() {
 		add_action( 'init', array( $this, 'register_my_menus' ) );
 		
-		
-		if(Hii::$options['enable_search_bar_yesno'] == true) {
+		/* If WooCommerce is active, add cart icon to menu */
+		if(class_exists('WooCommerce') && Hii::$options['show_cart_menu'] == true) {
 			$theme_locations = get_nav_menu_locations();
 			if(isset($theme_locations['header-menu'])){
 				$menu_obj = get_term( $theme_locations['header-menu'], 'nav_menu' );
 		
-				add_filter( "wp_nav_menu_{$menu_obj->slug}_items", array( $this, 'add_search_button' ), 20 );
+				if($menu_obj) add_filter( "wp_nav_menu_{$menu_obj->slug}_items", array( $this, 'add_woo_menu_cart' ), 20, 2 );
 			}
 		}
+		
+		if(Hii::$options['enable_search_bar_yesno'] == true) {
+			$theme_locations = get_nav_menu_locations();
+			if(isset($theme_locations['header-menu'])){
+				$menu_obj = get_term( $theme_locations['header-menu'], 'nav_menu' ); 
+		
+				if($menu_obj) add_filter( "wp_nav_menu_{$menu_obj->slug}_items", array( $this, 'add_search_button' ), 20, 2 );
+			}
+		}
+		
 		$options = get_option('hii_seo_settings');
 		if(isset($options['add_social_to_menu'])):
 			foreach($options['add_social_to_menu'] as $menu_obj):
@@ -74,10 +84,32 @@ class HiiWP_Menus {
 	    return $items;
 	}
 	
-	public function add_search_button($items) {
-	    $searchbutton = '<li class="search_button menu-item"><i class="fa fa-search"></i></li>';
-	    $items = $items . $searchbutton;
+	public function add_search_button($items, $args) {	    
+	    if ($args->theme_location == 'header-menu') {
+	    	$searchbutton = '<li class="search_button menu-item"><i class="fa fa-search"></i></li>';
+			$items = $items . $searchbutton;
+	    }
 	    return $items;
+	}
+	public function add_woo_menu_cart($items, $args) {
+		if ($args->theme_location == 'header-menu') {
+			$cart_url = wc_get_cart_url();
+			
+			$cart_icon = '<i class="fa fa-shopping-cart"></i>';
+			if(Hii::$options['cart_menu_icon'] == 'shopping-bag') {
+				$cart_icon = '<i class="fa fa-shopping-bag"></i>';
+			}
+			
+			$cart_totals = '';
+			if(Hii::$options['cart_menu_layout'] == 'icon-plus-items') {
+				$cart_totals = ' | '.sprintf ( _n( '%d item', '%d items', WC()->cart->get_cart_contents_count() ), WC()->cart->get_cart_contents_count() ).' - '.WC()->cart->get_cart_total();
+			}
+			
+			$woocart = '<li class="woo_menu_cart menu-item"><a href="'.$cart_url.'">'.$cart_icon.''.$cart_totals.'</a></li>';
+			
+		    $items = $items . $woocart;
+		}
+		return $items;
 	}
 	
 	
@@ -295,11 +327,5 @@ class HiiWP_Menus {
     	}
 
 		return $items;
-
 	}
-
-	
-	
 }
-
-		

@@ -2,10 +2,10 @@
 <?php 
 global $post;
 $hiilite_options = HiiWP::get_options();
-if( isset($post)
+if( (isset($post)
 	&& $hiilite_options['show_page_titles'] == true 
 	&& ( get_post_meta(get_the_id(), 'show_page_title', true) != 'hide' || is_post_type_archive())
-	&& ( ! is_front_page() || is_home() ) ): 
+	&& ( ! is_front_page() || is_home() ) ) || (is_404() || is_search()) ): 
 	$page_title = $page_title_color = $page_bg_img = $page_bg_color = $post_meta = '';
 	$show_title_on = $hiilite_options['show_title_on'];
 	if( ( in_array(get_post_type($post), $show_title_on) )):
@@ -16,12 +16,15 @@ if( isset($post)
 		else
 			$page_title = hii_get_the_title();
 		
-		$page_title_color = (get_post_meta ( $post->ID, 'page_title_color', true))?get_post_meta ( $post->ID, 'page_title_color', true):false;
-		$page_bg_color = (get_post_meta ( $post->ID, 'page_title_bg', true))?get_post_meta ( $post->ID, 'page_title_bg', true):false;
+		if(isset($post)) {
+			$page_title_color = (get_post_meta ( $post->ID, 'page_title_color', true))?get_post_meta ( $post->ID, 'page_title_color', true):false;
+			$page_bg_color = (get_post_meta ( $post->ID, 'page_title_bg', true))?get_post_meta ( $post->ID, 'page_title_bg', true):false;
+			
+			if(! is_archive()):
+				$page_bg_img = (get_post_meta ( $post->ID, 'page_title_bgimg', false))?get_post_meta ( $post->ID, 'page_title_bgimg'):false;
+			endif;
+		}
 		
-		if(! is_archive()):
-			$page_bg_img = (get_post_meta ( $post->ID, 'page_title_bgimg', false))?get_post_meta ( $post->ID, 'page_title_bgimg'):false;
-		endif;
 		
 		if($page_title != ''){
 		?>

@@ -18,6 +18,28 @@ Kirki::add_field( 'hiiwp', array(
     'priority'    => 1,
 ) );
 
+Kirki::add_field( 'hiiwp', array(
+    'type'        => 'spacing',
+    'settings'    => 'testimonials_body_padding',
+    'label'       => esc_attr__( 'Testimonial Body Padding', 'hiiwp' ),
+    'description'    => __( 'This will add spacing to the testimonial content', 'hiiwp' ),
+    'section'     => 'testimonials_section',
+    'default'     => $hiilite_options['testimonials_body_padding'],
+    'priority'    => 1,
+    'output'	  => array(
+		array(
+			'element'	=> '.testimonial_content',
+			'property'	=> 'padding',
+		)  
+    ),
+    'js_vars' => array(
+		array(
+			'element'  => '.testimonial_content',
+			'property' => 'padding',
+		),
+	),
+) );
+
 
 Kirki::add_field( 'hiiwp', array(
     'type'        => 'typography',
@@ -27,6 +49,28 @@ Kirki::add_field( 'hiiwp', array(
     'section'     => 'testimonials_section',
     'default'     => $hiilite_options['testimonials_author_font'],
     'priority'    => 1,
+) );
+
+Kirki::add_field( 'hiiwp', array(
+    'type'        => 'spacing',
+    'settings'    => 'testimonials_author_padding',
+    'label'       => esc_attr__( 'Testimonial Author Padding', 'hiiwp' ),
+    'description'    => __( 'This will add spacing to the testimonial author', 'hiiwp' ),
+    'section'     => 'testimonials_section',
+    'default'     => $hiilite_options['testimonials_author_padding'],
+    'priority'    => 1,
+    'output'	  => array(
+		array(
+			'element'	=> '.testimonial_author',
+			'property'	=> 'padding',
+		)  
+    ),
+    'js_vars' => array(
+		array(
+			'element'  => '.testimonial_author',
+			'property' => 'padding',
+		),
+	),
 ) );
 
 

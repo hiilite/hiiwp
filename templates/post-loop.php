@@ -14,7 +14,6 @@ TODO:
 */
 $hiilite_options = Hii::get_options();
 
-$post_meta = get_post_meta(get_the_id());
 $post_format_icon = $article_title = $dateline = $article_cat = '';
 
 if($hiilite_options['blog_cats_show'] == 'true' || $hiilite_options['blog_cats_show'] == true):
@@ -98,7 +97,7 @@ $article_title = $article_title.$dateline;
 		</div>
 	</header>
 	
-	<div class="<?php if($hiilite_options['single_full'] == false) { echo 'in_grid'; } ?>">
+	<div class="<?php if($hiilite_options['single_full'] == false) { echo 'in_grid single-blog-post single-blog-post-in-grid'; } else { echo 'single-blog-post single-blog-post-full-width'; } ?>">
 		<div class="container_inner">
 		<?php
 		echo '<div class="col-9 content-box align-top">';
@@ -223,27 +222,46 @@ if($hiilite_options['blog_rel_articles'] == true):
 			<div class="carousel-wrapper">
 		      <?php
 			while ($my_query->have_posts()) : $my_query->the_post();
+				?>
+				<a href="<?php echo get_the_permalink()?>"  class="relatedarticle slide"><?php
 				if ( has_post_thumbnail() ) {
-					$image = wp_get_attachment_image_src( get_post_thumbnail_id( get_the_id() ));
-					?>
-					<a href="<?php echo get_the_permalink()?>"  class="relatedarticle slide" id="post-<?php echo get_the_id() ?>">
-				    	<img src="<?php echo $image[0]?>" width="200" height="200" alt="<?php echo get_the_title()?>">
-				    	<p><?php echo get_the_title();?></p>
-					</a>
-					<?php
-				} else {
-					?>
-					<a href="<?php echo get_the_permalink()?>"  class="relatedarticle slide">
-				    	<img src="<?php echo $hiilite_options['main_logo']?>" width="200" height="200" alt="<?php echo get_the_title()?>">
-				    	<p><?php echo get_the_title();?></p>
-					</a>
-					<?php
+					$image_src = wp_get_attachment_image_src( get_post_thumbnail_id( get_the_id() ));
+					$image = "<img src='".$image_src[0]."' width='200' height='200' alt='". get_the_title()."'>";
+				} else {	
+					if ( get_post_format() !== NULL) {
+						switch ( get_post_format() ) {
+							case 'video':
+								$image = '<i class="fa fa-film blog-default-icon"></i>';
+							break;
+							case 'audio':
+								$image = '<i class="fa fa-music blog-default-icon"></i>';
+							break;
+							case 'link':
+								$image = '<i class="fa fa-link blog-default-icon"></i>';
+							break;
+							case 'image':
+							case 'gallery':
+								$image = '<i class="fa fa-picture-o blog-default-icon"></i>';
+							break;
+							case 'chat':
+								$image = '<i class="fa fa-wechat blog-default-icon"></i>';
+							break;
+							case 'quote':
+								$image = '<i class="fa fa-quote-left blog-default-icon"></i>';
+							break;
+							case 'aside':
+								$image = '<i class="fa fa-sticky-note blog-default-icon"></i>';
+							break;
+						}
+					}
 				}
-				
-			  	
-			  endwhile;
-			  wp_reset_postdata(  );
-			  ?>
+				?>
+					<div style="height: 200px; width: 200px;"><?php echo $image ?></div>
+			    	<h5><?php echo get_the_title();?></h5>
+				</a><?php
+			endwhile;
+			wp_reset_postdata(  );
+			?>
 			  </div>
 		</amp-carousel> 
 	<?php
@@ -263,12 +281,15 @@ if($hiilite_options['blog_comments_show'] == true):
 	endif;
 	echo '</div>';
 endif;
-echo '<div class="container_inner">';
+
+if($hiilite_options['show_next_prev_posts'] == true):
+echo '<div class="container_inner next-prev-posts">';
 	the_post_navigation( array(
 						'prev_text' => '<span class="screen-reader-text">' . __( 'Previous Post', 'hiiwp' ) . '</span><span aria-hidden="true" class="nav-subtitle">' . __( 'Previous', 'hiiwp' ) . '</span> <span class="nav-title"><span class="nav-title-icon-wrapper"><i class="fa fa-angle-left"></i></span>%title</span>',
 						'next_text' => '<span class="screen-reader-text">' . __( 'Next Post', 'hiiwp' ) . '</span><span aria-hidden="true" class="nav-subtitle">' . __( 'Next', 'hiiwp' ) . '</span> <span class="nav-title">%title<span class="nav-title-icon-wrapper"><i class="fa fa-angle-right"></i></span></span>',
 					) );
 echo '</div>';
+endif;
 ?>
 	</div>
 </article>

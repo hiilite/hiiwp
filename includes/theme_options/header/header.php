@@ -7,7 +7,6 @@ Kirki::add_section( $section, array(
     'description' => __( 'Header settings', 'hiiwp' ),
     'panel'		 => 'header_panel',
 ) );
-
 Kirki::add_field( 'hiiwp', array(
     'type'        => 'switch',
     'settings'    => 'header_in_grid',
@@ -110,7 +109,29 @@ Kirki::add_field( 'hiiwp', array(
 ) );
 
 
-
+Kirki::add_field( 'hiiwp', array(
+	'type'        => 'typography',
+	'settings'    => 'header_bottom_font',
+	'label'       => __( 'Header Bottom Font', 'hiiwp' ),
+	'description' => __('Define styles for Header Bottom area', 'hiiwp'),
+	'section'     => $section,
+	'default'     => array(
+        'font-family'    => ' ',
+        'variant'        => ' ',
+        'font-size'      => ' ',
+        'text-transform' => 'none',
+        'line-height'    => '1.5',
+        'letter-spacing' => '0px',
+        'color'          => ' ',
+    ),
+	'priority'    => 8,
+	'required'	  => array(
+		array(
+		    'setting'  => 'header_bottom_on',
+			'operator' => '==',
+			'value'    => true,
+	    )),
+) );
 // Border Bottom
 Kirki::add_field( 'hiiwp', array(
     'type'        => 'dimension',

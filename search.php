@@ -1,12 +1,11 @@
 <?php
 // store the post type from the URL string
-$post_type = $_GET['post_type'];
 // check to see if there was a post type in the
 // URL string and if a results template for that
 // post type actually exists
-if ( isset( $post_type ) && locate_template( 'search-' . $post_type . '.php' ) ) {
+if ( isset( $_GET['post_type'] ) && locate_template( 'search-' . $_GET['post_type'] . '.php' ) ) {
   // if so, load that template
-  get_template_part( 'search', $post_type );
+  get_template_part( 'search', $_GET['post_type'] );
   
   // and then exit out
   exit;
@@ -22,47 +21,36 @@ if ( $hiilite_options['blog_sidebar_show'] == true ) $colcount .= ' col-9';
 
 $grid = ($hiilite_options['blog_full_width'] == false) ? 'in_grid' : '';
 
-
+echo '<div class="row content-area" id="home_blog_loop"><div class="container_inner '.$grid.'">'
 if(have_posts()):
-	echo '<section class="row" id="home_blog_loop"><div class="container_inner '.$grid.'">';
-	echo '<div class="'.$grid.' '.$hiilite_options['blog_layouts'].$colcount.'">';
+echo '<div class="site-main '.$hiilite_options['blog_layouts'].$colcount.'" role="main">';
 
 	while(have_posts()):
 		the_post();
 		get_template_part('templates/blog', 'loop');
 	endwhile;
 	
-	if($hiilite_options['blog_pag_show']):
-		if($hiilite_options['blog_pag_style'] == 'option-2'):
-			echo '<div class="pagination '.$grid.' content-box">';
-				echo '<div class="align-center flex-item col-6">';
-				numeric_posts_nav();
-			echo '</div></div>';
-		else:
-			echo '<div class="pagination '.$grid.' content-box">';
-				echo '<div class="align-left flex-item col-6">';
-				previous_posts_link();
-				echo '</div><div class="align-right flex-item col-6">';
-				next_posts_link();
-			echo '</div></div>';
-		endif;
-	endif;
+echo '</div>'; //end in_grid	
+	get_sidebar();
 
-	
-	echo '</div>'; //end in_grid
+
+	hiilite_numeric_posts_nav();
+
+else:
 	?>
-	<div id="blog-sidebar">
-		<?php
-		if ( $hiilite_options['blog_sidebar_show'] == true ) :
-			dynamic_sidebar( 'blog_sidebar' );
-		endif;
-		?>
+<section class="row">
+	<div class="container_inner in_grid">
+		<div class="page_not_found align-center">
+			<h2> No Results Found</h2>
+		    <p> The page you are looking for does not exist. It may have been moved, or removed altogether. Perhaps you can return back to the site’s homepage and see if you can find what you are looking for. </p>
+			<div class="separator  transparent center  " style="margin-top:35px;"></div>
+			<p><a itemprop="url" class="button button-primary" href="<?php echo esc_url( home_url() ); ?>"> Back to homepage </a></p>
+		</div>
 	</div>
-	<?php
-	
-	/*do_action( 'hii_blog_sidebar' );*/			
-	
-	echo '</div></section>';
-
+</section>
+<?php
 endif;
+
+echo '</div>
+</div>';
 get_footer(); ?>

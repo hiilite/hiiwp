@@ -190,18 +190,12 @@ class HiiWP_Hooks extends Hii {
 	 * @return void
 	 */
 	public function hii_split_portfolio_sidebar_title($args){
-		$title = '<div class="row project-title">
-			<div class="col-11">
-				<div class="col-12">
-				<h1 itemprop="headline">'.$args[0].'</h1>
-			</div>
-			</div>
+		$title = '<div class="project-title">
+				<h4 itemprop="headline">'.$args[0].'</h4>
 			<div class="col-1 project-icon cat-icon">
 				<img src="'.$args[1].'">
 			</div>
-		</div>
-
-		<hr style="color:'.$args[2].';border-color: '.$args[2].';background: '.$args[2].';height: 2px;border: none;">';
+		</div>';
 		
 		echo $title;
 	}
@@ -257,10 +251,7 @@ class HiiWP_Hooks extends Hii {
 									$portfolio_tags .= '<a href="'.$tad_id.'">#'.$tag->name.'</a> ';
 								}
 							}
-							else {
-								$tad_id = get_tag_link($tags->term_id);
-								$portfolio_tags .= '<a href="'.$tad_id.'">#'.$tags->name.'</a> ';
-							}
+							
 						$portfolio_tags .= '</small>
 						</span>
 				</div>

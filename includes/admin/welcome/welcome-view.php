@@ -44,7 +44,8 @@ if ( ! defined( 'ABSPATH' ) ) exit;
     <div class="feature-section two-col">
         <div class="col">
             <h3><?php _e( 'Load Demo Content', 'hiiwp' ); ?></h3>
-            <p><?php _e( 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras sed sapien quam. Sed dapibus est id enim facilisis, at posuere turpis adipiscing. Quisque sit amet dui dui.', 'WPW' ); ?></p>
+            <p><?php _e( 'Get a head start on your website and install content from one of our many demos.', 'WPW' ); ?></p>
+            <a class="button button-primary" href="https://demo.hiilite.com/" target="_blank">View Demos</a>
         </div>
  
         <div class="col">
@@ -86,7 +87,6 @@ if ( ! defined( 'ABSPATH' ) ) exit;
         </div>
     </div>
 	
-
     
     <h2>Resources</h2>
     <div class="feature-section two-col">

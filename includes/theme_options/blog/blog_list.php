@@ -83,7 +83,20 @@ Kirki::add_field( 'hiiwp', array(
         'image-above' => get_template_directory_uri() . '/images/icons/image-above.png',
     ),
 ) );
-
+Kirki::add_field( 'hiiwp', array(
+	'type'        => 'select',
+	'settings'    => 'blogs_image_style', 
+	'label'       => esc_attr__( 'Image Style', 'hiiwp' ),
+	'section'     => $section,
+	'default'     => $hiilite_options['blogs_image_style'],
+	'choices'     => array(
+		'default'   => esc_attr__( 'Default', 'textdomain' ),
+		'square' 	=> esc_attr__( 'Square', 'textdomain' ),
+		'circle'  	=> esc_attr__( 'Circle', 'textdomain' ),
+	),
+	'priority'	  => 1,
+	'description'    => __( 'Choose how you would like your blog photos to display', 'hiiwp' ),
+) );
 Kirki::add_field( 'hiiwp', array(
     'type'        => 'switch',
     'settings'    => 'blog_title_show',
@@ -130,11 +143,32 @@ Kirki::add_field( 'hiiwp', array(
 		'h5'	=> 'h5',
 		'h6'	=> 'h6',
 	),
-	'required'	=> array(
+	'active_callback'	=> array(
 		array(
 			'setting'  => 'blog_title_show',
 			'operator' => '==',
 			'value'    => true,
+		),
+	),
+) );
+Kirki::add_field( 'hiiwp', array(
+    'type'        => 'typography',
+    'settings'    => 'blog_title_font',
+    'label'       => esc_attr__( 'Blog Title Font', 'hiiwp' ),
+    'description' => __( 'Define font for blog titles', 'hiiwp' ),
+    'section'     => $section,
+    'default'     => $hiilite_options['blog_title_font'],
+    'priority'    => 1,
+	'active_callback'	=> array(
+		array(
+			'setting'  => 'blog_title_show',
+			'operator' => '==',
+			'value'    => true,
+		),
+	),
+	'output'      => array(
+		array(
+			'element' => '#home_blog_loop .entry-title a',
 		),
 	),
 ) );
@@ -246,4 +280,72 @@ Kirki::add_field( 'hiiwp', array(
     'default'     => $hiilite_options['blog_sidebar_show'],
     'priority'    => 1,
 ) );	
+
+Kirki::add_field( 'hiiwp', array(
+    'type'        => 'dimension',
+    'settings'    => 'blog_post_border_width',
+    'label'       => __( 'Border Width on Blog Posts', 'hiiwp' ),
+    'section'     => $section,
+    'default'     => $hiilite_options['blog_post_border_width'],
+    'priority'    => 1,
+    'output'	  => array(
+		array(
+			'element'	=> '#home_blog_loop .blog-article .content-box',
+			'property'	=> 'border-width',
+		)  
+    ),
+) );
+
+Kirki::add_field( 'hiiwp', array(
+	'type'        => 'color',
+	'settings'    => 'blog_post_border_color',
+	'label'       => __( 'Blog Post Border Color Control', 'hiiwp' ),
+	'description' => esc_attr__( 'This controls the blog post color border', 'hiiwp' ),
+	'section'     => $section,
+	'default'     => $hiilite_options['blog_post_border_color'],
+	'choices'     => array(
+		'alpha' => true,
+	),
+	'output'	  => array(
+		array(
+			'element'	=> '#home_blog_loop .blog-article .content-box',
+			'property'	=> 'border-color',
+		)  
+    ),
+    'active_callback'	=> array(
+	    array(
+		    'setting'	=> 'blog_post_border_width',
+		    'operator'	=> '==',
+		    'value'	=> '0px',
+	    ),
+    ),
+) );
+Kirki::add_field( 'hiiwp', array(
+	'type'        => 'dimension',
+	'settings'    => 'blog_roll_margin_top',
+	'label'       => esc_attr__( 'Blog Roll Margin Top', 'hiiwp' ),
+	'description' => esc_attr__( 'Controls the amount of margin on the top of the blog roll', 'hiiwp' ),
+	'section'     => $section,
+	'default'     => $hiilite_options['blog_roll_margin_top'],
+	'output'	  => array(
+		array(
+			'element'	=> '#home_blog_loop',
+			'property'	=> 'margin-top',
+		)  
+    ),
+) );
+Kirki::add_field( 'hiiwp', array(
+	'type'        => 'dimension',
+	'settings'    => 'blog_roll_margin_bottom',
+	'label'       => esc_attr__( 'Blog Roll Margin Bottom', 'hiiwp' ),
+	'description' => esc_attr__( 'Controls the amount of margin on the bottom of the blog roll', 'hiiwp' ),
+	'section'     => $section,
+	'default'     => $hiilite_options['blog_roll_margin_bottom'],
+	'output'	  => array(
+		array(
+			'element'	=> '#home_blog_loop',
+			'property'	=> 'margin-bottom',
+		)  
+    ),
+) );
 ?>
