@@ -8,7 +8,7 @@
  * @author      Peter Vigilante
  * @copyright   Copyright (c) 2017, Hiilite Creative Group
  * @license     http://opensource.org/licenses/https://opensource.org/licenses/MIT
- * @since       0.4.9
+ * @since       1.0
  */
 if ( ! defined( 'ABSPATH' ) )	exit;
 /**
@@ -62,7 +62,6 @@ class HiiWP extends Hii {
 		add_action( 'wp_ajax_hiiwp_disable_tour_mode', array( $this, 'hiiwp_disable_tour_mode' )); //Used to disable tour mode
         add_filter( 'auto_update_theme', '__return_true' );
         add_filter( 'widget_text','do_shortcode');
-        add_filter( 'wp_calculate_image_srcset_meta', '__return_null' );
         add_action( 'tgmpa_register', array($this, 'hiilite_register_required_plugins' ));
         add_filter( 'get_the_archive_title', array($this, 'modify_archive_title' ));
         
@@ -74,9 +73,11 @@ class HiiWP extends Hii {
 		add_action('wp_head', array($this, 'add_load_css' ),7);
 		add_action('hii_body_start', array($this, 'add_loading_svg'));
 		
+		/*
 	    if(self::$hiilite_options['async_all_css']) {
 			add_filter('style_loader_tag', array($this, 'link_to_loadCSS_script' ),9999,3);
 		}
+		*/
         
 		
         if ( ! function_exists( '_wp_render_title_tag' ) ) :
@@ -112,31 +113,21 @@ class HiiWP extends Hii {
      * @return void
      */
     public function hiiwp_init(){
-	    
+	    /*
 	    if( self::$hiilite_options['defer_all_javascript'] ) {
 		    add_filter('script_loader_tag', array( $this, 'add_defer_attribute'), 10, 2);
 	    }
-		
+		*/
     }
 	
 	
 	public function hiiwp_enqueue_scripts () {
-		
-		// Deregister WordPress default jQuery and load latest version
-		wp_deregister_script( 'jquery' );
-	    wp_register_script( 'jquery', "//code.jquery.com/jquery-2.2.4.min.js", array(), '2.2.4' );
-/*	    wp_deregister_script( 'jquery-migrate' );
-	    wp_register_script( 'jquery-migrate', "//code.jquery.com/jquery-migrate-3.0.0.min.js", array(), '3.0.0' );
-*/
-		
+		wp_enqueue_script('jquery-effects-core');
+		wp_enqueue_script('jquery-ui-widget');
 		wp_enqueue_script('modernizr', HIIWP_URL.'/js/vender/modernizr-custom.js');
-		
-		// Add jquery ui for use with carousel sliders
-		wp_deregister_script( 'jquery-ui-core' );
-	    wp_register_script( 'jquery-ui-core', "//code.jquery.com/ui/1.12.1/jquery-ui.min.js", array('jquery'), '1.12.1' );
 
 		wp_enqueue_script('kinetic', HIIWP_URL.'/js/vender/jquery.kinetic.min.js', array('jquery', 'jquery-ui-core'));
-		wp_enqueue_script('smoothTouchScroll', HIIWP_URL.'/js/vender/jquery.smoothTouchScroll.min.js', array('jquery', 'jquery-ui-core'));
+		wp_enqueue_script('smoothTouchScroll', HIIWP_URL.'/js/vender/jquery.smoothTouchScroll.min.js', array('jquery', 'jquery-ui-widget'));
 		wp_enqueue_script('touchSwipe', HIIWP_URL.'/js/vender/jquery.touchSwipe.min.js', array('jquery', 'jquery-ui-core'));
 		
 		
@@ -518,7 +509,7 @@ class HiiWP extends Hii {
 				  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
 				  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
 				  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-				ga('create', '<?php echo $tracking_id?>', 'auto');
+				ga('create', '<?php echo esc_html($tracking_id);?>', 'auto');
 				ga('send', 'pageview');
 				
 				</script>
@@ -530,7 +521,7 @@ class HiiWP extends Hii {
 		
 		if(isset($options['business_custom_tracking_code'])) {
 				echo '<script>';
-				echo $options['business_custom_tracking_code'];
+				echo esc_js($options['business_custom_tracking_code']);
 				echo '</script>';
 		}
 	}

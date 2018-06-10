@@ -187,8 +187,7 @@ class HiiWP_Post_Types {
 	 * @return void
 	 */
 	public function password_post_filter( $where = '' ) {
-		$hiilite_options = Hii::get_options();
-	    if (!is_single() && !is_admin() && $hiilite_options['blog_hide_password_protected_posts'] === true ) {
+	    if (!is_single() && !is_admin() && get_theme_mod( 'blog_hide_password_protected_posts', true ) === true ) {
 	        $where .= " AND post_password = ''";
 	    }
 	    return $where;

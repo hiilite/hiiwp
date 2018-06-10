@@ -96,12 +96,13 @@ class Author_Info_Widget extends WP_Widget {
 	 */
 	public function widget( $args, $instance ) {
 		// outputs the content of the widget
-		echo $args['before_widget'];
+		$output = $args['before_widget'];
 		if ( ! empty( $instance['title'] ) ) {
-			echo $args['before_title'] . apply_filters( 'widget_title', $instance['title'] ). $args['after_title'];
+			$output .= $args['before_title'] . apply_filters( 'widget_title', $instance['title'] ). $args['after_title'];
 		}
-		echo do_shortcode('[author-info]');
-		echo $args['after_widget'];
+		$output .= do_shortcode('[author-info]');
+		$output .= $args['after_widget'];
+		echo  $output ; // WPCS: XSS ok.
 		
 	}
 
@@ -115,8 +116,8 @@ class Author_Info_Widget extends WP_Widget {
 		$title = ! empty( $instance['title'] ) ? $instance['title'] : '';
 		?>
 		<p>
-		<label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e( 'Title:', 'hiiwp' ); ?></label> 
-		<input class="widefat" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" type="text" value="<?php echo esc_attr( $title ); ?>">
+		<label for="<?php echo esc_attr($this->get_field_id( 'title' )); ?>"><?php _e( 'Title:', 'hiiwp' ); ?></label> 
+		<input class="widefat" id="<?php echo esc_attr($this->get_field_id( 'title' )); ?>" name="<?php echo esc_attr($this->get_field_name( 'title' )); ?>" type="text" value="<?php echo esc_attr( $title ); ?>">
 		</p>
 		<?php 
 	}

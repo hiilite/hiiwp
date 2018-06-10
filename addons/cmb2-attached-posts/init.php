@@ -115,13 +115,13 @@ class WDS_CMB2_Attached_Posts_Field {
 			$args = wp_parse_args( $query_args, array(
 				'number' => 100,
 			) );
-			$post_type_labels = $field_type->_text( 'users_text', esc_html__( 'Users' ) );
+			$post_type_labels = $field_type->_text( 'users_text', esc_html__( 'Users', 'hiiwp' ) );
 		}
 
 		$filter_boxes = '';
 		// Check 'filter' setting
 		if ( $this->field->options( 'filter_boxes' ) ) {
-			$filter_boxes = '<div class="search-wrap"><input type="text" placeholder="' . sprintf( __( 'Filter %s', 'cmb' ), $post_type_labels ) . '" class="regular-text search" name="%s" /></div>';
+			$filter_boxes = '<div class="search-wrap"><input type="text" placeholder="' . sprintf( __( 'Filter %s', 'hiiwp' ), $post_type_labels ) . '" class="regular-text search" name="%s" /></div>';
 		}
 
 		// Check to see if we have any meta values saved yet
@@ -139,7 +139,7 @@ class WDS_CMB2_Attached_Posts_Field {
 
 		// Open our retrieved, or found posts, list
 		echo '<div class="retrieved-wrap column-wrap">';
-		echo '<h4 class="attached-posts-section">' . sprintf( __( 'Available %s', 'cmb' ), $post_type_labels ) . '</h4>';
+		echo '<h4 class="attached-posts-section">' . sprintf( __( 'Available %s', 'hiiwp' ), $post_type_labels ) . '</h4>';
 
 		// Set .has_thumbnail
 		$has_thumbnail = $this->field->options( 'show_thumbnails' ) ? ' has-thumbnails' : '';
@@ -159,14 +159,14 @@ class WDS_CMB2_Attached_Posts_Field {
 
 		// @todo make User search work.
 		if ( ! $query_users ) {
-			$findtxt = $field_type->_text( 'find_text', __( 'Search' ) );
+			$findtxt = $field_type->_text( 'find_text', __( 'Search', 'hiiwp' ) );
 
 			$js_data = json_encode( array(
 				'queryUsers' => $query_users,
 				'types'      => $query_users ? 'user' : (array) $args['post_type'],
 				'cmbId'      => $this->field->cmb_id,
-				'errortxt'   => esc_attr( $field_type->_text( 'error_text', __( 'An error has occurred. Please reload the page and try again.' ) ) ),
-				'findtxt'    => esc_attr( $field_type->_text( 'find_text', __( 'Find Posts or Pages' ) ) ),
+				'errortxt'   => esc_attr( $field_type->_text( 'error_text', __( 'An error has occurred. Please reload the page and try again.', 'hiiwp' ) ) ),
+				'findtxt'    => esc_attr( $field_type->_text( 'find_text', __( 'Find Posts or Pages', 'hiiwp' ) ) ),
 				'groupId'    => $this->field->group ? $this->field->group->id() : false,
 				'fieldId'    => $this->field->_id(),
 				'exclude'    => isset( $args['post__not_in'] ) ? $args['post__not_in'] : array(),
@@ -179,7 +179,7 @@ class WDS_CMB2_Attached_Posts_Field {
 
 		// Open our attached posts list
 		echo '<div class="attached-wrap column-wrap">';
-		echo '<h4 class="attached-posts-section">' . sprintf( __( 'Attached %s', 'cmb' ), $post_type_labels ) . '</h4>';
+		echo '<h4 class="attached-posts-section">' . sprintf( __( 'Attached %s', 'hiiwp' ), $post_type_labels ) . '</h4>';
 
 		if ( $filter_boxes ) {
 			printf( $filter_boxes, 'attached-search' );
@@ -194,13 +194,14 @@ class WDS_CMB2_Attached_Posts_Field {
 		echo '</ul><!-- #attached -->';
 		echo '</div><!-- .attached-wrap -->';
 
-		echo $field_type->input( array(
+		$output =  $field_type->input( array(
 			'type'  => 'hidden',
 			'class' => 'attached-posts-ids',
 			'value' => ! empty( $ids ) ? implode( ',', $ids ) : '',
 			'desc'  => '',
 		) );
-
+		
+		echo $output; // WPCS: XSS ok.
 		echo '</div><!-- .attached-posts-wrap -->';
 
 		// Display our description if one exists
@@ -287,7 +288,7 @@ class WDS_CMB2_Attached_Posts_Field {
 	public function list_item( $object, $li_class, $icon_class = 'dashicons-plus' ) {
 		// Build our list item
 		printf(
-			'<li data-id="%1$d" class="%2$s" target="_blank">%3$s<a title="' . __( 'Edit' ) . '" href="%4$s">%5$s</a>%6$s<span class="dashicons %7$s add-remove"></span></li>',
+			'<li data-id="%1$d" class="%2$s" target="_blank">%3$s<a title="' . __( 'Edit', 'hiiwp' ) . '" href="%4$s">%5$s</a>%6$s<span class="dashicons %7$s add-remove"></span></li>',
 			$this->get_id( $object ),
 			$li_class,
 			$this->get_thumb( $object ),

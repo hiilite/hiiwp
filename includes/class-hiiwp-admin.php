@@ -180,12 +180,12 @@ class HiiWP_Admin {
 	    ?>
 	    <p>
 		<label for="page_seo_title">SEO Title</label><br>
-	        <input id="page_seo_title" name="page_seo_title" maxlength="65" type="text" size="70" placeholder="%%title%% %%sep%% %%sitename%%" value="<?php echo $page_seo_title?>" />
+	        <input id="page_seo_title" name="page_seo_title" maxlength="65" type="text" size="70" placeholder="%%title%% %%sep%% %%sitename%%" value="<?php echo esc_attr__($page_seo_title, 'hiiwp');?>" />
 	    </p>
 	    
 	    <p>
 	        <label for="page_seo_description">Meta Description</label><br>
-	        <textarea id="page_seo_description" name="page_seo_description" cols="70" rows="4" maxlength="165"><?php echo $page_seo_description?></textarea>
+	        <textarea id="page_seo_description" name="page_seo_description" cols="70" rows="4" maxlength="165"><?php echo esc_attr__($page_seo_description, 'hiiwp');?></textarea>
 	    </p>
 	    <?php    
 	    else :

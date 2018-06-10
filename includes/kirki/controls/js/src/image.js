@@ -33,7 +33,7 @@ wp.customize.controlConstructor['kirki-image'] = wp.customize.Control.extend( {
 			wp.media.attachment( value ).fetch().then( function() {
 				setTimeout( function() {
 					var url = wp.media.attachment( value ).get( 'url' );
-					preview.removeClass().addClass( 'thumbnail thumbnail-image' ).html( '<img src="' + url + '" alt="" />' );
+					preview.removeClass().addClass( 'thumbnail thumbnail-image' ).html( '<img src="' + url + '"  />' );
 				}, 700 );
 			} );
 		}
@@ -54,7 +54,7 @@ wp.customize.controlConstructor['kirki-image'] = wp.customize.Control.extend( {
 		}
 
 		if ( '' !== previewImage ) {
-			preview.removeClass().addClass( 'thumbnail thumbnail-image' ).html( '<img src="' + previewImage + '" alt="" />' );
+			preview.removeClass().addClass( 'thumbnail thumbnail-image' ).html( '<img src="' + previewImage + '"  />' );
 		}
 
 		control.container.on( 'click', '.image-upload-button', function( e ) {
@@ -86,7 +86,7 @@ wp.customize.controlConstructor['kirki-image'] = wp.customize.Control.extend( {
 					}
 
 					if ( preview.length ) {
-						preview.removeClass().addClass( 'thumbnail thumbnail-image' ).html( '<img src="' + previewImage + '" alt="" />' );
+						preview.removeClass().addClass( 'thumbnail thumbnail-image' ).html( '<img src="' + previewImage + '"  />' );
 					}
 					if ( removeButton.length ) {
 						removeButton.show();
@@ -140,7 +140,7 @@ wp.customize.controlConstructor['kirki-image'] = wp.customize.Control.extend( {
 			defaultButton = control.container.find( '.image-default-button' );
 
 			if ( preview.length ) {
-				preview.removeClass().addClass( 'thumbnail thumbnail-image' ).html( '<img src="' + control.params.default + '" alt="" />' );
+				preview.removeClass().addClass( 'thumbnail thumbnail-image' ).html( '<img src="' + control.params.default + '"  />' );
 			}
 			if ( removeButton.length ) {
 				removeButton.show();

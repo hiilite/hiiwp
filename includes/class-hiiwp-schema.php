@@ -6,15 +6,15 @@
  * @package     HiiWP
  * @category    Core
  * @author      Peter Vigilante
- * @copyright   Copyright (c) 2017, Hiilite Creative Group
+ * @copyright   Copyright (c) 2018, Hiilite Creative Group
  * @license     http://opensource.org/licenses/https://opensource.org/licenses/MIT
- * @since       0.4.3
+ * @since       1.0
  */
-
+if ( ! defined( 'ABSPATH' ) ) exit;
 /**
- * HiiWP_Admin class.
+ * HiiWP_Schema class.
  *
- * @since 0.4.3
+ * @since 1.0
  */
 class HiiWP_Schema {
 	
@@ -315,11 +315,11 @@ class HiiWP_Schema {
 		if(! defined('WPSEO_VERSION')):
 			?>
 			<meta property="op:markup_version" content="v1.0">
-			<meta property="og:title" content="<?php echo $page_title?>">
-			<meta property="og:url" content="<?php echo 'https://'.$_SERVER["HTTP_HOST"].$_SERVER["REQUEST_URI"]?>">
-			<meta property="og:image" content="<?php echo $page_image?>">
-			<meta property="og:description" content="<?php echo $page_description?>">
-			<meta property="og:site_name" content="<?php echo $brand_title?>">
+			<meta property="og:title" content="<?php echo esc_html__($page_title, 'hiiwp')?>">
+			<meta property="og:url" content="<?php echo esc_url(home_url());?>">
+			<meta property="og:image" content="<?php echo esc_url($page_image);?>">
+			<meta property="og:description" content="<?php echo esc_html__($page_description, 'hiiwp');?>">
+			<meta property="og:site_name" content="<?php echo esc_html__($brand_title, 'hiiwp');?>">
 			<?php
 		endif;
 		if((isset($options['business_type'])) && (in_array($options['business_type'], array('FoodEstablishment', 'Bakery','BarOrPub','Brewery', 'CafeOrCoffeeShop', 'FastFoodRestaurant', 'IceCreamShop', 'Restaurant', 'Winery')))){
@@ -392,7 +392,7 @@ class HiiWP_Schema {
 	 		if(isset($options['business_name']))$WebSite .= ' "name" : "'.$options['business_name'].'",';
 		 $WebSite .= '"url" : "'.home_url().'"';
 		$WebSite .= '}</script>';
-		echo $WebSite;
+		echo $WebSite; // WPCS: XSS ok.
 		
 		/*
 		*
@@ -439,7 +439,7 @@ class HiiWP_Schema {
 			$html.='  }';
 		}
 		$html .= '}</script>';
-		echo $html;
+		echo $html; // WPCS: XSS ok.
 		
 		/*
 		*
@@ -580,7 +580,7 @@ class HiiWP_Schema {
 			} else { $html .= '<meta name="p:domain_verify" content="'.$options['business_pinterest_site_verification'].'">'; }
 		}
 		
-		echo $html;
+		echo $html; // WPCS: XSS ok.
 	}
 }
 

@@ -229,7 +229,7 @@ if(!function_exists('icon_text')) {
             }else {
                 $image_src = $image;
             }
-            $html_icon = '<img style="'.$img_styles.'" src="'.$image_src.'" alt="">';
+            $html_icon = '<img style="'.$img_styles.'" src="'.$image_src.'">';
         }
 
         if($link_icon == 'yes' && $link !== '') {

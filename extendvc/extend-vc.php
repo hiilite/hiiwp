@@ -1710,7 +1710,7 @@ vc_map( array(
 		),
 		array(
 			'type'  	=> 'dropdown',
-			'heading'	=> __('Slider Layout'),
+			'heading'	=> __('Slider Layout', 'hiiwp'),
 			'param_name'=> 'slider_layout',
 			'description' => __( 'Responsive: will fit to the content within the slider (ideal for slides with text content). Fixed: Will maintain a fixed aspect ratio based on an initially set width and height (ideal for background image only sliders)', 'hiiwp' ),
 			'value'		=> array(
@@ -1792,7 +1792,7 @@ vc_map( array(
 		),
 		array(
 			'type'  	=> 'checkbox',
-			'heading'	=> __('Show Arrows'),
+			'heading'	=> __('Show Arrows', 'hiiwp'),
 			'param_name'=> 'show_arrows',
 			'value'		=> 'true',
 			'std' 		=> 'true',
@@ -1800,7 +1800,7 @@ vc_map( array(
 		),
 		array(
 			'type'  	=> 'checkbox',
-			'heading'	=> __('Hide Arrows on Mobile'),
+			'heading'	=> __('Hide Arrows on Mobile', 'hiiwp'),
 			'param_name'=> 'hide_arrows_on_mobile',
 			'value'		=> false,
 			'group'		=> __('Arrows', 'hiiwp'),
@@ -1811,7 +1811,7 @@ vc_map( array(
 		),
 		array(
 			'type'  	=> 'dropdown',
-			'heading'	=> __('Arrow Icon'),
+			'heading'	=> __('Arrow Icon', 'hiiwp'),
 			'param_name'=> 'arrow_icon',
 			'class'		=> 'fa',
 			'value'		=> array(
@@ -1830,7 +1830,7 @@ vc_map( array(
 		),
 		array(
 			'type'  	=> 'dropdown',
-			'heading'	=> __('Arrow Size'),
+			'heading'	=> __('Arrow Size', 'hiiwp'),
 			'param_name'=> 'arrow_size',
 			'value'		=> array(
 				'Small' => 'small',
@@ -1846,7 +1846,7 @@ vc_map( array(
 		),
 		array(
 			'type'  	=> 'dropdown',
-			'heading'	=> __('Arrow Background Type'),
+			'heading'	=> __('Arrow Background Type', 'hiiwp'),
 			'param_name'=> 'arrow_background_type',
 			'class'		=> 'fa',
 			'value'		=> array(
@@ -1864,7 +1864,7 @@ vc_map( array(
 		),
 		array(
 			'type'  	=> 'colorpicker',
-			'heading'	=> __('Arrow Color'),
+			'heading'	=> __('Arrow Color', 'hiiwp'),
 			'param_name'=> 'arrow_color',
 			'group'		=> __('Arrows', 'hiiwp'),
 			'std'		=> '#333333',
@@ -1875,7 +1875,7 @@ vc_map( array(
 		),
 		array(
 			'type'  	=> 'colorpicker',
-			'heading'	=> __('Arrow Background Color'),
+			'heading'	=> __('Arrow Background Color', 'hiiwp'),
 			'param_name'=> 'arrow_background_color',
 			'group'		=> __('Arrows', 'hiiwp'),
 			'std'		=> '#ffffff',
@@ -1888,7 +1888,7 @@ vc_map( array(
 		),
 		array(
 			'type'  	=> 'checkbox',
-			'heading'	=> __('Show Bullets'),
+			'heading'	=> __('Show Bullets', 'hiiwp'),
 			'param_name'=> 'show_bullets',
 			'value'		=> 'true',
 			'std' 		=> 'true',
@@ -1896,7 +1896,7 @@ vc_map( array(
 		),
 		array(
 			'type'  	=> 'colorpicker',
-			'heading'	=> __('Bullet Color'),
+			'heading'	=> __('Bullet Color', 'hiiwp'),
 			'param_name'=> 'bullet_color',
 			'group'		=> __('Bullets', 'hiiwp'),
 			'std'		=> '#ffffff',
@@ -2833,11 +2833,11 @@ if ( is_array( $postTypes ) && ! empty( $postTypes ) ) {
 }
 $postTypesList[] = array(
 	'custom',
-	__( 'Custom query', 'js_composer' ),
+	__( 'Custom query', 'hiiwp' ),
 );
 $postTypesList[] = array(
 	'ids',
-	__( 'List of IDs', 'js_composer' ),
+	__( 'List of IDs', 'hiiwp' ),
 );
 
 
@@ -2852,18 +2852,18 @@ vc_map( array(
 		"params" => array(
 			array(
 				'type' => 'dropdown',
-				'heading' => __( 'Data source', 'js_composer' ),
+				'heading' => __( 'Data source', 'hiiwp' ),
 				'param_name' => 'post_type',
 				'value' => $postTypesList,
 				'save_always' => true,
-				'description' => __( 'Select content type for your grid.', 'js_composer' ),
+				'description' => __( 'Select content type for your grid.', 'hiiwp' ),
 				'admin_label' => true,
 			),
 			array(
 				'type' => 'autocomplete',
-				'heading' => __( 'Include only', 'js_composer' ),
+				'heading' => __( 'Include only', 'hiiwp' ),
 				'param_name' => 'include',
-				'description' => __( 'Add posts, pages, etc. by title.', 'js_composer' ),
+				'description' => __( 'Add posts, pages, etc. by title.', 'hiiwp' ),
 				'settings' => array(
 					'multiple' => true,
 					'sortable' => true,
@@ -2877,9 +2877,9 @@ vc_map( array(
 			// Custom query tab
 			array(
 				'type' => 'textarea_safe',
-				'heading' => __( 'Custom query', 'js_composer' ),
+				'heading' => __( 'Custom query', 'hiiwp' ),
 				'param_name' => 'custom_query',
-				'description' => __( 'Build custom query according to <a href="http://codex.wordpress.org/Function_Reference/query_posts">WordPress Codex</a>.', 'js_composer' ),
+				'description' => __( 'Build custom query according to <a href="http://codex.wordpress.org/Function_Reference/query_posts">WordPress Codex</a>.', 'hiiwp' ),
 				'dependency' => array(
 					'element' => 'post_type',
 					'value' => array( 'custom' ),
@@ -2887,7 +2887,7 @@ vc_map( array(
 			),
 			array(
 				'type' => 'autocomplete',
-				'heading' => __( 'Narrow data source', 'js_composer' ),
+				'heading' => __( 'Narrow data source', 'hiiwp' ),
 				'param_name' => 'taxonomies',
 				'settings' => array(
 					'multiple' => true,
@@ -2904,7 +2904,7 @@ vc_map( array(
 					// auto focus input, default true
 				),
 				'param_holder_class' => 'vc_not-for-custom',
-				'description' => __( 'Enter categories, tags or custom taxonomies.', 'js_composer' ),
+				'description' => __( 'Enter categories, tags or custom taxonomies.', 'hiiwp' ),
 				'dependency' => array(
 					'element' => 'post_type',
 					'value_not_equal_to' => array(
@@ -2915,12 +2915,12 @@ vc_map( array(
 			),
 			array(
 				'type' => 'textfield',
-				'heading' => __( 'Total items', 'js_composer' ),
+				'heading' => __( 'Total items', 'hiiwp' ),
 				'param_name' => 'max_items',
 				'value' => 10,
 				// default value
 				'param_holder_class' => 'vc_not-for-custom',
-				'description' => __( 'Set max limit for items in grid or enter -1 to display all (limited to 1000).', 'js_composer' ),
+				'description' => __( 'Set max limit for items in grid or enter -1 to display all (limited to 1000).', 'hiiwp' ),
 				'dependency' => array(
 					'element' => 'post_type',
 					'value_not_equal_to' => array(
@@ -2932,23 +2932,23 @@ vc_map( array(
 			// Data settings
 			array(
 				'type' => 'dropdown',
-				'heading' => __( 'Order by', 'js_composer' ),
+				'heading' => __( 'Order by', 'hiiwp' ),
 				'param_name' => 'orderby',
 				'value' => array(
-					__( 'Date', 'js_composer' ) => 'date',
-					__( 'Order by post ID', 'js_composer' ) => 'ID',
-					__( 'Author', 'js_composer' ) => 'author',
-					__( 'Title', 'js_composer' ) => 'title',
-					__( 'Last modified date', 'js_composer' ) => 'modified',
-					__( 'Post/page parent ID', 'js_composer' ) => 'parent',
-					__( 'Number of comments', 'js_composer' ) => 'comment_count',
-					__( 'Menu order/Page Order', 'js_composer' ) => 'menu_order',
-					__( 'Meta value', 'js_composer' ) => 'meta_value',
-					__( 'Meta value number', 'js_composer' ) => 'meta_value_num',
-					__( 'Random order', 'js_composer' ) => 'rand',
+					__( 'Date', 'hiiwp' ) => 'date',
+					__( 'Order by post ID', 'hiiwp' ) => 'ID',
+					__( 'Author', 'hiiwp' ) => 'author',
+					__( 'Title', 'hiiwp' ) => 'title',
+					__( 'Last modified date', 'hiiwp' ) => 'modified',
+					__( 'Post/page parent ID', 'hiiwp' ) => 'parent',
+					__( 'Number of comments', 'hiiwp' ) => 'comment_count',
+					__( 'Menu order/Page Order', 'hiiwp' ) => 'menu_order',
+					__( 'Meta value', 'hiiwp' ) => 'meta_value',
+					__( 'Meta value number', 'hiiwp' ) => 'meta_value_num',
+					__( 'Random order', 'hiiwp' ) => 'rand',
 				),
-				'description' => __( 'Select order type. If "Meta value" or "Meta value Number" is chosen then meta key is required.', 'js_composer' ),
-				'group' => __( 'Data Settings', 'js_composer' ),
+				'description' => __( 'Select order type. If "Meta value" or "Meta value Number" is chosen then meta key is required.', 'hiiwp' ),
+				'group' => __( 'Data Settings', 'hiiwp' ),
 				'param_holder_class' => 'vc_grid-data-type-not-ids',
 				'dependency' => array(
 					'element' => 'post_type',
@@ -2960,15 +2960,15 @@ vc_map( array(
 			),
 			array(
 				'type' => 'dropdown',
-				'heading' => __( 'Sort order', 'js_composer' ),
+				'heading' => __( 'Sort order', 'hiiwp' ),
 				'param_name' => 'order',
-				'group' => __( 'Data Settings', 'js_composer' ),
+				'group' => __( 'Data Settings', 'hiiwp' ),
 				'value' => array(
-					__( 'Descending', 'js_composer' ) => 'DESC',
-					__( 'Ascending', 'js_composer' ) => 'ASC',
+					__( 'Descending', 'hiiwp' ) => 'DESC',
+					__( 'Ascending', 'hiiwp' ) => 'ASC',
 				),
 				'param_holder_class' => 'vc_grid-data-type-not-ids',
-				'description' => __( 'Select sorting order.', 'js_composer' ),
+				'description' => __( 'Select sorting order.', 'hiiwp' ),
 				'dependency' => array(
 					'element' => 'post_type',
 					'value_not_equal_to' => array(
@@ -2979,10 +2979,10 @@ vc_map( array(
 			),
 			array(
 				'type' => 'textfield',
-				'heading' => __( 'Meta key', 'js_composer' ),
+				'heading' => __( 'Meta key', 'hiiwp' ),
 				'param_name' => 'meta_key',
-				'description' => __( 'Input meta key for grid ordering.', 'js_composer' ),
-				'group' => __( 'Data Settings', 'js_composer' ),
+				'description' => __( 'Input meta key for grid ordering.', 'hiiwp' ),
+				'group' => __( 'Data Settings', 'hiiwp' ),
 				'param_holder_class' => 'vc_grid-data-type-not-ids',
 				'dependency' => array(
 					'element' => 'orderby',
@@ -2994,10 +2994,10 @@ vc_map( array(
 			),
 			array(
 				'type' => 'textfield',
-				'heading' => __( 'Offset', 'js_composer' ),
+				'heading' => __( 'Offset', 'hiiwp' ),
 				'param_name' => 'offset',
-				'description' => __( 'Number of grid elements to displace or pass over.', 'js_composer' ),
-				'group' => __( 'Data Settings', 'js_composer' ),
+				'description' => __( 'Number of grid elements to displace or pass over.', 'hiiwp' ),
+				'group' => __( 'Data Settings', 'hiiwp' ),
 				'param_holder_class' => 'vc_grid-data-type-not-ids',
 				'dependency' => array(
 					'element' => 'post_type',
@@ -3009,10 +3009,10 @@ vc_map( array(
 			),
 			array(
 				'type' => 'autocomplete',
-				'heading' => __( 'Exclude', 'js_composer' ),
+				'heading' => __( 'Exclude', 'hiiwp' ),
 				'param_name' => 'exclude',
-				'description' => __( 'Exclude posts, pages, etc. by title.', 'js_composer' ),
-				'group' => __( 'Data Settings', 'js_composer' ),
+				'description' => __( 'Exclude posts, pages, etc. by title.', 'hiiwp' ),
+				'group' => __( 'Data Settings', 'hiiwp' ),
 				'settings' => array(
 					'multiple' => true,
 				),
@@ -3228,7 +3228,7 @@ if($hiilite_options['portfolio_on']):
 		),
 		array(
 			'type'  	=> 'checkbox',
-			'heading'	=> __('Show Arrows'),
+			'heading'	=> __('Show Arrows', 'hiiwp'),
 			'param_name'=> 'show_arrows',
 			'value'		=> 'true',
 			'std' 		=> 'true',
@@ -3236,7 +3236,7 @@ if($hiilite_options['portfolio_on']):
 		),
 		array(
 			'type'  	=> 'checkbox',
-			'heading'	=> __('Hide Arrows on Mobile'),
+			'heading'	=> __('Hide Arrows on Mobile', 'hiiwp'),
 			'param_name'=> 'hide_arrows_on_mobile',
 			'value'		=> false,
 			'group'		=> __('Arrows', 'hiiwp'),
@@ -3247,7 +3247,7 @@ if($hiilite_options['portfolio_on']):
 		),
 		array(
 			'type'  	=> 'dropdown',
-			'heading'	=> __('Arrow Icon'),
+			'heading'	=> __('Arrow Icon', 'hiiwp'),
 			'param_name'=> 'arrow_icon',
 			'class'		=> 'fa',
 			'value'		=> array(
@@ -3266,7 +3266,7 @@ if($hiilite_options['portfolio_on']):
 		),
 		array(
 			'type'  	=> 'dropdown',
-			'heading'	=> __('Arrow Size'),
+			'heading'	=> __('Arrow Size', 'hiiwp'),
 			'param_name'=> 'arrow_size',
 			'value'		=> array(
 				'Small' => 'small',
@@ -3282,7 +3282,7 @@ if($hiilite_options['portfolio_on']):
 		),
 		array(
 			'type'  	=> 'dropdown',
-			'heading'	=> __('Arrow Background Type'),
+			'heading'	=> __('Arrow Background Type', 'hiiwp'),
 			'param_name'=> 'arrow_background_type',
 			'class'		=> 'fa',
 			'value'		=> array(
@@ -3300,7 +3300,7 @@ if($hiilite_options['portfolio_on']):
 		),
 		array(
 			'type'  	=> 'colorpicker',
-			'heading'	=> __('Arrow Color'),
+			'heading'	=> __('Arrow Color', 'hiiwp'),
 			'param_name'=> 'arrow_color',
 			'group'		=> __('Arrows', 'hiiwp'),
 			'std'		=> '#333333',
@@ -3311,7 +3311,7 @@ if($hiilite_options['portfolio_on']):
 		),
 		array(
 			'type'  	=> 'colorpicker',
-			'heading'	=> __('Arrow Background Color'),
+			'heading'	=> __('Arrow Background Color', 'hiiwp'),
 			'param_name'=> 'arrow_background_color',
 			'group'		=> __('Arrows', 'hiiwp'),
 			'std'		=> '#ffffff',
@@ -3449,7 +3449,7 @@ if($hiilite_options['testimonials_on']):
 /* slider standards */
 		array(
 			'type'  	=> 'dropdown',
-			'heading'	=> __('Slider Layout'),
+			'heading'	=> __('Slider Layout', 'hiiwp'),
 			'param_name'=> 'slider_layout',
 			'description' => __( 'Responsive: will fit to the content within the slider (ideal for slides with text content). Fixed: Will maintain a fixed aspect ratio based on an initially set width and height (ideal for background image only sliders)', 'hiiwp' ),
 			'value'		=> array(
@@ -3533,7 +3533,7 @@ if($hiilite_options['testimonials_on']):
 		),
 		array(
 			'type'  	=> 'checkbox',
-			'heading'	=> __('Show Arrows'),
+			'heading'	=> __('Show Arrows', 'hiiwp'),
 			'param_name'=> 'show_arrows',
 			'value'		=> 'true',
 			'std' 		=> 'true',
@@ -3541,7 +3541,7 @@ if($hiilite_options['testimonials_on']):
 		),
 		array(
 			'type'  	=> 'checkbox',
-			'heading'	=> __('Hide Arrows on Mobile'),
+			'heading'	=> __('Hide Arrows on Mobile', 'hiiwp'),
 			'param_name'=> 'hide_arrows_on_mobile',
 			'value'		=> false,
 			'group'		=> __('Arrows', 'hiiwp'),
@@ -3552,7 +3552,7 @@ if($hiilite_options['testimonials_on']):
 		),
 		array(
 			'type'  	=> 'dropdown',
-			'heading'	=> __('Arrow Icon'),
+			'heading'	=> __('Arrow Icon', 'hiiwp'),
 			'param_name'=> 'arrow_icon',
 			'class'		=> 'fa',
 			'value'		=> array(
@@ -3571,7 +3571,7 @@ if($hiilite_options['testimonials_on']):
 		),
 		array(
 			'type'  	=> 'dropdown',
-			'heading'	=> __('Arrow Size'),
+			'heading'	=> __('Arrow Size', 'hiiwp'),
 			'param_name'=> 'arrow_size',
 			'value'		=> array(
 				'Small' => 'small',
@@ -3587,7 +3587,7 @@ if($hiilite_options['testimonials_on']):
 		),
 		array(
 			'type'  	=> 'dropdown',
-			'heading'	=> __('Arrow Background Type'),
+			'heading'	=> __('Arrow Background Type', 'hiiwp'),
 			'param_name'=> 'arrow_background_type',
 			'class'		=> 'fa',
 			'value'		=> array(
@@ -3605,7 +3605,7 @@ if($hiilite_options['testimonials_on']):
 		),
 		array(
 			'type'  	=> 'colorpicker',
-			'heading'	=> __('Arrow Color'),
+			'heading'	=> __('Arrow Color', 'hiiwp'),
 			'param_name'=> 'arrow_color',
 			'group'		=> __('Arrows', 'hiiwp'),
 			'std'		=> '#333333',
@@ -3616,7 +3616,7 @@ if($hiilite_options['testimonials_on']):
 		),
 		array(
 			'type'  	=> 'colorpicker',
-			'heading'	=> __('Arrow Background Color'),
+			'heading'	=> __('Arrow Background Color', 'hiiwp'),
 			'param_name'=> 'arrow_background_color',
 			'group'		=> __('Arrows', 'hiiwp'),
 			'std'		=> '#ffffff',
@@ -3629,7 +3629,7 @@ if($hiilite_options['testimonials_on']):
 		),
 		array(
 			'type'  	=> 'checkbox',
-			'heading'	=> __('Show Bullets'),
+			'heading'	=> __('Show Bullets', 'hiiwp'),
 			'param_name'=> 'show_bullets',
 			'value'		=> 'true',
 			'std' 		=> 'true',
@@ -3637,7 +3637,7 @@ if($hiilite_options['testimonials_on']):
 		),
 		array(
 			'type'  	=> 'colorpicker',
-			'heading'	=> __('Bullet Color'),
+			'heading'	=> __('Bullet Color', 'hiiwp'),
 			'param_name'=> 'bullet_color',
 			'group'		=> __('Bullets', 'hiiwp'),
 			'std'		=> '#ffffff',
@@ -3772,7 +3772,7 @@ if($hiilite_options['teams_on']):
 /* slider standards 
 		array(
 			'type'  	=> 'dropdown',
-			'heading'	=> __('Slider Layout'),
+			'heading'	=> __('Slider Layout', 'hiiwp'),
 			'param_name'=> 'slider_layout',
 			'description' => __( 'Responsive: will fit to the content within the slider (ideal for slides with text content). Fixed: Will maintain a fixed aspect ratio based on an initially set width and height (ideal for background image only sliders)', 'hiiwp' ),
 			'value'		=> array(
@@ -3857,7 +3857,7 @@ if($hiilite_options['teams_on']):
 		),
 		array(
 			'type'  	=> 'checkbox',
-			'heading'	=> __('Show Arrows'),
+			'heading'	=> __('Show Arrows', 'hiiwp'),
 			'param_name'=> 'show_arrows',
 			'value'		=> 'true',
 			'std' 		=> 'true',
@@ -3865,7 +3865,7 @@ if($hiilite_options['teams_on']):
 		),
 		array(
 			'type'  	=> 'checkbox',
-			'heading'	=> __('Hide Arrows on Mobile'),
+			'heading'	=> __('Hide Arrows on Mobile', 'hiiwp'),
 			'param_name'=> 'hide_arrows_on_mobile',
 			'value'		=> false,
 			'group'		=> __('Arrows', 'hiiwp'),
@@ -3876,7 +3876,7 @@ if($hiilite_options['teams_on']):
 		),
 		array(
 			'type'  	=> 'dropdown',
-			'heading'	=> __('Arrow Icon'),
+			'heading'	=> __('Arrow Icon', 'hiiwp'),
 			'param_name'=> 'arrow_icon',
 			'class'		=> 'fa',
 			'value'		=> array(
@@ -3895,7 +3895,7 @@ if($hiilite_options['teams_on']):
 		),
 		array(
 			'type'  	=> 'dropdown',
-			'heading'	=> __('Arrow Size'),
+			'heading'	=> __('Arrow Size', 'hiiwp'),
 			'param_name'=> 'arrow_size',
 			'value'		=> array(
 				'Small' => 'small',
@@ -3911,7 +3911,7 @@ if($hiilite_options['teams_on']):
 		),
 		array(
 			'type'  	=> 'dropdown',
-			'heading'	=> __('Arrow Background Type'),
+			'heading'	=> __('Arrow Background Type', 'hiiwp'),
 			'param_name'=> 'arrow_background_type',
 			'class'		=> 'fa',
 			'value'		=> array(
@@ -3929,7 +3929,7 @@ if($hiilite_options['teams_on']):
 		),
 		array(
 			'type'  	=> 'colorpicker',
-			'heading'	=> __('Arrow Color'),
+			'heading'	=> __('Arrow Color', 'hiiwp'),
 			'param_name'=> 'arrow_color',
 			'group'		=> __('Arrows', 'hiiwp'),
 			'std'		=> '#333333',
@@ -3940,7 +3940,7 @@ if($hiilite_options['teams_on']):
 		),
 		array(
 			'type'  	=> 'colorpicker',
-			'heading'	=> __('Arrow Background Color'),
+			'heading'	=> __('Arrow Background Color', 'hiiwp'),
 			'param_name'=> 'arrow_background_color',
 			'group'		=> __('Arrows', 'hiiwp'),
 			'std'		=> '#ffffff',

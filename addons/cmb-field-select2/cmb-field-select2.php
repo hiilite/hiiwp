@@ -41,12 +41,13 @@ class PW_CMB2_Field_Select2 {
 			$field_type_object->type = new CMB2_Type_Select( $field_type_object );
 		}
 
-		echo $field_type_object->select( array(
+		$output = $field_type_object->select( array(
 			'class'            => 'pw_select2 pw_select',
 			'desc'             => $field_type_object->_desc( true ),
 			'options'          => '<option></option>' . $field_type_object->concat_items(),
 			'data-placeholder' => $field->args( 'attributes', 'placeholder' ) ? $field->args( 'attributes', 'placeholder' ) : $field->args( 'description' ),
 		) );
+		echo $output; // WPCS: XSS ok.
 	}
 
 	/**

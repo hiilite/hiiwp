@@ -64,73 +64,80 @@ class CMB2_Render_Address_Field extends CMB2_Type_Base {
 		ob_start();
 		// Do html
 		?>
-		<div><p><label for="<?php echo $this->_id( '_address_1', false ); ?>"><?php echo esc_html( $this->_text( 'address_address_1_text', 'Address 1' ) ); ?></label></p>
-			<?php echo $this->types->input( array(
+		<div><p><label for="<?php echo esc_attr($this->_id( '_address_1', false )); ?>"><?php echo esc_html( $this->_text( 'address_address_1_text', 'Address 1' ) ); ?></label></p>
+			<?php $input =  $this->types->input( array(
 				'name'  => $this->_name( '[address-1]' ),
 				'id'    => $this->_id( '_address_1' ),
 				'value' => $value['address-1'],
 				'desc'  => '',
-			) ); ?>
+			) );
+			echo $input; // WPCS: XSS ok. ?>
 		</div>
-		<div><p><label for="<?php echo $this->_id( '_address_2', false ); ?>'"><?php echo esc_html( $this->_text( 'address_address_2_text', 'Address 2' ) ); ?></label></p>
-			<?php echo $this->types->input( array(
+		<div><p><label for="<?php echo esc_attr($this->_id( '_address_2', false )); ?>'"><?php echo esc_html( $this->_text( 'address_address_2_text', 'Address 2' ) ); ?></label></p>
+			<?php $input = $this->types->input( array(
 				'name'  => $this->_name( '[address-2]' ),
 				'id'    => $this->_id( '_address_2' ),
 				'value' => $value['address-2'],
 				'desc'  => '',
-			) ); ?>
+			) );
+			echo $input; // WPCS: XSS ok. ?>
 		</div>
 		<div style="overflow: hidden;">
-			<div class="alignleft"><p><label for="<?php echo $this->_id( '_city', false ); ?>'"><?php echo esc_html( $this->_text( 'address_city_text', 'City' ) ); ?></label></p>
-				<?php echo $this->types->input( array(
+			<div class="alignleft"><p><label for="<?php echo esc_attr($this->_id( '_city', false )); ?>'"><?php echo esc_html( $this->_text( 'address_city_text', 'City' ) ); ?></label></p>
+				<?php $input = $this->types->input( array(
 					'class' => 'cmb_text_small',
 					'name'  => $this->_name( '[city]' ),
 					'id'    => $this->_id( '_city' ),
 					'value' => $value['city'],
 					'desc'  => '',
-				) ); ?>
+				) );
+				echo $input; // WPCS: XSS ok. ?>
 			</div>
-			<div class="alignleft"><p><label for="<?php echo $this->_id( '_state', false ); ?>'"><?php echo esc_html( $this->_text( 'address_state_text', $state_label ) ); ?></label></p>
+			<div class="alignleft"><p><label for="<?php echo esc_attr($this->_id( '_state', false )); ?>'"><?php echo esc_html( $this->_text( 'address_state_text', $state_label ) ); ?></label></p>
 				<?php if ( $this->field->args( 'do_country' ) ) : ?>
-					<?php echo $this->types->input( array(
+					<?php $input = $this->types->input( array(
 						'class' => 'cmb_text_small',
 						'name'  => $this->_name( '[state]' ),
 						'id'    => $this->_id( '_state' ),
 						'value' => $value['state'],
 						'desc'  => '',
-					) ); ?>
+					) );
+					echo $input; // WPCS: XSS ok. ?>
 				<?php else: ?>
-					<?php echo $this->types->select( array(
+					<?php $input =  $this->types->select( array(
 						'name'    => $this->_name( '[state]' ),
 						'id'      => $this->_id( '_state' ),
 						'options' => $state_options,
 						'desc'    => '',
-					) ); ?>
+					) );
+					echo $input; ?>
 				<?php endif; ?>
 			</div>
-			<div class="alignleft"><p><label for="<?php echo $this->_id( '_zip', false ); ?>'"><?php echo esc_html( $this->_text( 'address_zip_text', 'Zip' ) ); ?></label></p>
-				<?php echo $this->types->input( array(
+			<div class="alignleft"><p><label for="<?php echo esc_attr($this->_id( '_zip', false )); ?>'"><?php echo esc_html( $this->_text( 'address_zip_text', 'Zip' ) ); ?></label></p>
+				<?php $input = $this->types->input( array(
 					'class' => 'cmb_text_small',
 					'name'  => $this->_name( '[zip]' ),
 					'id'    => $this->_id( '_zip' ),
 					'value' => $value['zip'],
 					'type'  => 'number',
 					'desc'  => '',
-				) ); ?>
+				) );
+				echo $input; // WPCS: XSS ok. ?>
 			</div>
 		</div>
 		<?php if ( $this->field->args( 'do_country' ) ) : ?>
-		<div class="clear"><p><label for="<?php echo $this->_id( '_country', false ); ?>'"><?php echo esc_html( $this->_text( 'address_country_text', 'Country' ) ); ?></label></p>
-			<?php echo $this->types->input( array(
+		<div class="clear"><p><label for="<?php echo esc_attr($this->_id( '_country', false )); ?>'"><?php echo esc_html( $this->_text( 'address_country_text', 'Country' ) ); ?></label></p>
+			<?php $input = $this->types->input( array(
 				'name'  => $this->_name( '[country]' ),
 				'id'    => $this->_id( '_country' ),
 				'value' => $value['country'],
 				'desc'  => '',
-			) ); ?>
+			) ); 
+			echo $input; // WPCS: XSS ok. ?>
 		</div>
 		<?php endif; ?>
 		<p class="clear">
-			<?php echo $this->_desc();?>
+			<?php echo esc_html($this->_desc());?>
 		</p>
 		<?php
 

@@ -1,4 +1,12 @@
 <?php
+/**
+ * HiiWP Template: portfolio-content-split
+ *
+ * @package     hiiwp
+ * @copyright   Copyright (c) 2018, Peter Vigilante
+ * @license     http://opensource.org/licenses/gpl-2.0.php GNU Public License
+ * @since       1.0
+ */
 /*
 
 // TODO: Make Title and feature image turn on by default in customizer	
@@ -95,7 +103,7 @@ echo '<div class="in_grid  align-top">';
 				}	
 			$team .= '</dd>';
 			
-			echo $team;
+			echo $team; // WPCS: XSS ok.
 		endif;
 
 		echo "</dl>";
@@ -128,7 +136,7 @@ echo '<div class="in_grid  align-top">';
 	
 				$social_share .= '</dd>';		
 			
-			echo $social_share;
+			echo $social_share; // WPCS: XSS ok.
 		}
 		
 		 ?>
@@ -138,36 +146,11 @@ echo '<div class="in_grid  align-top">';
 		if($hiilite_options['show_more_projects']):
 		do_action( 'hii_before_split_portfolio_more_projects' );
 		?>
-		<div class="project-comments">
-			<div class="align-center">
-				<h4>More Projects</h4>
-			</div>
-			<?php
-			$slug = get_theme_mod( 'portfolio_slug', 'portfolio' );
-			$args = array('post_type'=>$slug,'posts_per_page'=> '10','nopaging'=>true,'order'=>'ASC','orderby'=>'rand');
-			$query = new WP_Query($args);
-			?>
-			
-			<amp-carousel height="300" layout="fixed-height" type="carousel" class="carousel">
-				<div class="carousel-wrapper">
-			      <?php
-				while($query->have_posts()):
-					$query->the_post();
-					if ( has_post_thumbnail() ) {
-						$image = wp_get_attachment_image_src( get_post_thumbnail_id( get_the_id() ), 'large' );
-						$hratio = (300 / $image[2]);
-					?>
-				<a href="<?php echo get_the_permalink()?>" class="slide">
-			    	<img src="<?php echo $image[0]?>" width="<?php echo $image[1]*$hratio?>" height="<?php echo $image[2]*$hratio?>" alt="<?php echo get_the_title()?>">
- 				</a>
-			  <?php
-				  	}
-				  endwhile;
-				  ?>
-				</div>
-			</amp-carousel>
+		<div class="align-center">
+			<h4>More Projects</h4>
 		</div>
 		<?php
+		echo do_shortcode( '[portfolio portfolio_image_style="square" portfolio_show_info="true" portfolio_image_pos="image-behind" show_title="true" is_slider="true"]' );
 		do_action( 'hii_after_split_portfolio_more_projects' );
 		endif;
 		?>
@@ -192,4 +175,4 @@ echo '</div></div>';
 
 echo '</article>';
 do_action( 'hii_after_split_portfolio' );
-?>
+

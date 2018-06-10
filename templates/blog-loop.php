@@ -1,4 +1,12 @@
 <?php
+/**
+ * HiiWP Template: blog-loop
+ *
+ * @package     hiiwp
+ * @copyright   Copyright (c) 2018, Peter Vigilante
+ * @license     http://opensource.org/licenses/gpl-2.0.php GNU Public License
+ * @since       1.0
+ */
 global $post;
 if(!isset($atts)) $hiilite_options = Hii::get_options();
 $post_meta = get_post_meta(get_the_id());
@@ -112,20 +120,16 @@ do_action( 'hii_before_blog_loop' );
 	<?php 
 	if($hiilite_options['blog_title_position'] == 'title-above') { 
 		echo '<header class="entry-header content-box col-12">';
-		echo $article_title;
+		echo $article_title; // WPCS: XSS ok.
 		echo '</header>';
 	}
 	$thumb_size = ($hiilite_options['blog_img_pos']=='image-left')?'col-6':'col-12';
 	switch ($_post_format ) {
 		case 'video':
-			echo '<figure class="flex-item post-thumbnail ' . $thumb_size . '">';
-				echo $embedded_media[0];			
-			echo '</figure>';
+			echo (!empty($embedded_media))?'<figure class="flex-item post-thumbnail ' . $thumb_size . '">'.$embedded_media[0].'</figure>':'';
 		break;
 		case 'audio':
-			echo '<figure class="flex-item post-thumbnail ' . $thumb_size . '">';
-				echo $embedded_media[0];			
-			echo '</figure>';
+			echo (!empty($embedded_media))?'<figure class="flex-item post-thumbnail ' . $thumb_size . '">'.$embedded_media[0].'</figure>':'';
 		break;
 		default:
 			if(has_post_thumbnail($post->ID)): 
@@ -151,7 +155,7 @@ do_action( 'hii_before_blog_loop' );
 		<?php 
 		if($hiilite_options['blog_title_position'] == 'title-below') { 
 			echo '<header class="entry-header">';
-			echo $article_title;
+			echo $article_title; // WPCS: XSS ok.
 			echo '</header>';
 		}
 		echo '<div class="entry-content">';
@@ -162,7 +166,7 @@ do_action( 'hii_before_blog_loop' );
 			$more_button_class = get_theme_mod( 'blog_more_type', 'button' );
 			$more_button_class .= ($more_button_class != 'link' && $more_button_class != 'button')?' button readmore':' readmore';
 			?>
-			<a class="<?php echo $more_button_class;?>" href="<?php the_permalink() ?>" title="<?php echo 'Read more on ' . get_the_title(); ?>"><?php echo $hiilite_options['blog_more_ex'];?></a><?php 
+			<a class="<?php echo sanitize_html_class($more_button_class);?>" href="<?php the_permalink() ?>" title="<?php echo __('Read more on ' . get_the_title(), 'hiiwp'); ?>"><?php echo esc_html__($hiilite_options['blog_more_ex'], 'hiiwp');?></a><?php 
 		endif;
 		echo '</div>';
 		?>
@@ -170,4 +174,3 @@ do_action( 'hii_before_blog_loop' );
 </article>
 <?php
 do_action( 'hii_after_blog_loop' );	
-?>

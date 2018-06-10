@@ -1,4 +1,12 @@
 <?php
+/**
+ * HiiWP Template: team-loop
+ *
+ * @package     hiiwp
+ * @copyright   Copyright (c) 2018, Peter Vigilante
+ * @license     http://opensource.org/licenses/gpl-2.0.php GNU Public License
+ * @since       1.0
+ */
 global $post;
 $hiilite_options = HiiWP::get_options();
 $teams_cols = $hiilite_options['teams_cols'];
@@ -42,14 +50,14 @@ if(isset($is_slider) && $is_slider == true) $teams_cols .= ' slide';
 			if($hiilite_options['teams_show_position'] == true) {
 				echo "<div itemprop='articleSection' class='team-member-position'>"; 
 				$terms = get_the_terms( $post->id, $hiilite_options['team_tax_slug'] );
-				if($terms) echo $terms[0]->name;
+				if($terms) echo esc_html__($terms[0]->name, 'hiiwp');
 				echo "</div>";
 			}
 			if($hiilite_options['teams_show_excerpt'] == true) echo "<p class='team-member-excerpt'>".excerpt(30)."</p>";
 				
 			if($hiilite_options['teams_show_button'] == true) {
 				echo "<a class='button ".$hiilite_options['teams_button_style']."' href='".get_the_permalink()."'>"; 
-				echo $hiilite_options['teams_button_text'];
+				echo esc_html__($hiilite_options['teams_button_text'], 'hiiwp');
 				echo "</a>";
 			}	
 			?>

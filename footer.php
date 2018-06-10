@@ -1,10 +1,19 @@
 <?php
+/**
+ * HiiWP: Footer
+ *
+ * WordPress footer file
+ *
+ * @package     hiiwp
+ * @copyright   Copyright (c) 2016, Peter Vigilante
+ * @license     http://opensource.org/licenses/gpl-2.0.php GNU Public License
+ * @since       1.0
+ */
 $hiilite_options = Hii::get_options();
 do_action( 'hii_after_content' );
 
 do_action( 'hii_before_footer' );
 ?>			
-
 <!-- FOOTER -->
 <footer id="main_footer">
 	<?php 
@@ -129,7 +138,7 @@ do_action( 'hii_before_footer' );
 		do_action ( 'hii_after_footer_bottom' );
 		?>
 			<div class="full-width align-center">
-				<?php echo $hiilite_options['footer_bottom_copyright_text']; ?>
+				<?php echo $hiilite_options['footer_bottom_copyright_text']; // WPCS: XSS ok. ?>
 			</div>
 		
 	</div>

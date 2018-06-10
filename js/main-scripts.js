@@ -30,6 +30,7 @@ $(document).ready(function(){
 		$('#main_search input[name=s]').focus();
 	});
 	
+	
 	/*
 	Video Player size fix	
 	*/
@@ -327,7 +328,7 @@ $(document).ready(function(){
 					total_width += $(this).outerWidth(true);
 					$(this).css('max-width', function(){
 						col_name = this.className.match(/\bcol-[0-9]/);
-						return Math.max($carousel.width() / (12 / col_name[0].match(/[0-9]/)), 250);
+						return (col_name)?Math.max($carousel.width() / (12 / col_name[0].match(/[0-9]/)), 250):false;
 					});
 				});
 				

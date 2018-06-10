@@ -114,4 +114,4 @@ switch($shortcode_type){
 
 
 
-echo $output;
+echo $output; // WPCS: XSS ok.

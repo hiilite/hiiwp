@@ -7,7 +7,11 @@ if(in_array('0', $hiilite_options['show_title_on'])) {
 }
 
 $colcount = ($hiilite_options['blog_layouts'] =='masonry')?' col-count-'.$hiilite_options['blog_col']:'';
-if ( $hiilite_options['blog_sidebar_show'] == true ) $colcount .= ' col-9';
+if ( $hiilite_options['blog_sidebar_show'] == true ) {
+	$colcount .= ' col-9';
+} else {
+	$colcount .= ' col-12';
+}
 
 $grid = ($hiilite_options['blog_full_width'] == false) ? 'in_grid' : '';
 

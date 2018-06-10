@@ -1,7 +1,9 @@
 # Hiilite Wordpress theme
-This theme is currently in Alpha testing and should not be installed without the support of the team at Hiilite Creative Group
 
 ### Change log
+#### v1.0
+
+
 #### v0.4.9
 - Fixes to schema
 - General Code cleanup

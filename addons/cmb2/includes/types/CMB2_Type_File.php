@@ -73,7 +73,7 @@ class CMB2_Type_File extends CMB2_Type_File_Base {
 
 		$output .= sprintf(
 			'<input class="cmb2-upload-button button-secondary" type="button" value="%1$s" />',
-			esc_attr( $this->_text( 'add_upload_file_text', esc_html__( 'Add or Upload File', 'cmb2' ) ) )
+			esc_attr( $this->_text( 'add_upload_file_text', esc_html__( 'Add or Upload File', 'hiiwp' ) ) )
 		);
 
 		$output .= $a['desc'];
@@ -103,7 +103,7 @@ class CMB2_Type_File extends CMB2_Type_File_Base {
 				'class' => 'cmb-file-field-image',
 			) );
 		} else {
-			$image = '<img style="max-width: ' . absint( $this->args['img_size_data']['width'] ) . 'px; width: 100%;" src="' . $this->args['value'] . '" class="cmb-file-field-image" alt="" />';
+			$image = '<img style="max-width: ' . absint( $this->args['img_size_data']['width'] ) . 'px; width: 100%;" src="' . $this->args['value'] . '" class="cmb-file-field-image"  />';
 		}
 
 		return $this->img_status_output( array(

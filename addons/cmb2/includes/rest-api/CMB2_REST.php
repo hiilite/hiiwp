@@ -234,7 +234,7 @@ class CMB2_REST extends CMB2_Hookup_Base {
 	 * @return void
 	 */
 	protected static function register_rest_field( $object_types, $object_type ) {
-		register_rest_field( $object_types, 'cmb2', array(
+		register_rest_field( $object_types, 'hiiwp', array(
 			'get_callback'    => array( __CLASS__, "get_{$object_type}_rest_values" ),
 			'update_callback' => array( __CLASS__, "update_{$object_type}_rest_values" ),
 			'schema'          => null, // @todo add schema

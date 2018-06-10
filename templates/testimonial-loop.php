@@ -1,4 +1,12 @@
 <?php
+/**
+ * HiiWP Template: testimonial-loop
+ *
+ * @package     hiiwp
+ * @copyright   Copyright (c) 2018, Peter Vigilante
+ * @license     http://opensource.org/licenses/gpl-2.0.php GNU Public License
+ * @since       1.0
+ */
 $post_id = get_the_id();
 $options = get_option('company_options');
 extract(  array(
@@ -54,5 +62,5 @@ $output .= '<div itemprop="publisher" itemscope itemtype="http://schema.org/Orga
 //End item
 $output .= '</div></div><div class="align-center text-block"></div>';
 
-echo $output;
+echo $output; // WPCS: XSS ok.
 ?>

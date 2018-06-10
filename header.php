@@ -7,14 +7,14 @@
  * @package     hiiwp
  * @copyright   Copyright (c) 2016, Peter Vigilante
  * @license     http://opensource.org/licenses/gpl-2.0.php GNU Public License
- * @since       0.1.0
+ * @since       1.0
  */
 
 $hiilite_options = Hii::get_options();
 $bg_color = '';
 
 
-do_action('hii_doctype');
+echo do_action('hii_doctype');
 ?>
 <head>
 <meta charset="utf-8">
@@ -90,9 +90,9 @@ do_action( 'hii_before_header' );
 			endif;
 			
 			do_action( 'hii_before_main_header' );	
-			?>
-			<header id="main_header" class="<?php echo $hiilite_options['header_type'];?>" <?php echo $bg_color;?>>
-				<?php do_action('hii_header_hgroup');?>
+			
+			echo "<header id='main_header' class='". sanitize_html_class($hiilite_options['header_type'])."' {$bg_color}>";
+				do_action('hii_header_hgroup');?>
 				<div class="container_inner">
 				<?php 
 				if($hiilite_options['header_in_grid'] == true) { echo '<div class="in_grid">'; }
@@ -118,7 +118,7 @@ do_action( 'hii_before_header' );
 						?><div id="logo_container" class="<?php if($hiilite_options['header_center_right_on'] && !$hiilite_options['header_center_left_on']){ echo 'align-left';} ?>">		
 							
 							<a href="<?php echo esc_url( home_url() ); ?>">
-								<img src="<?php echo $hiilite_options['main_logo'];?>" width="<?php echo $hiilite_options['logo_width'];?>" alt="<?php echo hii_get_the_title();?>">
+								<img src="<?php echo esc_url($hiilite_options['main_logo']);?>" width="<?php echo intval($hiilite_options['logo_width']);?>" alt="<?php echo hii_get_the_title();?>">
 							</a>
 						</div><?php 
 					endif;
@@ -190,7 +190,7 @@ do_action( 'hii_before_header' );
 				</aside>
 				<?php 
 				do_action( 'hii_after_header_bottom' );
-				endif; ?>
-			</header><?php
+				endif;
+			echo "</header>";
 do_action( 'hii_after_main_header' );
 do_action( 'hii_before_content' );

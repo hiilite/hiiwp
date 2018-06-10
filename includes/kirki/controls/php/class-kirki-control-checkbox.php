@@ -41,7 +41,7 @@ class Kirki_Control_Checkbox extends Kirki_Control_Base {
 		<span class="customize-inside-control-row">
 			<input
 				id="<?php echo esc_attr( $input_id ); ?>"
-				<?php echo $describedby_attr; ?>
+				<?php echo $describedby_attr; // WPCS: XSS ok. ?>
 				type="checkbox"
 				value="<?php echo esc_attr( $this->value() ); ?>"
 				<?php $this->link(); ?>
@@ -49,7 +49,7 @@ class Kirki_Control_Checkbox extends Kirki_Control_Base {
 			/>
 			<label for="<?php echo esc_attr( $input_id ); ?>"><?php echo esc_html( $this->label ); ?></label>
 			<?php if ( ! empty( $this->description ) ) : ?>
-				<span id="<?php echo esc_attr( $description_id ); ?>" class="description customize-control-description"><?php echo $this->description; ?></span>
+				<span id="<?php echo esc_attr( $description_id ); ?>" class="description customize-control-description"><?php echo esc_html__($this->description, 'hiiwp'); ?></span>
 			<?php endif; ?>
 		</span>
 		<?php

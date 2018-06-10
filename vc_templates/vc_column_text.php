@@ -58,4 +58,4 @@ $output .= $icon_html;
 $output .= $icon_html_start.wpb_js_remove_wpautop( $content, true ).$icon_html_end;
 $output .= '</div>';
 
-echo $output;
+echo $output; // WPCS: XSS ok.

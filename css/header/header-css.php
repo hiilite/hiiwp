@@ -1,4 +1,15 @@
-<?php if(false): ?><style><?php endif; ?>
+<?php
+/**
+ * HiiWP: Header-CSS
+ *
+ * Header CSS file
+ *
+ * @package     hiiwp
+ * @copyright   Copyright (c) 2018, Peter Vigilante
+ * @license     http://opensource.org/licenses/gpl-2.0.php GNU Public License
+ * @since       1.0
+ */
+if(false): ?><style><?php endif; ?>
 header#main_header {
 	width: 100%;
 	align-items: center;
@@ -106,10 +117,10 @@ if(Hii::$options['header_top_area_yesno'] == true):
 	}
 	#header_top a,
 	#header_top a .fa {
-		color:<?php echo $header_top_colors['link'];?>;
+		color:<?php echo sanitize_rgba($header_top_colors['link']);?>;
 	}
 	#header_top a:hover{
-		color:<?php echo $header_top_colors['hover'];?>;
+		color:<?php echo sanitize_rgba($header_top_colors['hover']);?>;
 	}
 	<?php if(get_theme_mod('hide_top_bar_on_mobile_yesno') == true): ?>
 	@media (max-width:<?php echo get_theme_mod('mobile_menu_switch','768px')?>){

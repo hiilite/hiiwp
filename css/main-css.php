@@ -1,4 +1,15 @@
-<?php global $is_IE; ?><style>
+<?php 
+/**
+ * HiiWP: Main-CSS
+ *
+ * Main CSS file
+ *
+ * @package     hiiwp
+ * @copyright   Copyright (c) 2018, Peter Vigilante
+ * @license     http://opensource.org/licenses/gpl-2.0.php GNU Public License
+ * @since       1.0
+ */
+global $is_IE; ?><style>
 /*--------------------------------------------------------------
 >>> TABLE OF CONTENTS:
 ----------------------------------------------------------------
@@ -48,7 +59,7 @@ html {
 
 body {
 	margin: 0;
-<?php get_font_css(Hii::$options['default_font']); ?>
+<?php echo get_font_css(Hii::$options['default_font']); ?>
 }
 
 article,
@@ -547,7 +558,7 @@ td:last-child {
 	$link_color = Hii::$options['link_color']; ?>
 a,  
 a .fa {
-	color:<?php echo $link_color['link'];?>;
+	color:<?php echo sanitize_rgba($link_color['link']);?>;
 	
 	-webkit-transition: color 80ms ease-in, -webkit-box-shadow 130ms ease-in-out;
 	transition: color 80ms ease-in, -webkit-box-shadow 130ms ease-in-out;
@@ -579,10 +590,10 @@ h3 a:hover,
 h4 a:hover, 
 h5 a:hover, 
 h6 a:hover  {
-	color:<?php echo $link_color['hover'];?>;
+	color:<?php echo sanitize_rgba($link_color['hover']);?>;
 	outline: 0;
-	-webkit-box-shadow: inset 0 0 0 rgba(0, 0, 0, 0), 0 2px 0 <?php echo $link_color['hover'];?>;
-	box-shadow: inset 0 0 0 rgba(0, 0, 0, 0), 0 2px 0 <?php echo $link_color['hover'];?>;
+	-webkit-box-shadow: inset 0 0 0 rgba(0, 0, 0, 0), 0 2px 0 <?php echo sanitize_rgba($link_color['hover']);?>;
+	box-shadow: inset 0 0 0 rgba(0, 0, 0, 0), 0 2px 0 <?php echo sanitize_rgba($link_color['hover']);?>;
 }
 
 
@@ -679,6 +690,10 @@ h6 a:hover  {
 .group-blog .byline {
 	display: inline;
 }
+li.recentcomments {
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
 
 .pagination,
 .comments-pagination {
@@ -763,9 +778,7 @@ div#disqus_thread {
 }
 
 /* Blog landing, search, archives */
-#home_blog_loop .blog-article .col-12 {
-	margin-top: 1em;
-}
+
 .blog .site-main > article,
 .archive .site-main > article,
 .search .site-main > article {
@@ -1571,10 +1584,10 @@ p .alignright {
 $tablet_heading_sizes = '@media (max-width:768px){';
 $mobile_heading_sizes = '@media (max-width:550px){';
 for($h=1;$h<=6;$h++):
-	$heading_rule = "h$h,.h$h {";
-	echo $heading_rule;
-	get_font_css(Hii::$options['typography_h'.$h.'_font']);
-	echo '}';
+	$heading_rule = "h{$h},.h{$h} {";
+	$output = $heading_rule;
+	$output .= get_font_css(Hii::$options['typography_h'.$h.'_font']);
+	$output .= '}';
 	
 	preg_match('/^[0-9]+(\.[0-9]{1,2})?/', Hii::$options['typography_h'.$h.'_font']['font-size'], $font_size);
 	
@@ -1584,16 +1597,17 @@ for($h=1;$h<=6;$h++):
 		$tablet_heading_sizes .= $heading_rule . 'font-size:' . ($font_size[0] * 0.83) . $font_unit . '}';
 		$mobile_heading_sizes .= $heading_rule . 'font-size:' . ($font_size[0] * 0.75) . $font_unit . '}';
 	}
+	echo esc_html($output);
 endfor; 
 
-echo $tablet_heading_sizes.'}';
-echo $mobile_heading_sizes.'}';
+echo esc_html($tablet_heading_sizes.'}');
+echo esc_html($mobile_heading_sizes.'}');
 ?>
 
 
 p {
 <?php	
-	get_font_css(Hii::$options['text_font']);
+	echo get_font_css(Hii::$options['text_font']);
 	if(Hii::$options['text_margin'] != '') echo 'margin-bottom:'.Hii::$options['text_margin'].';';
 ?>
 }
@@ -1667,22 +1681,22 @@ $footer_bottom_colors = get_theme_mod('footer_bottom_colors');
 #main_footer {
 	position: relative;
 	<?php 
-	get_background_css(Hii::$options['footer_background']);
-	get_font_css(Hii::$options['typography_footer_text_font'])
+	echo get_background_css(Hii::$options['footer_background']);
+	echo get_font_css(Hii::$options['typography_footer_text_font'])
 	?>
 	border-top-style:solid;
 } 
 #main_footer p {
 	<?php 
-	get_font_css(Hii::$options['typography_footer_text_font'])
+	echo get_font_css(Hii::$options['typography_footer_text_font'])
 	?>
 } 
 
 #main_footer h1,#main_footer h2,#main_footer h3,#main_footer h4,#main_footer h5,#main_footer h6 {
-	<?php get_font_css(Hii::$options['typography_footer_headings_font']); ?>
+	<?php echo get_font_css(Hii::$options['typography_footer_headings_font']); ?>
 }
 #main_footer a {
-	<?php get_font_css(Hii::$options['typography_footer_links_font']); ?>
+	<?php echo get_font_css(Hii::$options['typography_footer_links_font']); ?>
 }
 #main_footer .menu .menu-item a {
 	padding:0;
@@ -1691,7 +1705,7 @@ $footer_bottom_colors = get_theme_mod('footer_bottom_colors');
 if(get_theme_mod( 'show_footer_top_yesno', true )): ?>
  #footer_top {
 	<?php 
-	get_background_css(Hii::$options['footer_top_background']);
+	echo get_background_css(Hii::$options['footer_top_background']);
 	if($footer_top_colors['text']) echo 'color:'.$footer_top_colors['text'];
 ?>
 }
@@ -1703,14 +1717,14 @@ if(get_theme_mod( 'show_footer_top_yesno', true )): ?>
 
 #footer_top .widgettitle {
 <?php 
-	get_font_css(Hii::$options['typography_footer_headings_font']);
+	echo get_font_css(Hii::$options['typography_footer_headings_font']);
 	if($footer_top_colors['title']) echo 'color:'.$footer_top_colors['title'];
 ?>
 }
 
 #footer_top a {
 <?php 
-	get_font_css(Hii::$options['typography_footer_links_font']);
+	echo get_font_css(Hii::$options['typography_footer_links_font']);
 	if($footer_top_colors['link']) echo 'color:'.$footer_top_colors['link'];
 ?>
 }
@@ -1744,7 +1758,7 @@ if(get_theme_mod( 'show_footer_top_yesno', true )): ?>
 	background: <?php echo get_theme_mod('footer_bottom_background_color'); ?>;
 	border-top-style: solid;
 	<?php 
-	get_font_css(get_theme_mod('typography_footer_bottom_text_font'));
+	echo get_font_css(get_theme_mod('typography_footer_bottom_text_font'));
 	if($footer_bottom_colors['text']) echo 'color:'.$footer_bottom_colors['text']; ?>
 }
 
@@ -1967,9 +1981,6 @@ endfor; ?>
 .blog-article .single-blog-post figure {
 	padding: 0;
 }
-#home_blog_loop .entry-title .fa {
-	color: <?php echo Hii::$options['blog_title_font']['color']; ?>;
-}
 
 /*
 //	note: Pagination 
@@ -2080,8 +2091,8 @@ a .fa, .fa {
 	width: 1.5em;
 	text-align: center;
 	line-height: 1;
-	<?php get_font_css(get_theme_mod('icon_settings')); ?>
-	<?php get_font_css(get_theme_mod('icon_settings_bg')); ?>
+	<?php echo get_font_css(get_theme_mod('icon_settings')); ?>
+	<?php echo get_font_css(get_theme_mod('icon_settings_bg')); ?>
 	border:<?php echo get_theme_mod('icon_settings_border', '0'); ?> solid;
 	border-radius:<?php echo get_theme_mod('icon_settings_border_r', '0'); ?>;
 	box-sizing: content-box;
@@ -2108,15 +2119,15 @@ else echo Hii::$options['custom_format_3'];
 */
 .sidebar,
 .widget {
-	<?php get_font_css(get_theme_mod( 'sidebar_widget_text_font' )); ?>
+	<?php echo get_font_css(get_theme_mod( 'sidebar_widget_text_font' )); ?>
 }
 .sidebar h3,
 .widgettitle {
-	<?php get_font_css(get_theme_mod( 'sidebar_widget_title_font' )); ?>
+	<?php echo get_font_css(get_theme_mod( 'sidebar_widget_title_font' )); ?>
 }
 .sidebar a,
 .widget a {
-	<?php	get_font_css(get_theme_mod( 'sidebar_widget_link_font' ));	?>
+	<?php echo get_font_css(get_theme_mod( 'sidebar_widget_link_font' ));	?>
 }
 .sidebar ul,
 .widget ul {
@@ -2240,10 +2251,10 @@ if(Hii::$options['testimonials_on']):
 	    padding: 0 3em;
 	}
 	.testimonial_content { 
-		<?php get_font_css(Hii::$options[ 'testimonials_body_font' ]); ?>
+		<?php echo get_font_css(Hii::$options[ 'testimonials_body_font' ]); ?>
 	}
 	.testimonial_author {
-		<?php get_font_css(Hii::$options[ 'testimonials_author_font' ]); ?>
+		<?php echo get_font_css(Hii::$options[ 'testimonials_author_font' ]); ?>
 	}
 	.testimonial_item .circle.testimonial_image {
 	    overflow: hidden;
@@ -2368,6 +2379,9 @@ endif;
 if(class_exists('GFForms')):
 	get_template_part('css/service_extensions/gravityforms', 'css');	
 endif;
+if(class_exists('WPCF7')):
+	get_template_part('css/service_extensions/contactform7', 'css');	
+endif;
 if(class_exists('SportsPress')):
 	get_template_part( 'css/service_extensions/sportspress', 'css');
 endif;
@@ -2388,7 +2402,7 @@ if(is_user_logged_in()):
 	<?php
 endif;
 
-$custom_formats = '
+echo '
 .custom_format_1 {
 	'.preg_replace('/[{}]/','',Hii::$options['custom_format_1']).'
 }
@@ -2398,7 +2412,7 @@ $custom_formats = '
 .custom_format_3 {
 	'.preg_replace('/[{}]/','',Hii::$options['custom_format_3']).'
 }';
-echo $custom_formats;
+
 
 do_action ( 'custom_css' );
 echo Hii::$options['custom_css'];

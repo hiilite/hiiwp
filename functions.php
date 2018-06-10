@@ -8,7 +8,7 @@
  * @author      Peter Vigilante
  * @copyright   Copyright (c) 2017, Hiilite Creative Group
  * @license     http://opensource.org/licenses/https://opensource.org/licenses/MIT
- * @since       0.4.8
+ * @since       1.0
  */
 
 
@@ -63,7 +63,7 @@ class Hii {
 	 */
 	private function define_constants(){
 	    if ( ! defined( 'HIIWP_VERSION' ) ) {                
-			 define( 'HIIWP_VERSION', '0.4.9' );
+			 define( 'HIIWP_VERSION', '1.0' );
 		}
 		if ( ! defined( 'HIIWP_SLUG' ) ) {                
 		    define( 'HIIWP_SLUG', 'hiiwp' );           
@@ -100,12 +100,6 @@ class Hii {
 		foreach (glob(HIILITE_DIR."/includes/class-hiiwp-*.php") as $filename) {
 		    include_once( $filename );
 		} 
-		
-		if ( ! class_exists( 'AM_License_Menu' ) ) {
-			require_once( HIILITE_DIR . '/includes/service_extensions/am-license-menu.php' );
-			AM_License_Menu::instance( __FILE__, 'HiiWP', HIIWP_VERSION, 'theme', 'https://hiilite.com/' );
-		    
-		}
 		
 		$this->hooks		= new HiiWP_Hooks();
 		$this->post_types	= new HiiWP_Post_Types();
@@ -235,7 +229,6 @@ class Hii {
 		 */
 		load_theme_textdomain( 'hiiwp' );
 		
-		add_theme_support( 'menus' );
 		
 		// Add default posts and comments RSS feed links to head.
 		add_theme_support( 'automatic-feed-links' );
@@ -355,9 +348,9 @@ function hii_get_the_title(){
 		$page_title = get_the_title( get_the_id( ) );
 	elseif(is_search(  )){
 		$search   = get_query_var( 's' );
-		$page_title = sprintf( __( 'Search Results %1$s %2$s' ), $t_sep, strip_tags( $search ) ); }
+		$page_title = sprintf( __( 'Search Results %1$s %2$s', 'hiiwp' ), $t_sep, strip_tags( $search ) ); }
 	elseif(is_404())
-		$page_title = __( 'Page not found' );
+		$page_title = __( 'Page not found', 'hiiwp' );
 	else
 		$page_title = get_the_title( get_the_id( ));
 		
@@ -372,7 +365,7 @@ function hii_get_the_title(){
 */
 add_action( 'wp_enqueue_scripts', 'enqueue_load_fa' );
 function enqueue_load_fa() {
-    wp_enqueue_style( 'load-fa', 'https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css' );
+    wp_enqueue_style( 'load-fa', get_template_directory_uri(  ).'/css/font-awesome/css/font-awesome.min.css' );
 }
 
 /**
@@ -399,25 +392,25 @@ function hii_the_title() {
 			if($value != ''){
 				switch ($rule){
 					case 'background-image':case 'image':
-						echo "background-image:url($value);";
+						return "background-image:url($value);";
 						break;
 					case 'background-attach':case 'attach':
-						echo "background-attachment:$value;";
+						return "background-attachment:$value;";
 						break;
 					case 'background-position':case 'position':
-						echo 'background-position:'.str_replace('-', ' ', $value).';';
+						return 'background-position:'.str_replace('-', ' ', $value).';';
 						break;
 					case 'background-size':case 'size':
-						echo "background-size:$value;";
+						return "background-size:$value;";
 						break;
 					case 'background-repeat':case 'repeat':
-						echo "background-repeat:$value;";
+						return "background-repeat:$value;";
 						break;
 					case 'background-color':case 'color':
-						echo "background-color:$value;";
+						return "background-color:$value;";
 						break;
 					default:
-						echo "$rule:$value;";
+						return "$rule:$value;";
 						break;
 						
 				}
@@ -426,6 +419,25 @@ function hii_the_title() {
 	}
 endif;
 
+/**
+ * sanitize_rgba function.
+ * 
+ * @access public
+ * @param mixed $font
+ * @return void
+ */
+function sanitize_rgba( $color ) {
+    // If string does not start with 'rgba', then treat as hex
+    // sanitize the hex color and finally convert hex to rgba
+    if ( false === strpos( $color, 'rgba' ) ) {
+        return sanitize_hex_color( $color );
+    }
+
+    // By now we know the string is formatted as an rgba color so we need to further sanitize it.
+    $color = str_replace( ' ', '', $color );
+    sscanf( $color, 'rgba(%d,%d,%d,%f)', $red, $green, $blue, $alpha );
+    return 'rgba('.$red.','.$green.','.$blue.','.$alpha.')';
+}
 
 /**
  * get_font_css function.
@@ -509,10 +521,7 @@ function get_font_css($font) {
 				
 			}
 		}
-		echo $font_family.';'.
-			 $font_weight.
-			 $font_extras.
-			 $text_align;
+		return $font_family.';'.$font_weight.$font_extras.$text_align;
 	}
 }
 endif;
@@ -532,16 +541,16 @@ function get_justify_content($align){
 					echo 'justify-content:';
 					switch ($value) {
 						case 'left':
-							echo 'flex-start;';
+							return 'flex-start;';
 						break;
 						case 'right':
-							echo 'flex-end;';
+							return 'flex-end;';
 						break;
 						case 'center':
-							echo 'center;';
+							return 'center;';
 						break;
 						case 'justify':
-							echo 'space-around;';
+							return 'space-around;';
 						break;
 					}
 					echo ';';

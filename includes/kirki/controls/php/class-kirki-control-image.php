@@ -46,13 +46,13 @@ class Kirki_Control_Image extends Kirki_Control_Base {
 
 		data.choices.labels = _.isObject( data.choices.labels ) ? data.choices.labels : {};
 		data.choices.labels = _.defaults( data.choices.labels, {
-			select: '<?php esc_attr_e( 'Select image', 'kirki' ); ?>',
-			change: '<?php esc_attr_e( 'Change image', 'kirki' ); ?>',
-			'default': '<?php esc_attr_e( 'Default', 'kirki' ); ?>',
-			remove: '<?php esc_attr_e( 'Remove', 'kirki' ); ?>',
-			placeholder: '<?php esc_attr_e( 'No image selected', 'kirki' ); ?>',
-			frame_title: '<?php esc_attr_e( 'Select image', 'kirki' ); ?>',
-			frame_button: '<?php esc_attr_e( 'Choose image', 'kirki' ); ?>',
+			select: '<?php esc_attr_e( 'Select image', 'hiiwp' ); ?>',
+			change: '<?php esc_attr_e( 'Change image', 'hiiwp' ); ?>',
+			'default': '<?php esc_attr_e( 'Default', 'hiiwp' ); ?>',
+			remove: '<?php esc_attr_e( 'Remove', 'hiiwp' ); ?>',
+			placeholder: '<?php esc_attr_e( 'No image selected', 'hiiwp' ); ?>',
+			frame_title: '<?php esc_attr_e( 'Select image', 'hiiwp' ); ?>',
+			frame_button: '<?php esc_attr_e( 'Choose image', 'hiiwp' ); ?>',
 		} );
 		#>
 		<label>
@@ -66,7 +66,7 @@ class Kirki_Control_Image extends Kirki_Control_Base {
 		<div class="image-wrapper attachment-media-view image-upload">
 			<# if ( data.value['url'] || '' !== url ) { #>
 				<div class="thumbnail thumbnail-image">
-					<img src="{{ url }}" alt="" />
+					<img src="{{ url }}"  />
 				</div>
 			<# } else { #>
 				<div class="placeholder">{{ data.choices.labels.placeholder }}</div>

@@ -128,14 +128,14 @@ class Kirki_Control_Base extends WP_Customize_Control {
 			'kirkiL10n',
 			array(
 				'isScriptDebug'        => ( defined( 'SCRIPT_DEBUG' ) && true === SCRIPT_DEBUG ),
-				'noFileSelected'       => esc_attr__( 'No File Selected', 'kirki' ),
-				'remove'               => esc_attr__( 'Remove', 'kirki' ),
-				'default'              => esc_attr__( 'Default', 'kirki' ),
-				'selectFile'           => esc_attr__( 'Select File', 'kirki' ),
-				'standardFonts'        => esc_attr__( 'Standard Fonts', 'kirki' ),
-				'googleFonts'          => esc_attr__( 'Google Fonts', 'kirki' ),
-				'defaultCSSValues'     => esc_attr__( 'CSS Defaults', 'kirki' ),
-				'defaultBrowserFamily' => esc_attr__( 'Default Browser Font-Family', 'kirki' ),
+				'noFileSelected'       => esc_attr__( 'No File Selected', 'hiiwp' ),
+				'remove'               => esc_attr__( 'Remove', 'hiiwp' ),
+				'default'              => esc_attr__( 'Default', 'hiiwp' ),
+				'selectFile'           => esc_attr__( 'Select File', 'hiiwp' ),
+				'standardFonts'        => esc_attr__( 'Standard Fonts', 'hiiwp' ),
+				'googleFonts'          => esc_attr__( 'Google Fonts', 'hiiwp' ),
+				'defaultCSSValues'     => esc_attr__( 'CSS Defaults', 'hiiwp' ),
+				'defaultBrowserFamily' => esc_attr__( 'Default Browser Font-Family', 'hiiwp' ),
 			)
 		);
 

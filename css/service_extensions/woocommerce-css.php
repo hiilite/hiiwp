@@ -12,6 +12,7 @@
 .woocommerce .woocommerce-breadcrumb a {
 	margin-bottom: 0;
 	color: <?php echo Hii::$options['title_font']['color']; ?>;
+	font-size:0.92rem;
 }
 .woocommerce .products ul li, .woocommerce ul.products li {
     list-style: none outside;

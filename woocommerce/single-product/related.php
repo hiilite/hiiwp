@@ -27,7 +27,7 @@ if ( $related_products ) : ?>
 		<h2><?php esc_html_e( 'Related products', 'hiiwp' ); ?></h2>
 		
 		<?php woocommerce_product_loop_start(); ?>
-		<amp-carousel layout="responsive" type="carousel" width="1100px" height="200px" class="relatedposts">
+		<amp-carousel layout="fixed-height" type="carousel" height="300px" class="relatedposts">
 			<div class="carousel-wrapper">
 			<?php foreach ( $related_products as $related_product ) : ?>
 				<div class="relatedarticle slide">

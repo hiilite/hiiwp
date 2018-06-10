@@ -32,7 +32,7 @@ class HiiWP_Dashboard {
 	
 	public function __construct() {
 		
-		add_action( 'admin_bar_menu', 		array( $this, 'modify_admin_bar' ), 999 );
+		
 		add_action( 'wp_dashboard_setup', 	array( $this, 'hiilite_move_dashboard_widget' ));
 		add_action( 'wp_dashboard_setup', 	array( $this, 'hiilite_remove_dashboard_widgets' ));
 		add_action( 'wp_dashboard_setup', 	array( $this, 'hiilite_add_dashboard_widgets' ));
@@ -86,7 +86,7 @@ class HiiWP_Dashboard {
 	
 
 	
-	public function modify_admin_bar( $wp_admin_bar ){
+	/*public function modify_admin_bar( $wp_admin_bar ){
 		$wp_admin_bar->remove_node( 'wporg' );
 		$wp_admin_bar->remove_node( 'about' );
 		$wp_admin_bar->remove_node( 'documentation' );
@@ -122,7 +122,7 @@ class HiiWP_Dashboard {
 		);
 		$wp_admin_bar->add_node( $args );
 		
-	}
+	}*/
 
 	public function hiilite_login_logo() { 
 		$hiilite_options['main_logo'] = get_theme_mod('main_logo', get_template_directory_uri().'/images/logoNormal@2x.png');

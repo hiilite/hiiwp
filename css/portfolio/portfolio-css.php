@@ -70,6 +70,28 @@ ul.portfolio_terms li a {
 
 .portfolio-piece {
 	padding: <?php echo Hii::$options['portfolio_add_padding']; ?>;
+	min-width: 250px;
+}
+.portfolio-piece.col-3 {
+	max-width: 25%;
+}
+@media (max-width:1100px){
+	.portfolio-piece.col-3,
+	.portfolio-piece.col-4 {
+		max-width: 33.33%;
+	}
+}
+@media (max-width:768px){
+	.portfolio-piece.col-3,
+	.portfolio-piece.col-4 {
+		max-width: 50%;
+	}
+}
+@media (max-width:500px){
+	.portfolio-piece.col-3,
+	.portfolio-piece.col-4 {
+		max-width: 100%;
+	}
 }
 .portfolio-piece img {
 	display: block;
@@ -104,7 +126,7 @@ ul.portfolio_terms li a {
 <?php
 if(Hii::$options['portfolio_template'] == 'split') {
 ?>
-.single-portfolio .portfolio {
+.single-portfolio .portfolio-gallery {
 	padding-top:3em;
 	padding-bottom:3em;
 	background:<?php echo Hii::$options['portfolio_background']; ?>;	

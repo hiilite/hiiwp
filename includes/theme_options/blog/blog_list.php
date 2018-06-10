@@ -90,9 +90,9 @@ Kirki::add_field( 'hiiwp', array(
 	'section'     => $section,
 	'default'     => $hiilite_options['blogs_image_style'],
 	'choices'     => array(
-		'default'   => esc_attr__( 'Default', 'textdomain' ),
-		'square' 	=> esc_attr__( 'Square', 'textdomain' ),
-		'circle'  	=> esc_attr__( 'Circle', 'textdomain' ),
+		'default'   => esc_attr__( 'Default', 'hiiwp' ),
+		'square' 	=> esc_attr__( 'Square', 'hiiwp' ),
+		'circle'  	=> esc_attr__( 'Circle', 'hiiwp' ),
 	),
 	'priority'	  => 1,
 	'description'    => __( 'Choose how you would like your blog photos to display', 'hiiwp' ),
@@ -311,13 +311,6 @@ Kirki::add_field( 'hiiwp', array(
 			'element'	=> '#home_blog_loop .blog-article .content-box',
 			'property'	=> 'border-color',
 		)  
-    ),
-    'active_callback'	=> array(
-	    array(
-		    'setting'	=> 'blog_post_border_width',
-		    'operator'	=> '==',
-		    'value'	=> '0px',
-	    ),
     ),
 ) );
 Kirki::add_field( 'hiiwp', array(

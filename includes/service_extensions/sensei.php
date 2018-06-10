@@ -2,18 +2,18 @@
 
 function learn_widgets_init() {
   register_sidebar( array(
-    'name'          => esc_html__( 'Course Sidebar', 'learn' ),
+    'name'          => esc_html__( 'Course Sidebar', 'hiiwp' ),
     'id'            => 'sidebar-course',        
-    'description'   => esc_html__( 'Appears in the sidebar section of the courses.', 'learn' ),        
+    'description'   => esc_html__( 'Appears in the sidebar section of the courses.', 'hiiwp' ),        
     'before_widget' => '<div id="%1$s" class="widget %2$s">',        
     'after_widget'  => '</div>',        
     'before_title'  => '<h4 class="widget_title">',        
     'after_title'   => '</h4>'
     ) );
   register_sidebar( array(
-    'name'          => esc_html__( 'Lesson Widget', 'learn' ),
+    'name'          => esc_html__( 'Lesson Widget', 'hiiwp' ),
     'id'            => 'lesson-widget',        
-    'description'   => esc_html__( 'Appears in the sidebar section of the courses.', 'learn' ),        
+    'description'   => esc_html__( 'Appears in the sidebar section of the courses.', 'hiiwp' ),        
     'before_widget' => '<div id="%1$s" class="widget %2$s">',        
     'after_widget'  => '</div>',        
     'before_title'  => '<h4 class="widget_title">',        
@@ -42,25 +42,25 @@ add_action( 'edit_user_profile', 'learn_add_extra_social_links' );
 function learn_add_extra_social_links( $user )
 {
     ?>
-        <h3><?php esc_html_e('Extra Info User', 'learn'); ?></h3>
+        <h3><?php esc_html_e('Extra Info User', 'hiiwp'); ?></h3>
 
         <table class="form-table">
             <tr>
-                <th><label for="phone_profile"><?php esc_html_e('Phone Number', 'learn'); ?></label></th>
+                <th><label for="phone_profile"><?php esc_html_e('Phone Number', 'hiiwp'); ?></label></th>
                 <td><input type="text" name="phone_profile" value="<?php echo esc_attr(get_the_author_meta( 'phone_profile', $user->ID )); ?>" class="regular-text" /></td>
             </tr>
             <tr>
-                <th><label for="facebook_profile"><?php esc_html_e('Facebook', 'learn'); ?></label></th>
+                <th><label for="facebook_profile"><?php esc_html_e('Facebook', 'hiiwp'); ?></label></th>
                 <td><input type="text" name="facebook_profile" value="<?php echo esc_attr(get_the_author_meta( 'facebook_profile', $user->ID )); ?>" class="regular-text" /></td>
             </tr>
 
             <tr>
-                <th><label for="twitter_profile"><?php esc_html_e('Twitter', 'learn'); ?></label></th>
+                <th><label for="twitter_profile"><?php esc_html_e('Twitter', 'hiiwp'); ?></label></th>
                 <td><input type="text" name="twitter_profile" value="<?php echo esc_attr(get_the_author_meta( 'twitter_profile', $user->ID )); ?>" class="regular-text" /></td>
             </tr>
 
             <tr>
-                <th><label for="google_profile"><?php esc_html_e('Google+', 'learn'); ?></label></th>
+                <th><label for="google_profile"><?php esc_html_e('Google+', 'hiiwp'); ?></label></th>
                 <td><input type="text" name="google_profile" value="<?php echo esc_attr(get_the_author_meta( 'google_profile', $user->ID )); ?>" class="regular-text" /></td>
             </tr>
         </table>
@@ -114,7 +114,7 @@ function learn_blog_excerpt($limit) {
 
 /*Breadcrumbs*/
 function learn_breadcrumbs() {
-    $text['home']     = esc_html__('Home', 'learn'); // text for the 'Home' link
+    $text['home']     = esc_html__('Home', 'hiiwp'); // text for the 'Home' link
     $text['category'] = '%s'; // text for a category page
     $text['tax']      = '%s'; // text for a taxonomy page
     $text['search']   = '%s'; // text for a search results page
@@ -151,9 +151,9 @@ function learn_breadcrumbs() {
                 $cats = get_category_parents($thisCat->parent, TRUE, $delimiter);
                 $cats = str_replace('<a', $linkBefore . '<a' . $linkAttr, $cats);
                 $cats = str_replace('</a>', '</a>' . $linkAfter, $cats);
-                echo htmlspecialchars_decode( $cats );
+                echo wp_specialchars_decode( $cats );
             }
-            echo htmlspecialchars_decode( $before ) . sprintf($text['category'], single_cat_title('', false)) . htmlspecialchars_decode( $after );
+            echo wp_specialchars_decode( $before ) . sprintf($text['category'], single_cat_title('', false)) . wp_specialchars_decode( $after );
  
         } elseif( is_tax() ){
             $thisCat = get_category(get_query_var('cat'), false);
@@ -161,24 +161,24 @@ function learn_breadcrumbs() {
                 $cats = get_category_parents($thisCat->parent, TRUE, $delimiter);
                 $cats = str_replace('<a', $linkBefore . '<a' . $linkAttr, $cats);
                 $cats = str_replace('</a>', '</a>' . $linkAfter, $cats);
-                echo htmlspecialchars_decode( $cats );
+                echo wp_specialchars_decode( $cats );
             }
-            echo htmlspecialchars_decode( $before ) . sprintf($text['tax'], single_cat_title('', false)) . htmlspecialchars_decode( $after );
+            echo wp_specialchars_decode( $before ) . sprintf($text['tax'], single_cat_title('', false)) . wp_specialchars_decode( $after );
         
         }elseif ( is_search() ) {
-            echo htmlspecialchars_decode( $before ) . sprintf($text['search'], get_search_query()) . htmlspecialchars_decode( $after );
+            echo wp_specialchars_decode( $before ) . sprintf($text['search'], get_search_query()) . wp_specialchars_decode( $after );
  
         } elseif ( is_day() ) {
             echo sprintf($link, esc_url(get_year_link(get_the_time('Y'))), get_the_time('Y')) . $delimiter;
             echo sprintf($link, esc_url(get_month_link(get_the_time('Y'),get_the_time('m'))), get_the_time('F')) . $delimiter;
-            echo htmlspecialchars_decode( $before ) . get_the_time('d') . htmlspecialchars_decode( $after );
+            echo wp_specialchars_decode( $before ) . get_the_time('d') . wp_specialchars_decode( $after );
  
         } elseif ( is_month() ) {
             echo sprintf($link, esc_url(get_year_link(get_the_time('Y'))), get_the_time('Y')) . $delimiter;
-            echo htmlspecialchars_decode( $before ) . get_the_time('F') . htmlspecialchars_decode( $after );
+            echo wp_specialchars_decode( $before ) . get_the_time('F') . wp_specialchars_decode( $after );
  
         } elseif ( is_year() ) {
-            echo htmlspecialchars_decode( $before ) . get_the_time('Y') . htmlspecialchars_decode( $after );
+            echo wp_specialchars_decode( $before ) . get_the_time('Y') . wp_specialchars_decode( $after );
  
         } elseif ( is_single() && !is_attachment() ) {
             if ( get_post_type() != 'post' ) {
@@ -189,20 +189,20 @@ function learn_breadcrumbs() {
              }else{
               printf($link, esc_url($homeLink) . '/' . $slug['slug'] . '/', $post_type->labels->singular_name);
              }
-                if ($showCurrent == 1) echo htmlspecialchars_decode( $delimiter ) . $before . get_the_title() . $after;
+                if ($showCurrent == 1) echo wp_specialchars_decode( $delimiter ) . $before . get_the_title() . $after;
             } else {
                 $cat = get_the_category(); $cat = $cat[0];
                 $cats = get_category_parents($cat, TRUE, $delimiter);
                 if ($showCurrent == 0) $cats = preg_replace("#^(.+)$delimiter$#", "$1", $cats);
                 $cats = str_replace('<a', $linkBefore . '<a' . $linkAttr, $cats);
                 $cats = str_replace('</a>', '</a>' . $linkAfter, $cats);
-                echo htmlspecialchars_decode( $cats );
-                if ($showCurrent == 1) echo htmlspecialchars_decode( $before ) . get_the_title() . $after;
+                echo wp_specialchars_decode( $cats );
+                if ($showCurrent == 1) echo wp_specialchars_decode( $before ) . get_the_title() . $after;
             }
  
         } elseif ( !is_single() && !is_page() && get_post_type() != 'post' && !is_404() ) {
             $post_type = get_post_type_object(get_post_type());
-            echo htmlspecialchars_decode( $before ) . $post_type->labels->singular_name . htmlspecialchars_decode( $after );
+            echo wp_specialchars_decode( $before ) . $post_type->labels->singular_name . wp_specialchars_decode( $after );
  
         } elseif ( is_attachment() ) {
             $parent = get_post($post->post_parent);
@@ -210,12 +210,12 @@ function learn_breadcrumbs() {
             $cats = get_category_parents($cat, TRUE, $delimiter);
             $cats = str_replace('<a', $linkBefore . '<a' . $linkAttr, $cats);
             $cats = str_replace('</a>', '</a>' . $linkAfter, $cats);
-            echo htmlspecialchars_decode( $cats );
+            echo wp_specialchars_decode( $cats );
             printf($link, esc_url(get_permalink($parent)), $parent->post_title);
-            if ($showCurrent == 1) echo htmlspecialchars_decode( $delimiter ) . $before . get_the_title() . $after;
+            if ($showCurrent == 1) echo wp_specialchars_decode( $delimiter ) . $before . get_the_title() . $after;
  
         } elseif ( is_page() && !$post->post_parent ) {
-            if ($showCurrent == 1) echo htmlspecialchars_decode( $before ) . get_the_title() . $after;
+            if ($showCurrent == 1) echo wp_specialchars_decode( $before ) . get_the_title() . $after;
  
         } elseif ( is_page() && $post->post_parent ) {
             $parent_id  = $post->post_parent;
@@ -227,21 +227,21 @@ function learn_breadcrumbs() {
             }
             $breadcrumbs = array_reverse($breadcrumbs);
             for ($i = 0; $i < count($breadcrumbs); $i++) {
-                echo htmlspecialchars_decode( $breadcrumbs[$i] );
-                if ($i != count($breadcrumbs)-1) echo htmlspecialchars_decode( $delimiter );
+                echo wp_specialchars_decode( $breadcrumbs[$i] );
+                if ($i != count($breadcrumbs)-1) echo wp_specialchars_decode( $delimiter );
             }
-            if ($showCurrent == 1) echo htmlspecialchars_decode( $delimiter ) . $before . get_the_title() . $after;
+            if ($showCurrent == 1) echo wp_specialchars_decode( $delimiter ) . $before . get_the_title() . $after;
  
         } elseif ( is_tag() ) {
-            echo htmlspecialchars_decode( $before ) . sprintf($text['tag'], single_tag_title('', false)) . $after;
+            echo wp_specialchars_decode( $before ) . sprintf($text['tag'], single_tag_title('', false)) . $after;
  
         } elseif ( is_author() ) {
              global $author;
             $userdata = get_userdata($author);
-            echo htmlspecialchars_decode( $before ) . sprintf($text['author'], $userdata->display_name) . $after;
+            echo wp_specialchars_decode( $before ) . sprintf($text['author'], $userdata->display_name) . $after;
  
         } elseif ( is_404() ) {
-            echo htmlspecialchars_decode( $before ) . $text['404'] . $after;
+            echo wp_specialchars_decode( $before ) . $text['404'] . $after;
         }
  
         if ( get_query_var('paged') ) {
@@ -291,7 +291,7 @@ function learn_theme_comment($comment, $args, $depth) {
         <div><?php echo get_avatar($comment,$size='80',$default='http://0.gravatar.com/avatar/ad516503a11cd5ca435acc9bb6523536' ); ?></div>
         <div class="comment_right clearfix">
           <div class="comment_info">
-            <?php printf(esc_html__('%s','learn'), get_comment_author()) ?><span>|</span> <?php the_time( get_option( 'date_format' ) ); ?> <span>|</span><?php comment_reply_link(array_merge( $args, array('depth' => $depth, 'max_depth' => $args['max_depth']))) ?>
+            <?php printf(esc_html__('%s','hiiwp'), get_comment_author()) ?><span>|</span> <?php the_time( get_option( 'date_format' ) ); ?> <span>|</span><?php comment_reply_link(array_merge( $args, array('depth' => $depth, 'max_depth' => $args['max_depth']))) ?>
             <?php if ( is_singular( 'course' ) ) {  ?>
             <?php if($rate) { ?>
             <div class="rating">
@@ -308,7 +308,7 @@ function learn_theme_comment($comment, $args, $depth) {
             <?php } } ?>
           </div>          
           <?php if ($comment->comment_approved == '0'){ ?>
-              <p><em><?php esc_html_e('Your comment is awaiting moderation.','learn') ?></em></p>
+              <p><em><?php esc_html_e('Your comment is awaiting moderation.','hiiwp') ?></em></p>
           <?php }else{ ?>
               <?php comment_text() ?>
           <?php } ?>
@@ -411,12 +411,12 @@ function learn_comment_form_logged_in( $logged_in_as, $commenter, $user_identity
 		$commenter['rating'] = '<p class="comment-form-rating">' .
 							   '<span class="stars"><a class="star-1" href="#">1</a><a class="star-2" href="#">2</a><a class="star-3" href="#">3</a><a class="star-4" href="#">4</a><a class="star-5" href="#">5</a></span>' .
 							   '<select name="rating" id="rating" style="display: none;">' .
-							   '<option value="">' . esc_html__( 'Rate...', 'learn' ) . '</option>' .
-							   '<option value="5">' . esc_html__( 'Perfect', 'learn' ) . '</option>' .
-							   '<option value="4">' . esc_html__( 'Good', 'learn' ) . '</option>' .
-							   '<option value="3">' . esc_html__( 'Average', 'learn' ) . '</option>' .
-							   '<option value="2">' . esc_html__( 'Not that bad', 'learn' ) . '</option>' .
-							   '<option value="1">' . esc_html__( 'Very poor', 'learn' ) . '</option>' .
+							   '<option value="">' . esc_html__( 'Rate...', 'hiiwp' ) . '</option>' .
+							   '<option value="5">' . esc_html__( 'Perfect', 'hiiwp' ) . '</option>' .
+							   '<option value="4">' . esc_html__( 'Good', 'hiiwp' ) . '</option>' .
+							   '<option value="3">' . esc_html__( 'Average', 'hiiwp' ) . '</option>' .
+							   '<option value="2">' . esc_html__( 'Not that bad', 'hiiwp' ) . '</option>' .
+							   '<option value="1">' . esc_html__( 'Very poor', 'hiiwp' ) . '</option>' .
 							   '</select></p>';
 						   
 		return $logged_in_as . $commenter['rating'];

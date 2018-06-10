@@ -99,7 +99,7 @@ textarea {
 label {
 	color: #333;
 	display: block;
-	font-weight: 800;
+	font-weight: 600;
 	margin-bottom: 0.5em;
 }
 

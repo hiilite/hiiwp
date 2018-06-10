@@ -1,4 +1,12 @@
 <?php
+/**
+ * HiiWP Template: social-share
+ *
+ * @package     hiiwp
+ * @copyright   Copyright (c) 2018, Peter Vigilante
+ * @license     http://opensource.org/licenses/gpl-2.0.php GNU Public License
+ * @since       1.0
+ */
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 function add_social_share_shortcode( $atts ){
 	global $qode_options_proya;
@@ -22,16 +30,6 @@ function add_social_share_shortcode( $atts ){
       'css'	=> ''
    ), $atts ) );
    
-   	if (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off') 
-   	{ 
-	  $protocol = "https://"; 
-	} 
-	else 
-	{ 
-		$protocol = "http://"; 
-	}	
-   
-   $permalink = $protocol.$_SERVER["HTTP_HOST"].$_SERVER["REQUEST_URI"];
    $permalink = get_the_permalink( );
    
    
@@ -132,16 +130,17 @@ class Social_Share_Widget extends WP_Widget {
 	 */
 	public function widget( $args, $instance ) {
 		// outputs the content of the widget
-		echo $args['before_widget'];
+		$output = $args['before_widget'];
 		if ( ! empty( $instance['title'] ) ) {
-			echo $args['before_title'] . apply_filters( 'widget_title', $instance['title'] ). $args['after_title'];
+			$output .= $args['before_title'] . apply_filters( 'widget_title', $instance['title'] ). $args['after_title'];
 		}
 		$atts = '';
 		foreach($instance as $key=>$val){
 			$atts .= ' '.$key.'='.$val.' ';
 		}
-		echo do_shortcode('[social-share '.$atts.']');
-		echo $args['after_widget'];
+		$output .= do_shortcode('[social-share '.$atts.']');
+		$output .= $args['after_widget'];
+		echo $output; // WPCS: XSS ok.
 		
 	}
 
@@ -160,20 +159,20 @@ class Social_Share_Widget extends WP_Widget {
 		$li = ! empty( $instance['li'] ) ? true : false;
 		?>
 		<p>
-		<label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e( 'Title:', 'hiiwp' ); ?></label> 
-		<input class="widefat" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" type="text" value="<?php echo esc_attr( $title ); ?>">
+		<label for="<?php echo esc_attr($this->get_field_id( 'title' )); ?>"><?php _e( 'Title:', 'hiiwp' ); ?></label> 
+		<input class="widefat" id="<?php echo esc_attr($this->get_field_id( 'title' )); ?>" name="<?php echo esc_attr($this->get_field_name( 'title' )); ?>" type="text" value="<?php echo esc_attr( $title ); ?>">
 		</p>
 		<p>
-			<label for="<?php echo $this->get_field_id( 'fa' );?>"><?php _e( 'Facebook:', 'hiiwp' );?></label> 
-			<input id="<?php echo $this->get_field_id( 'fa' );?>" name="<?php echo $this->get_field_name( 'fa' );?>" type="checkbox" value="true" <?php if($fa)echo 'checked=checked';?>><br>
-			<label for="<?php echo $this->get_field_id( 'gp' );?>"><?php _e( 'Google Plus:', 'hiiwp' );?></label> 
-			<input id="<?php echo $this->get_field_id( 'gp' );?>" name="<?php echo $this->get_field_name( 'gp' );?>" type="checkbox" value="true" <?php if($gp)echo 'checked=checked';?>><br>
-			<label for="<?php echo $this->get_field_id( 'tw' );?>"><?php _e( 'Twitter:', 'hiiwp' );?></label> 
-			<input id="<?php echo $this->get_field_id( 'tw' );?>" name="<?php echo $this->get_field_name( 'tw' );?>" type="checkbox" value="true" <?php if($tw)echo 'checked=checked';?>><br>
-			<label for="<?php echo $this->get_field_id( 'pt' );?>"><?php _e( 'Pinterest:', 'hiiwp' );?></label> 
-			<input id="<?php echo $this->get_field_id( 'pt' );?>" name="<?php echo $this->get_field_name( 'pt' );?>" type="checkbox" value="true" <?php if($pt)echo 'checked=checked';?>><br>
-			<label for="<?php echo $this->get_field_id( 'li' );?>"><?php _e( 'LinkedIn:', 'hiiwp' );?></label> 
-			<input id="<?php echo $this->get_field_id( 'li' );?>" name="<?php echo $this->get_field_name( 'li' );?>" type="checkbox" value="true" <?php if($li)echo 'checked=checked';?>><br>
+			<label for="<?php echo esc_attr($this->get_field_id( 'fa' ));?>"><?php _e( 'Facebook:', 'hiiwp' );?></label> 
+			<input id="<?php echo esc_attr($this->get_field_id( 'fa' ));?>" name="<?php echo esc_attr($this->get_field_name( 'fa' ));?>" type="checkbox" value="true" <?php if($fa)echo 'checked=checked';?>><br>
+			<label for="<?php echo esc_attr($this->get_field_id( 'gp' ));?>"><?php _e( 'Google Plus:', 'hiiwp' );?></label> 
+			<input id="<?php echo esc_attr($this->get_field_id( 'gp' ));?>" name="<?php echo esc_attr($this->get_field_name( 'gp' ));?>" type="checkbox" value="true" <?php if($gp)echo 'checked=checked';?>><br>
+			<label for="<?php echo esc_attr($this->get_field_id( 'tw' ));?>"><?php _e( 'Twitter:', 'hiiwp' );?></label> 
+			<input id="<?php echo esc_attr($this->get_field_id( 'tw' ));?>" name="<?php echo esc_attr($this->get_field_name( 'tw' ));?>" type="checkbox" value="true" <?php if($tw)echo 'checked=checked';?>><br>
+			<label for="<?php echo esc_attr($this->get_field_id( 'pt' ));?>"><?php _e( 'Pinterest:', 'hiiwp' );?></label> 
+			<input id="<?php echo esc_attr($this->get_field_id( 'pt' ));?>" name="<?php echo esc_attr($this->get_field_name( 'pt' ));?>" type="checkbox" value="true" <?php if($pt)echo 'checked=checked';?>><br>
+			<label for="<?php echo esc_attr($this->get_field_id( 'li' ));?>"><?php _e( 'LinkedIn:', 'hiiwp' );?></label> 
+			<input id="<?php echo esc_attr($this->get_field_id( 'li' ));?>" name="<?php echo esc_attr($this->get_field_name( 'li' ));?>" type="checkbox" value="true" <?php if($li)echo 'checked=checked';?>><br>
 		</p>
 		<?php 
 	}
@@ -202,4 +201,3 @@ add_action( 'widgets_init', function(){
 	register_widget( 'Social_Share_Widget' );
 });
 	
-	?>

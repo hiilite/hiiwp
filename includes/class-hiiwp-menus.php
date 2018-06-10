@@ -102,7 +102,7 @@ class HiiWP_Menus {
 			
 			$cart_totals = '';
 			if(Hii::$options['cart_menu_layout'] == 'icon-plus-items') {
-				$cart_totals = ' | '.sprintf ( _n( '%d item', '%d items', WC()->cart->get_cart_contents_count() ), WC()->cart->get_cart_contents_count() ).' - '.WC()->cart->get_cart_total();
+				$cart_totals = ' | '.sprintf ( _n( '%d item', '%d items', WC()->cart->get_cart_contents_count(), 'hiiwp' ), WC()->cart->get_cart_contents_count() ).' - '.WC()->cart->get_cart_total();
 			}
 			
 			$woocart = '<li class="woo_menu_cart menu-item"><a href="'.$cart_url.'">'.$cart_icon.''.$cart_totals.'</a></li>';

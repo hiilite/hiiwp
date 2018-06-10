@@ -1,4 +1,12 @@
 <?php
+/**
+ * HiiWP Template: portfolio-content-default
+ *
+ * @package     hiiwp
+ * @copyright   Copyright (c) 2018, Peter Vigilante
+ * @license     http://opensource.org/licenses/gpl-2.0.php GNU Public License
+ * @since       1.0
+ */
 /*
 	TODO:
 	-	Make Title and feature image turn on by default in customizer	
@@ -27,11 +35,8 @@ if($show_featureimage):
 		$width = $img[1];
 		$height = $img[2];
 	?>
-	<figure class="flex-item full-width" itemprop="image" itemscope itemtype="https://schema.org/ImageObject">
-		<meta itemprop="url" content="<?php echo $img[0];?>">
-		<meta itemprop="width" content="<?php echo $img[1];?>">
-		<meta itemprop="height" content="<?php echo $img[2];?>">
-		<img src='<?php echo $img[0];?>' layout='responsive' width='<?php echo $width?>' height='<?php echo $height?>'>
+	<figure class="flex-item full-width">
+		<img src='<?php echo esc_url($img[0]);?>' layout='responsive' width='<?php echo intval($width);?>' height='<?php echo intval($height);?>'>
 	</figure>
 	<?php endif; ?>
 </div><?php
@@ -87,23 +92,7 @@ echo '<div class="full-width  align-top">';
 			?></span>
 		</div>
 	<?php }
-		
-	$options = get_option('hii_seo_settings'); ?>
-			<div itemprop="publisher" itemscope itemtype="https://schema.org/Organization">
-				<div itemprop="logo" itemscope itemtype="https://schema.org/ImageObject">
-				  <meta itemprop="url" content="<?php echo $options['business_logo']?>">
-				  <meta itemprop="width" content="150">
-				  <meta itemprop="height" content="150">
-				</div>
-				<meta itemprop="name" content="<?php echo $options['business_name']?>">
-			</div><?php
 		echo '</div>';
-		
-					
-		/*echo '<aside class="quarter-width content-box  align-top align-center">';
-			dynamic_sidebar( 'post_sidebar' );
-		echo '</aside>';*/
-		
 echo '</div>';
 if($hiilite_options['show_more_projects']):
 ?>
@@ -124,14 +113,14 @@ if($hiilite_options['show_more_projects']):
 				$image = wp_get_attachment_image_src( get_post_thumbnail_id( get_the_id() ));
 				?>
 				<a href="<?php echo get_the_permalink()?>"  class="relatedarticle slide">
-			    	<figure><img src="<?php echo $image[0]?>" width="200" height="200" alt="<?php echo get_the_title()?>"></figure>
+			    	<figure><img src="<?php echo esc_url($image[0]);?>" width="200" height="200" alt="<?php echo get_the_title()?>"></figure>
 			    	<p><?php echo get_the_title();?></p>
 				</a>
 				<?php
 			} else {
 				?>
 				<a href="<?php echo get_the_permalink()?>"  class="relatedarticle slide">
-			    	<img src="<?php echo $hiilite_options['main_logo']?>" width="200" height="200" alt="<?php echo get_the_title()?>">
+			    	<img src="<?php echo esc_url($hiilite_options['main_logo']);?>" width="200" height="200" alt="<?php echo get_the_title()?>">
 			    	<p><?php echo get_the_title();?></p>
 				</a>
 				<?php

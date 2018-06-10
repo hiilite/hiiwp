@@ -75,8 +75,8 @@ function eh_cmb2_render_star_rating_field_callback( $field, $value, $object_id, 
 						$y = 5;
 						while( $y > 0 ) {
 							?>
-								<input type="radio" id="rating-<?php echo $y; ?>" name="<?php echo $field_type_object->_id( false ); ?>" value="<?php echo $y; ?>" <?php checked( $value, $y ); ?>/>
-								<label for="rating-<?php echo $y; ?>"><?php echo $y; ?></label>
+								<input type="radio" id="rating-<?php echo intval($y); ?>" name="<?php echo esc_attr($field_type_object->_id( false )); ?>" value="<?php echo intval($y); ?>" <?php checked( $value, $y ); ?>/>
+								<label for="rating-<?php echo $y; ?>"><?php echo intval($y); ?></label>
 							<?php
 							$y--;
 						}

@@ -758,7 +758,17 @@ $hiilite_options['blog_title_font']   = get_theme_mod('blog_title_font', array(
         'text-align'	=> 'left',
         'text-transform'	=> 'none',
     ) );
-
+// BLOG SINGLE
+$hiilite_options['related_posts_font']    = get_theme_mod('related_posts_font', array(
+        'font-family'    => ' ',
+        'variant'        => ' ',
+        'font-size'      => ' ',
+        'line-height'    => ' ',
+        'letter-spacing' => '0px',
+        'color'          => get_theme_mod('color_four','#333333'),
+        'text-align'	=> 'left',
+        'text-transform'	=> 'none',
+    ) );
 // SIDEBAR
 $hiilite_options['sidebar_background']		= get_theme_mod( 'sidebar_background', '#f4f4f4');
 $hiilite_options['sidebar_padding'] 				= get_theme_mod( 'sidebar_padding', array(

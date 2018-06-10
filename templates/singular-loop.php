@@ -1,4 +1,12 @@
 <?php
+/**
+ * HiiWP Template: singular-loop
+ *
+ * @package     hiiwp
+ * @copyright   Copyright (c) 2018, Peter Vigilante
+ * @license     http://opensource.org/licenses/gpl-2.0.php GNU Public License
+ * @since       1.0
+ */
 switch (get_post_type($post)) {
 	case get_theme_mod( 'portfolio_slug', 'portfolio' ):
 		get_template_part('templates/portfolio-single', 'loop');

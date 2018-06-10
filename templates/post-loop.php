@@ -3,9 +3,9 @@
  * HiiWP Template: Post-Loop
  *
  * @package     hiiwp
- * @copyright   Copyright (c) 2016, Peter Vigilante
+ * @copyright   Copyright (c) 2018, Peter Vigilante
  * @license     http://opensource.org/licenses/gpl-2.0.php GNU Public License
- * @since       0.1.0
+ * @since       1.0
  */
 /* 
 TODO:
@@ -14,7 +14,7 @@ TODO:
 */
 $hiilite_options = Hii::get_options();
 
-$post_format_icon = $article_title = $dateline = $article_cat = '';
+$post_format_icon = $article_title = $dateline = $article_cat = $image = '';
 
 if($hiilite_options['blog_cats_show'] == 'true' || $hiilite_options['blog_cats_show'] == true):
 	$article_cat .= '<span class="cat-links"><span class="screen-reader-text">Tags</span>'.get_the_category_list(', ').'</span>';
@@ -88,9 +88,9 @@ $article_title = $article_title.$dateline;
 			<?php
 				if(is_single() && get_post_meta(get_the_id(), 'show_page_title', true) != 'on') {
 					
-					$blog_link = ( get_option( 'page_for_posts' ) != false ) ? get_permalink( get_option( 'page_for_posts' ) ) : get_bloginfo( 'url' );
+					$blog_link = ( get_option( 'page_for_posts' ) != false ) ? get_permalink( get_option( 'page_for_posts' ) ) : esc_url( home_url() );
 					echo '<a class="back_to_blog" href="' . $blog_link . '"><i class="fa fa-angle-left"></i>Back to blog</a><br>';
-					echo $article_title;
+					echo $article_title; // WPCS: XSS ok.
 				}
 				?>
 			</div>
@@ -112,7 +112,7 @@ $article_title = $article_title.$dateline;
 				$height = $img[2];
 			?>
 				<figure class="flex-item full-width post-thumbnail">
-					<img src='<?php echo $img[0];?>'  width='<?php echo $width?>' height='<?php echo $height?>' alt="<?php echo get_the_title()?>">
+					<img src='<?php echo esc_url($img[0]);?>'  width='<?php echo intval($width); ?>' height='<?php echo intval($height);?>' alt="<?php echo get_the_title()?>">
 				</figure><?php 
 			endif;
 			
@@ -121,7 +121,7 @@ $article_title = $article_title.$dateline;
 				echo '<div class="post-navigation">';
 					wp_link_pages(array(
 						'next_or_number'	=>'next', 
-						'previouspagelink' 	=> '<span class="screen-reader-text">' . __( 'Previous Page', 'hiiwp' ) . '</span><span aria-hidden="true" class="nav-subtitle">' . __( 'Go back to', 'hiiwp' ) . '</span> <span class="nav-title"><span class="nav-title-icon-wrapper"><i class="fa fa-angle-left"></i></span>' . __( 'Previous Page', 'hiiwp' ) . '</span>', 
+						'previouspagelink' 	=> '<span class="screen-reader-text">' . __( 'Previous Page', 'hiiwp' ) . '</span><span aria-hidden="true" class="nav-subtitle">' . __( 'Go back to', 'hiiwp' ) . '</span> <span class="nav-title"><span class="nav-title-icon-wrapper"><i class="fa fa-angle-left"></i></span>' . __( 'Previous Page', 'hiiwp' ) . '</span>',
 						'nextpagelink' 		=> '<span class="screen-reader-text">' . __( 'Next Page', 'hiiwp' ) . '</span><span aria-hidden="true" class="nav-subtitle">' . __( 'Continue Reading on', 'hiiwp' ) . '</span> <span class="nav-title">' . __( 'Next Page', 'hiiwp' ) . '<span class="nav-title-icon-wrapper"><i class="fa fa-angle-right"></i></span></span>', 
 						'before'			=> ''));
 				echo '</div>';
@@ -148,11 +148,11 @@ $article_title = $article_title.$dateline;
 		
 								// Make sure there's more than one category before displaying.
 								if ( $categories_list ) {
-									echo '<span class="cat-links"><i class="fa fa-folder-open"></i><span class="screen-reader-text">' . __( 'Categories', 'twentyseventeen' ) . '</span>' . $categories_list . '</span>';
+									echo '<span class="cat-links"><i class="fa fa-folder-open"></i><span class="screen-reader-text">' . __( 'Categories', 'hiiwp' ) . '</span>' . $categories_list . '</span>';
 								}
 		
 								if ( $tags_list && ! is_wp_error( $tags_list ) ) {
-									echo '<span class="tags-links"><i class="fa fa-hashtag"></i><span class="screen-reader-text">' . __( 'Tags', 'twentyseventeen' ) . '</span>' . $tags_list . '</span>';
+									echo '<span class="tags-links"><i class="fa fa-hashtag"></i><span class="screen-reader-text">' . __( 'Tags', 'hiiwp' ) . '</span>' . $tags_list . '</span>';
 								}
 		
 							echo '</span>';
@@ -197,19 +197,6 @@ if($hiilite_options['blog_rel_articles'] == true):
 	    'orderby'        => $args['orderby'],
 	  
 	);
-	/*$taxonomies = array('category','post_tag');
-	foreach( $taxonomies as $taxonomy ) {
-	    $terms = get_the_terms( $post_id, $taxonomy );
-	    $term_list = wp_list_pluck( $terms, 'slug' );
-	    $related_args['tax_query'][] = array(
-	        'taxonomy' => $taxonomy,
-	        'field'    => 'slug',
-	        'terms'    => $term_list
-	    );
-	}
-	if( count( $related_args['tax_query'] ) > 1 ) {
-	    $related_args['tax_query']['relation'] = 'OR';
-	}*/
 	?>
 	<div class="align-center">
 		<h4>Related Articles</h4>
@@ -256,8 +243,8 @@ if($hiilite_options['blog_rel_articles'] == true):
 					}
 				}
 				?>
-					<div style="height: 200px; width: 200px;"><?php echo $image ?></div>
-			    	<h5><?php echo get_the_title();?></h5>
+					<div style="height: 200px; width: 200px;"><?php echo $image; // WPCS: XSS ok. ?></div>
+			    	<h5 class="related-post-title"><?php echo get_the_title();?></h5>
 				</a><?php
 			endwhile;
 			wp_reset_postdata(  );

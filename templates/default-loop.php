@@ -1,4 +1,12 @@
 <?php
+/**
+ * HiiWP Template: default-loop
+ *
+ * @package     hiiwp
+ * @copyright   Copyright (c) 2018, Peter Vigilante
+ * @license     http://opensource.org/licenses/gpl-2.0.php GNU Public License
+ * @since       1.0
+ */
 global $post;
 if(!isset($atts)) $hiilite_options = Hii::$hiiwp->get_options();
 $post_meta = get_post_meta(get_the_id());
@@ -75,14 +83,13 @@ if(is_customize_preview()) echo '<div class="customizer_quick_links"><button cla
 	if($hiilite_options['blog_title_position'] == 'title-above') { 
 		echo '<div class="content-box col-12">';
 		
-		echo $article_title;
+		echo balenceTags($article_title);
 		
 		echo '</div>';
 	}
 	echo '<figure class="flex-item ';
 	echo ($hiilite_options['blog_img_pos']=='image-left')?'col-6':'col-12';
-	
-	echo '" itemprop="image" itemscope itemtype="https://schema.org/ImageObject">';
+	echo '">';
 	if(has_post_thumbnail($post->ID)): 
 		$tn_id = get_post_thumbnail_id( $post->ID );
 		$img = wp_get_attachment_image_src( $tn_id, 'large' );
@@ -94,10 +101,7 @@ if(is_customize_preview()) echo '<div class="customizer_quick_links"><button cla
 		$height = $hiilite_options['logo_height'];
 		$img_src = $hiilite_options['main_logo'];
 	endif;?>
-		<meta itemprop="url" content="<?php echo $img_src;?>">
-		<meta itemprop="width" content="<?php echo $width;?>">
-		<meta itemprop="height" content="<?php echo $height;?>">
-		<a href="<?php echo get_the_permalink()?>"><img src='<?php echo $img_src;?>' layout='responsive' width='<?php echo $width?>' height='<?php echo $height?>'></a>
+		<a href="<?php echo get_the_permalink()?>"><img src='<?php echo esc_url($img_src);?>' layout='responsive' width='<?php echo intval($width);?>' height='<?php echo intval($height);?>'></a>
 		<?php
 	echo '</figure>'; ?>
 	<div class="flex-item <?php echo ($hiilite_options['blog_img_pos']=='image-left')?'col-6':'col-12'; ?> content-box" >
@@ -107,7 +111,7 @@ if(is_customize_preview()) echo '<div class="customizer_quick_links"><button cla
 		<?php 
 		if($hiilite_options['blog_title_position'] == 'title-below') { 
 			
-			echo $article_title;
+			echo balenceTags($article_title);
 		
 		}
 		if($hiilite_options['blog_excerpt_show'] == 'true'):
@@ -117,20 +121,10 @@ if(is_customize_preview()) echo '<div class="customizer_quick_links"><button cla
 			$more_button_class = get_theme_mod( 'blog_more_type', 'button' );
 			$more_button_class .= ($more_button_class != 'link' && $more_button_class != 'button')?' button readmore':' readmore';
 			?>
-			<a class="<?php echo $more_button_class;?>" href="<?php the_permalink() ?>"><?php echo $hiilite_options['blog_more_ex'];?></a><?php 
+			<a class="<?php echo sanitize_html_class($more_button_class);?>" href="<?php the_permalink() ?>"><?php echo esc_html__($hiilite_options['blog_more_ex'], 'hiiwp');?></a><?php 
 				
 		endif;?>
 	<div>
-		<?php $options = get_option('hii_seo_settings'); ?>
-		<div itemprop="publisher" itemscope itemtype="https://schema.org/Organization">
-			<div itemprop="logo" itemscope itemtype="https://schema.org/ImageObject">
-			  <meta itemprop="url" content="<?php echo $options['business_logo']?>">
-			  <meta itemprop="width" content="150">
-			  <meta itemprop="height" content="150">
-			</div>
-			<meta itemprop="name" content="<?php echo $options['business_name']?>">
-		</div>
-
 </article>
 <?php
 do_action( 'hii_after_blog_loop' );	

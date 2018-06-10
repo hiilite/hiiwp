@@ -1,5 +1,12 @@
-<!--TITLE-->
 <?php 
+/**
+ * HiiWP Template: title
+ *
+ * @package     hiiwp
+ * @copyright   Copyright (c) 2018, Peter Vigilante
+ * @license     http://opensource.org/licenses/gpl-2.0.php GNU Public License
+ * @since       1.0
+ */
 global $post;
 $hiilite_options = HiiWP::get_options();
 if( (isset($post)
@@ -32,7 +39,7 @@ if( (isset($post)
 			<div class="container_inner">
 				<div class="in_grid content-box">
 					<?php do_action( 'before_page_title' );?>
-					<h1 style="<?php echo ($page_title_color)?'color:'.$page_title_color.';':'';?>"><?php echo $page_title; ?></h1>
+					<h1 style="<?php echo ($page_title_color)?'color:'.$page_title_color.';':'';?>"><?php echo esc_html__($page_title, 'hiiwp'); ?></h1>
 					<?php do_action( 'after_page_title' ); ?>
 				</div>
 			</div>
@@ -40,4 +47,4 @@ if( (isset($post)
 	<?php 
 		}
 	endif;
-endif; ?>
+endif; 
