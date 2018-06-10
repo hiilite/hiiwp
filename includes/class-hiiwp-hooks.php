@@ -206,7 +206,7 @@ class HiiWP_Hooks extends Hii {
 			</div>
 		</div>';
 		
-		echo $title; // WPCS: XSS ok.
+		echo wp_kses_post($title); // WPCS: XSS ok.
 	}
 	
 	/**
@@ -225,7 +225,7 @@ class HiiWP_Hooks extends Hii {
 			</div>
 		</div>';
 		
-		echo $client; // WPCS: XSS ok.
+		echo wp_kses_post($client); // WPCS: XSS ok.
 	}
 	
 	/**
@@ -239,7 +239,7 @@ class HiiWP_Hooks extends Hii {
 			<small><time class="time op-published" datetime="'.$args[0].'"><span class="date">'.$args[1].'</span></time></small>
 		</div>';
 		
-		echo $date; // WPCS: XSS ok.
+		echo wp_kses_post($date); // WPCS: XSS ok.
 	}
 	
 	/**
@@ -265,7 +265,7 @@ class HiiWP_Hooks extends Hii {
 						</span>
 				</div>
 			</div>';
-			echo $portfolio_tags; // WPCS: XSS ok.
+			echo wp_kses_post($portfolio_tags); // WPCS: XSS ok.
 		}
 	}
 	
@@ -292,7 +292,7 @@ class HiiWP_Hooks extends Hii {
 				}	
 			$team .= '</div>';
 			
-			echo $team; // WPCS: XSS ok.
+			echo wp_kses_post($team); // WPCS: XSS ok.
 		endif;
 	}
 	
@@ -325,7 +325,7 @@ class HiiWP_Hooks extends Hii {
 			</div>
 		</div>';
 		
-		echo $about; // WPCS: XSS ok.
+		echo wp_kses_post($about); // WPCS: XSS ok.
 	}
 
 	

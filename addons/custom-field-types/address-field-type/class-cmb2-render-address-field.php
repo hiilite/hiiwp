@@ -71,7 +71,7 @@ class CMB2_Render_Address_Field extends CMB2_Type_Base {
 				'value' => $value['address-1'],
 				'desc'  => '',
 			) );
-			echo $input; // WPCS: XSS ok. ?>
+			echo wp_kses_post($input); // WPCS: XSS ok. ?>
 		</div>
 		<div><p><label for="<?php echo esc_attr($this->_id( '_address_2', false )); ?>'"><?php echo esc_html( $this->_text( 'address_address_2_text', 'Address 2' ) ); ?></label></p>
 			<?php $input = $this->types->input( array(
@@ -80,7 +80,7 @@ class CMB2_Render_Address_Field extends CMB2_Type_Base {
 				'value' => $value['address-2'],
 				'desc'  => '',
 			) );
-			echo $input; // WPCS: XSS ok. ?>
+			echo wp_kses_post($input); // WPCS: XSS ok. ?>
 		</div>
 		<div style="overflow: hidden;">
 			<div class="alignleft"><p><label for="<?php echo esc_attr($this->_id( '_city', false )); ?>'"><?php echo esc_html( $this->_text( 'address_city_text', 'City' ) ); ?></label></p>
@@ -91,7 +91,7 @@ class CMB2_Render_Address_Field extends CMB2_Type_Base {
 					'value' => $value['city'],
 					'desc'  => '',
 				) );
-				echo $input; // WPCS: XSS ok. ?>
+				echo wp_kses_post($input); // WPCS: XSS ok. ?>
 			</div>
 			<div class="alignleft"><p><label for="<?php echo esc_attr($this->_id( '_state', false )); ?>'"><?php echo esc_html( $this->_text( 'address_state_text', $state_label ) ); ?></label></p>
 				<?php if ( $this->field->args( 'do_country' ) ) : ?>
@@ -102,7 +102,7 @@ class CMB2_Render_Address_Field extends CMB2_Type_Base {
 						'value' => $value['state'],
 						'desc'  => '',
 					) );
-					echo $input; // WPCS: XSS ok. ?>
+					echo wp_kses_post($input); // WPCS: XSS ok. ?>
 				<?php else: ?>
 					<?php $input =  $this->types->select( array(
 						'name'    => $this->_name( '[state]' ),
@@ -110,7 +110,7 @@ class CMB2_Render_Address_Field extends CMB2_Type_Base {
 						'options' => $state_options,
 						'desc'    => '',
 					) );
-					echo $input; ?>
+					echo wp_kses_post($input); ?>
 				<?php endif; ?>
 			</div>
 			<div class="alignleft"><p><label for="<?php echo esc_attr($this->_id( '_zip', false )); ?>'"><?php echo esc_html( $this->_text( 'address_zip_text', 'Zip' ) ); ?></label></p>
@@ -122,7 +122,7 @@ class CMB2_Render_Address_Field extends CMB2_Type_Base {
 					'type'  => 'number',
 					'desc'  => '',
 				) );
-				echo $input; // WPCS: XSS ok. ?>
+				echo wp_kses_post($input); // WPCS: XSS ok. ?>
 			</div>
 		</div>
 		<?php if ( $this->field->args( 'do_country' ) ) : ?>
@@ -133,7 +133,7 @@ class CMB2_Render_Address_Field extends CMB2_Type_Base {
 				'value' => $value['country'],
 				'desc'  => '',
 			) ); 
-			echo $input; // WPCS: XSS ok. ?>
+			echo wp_kses_post($input); // WPCS: XSS ok. ?>
 		</div>
 		<?php endif; ?>
 		<p class="clear">

@@ -90,7 +90,7 @@ $article_title = $article_title.$dateline;
 					
 					$blog_link = ( get_option( 'page_for_posts' ) != false ) ? get_permalink( get_option( 'page_for_posts' ) ) : esc_url( home_url() );
 					echo '<a class="back_to_blog" href="' . $blog_link . '"><i class="fa fa-angle-left"></i>Back to blog</a><br>';
-					echo $article_title; // WPCS: XSS ok.
+					echo wp_kses_post($article_title); // WPCS: XSS ok.
 				}
 				?>
 			</div>
@@ -243,7 +243,7 @@ if($hiilite_options['blog_rel_articles'] == true):
 					}
 				}
 				?>
-					<div style="height: 200px; width: 200px;"><?php echo $image; // WPCS: XSS ok. ?></div>
+					<div style="height: 200px; width: 200px;"><?php echo wp_kses_post($image); // WPCS: XSS ok. ?></div>
 			    	<h5 class="related-post-title"><?php echo get_the_title();?></h5>
 				</a><?php
 			endwhile;

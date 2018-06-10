@@ -106,7 +106,6 @@ class Hii {
 		$this->sidebars		= new HiiWP_Sidebars();
 		$this->theme_options= new HiiWP_Theme_Options();
 		$this->menus		= new HiiWP_Menus();
-		$this->shortcodes	= new HiiWP_Shortcodes();
 		self::$html 		= new HiiWP_HTML_Elements();
 				
 		

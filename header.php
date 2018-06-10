@@ -79,7 +79,7 @@ do_action( 'hii_before_header' );
 				$header_bg = (get_post_meta ( $post->ID, 'header_bg', true))?get_post_meta ( $post->ID, 'header_bg', true):false;
 				if($header_bg) :
 					$bg_color = 'style="background-color:'.$header_bg.'"';		
-				elseif( isset($hiilite_options['portfolio_on']) && $hiilite_options['portfolio_on'] == true ):
+				elseif( post_type_exists('portfolio') && ( isset($hiilite_options['portfolio_on']) && $hiilite_options['portfolio_on'] == true  )):
 					if($category = get_the_terms( $post->ID, $hiilite_options['portfolio_tax_slug'] )) {  
 						$portfolio_work_color = (get_term_meta ( $category[0]->term_taxonomy_id, 'portfolio_work_color', true))?get_term_meta ( $category[0]->term_taxonomy_id, 'portfolio_work_color', true):false;	
 						if($portfolio_work_color) {

@@ -23,7 +23,7 @@ function ml_cmb2_render_dashicon_radio_callback( $field, $escaped_value, $object
 	add_filter( 'cmb2_list_input_attributes', 'ml_cmb2_dashicon_radio_attributes', 10, 4 );
 
 	$field->args['options'] = ml_cmb2_dashicons_return_array();
-	echo $field_type_object->radio();
+	echo wp_kses_post($field_type_object->radio());
 	remove_filter( 'cmb2_list_input_attributes', 'ml_cmb2_dashicon_radio_attributes', 10, 4 );
 
 	ml_cmb2_dashicon_radio_css();

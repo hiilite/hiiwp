@@ -103,7 +103,7 @@ echo '<div class="in_grid  align-top">';
 				}	
 			$team .= '</dd>';
 			
-			echo $team; // WPCS: XSS ok.
+			echo wp_kses_post($team); // WPCS: XSS ok.
 		endif;
 
 		echo "</dl>";
@@ -136,7 +136,7 @@ echo '<div class="in_grid  align-top">';
 	
 				$social_share .= '</dd>';		
 			
-			echo $social_share; // WPCS: XSS ok.
+			echo wp_kses_post($social_share); // WPCS: XSS ok.
 		}
 		
 		 ?>

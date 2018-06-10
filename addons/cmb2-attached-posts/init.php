@@ -201,7 +201,7 @@ class WDS_CMB2_Attached_Posts_Field {
 			'desc'  => '',
 		) );
 		
-		echo $output; // WPCS: XSS ok.
+		echo wp_kses_post($output); // WPCS: XSS ok.
 		echo '</div><!-- .attached-posts-wrap -->';
 
 		// Display our description if one exists

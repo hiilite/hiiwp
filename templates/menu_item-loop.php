@@ -73,7 +73,7 @@ $post_meta = get_post_meta(get_the_id());
 	    $output .= '</table></td></tr></table>';
 	}
     $output .= '</span>';
-    echo $output; // WPCS: XSS ok.
+    echo wp_kses_post($output); // WPCS: XSS ok.
 	if(has_excerpt($post->id)){
 		the_excerpt();
 	}

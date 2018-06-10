@@ -154,7 +154,6 @@ amp-carousel.carousel {
 	position: relative;
 }
 .smooth-scroll-wrapper.kinetic-active {
-    height: 100%;
     overflow: hidden;
 }
 amp-carousel.carousel .carousel-wrapper:after {

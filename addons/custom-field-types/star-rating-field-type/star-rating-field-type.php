@@ -76,7 +76,7 @@ function eh_cmb2_render_star_rating_field_callback( $field, $value, $object_id, 
 						while( $y > 0 ) {
 							?>
 								<input type="radio" id="rating-<?php echo intval($y); ?>" name="<?php echo esc_attr($field_type_object->_id( false )); ?>" value="<?php echo intval($y); ?>" <?php checked( $value, $y ); ?>/>
-								<label for="rating-<?php echo $y; ?>"><?php echo intval($y); ?></label>
+								<label for="rating-<?php echo intval($y); ?>"><?php echo intval($y); ?></label>
 							<?php
 							$y--;
 						}
@@ -85,7 +85,7 @@ function eh_cmb2_render_star_rating_field_callback( $field, $value, $object_id, 
 			</fieldset>
 		</section>
 	<?php
-	echo $field_type_object->_desc( true );
+	echo wp_kses_post($field_type_object->_desc( true ));
 
 }
 add_filter( 'cmb2_render_star_rating', 'eh_cmb2_render_star_rating_field_callback', 10, 5 );

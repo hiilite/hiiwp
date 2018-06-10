@@ -138,7 +138,7 @@ do_action( 'hii_before_footer' );
 		do_action ( 'hii_after_footer_bottom' );
 		?>
 			<div class="full-width align-center">
-				<?php echo $hiilite_options['footer_bottom_copyright_text']; // WPCS: XSS ok. ?>
+				<?php echo wp_kses_post($hiilite_options['footer_bottom_copyright_text']); // WPCS: XSS ok. ?>
 			</div>
 		
 	</div>

@@ -62,5 +62,5 @@ $output .= '<div itemprop="publisher" itemscope itemtype="http://schema.org/Orga
 //End item
 $output .= '</div></div><div class="align-center text-block"></div>';
 
-echo $output; // WPCS: XSS ok.
+echo wp_kses_post($output); // WPCS: XSS ok.
 ?>

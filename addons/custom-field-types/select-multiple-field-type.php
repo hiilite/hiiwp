@@ -29,7 +29,7 @@ function cmb2_render_select_multiple_field_type( $field, $escaped_value, $object
 	$select_multiple .= '</select>';
 	$select_multiple .= $field_type_object->_desc( true );
 
-	echo $select_multiple; // WPCS: XSS ok.
+	echo wp_kses_post($select_multiple); // WPCS: XSS ok.
 }
 add_action( 'cmb2_render_select_multiple', 'cmb2_render_select_multiple_field_type', 10, 5 );
 

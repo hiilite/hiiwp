@@ -45,7 +45,7 @@ function cmb_render_multicheck_title( $field, $escaped_value, $object_id, $objec
 			}
 			echo '<h2>'.$title.'</h2>';
 			$classes = false === $field->args( 'select_all_button' ) ? 'cmb2-checkbox-list no-select-all cmb2-list' : 'cmb2-checkbox-list cmb2-list';
-			echo $field_type_object->radio( array( 'class' => $classes, 'options' => $options ), 'title_multicheck' );
+			echo wp_kses_post($field_type_object->radio( array( 'class' => $classes, 'options' => $options ), 'title_multicheck' ));
 		}
 	} else {
 		echo __( 'Nothing', 'hiiwp' );

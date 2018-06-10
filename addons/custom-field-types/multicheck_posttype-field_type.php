@@ -35,6 +35,6 @@ function ds_cmb_render_multicheck_posttype( $field, $escaped_value, $object_id, 
 	}
 
 	$classes = false === $field->args( 'select_all_button' ) ? 'cmb2-checkbox-list no-select-all cmb2-list' : 'cmb2-checkbox-list cmb2-list';
-	echo $field_type_object->radio( array( 'class' => $classes, 'options' => $options ), 'multicheck_posttype' );
+	echo wp_kses_post($field_type_object->radio( array( 'class' => $classes, 'options' => $options ), 'multicheck_posttype' ));
 }
 

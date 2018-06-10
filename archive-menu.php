@@ -30,7 +30,7 @@ if(have_posts()):
 		$menu_html .= '</div></div></div>';
 	}
 	echo '<nav class="anchor_menu"><ul class="menu main-menu align-center">'.$nav_html.'</ul></nav>';
-	echo $menu_html; // WPCS: XSS ok.
+	echo wp_kses_post($menu_html); // WPCS: XSS ok.
 	
 	echo '<div class="row"><div class="container_inner"><div class="in_grid">';
 	echo '<div class="flex-item align-center text-block">';

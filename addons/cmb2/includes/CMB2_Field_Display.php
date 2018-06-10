@@ -193,7 +193,7 @@ class CMB2_Display_Checkbox extends CMB2_Field_Display {
 	 * @since 2.2.2
 	 */
 	protected function _display() {
-		echo $this->value === 'on' ? 'on' : 'off'; // WPCS: XSS ok.
+		echo esc_attr($this->value === 'on' ? 'on' : 'off'); // WPCS: XSS ok.
 	}
 }
 

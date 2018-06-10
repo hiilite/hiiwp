@@ -62,7 +62,7 @@ Kirki::add_field( 'hiiwp', array(
 	),
 	'output'      => array(
 		array(
-			'element' => '.page-title',
+			'element' => '.page-title h1',
 		),
 	),
 ) );

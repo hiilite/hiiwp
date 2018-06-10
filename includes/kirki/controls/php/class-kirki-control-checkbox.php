@@ -41,7 +41,7 @@ class Kirki_Control_Checkbox extends Kirki_Control_Base {
 		<span class="customize-inside-control-row">
 			<input
 				id="<?php echo esc_attr( $input_id ); ?>"
-				<?php echo $describedby_attr; // WPCS: XSS ok. ?>
+				<?php echo esc_attr($describedby_attr); // WPCS: XSS ok. ?>
 				type="checkbox"
 				value="<?php echo esc_attr( $this->value() ); ?>"
 				<?php $this->link(); ?>

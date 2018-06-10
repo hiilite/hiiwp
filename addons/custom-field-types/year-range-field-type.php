@@ -81,26 +81,26 @@ function jt_cmb2_date_year_range( $field, $value, $object_id, $object_type, $typ
 	echo '<em>'. $type_object->_text( 'start_label', 'Starting Year' ) . '</em> ';
 
 	$start_options = jt_cmb2_date_year_range_options( $type_object, $earliest, $value['start'], $start_reverse_sort );
-	echo $type_object->select( array(
+	echo wp_kses_post($type_object->select( array(
 		'name'    => $type_object->_name( '[start]' ),
 		'id'      => $type_object->_id( '_start' ),
 		'value'   => $value['start'],
 		'class'   => 'cmb2_select cmb2-year-range-start',
 		'options' => $start_options,
 		'desc'    => '',
-	) );
+	) ));
 
 	echo $type_object->_text( 'separator', ' &mdash; ' );
 
 	$end_options = jt_cmb2_date_year_range_options( $type_object, $earliest, $value['finish'], $finish_reverse_sort  );
-	echo $type_object->select( array(
+	echo wp_kses_post($type_object->select( array(
 		'name'    => $type_object->_name( '[finish]' ),
 		'id'      => $type_object->_id( '_finish' ),
 		'value'   => $value['finish'],
 		'class'   => 'cmb2_select cmb2-year-range-end',
 		'options' => $end_options,
 		'desc'    => '',
-	) );
+	) ));
 	echo ' <em>'. $type_object->_text( 'finish_label', 'Final Year' ) . '</em>';
 
 	$field->args['description'] = $desc;

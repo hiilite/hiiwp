@@ -67,9 +67,18 @@ class HiiWP_Theme_Options extends Hii {
 	
 	private function get_options_panels() {
 		$hiilite_options = Hii::get_options();
-		foreach (glob(HIILITE_DIR."/includes/theme_options/theme_options-*.php") as $filename) {
-		    include_once( $filename );
-		} 
+		require_once( HIILITE_DIR . '/includes/theme_options/theme_options-404_error_page_section.php' );
+		require_once( HIILITE_DIR . '/includes/theme_options/theme_options-blog_section.php' );
+		require_once( HIILITE_DIR . '/includes/theme_options/theme_options-elements_panel.php' );
+		require_once( HIILITE_DIR . '/includes/theme_options/theme_options-footer_section.php' );
+		require_once( HIILITE_DIR . '/includes/theme_options/theme_options-general_panel.php' );
+		require_once( HIILITE_DIR . '/includes/theme_options/theme_options-header_panel.php' );
+		require_once( HIILITE_DIR . '/includes/theme_options/theme_options-logo_section.php' );
+		require_once( HIILITE_DIR . '/includes/theme_options/theme_options-sidebar_section.php' );
+		require_once( HIILITE_DIR . '/includes/theme_options/theme_options-social_section.php' );
+		require_once( HIILITE_DIR . '/includes/theme_options/theme_options-title_panel.php' );
+		require_once( HIILITE_DIR . '/includes/theme_options/theme_options-typography_panel.php' );
+		require_once( HIILITE_DIR . '/includes/theme_options/theme_options-woocommerce.php' );
 	}
 	
 	

@@ -118,7 +118,7 @@ function autocomplete_cmb2_get_post_title_from_id($id) {
 function autocomplete_cmb2_render_autocomplete($field_object, $escaped_value, $object_id, $object_type, $field_type_object) {
 
 	// Store the value in a hidden field.
-	echo $field_type_object->hidden();
+	echo wp_kses_post($field_type_object->hidden());
 
 	if (isset($field_object->args['repeatable_class'])) {
 		$repeatable_class = $field_object->args['repeatable_class'];
@@ -173,18 +173,18 @@ function autocomplete_cmb2_render_autocomplete($field_object, $escaped_value, $o
 			}
 
 			if (!empty($repeatable_class)) { ?>
-			$('.<?php echo $repeatable_class; ?>').each(function(i, el) {
+			$('.<?php echo sanitize_html_class($repeatable_class); ?>').each(function(i, el) {
 				if (typeof $(this).data('ui-autocomplete') === 'undefined') {
 						$(this).autocomplete({
 			<?php } else { ?>
-			$('#<?php echo $id; ?>').autocomplete({
+			$('#<?php echo esc_attr($id); ?>').autocomplete({
 			<?php } ?>
 				source: <?php if (empty($options)) { ?>
 					function(request, response) {
 						$.ajax(
 							{url: ajaxurl,
 							 data: {
-								action: '<?php echo $source; ?>',
+								action: '<?php echo esc_attr($source); ?>',
 								q: request.term
 							 },
 							 success: function(data) {

@@ -120,7 +120,7 @@ do_action( 'hii_before_blog_loop' );
 	<?php 
 	if($hiilite_options['blog_title_position'] == 'title-above') { 
 		echo '<header class="entry-header content-box col-12">';
-		echo $article_title; // WPCS: XSS ok.
+		echo wp_kses_post($article_title); // WPCS: XSS ok.
 		echo '</header>';
 	}
 	$thumb_size = ($hiilite_options['blog_img_pos']=='image-left')?'col-6':'col-12';
@@ -155,7 +155,7 @@ do_action( 'hii_before_blog_loop' );
 		<?php 
 		if($hiilite_options['blog_title_position'] == 'title-below') { 
 			echo '<header class="entry-header">';
-			echo $article_title; // WPCS: XSS ok.
+			echo wp_kses_post($article_title); // WPCS: XSS ok.
 			echo '</header>';
 		}
 		echo '<div class="entry-content">';

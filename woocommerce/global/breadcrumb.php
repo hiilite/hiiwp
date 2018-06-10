@@ -45,5 +45,5 @@ if ( ! empty( $breadcrumb ) ) {
 
 	$output .= $wrap_after;
 	
-	echo $output; // WPCS: XSS ok.
+	echo wp_kses_post($output); // WPCS: XSS ok.
 }

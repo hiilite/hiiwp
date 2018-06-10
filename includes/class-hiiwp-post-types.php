@@ -48,40 +48,11 @@ class HiiWP_Post_Types {
 	 */
 	public function __construct() {
 		$hiilite_options = Hii::get_options();
-		add_action( 'init', array( $this, 'register_post_types'), 0 );
-		add_action('cmb2_init', array( $this, 'add_post_options' ) );
-		add_action('cmb2_admin_init', array( $this, 'cmb2_post_metaboxes' ) );
-		//add_action( 'init', array( $this, 'register_taxonomies'), 0 );
-		
-		
+		add_action('cmb2_admin_init', array( $this, 'cmb2_post_metaboxes' ) );		
 		add_filter( 'posts_where', array( $this, 'password_post_filter' ) );
 		
 		
-	}
-	
-	/**
-	 * register_post_types function.
-	 * 
-	 * @access public
-	 * @return void
-	 */
-	public function register_post_types() {
-		$hiilite_options = Hii::get_options();
-		foreach (glob(HIILITE_DIR."/includes/post_types/post_type-*.php") as $filename) {
-		    include_once( $filename );
-		}
-		
-		flush_rewrite_rules();
-	}
-	
-	public function add_post_options() {
-		foreach (glob(HIILITE_DIR."/includes/post_options/post_options-*.php") as $filename) {
-		    include_once( $filename );
-		}
-
-	}
-	
-	
+	}	
 	
 	/**
 	 * cmb2_post_metaboxes function.

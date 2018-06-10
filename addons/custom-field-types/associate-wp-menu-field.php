@@ -99,14 +99,14 @@ class CMB2_Post_Menu_Association {
 		$link_title = $menu_id ? 'Edit Selected Menu' : 'Create New Menu';
 
 		?>
-		<a href="<?php echo esc_url( $url ); ?>"><?php echo $link_title; ?></a>
+		<a href="<?php echo esc_url( $url ); ?>"><?php echo esc_html($link_title); ?></a>
 
 		<p class="cmb2-metabox-description explain-widget-necessary"><strong>Note:</strong> In order for this menu to display, you will need to ensure the "Associated Post Menu" widget is placed in the <a href="<?php echo admin_url( 'widgets.php' ); ?>">widget area</a> for this template.</p>
 
 		<?php if ( ! $script_added ) : ?>
 			<script type="text/javascript">
-				if ( '#<?php echo $this->metabox_id; ?>' === window.location.hash ) {
-					var el = document.getElementById( '<?php echo $this->metabox_id; ?>' );
+				if ( '#<?php echo esc_attr($this->metabox_id); ?>' === window.location.hash ) {
+					var el = document.getElementById( '<?php echo esc_attr($this->metabox_id); ?>' );
 					el.className += ' post-menu-box-highlighted';
 				}
 			</script>
@@ -114,7 +114,7 @@ class CMB2_Post_Menu_Association {
 				.post-menu-box-highlighted {
 					box-shadow: 0 0 10px 5px rgba(226, 73, 73, 0.28);
 				}
-				#side-sortables #<?php echo $this->metabox_id; ?> .explain-widget-necessary {
+				#side-sortables #<?php echo esc_attr($this->metabox_id); ?> .explain-widget-necessary {
 					padding-bottom: 0;
 					padding-top: 10px;
 					margin-bottom: -15px;
@@ -250,10 +250,10 @@ class CMB2_Post_Menu_Widget extends WP_Widget {
 		/** This filter is documented in wp-includes/widgets/class-wp-widget-pages.php */
 		$widget_title = apply_filters( 'widget_title', empty( $widget_title ) ? '' : $widget_title, $instance, $this->id_base );
 
-		echo $args['before_widget'];
+		echo wp_kses_post($args['before_widget']);
 
 		if ( ! empty( $widget_title ) ) {
-			echo $args['before_title'] . $widget_title . $args['after_title'];
+			echo wp_kses_post($args['before_title'] . $widget_title . $args['after_title']);
 		}
 
 		$nav_menu_args = array(
@@ -279,7 +279,7 @@ class CMB2_Post_Menu_Widget extends WP_Widget {
 		 */
 		wp_nav_menu( apply_filters( 'widget_nav_menu_args', $nav_menu_args, $nav_menu, $args, $instance ) );
 
-		echo $args['after_widget'];
+		echo wp_kses_post($args['after_widget']);
 	}
 
 	/**
@@ -317,8 +317,8 @@ class CMB2_Post_Menu_Widget extends WP_Widget {
 		?>
 		<div class="nav-menu-widget-form-controls">
 			<p>
-				<label for="<?php echo $this->get_field_id( 'title' ); ?>">Fallback Title:</label>
-				<input type="text" class="widefat" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" value="<?php echo esc_attr( $title ); ?>"/>
+				<label for="<?php echo esc_attr($this->get_field_id( 'title' )); ?>">Fallback Title:</label>
+				<input type="text" class="widefat" id="<?php echo esc_attr($this->get_field_id( 'title' )); ?>" name="<?php echo esc_attr($this->get_field_name( 'title' )); ?>" value="<?php echo esc_attr( $title ); ?>"/>
 			</p>
 		</div>
 		<?php

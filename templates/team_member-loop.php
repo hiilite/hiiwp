@@ -74,4 +74,4 @@ endif;
 $output .=  '<div class="row"><div class="container_inner"><div class="in_grid content-box">';
 $output .=  '<a class="button full-width align-center" href="/team/">Meet the Whole Team</a>';
 $output .=  '</div></div></div>';
-echo $output; // WPCS: XSS ok.
+echo wp_kses_post($output); // WPCS: XSS ok.
