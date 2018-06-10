@@ -748,6 +748,15 @@ class HiiWP extends Hii {
 	            'force_activation'   => true, // If true, plugin is activated upon theme activation and cannot be deactivated until theme switch.
 	            'force_deactivation' => false, // If true, plugin is deactivated upon theme switch, useful for theme-specific plugins.
 	        ),
+	        array(
+	            'name'               => 'HiiWP Plus', // The plugin name.
+	            'slug'               => 'hiiwp-plus', // The plugin slug (typically the folder name).
+	            'source'             => 'https://github.com/hiilite/hiiwp-plus/archive/master.zip', // The plugin source.
+	            'version'			 => '1.0.0',
+	            'required'           => true, // If false, the plugin is only 'recommended' instead of required.
+	            'force_activation'   => true, // If true, plugin is activated upon theme activation and cannot be deactivated until theme switch.
+	            'force_deactivation' => true, // If true, plugin is deactivated upon theme switch, useful for theme-specific plugins.
+	        ),
 			array(
 	            'name'      => 'Google Analytics Dashboard',
 	            'slug'      => 'google-analytics-dashboard-for-wp',
