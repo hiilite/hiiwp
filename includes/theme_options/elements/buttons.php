@@ -24,6 +24,7 @@ Kirki::add_field( 'hiiwp', array(
     'label'		  => '',
     'default'     => '<h1>Default Button</h1>',
     'priority'    => 1,
+    
 ) );
 
 Kirki::add_field( 'hiiwp', array(
@@ -33,6 +34,11 @@ Kirki::add_field( 'hiiwp', array(
     'section'     => $section,
     'default'     => $hiilite_options['typography_button_default_font'], 
     'priority'    => 1,
+    'output'	  => array(
+	    array(
+			'element'	=> '.button',
+		) 
+    )
 ) );
 Kirki::add_field( 'hiiwp', array(
 	'type'        => 'color',
@@ -41,6 +47,12 @@ Kirki::add_field( 'hiiwp', array(
 	'section'     => $section,
     'default'     => $hiilite_options['typography_button_default_hover_color'],
 	'priority'    => 1,
+	'output'	  => array(
+	    array(
+			'element'	=> '.button:hover',
+			'property'	=> 'color'
+		) 
+    )
 ) );
 Kirki::add_field( 'hiiwp', array(
 	'type'        => 'multicolor',
@@ -129,6 +141,11 @@ Kirki::add_field( 'hiiwp', array(
     'section'     => $section,
     'default'     => $hiilite_options['typography_button_primary_font'], 
     'priority'    => 2,
+    'output'	  => array(
+	    array(
+			'element'	=> '.button-primary',
+		) 
+    )
 ) );
 Kirki::add_field( 'hiiwp', array(
 	'type'        => 'color',
@@ -137,6 +154,12 @@ Kirki::add_field( 'hiiwp', array(
 	'section'     => $section,
     'default'     => $hiilite_options['typography_button_primary_hover_color'],
 	'priority'    => 2,
+	'output'	  => array(
+	    array(
+			'element'	=> '.button-primary:hover',
+			'property'	=> 'color'
+		) 
+    )
 ) );
 Kirki::add_field( 'hiiwp', array(
 	'type'        => 'multicolor',
@@ -221,6 +244,11 @@ Kirki::add_field( 'hiiwp', array(
     'section'     => $section,
     'default'     => $hiilite_options['typography_button_secondary_font'], 
     'priority'    => 3,
+    'output'	  => array(
+	    array(
+			'element'	=> '.button-secondary',
+		) 
+    )
 ) );
 Kirki::add_field( 'hiiwp', array(
 	'type'        => 'color',
@@ -229,6 +257,12 @@ Kirki::add_field( 'hiiwp', array(
 	'section'     => $section,
     'default'     => $hiilite_options['typography_button_secondary_hover_color'],
 	'priority'    => 3,
+	'output'	  => array(
+	    array(
+			'element'	=> '.button-secondary:hover',
+			'property'	=> 'color'
+		) 
+    )
 ) );
 Kirki::add_field( 'hiiwp', array(
 	'type'        => 'multicolor',

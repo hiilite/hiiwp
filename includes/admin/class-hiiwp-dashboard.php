@@ -51,7 +51,7 @@ class HiiWP_Dashboard {
 	<p>Hiilite works with a mix of local, regional, provincial and international clients. We are equally happy working face-to-face and working remotely. We serve BC, Western Canada and beyond from a little corner of paradise - Kelowna, BC.</p>
 	<h4>Need Help</h4>
 	<p>
-		<a href="https://hiilite.com/knowledge-base/hiiwp-wordpress-theme/" target="_blank">Read Knowledge Base</a> | <a href="https://hiilite.com/support/request-product-support/" target="_blank">Submit a Support Ticket</a>
+		<a href="https://hiilite.ticksy.com/" target="_blank">Read Knowledge Base</a> | <a href="https://hiilite.ticksy.com/" target="_blank">Submit a Support Ticket</a>
 	</p><div id="social-icons">
 	<a href="https://www.facebook.com/hiilite" target="_blank"><img src="https://hiilite.com/wp-content/uploads/2014/11/Facebook-32.png" width="32" height="32" alt="Facebook" scale="0"></a><a href="https://twitter.com/hiilite" target="_blank"><img src="https://hiilite.com/wp-content/uploads/2014/11/Twitter-Bird-32.png" width="32" height="32" alt="Twitter" scale="0"></a><a href="https://plus.google.com/u/0/b/107657092449987968512/107657092449987968512" target="_blank"><img src="https://hiilite.com/wp-content/uploads/2014/11/Google-Plus-32.png" width="32" height="32" alt="Google" scale="0"></a>
 	</div><?php 

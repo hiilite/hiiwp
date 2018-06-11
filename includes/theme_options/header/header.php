@@ -84,6 +84,12 @@ Kirki::add_field( 'hiiwp', array(
 		'background-attachment'   => 'scroll',
 		'background-position' => 'left-top',
 	),
+	'output'	=> array(
+		array(
+			'element'	=> '#main_header',
+			'property'	=> 'background'
+		)
+	)
 ) );
 
 // BORDER TOP

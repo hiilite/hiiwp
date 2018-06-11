@@ -757,9 +757,14 @@ class HiiWP extends Hii {
 	            'force_activation'   => true, // If true, plugin is activated upon theme activation and cannot be deactivated until theme switch.
 	            'force_deactivation' => true, // If true, plugin is deactivated upon theme switch, useful for theme-specific plugins.
 	        ),
-			array(
+	        array(
 	            'name'      => 'Google Analytics Dashboard',
 	            'slug'      => 'google-analytics-dashboard-for-wp',
+	            'required'  => false,
+	        ),
+			array(
+	            'name'      => 'One Click Demo Import',
+	            'slug'      => 'one-click-demo-import',
 	            'required'  => false,
 	        ),
 	        array(
