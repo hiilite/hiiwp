@@ -1440,6 +1440,7 @@ object {
 --------------------------------------------------------------*/
 #page-loader {
 	opacity: 1;
+	transition: opacity 0.4s;
 }
 #page-loader circle {
 	stroke-width: 10;
@@ -2196,6 +2197,52 @@ aside .widget ul li {
 //	note: Complimentary styles	
 */
 
+/* Single Team Member Page */
+
+.team-member-content {
+	padding-left: 1em;
+	padding-right: 1em;
+}
+.related-team-member {
+	max-width: 250px;
+	width: 250px;
+}
+.single-team-member .related-team-member {
+	max-width: 250px;
+	overflow: hidden;
+	display: inline-block;
+	padding: 1em;
+    vertical-align: top;
+}
+.single-team-member .related-team-member p {
+	max-width: 200px;
+	text-overflow: ellipsis;
+	white-space: normal;
+	overflow: hidden;
+	margin-top: 0;
+}
+.related-team-title {
+	max-width: 200px;
+	text-overflow: ellipsis;
+	white-space: normal;
+	overflow: hidden;
+	margin: 0 auto;
+	text-align: center;
+	margin-top: 0;
+	padding: 10px 0em;
+}
+.meet-the-team-btn {
+	margin-top: 2em;
+	margin-bottom: 3em;
+}
+.teams-title {
+	margin-bottom: 2em;
+}
+.related-team-member img, .team-img-container {
+	margin: 0 auto;
+	text-align: center;
+}
+/* END Single Team Member Page */
 
 hr.small {
 	width: 60px;

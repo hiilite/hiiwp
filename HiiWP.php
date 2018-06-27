@@ -157,10 +157,10 @@ class HiiWP extends Hii {
 	    <style>
 		    html body > .wrapper {
 		    	opacity: 0;
-		    	transition: opacity 0.4s;
+		    	transition: opacity 0.25s;
 		    }
 		    
-		    .wf-active body > .wrapper {
+		    html[class*="-active"] body > .wrapper {
 			    opacity: 1;
 		    }
 		</style>
@@ -756,11 +756,6 @@ class HiiWP extends Hii {
 	            'required'           => true, // If false, the plugin is only 'recommended' instead of required.
 	            'force_activation'   => true, // If true, plugin is activated upon theme activation and cannot be deactivated until theme switch.
 	            'force_deactivation' => true, // If true, plugin is deactivated upon theme switch, useful for theme-specific plugins.
-	        ),
-	        array(
-	            'name'      => 'Google Analytics Dashboard',
-	            'slug'      => 'google-analytics-dashboard-for-wp',
-	            'required'  => false,
 	        ),
 			array(
 	            'name'      => 'One Click Demo Import',

@@ -11,7 +11,9 @@ $hiilite_options = HiiWP::get_options();
 $post_meta = get_post_meta(get_the_id());
 $team_member_content_layout = $hiilite_options['team_member_content_layout'];
 $team_member_image_style = $hiilite_options['team_member_image_style'];
+$output = '';
 ?>
+
 <article <?php post_class('row single-team-member'); ?> id="post-<?php the_ID(); ?>" >
 <?php
 $output .= '<div class="container_inner">
@@ -30,8 +32,12 @@ $output .= '<div class="container_inner">
 		$output .=  "<img src='".$img[0]."' layout='responsive' width='{$width}' height='{$height}'>";
 		$output .=  "</figure></div>";
 	endif; 
+		$output .= '<div class="flex-item col-9 align-top">';
+		$output .= '<div class="team-member-content">' . get_the_content() . '</div>';
+		$output .= '</div>';	
 		
-$output .=  '<div class="team-member-content flex-item col-8 content-box">';
+		
+$output .=  '<div class="team-member-content flex-item col-9 content-box">';
 		if($hiilite_options['team_member_title_show'] == true) {
 			$team_member_heading_tag = $hiilite_options['team_member_heading_tag'];
 			$output .=  "<{$team_member_heading_tag} class='team-member-name'><a href='".get_the_permalink()."'>".get_the_title()."</a></{$team_member_heading_tag}>";
@@ -42,36 +48,32 @@ $output .=  '<div class="team-member-content flex-item col-8 content-box">';
 			if($terms) $output .=  esc_html__($terms[0]->name, 'hiiwp');
 			$output .=  "</div>";
 		}
-	
-		the_content();
-	
+
 $output .=  '</div></div></article>';
 
-$exclude = array(get_the_id());
+
+/////////////////////////
+//
+//	Other Team Members Slider
+//
+/////////////////////////
 
 $team = new WP_Query(
 array(	'post_type'=>'team',
-		'posts_per_page'=>4,
-		'orderby' => 'rand',
-		'post__not_in' => $exclude
+		'posts_per_page'=>10,
+		'orderby' => 'rand'
 	));
-if($team->have_posts()):
-	$output .=  '<div class="row"><div class="container_inner">';
-	$output .=  '<div class="in_grid"><h2 class="meet-team-title">Meet the rest of the team</h2></div>';
-	$output .=  '<div class="in_grid">';
 	
-	while($team->have_posts()):
-		$team->the_post();
-		
-		get_template_part('templates/team', 'loop');
-		
-		
-	endwhile;
-	//echo do_shortcode( '[hii_rotating_carousel post_type="custom" show_title="yes" show_excerpt="yes" show_btn="yes" btn_text="Read More" custom_query="post_type=team&order=ASC&orderby=rand"]' );
-	$output .=  '</div></div></div>';
-
+if($team->have_posts()):
+	$output .= '<aside class="col-12 text-block">';
+	$output .= '<div class="in_grid">';
+	$output .= '<div class="align-center teams-title"><h4>More Team Members</h4></div>';
+	$output .=  do_shortcode('[teams show_image="true" show_title="true" heading_tag="h5" is_slider="true"]');
+	$output .= '</div>';
+	$output .= '</aside>';
 endif;
-$output .=  '<div class="row"><div class="container_inner"><div class="in_grid content-box">';
-$output .=  '<a class="button full-width align-center" href="/team/">Meet the Whole Team</a>';
+//end team slider
+$output .=  '<div class="row"><div class="container_inner"><div class="in_grid">';
+$output .=  '<a class="button full-width align-center meet-the-team-btn" href="' . get_site_url() . '/team/">Meet the Whole Team</a>';
 $output .=  '</div></div></div>';
-echo wp_kses_post($output); // WPCS: XSS ok.
+echo $output; // WPCS: XSS ok.

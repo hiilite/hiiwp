@@ -115,7 +115,7 @@ class Hii {
 		add_action( 'after_switch_theme', array( $this, 'activate') );
 		
 		add_action( 'after_switch_theme', array( 'HiiWP_Ajax', 'add_endpoint'), 10);
-		add_action( 'after_switch_theme', array( $this->post_types, 'register_post_types'), 11);
+//		add_action( 'after_switch_theme', array( $this->post_types, 'register_post_types'), 11);
 		add_action( 'after_switch_theme', 'flush_rewrite_rules', 15);
 		
 		add_action('wp_enqueue_scripts', array( $this, 'add_scripts' ));
@@ -209,7 +209,6 @@ class Hii {
 	 */
 	public function activate() {
 		HiiWP_Ajax::add_endpoint();
-		$this->post_types->register_post_types();
 		HiiWP_Install::install();
 		flush_rewrite_rules();
 	}
