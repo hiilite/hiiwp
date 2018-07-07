@@ -942,7 +942,7 @@ function hiilite_numeric_posts_nav() {
 		        printf( '<li>%s</li>' . "\n", get_next_posts_link() );
 		 
 		    echo '</ul></div>' . "\n";
-	
+		
 		// END Numbered Pagination Option
 		} else {
 			echo '<div class="pagination row">';

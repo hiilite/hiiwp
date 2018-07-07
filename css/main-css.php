@@ -1445,7 +1445,7 @@ object {
 --------------------------------------------------------------*/
 #page-loader {
 	opacity: 1;
-	transition: opacity 0.4s;
+	transition: all 0.4s;
 }
 #page-loader circle {
 	stroke-width: 10;
@@ -1501,7 +1501,7 @@ object {
 #page-loader circle:nth-of-type(4) {
 	animation-delay: -0.8s;
 }
-.wf-active #page-loader {
+html[class*="-active"] #page-loader {
 	opacity: 0;
 	display: none !important;
 }
