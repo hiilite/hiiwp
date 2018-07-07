@@ -386,34 +386,36 @@ function hii_the_title() {
  */
  if(!function_exists('get_background_css')):
 	function get_background_css($background){ 
+		$background_css = '';
 		foreach($background as $rule => $value){
 			if($value != ''){
 				switch ($rule){
 					case 'background-image':case 'image':
-						return "background-image:url($value);";
+						$background_css .= "background-image:url($value);";
 						break;
 					case 'background-attach':case 'attach':
-						return "background-attachment:$value;";
+						$background_css.= "background-attachment:$value;";
 						break;
 					case 'background-position':case 'position':
-						return 'background-position:'.str_replace('-', ' ', $value).';';
+						$background_css.= 'background-position:'.str_replace('-', ' ', $value).';';
 						break;
 					case 'background-size':case 'size':
-						return "background-size:$value;";
+						$background_css.= "background-size:$value;";
 						break;
 					case 'background-repeat':case 'repeat':
-						return "background-repeat:$value;";
+						$background_css.= "background-repeat:$value;";
 						break;
 					case 'background-color':case 'color':
-						return "background-color:$value;";
+						$background_css.= "background-color:$value;";
 						break;
 					default:
-						return "$rule:$value;";
+						$background_css.= "$rule:$value;";
 						break;
 						
 				}
 			}
 		}
+		return $background_css;
 	}
 endif;
 
@@ -971,6 +973,7 @@ function cmb2_output_portfolio_imgs( $portfolio_images ) {
 		}
 	endif;
 }
+
 
 function theme_deactivation($theme) {
 	call_user_func($GLOBALS["register_theme_deactivation_hook_functionhiiwp"]); 

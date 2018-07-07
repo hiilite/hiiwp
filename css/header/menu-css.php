@@ -28,8 +28,7 @@ $third_level_menu_colors = Hii::$options['third_level_menu_colors'];
 	display:block;
 	<?php 
 	echo get_font_css(Hii::$options['main_menu_font']);
-	?>
-	<?php echo Hii::$options['main_menu_links_css'];?>
+	echo Hii::$options['main_menu_links_css'];?>
 }
 #main_header .menu .menu-item .fa {
 	color: <?php echo Hii::$options['main_menu_font']['color']; ?>;

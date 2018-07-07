@@ -145,13 +145,12 @@ $(document).ready(function(){
 			
 			contentHeights = $carousel.find('.slide-text-overlay').map(function() {
 				    return $(this).outerHeight(); 
+				    
 				}).get();
 			maxContentHeight = Math.max.apply(null, contentHeights);
 			
-			//if(height < maxContentHeight) {
-				height = (maxContentHeight);
-			//}
-						
+			height = (maxContentHeight);
+			$carousel.height(height);	
 			$(window).on('resize',function(){
 				width = $carousel.parent().width();
 				
@@ -160,9 +159,8 @@ $(document).ready(function(){
 				    return $(this).outerHeight();
 				}).get();
 				maxContentHeight = Math.max.apply(null, contentHeights);
-				//if(height < maxContentHeight) {
-					height = (maxContentHeight);
-				//}
+				height = (maxContentHeight);
+
 				$carousel.width(width);
 				$carousel.height(height);
 				
@@ -202,7 +200,7 @@ $(document).ready(function(){
 		}
 		
 		$carousel.width(width);
-		//$carousel.height(height);
+		
 		
 		if(length > 1) {
 			

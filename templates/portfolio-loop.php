@@ -8,13 +8,13 @@
  * @since       1.0
  */
 global $post;
-$hiilite_options = HiiWP::get_options();
-$image_aspect_style = '';
-$portfolio_columns = $hiilite_options['portfolio_columns'];
-$portfolio_image_style = (isset($atts['portfolio_image_style']))?$atts['portfolio_image_style']:$hiilite_options['portfolio_image_style'];
-$portfolio_image_pos = (isset($atts['portfolio_image_pos']))?$atts['portfolio_image_pos']:$hiilite_options['portfolio_image_pos'];
-$portfolio_show_info = (isset($atts['portfolio_show_info']))?$atts['portfolio_show_info']:$hiilite_options['portfolio_show_info'];
-$portfolio_heading_size = (isset($atts['portfolio_heading_size']))?$atts['portfolio_heading_size']:$hiilite_options['portfolio_heading_size'];
+$hiilite_options 		= HiiWP::get_options();
+$image_aspect_style 	= '';
+$portfolio_columns	 	= (isset($atts['portfolio_columns']))		?$atts['portfolio_columns']:$hiilite_options['portfolio_columns'];
+$portfolio_image_style 	= (isset($atts['portfolio_image_style']))	?$atts['portfolio_image_style']:$hiilite_options['portfolio_image_style'];
+$portfolio_image_pos 	= (isset($atts['portfolio_image_pos']))		?$atts['portfolio_image_pos']:$hiilite_options['portfolio_image_pos'];
+$portfolio_show_info 	= (isset($atts['portfolio_show_info']))		?$atts['portfolio_show_info']:$hiilite_options['portfolio_show_info'];
+$portfolio_heading_size = (isset($atts['portfolio_heading_size']))	?$atts['portfolio_heading_size']:$hiilite_options['portfolio_heading_size'];
 
 if(isset($is_slider) && $is_slider == true) $portfolio_columns .= ' slide';
 ?>

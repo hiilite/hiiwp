@@ -11,10 +11,6 @@ Template Name: Portfolio Page
  * @since       1.0
  */
 $hiilite_options = HiiWP::get_options();
-if($hiilite_options['portfolio_on']):
-
-endif;
-
 
 
 get_header();

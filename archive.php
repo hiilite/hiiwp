@@ -13,7 +13,7 @@ if(have_posts()):
 	while(have_posts()):
 		the_post();
 		$post_type = get_post_type(get_the_ID());
-		switch (get_post_type($post)) {
+		switch ($post_type) {
 			case get_theme_mod( 'portfolio_slug', 'portfolio' ):
 				get_template_part('templates/blog', 'loop');
 				break;
@@ -49,7 +49,8 @@ if(have_posts()):
 	<?php
 	endif;
 	echo '</div></section>';
-
+else:
+	echo '<section class="row"><div class="container_inner in_grid"><h2>Sorry, no posts were found matching your request.</h2></div></div>';
 endif;
 
 get_footer(); ?>

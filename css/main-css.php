@@ -449,6 +449,7 @@ blockquote:after {
 	outline: none;
 }
 <?php
+	
 get_template_part('css/typography/language-fixes', 'css');
 
 /*--------------------------------------------------------------
@@ -473,6 +474,10 @@ hr {
 	height: 1px;
 	margin-bottom: 1.5em;
 }
+.transform-uppercase { text-transform: uppercase; }
+.transform-lowercase { text-transform: lowercase; }
+.transform-capitalize { text-transform: capitalize; }
+.transform-none { text-transform: none; }
 
 /*--------------------------------------------------------------
 8.0 Lists
