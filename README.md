@@ -2,7 +2,9 @@
 
 ### Change log
 #### v1.0
-
+- Major Updates to all files
+- All plugin territory functions moved to HiiWP Plus Plugin, now a required plugin install with theme.
+- Reworking of Carousel shortcodes.
 
 #### v0.4.9
 - Fixes to schema
