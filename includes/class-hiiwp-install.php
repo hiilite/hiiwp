@@ -1,9 +1,17 @@
 <?php
+/**
+ * The HiiWP Install class.
+ * Handles adding all admin options
+ *
+ * @package     HiiWP
+ * @category    Core
+ * @author      Peter Vigilante
+ * @copyright   Copyright (c) 2017, Hiilite Creative Group
+ * @license     http://opensource.org/licenses/https://opensource.org/licenses/MIT
+ * @since       0.4.1
+ */
 if ( ! defined( 'ABSPATH' ) ) exit;
 
-/**
- * HiiWP_Install
- */
 class HiiWP_Install {
 	
 	
