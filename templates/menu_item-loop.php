@@ -1,4 +1,12 @@
 <?php
+/**
+ * HiiWP Template: menu_item-loop
+ *
+ * @package     hiiwp
+ * @copyright   Copyright (c) 2018, Peter Vigilante
+ * @license     http://opensource.org/licenses/gpl-2.0.php GNU Public License
+ * @since       1.0
+ */
 global $hiilite_options;
 $post_meta = get_post_meta(get_the_id());
 	?>
@@ -18,7 +26,7 @@ $post_meta = get_post_meta(get_the_id());
 			$height = $img[2];
 		?>
 		<figure class="flex-item third-width align-top">
-			<img src='<?php echo $img[0];?>' layout='responsive' width='<?php echo $width?>' height='<?php echo $height?>'>
+			<img src='<?php echo esc_url($img[0]);?>' layout='responsive' width='<?php echo intval($width);?>' height='<?php echo intval($height);?>'>
 		</figure>
 	<?php endif; 
 		
@@ -65,7 +73,7 @@ $post_meta = get_post_meta(get_the_id());
 	    $output .= '</table></td></tr></table>';
 	}
     $output .= '</span>';
-     echo $output;
+    echo wp_kses_post($output); // WPCS: XSS ok.
 	if(has_excerpt($post->id)){
 		the_excerpt();
 	}

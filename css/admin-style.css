@@ -28,7 +28,7 @@ h1 {
 li#toplevel_page_customize .wp-menu-name, li#toplevel_page_customize .wp-menu-image:before {
     color: #2AB7C4;
 }
-#wpadminbar>#wp-toolbar>#wp-admin-bar-root-default #wp-admin-bar-wp-logo .ab-icon {
+#wp-toolbar>#wp-admin-bar-root-default #wp-admin-bar-wp-logo .ab-icon {
 	background-image: url('../images/favicon.png') !important;
 	background-size: contain;
 	background-repeat: no-repeat;
@@ -41,10 +41,10 @@ li#toplevel_page_customize .wp-menu-name, li#toplevel_page_customize .wp-menu-im
 #site_analytics .gadwp div#postbox-container-1 {
     display: none;
 }
-#wpadminbar>#wp-toolbar>#wp-admin-bar-root-default #wp-admin-bar-wp-logo .ab-icon:before {
+#wp-toolbar>#wp-admin-bar-root-default #wp-admin-bar-wp-logo .ab-icon:before {
 	display: none;
 }
-#wpadminbar #wp-admin-bar-wp-logo>.ab-item {
+#wp-admin-bar-wp-logo>.ab-item {
 	padding: 0;
 	width: 2.3em;
 }
@@ -62,11 +62,11 @@ li#toplevel_page_customize .wp-menu-name, li#toplevel_page_customize .wp-menu-im
     box-shadow: none;
 }
 
-#wpadminbar #wp-admin-bar-site-name a.ab-item {
+#wp-admin-bar-site-name a.ab-item {
     max-width: 1.5em;
 }
 
-#wpadminbar .ab-top-menu>.menupop>.ab-sub-wrapper {
+.ab-top-menu>.menupop>.ab-sub-wrapper {
     min-width: 100px;
 }
 
@@ -112,14 +112,7 @@ a {
 #collapse-menu:hover {
 	color: #2FB6C4;
 }
-#wpadminbar a:hover,
-#wpadminbar a:active,
-#wpadminbar li:hover>a.ab-item,
-#wpadminbar li:hover>a.ab-item:before,
-#wpadminbar>#wp-toolbar li:hover span.ab-label,
-#wpadminbar>#wp-toolbar li:hover span.ab-icon:before{
-	color: #2FB6C4 !important;
-}
+
 #adminmenu li a:focus div.wp-menu-image:before, 
 #adminmenu li.opensub div.wp-menu-image:before, 
 #adminmenu li:hover div.wp-menu-image:before {
@@ -325,13 +318,18 @@ ul.cmb2-checkbox-list.cmb2-list li {
 }
 
 .cmb2-wrap .cmb-td input.cmb2-text-small, .cmb2-wrap .cmb-td input.cmb2-timepicker {
-    width: auto;
+    width: 100%;
 }
 
 
 .cmb-type-textarea-code pre {
     margin: 0;
-    display: inline-block;
+    display: block;
+}
+.cmb-type-textarea-code pre .CodeMirror {
+    display: block;
+    float: left;
+    width: 100%;
 }
 span.select2 {
     min-width: 150px;
@@ -412,6 +410,11 @@ p.cmb-add-row {
     width: 100% !important;
     float: none;
 }
+
+select.arrow_type.dropdown {
+  font-family: FontAwesome, sans-serif !important;
+}
+
 /*--------------------------------------------------------------
 4.0 Welcome Screen
 --------------------------------------------------------------*/

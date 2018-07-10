@@ -421,7 +421,7 @@ class CMB2_Sanitize {
 			return $repeat_value;
 		}
 
-		return htmlspecialchars_decode( stripslashes( $this->value ) );
+		return wp_specialchars_decode( stripslashes( $this->value ) );
 	}
 
 	/**

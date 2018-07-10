@@ -39,4 +39,4 @@ $output .= '</div>';
 $output .= '</div>';
 
 
-echo $output;
+echo $output; // WPCS: XSS ok.

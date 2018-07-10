@@ -169,4 +169,3 @@ if(($use_blog_layouts == true)){
 }
 echo '</div>';
 
-?>

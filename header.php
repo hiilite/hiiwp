@@ -7,35 +7,19 @@
  * @package     hiiwp
  * @copyright   Copyright (c) 2016, Peter Vigilante
  * @license     http://opensource.org/licenses/gpl-2.0.php GNU Public License
- * @since       0.1.0
+ * @since       1.0
  */
 
 $hiilite_options = Hii::get_options();
-
-$post_id = get_the_id();
-$post_object = get_post( $post_id );
 $bg_color = '';
 
-// Page Description
-if(get_post_meta(get_the_id(), 'page_seo_description', true) != ''){
-	$page_description = get_post_meta(get_the_id(), 'page_seo_description', true);
-} elseif(get_theme_mod('site_seo_description') != '' && is_front_page()) {
-	$page_description = get_theme_mod('site_seo_description');
-} elseif (!is_tax() && is_singular()) {
-	$the_content = $post_object->post_content;
-	$the_content = substr(preg_replace('/\[.*.\]|\n+/', '', $the_content), 0, 165);
-	$page_description = strip_tags($the_content);
-} elseif( get_post_meta(get_the_ID(), '_yoast_wpseo_metadesc', true) != '' ) {
-	$page_description = get_post_meta(get_the_ID(), '_yoast_wpseo_metadesc', true);
-} else {
-	$page_description = '';
-}
 
-do_action('hii_doctype');
+echo do_action('hii_doctype');
 ?>
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+
 <?php 
 wp_head(); 
 ?></head>
@@ -95,7 +79,7 @@ do_action( 'hii_before_header' );
 				$header_bg = (get_post_meta ( $post->ID, 'header_bg', true))?get_post_meta ( $post->ID, 'header_bg', true):false;
 				if($header_bg) :
 					$bg_color = 'style="background-color:'.$header_bg.'"';		
-				elseif( isset($hiilite_options['portfolio_on']) && $hiilite_options['portfolio_on'] == true ):
+				elseif( post_type_exists('portfolio') && ( isset($hiilite_options['portfolio_on']) && $hiilite_options['portfolio_on'] == true  )):
 					if($category = get_the_terms( $post->ID, $hiilite_options['portfolio_tax_slug'] )) {  
 						$portfolio_work_color = (get_term_meta ( $category[0]->term_taxonomy_id, 'portfolio_work_color', true))?get_term_meta ( $category[0]->term_taxonomy_id, 'portfolio_work_color', true):false;	
 						if($portfolio_work_color) {
@@ -106,9 +90,9 @@ do_action( 'hii_before_header' );
 			endif;
 			
 			do_action( 'hii_before_main_header' );	
-			?>
-			<header id="main_header" class="<?php echo $hiilite_options['header_type'];?>" <?php echo $bg_color;?>>
-				<?php do_action('hii_header_hgroup');?>
+			
+			echo "<header id='main_header' class='". sanitize_html_class($hiilite_options['header_type'])."' {$bg_color}>";
+				do_action('hii_header_hgroup');?>
 				<div class="container_inner">
 				<?php 
 				if($hiilite_options['header_in_grid'] == true) { echo '<div class="in_grid">'; }
@@ -134,7 +118,7 @@ do_action( 'hii_before_header' );
 						?><div id="logo_container" class="<?php if($hiilite_options['header_center_right_on'] && !$hiilite_options['header_center_left_on']){ echo 'align-left';} ?>">		
 							
 							<a href="<?php echo esc_url( home_url() ); ?>">
-								<img src="<?php echo $hiilite_options['main_logo'];?>" width="<?php echo $hiilite_options['logo_width'];?>" alt="<?php echo hii_get_the_title();?>">
+								<img src="<?php echo esc_url($hiilite_options['main_logo']);?>" width="<?php echo intval($hiilite_options['logo_width']);?>" alt="<?php echo hii_get_the_title();?>">
 							</a>
 						</div><?php 
 					endif;
@@ -204,11 +188,9 @@ do_action( 'hii_before_header' );
 						</div>
 					</div>
 				</aside>
-				</aside>
 				<?php 
 				do_action( 'hii_after_header_bottom' );
-				endif; ?>
-			</header><?php
+				endif;
+			echo "</header>";
 do_action( 'hii_after_main_header' );
 do_action( 'hii_before_content' );
-?>

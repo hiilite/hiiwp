@@ -104,7 +104,7 @@ class CMB2_Types {
 	 */
 	protected function _render() {
 		$this->field->peform_param_callback( 'before_field' );
-		echo $this->{$this->field->type()}();
+		echo $this->{$this->field->type()}(); // WPCS: XSS ok.
 		$this->field->peform_param_callback( 'after_field' );
 	}
 
@@ -228,7 +228,7 @@ class CMB2_Types {
 			$this->type = new $render_class_name( $this, $args );
 
 			if ( ! ( $this->type instanceof CMB2_Type_Base ) ) {
-				throw new Exception( __( 'Custom CMB2 field type classes must extend CMB2_Type_Base.', 'cmb2' ) );
+				throw new Exception( __( 'Custom CMB2 field type classes must extend CMB2_Type_Base.', 'hiiwp' ) );
 			}
 
 			return $this->type;
@@ -340,13 +340,13 @@ class CMB2_Types {
 		$this->_desc( true, true, true );
 		?>
 
-		<div id="<?php echo $table_id; ?>" class="cmb-repeat-table cmb-nested">
+		<div id="<?php echo esc_attr($table_id); ?>" class="cmb-repeat-table cmb-nested">
 			<div class="cmb-tbody cmb-field-list">
 				<?php $this->repeatable_rows(); ?>
 			</div>
 		</div>
 		<p class="cmb-add-row">
-			<button type="button" data-selector="<?php echo $table_id; ?>" class="cmb-add-row-button button-secondary"><?php echo esc_html( $this->_text( 'add_row_text', esc_html__( 'Add Row', 'cmb2' ) ) ); ?></button>
+			<button type="button" data-selector="<?php echo esc_attr($table_id); ?>" class="cmb-add-row-button button-secondary"><?php echo esc_html( $this->_text( 'add_row_text', esc_html__( 'Add Row', 'hiiwp' ) ) ); ?></button>
 		</p>
 
 		<?php
@@ -404,12 +404,12 @@ class CMB2_Types {
 	protected function repeat_row( $class = 'cmb-repeat-row' ) {
 		?>
 
-		<div class="cmb-row <?php echo $class; ?>">
+		<div class="cmb-row <?php echo sanitize_html_class($class); ?>">
 			<div class="cmb-td">
 				<?php $this->_render(); ?>
 			</div>
 			<div class="cmb-td cmb-remove-row">
-				<button type="button" class="button-secondary cmb-remove-row-button" title="<?php echo esc_attr( $this->_text( 'remove_row_button_title', esc_html__( 'Remove Row', 'cmb2' ) ) ); ?>"><?php echo esc_html( $this->_text( 'remove_row_text', esc_html__( 'Remove', 'cmb2' ) ) ); ?></button>
+				<button type="button" class="button-secondary cmb-remove-row-button" title="<?php echo esc_attr( $this->_text( 'remove_row_button_title', esc_html__( 'Remove Row', 'hiiwp' ) ) ); ?>"><?php echo esc_html( $this->_text( 'remove_row_text', esc_html__( 'Remove', 'hiiwp' ) ) ); ?></button>
 			</div>
 		</div>
 
@@ -440,7 +440,7 @@ class CMB2_Types {
 		$desc = sprintf( "\n" . '<%1$s class="cmb2-metabox-description">%2$s</%1$s>' . "\n", $tag, $desc );
 
 		if ( $echo ) {
-			echo $desc;
+			echo $desc; // WPCS: XSS ok.
 		}
 
 		return $desc;

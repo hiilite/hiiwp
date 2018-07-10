@@ -337,7 +337,7 @@ class Cmb2_Metatabs_Options {
 					return;
 				}
 				$args = func_get_args();
-				echo $this->render_save_button( $args[0]->args['desc'] );
+				echo $this->render_save_button( $args[0]->args['desc'] ); // WPCS: XSS ok.
 			}, 10, 1 );
 	}
 	
@@ -623,7 +623,7 @@ class Cmb2_Metatabs_Options {
 			$css .= '</style>';
 		}
 		
-		echo $css;
+		echo $css; // WPCS: XSS ok.
 	}
 	
 	/**
@@ -897,7 +897,7 @@ class Cmb2_Metatabs_Options {
 		// get bottom of page
 		$page .= $this->admin_page_bottom( $id );
 		
-		echo $page;
+		echo $page; // WPCS: XSS ok.
 		
 		// reset the notices flag
 		self::$once = FALSE;
@@ -1083,7 +1083,7 @@ class Cmb2_Metatabs_Options {
 		}
 		
 		// add notifications
-		add_settings_error( self::$props[ $id ]['key'] . '-notices', '', __( 'Settings updated.', 'cmb2' ), 'updated' );
+		add_settings_error( self::$props[ $id ]['key'] . '-notices', '', __( 'Settings updated.', 'hiiwp' ), 'updated' );
 		settings_errors( self::$props[ $id ]['key'] . '-notices' );
 		
 		// set the flag so we don't pile up notices

@@ -8,7 +8,7 @@
  * @author      Peter Vigilante
  * @copyright   Copyright (c) 2017, Hiilite Creative Group
  * @license     http://opensource.org/licenses/https://opensource.org/licenses/MIT
- * @since       0.4.8
+ * @since       1.0
  */
 
 
@@ -63,7 +63,7 @@ class Hii {
 	 */
 	private function define_constants(){
 	    if ( ! defined( 'HIIWP_VERSION' ) ) {                
-			 define( 'HIIWP_VERSION', '0.4.9' );
+			 define( 'HIIWP_VERSION', '1.0' );
 		}
 		if ( ! defined( 'HIIWP_SLUG' ) ) {                
 		    define( 'HIIWP_SLUG', 'hiiwp' );           
@@ -101,18 +101,11 @@ class Hii {
 		    include_once( $filename );
 		} 
 		
-		if ( ! class_exists( 'AM_License_Menu' ) ) {
-			require_once( HIILITE_DIR . '/includes/service_extensions/am-license-menu.php' );
-			AM_License_Menu::instance( __FILE__, 'HiiWP', HIIWP_VERSION, 'theme', 'https://hiilite.com/' );
-		    
-		}
-		
 		$this->hooks		= new HiiWP_Hooks();
 		$this->post_types	= new HiiWP_Post_Types();
 		$this->sidebars		= new HiiWP_Sidebars();
 		$this->theme_options= new HiiWP_Theme_Options();
 		$this->menus		= new HiiWP_Menus();
-		$this->shortcodes	= new HiiWP_Shortcodes();
 		self::$html 		= new HiiWP_HTML_Elements();
 				
 		
@@ -122,7 +115,6 @@ class Hii {
 		add_action( 'after_switch_theme', array( $this, 'activate') );
 		
 		add_action( 'after_switch_theme', array( 'HiiWP_Ajax', 'add_endpoint'), 10);
-		add_action( 'after_switch_theme', array( $this->post_types, 'register_post_types'), 11);
 		add_action( 'after_switch_theme', 'flush_rewrite_rules', 15);
 		
 		add_action('wp_enqueue_scripts', array( $this, 'add_scripts' ));
@@ -141,7 +133,7 @@ class Hii {
 		if(!class_exists('PW_CMB2_Field_Select2'))	include_once( HIILITE_DIR . '/addons/cmb-field-select2/cmb-field-select2.php' );
 		if(!class_exists('WDS_CMB2_Attached_Posts_Field_127'))	include_once( HIILITE_DIR . '/addons/cmb2-attached-posts/cmb2-attached-posts-field.php' );
 		if(!class_exists('CMB2_Taxonomy'))			include_once( HIILITE_DIR . '/addons/cmb2-taxonomy/init.php' );
-		include_once( HIILITE_DIR . '/addons/custom-field-types/address-field-type.php' );
+		include_once( HIILITE_DIR . '/addons/custom-field-types/address-field-type/address-field-type.php' );
 	}
 	
 	private function add_service_extensions(){
@@ -216,7 +208,6 @@ class Hii {
 	 */
 	public function activate() {
 		HiiWP_Ajax::add_endpoint();
-		$this->post_types->register_post_types();
 		HiiWP_Install::install();
 		flush_rewrite_rules();
 	}
@@ -235,7 +226,6 @@ class Hii {
 		 */
 		load_theme_textdomain( 'hiiwp' );
 		
-		add_theme_support( 'menus' );
 		
 		// Add default posts and comments RSS feed links to head.
 		add_theme_support( 'automatic-feed-links' );
@@ -346,18 +336,34 @@ $hiilite_options = Hii::get_options();
  * @return void
  */
 function hii_get_the_title(){
+	$t_sep = ':';
 	if( is_archive() )
 		$page_title = get_the_archive_title();
 	elseif( is_home() && ! is_front_page() ) 
 		$page_title = get_the_title( get_option( 'page_for_posts', true ) );
 	elseif( is_front_page() && ! is_home( ) )
 		$page_title = get_the_title( get_the_id( ) );
+	elseif(is_search(  )){
+		$search   = get_query_var( 's' );
+		$page_title = sprintf( __( 'Search Results %1$s %2$s', 'hiiwp' ), $t_sep, strip_tags( $search ) ); }
+	elseif(is_404())
+		$page_title = __( 'Page not found', 'hiiwp' );
 	else
 		$page_title = get_the_title( get_the_id( ));
+		
+	$page_title = strip_tags($page_title);
 	
 	return $page_title;
 }
 
+
+/*
+	TEMPORARY until Kirki fixes font-awesome loader.
+*/
+add_action( 'wp_enqueue_scripts', 'enqueue_load_fa' );
+function enqueue_load_fa() {
+    wp_enqueue_style( 'load-fa', get_template_directory_uri(  ).'/css/font-awesome/css/font-awesome.min.css' );
+}
 
 /**
  * hii_the_title function.
@@ -379,37 +385,58 @@ function hii_the_title() {
  */
  if(!function_exists('get_background_css')):
 	function get_background_css($background){ 
+		$background_css = '';
 		foreach($background as $rule => $value){
 			if($value != ''){
 				switch ($rule){
 					case 'background-image':case 'image':
-						echo "background-image:url($value);";
+						$background_css .= "background-image:url($value);";
 						break;
 					case 'background-attach':case 'attach':
-						echo "background-attachment:$value;";
+						$background_css.= "background-attachment:$value;";
 						break;
 					case 'background-position':case 'position':
-						echo 'background-position:'.str_replace('-', ' ', $value).';';
+						$background_css.= 'background-position:'.str_replace('-', ' ', $value).';';
 						break;
 					case 'background-size':case 'size':
-						echo "background-size:$value;";
+						$background_css.= "background-size:$value;";
 						break;
 					case 'background-repeat':case 'repeat':
-						echo "background-repeat:$value;";
+						$background_css.= "background-repeat:$value;";
 						break;
 					case 'background-color':case 'color':
-						echo "background-color:$value;";
+						$background_css.= "background-color:$value;";
 						break;
 					default:
-						echo "$rule:$value;";
+						$background_css.= "$rule:$value;";
 						break;
 						
 				}
 			}
 		}
+		return $background_css;
 	}
 endif;
 
+/**
+ * sanitize_rgba function.
+ * 
+ * @access public
+ * @param mixed $font
+ * @return void
+ */
+function sanitize_rgba( $color ) {
+    // If string does not start with 'rgba', then treat as hex
+    // sanitize the hex color and finally convert hex to rgba
+    if ( false === strpos( $color, 'rgba' ) ) {
+        return sanitize_hex_color( $color );
+    }
+
+    // By now we know the string is formatted as an rgba color so we need to further sanitize it.
+    $color = str_replace( ' ', '', $color );
+    sscanf( $color, 'rgba(%d,%d,%d,%f)', $red, $green, $blue, $alpha );
+    return 'rgba('.$red.','.$green.','.$blue.','.$alpha.')';
+}
 
 /**
  * get_font_css function.
@@ -418,7 +445,8 @@ endif;
  * @param mixed $font
  * @return void
  */
-function get_font_css($font){
+if (! function_exists('get_font_css')):
+function get_font_css($font) {
 	if(is_array($font)){
 	
 		$font_family = $font_weight = $text_align = $font_extras = '';
@@ -492,13 +520,10 @@ function get_font_css($font){
 				
 			}
 		}
-		echo $font_family.';'.
-			 $font_weight.
-			 $font_extras.
-			 $text_align;
+		return $font_family.';'.$font_weight.$font_extras.$text_align;
 	}
 }
-
+endif;
 
 /**
  * get_justify_content function.
@@ -515,16 +540,16 @@ function get_justify_content($align){
 					echo 'justify-content:';
 					switch ($value) {
 						case 'left':
-							echo 'flex-start;';
+							return 'flex-start;';
 						break;
 						case 'right':
-							echo 'flex-end;';
+							return 'flex-end;';
 						break;
 						case 'center':
-							echo 'center;';
+							return 'center;';
 						break;
 						case 'justify':
-							echo 'space-around;';
+							return 'space-around;';
 						break;
 					}
 					echo ';';
@@ -856,6 +881,80 @@ function hii_get_roles( $force = false ) {
 }
 
 
+function hiilite_numeric_posts_nav() {
+	global  $hiilite_options;
+	if($hiilite_options['blog_pag_show'] == true):
+		if($hiilite_options['blog_pag_style'] == 'option-2' ) {
+		
+ 
+		    if( is_singular() )
+		        return;
+		    global $wp_query;
+		    
+		    if( $wp_query->max_num_pages <= 1 )
+		        return;
+		        
+		    $paged = get_query_var( 'paged' ) ? absint( get_query_var( 'paged' ) ) : 1;
+		    $max   = intval( $wp_query->max_num_pages );
+		    
+		    if ( $paged >= 1 )
+		        $links[] = $paged;
+		 
+		    if ( $paged >= 3 ) {
+		        $links[] = $paged - 1;
+		        $links[] = $paged - 2;
+		    }
+		 
+		    if ( ( $paged + 2 ) <= $max ) {
+		        $links[] = $paged + 2;
+		        $links[] = $paged + 1;
+		    }
+		 
+		    echo '<div class="num-pagination row"><ul>' . "\n";
+		 
+		    if ( get_previous_posts_link() )
+		        printf( '<li>%s</li>' . "\n", get_previous_posts_link() );
+		 
+		    if ( ! in_array( 1, $links ) ) {
+		        $class = 1 == $paged ? ' class="active"' : '';
+		 
+		        printf( '<li%s><a href="%s">%s</a></li>' . "\n", $class, esc_url( get_pagenum_link( 1 ) ), '1' );
+		 
+		        if ( ! in_array( 2, $links ) )
+		            echo '<li>…</li>';
+		    }
+		 
+		    sort( $links );
+		    foreach ( (array) $links as $link ) {
+		        $class = $paged == $link ? ' class="active"' : '';
+		        printf( '<li%s><a href="%s">%s</a></li>' . "\n", $class, esc_url( get_pagenum_link( $link ) ), $link );
+		    }
+		 
+		    if ( ! in_array( $max, $links ) ) {
+		        if ( ! in_array( $max - 1, $links ) )
+		            echo '<li>…</li>' . "\n";
+		 
+		        $class = $paged == $max ? ' class="active"' : '';
+		        printf( '<li%s><a href="%s">%s</a></li>' . "\n", $class, esc_url( get_pagenum_link( $max ) ), $max );
+		    }
+		 
+		    if ( get_next_posts_link() )
+		        printf( '<li>%s</li>' . "\n", get_next_posts_link() );
+		 
+		    echo '</ul></div>' . "\n";
+		
+		// END Numbered Pagination Option
+		} else {
+			echo '<div class="pagination row">';
+			the_posts_pagination( array(
+				'prev_text' => '<span class="screen-reader-text">' . __( 'Previous page', 'hiiwp' ) . '</span><i class="fa fa-angle-left"></i>',
+				'next_text' => '<span class="screen-reader-text">' . __( 'Next page', 'hiiwp' ) . '</span><i class="fa fa-angle-right"></i>',
+				'before_page_number' => '<span class="meta-nav screen-reader-text">' . __( 'Page', 'hiiwp' ) . ' </span>',
+			) );
+			echo '</div>';
+		}
+	endif;
+}
 
 /**
  * cmb2_output_portfolio_imgs function.
@@ -874,4 +973,8 @@ function cmb2_output_portfolio_imgs( $portfolio_images ) {
 	endif;
 }
 
-?>
+
+function theme_deactivation($theme) {
+	call_user_func($GLOBALS["register_theme_deactivation_hook_functionhiiwp"]); 
+	delete_option("theme_is_activated_hiiwp");
+}

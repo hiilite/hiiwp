@@ -193,7 +193,7 @@ class CMB2_Display_Checkbox extends CMB2_Field_Display {
 	 * @since 2.2.2
 	 */
 	protected function _display() {
-		echo $this->value === 'on' ? 'on' : 'off';
+		echo esc_attr($this->value === 'on' ? 'on' : 'off'); // WPCS: XSS ok.
 	}
 }
 
@@ -211,9 +211,9 @@ class CMB2_Display_Select extends CMB2_Field_Display {
 			$fallback = $options[''];
 		}
 		if ( ! $this->value && $fallback ) {
-			echo $fallback;
+			echo $fallback; // WPCS: XSS ok.
 		} elseif ( isset( $options[ $this->value ] ) ) {
-			echo $options[ $this->value ];
+			echo $options[ $this->value ]; // WPCS: XSS ok.
 		} else {
 			echo esc_attr( $this->value );
 		}
@@ -275,7 +275,7 @@ class CMB2_Display_Text_Time extends CMB2_Field_Display {
 	 * @since 2.2.2
 	 */
 	protected function _display() {
-		echo $this->field->get_timestamp_format( 'time_format', $this->value );
+		echo $this->field->get_timestamp_format( 'time_format', $this->value ); // WPCS: XSS ok.
 	}
 }
 
@@ -286,7 +286,7 @@ class CMB2_Display_Text_Date extends CMB2_Field_Display {
 	 * @since 2.2.2
 	 */
 	protected function _display() {
-		echo $this->field->get_timestamp_format( 'date_format', $this->value );
+		echo $this->field->get_timestamp_format( 'date_format', $this->value ); // WPCS: XSS ok.
 	}
 }
 
@@ -315,7 +315,7 @@ class CMB2_Display_Text_Date_Timezone extends CMB2_Field_Display {
 		$date = $this->field->get_timestamp_format( 'date_format', $this->value );
 		$time = $this->field->get_timestamp_format( 'time_format', $this->value );
 
-		echo $date, ( $time ? ' ' . $time : '' ), ( $tzstring ? ', ' . $tzstring : '' );
+		echo $date, ( $time ? ' ' . $time : '' ), ( $tzstring ? ', ' . $tzstring : '' ); // WPCS: XSS ok.
 	}
 }
 
@@ -421,15 +421,15 @@ class CMB2_Display_File extends CMB2_Field_Display {
 				) );
 			} else {
 				$size = is_array( $img_size ) ? $img_size[0] : 200;
-				$image = '<img class="cmb-image-display" style="max-width: ' . absint( $size ) . 'px; width: 100%; height: auto;" src="' . $url_value . '" alt="" />';
+				$image = '<img class="cmb-image-display" style="max-width: ' . absint( $size ) . 'px; width: 100%; height: auto;" src="' . $url_value . '"  />';
 			}
 
-			echo $image;
+			echo $image; // WPCS: XSS ok.
 
 		} else {
 
 			printf( '<div class="file-status"><span>%1$s <strong><a href="%2$s">%3$s</a></strong></span></div>',
-				esc_html( $field_type->_text( 'file_text', esc_html__( 'File:', 'cmb2' ) ) ),
+				esc_html( $field_type->_text( 'file_text', esc_html__( 'File:', 'hiiwp' ) ) ),
 				$url_value,
 				CMB2_Utils::get_file_name_from_path( $url_value )
 			);

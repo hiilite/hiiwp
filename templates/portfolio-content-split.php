@@ -1,11 +1,18 @@
 <?php
+/**
+ * HiiWP Template: portfolio-content-split
+ *
+ * @package     hiiwp
+ * @copyright   Copyright (c) 2018, Peter Vigilante
+ * @license     http://opensource.org/licenses/gpl-2.0.php GNU Public License
+ * @since       1.0
+ */
 /*
 
-	TODO:
-	-	Make Title and feature image turn on by default in customizer	
+// TODO: Make Title and feature image turn on by default in customizer	
+// TODO: Add back Category image thumbnail
 */
-$hiilite_options = Hii::$hiiwp->get_options();
-$post_meta = get_post_meta(get_the_id());
+$hiilite_options = HiiWP::get_options();
 $category = get_the_terms( $post->ID, 'work' );
 
 if(is_front_page() || is_archive(  )){ 
@@ -65,81 +72,50 @@ echo '<div class="in_grid  align-top">';
 		
 		do_action( 'hii_after_split_portfolio_gallery_content' );	
 		?>
-		
-		<?php
-		if($hiilite_options['show_more_projects']):
-		do_action( 'hii_before_split_portfolio_more_projects' );
-		?>
-			<div class="project-comments">
-				<div class="align-center">
-					<h4>More Projects</h4>
-				</div>
-				<?php
-				$slug = get_theme_mod( 'portfolio_slug', 'portfolio' );
-				$args = array('post_type'=>$slug,'posts_per_page'=> '10','nopaging'=>true,'order'=>'ASC','orderby'=>'rand');
-				$query = new WP_Query($args);
-				?>
-				
-				<amp-carousel height="300" layout="fixed-height" type="carousel" class="carousel">
-				<div class="carousel-wrapper">
-			      <?php
-				while($query->have_posts()):
-					$query->the_post();
-					if ( has_post_thumbnail() ) {
-						$image = wp_get_attachment_image_src( get_post_thumbnail_id( get_the_id() ), 'large' );
-						$hratio = (300 / $image[2]);
-					?>
-				<a href="<?php echo get_the_permalink()?>" class="slide">
-			    	<img src="<?php echo $image[0]?>" width="<?php echo $image[1]*$hratio?>" height="<?php echo $image[2]*$hratio?>" alt="<?php echo get_the_title()?>">
- 				</a>
-			  <?php
-				  	}
-				  endwhile;
-				  ?>
-				</div>
-				</amp-carousel>
-			</div>
-		<?php
-		do_action( 'hii_after_split_portfolio_more_projects' );
-		endif;
-		?>
-		
-		<?php
-		if($hiilite_options['portfolio_comments']):
-		do_action( 'hii_before_split_portfolio_comments' );
-		?>
-			<div class="project-comments">
-				<div class="container_inner">
-					<?php comments_template(); ?>
-				</div>
-			</div>
-		<?php
-		do_action( 'hii_after_split_portfolio_comments' );
-		endif;
-		?>
 	</div>
-	
 	<!-- Sidebar -->
-	<div class="col-2 project-info">
+	<div class="col-4 project-info">
 		<?php
+		echo "<dl>";
 		do_action( 'hii_before_split_portfolio_sidebar_content' );	
 		
-		do_action( 'hii_split_portfolio_sidebar_title', array($page_title,$portfolio_work_image,$portfolio_work_color) );	
+		echo "	<dt itemprop='headline' class='project-title'>{$page_title}</dt>
+				<dd><time class='time op-published' datetime='".get_the_date('c',$work_id)."'><span class='date'>".get_the_date('F jS, Y',$work_id)."</span></time></dd>";
 
 		if($portfolio_client) {
-			do_action( 'hii_split_portfolio_sidebar_client', $portfolio_client );
+			echo "<dt class='project-client'>Client</dt>
+				<dd>{$portfolio_client}</dd>";
+
 		}
 		
-		do_action( 'hii_split_portfolio_sidebar_date', array(get_the_date('c',$work_id),get_the_date('F jS, Y',$work_id)) );
+		if(is_array($contributers)):
+			$team = '<dt>Project Team</dt><dd>';
+				foreach ( $contributers as $key => $entry ) {
+				
+					$role = $name = '';
+				
+					if ( isset( $entry['role'] ) && isset( $entry['name'] )) { 
+						$team .= $entry['role'];
+						$team .= ': ';
+						$team .= $entry['name'];
+						$team .= '<br>';
+					}			
+				}	
+			$team .= '</dd>';
+			
+			echo wp_kses_post($team); // WPCS: XSS ok.
+		endif;
+
+		echo "</dl>";
 		
-		do_action( 'hii_split_portfolio_sidebar_tags', $tags);
-		
-		do_action( 'hii_split_portfolio_sidebar_team', $contributers);
-		
-		
+		if($portfolio_description) {
+			echo '<dt>About This Project</dt>';
+			echo '<dd>'.$portfolio_description.'</dd>';
+			
+		}
+		 
 		if($project_share){
-			$social_share = '<div class="row project-social">
-				<div>';
+			$social_share = '<dt class="project-social">'.__( 'Share', 'hiiwp' ).'</dt><dd>';
 				foreach($project_share as $share) {
 					if($share == 'fb') {
 						$social_share .= '<a href="https://www.facebook.com/sharer/sharer.php?u='.urlencode($social_url).'"><i class="fa fa-facebook" aria-hidden="true"></i></a>';	
@@ -158,29 +134,45 @@ echo '<div class="in_grid  align-top">';
 					}
 				}
 	
-				$social_share .= '</div>';
-				$social_share .= '<div>'.__( 'Appreciate and Share', 'hiiwp' ).'</div>
-			</div>';		
+				$social_share .= '</dd>';		
 			
-			echo $social_share;
+			echo wp_kses_post($social_share); // WPCS: XSS ok.
 		}
 		
-		do_action( 'hii_split_portfolio_sidebar_about', array($author_id, $portfolio_description));
-		
-		do_action( 'hii_after_split_portfolio_sidebar_content' ); ?>
+		 ?>
 	</div>
-	
-	
-
-
-
-	
+	<div class="col-12">
+		<?php
+		if($hiilite_options['show_more_projects']):
+		do_action( 'hii_before_split_portfolio_more_projects' );
+		?>
+		<div class="align-center">
+			<h4>More Projects</h4>
+		</div>
+		<?php
+		echo do_shortcode( '[portfolio portfolio_image_style="square" portfolio_show_info="true" portfolio_image_pos="image-behind" show_title="true" is_slider="true"]' );
+		do_action( 'hii_after_split_portfolio_more_projects' );
+		endif;
+		?>
 		
-	
-		
+		<?php
+		if($hiilite_options['portfolio_comments']):
+		do_action( 'hii_before_split_portfolio_comments' );
+		?>
+			<div class="project-comments">
+				<div class="container_inner">
+					<?php comments_template(); ?>
+				</div>
+			</div>
+		<?php
+		do_action( 'hii_after_split_portfolio_comments' );
+		endif;
+		?>
+	</div>
+
 <?php		
 echo '</div></div>';
 
 echo '</article>';
 do_action( 'hii_after_split_portfolio' );
-?>
+

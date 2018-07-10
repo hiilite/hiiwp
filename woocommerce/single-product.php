@@ -20,42 +20,25 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
 }
 get_header( 'shop' );
-
-$page_bg_color = (get_post_meta ( get_the_ID(), 'page_title_bg', true))?get_post_meta ( get_the_ID(), 'page_title_bg', true):false;
-$page_bg_img = (get_post_meta ( $post->ID, 'page_title_bgimg', false))?get_post_meta ( $post->ID, 'page_title_bgimg'):false;
+get_template_part( 'templates/title' );
  ?>
-	<header class="woocommerce-products-header page-title" style="<?=($page_bg_img)?'background-image:url('.$page_bg_img[0].');':'';?><?=($page_bg_color)?'background-color:'.$page_bg_color.';':'';?>">
-		<div class="in_grid content-box">
-	<?php
-		/**
-		 * woocommerce_before_main_content hook.
-		 *
-		 * @hooked woocommerce_output_content_wrapper - 10 (outputs opening divs for the content)
-		 * @hooked woocommerce_breadcrumb - 20
-		 */
-		do_action( 'woocommerce_before_main_content' );
-	?>
-		</div>
-    </header>
-	<div id="product-<?php the_ID(); ?>" <?php post_class('row'); ?>>
-		<div class="in_grid content-box">
+<div id="product-<?php the_ID(); ?>" <?php post_class('row'); ?>>
+	<div class="in_grid content-box">
+
+	<?php 
+	while ( have_posts() ) : the_post();
+		wc_get_template_part( 'content', 'single-product' );
+	endwhile; // end of the loop. 
 	
-		<?php while ( have_posts() ) : the_post(); ?>
-
-			<?php wc_get_template_part( 'content', 'single-product' ); ?>
-
-		<?php endwhile; // end of the loop. ?>
-
-	<?php
-		/**
-		 * woocommerce_after_main_content hook.
-		 *
-		 * @hooked woocommerce_output_content_wrapper_end - 10 (outputs closing divs for the content)
-		 */
-		do_action( 'woocommerce_after_main_content' );
-	?>
-		</div>
+	/**
+	 * woocommerce_after_main_content hook.
+	 *
+	 * @hooked woocommerce_output_content_wrapper_end - 10 (outputs closing divs for the content)
+	 */
+	do_action( 'woocommerce_after_main_content' );
+?>
 	</div>
+</div>
 <?php get_footer( 'shop' );
 
 /* Omit closing PHP tag at the end of PHP files to avoid "headers already sent" issues. */

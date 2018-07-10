@@ -5,7 +5,7 @@
  *
  * Welcome Screen initializer.
  *
- * @since 0.4.7
+ * @since 1.0
  */
  
 if ( ! defined( 'ABSPATH' ) ) exit; 
@@ -76,19 +76,14 @@ class HiiWP_Welcome_Screen {
 	/**
 	 * Adds welcome page sub menu.
 	 *
-	 * @since 0.4.7
+	 * @since 1.0
 	 */
 	public function welcome_page() {
-	 
 	  global $hiiwp_sub_menu;
 	 
-	  add_menu_page( __('About HiiWP', 'hiiwp'), __('About', 'hiiwp'), 'manage_options', 'admin.php?page=hiiwp-welcome', array( $this, 'welcome_page_content' ) );
-	  remove_menu_page( 'admin.php?page=hiiwp-welcome' );
-	  
-	  $hiiwp_sub_menu = add_submenu_page( 
-	  	'hii_seo_settings', 
+	  $hiiwp_sub_menu = add_theme_page(  
 	  	__('About HiiWP', 'hiiwp'), 
-	  	__('About', 'hiiwp'), 
+	  	__('About HiiWP', 'hiiwp'), 
 	  	'manage_options', 
 	  	'admin.php?page=hiiwp-welcome',
 	  	array( $this, 'welcome_page_content' ) );

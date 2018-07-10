@@ -29,6 +29,20 @@ $vc_row_params = array(
 			'value' => array( __( 'Yes', 'hiiwp' ) => 'yes' ),
 		),
 		array(
+			'type' => 'checkbox',
+			'heading' => __( 'In Grid Left Side', 'hiiwp' ),
+			'param_name' => 'grid_left',
+			'description' => __( 'If checked contents of row will stay in grid on the left side', 'hiiwp' ),
+			'value' => array( __( 'Yes', 'hiiwp' ) => 'yes' ),
+		),
+		array(
+			'type' => 'checkbox',
+			'heading' => __( 'In Grid Right Side', 'hiiwp' ),
+			'param_name' => 'grid_right',
+			'description' => __( 'If checked contents of row will stay in grid on the right side', 'hiiwp' ),
+			'value' => array( __( 'Yes', 'hiiwp' ) => 'yes' ),
+		),
+		array(
 			'type' => 'textfield',
 			'heading' => __( 'Min Height', 'hiiwp' ),
 			'param_name' => 'row_height',
@@ -173,6 +187,20 @@ $vc_row_inner_params = array(
 			'heading' => __( 'In Grid?', 'hiiwp' ),
 			'param_name' => 'in_grid',
 			'description' => __( 'If checked contents of row will stay in grid width', 'hiiwp' ),
+			'value' => array( __( 'Yes', 'hiiwp' ) => 'yes' ),
+		),
+		array(
+			'type' => 'checkbox',
+			'heading' => __( 'In Grid Left Side', 'hiiwp' ),
+			'param_name' => 'grid_left',
+			'description' => __( 'If checked contents of row will stay in grid on the left side', 'hiiwp' ),
+			'value' => array( __( 'Yes', 'hiiwp' ) => 'yes' ),
+		),
+		array(
+			'type' => 'checkbox',
+			'heading' => __( 'In Grid Right Side', 'hiiwp' ),
+			'param_name' => 'grid_right',
+			'description' => __( 'If checked contents of row will stay in grid on the right side', 'hiiwp' ),
 			'value' => array( __( 'Yes', 'hiiwp' ) => 'yes' ),
 		),
 		array(
@@ -481,64 +509,6 @@ $vc_column_params = array(
 					"value" => "yes"
 				),
 		),
-		/*array(
-			'type' => 'dropdown',
-			'heading' => __( 'Justify Content', 'hiiwp' ),
-			'param_name' => 'justify_content',
-			'value' => array(
-				__( 'Default', 'hiiwp' ) => '',
-				__( 'Start', 'hiiwp' ) => 'flex-start',
-				__( 'End', 'hiiwp' ) => 'flex-end',
-				__( 'Center', 'hiiwp' ) => 'center',
-				__( 'Full Width - Space Between', 'hiiwp' ) => 'space-between',
-				__( 'Full Width - Space Around', 'hiiwp' ) => 'space-around',
-			),
-			'description' => __( 'Select content justification within container.', 'hiiwp' ),
-			'group' => __( 'Flex Options', 'hiiwp' ),
-			"dependency" => array (
-					"element" => "is_flex",
-					"value" => "yes"
-				),
-		),*/
-		/*array(
-			'type' => 'dropdown',
-			'heading' => __( 'Content position', 'hiiwp' ),
-			'param_name' => 'columns_placement',
-			'value' => array(
-				__( 'Default', 'hiiwp' ) => '',
-				__( 'Middle', 'hiiwp' ) => 'middle',
-				__( 'Top', 'hiiwp' ) => 'top',
-				__( 'Bottom', 'hiiwp' ) => 'bottom',
-				__( 'Stretch', 'hiiwp' ) => 'stretch',
-				__( 'Baseline', 'hiiwp' ) => 'baseline',
-			),
-			'description' => __( 'Select columns position within row.', 'hiiwp' ),
-			'group' => __( 'Flex Options', 'hiiwp' ),
-			"dependency" => array (
-					"element" => "is_flex",
-					"value" => "yes"
-				),
-		),*/
-		/*array(
-			'type' => 'dropdown',
-			'heading' => __( 'Vertically Justify Wrapped Content', 'hiiwp' ),
-			'param_name' => 'v_align_w_content',
-			'value' => array(
-				__( 'Default', 'hiiwp' ) => '',
-				__( 'Top', 'hiiwp' ) => 'flex-start',
-				__( 'Bottom', 'hiiwp' ) => 'flex-end',
-				__( 'Middle', 'hiiwp' ) => 'center',
-				__( 'Stretch', 'hiiwp' ) => 'stretch',
-				__( 'Full Height - Space Between', 'hiiwp' ) => 'space-between',
-				__( 'Full Height - Space Around', 'hiiwp' ) => 'space-around',
-			),
-			'description' => __( 'Vertically justify wrapped content within the container.', 'hiiwp' ),
-			'group' => __( 'Flex Options', 'hiiwp' ),
-			"dependency" => array (
-					"element" => "is_flex",
-					"value" => "yes"
-				),
-		),*/
 		array(
 			'type' => 'css_editor',
 			'heading' => __( 'CSS box', 'hiiwp' ),
@@ -678,81 +648,6 @@ $vc_column_inner_params = array(
 					"value" => "yes"
 				),
 		),
-		/*array(
-			'type' => 'dropdown',
-			'heading' => __( 'Wrap', 'hiiwp' ),
-			'param_name' => 'content_wrap',
-			'value' => array(
-				__( 'Default', 'hiiwp' ) => '',
-				__( 'Wrap', 'hiiwp' ) => 'wrap',
-				__( 'No Wrap', 'hiiwp' ) => 'nowrap',
-				__( 'Reverse Wrap', 'hiiwp' ) => 'wrap-reverse',
-			),
-			'description' => __( 'Select wrapping option.', 'hiiwp' ),
-			'group' => __( 'Flex Options', 'hiiwp' ),
-			"dependency" => array (
-					"element" => "is_flex",
-					"value" => "yes"
-				),
-		),*/
-		/*array(
-			'type' => 'dropdown',
-			'heading' => __( 'Justify Content', 'hiiwp' ),
-			'param_name' => 'justify_content',
-			'value' => array(
-				__( 'Default', 'hiiwp' ) => '',
-				__( 'Start', 'hiiwp' ) => 'flex-start',
-				__( 'End', 'hiiwp' ) => 'flex-end',
-				__( 'Center', 'hiiwp' ) => 'center',
-				__( 'Full Width - Space Between', 'hiiwp' ) => 'space-between',
-				__( 'Full Width - Space Around', 'hiiwp' ) => 'space-around',
-			),
-			'description' => __( 'Select content justification within container.', 'hiiwp' ),
-			'group' => __( 'Flex Options', 'hiiwp' ),
-			"dependency" => array (
-					"element" => "is_flex",
-					"value" => "yes"
-				),
-		),*/
-		/*array(
-			'type' => 'dropdown',
-			'heading' => __( 'Content position', 'hiiwp' ),
-			'param_name' => 'columns_placement',
-			'value' => array(
-				__( 'Default', 'hiiwp' ) => '',
-				__( 'Middle', 'hiiwp' ) => 'middle',
-				__( 'Top', 'hiiwp' ) => 'top',
-				__( 'Bottom', 'hiiwp' ) => 'bottom',
-				__( 'Stretch', 'hiiwp' ) => 'stretch',
-				__( 'Baseline', 'hiiwp' ) => 'baseline',
-			),
-			'description' => __( 'Select columns position within row.', 'hiiwp' ),
-			'group' => __( 'Flex Options', 'hiiwp' ),
-			"dependency" => array (
-					"element" => "is_flex",
-					"value" => "yes"
-				),
-		),*/
-		/*array(
-			'type' => 'dropdown',
-			'heading' => __( 'Vertically Justify Wrapped Content', 'hiiwp' ),
-			'param_name' => 'v_align_w_content',
-			'value' => array(
-				__( 'Default', 'hiiwp' ) => '',
-				__( 'Top', 'hiiwp' ) => 'flex-start',
-				__( 'Bottom', 'hiiwp' ) => 'flex-end',
-				__( 'Middle', 'hiiwp' ) => 'center',
-				__( 'Stretch', 'hiiwp' ) => 'stretch',
-				__( 'Full Height - Space Between', 'hiiwp' ) => 'space-between',
-				__( 'Full Height - Space Around', 'hiiwp' ) => 'space-around',
-			),
-			'description' => __( 'Vertically justify wrapped content within the container.', 'hiiwp' ),
-			'group' => __( 'Flex Options', 'hiiwp' ),
-			"dependency" => array (
-					"element" => "is_flex",
-					"value" => "yes"
-				),
-		),*/
 		array(
 			'type' => 'css_editor',
 			'heading' => __( 'CSS box', 'hiiwp' ),
@@ -1713,6 +1608,9 @@ vc_map( array(
 	)
 );
 
+
+
+
 ////////////////////////////
 //
 //	AMP Carousel
@@ -1811,35 +1709,55 @@ vc_map( array(
 			'std' => true,
 		),
 		array(
-			'type' => 'dropdown',
-			'param_name' => 'slider_type',
-			'value' => array(
-				__( 'Default', 'hiiwp' ) => 'default',
-				'Angled' => 'angled',
+			'type'  	=> 'dropdown',
+			'heading'	=> __('Slider Layout', 'hiiwp'),
+			'param_name'=> 'slider_layout',
+			'description' => __( 'Responsive: will fit to the content within the slider (ideal for slides with text content). Fixed: Will maintain a fixed aspect ratio based on an initially set width and height (ideal for background image only sliders)', 'hiiwp' ),
+			'value'		=> array(
+				'Responsive' => 'responsive',
+				'Fixed' => 'fixed',
 			),
-			'default' => 'default',
-			'heading' => __( 'Slider Type', 'hiiwp' ),
+			'std' 		=> 'responsive',
 		),
 		array(
 			'type' => 'textfield',
-			'heading' => __( 'Slider Width', 'hiiwp' ),
+			'heading' => __( 'Width', 'hiiwp' ),
 			'param_name' => 'slider_width',
 			'value'		 => '1100',
-			'description' => __( '(px) Slider is responsive, but needs a set width and height to calculate ratio for images', 'hiiwp' ),
+			'description' => __( '(px) Slider will scale, but needs a set width and height to calculate ratio for images', 'hiiwp' ),
+			'dependency' => array(
+				'element' => 'slider_layout',
+				'value' => 'fixed',
+			),
 		),
 		array(
 			'type' => 'textfield',
-			'heading' => __( 'Slider Height', 'hiiwp' ),
+			'heading' => __( 'Height', 'hiiwp' ),
 			'param_name' => 'slider_height',
 			'value'		 => '530',
-			'description' => __( '(px) Slider is responsive, but needs a set width and height to calculate ratio for images', 'hiiwp' ),
+			'description' => __( '(px) Slider will scale, but needs a set width and height to calculate ratio for images', 'hiiwp' ),
+			'dependency' => array(
+				'element' => 'slider_layout',
+				'value' => 'fixed',
+			),
+		),
+		array(
+			'type' => 'textfield',
+			'heading' => __( 'Min Height', 'hiiwp' ),
+			'param_name' => 'slider_min_height',
+			'value'		 => '530',
+			'description' => __( 'Site a minimum height the slider can scale down too.', 'hiiwp' ),
+			'dependency' => array(
+				'element' => 'slider_layout',
+				'value' => 'responsive',
+			),
 		),
 		array(
 			'type' => 'checkbox',
 			'heading' => __( 'Full Height', 'hiiwp' ),
 			'param_name' => 'slider_full_height',
 			'value'		 => false,
-			'description' => __( 'Set the slider to be the full height of the screen', 'hiiwp' ),
+			'description' => __( 'Set the slider to be the full height of the screen (100% the viewport height)', 'hiiwp' ),
 		),
 		array(
 			'type' => 'dropdown',
@@ -1871,6 +1789,121 @@ vc_map( array(
 			'heading' => __( 'Extra class name', 'hiiwp' ),
 			'param_name' => 'el_class',
 			'description' => __( 'If you wish to style particular content element differently, then use this field to add a class name and then refer to it in your css file.', 'hiiwp' ),
+		),
+		array(
+			'type'  	=> 'checkbox',
+			'heading'	=> __('Show Arrows', 'hiiwp'),
+			'param_name'=> 'show_arrows',
+			'value'		=> 'true',
+			'std' 		=> 'true',
+			'group'		=> __('Arrows', 'hiiwp'),
+		),
+		array(
+			'type'  	=> 'checkbox',
+			'heading'	=> __('Hide Arrows on Mobile', 'hiiwp'),
+			'param_name'=> 'hide_arrows_on_mobile',
+			'value'		=> false,
+			'group'		=> __('Arrows', 'hiiwp'),
+			'dependency' => array(
+				'element' => 'show_arrows',
+				'value' => 'true',
+			),
+		),
+		array(
+			'type'  	=> 'dropdown',
+			'heading'	=> __('Arrow Icon', 'hiiwp'),
+			'param_name'=> 'arrow_icon',
+			'class'		=> 'fa',
+			'value'		=> array(
+				'Arrow' => 'arrow',
+				'Arrow Circle' => 'arrow-alt-circle',
+				'Caret' => 'caret',
+				'Chevron' => 'chevron',
+				'Chevron Circle' => 'chevron-circle',
+			),
+			'std' 		=> 'chevron',
+			'group'		=> __('Arrows', 'hiiwp'),
+			'dependency' => array(
+				'element' => 'show_arrows',
+				'value' => 'true',
+			),
+		),
+		array(
+			'type'  	=> 'dropdown',
+			'heading'	=> __('Arrow Size', 'hiiwp'),
+			'param_name'=> 'arrow_size',
+			'value'		=> array(
+				'Small' => 'small',
+				'Regular' => 'regular',
+				'Large' => 'large',
+			),
+			'std' 		=> 'regular',
+			'group'		=> __('Arrows', 'hiiwp'),
+			'dependency' => array(
+				'element' => 'show_arrows',
+				'value' => 'true',
+			),
+		),
+		array(
+			'type'  	=> 'dropdown',
+			'heading'	=> __('Arrow Background Type', 'hiiwp'),
+			'param_name'=> 'arrow_background_type',
+			'class'		=> 'fa',
+			'value'		=> array(
+				'No Background'	=> 'none',
+				'Circle'		=> 'circle',
+				'Square'		=> 'square',
+				'Rounded Square'=> 'round-square',
+			),
+			'std' 		=> 'none',
+			'group'		=> __('Arrows', 'hiiwp'),
+			'dependency' => array(
+				'element' => 'show_arrows',
+				'value' => 'true',
+			),
+		),
+		array(
+			'type'  	=> 'colorpicker',
+			'heading'	=> __('Arrow Color', 'hiiwp'),
+			'param_name'=> 'arrow_color',
+			'group'		=> __('Arrows', 'hiiwp'),
+			'std'		=> '#333333',
+			'dependency' => array(
+				'element' => 'show_arrows',
+				'value' => 'true',
+			),
+		),
+		array(
+			'type'  	=> 'colorpicker',
+			'heading'	=> __('Arrow Background Color', 'hiiwp'),
+			'param_name'=> 'arrow_background_color',
+			'group'		=> __('Arrows', 'hiiwp'),
+			'std'		=> '#ffffff',
+			'dependency' => array(
+				'element' => 'arrow_background_type',
+				'value_not_equal_to' => array(
+						'none',
+					),
+			),
+		),
+		array(
+			'type'  	=> 'checkbox',
+			'heading'	=> __('Show Bullets', 'hiiwp'),
+			'param_name'=> 'show_bullets',
+			'value'		=> 'true',
+			'std' 		=> 'true',
+			'group'		=> __('Bullets', 'hiiwp'),
+		),
+		array(
+			'type'  	=> 'colorpicker',
+			'heading'	=> __('Bullet Color', 'hiiwp'),
+			'param_name'=> 'bullet_color',
+			'group'		=> __('Bullets', 'hiiwp'),
+			'std'		=> '#ffffff',
+			'dependency' => array(
+				'element' => 'show_bullets',
+				'value' => 'true'
+			),
 		),
 		array(
 			'type' => 'css_editor',
@@ -1936,13 +1969,6 @@ vc_map( array(
 			'value' => array( __( 'Yes', 'hiiwp' ) => 'yes' ),
 			'std'	=> 'yes',
 		),
-		/*array(
-			'type' => 'checkbox',
-			'heading' => __( 'Show on page load', 'hiiwp' ),
-			'param_name' => 'show_tab',
-			'description' => __( 'The content will start out visible', 'hiiwp' ),
-			'value' => array( __( 'Yes', 'hiiwp' ) => 'yes' ),
-		),*/
 		array(
 			'type' => 'textfield',
 			'param_name' => 'title',
@@ -2084,87 +2110,6 @@ vc_map( array(
 	),
 	'js_view' => 'VcAccordionTabView',
 ) );
-////////////////////////////
-//
-//	Multi Screen Showcase
-//
-///////////////////////////// 
-/*
-vc_map( array(
-		"name" => "Multi Screen Showcase",
-		"base" => "screen-showcase",
-		"category" => 'HiiWP',
-		"description" => "Shows scrolling images within multiple screen sizes",
-		"icon" => esc_url( get_template_directory_uri() )."/images/icons/multi-screens.png",
-		"allowed_container_element" => 'vc_row',
-		"params" => array(
-			array(
-				"type" => "attach_image",
-				"holder" => "div",
-				"class" => "",
-				"heading" => "iMac Image",
-				"param_name" => "imac_image",
-			),
-			array(
-				"type" => "attach_image",
-				"holder" => "div",
-				"class" => "",
-				"heading" => "MacBook Image",
-				"param_name" => "macbook_image"
-			),
-			array(
-				"type" => "attach_image",
-				"holder" => "div",
-				"class" => "",
-				"heading" => "iPad Image",
-				"param_name" => "ipad_image"
-			),
-			array(
-				"type" => "attach_image",
-				"holder" => "div",
-				"class" => "",
-				"heading" => "iPhone Image",
-				"param_name" => "iphone_image"
-			),
-			array(
-	            'type' => 'css_editor',
-	            'heading' => __( 'Css', 'hiiwp' ),
-	            'param_name' => 'css',
-	            'group' => __( 'Design options', 'hiiwp' ),
-	        ),
-		)
-) );
-*/
-////////////////////////////
-//
-//	Empty Space
-//
-////////////////////////////
-/*
-vc_map( array(
-		"name" => "Empty Space",
-		"base" => "vc_empty_space",
-		"category" => 'HiiWP',
-		"description" => "2em of empty space",
-		"icon" => "icon-wpb-ui-empty_space",
-		"allowed_container_element" => 'vc_row',
-		"params" => array(
-			array(
-	            'type' => 'css_editor',
-	            'heading' => __( 'Css', 'hiiwp' ),
-	            'param_name' => 'css',
-	            'group' => __( 'Design options', 'hiiwp' ),
-	        ),
-)));
-*/
-// Menu
-/*  Section (All, loop), 
-	Title Tag (span,p,h3,h4,h5.h6), 
-	Ingredients (span,p,hide), 
-	Seperator (-,|,<br>),
-	Price (span,p,h3,h4,h5,h6,hide)
-*/
-
 
 
 ////////////////////////////
@@ -2207,6 +2152,65 @@ vc_map( array(
 				'param_name' => 'el_class',
 				'description' => __( 'Style particular content element differently - add a class name and refer to it in custom CSS.', 'hiiwp' ),
 			),
+			array(
+				'type' 			=> 'iconpicker',
+				'heading' 		=> __( 'Icon', 'hiiwp' ),
+				'param_name' 	=> 'icon',
+				'description' 	=> __( 'Add an Icon to the text box', 'hiiwp' ),
+				'group'			=> __( 'Icon', 'hiiwp' ),
+				'settings' 		=> array(
+					'emptyIcon'		=> true,
+					'type'			=> 'fontawesome',
+					'iconsPerPage'	=> 200
+				),
+			),
+			array(
+				'type' 			=> 'dropdown',
+				'heading' 		=> __( 'Icon Size', 'hiiwp' ),
+				'param_name' 	=> 'icon_size',
+				'group'			=> __('Icon', 'hiiwp'),
+				'description' 	=> __( 'Size of the icon', 'hiiwp' ),
+				'value' => array(
+					__( 'Small', 'hiiwp' ) => 'small',
+					__( 'Regular', 'hiiwp' ) => 'regular',
+					__( 'Large', 'hiiwp' ) => 'large',
+					__( 'Extra Large', 'hiiwp' ) => 'extra-large',
+				),
+			),
+			array(
+				'type' 			=> 'dropdown',
+				'heading' 		=> __( 'Icon Position', 'hiiwp' ),
+				'param_name' 	=> 'icon_position',
+				'group'			=> __('Icon', 'hiiwp'),
+				'description' 	=> __( 'Where would you like the icon positioned in relation to the text box', 'hiiwp' ),
+				'value' => array(
+					__( 'Top', 'hiiwp' ) => 'top',
+					__( 'Right', 'hiiwp' ) => 'right',
+					__( 'Bottom', 'hiiwp' ) => 'bottom',
+					__( 'Left', 'hiiwp' ) => 'left',
+				),
+			),
+			array(
+				'type' 			=> 'dropdown',
+				'heading' 		=> __( 'Icon Align', 'hiiwp' ),
+				'param_name' 	=> 'icon_align',
+				'group'			=> __('Icon', 'hiiwp'),
+				'description' 	=> __( 'How would you like the icon aligned', 'hiiwp' ),
+				'value' => array(
+					__( 'Center', 'hiiwp' ) => 'center',
+					__( 'Left', 'hiiwp' ) => 'left',
+					__( 'Right', 'hiiwp' ) => 'right',
+				),
+			),
+			array(
+				'type' 			=> 'colorpicker',
+				'heading' 		=> __( 'Icon Color', 'hiiwp' ),
+				'param_name' 	=> 'icon_color',
+				'group'			=> __('Icon', 'hiiwp'),
+				'description' 	=> __( 'Color of icon', 'hiiwp' ),
+				'value'			=> '#c3c3c3'
+			),
+			
 			array(
 				'type' => 'css_editor',
 				'heading' => __( 'CSS box', 'hiiwp' ),
@@ -2829,11 +2833,11 @@ if ( is_array( $postTypes ) && ! empty( $postTypes ) ) {
 }
 $postTypesList[] = array(
 	'custom',
-	__( 'Custom query', 'js_composer' ),
+	__( 'Custom query', 'hiiwp' ),
 );
 $postTypesList[] = array(
 	'ids',
-	__( 'List of IDs', 'js_composer' ),
+	__( 'List of IDs', 'hiiwp' ),
 );
 
 
@@ -2848,18 +2852,18 @@ vc_map( array(
 		"params" => array(
 			array(
 				'type' => 'dropdown',
-				'heading' => __( 'Data source', 'js_composer' ),
+				'heading' => __( 'Data source', 'hiiwp' ),
 				'param_name' => 'post_type',
 				'value' => $postTypesList,
 				'save_always' => true,
-				'description' => __( 'Select content type for your grid.', 'js_composer' ),
+				'description' => __( 'Select content type for your grid.', 'hiiwp' ),
 				'admin_label' => true,
 			),
 			array(
 				'type' => 'autocomplete',
-				'heading' => __( 'Include only', 'js_composer' ),
+				'heading' => __( 'Include only', 'hiiwp' ),
 				'param_name' => 'include',
-				'description' => __( 'Add posts, pages, etc. by title.', 'js_composer' ),
+				'description' => __( 'Add posts, pages, etc. by title.', 'hiiwp' ),
 				'settings' => array(
 					'multiple' => true,
 					'sortable' => true,
@@ -2873,9 +2877,9 @@ vc_map( array(
 			// Custom query tab
 			array(
 				'type' => 'textarea_safe',
-				'heading' => __( 'Custom query', 'js_composer' ),
+				'heading' => __( 'Custom query', 'hiiwp' ),
 				'param_name' => 'custom_query',
-				'description' => __( 'Build custom query according to <a href="http://codex.wordpress.org/Function_Reference/query_posts">WordPress Codex</a>.', 'js_composer' ),
+				'description' => __( 'Build custom query according to <a href="http://codex.wordpress.org/Function_Reference/query_posts">WordPress Codex</a>.', 'hiiwp' ),
 				'dependency' => array(
 					'element' => 'post_type',
 					'value' => array( 'custom' ),
@@ -2883,7 +2887,7 @@ vc_map( array(
 			),
 			array(
 				'type' => 'autocomplete',
-				'heading' => __( 'Narrow data source', 'js_composer' ),
+				'heading' => __( 'Narrow data source', 'hiiwp' ),
 				'param_name' => 'taxonomies',
 				'settings' => array(
 					'multiple' => true,
@@ -2900,7 +2904,7 @@ vc_map( array(
 					// auto focus input, default true
 				),
 				'param_holder_class' => 'vc_not-for-custom',
-				'description' => __( 'Enter categories, tags or custom taxonomies.', 'js_composer' ),
+				'description' => __( 'Enter categories, tags or custom taxonomies.', 'hiiwp' ),
 				'dependency' => array(
 					'element' => 'post_type',
 					'value_not_equal_to' => array(
@@ -2911,12 +2915,12 @@ vc_map( array(
 			),
 			array(
 				'type' => 'textfield',
-				'heading' => __( 'Total items', 'js_composer' ),
+				'heading' => __( 'Total items', 'hiiwp' ),
 				'param_name' => 'max_items',
 				'value' => 10,
 				// default value
 				'param_holder_class' => 'vc_not-for-custom',
-				'description' => __( 'Set max limit for items in grid or enter -1 to display all (limited to 1000).', 'js_composer' ),
+				'description' => __( 'Set max limit for items in grid or enter -1 to display all (limited to 1000).', 'hiiwp' ),
 				'dependency' => array(
 					'element' => 'post_type',
 					'value_not_equal_to' => array(
@@ -2928,23 +2932,23 @@ vc_map( array(
 			// Data settings
 			array(
 				'type' => 'dropdown',
-				'heading' => __( 'Order by', 'js_composer' ),
+				'heading' => __( 'Order by', 'hiiwp' ),
 				'param_name' => 'orderby',
 				'value' => array(
-					__( 'Date', 'js_composer' ) => 'date',
-					__( 'Order by post ID', 'js_composer' ) => 'ID',
-					__( 'Author', 'js_composer' ) => 'author',
-					__( 'Title', 'js_composer' ) => 'title',
-					__( 'Last modified date', 'js_composer' ) => 'modified',
-					__( 'Post/page parent ID', 'js_composer' ) => 'parent',
-					__( 'Number of comments', 'js_composer' ) => 'comment_count',
-					__( 'Menu order/Page Order', 'js_composer' ) => 'menu_order',
-					__( 'Meta value', 'js_composer' ) => 'meta_value',
-					__( 'Meta value number', 'js_composer' ) => 'meta_value_num',
-					__( 'Random order', 'js_composer' ) => 'rand',
+					__( 'Date', 'hiiwp' ) => 'date',
+					__( 'Order by post ID', 'hiiwp' ) => 'ID',
+					__( 'Author', 'hiiwp' ) => 'author',
+					__( 'Title', 'hiiwp' ) => 'title',
+					__( 'Last modified date', 'hiiwp' ) => 'modified',
+					__( 'Post/page parent ID', 'hiiwp' ) => 'parent',
+					__( 'Number of comments', 'hiiwp' ) => 'comment_count',
+					__( 'Menu order/Page Order', 'hiiwp' ) => 'menu_order',
+					__( 'Meta value', 'hiiwp' ) => 'meta_value',
+					__( 'Meta value number', 'hiiwp' ) => 'meta_value_num',
+					__( 'Random order', 'hiiwp' ) => 'rand',
 				),
-				'description' => __( 'Select order type. If "Meta value" or "Meta value Number" is chosen then meta key is required.', 'js_composer' ),
-				'group' => __( 'Data Settings', 'js_composer' ),
+				'description' => __( 'Select order type. If "Meta value" or "Meta value Number" is chosen then meta key is required.', 'hiiwp' ),
+				'group' => __( 'Data Settings', 'hiiwp' ),
 				'param_holder_class' => 'vc_grid-data-type-not-ids',
 				'dependency' => array(
 					'element' => 'post_type',
@@ -2956,15 +2960,15 @@ vc_map( array(
 			),
 			array(
 				'type' => 'dropdown',
-				'heading' => __( 'Sort order', 'js_composer' ),
+				'heading' => __( 'Sort order', 'hiiwp' ),
 				'param_name' => 'order',
-				'group' => __( 'Data Settings', 'js_composer' ),
+				'group' => __( 'Data Settings', 'hiiwp' ),
 				'value' => array(
-					__( 'Descending', 'js_composer' ) => 'DESC',
-					__( 'Ascending', 'js_composer' ) => 'ASC',
+					__( 'Descending', 'hiiwp' ) => 'DESC',
+					__( 'Ascending', 'hiiwp' ) => 'ASC',
 				),
 				'param_holder_class' => 'vc_grid-data-type-not-ids',
-				'description' => __( 'Select sorting order.', 'js_composer' ),
+				'description' => __( 'Select sorting order.', 'hiiwp' ),
 				'dependency' => array(
 					'element' => 'post_type',
 					'value_not_equal_to' => array(
@@ -2975,10 +2979,10 @@ vc_map( array(
 			),
 			array(
 				'type' => 'textfield',
-				'heading' => __( 'Meta key', 'js_composer' ),
+				'heading' => __( 'Meta key', 'hiiwp' ),
 				'param_name' => 'meta_key',
-				'description' => __( 'Input meta key for grid ordering.', 'js_composer' ),
-				'group' => __( 'Data Settings', 'js_composer' ),
+				'description' => __( 'Input meta key for grid ordering.', 'hiiwp' ),
+				'group' => __( 'Data Settings', 'hiiwp' ),
 				'param_holder_class' => 'vc_grid-data-type-not-ids',
 				'dependency' => array(
 					'element' => 'orderby',
@@ -2990,10 +2994,10 @@ vc_map( array(
 			),
 			array(
 				'type' => 'textfield',
-				'heading' => __( 'Offset', 'js_composer' ),
+				'heading' => __( 'Offset', 'hiiwp' ),
 				'param_name' => 'offset',
-				'description' => __( 'Number of grid elements to displace or pass over.', 'js_composer' ),
-				'group' => __( 'Data Settings', 'js_composer' ),
+				'description' => __( 'Number of grid elements to displace or pass over.', 'hiiwp' ),
+				'group' => __( 'Data Settings', 'hiiwp' ),
 				'param_holder_class' => 'vc_grid-data-type-not-ids',
 				'dependency' => array(
 					'element' => 'post_type',
@@ -3005,10 +3009,10 @@ vc_map( array(
 			),
 			array(
 				'type' => 'autocomplete',
-				'heading' => __( 'Exclude', 'js_composer' ),
+				'heading' => __( 'Exclude', 'hiiwp' ),
 				'param_name' => 'exclude',
-				'description' => __( 'Exclude posts, pages, etc. by title.', 'js_composer' ),
-				'group' => __( 'Data Settings', 'js_composer' ),
+				'description' => __( 'Exclude posts, pages, etc. by title.', 'hiiwp' ),
+				'group' => __( 'Data Settings', 'hiiwp' ),
 				'settings' => array(
 					'multiple' => true,
 				),
@@ -3118,163 +3122,7 @@ vc_map( array(
 			)
 		)
 ) );
-
-
-// TESTIMONIALS
-if($hiilite_options['testimonials_on']){
-	$title = get_theme_mod( 'testimonials_title', 'Testimonials' );
-	$testimonials_slug = get_theme_mod( 'testimonials_slug', 'testimonials' );
-	$tax_title = get_theme_mod( 'testimonials_tax_title', 'Testimonials Categories' );
-	$testimonials_tax_slug = get_theme_mod( 'testimonials_tax_slug', 'testimonials_category' );
-
-	$sections = get_terms($testimonials_tax_slug);
-	$hiilite_options['testimonials_sections']['all'] = 'All';
-	foreach($sections as $section){
-		$hiilite_options['testimonials_sections'][$section->name] = $section->slug;
-	}
-	vc_map( array(
-		"name" => $title,
-		"base" => "testimonials",
-		"category" => 'by Hiilite',
-		"description" => "Show your testimonials",
-		"icon" => esc_url( get_template_directory_uri() )."/images/icons/comments.png",
-		"allowed_container_element" => 'vc_row',
-		"params" => array(
-			
-			array(
-				"type" => "dropdown",
-				"holder" => "div",
-				"class" => "",
-				"heading" => "Categories",
-				"param_name" => "section",
-				"default"	=> "all",
-				"value" => $hiilite_options['testimonials_sections']
-			),
-			array(
-				"type" => "checkbox",
-				"holder" => "div",
-				"class" => "",
-				"heading" => "Show Image",
-				"param_name" => "show_image",
-				"value" => true,
-			),
-			array(
-				"type" => "dropdown",
-				"holder" => "div",
-				"heading" => "Image Style",
-				"param_name" => "image_style",
-				"value" => array(
-					'none' => 'None',
-					'circle' => 'Circle',
-					'ad_background' => 'As Background',
-				),
-				"dependency" => array (
-					"element" => "show_image",
-					"value" => array('true'),
-				),
-			),
-			array(
-				"type" => "dropdown",
-				"holder" => "div",
-				"heading" => "Image Position",
-				"param_name" => "image_position",
-				"value" => array(
-					'above' => 'Above',
-					'right' => 'Right',
-					'bottom' => 'Bottom',
-					'left' => 'Left',
-				),
-				"dependency" => array (
-					"element" => "show_image",
-					"value" => array('true'),
-				),
-			),
-			array(
-				"type" => "checkbox",
-				"holder" => "div",
-				"class" => "",
-				"heading" => "Show Title",
-				"param_name" => "show_title",
-				"value" => true,
-			),
-			array(
-				"type" => "dropdown",
-				"holder" => "div",
-				"class" => "",
-				"heading" => "Heading tag",
-				"param_name" => "heading_tag",
-				"value" => array(
-					'h1' => 'h1',
-					'h2' => 'h2',
-					'h3' => 'h3',
-					'h4' => 'h4',
-					'h5' => 'h5',
-					'h6' => 'h6',
-					'strong' => 'strong',
-				),
-				"dependency" => array (
-					"element" => "show_title",
-					"value" => array('true'),
-				),
-			),
-			array(
-				"type" => "checkbox",
-				"holder" => "div",
-				"heading" => "Show Rating",
-				"param_name" => "show_rating",
-				"value" => true,
-			),
-			array(
-				"type" => "checkbox",
-				"holder" => "div",
-				"heading" => "Is Slider",
-				"param_name" => "is_slider",
-				"value" => true,
-			),
-			array(
-				"type" => "textfield", 
-				"holder" => "div",
-				"heading" => "Slider Height",
-				"param_name" => "height",
-				"default"	=> "500px",
-				"value"	=> "500px",
-				"dependency" => array (
-					"element" => "is_slider",
-					"value" => array('true')
-				),
-			),
-			array(
-				"type" => "textfield", 
-				"holder" => "div",
-				"heading" => "Slider Speed",
-				"param_name" => "slider_speed",
-				"description" => "Speed in milliseconds",
-				"default"	=> "5000",
-				"value"	=> "5000",
-				"dependency" => array (
-					"element" => "is_slider",
-					"value" => array('true')
-				),
-			),
-			array(
-	            'type' => 'css_editor',
-	            'heading' => __( 'Css', 'hiiwp' ),
-	            'param_name' => 'css',
-	            'group' => __( 'Design options', 'hiiwp' ),
-	        ),
-			
-		)
-	) );
-}
-vc_add_shortcode_param( 'date', 'date_settings_field' );
-function date_settings_field( $settings, $value ) {
-   return '<div class="date_block">'
-             .'<input name="' . esc_attr( $settings['param_name'] ) . '" class="wpb_vc_param_value wpb-textinput ' .
-             esc_attr( $settings['param_name'] ) . ' ' .
-             esc_attr( $settings['type'] ) . '_field" type="date" value="' . esc_attr( $value ) . '" />' .
-             '</div>'; // This is html markup that will be outputted in content elements edit form
-}
-
+ 
 
 add_filter( 'vc_grid_item_shortcodes', 'button_add_grid_shortcodes' );
 function button_add_grid_shortcodes( $shortcodes ) {

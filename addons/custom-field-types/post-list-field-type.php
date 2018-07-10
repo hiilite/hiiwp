@@ -1,5 +1,4 @@
 <?php
-	if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 //By Daniele Mte90 Scasciafratte
 //Based on https://github.com/WebDevStudios/CMB2-Post-Search-field
 //That field have a list separated by a comma of post id and allow to sort and remove
@@ -8,10 +7,10 @@
 function cmb2_post_list_render_field( $field, $escaped_value, $object_id, $object_type, $field_type ) {
 	$select_type = $field->args( 'select_type' );
 
-	echo $field_type->input( array(
+	echo wp_kses_post($field_type->input( array(
 	    'autocomplete' => 'off',
 	    'style' => 'display:none'
-	) );
+	) ));
 	echo '<ul style="cursor:move">';
 	if ( !empty( $field->escaped_value ) ) {
 		$list = explode( ',', $field->escaped_value );

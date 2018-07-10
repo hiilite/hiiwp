@@ -26,4 +26,4 @@ $output = '
 	</details>
 ';
 
-echo $output;
+echo $output; // WPCS: XSS ok.

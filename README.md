@@ -1,7 +1,11 @@
 # Hiilite Wordpress theme
-This theme is currently in Alpha testing and should not be installed without the support of the team at Hiilite Creative Group
 
 ### Change log
+#### v1.0
+- Major Updates to all files
+- All plugin territory functions moved to HiiWP Plus Plugin, now a required plugin install with theme.
+- Reworking of Carousel shortcodes.
+
 #### v0.4.9
 - Fixes to schema
 - General Code cleanup

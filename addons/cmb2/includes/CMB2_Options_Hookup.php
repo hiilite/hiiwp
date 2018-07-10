@@ -128,11 +128,11 @@ class CMB2_Options_Hookup extends CMB2_hookup {
 		$is_updated      = $should_notify && 'true' === $_GET['settings-updated'];
 		$setting         = "{$this->option_key}-notices";
 		$code            = '';
-		$message         = __( 'Nothing to update.', 'cmb2' );
+		$message         = __( 'Nothing to update.', 'hiiwp' );
 		$type            = 'notice-warning';
 
 		if ( $is_updated ) {
-			$message = __( 'Settings updated.', 'cmb2' );
+			$message = __( 'Settings updated.', 'hiiwp' );
 			$type    = 'updated';
 		}
 
@@ -188,9 +188,9 @@ class CMB2_Options_Hookup extends CMB2_hookup {
 
 		$tabs = $this->get_tab_group_tabs();
 		?>
-		<div class="wrap cmb2-options-page option-<?php echo $this->option_key; ?>">
+		<div class="wrap cmb2-options-page option-<?php echo esc_attr($this->option_key); ?>">
 			<?php if ( $this->cmb->prop( 'title' ) ) : ?>
-				<h2><?php echo wp_kses_post( $this->cmb->prop( 'title' ) ); ?></h2>
+				<h2><?php echo $this->cmb->prop( 'title' ); ?></h2>
 			<?php endif; ?>
 			<?php if ( ! empty( $tabs ) ) : ?>
 				<h2 class="nav-tab-wrapper">
@@ -199,7 +199,7 @@ class CMB2_Options_Hookup extends CMB2_hookup {
 					<?php endforeach; ?>
 				</h2>
 			<?php endif; ?>
-			<form class="cmb-form" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>" method="POST" id="<?php echo $this->cmb->cmb_id; ?>" enctype="multipart/form-data" encoding="multipart/form-data">
+			<form class="cmb-form" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>" method="POST" id="<?php echo esc_attr($this->cmb->cmb_id); ?>" enctype="multipart/form-data" encoding="multipart/form-data">
 				<input type="hidden" name="action" value="<?php echo esc_attr( $this->option_key ); ?>">
 				<?php $this->options_page_metabox(); ?>
 				<?php submit_button( esc_attr( $this->cmb->prop( 'save_button' ) ), 'primary', 'submit-cmb' ); ?>
@@ -338,7 +338,7 @@ class CMB2_Options_Hookup extends CMB2_hookup {
 			case 'cmb':
 				return $this->{$field};
 			default:
-				throw new Exception( sprintf( esc_html__( 'Invalid %1$s property: %2$s', 'cmb2' ), __CLASS__, $field ) );
+				throw new Exception( sprintf( esc_html__( 'Invalid %1$s property: %2$s', 'hiiwp' ), __CLASS__, $field ) );
 		}
 	}
 }

@@ -13,7 +13,7 @@
  * @see 	    https://docs.woocommerce.com/document/template-structure/
  * @author 		WooThemes
  * @package 	WooCommerce/Templates
- * @version     3.0.0
+ * @version     3.4.0
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -33,13 +33,6 @@ if ( ! defined( 'ABSPATH' ) ) {
  	return;
  }
 ?>
-<div class="row product_title_row">
-	<?php
-	echo woocommerce_get_product_thumbnail('thumbnail');
-	woocommerce_template_single_title();
-	//woocommerce_template_single_price();
-	?>
-</div>
 <div class="summary entry-summary container_inner">
 	<div <?php post_class('in_grid'); ?>>
 		<div class="col-8 product_images">
@@ -102,4 +95,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 	</div><!-- .summary -->
 	
 </div>
-<?php do_action( 'woocommerce_after_single_product' ); ?>
+<?php do_action( 'woocommerce_after_single_product' );
+	
+	

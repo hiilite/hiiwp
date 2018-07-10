@@ -1,10 +1,17 @@
 <?php
-
+/**
+ * The HiiWP Ajax class.
+ * Handles adding all admin options
+ *
+ * @package     HiiWP
+ * @category    Core
+ * @author      Peter Vigilante
+ * @copyright   Copyright (c) 2017, Hiilite Creative Group
+ * @license     http://opensource.org/licenses/https://opensource.org/licenses/MIT
+ * @since       0.4.1
+ */
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
-/**
- * HiiTV_Ajax class.
- */
 class HiiWP_Ajax {
 	/**
 	 * Constructor
@@ -12,12 +19,6 @@ class HiiWP_Ajax {
 	public function __construct() {
 		add_action( 'init', array( __CLASS__, 'add_endpoint') );
 		add_action( 'template_redirect', array( __CLASS__, 'do_ajax'), 0 );
-
-		// Ajax endpoints
-		// TODO - Add get functions for grabbing shows and episodes
-		//add_action( 'hiitv_ajax_get_shows', array( $this, 'get_shows' ) );
-		//add_action( 'hiitv_ajax_get_episodes', array( $this, 'get_episodes' ) );
-
 	}
 	
 	/**

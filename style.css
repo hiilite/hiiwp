@@ -5,7 +5,7 @@ Github Theme URI: https://github.com/hiilite/hiiwp
 Description: Hiilite WordPress Theme
 Author: Hiilite Creative Group
 Author URI: https://hiilite.com
-Version: v0.4.9
+Version: v1.0
 License: GNU General Public License
 License URI: licence/GPL.txt
 Text Domain:  hiiwp
@@ -14,3 +14,4 @@ Tags: creative, portfolio, multi-purpose, clean, retina, responsive, parallax, m
 CSS changes can be made in files in the /css/ folder. This is a placeholder file required by WordPress, so do not delete it.
 
 */
+.wp-caption,.wp-caption-text,.bypostauthor,.aligncenter {}

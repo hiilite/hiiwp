@@ -8,7 +8,7 @@
  * @author      Peter Vigilante
  * @copyright   Copyright (c) 2017, Hiilite Creative Group
  * @license     http://opensource.org/licenses/https://opensource.org/licenses/MIT
- * @since       0.4.9
+ * @since       1.0
  */
 if ( ! defined( 'ABSPATH' ) )	exit;
 /**
@@ -20,7 +20,7 @@ class HiiWP extends Hii {
 	
 	private static $_instance = null;
 	
-	public static $options = array();
+	public static $options = array(); 
 	public static $hiilite_options = null;
 
 	public static function instance(){
@@ -62,7 +62,6 @@ class HiiWP extends Hii {
 		add_action( 'wp_ajax_hiiwp_disable_tour_mode', array( $this, 'hiiwp_disable_tour_mode' )); //Used to disable tour mode
         add_filter( 'auto_update_theme', '__return_true' );
         add_filter( 'widget_text','do_shortcode');
-        add_filter( 'wp_calculate_image_srcset_meta', '__return_null' );
         add_action( 'tgmpa_register', array($this, 'hiilite_register_required_plugins' ));
         add_filter( 'get_the_archive_title', array($this, 'modify_archive_title' ));
         
@@ -72,10 +71,13 @@ class HiiWP extends Hii {
 	    */
         //add_action('wp_print_scripts','add_load_css',7);
 		add_action('wp_head', array($this, 'add_load_css' ),7);
+		add_action('hii_body_start', array($this, 'add_loading_svg'));
 		
+		/*
 	    if(self::$hiilite_options['async_all_css']) {
 			add_filter('style_loader_tag', array($this, 'link_to_loadCSS_script' ),9999,3);
 		}
+		*/
         
 		
         if ( ! function_exists( '_wp_render_title_tag' ) ) :
@@ -111,30 +113,21 @@ class HiiWP extends Hii {
      * @return void
      */
     public function hiiwp_init(){
-	    
+	    /*
 	    if( self::$hiilite_options['defer_all_javascript'] ) {
 		    add_filter('script_loader_tag', array( $this, 'add_defer_attribute'), 10, 2);
 	    }
-		
+		*/
     }
 	
 	
 	public function hiiwp_enqueue_scripts () {
-		
-		// Deregister WordPress default jQuery and load latest version
-		wp_deregister_script( 'jquery' );
-	    wp_register_script( 'jquery', "//code.jquery.com/jquery-3.1.1.min.js", array(), '3.1.1' );
-	    wp_deregister_script( 'jquery-migrate' );
-	    wp_register_script( 'jquery-migrate', "//code.jquery.com/jquery-migrate-3.0.0.min.js", array(), '3.0.0' );
-		
+		wp_enqueue_script('jquery-effects-core');
+		wp_enqueue_script('jquery-ui-widget');
 		wp_enqueue_script('modernizr', HIIWP_URL.'/js/vender/modernizr-custom.js');
-		
-		// Add jquery ui for use with carousel sliders
-		wp_deregister_script( 'jquery-ui-core' );
-	    wp_register_script( 'jquery-ui-core', "//code.jquery.com/ui/1.12.1/jquery-ui.min.js", array('jquery'), '1.12.1' );
 
 		wp_enqueue_script('kinetic', HIIWP_URL.'/js/vender/jquery.kinetic.min.js', array('jquery', 'jquery-ui-core'));
-		wp_enqueue_script('smoothTouchScroll', HIIWP_URL.'/js/vender/jquery.smoothTouchScroll.min.js', array('jquery', 'jquery-ui-core'));
+		wp_enqueue_script('smoothTouchScroll', HIIWP_URL.'/js/vender/jquery.smoothTouchScroll.min.js', array('jquery', 'jquery-ui-widget'));
 		wp_enqueue_script('touchSwipe', HIIWP_URL.'/js/vender/jquery.touchSwipe.min.js', array('jquery', 'jquery-ui-core'));
 		
 		
@@ -162,22 +155,13 @@ class HiiWP extends Hii {
 	public function add_load_css(){ 
 	    ?>
 	    <style>
-		    html body{
-		    	visibility: hidden;
-		    	
-		    	-webkit-animation:-amp-start 1s;
-		    	-moz-animation:-amp-start 1s;
-		    	-ms-animation:-amp-start 1s;
-		    	animation:-amp-start 1s
+		    html body > .wrapper {
+		    	opacity: 0;
+		    	transition: opacity 0.25s;
 		    }
-	    	@-webkit-keyframes -amp-start{from{opacity:0}to{opacity:1}}
-	    	@-moz-keyframes -amp-start{from{opacity:0}to{opacity:1}}
-	    	@-ms-keyframes -amp-start{from{opacity:0}to{opacity:1}}
-	    	@-o-keyframes -amp-start{from{opacity:0}to{opacity:1}}
-	    	@keyframes -amp-start{from{opacity:0}to{opacity:1}}
 		    
-		    .wf-active body{
-			    visibility: visible !important;
+		    html[class*="-active"] body > .wrapper {
+			    opacity: 1;
 		    }
 		</style>
 	    <noscript><style>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
@@ -203,10 +187,21 @@ class HiiWP extends Hii {
 					} ); 
 					return ss; 
 				}
-			</script><?php
+			</script>
+			<?php
 		}
+		
 	}
 	
+	public function add_loading_svg(){
+		?><svg id="page-loader" style="width: 150px;height: 150px;position: fixed; z-index: 99999; top: 0; bottom: 0; margin: auto;left: 0;right: 0; transition:all 0.4s; ">
+			<circle cx="75" cy="75" r="20" />
+			<circle cx="75" cy="75" r="35" />
+			<circle cx="75" cy="75" r="50" />
+			<circle cx="75" cy="75" r="65" />
+		</svg>
+		<?php
+	}
 	
 	/**
 	 * link_to_loadCSS_script function.
@@ -448,8 +443,15 @@ class HiiWP extends Hii {
 	public function print_inline_script() {
 	  if ( wp_script_is( 'jquery', 'done' ) ) { 
 	  ?><script type="text/javascript">
-			<?php echo get_theme_mod('custom_js');?>
-		</script><?php
+			<?php echo get_theme_mod('custom_js');?>	
+		</script>
+		<script>
+		    (function() {
+				if (sessionStorage.fonts) {
+					document.documentElement.classList.add('wf-active');
+				} 
+		    })();
+	    </script><?php
 	  }
 	}
 	
@@ -507,7 +509,7 @@ class HiiWP extends Hii {
 				  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
 				  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
 				  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-				ga('create', '<?php echo $tracking_id?>', 'auto');
+				ga('create', '<?php echo esc_html($tracking_id);?>', 'auto');
 				ga('send', 'pageview');
 				
 				</script>
@@ -519,7 +521,7 @@ class HiiWP extends Hii {
 		
 		if(isset($options['business_custom_tracking_code'])) {
 				echo '<script>';
-				echo $options['business_custom_tracking_code'];
+				echo esc_js($options['business_custom_tracking_code']);
 				echo '</script>';
 		}
 	}
@@ -685,30 +687,9 @@ class HiiWP extends Hii {
 	     * Array of plugin arrays. Required keys are name and slug.
 	     * If the source is NOT from the .org repo, then source is also required.
 	     */
-	    $plugins = array(
-	
-	        // This is an example of how to include a plugin pre-packaged with a theme.
-	        
+		
+		$hiilite_dev_only_plugins = array(
 			array(
-	            'name'               => 'WPBakery Visual Composer', // The plugin name.
-	            'slug'               => 'js_composer', // The plugin slug (typically the folder name).
-	            'source'             => 'https://hiilite.com/download/9034/', // The plugin source.
-	            'version'			 => '5.4.5',
-	            'required'           => true, // If false, the plugin is only 'recommended' instead of required.
-	            'force_activation'   => true, // If true, plugin is activated upon theme activation and cannot be deactivated until theme switch.
-	            'force_deactivation' => false, // If true, plugin is deactivated upon theme switch, useful for theme-specific plugins.
-	        ),
-			array(
-	            'name'      => 'Google Analytics Dashboard',
-	            'slug'      => 'google-analytics-dashboard-for-wp',
-	            'required'  => false,
-	        ),
-	        array(
-	            'name'      => 'Yoast SEO',
-	            'slug'      => 'wordpress-seo',
-	            'required'  => false,
-	        ),
-	        array(
 	            'name'      => 'Imsanity',
 	            'slug'      => 'imsanity',
 	            'required'  => false,
@@ -747,30 +728,57 @@ class HiiWP extends Hii {
 	            'slug'      => 'gravity-forms-google-analytics-event-tracking',
 	            'required'  => false,
 	        ),
-			array(
-	            'name'      => 'Loginizer',
-	            'slug'      => 'loginizer',
-	            'required'  => false,
-	        ),
 	        array(
 	            'name'      => 'SSL Insecure Content Fixer',
 	            'slug'      => 'ssl-insecure-content-fixer',
 	            'required'  => false,
 	        ),
-	        /*
-		    // Awaiting to Confirming Licence
-	        array(
-	            'name'               => 'Backup Buddy', // The plugin name.
-	            'slug'               => 'backupbuddy', // The plugin slug (typically the folder name).
-	            'source'             => 'https://hiilite.com/download/9037/', // The plugin source.
-	            'version'			 => '8.2.0.2',
-	            'required'           => false, // If false, the plugin is only 'recommended' instead of required.
-	            'force_activation'   => false, // If true, plugin is activated upon theme activation and cannot be deactivated until theme switch.
-	            'force_deactivation' => false, // If true, plugin is deactivated upon theme switch, useful for theme-specific plugins
-	        ),*/
-	       
-	    );
+        );
+	    
+	    $plugins = array(
 	
+	        // This is an example of how to include a plugin pre-packaged with a theme.
+	        
+			array(
+	            'name'               => 'WPBakery Visual Composer', // The plugin name.
+	            'slug'               => 'js_composer', // The plugin slug (typically the folder name).
+	            'source'             => 'https://hiilite.com/download/9034/', // The plugin source.
+	            'version'			 => '5.4.5',
+	            'required'           => true, // If false, the plugin is only 'recommended' instead of required.
+	            'force_activation'   => true, // If true, plugin is activated upon theme activation and cannot be deactivated until theme switch.
+	            'force_deactivation' => false, // If true, plugin is deactivated upon theme switch, useful for theme-specific plugins.
+	        ),
+	        array(
+	            'name'               => 'HiiWP Plus', // The plugin name.
+	            'slug'               => 'hiiwp-plus', // The plugin slug (typically the folder name).
+	            'source'             => 'https://github.com/hiilite/hiiwp-plus/archive/master.zip', // The plugin source.
+	            'version'			 => '1.0.0',
+	            'required'           => true, // If false, the plugin is only 'recommended' instead of required.
+	            'force_activation'   => true, // If true, plugin is activated upon theme activation and cannot be deactivated until theme switch.
+	            'force_deactivation' => true, // If true, plugin is deactivated upon theme switch, useful for theme-specific plugins.
+	        ),
+			array(
+	            'name'      => 'One Click Demo Import',
+	            'slug'      => 'one-click-demo-import',
+	            'required'  => false,
+	        ),
+	        array(
+	            'name'      => 'Yoast SEO',
+	            'slug'      => 'wordpress-seo',
+	            'required'  => false,
+	        ),
+	        
+			array(
+	            'name'      => 'Loginizer',
+	            'slug'      => 'loginizer',
+	            'required'  => false,
+	        ),
+	        
+	    );
+		
+		if( self::$hiilite_options['hiilite_developer'] ) { 
+			$plugins = array_merge($plugins, $hiilite_dev_only_plugins);
+		}
 	    /**
 	     * Array of configuration settings. Amend each line as needed.
 	     * If you want the default strings to be available under your own theme domain,
@@ -835,15 +843,10 @@ class HiiWP extends Hii {
 	    // store function in code specific global
 	    $GLOBALS["register_theme_deactivation_hook_function" . $code]=$function;
 	
-	    // create a runtime function which will delete the option set while activation of this theme and will call deactivation function provided in $function
-	    $fn=create_function('$theme', ' call_user_func($GLOBALS["register_theme_deactivation_hook_function' . $code . '"]); delete_option("theme_is_activated_' . $code. '");');
-	
-	    // add above created function to switch_theme action hook. This hook gets called when admin changes the theme.
-	    // Due to wordpress core implementation this hook can only be received by currently active theme (which is going to be deactivated as admin has chosen another one.
 	    // Your theme can perceive this hook as a deactivation hook.
-	    add_action("switch_theme", $fn);
+	    add_action("switch_theme", 'theme_deactivation');
 	}
-	
+	 
 	
 	/**
 	 * cc_mime_types function.

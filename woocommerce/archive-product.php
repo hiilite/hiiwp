@@ -10,10 +10,9 @@
  * happen. When this occurs the version of the template file will be bumped and
  * the readme will list any important changes.
  *
- * @see 	    https://docs.woocommerce.com/document/template-structure/
- * @author 		WooThemes
- * @package 	WooCommerce/Templates
- * @version     3.3.0
+ * @see https://docs.woocommerce.com/document/template-structure/
+ * @package WooCommerce/Templates
+ * @version 3.4.0
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -24,7 +23,7 @@ get_header( 'shop' );
 $page_bg_color = (get_post_meta ( get_the_ID(), 'page_title_bg', true))?get_post_meta ( get_the_ID(), 'page_title_bg', true):false;
 if(isset($post)) $page_bg_img = (get_post_meta ( $post->ID, 'page_title_bgimg', false))?get_post_meta ( $post->ID, 'page_title_bgimg'):false;
  ?>
-	<header class="woocommerce-products-header page-title" style="<?=($page_bg_img)?'background-image:url('.$page_bg_img[0].');':'';?><?=($page_bg_color)?'background-color:'.$page_bg_color.';':'';?>">
+	<header class="woocommerce-products-header page-title" style="<?php echo ($page_bg_img)?'background-image:url('.$page_bg_img[0].');':'';?><?php echo ($page_bg_color)?'background-color:'.$page_bg_color.';':'';?>">
 		<div class="in_grid content-box">
 			<?php
 		/**

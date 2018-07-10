@@ -236,4 +236,4 @@ $output = '
 			' . $html . '
 		</figure>';
 
-echo $output;
+echo  $output; // WPCS: XSS ok.

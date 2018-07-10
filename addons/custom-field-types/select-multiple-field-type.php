@@ -1,5 +1,4 @@
 <?php
-	if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 /**
  * CMB2 Select Multiple Custom Field Type
  * @package CMB2 Select Multiple Field Type
@@ -30,7 +29,7 @@ function cmb2_render_select_multiple_field_type( $field, $escaped_value, $object
 	$select_multiple .= '</select>';
 	$select_multiple .= $field_type_object->_desc( true );
 
-	echo $select_multiple; // WPCS: XSS ok.
+	echo wp_kses_post($select_multiple); // WPCS: XSS ok.
 }
 add_action( 'cmb2_render_select_multiple', 'cmb2_render_select_multiple_field_type', 10, 5 );
 
@@ -40,8 +39,8 @@ add_action( 'cmb2_render_select_multiple', 'cmb2_render_select_multiple_field_ty
  */
 function cmb2_sanitize_select_multiple_callback( $override_value, $value ) {
 	if ( is_array( $value ) ) {
-		foreach ( $value as $saved_value ) {
-			$value[] = sanitize_text_field( $saved_value );
+		foreach ( $value as $key => $saved_value ) {
+			$value[$key] = sanitize_text_field( $saved_value );
 		}
 
 		return $value;

@@ -31,5 +31,5 @@ $wrapper_attributes = array();
 if ( ! empty( $el_id ) ) {
 	$wrapper_attributes[] = 'id="' . esc_attr( $el_id ) . '"';
 }
-?>
-<div class="<?php echo esc_attr( trim( $css_class ) ); ?>" <?php echo implode( ' ', $wrapper_attributes ); ?> <?php echo $inline_css; ?> ><span class="vc_empty_space_inner"></span></div>
+
+echo "<div class='". esc_attr( trim( $css_class ) ) ."' ". implode( ' ', $wrapper_attributes ) ."  $inline_css ><span class='vc_empty_space_inner'></span></div>"; // WPCS: XSS ok.

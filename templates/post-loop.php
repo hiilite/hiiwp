@@ -3,9 +3,9 @@
  * HiiWP Template: Post-Loop
  *
  * @package     hiiwp
- * @copyright   Copyright (c) 2016, Peter Vigilante
+ * @copyright   Copyright (c) 2018, Peter Vigilante
  * @license     http://opensource.org/licenses/gpl-2.0.php GNU Public License
- * @since       0.1.0
+ * @since       1.0
  */
 /* 
 TODO:
@@ -14,8 +14,7 @@ TODO:
 */
 $hiilite_options = Hii::get_options();
 
-$post_meta = get_post_meta(get_the_id());
-$post_format_icon = $article_title = $dateline = $article_cat = '';
+$post_format_icon = $article_title = $dateline = $article_cat = $image = '';
 
 if($hiilite_options['blog_cats_show'] == 'true' || $hiilite_options['blog_cats_show'] == true):
 	$article_cat .= '<span class="cat-links"><span class="screen-reader-text">Tags</span>'.get_the_category_list(', ').'</span>';
@@ -89,16 +88,16 @@ $article_title = $article_title.$dateline;
 			<?php
 				if(is_single() && get_post_meta(get_the_id(), 'show_page_title', true) != 'on') {
 					
-					$blog_link = ( get_option( 'page_for_posts' ) != false ) ? get_permalink( get_option( 'page_for_posts' ) ) : get_bloginfo( 'url' );
+					$blog_link = ( get_option( 'page_for_posts' ) != false ) ? get_permalink( get_option( 'page_for_posts' ) ) : esc_url( home_url() );
 					echo '<a class="back_to_blog" href="' . $blog_link . '"><i class="fa fa-angle-left"></i>Back to blog</a><br>';
-					echo $article_title;
+					echo wp_kses_post($article_title); // WPCS: XSS ok.
 				}
 				?>
 			</div>
 		</div>
 	</header>
 	
-	<div class="<?php if($hiilite_options['single_full'] == false) { echo 'in_grid'; } ?>">
+	<div class="<?php if($hiilite_options['single_full'] == false) { echo 'in_grid single-blog-post single-blog-post-in-grid'; } else { echo 'single-blog-post single-blog-post-full-width'; } ?>">
 		<div class="container_inner">
 		<?php
 		echo '<div class="col-9 content-box align-top">';
@@ -113,7 +112,7 @@ $article_title = $article_title.$dateline;
 				$height = $img[2];
 			?>
 				<figure class="flex-item full-width post-thumbnail">
-					<img src='<?php echo $img[0];?>'  width='<?php echo $width?>' height='<?php echo $height?>' alt="<?php echo get_the_title()?>">
+					<img src='<?php echo esc_url($img[0]);?>'  width='<?php echo intval($width); ?>' height='<?php echo intval($height);?>' alt="<?php echo get_the_title()?>">
 				</figure><?php 
 			endif;
 			
@@ -122,7 +121,7 @@ $article_title = $article_title.$dateline;
 				echo '<div class="post-navigation">';
 					wp_link_pages(array(
 						'next_or_number'	=>'next', 
-						'previouspagelink' 	=> '<span class="screen-reader-text">' . __( 'Previous Page', 'hiiwp' ) . '</span><span aria-hidden="true" class="nav-subtitle">' . __( 'Go back to', 'hiiwp' ) . '</span> <span class="nav-title"><span class="nav-title-icon-wrapper"><i class="fa fa-angle-left"></i></span>' . __( 'Previous Page', 'hiiwp' ) . '</span>', 
+						'previouspagelink' 	=> '<span class="screen-reader-text">' . __( 'Previous Page', 'hiiwp' ) . '</span><span aria-hidden="true" class="nav-subtitle">' . __( 'Go back to', 'hiiwp' ) . '</span> <span class="nav-title"><span class="nav-title-icon-wrapper"><i class="fa fa-angle-left"></i></span>' . __( 'Previous Page', 'hiiwp' ) . '</span>',
 						'nextpagelink' 		=> '<span class="screen-reader-text">' . __( 'Next Page', 'hiiwp' ) . '</span><span aria-hidden="true" class="nav-subtitle">' . __( 'Continue Reading on', 'hiiwp' ) . '</span> <span class="nav-title">' . __( 'Next Page', 'hiiwp' ) . '<span class="nav-title-icon-wrapper"><i class="fa fa-angle-right"></i></span></span>', 
 						'before'			=> ''));
 				echo '</div>';
@@ -149,11 +148,11 @@ $article_title = $article_title.$dateline;
 		
 								// Make sure there's more than one category before displaying.
 								if ( $categories_list ) {
-									echo '<span class="cat-links"><i class="fa fa-folder-open"></i><span class="screen-reader-text">' . __( 'Categories', 'twentyseventeen' ) . '</span>' . $categories_list . '</span>';
+									echo '<span class="cat-links"><i class="fa fa-folder-open"></i><span class="screen-reader-text">' . __( 'Categories', 'hiiwp' ) . '</span>' . $categories_list . '</span>';
 								}
 		
 								if ( $tags_list && ! is_wp_error( $tags_list ) ) {
-									echo '<span class="tags-links"><i class="fa fa-hashtag"></i><span class="screen-reader-text">' . __( 'Tags', 'twentyseventeen' ) . '</span>' . $tags_list . '</span>';
+									echo '<span class="tags-links"><i class="fa fa-hashtag"></i><span class="screen-reader-text">' . __( 'Tags', 'hiiwp' ) . '</span>' . $tags_list . '</span>';
 								}
 		
 							echo '</span>';
@@ -198,19 +197,6 @@ if($hiilite_options['blog_rel_articles'] == true):
 	    'orderby'        => $args['orderby'],
 	  
 	);
-	/*$taxonomies = array('category','post_tag');
-	foreach( $taxonomies as $taxonomy ) {
-	    $terms = get_the_terms( $post_id, $taxonomy );
-	    $term_list = wp_list_pluck( $terms, 'slug' );
-	    $related_args['tax_query'][] = array(
-	        'taxonomy' => $taxonomy,
-	        'field'    => 'slug',
-	        'terms'    => $term_list
-	    );
-	}
-	if( count( $related_args['tax_query'] ) > 1 ) {
-	    $related_args['tax_query']['relation'] = 'OR';
-	}*/
 	?>
 	<div class="align-center">
 		<h4>Related Articles</h4>
@@ -220,29 +206,49 @@ if($hiilite_options['blog_rel_articles'] == true):
 	if( $my_query->have_posts() ) :
 		?>
 		<amp-carousel height="300" layout="fixed-height" type="carousel" class="relatedposts carousel">
-			<div class="carousel-wrapper" style="white-space: nowrap; position: absolute; z-index: 1; top: 0px; left: 0px; bottom: 0px;">
+			<div class="carousel-wrapper">
 		      <?php
 			while ($my_query->have_posts()) : $my_query->the_post();
+				?>
+				<a href="<?php echo get_the_permalink()?>"  class="relatedarticle slide"><?php
 				if ( has_post_thumbnail() ) {
-					$image = wp_get_attachment_image_src( get_post_thumbnail_id( get_the_id() ));
-					?>
-					<a href="<?php echo get_the_permalink()?>"  class="relatedarticle slide">
-				    	<img src="<?php echo $image[0]?>" width="200" height="200" alt="<?php echo get_the_title()?>">
-				    	<p><?php echo get_the_title();?></p>
-					</a>
-					<?php
-				} else {
-					?>
-					<a href="<?php echo get_the_permalink()?>"  class="relatedarticle slide">
-				    	<img src="<?php echo $hiilite_options['main_logo']?>" width="200" height="200" alt="<?php echo get_the_title()?>">
-				    	<p><?php echo get_the_title();?></p>
-					</a>
-					<?php
+					$image_src = wp_get_attachment_image_src( get_post_thumbnail_id( get_the_id() ));
+					$image = "<img src='".$image_src[0]."' width='200' height='200' alt='". get_the_title()."'>";
+				} else {	
+					if ( get_post_format() !== NULL) {
+						switch ( get_post_format() ) {
+							case 'video':
+								$image = '<i class="fa fa-film blog-default-icon"></i>';
+							break;
+							case 'audio':
+								$image = '<i class="fa fa-music blog-default-icon"></i>';
+							break;
+							case 'link':
+								$image = '<i class="fa fa-link blog-default-icon"></i>';
+							break;
+							case 'image':
+							case 'gallery':
+								$image = '<i class="fa fa-picture-o blog-default-icon"></i>';
+							break;
+							case 'chat':
+								$image = '<i class="fa fa-wechat blog-default-icon"></i>';
+							break;
+							case 'quote':
+								$image = '<i class="fa fa-quote-left blog-default-icon"></i>';
+							break;
+							case 'aside':
+								$image = '<i class="fa fa-sticky-note blog-default-icon"></i>';
+							break;
+						}
+					}
 				}
-				
-			  	
-			  endwhile;
-			  ?>
+				?>
+					<div style="height: 200px; width: 200px;"><?php echo wp_kses_post($image); // WPCS: XSS ok. ?></div>
+			    	<h5 class="related-post-title"><?php echo get_the_title();?></h5>
+				</a><?php
+			endwhile;
+			wp_reset_postdata(  );
+			?>
 			  </div>
 		</amp-carousel> 
 	<?php
@@ -262,12 +268,15 @@ if($hiilite_options['blog_comments_show'] == true):
 	endif;
 	echo '</div>';
 endif;
-echo '<div class="container_inner">';
+
+if($hiilite_options['show_next_prev_posts'] == true):
+echo '<div class="container_inner next-prev-posts">';
 	the_post_navigation( array(
 						'prev_text' => '<span class="screen-reader-text">' . __( 'Previous Post', 'hiiwp' ) . '</span><span aria-hidden="true" class="nav-subtitle">' . __( 'Previous', 'hiiwp' ) . '</span> <span class="nav-title"><span class="nav-title-icon-wrapper"><i class="fa fa-angle-left"></i></span>%title</span>',
 						'next_text' => '<span class="screen-reader-text">' . __( 'Next Post', 'hiiwp' ) . '</span><span aria-hidden="true" class="nav-subtitle">' . __( 'Next', 'hiiwp' ) . '</span> <span class="nav-title">%title<span class="nav-title-icon-wrapper"><i class="fa fa-angle-right"></i></span></span>',
 					) );
 echo '</div>';
+endif;
 ?>
 	</div>
 </article>

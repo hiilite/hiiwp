@@ -1,11 +1,16 @@
 <?php 
-global $hiilite_options;
-if($hiilite_options['portfolio_on']):
 /*
 Template Name: Portfolio Page
 */ 
-endif;
-
+/**
+ * HiiWP Template: portfolio_page
+ *
+ * @package     hiiwp
+ * @copyright   Copyright (c) 2018, Peter Vigilante
+ * @license     http://opensource.org/licenses/gpl-2.0.php GNU Public License
+ * @since       1.0
+ */
+$hiilite_options = HiiWP::get_options();
 
 
 get_header();
@@ -17,21 +22,29 @@ if(have_posts()):
 		the_content();
 	endwhile;
 endif; 
-//echo get_theme_mod( 'portfolio_layout', 'h-masonry' ) . get_theme_mod( 'portfolio_columns');
-$portfolio = get_portfolio(null, array(
-		'show_post_meta'  	=> get_theme_mod( 'portfolio_show_post_meta', false ),
-	    'show_post_title'  	=> get_theme_mod( 'portfolio_show_post_title', false ),
-	    'in_grid'			=> get_theme_mod( 'portfolio_in_grid', false ),
-	    'add_padding'		=> get_theme_mod( 'portfolio_add_padding', '0px' ),
-	    'portfolio_layout'	=> get_theme_mod( 'portfolio_layout', 'h-masonry' ),
-	    'portfolio_columns'	=> get_theme_mod( 'portfolio_columns', '1' ),
-		'portfolio_image_pos'=> get_theme_mod( 'portfolio_image_pos', 'image-left' ),
-		'portfolio_title_pos'=> get_theme_mod( 'portfolio_title_pos', 'title-below' ),
-		'portfolio_heading_size'=> get_theme_mod( 'portfolio_heading_size', 'h2' ),
-		'portfolio_excerpt_on'=> get_theme_mod( 'portfolio_excerpt_on', false ),
-		'portfolio_more_on'=> get_theme_mod( 'portfolio_more_on', false ),
-	    )
-	);
-echo $portfolio;
+
+$args = array(
+	'posts_per_page' => -1,
+	'post_type' => $hiilite_options['portfolio_slug']
+);
+$portfolio_query = new WP_Query($args);
+do_action( 'before_portfolio' );
+
+if($portfolio_query->have_posts()):
+	echo '<div class="row"><div class="container_inner">';
+	if($hiilite_options['portfolio_in_grid'] == true) echo '<div class="in_grid">';
+	while($portfolio_query->have_posts()):
+		$portfolio_query->the_post();
+		
+		get_template_part('templates/portfolio', 'loop');
+		
+		
+	endwhile;
+	if($hiilite_options['portfolio_in_grid'] == true) echo '</div>';
+	echo '</div></div>';
+	
+endif;
+
+do_action( 'after_portfolio' );
 
 get_footer(); ?>

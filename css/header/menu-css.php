@@ -27,36 +27,35 @@ $third_level_menu_colors = Hii::$options['third_level_menu_colors'];
 	text-decoration: none;
 	display:block;
 	<?php 
-	get_font_css(Hii::$options['main_menu_font']);
-	?>
-	<?php echo Hii::$options['main_menu_links_css'];?>
+	echo get_font_css(Hii::$options['main_menu_font']);
+	echo Hii::$options['main_menu_links_css'];?>
 }
 #main_header .menu .menu-item .fa {
 	color: <?php echo Hii::$options['main_menu_font']['color']; ?>;
 }
 
 #main_header .menu li:hover {
-	background: <?php echo $main_menu_colors['hover_background'];?>;
+	background: <?php echo sanitize_rgba($main_menu_colors['hover_background']);?>;
 }
 #main_header .menu .current-menu-item a {
-	color:<?php echo $main_menu_colors['active'];?>;
+	color:<?php echo sanitize_rgba($main_menu_colors['active']);?>;
 }
 #main_header .menu li:hover a,
 #main_header .menu li:hover .fa {
-	color:<?php echo $main_menu_colors['hover'];?>;
+	color:<?php echo sanitize_rgba($main_menu_colors['hover']);?>;
 }
 
 #main-nav .main-menu, #header_top .menu {
-	<?php get_justify_content(Hii::$options['main_menu_align']); ?>
+	<?php echo get_justify_content(Hii::$options['main_menu_align']); ?>
 }
 .left-menu {
-	<?php get_justify_content(Hii::$options['left_menu_align']); ?>
+	<?php echo get_justify_content(Hii::$options['left_menu_align']); ?>
 }
 .right-menu {
-	<?php get_justify_content(Hii::$options['right_menu_align']); ?>
+	<?php echo get_justify_content(Hii::$options['right_menu_align']); ?>
 }
 .bottom-menu {
-	<?php get_justify_content(Hii::$options['bottom_menu_align']); ?>
+	<?php echo get_justify_content(Hii::$options['bottom_menu_align']); ?>
 }
 
 <?php
@@ -91,15 +90,15 @@ ul.sub-menu {
 	text-decoration: none;
 	display:block;
 	<?php 
-	get_font_css(get_theme_mod('second_level_menu_font'));
+	echo get_font_css(get_theme_mod('second_level_menu_font'));
 	echo get_theme_mod('second_level_menu_links_css');
 	?>
 }
 #main_header .menu ul.sub-menu .menu-item a:hover {
-	color:<?php echo $second_level_menu_colors['hover'];?>;
+	color:<?php echo sanitize_rgba($second_level_menu_colors['hover']);?>;
 }
 #main_header .menu ul.sub-menu .menu-item:hover {
-	background-color:<?php echo $second_level_menu_colors['hover_background'];?>;
+	background-color:<?php echo sanitize_rgba($second_level_menu_colors['hover_background']);?>;
 }
 <?php
 /*
@@ -109,23 +108,24 @@ ul.sub-menu {
 
 #main_header .menu ul.sub-menu ul.sub-menu .menu-item a {
 	<?php 
-	get_font_css(get_theme_mod('third_level_menu_font'));
+	echo get_font_css(get_theme_mod('third_level_menu_font'));
 	echo get_theme_mod('third_level_menu_links_css');
 	?>
 }
 #main_header .menu ul.sub-menu ul.sub-menu .menu-item a:hover {
-	color:<?php echo $third_level_menu_colors['hover'];?>;
+	color:<?php echo sanitize_rgba($third_level_menu_colors['hover']);?>;
 }
 #main_header .menu ul.sub-menu ul.sub-menu .menu-item:hover {
-	background-color:<?php echo $third_level_menu_colors['hover_background'];?>;
+	background-color:<?php echo sanitize_rgba($third_level_menu_colors['hover_background']);?>;
 }
 
 .mobile_menu_button {
 	display: none;
 }
 .search_button {
-	display: block;
+	display: inline-flex;
 	text-align: center;
+	font-size: 1rem;
 	margin:<?php echo get_spacing(Hii::$options['menu_margin']);?>;
     text-align: right;
     flex: 0 1 auto; 

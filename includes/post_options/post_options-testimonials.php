@@ -15,6 +15,11 @@ $cmb->add_field( array(
     'type' => 'text'
 ) );
 $cmb->add_field( array(
+    'name' => __('Author Company', 'hiiwp'),
+    'id' => 'testimonial_company',
+    'type' => 'text'
+) );
+$cmb->add_field( array(
     'name'    => __('Author Website', 'hiiwp' ),
     'id'      => 'testimonial_website',
     'type'    => 'text_url'

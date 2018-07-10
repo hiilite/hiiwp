@@ -1,6 +1,8 @@
 <?php
-if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
+
 /*
+ * Plugin Name: CMB2 Custom Field Type - Autocomplete
+ * Description: Makes available an autocomplete custom field type.
  * Author: johnsonpaul1014
  * Version: 1.0.0
  */
@@ -38,13 +40,13 @@ function autocomplete_cmb2_meta_boxes() {
 
 	$cmb = new_cmb2_box( array(
 		'id' => 'autocomplete_test',
-		'title' => __('Autocomplete Field Examples', 'hiiwp' ),
+		'title' => __('Autocomplete Field Examples', 'hiiwp'),
 		'object_types' => array('post'),
 	) );
 
 	$cmb->add_field( array(
-		'name' => __('Related Fruit', 'hiiwp' ),
-		'desc' => __('Fruit that is related to this post', 'hiiwp' ),
+		'name' => __('Related Fruit', 'hiiwp'),
+		'desc' => __('Fruit that is related to this post', 'hiiwp'),
 		'id' => $prefix.'related_fruit',
 		'type' => 'autocomplete',
 		'options' => array(
@@ -54,8 +56,8 @@ function autocomplete_cmb2_meta_boxes() {
 		)
 	) );
 	$cmb->add_field( array(
-		'name' => __('Related Fruits', 'hiiwp' ),
-		'desc' => __('Repeatable related fruits', 'hiiwp' ),
+		'name' => __('Related Fruits', 'hiiwp'),
+		'desc' => __('Repeatable related fruits', 'hiiwp'),
 		'id' => $prefix.'related_fruits',
 		'type' => 'autocomplete',
 		'repeatable' => true,
@@ -67,16 +69,16 @@ function autocomplete_cmb2_meta_boxes() {
 		)
 	) );
 	$cmb->add_field( array(
-		'name' => __('Related Post', 'hiiwp' ),
-		'desc' => __('Post that is related to this one', 'hiiwp' ),
+		'name' => __('Related Post', 'hiiwp'),
+		'desc' => __('Post that is related to this one', 'hiiwp'),
 		'id' => $prefix.'related_post',
 		'type' => 'autocomplete',
 		'source' => 'get_post_options',
 		'mapping_function' => 'autocomplete_cmb2_get_post_title_from_id'
 	) );
 	$cmb->add_field( array(
-		'name' => __('Related Posts', 'hiiwp' ),
-		'desc' => __('Posts that are related to this one', 'hiiwp' ),
+		'name' => __('Related Posts', 'hiiwp'),
+		'desc' => __('Posts that are related to this one', 'hiiwp'),
 		'id' => $prefix.'related_posts',
 		'repeatable' => true,
 		'type' => 'autocomplete',
@@ -116,7 +118,7 @@ function autocomplete_cmb2_get_post_title_from_id($id) {
 function autocomplete_cmb2_render_autocomplete($field_object, $escaped_value, $object_id, $object_type, $field_type_object) {
 
 	// Store the value in a hidden field.
-	echo $field_type_object->hidden();
+	echo wp_kses_post($field_type_object->hidden());
 
 	if (isset($field_object->args['repeatable_class'])) {
 		$repeatable_class = $field_object->args['repeatable_class'];
@@ -171,18 +173,18 @@ function autocomplete_cmb2_render_autocomplete($field_object, $escaped_value, $o
 			}
 
 			if (!empty($repeatable_class)) { ?>
-			$('.<?php echo $repeatable_class; ?>').each(function(i, el) {
+			$('.<?php echo sanitize_html_class($repeatable_class); ?>').each(function(i, el) {
 				if (typeof $(this).data('ui-autocomplete') === 'undefined') {
 						$(this).autocomplete({
 			<?php } else { ?>
-			$('#<?php echo $id; ?>').autocomplete({
+			$('#<?php echo esc_attr($id); ?>').autocomplete({
 			<?php } ?>
 				source: <?php if (empty($options)) { ?>
 					function(request, response) {
 						$.ajax(
 							{url: ajaxurl,
 							 data: {
-								action: '<?php echo $source; ?>',
+								action: '<?php echo esc_attr($source); ?>',
 								q: request.term
 							 },
 							 success: function(data) {

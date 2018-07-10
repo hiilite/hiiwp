@@ -1,4 +1,12 @@
 <?php
+/**
+ * HiiWP Template: page-loop
+ *
+ * @package     hiiwp
+ * @copyright   Copyright (c) 2018, Peter Vigilante
+ * @license     http://opensource.org/licenses/gpl-2.0.php GNU Public License
+ * @since       1.0
+ */
 global $post;
 $hiilite_options = Hii::$hiiwp->get_options();
 $post_meta = get_post_meta($post->ID); 

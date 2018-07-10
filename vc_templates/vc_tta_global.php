@@ -37,20 +37,37 @@ switch($shortcode_type){
 			$wrapper_attributes = array();
 			$css_classes = array(
 				'slider',
-				$atts['slider_type'],
 			);
+			
+			/* Arrow & Bullet Attributes*/
+			$data_attributes_str = '';
+			$data_attributes = array(
+				'show_arrows'	=> $atts['show_arrows'],
+				'arrow_icon' 	=> $atts['arrow_icon'],
+				'hide_arrows_on_mobile'	=> $atts['hide_arrows_on_mobile'],
+				'arrow_size' 	=> $atts['arrow_size'],
+				'arrow_background_type' 	=> $atts['arrow_background_type'],
+				'arrow_color' 	=> $atts['arrow_color'],
+				'arrow_background_color' 	=> $atts['arrow_background_color'],
+				'show_bullets' 	=> $atts['show_bullets'],
+				'bullet_color' 	=> $atts['bullet_color'],
+				'slider_min_height' => $atts['slider_min_height']
+			);
+			
+			foreach($data_attributes as $key=>$value) {
+				$data_attributes_str .= "data-$key='$value' ";
+			}
+			$wrapper_attributes[] = $data_attributes_str;
+			
 			if($atts['slider_full_height'] == true){
 				$css_classes[] = 'slider_full_height';
 			}
 			$css_class = preg_replace( '/\s+/', ' ', apply_filters( VC_SHORTCODE_CUSTOM_CSS_FILTER_TAG, implode( ' ', array_filter( $css_classes ) ), $this->settings['base'], $atts ) );
 			
 			
-			if(isset($atts['shape']) && $atts['shape'] != '')
-			{
+			if(isset($atts['shape']) && $atts['shape'] != '') {
 				$wrapper_attributes[] = 'class="' . esc_attr( trim( $css_class ) ) . ' ' . $atts['shape'] . ' ' . $atts['c_align'] . '"';
-			}
-			else
-			{
+			} else {
 				$wrapper_attributes[] = 'class="' . esc_attr( trim( $css_class ) ) . '"';
 			}
 			
@@ -59,8 +76,7 @@ switch($shortcode_type){
 							  layout="responsive"
 							  width="'.$atts['slider_width'].'"
 							  height="'.$atts['slider_height'].'"
-							  style="width:'.$atts['slider_width'].'px;
-							  	height:'.$atts['slider_height'].'px;"
+							  style="width:'.$atts['slider_width'].'px; height:'.$atts['slider_height'].'px;min-height:'.$atts['slider_min_height'].'px;"
 							  type="slides"';
 			$output .= ($atts['autoplay'] != 'none')?' autoplay delay="'.$atts['autoplay'].'000">':'>';
 			if(isset($atts['title']) && $atts['title'] != '')
@@ -98,4 +114,4 @@ switch($shortcode_type){
 
 
 
-echo $output;
+echo $output; // WPCS: XSS ok.

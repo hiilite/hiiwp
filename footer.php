@@ -1,10 +1,19 @@
 <?php
+/**
+ * HiiWP: Footer
+ *
+ * WordPress footer file
+ *
+ * @package     hiiwp
+ * @copyright   Copyright (c) 2016, Peter Vigilante
+ * @license     http://opensource.org/licenses/gpl-2.0.php GNU Public License
+ * @since       1.0
+ */
 $hiilite_options = Hii::get_options();
 do_action( 'hii_after_content' );
 
 do_action( 'hii_before_footer' );
 ?>			
-
 <!-- FOOTER -->
 <footer id="main_footer">
 	<?php 
@@ -129,7 +138,7 @@ do_action( 'hii_before_footer' );
 		do_action ( 'hii_after_footer_bottom' );
 		?>
 			<div class="full-width align-center">
-				<?php echo get_theme_mod('footer_bottom_copyright_text', '<small>Copyright © '.date('Y').' All rights reserved. <a href="https://hiilite.com/services/website-design/" target="_blank" rel="noopener" title="Web Design by Hiilite">Web Design</a> and <a href="https://hiilite.com/services/seo/" target="_blank" rel="noopener" title="SEO by Hiilite">SEO</a> by <a href="https://hiilite.com/" target="_blank" rel="noopener" title="Web Design and SEO by Hiilite">Hiilite</a></small>'); ?>
+				<?php echo wp_kses_post($hiilite_options['footer_bottom_copyright_text']); // WPCS: XSS ok. ?>
 			</div>
 		
 	</div>

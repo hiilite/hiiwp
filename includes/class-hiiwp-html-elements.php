@@ -36,8 +36,8 @@ class HiiWP_HTML_Elements {
 			'selected'         => 0,
 			'placeholder'      => null,
 			'multiple'         => false,
-			'show_option_all'  => _x( 'All', 'all dropdown items', 'wpum' ),
-			'show_option_none' => _x( 'None', 'no dropdown items', 'wpum' )
+			'show_option_all'  => _x( 'All', 'all dropdown items', 'hiiwp' ),
+			'show_option_none' => _x( 'None', 'no dropdown items', 'hiiwp' )
 		);
 
 		$args = wp_parse_args( $args, $defaults );

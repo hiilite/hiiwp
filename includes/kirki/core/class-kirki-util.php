@@ -59,10 +59,6 @@ class Kirki_Util {
 		// Make sure the is_plugins_loaded function is loaded.
 		include_once ABSPATH . 'wp-admin/includes/plugin.php';
 
-		// Extra logic in case the plugin is installed but not activated.
-		if ( $_plugin && ! is_plugin_active( $_plugin ) ) {
-			return false;
-		}
 		return $is_plugin;
 	}
 

@@ -1,8 +1,19 @@
 <?php
-if ( ! defined( 'ABSPATH' ) ) exit;
-
 /**
- * HiiWP_Hooks
+ * The HiiWP Hooks class.
+ *
+ * @package     HiiWP
+ * @category    Core
+ * @author      Peter Vigilante
+ * @copyright   Copyright (c) 2018, Hiilite Creative Group
+ * @license     http://opensource.org/licenses/https://opensource.org/licenses/MIT
+ * @since       1.0
+ */
+if ( ! defined( 'ABSPATH' ) ) exit;
+/**
+ * HiiWP_Hooks class.
+ *
+ * @since 1.0
  */
 class HiiWP_Hooks extends Hii {
 	
@@ -65,7 +76,7 @@ class HiiWP_Hooks extends Hii {
 			add_action($hook, function() use ( $hook ){
 				$hooks = get_option('hii_hooks');
 				if(! empty($hooks[$hook]))
-					echo $hooks[$hook]; 
+					echo $hooks[$hook]; // WPCS: XSS ok.
 				else
 					return;
 			});
@@ -144,7 +155,7 @@ class HiiWP_Hooks extends Hii {
 	public function hii_doctype(){
 		$doctype = '<!doctype html>';
 		$html_tag = '<html '. get_language_attributes() .'>';
-		echo $doctype.$html_tag;
+		return $doctype.$html_tag;
 	}
 	
 	/**
@@ -154,9 +165,7 @@ class HiiWP_Hooks extends Hii {
 	 * @return void
 	 */
 	public function hii_header_hgroup(){
-		/*$page_title = hii_get_the_title();
-		$hgroup = "<h1 style='display: none;'>$page_title</h1>";
-		echo $hgroup;*/
+		return;
 	}
 	
 	/**
@@ -190,20 +199,14 @@ class HiiWP_Hooks extends Hii {
 	 * @return void
 	 */
 	public function hii_split_portfolio_sidebar_title($args){
-		$title = '<div class="row project-title">
-			<div class="col-11">
-				<div class="col-12">
-				<h1 itemprop="headline">'.$args[0].'</h1>
-			</div>
-			</div>
+		$title = '<div class="project-title">
+				<h4 itemprop="headline">'.$args[0].'</h4>
 			<div class="col-1 project-icon cat-icon">
 				<img src="'.$args[1].'">
 			</div>
-		</div>
-
-		<hr style="color:'.$args[2].';border-color: '.$args[2].';background: '.$args[2].';height: 2px;border: none;">';
+		</div>';
 		
-		echo $title;
+		echo wp_kses_post($title); // WPCS: XSS ok.
 	}
 	
 	/**
@@ -222,7 +225,7 @@ class HiiWP_Hooks extends Hii {
 			</div>
 		</div>';
 		
-		echo $client;
+		echo wp_kses_post($client); // WPCS: XSS ok.
 	}
 	
 	/**
@@ -236,7 +239,7 @@ class HiiWP_Hooks extends Hii {
 			<small><time class="time op-published" datetime="'.$args[0].'"><span class="date">'.$args[1].'</span></time></small>
 		</div>';
 		
-		echo $date;
+		echo wp_kses_post($date); // WPCS: XSS ok.
 	}
 	
 	/**
@@ -257,15 +260,12 @@ class HiiWP_Hooks extends Hii {
 									$portfolio_tags .= '<a href="'.$tad_id.'">#'.$tag->name.'</a> ';
 								}
 							}
-							else {
-								$tad_id = get_tag_link($tags->term_id);
-								$portfolio_tags .= '<a href="'.$tad_id.'">#'.$tags->name.'</a> ';
-							}
+							
 						$portfolio_tags .= '</small>
 						</span>
 				</div>
 			</div>';
-			echo $portfolio_tags;
+			echo wp_kses_post($portfolio_tags); // WPCS: XSS ok.
 		}
 	}
 	
@@ -292,7 +292,7 @@ class HiiWP_Hooks extends Hii {
 				}	
 			$team .= '</div>';
 			
-			echo $team;
+			echo wp_kses_post($team); // WPCS: XSS ok.
 		endif;
 	}
 	
@@ -325,7 +325,7 @@ class HiiWP_Hooks extends Hii {
 			</div>
 		</div>';
 		
-		echo $about;
+		echo wp_kses_post($about); // WPCS: XSS ok.
 	}
 
 	

@@ -1,5 +1,4 @@
 <?php
-	if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 //By Daniele Mte90 Scasciafratte
 //render multicheck-posttype
 add_action( 'cmb2_render_multicheck_posttype', 'ds_cmb_render_multicheck_posttype', 10, 5 );
@@ -36,6 +35,6 @@ function ds_cmb_render_multicheck_posttype( $field, $escaped_value, $object_id, 
 	}
 
 	$classes = false === $field->args( 'select_all_button' ) ? 'cmb2-checkbox-list no-select-all cmb2-list' : 'cmb2-checkbox-list cmb2-list';
-	echo $field_type_object->radio( array( 'class' => $classes, 'options' => $options ), 'multicheck_posttype' );
+	echo wp_kses_post($field_type_object->radio( array( 'class' => $classes, 'options' => $options ), 'multicheck_posttype' ));
 }
 

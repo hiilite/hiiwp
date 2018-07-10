@@ -289,7 +289,7 @@ kirki = jQuery.extend( kirki, {
 				html += '</label>';
 				html += '<div class="image-wrapper attachment-media-view image-upload">';
 				if ( data.value.url || '' !== url ) {
-					html += '<div class="thumbnail thumbnail-image"><img src="' + url + '" alt="" /></div>';
+					html += '<div class="thumbnail thumbnail-image"><img src="' + url + '"  /></div>';
 				} else {
 					html += '<div class="placeholder">' + kirkiL10n.noFileSelected + '</div>';
 				}

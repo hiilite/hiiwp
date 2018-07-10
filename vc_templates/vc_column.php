@@ -1,4 +1,12 @@
 <?php
+/**
+ * HiiWP Template: vc_column
+ *
+ * @package     hiiwp
+ * @copyright   Copyright (c) 2018, Peter Vigilante
+ * @license     http://opensource.org/licenses/gpl-2.0.php GNU Public License
+ * @since       1.0
+ */
 if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
 }
@@ -92,4 +100,4 @@ $output .= '<div ' . implode( ' ', $wrapper_attributes ) . '>';
 $output .= wpb_js_remove_wpautop( $content );
 $output .= '</div>';
 
-echo $output;
+echo $output; // WPCS: XSS ok.

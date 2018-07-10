@@ -39,7 +39,7 @@ abstract class CMB2_Hookup_Base {
 	 * @return CMB2_Hookup_Base $hookup The hookup object.
 	 */
 	public static function maybe_init_and_hookup( CMB2 $cmb ) {
-		throw new Exception( sprintf( esc_html__( '%1$s should be implemented by the extended class.', 'cmb2' ), __FUNCTION__ ) );
+		throw new Exception( sprintf( esc_html__( '%1$s should be implemented by the extended class.', 'hiiwp' ), __FUNCTION__ ) );
 	}
 
 	/**
@@ -97,7 +97,7 @@ abstract class CMB2_Hookup_Base {
 			case 'cmb':
 				return $this->{$field};
 			default:
-				throw new Exception( sprintf( esc_html__( 'Invalid %1$s property: %2$s', 'cmb2' ), __CLASS__, $field ) );
+				throw new Exception( sprintf( esc_html__( 'Invalid %1$s property: %2$s', 'hiiwp' ), __CLASS__, $field ) );
 		}
 	}
 }

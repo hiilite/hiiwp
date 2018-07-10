@@ -94,7 +94,7 @@ wp.customize.controlConstructor['kirki-background'] = wp.customize.Control.exten
 				removeButton = control.container.find( '.background-image-upload-remove-button' );
 
 				if ( preview.length ) {
-					preview.removeClass().addClass( 'thumbnail thumbnail-image' ).html( '<img src="' + previewImage + '" alt="" />' );
+					preview.removeClass().addClass( 'thumbnail thumbnail-image' ).html( '<img src="' + previewImage + '"  />' );
 				}
 				if ( removeButton.length ) {
 					removeButton.show();
