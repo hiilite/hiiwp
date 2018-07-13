@@ -48,7 +48,9 @@ li#toplevel_page_customize .wp-menu-name, li#toplevel_page_customize .wp-menu-im
 	padding: 0;
 	width: 2.3em;
 }
-
+.dashicons {
+    line-height: 1.3;
+   }
 /*--------------------------------------------------------------
 1.2 Admin Footer
 --------------------------------------------------------------*/

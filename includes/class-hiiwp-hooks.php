@@ -76,7 +76,7 @@ class HiiWP_Hooks extends Hii {
 			add_action($hook, function() use ( $hook ){
 				$hooks = get_option('hii_hooks');
 				if(! empty($hooks[$hook]))
-					echo $hooks[$hook]; // WPCS: XSS ok.
+					echo __hii($hooks[$hook]); // WPCS: XSS ok.
 				else
 					return;
 			});

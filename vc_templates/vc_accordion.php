@@ -33,4 +33,4 @@ $output = '
 	</div>
 ';
 
-echo $output; // WPCS: XSS ok.
+echo __hii($output); // WPCS: XSS ok.

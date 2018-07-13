@@ -1023,7 +1023,7 @@ class CMB2_Field extends CMB2_Base {
 		$pre_output = apply_filters( "cmb2_pre_field_display_{$field_type}", null, $this, $display );
 
 		if ( null !== $pre_output ) {
-			echo $pre_output; // WPCS: XSS ok.
+			echo __hii($pre_output); // WPCS: XSS ok.
 			return;
 		}
 

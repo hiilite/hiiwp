@@ -36,7 +36,7 @@ if($hiilite_options['blog_meta_show'] == 'true'):
 			$dateline .= '<a class="post_author_link" href="'.get_author_posts_url( get_the_author_meta( 'ID' ) ).'">';
 				$dateline .= get_the_author_meta('display_name'); 
 			$dateline .= '</a>';
-		$dateline .= '</span></span>';
+		$dateline .= '</span></span></span>';
 		$dateline .= HiiWP_Templates::edit_link();
 	$dateline .= '</div>';
 endif;

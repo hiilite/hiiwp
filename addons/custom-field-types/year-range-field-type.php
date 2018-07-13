@@ -90,7 +90,7 @@ function jt_cmb2_date_year_range( $field, $value, $object_id, $object_type, $typ
 		'desc'    => '',
 	) ));
 
-	echo $type_object->_text( 'separator', ' &mdash; ' );
+	echo __hii($type_object->_text( 'separator', ' &mdash; ' ));
 
 	$end_options = jt_cmb2_date_year_range_options( $type_object, $earliest, $value['finish'], $finish_reverse_sort  );
 	echo wp_kses_post($type_object->select( array(

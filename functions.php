@@ -1,19 +1,35 @@
 <?php
 /**
- * HiiWP functions.
- * Handles locating and loading other class-files.
+ * HiiWP functions and definitions
+ *
+ * Set up the theme and provides some helper functions, which are used in the
+ * theme as custom template tags. Others are attached to action and filter
+ * hooks in WordPress to change core functionality.
+ *
+ * When using a child theme you can override certain functions (those wrapped
+ * in a function_exists() call) by defining them first in your child theme's
+ * functions.php file. The child theme's functions.php file is included before
+ * the parent theme's file, so the child theme functions would be used.
+ *
+ * @link https://codex.wordpress.org/Theme_Development
+ * @link https://codex.wordpress.org/Child_Themes
+ *
+ * Functions that are not pluggable (not wrapped in function_exists()) are
+ * instead attached to a filter or action hook.
+ *
+ * For more information on hooks, actions, and filters,
+ * {@link https://codex.wordpress.org/Plugin_API}
  *
  * @package     HiiWP
  * @category    Core
  * @author      Peter Vigilante
- * @copyright   Copyright (c) 2017, Hiilite Creative Group
+ * @copyright   Copyright (c) 2018, Hiilite Creative Group
  * @license     http://opensource.org/licenses/https://opensource.org/licenses/MIT
  * @since       1.0
  */
 
-
 /**
- * Hii class.
+ * HiiWP only works in WordPress 4.4 or later.
  */
 class Hii {
 	/*--------------------------------------------*
@@ -100,6 +116,7 @@ class Hii {
 		foreach (glob(HIILITE_DIR."/includes/class-hiiwp-*.php") as $filename) {
 		    include_once( $filename );
 		} 
+		
 		
 		$this->hooks		= new HiiWP_Hooks();
 		$this->post_types	= new HiiWP_Post_Types();
@@ -335,6 +352,7 @@ $hiilite_options = Hii::get_options();
  * @access public
  * @return void
  */
+if (! function_exists('hii_get_the_title')):
 function hii_get_the_title(){
 	$t_sep = ':';
 	if( is_archive() )
@@ -355,7 +373,7 @@ function hii_get_the_title(){
 	
 	return $page_title;
 }
-
+endif;
 
 /*
 	TEMPORARY until Kirki fixes font-awesome loader.
@@ -371,10 +389,11 @@ function enqueue_load_fa() {
  * @access public
  * @return void
  */
+if (! function_exists('hii_the_title')):
 function hii_the_title() {
 	echo hii_get_the_title();
 }
-
+endif;
 
 /**
  * get_background_css function.
@@ -425,6 +444,7 @@ endif;
  * @param mixed $font
  * @return void
  */
+if (! function_exists('sanitize_rgba')):
 function sanitize_rgba( $color ) {
     // If string does not start with 'rgba', then treat as hex
     // sanitize the hex color and finally convert hex to rgba
@@ -437,6 +457,7 @@ function sanitize_rgba( $color ) {
     sscanf( $color, 'rgba(%d,%d,%d,%f)', $red, $green, $blue, $alpha );
     return 'rgba('.$red.','.$green.','.$blue.','.$alpha.')';
 }
+endif;
 
 /**
  * get_font_css function.
@@ -532,6 +553,7 @@ endif;
  * @param mixed $align
  * @return void
  */
+if(!function_exists('get_justify_content')) :
 function get_justify_content($align){
 	if(is_array($align)){
 		foreach($align as $key => $value){
@@ -558,7 +580,7 @@ function get_justify_content($align){
 		}
 	}
 }
-
+endif;
 
 /**
  * get_spacing function.
@@ -567,6 +589,7 @@ function get_justify_content($align){
  * @param mixed $spacing
  * @return void
  */
+if(!function_exists('get_spacing')) :
 function get_spacing($spacing){
 	$values = '';
 
@@ -574,12 +597,13 @@ function get_spacing($spacing){
 	
 	return $values;
 }
-
+endif;
 
 
 /*
 Get Primary Category With Yoast	
 */
+if(!function_exists('prime_cat')) :
 function prime_cat($tax, $id) {
 	$yourTaxonomy = 'work';
 
@@ -624,7 +648,7 @@ function prime_cat($tax, $id) {
 		
 	}
 }
-
+endif;
 
 /**
  * excerpt function.
@@ -633,6 +657,7 @@ function prime_cat($tax, $id) {
  * @param mixed $limit
  * @return void
  */
+if(!function_exists('excerpt')) :
 function excerpt($limit) {
   $excerpt = explode(' ', get_the_excerpt(), $limit);
   if (count($excerpt)>=$limit) {
@@ -644,7 +669,7 @@ function excerpt($limit) {
   $excerpt = preg_replace('`\[[^\]]*\]`','',$excerpt);
   return $excerpt;
 }
- 
+endif;
 
 /**
  * content function.
@@ -653,6 +678,7 @@ function excerpt($limit) {
  * @param mixed $limit
  * @return void
  */
+if(!function_exists('content')) :
 function content($limit) {
   $content = explode(' ', get_the_content(), $limit);
   if (count($content)>=$limit) {
@@ -666,7 +692,7 @@ function content($limit) {
   $content = str_replace(']]>', ']]&gt;', $content);
   return $content;
 }
-
+endif;
 
 /**
  * content_excerpt function.
@@ -675,6 +701,7 @@ function content($limit) {
  * @param int $length (default: 55)
  * @return void
  */
+if(!function_exists('content_excerpt')) :
 function content_excerpt( $length = 55 ) { 
 	global $post;
 	
@@ -688,7 +715,7 @@ function content_excerpt( $length = 55 ) {
 	}
 	return $excerpt;
 }
-
+endif;
 
 /**
  * get_wp_title function.
@@ -698,10 +725,12 @@ function content_excerpt( $length = 55 ) {
  * @param string $seplocation (default: 'left')
  * @return void
  */
+if(!function_exists('get_wp_title')) :
 function get_wp_title( $separator = ' ', $seplocation = 'left' ) {	
 	$separator = apply_filters('timber_wp_title_seperator', $separator);	
 	return trim(wp_title($separator, false, $seplocation));	
 }	
+endif;
 
 
 /**
@@ -713,10 +742,11 @@ function get_wp_title( $separator = ' ', $seplocation = 'left' ) {
  * @param string $append (default: '')
  * @return void
  */
+if(!function_exists('isset_return')) :
 function isset_return(&$is_true = null, $prepend = '', $append = ''){
 	return isset($is_true) && !is_array($is_true) ? $prepend.$is_true.$append : null; 
 }
-
+endif;
 
 /**
  * empty_return function.
@@ -725,9 +755,11 @@ function isset_return(&$is_true = null, $prepend = '', $append = ''){
  * @param mixed &$is_true (default: null)
  * @return void
  */
+if(!function_exists('empty_return')) :
 function empty_return(&$is_true = null){
 	return !empty($is_true) ? $is_true : null; 
 }
+endif;
 
 
 
@@ -737,6 +769,7 @@ function empty_return(&$is_true = null){
  * @access public
  * @return void
  */
+if(!function_exists('numeric_posts_nav')) :
 function numeric_posts_nav() {
 
 	if( is_singular() )
@@ -808,7 +841,7 @@ function numeric_posts_nav() {
 	echo '</ul></div>' . "\n";
 
 }
-
+endif;
 
 
 
@@ -819,6 +852,7 @@ function numeric_posts_nav() {
  * @param mixed $buffer
  * @return void
  */
+if(!function_exists('sanitize_output')) :
 function sanitize_output($buffer) {
     $search = array(
         '/\>[^\S ]+/s',  // strip whitespaces after tags, except space
@@ -829,7 +863,7 @@ function sanitize_output($buffer) {
     $buffer = preg_replace($search, $replace, $buffer);
     return $buffer;
 } 
-
+endif;
 
 
 /**
@@ -840,6 +874,7 @@ function sanitize_output($buffer) {
  * @param mixed $num
  * @return void
  */
+if(!function_exists('tofloat')) :
 function tofloat($num) {
     $dotPos = strrpos($num, '.');
     //$commaPos = strrpos($num, ',');
@@ -854,7 +889,7 @@ function tofloat($num) {
         preg_replace("/[^0-9]/", "", substr($num, $sep+1, strlen($num)))
     );
 }
-
+endif;
 
 /**
  * Retrieve a list of all user roles
@@ -865,6 +900,7 @@ function tofloat($num) {
  * @param bool    $force Force the roles to be loaded even if not on settings
  * @return array $roles An array of the roles
  */
+if(!function_exists('hii_get_roles')) :
 function hii_get_roles( $force = false ) {
 
 	$roles_options = array( 0 => '' ); // Blank option
@@ -879,8 +915,10 @@ function hii_get_roles( $force = false ) {
 
 	return apply_filters( 'hiiwp_get_roles', $roles );
 }
+endif;
 
 
+if(!function_exists('hiilite_numeric_posts_nav')) :
 function hiilite_numeric_posts_nav() {
 	global  $hiilite_options;
 	if($hiilite_options['blog_pag_show'] == true):
@@ -955,6 +993,7 @@ function hiilite_numeric_posts_nav() {
 		}
 	endif;
 }
+endif;
 
 /**
  * cmb2_output_portfolio_imgs function.
@@ -963,6 +1002,7 @@ function hiilite_numeric_posts_nav() {
  * @param mixed $portfolio_images
  * @return void
  */
+if(!function_exists('cmb2_output_portfolio_imgs')) :
 function cmb2_output_portfolio_imgs( $portfolio_images ) {
 	if(!empty($portfolio_images)):
 		foreach($portfolio_images as $port_img) {
@@ -972,9 +1012,17 @@ function cmb2_output_portfolio_imgs( $portfolio_images ) {
 		}
 	endif;
 }
+endif;
 
-
+if(!function_exists('theme_deactivation')) :
 function theme_deactivation($theme) {
 	call_user_func($GLOBALS["register_theme_deactivation_hook_functionhiiwp"]); 
 	delete_option("theme_is_activated_hiiwp");
 }
+endif;
+
+if(!function_exists('__hii')) :
+function __hii($data) {
+	return $data;
+}
+endif;

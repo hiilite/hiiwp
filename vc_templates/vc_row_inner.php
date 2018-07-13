@@ -159,4 +159,4 @@ $output .= (!empty($atts['in_grid']) )?'</div>':'';
 $output .= '</div></div>';
 $output .= $after_output;
 
-echo $output; // WPCS: XSS ok.
+echo __hii($output); // WPCS: XSS ok.

@@ -76,4 +76,4 @@ endif;
 $output .=  '<div class="row"><div class="container_inner"><div class="in_grid">';
 $output .=  '<a class="button full-width align-center meet-the-team-btn" href="' . get_site_url() . '/team/">Meet the Whole Team</a>';
 $output .=  '</div></div></div>';
-echo $output; // WPCS: XSS ok.
+echo __hii($output); // WPCS: XSS ok.

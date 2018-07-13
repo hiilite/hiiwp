@@ -211,9 +211,9 @@ class CMB2_Display_Select extends CMB2_Field_Display {
 			$fallback = $options[''];
 		}
 		if ( ! $this->value && $fallback ) {
-			echo $fallback; // WPCS: XSS ok.
+			echo __hii($fallback); // WPCS: XSS ok.
 		} elseif ( isset( $options[ $this->value ] ) ) {
-			echo $options[ $this->value ]; // WPCS: XSS ok.
+			echo __hii($options[ $this->value ]); // WPCS: XSS ok.
 		} else {
 			echo esc_attr( $this->value );
 		}
@@ -275,7 +275,7 @@ class CMB2_Display_Text_Time extends CMB2_Field_Display {
 	 * @since 2.2.2
 	 */
 	protected function _display() {
-		echo $this->field->get_timestamp_format( 'time_format', $this->value ); // WPCS: XSS ok.
+		echo __hii($this->field->get_timestamp_format( 'time_format', $this->value )); // WPCS: XSS ok.
 	}
 }
 
@@ -286,7 +286,7 @@ class CMB2_Display_Text_Date extends CMB2_Field_Display {
 	 * @since 2.2.2
 	 */
 	protected function _display() {
-		echo $this->field->get_timestamp_format( 'date_format', $this->value ); // WPCS: XSS ok.
+		echo __hii($this->field->get_timestamp_format( 'date_format', $this->value )); // WPCS: XSS ok.
 	}
 }
 
@@ -315,7 +315,7 @@ class CMB2_Display_Text_Date_Timezone extends CMB2_Field_Display {
 		$date = $this->field->get_timestamp_format( 'date_format', $this->value );
 		$time = $this->field->get_timestamp_format( 'time_format', $this->value );
 
-		echo $date, ( $time ? ' ' . $time : '' ), ( $tzstring ? ', ' . $tzstring : '' ); // WPCS: XSS ok.
+		echo __hii($date), ( $time ? ' ' . $time : '' ), ( $tzstring ? ', ' . $tzstring : '' ); // WPCS: XSS ok.
 	}
 }
 
@@ -424,7 +424,7 @@ class CMB2_Display_File extends CMB2_Field_Display {
 				$image = '<img class="cmb-image-display" style="max-width: ' . absint( $size ) . 'px; width: 100%; height: auto;" src="' . $url_value . '"  />';
 			}
 
-			echo $image; // WPCS: XSS ok.
+			echo __hii($image); // WPCS: XSS ok.
 
 		} else {
 

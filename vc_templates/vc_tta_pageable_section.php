@@ -54,5 +54,5 @@ if($atts['active'] == true):
 	$output .= '<div class="slide-text-overlay">';
 	$output .= $this->getTemplateVariable( 'content' );
 	$output .= '</div></div>';
-	echo $output; // WPCS: XSS ok.
+	echo __hii($output); // WPCS: XSS ok.
 endif;
