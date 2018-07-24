@@ -60,7 +60,9 @@ echo '<div class="full-width  align-top">';
 ?>
 <span itemprop="author" itemscope itemtype="https://schema.org/Person"><meta itemprop="name" content="<?php the_author_meta('display_name'); ?>"></span>
 <?php	
-	echo '<div class="in_grid">';
+	echo '<div class="'; 
+	echo (!$vc_enabled)?'content-box in_grid':'in_grid';
+	echo '">';
 	the_content();
 	echo '</div>';
 		

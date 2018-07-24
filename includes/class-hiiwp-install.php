@@ -59,7 +59,7 @@ class HiiWP_Install {
 
     
     public function template_hide_admin_notice_hook(){
-        update_option('hiiwp_admin_notice', '0');
+        update_option('hiiwp_admin_notice', 0);
         exit;
     }
 
