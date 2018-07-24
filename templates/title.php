@@ -35,7 +35,7 @@ if( (isset($post)
 		
 		if($page_title != ''){
 		?>
-		<div class="page-title" style="<?php echo ($page_bg_img)?'background-image:url('.$page_bg_img[0].');':'';?><?php echo ($page_bg_img)?'background-color:'.$page_bg_img[0].';':'';?>">
+		<div class="page-title" style="<?php echo ($page_bg_img)?'background-image:url('.$page_bg_img[0].');':'';?><?php echo ($page_bg_color)?'background-color:'.$page_bg_color.';':'';?>">
 			<div class="container_inner">
 				<div class="in_grid content-box">
 					<?php do_action( 'before_page_title' );?>

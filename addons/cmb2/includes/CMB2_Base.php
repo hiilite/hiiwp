@@ -246,7 +246,7 @@ abstract class CMB2_Base {
 	 * @param string $param Field parameter
 	 */
 	public function peform_param_callback( $param ) {
-		echo $this->get_param_callback_result( $param ); // WPCS: XSS ok.
+		echo __hii($this->get_param_callback_result( $param )); // WPCS: XSS ok.
 	}
 
 	/**

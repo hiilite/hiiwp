@@ -211,7 +211,7 @@ if(Hii::$options['portfolio_template'] == 'split') {
     position: absolute;
     bottom: -100%;
     transition: all 0.4s;
-    height:100%;
+
     display: flex;
     flex-direction: column;
 }

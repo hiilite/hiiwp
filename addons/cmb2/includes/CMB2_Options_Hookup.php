@@ -190,7 +190,7 @@ class CMB2_Options_Hookup extends CMB2_hookup {
 		?>
 		<div class="wrap cmb2-options-page option-<?php echo esc_attr($this->option_key); ?>">
 			<?php if ( $this->cmb->prop( 'title' ) ) : ?>
-				<h2><?php echo $this->cmb->prop( 'title' ); ?></h2>
+				<h2><?php echo __hii($this->cmb->prop( 'title' )); ?></h2>
 			<?php endif; ?>
 			<?php if ( ! empty( $tabs ) ) : ?>
 				<h2 class="nav-tab-wrapper">

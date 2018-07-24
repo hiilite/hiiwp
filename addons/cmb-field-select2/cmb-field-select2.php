@@ -47,7 +47,7 @@ class PW_CMB2_Field_Select2 {
 			'options'          => '<option></option>' . $field_type_object->concat_items(),
 			'data-placeholder' => $field->args( 'attributes', 'placeholder' ) ? $field->args( 'attributes', 'placeholder' ) : $field->args( 'description' ),
 		) );
-		echo $output; // WPCS: XSS ok.
+		echo __hii($output); // WPCS: XSS ok.
 	}
 
 	/**

@@ -12,7 +12,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 <?php add_thickbox(); ?>
 <div class="wrap about-wrap"> 
  
-    <h1><?php printf( __( 'Welcome to HiiWP &nbsp; %s', 'hiiwp' ), HIIWP_VERSION ); ?></h1>
+    <h1><span class="dashicons dashicons-hii-hii"></span> <?php printf( __( 'Welcome to HiiWP &nbsp; %s', 'hiiwp' ), HIIWP_VERSION ); ?></h1>
  
     <div class="about-text">
         <?php printf( __( "Congratulations! You are using the most versatile WordPress theme ever - created for designers and developers to build any type website.", 'hiiwp' ), HIIWP_VERSION ); ?>
@@ -21,9 +21,9 @@ if ( ! defined( 'ABSPATH' ) ) exit;
     <div class="wp-badge welcome__logo"><?php printf( __( 'Version %s', 'hiiwp' ), HIIWP_VERSION ); ?></div>
  
 	<p class="hiiwp-page-actions">
-		<a class="button button-primary" href="<?php echo admin_url( 'admin.php?page=hii_seo_settings' ); ?>">Settings</a> 
-		<a class="button button-primary" href="<?php echo admin_url( 'themes.php?page=tgmpa-install-plugins' ); ?>">Install Plugins</a>
-		<a class="button button-primary" href="<?php echo admin_url( 'customize.php' ); ?>">Customize</a>
+		<a class="button button-primary" href="<?php echo admin_url( 'admin.php?page=hii_seo_settings' ); ?>"><span class="dashicons dashicons-admin-generic"></span> Settings</a> 
+		<a class="button button-primary" href="<?php echo admin_url( 'themes.php?page=tgmpa-install-plugins' ); ?>"><span class="dashicons dashicons-admin-plugins"></span> Install Plugins</a>
+		<a class="button button-primary" href="<?php echo admin_url( 'customize.php' ); ?>"><span class="dashicons dashicons-admin-customizer"></span> Customize</a>
 	</p>
    	<h2>Getting Started</h2>
     <div class="feature-section two-col">
@@ -31,12 +31,12 @@ if ( ! defined( 'ABSPATH' ) ) exit;
         <div class="col">
             <h3><?php _e( 'Install the Plugins', 'hiiwp' ); ?></h3>
             <p><?php _e( 'To get the most out of the HiiWP Theme, be sure to install the required and suggested plugins before using. The WPBakery Page Builder and HiiWP Plus are required.', 'hiiwp' ); ?></p>
-            <a class="button button-primary" href="<?php echo admin_url( 'themes.php?page=tgmpa-install-plugins' ); ?>">Install Plugins</a>
+            <a class="button button-primary" href="<?php echo admin_url( 'themes.php?page=tgmpa-install-plugins' ); ?>"><span class="dashicons dashicons-admin-plugins"></span> Install Plugins</a>
         </div>
         <div class="col">
             <h3><?php _e( 'Install Child Theme', 'hiiwp' ); ?></h3>
             <p><?php _e( 'We are constantly updating the HiiWP theme to make it better for our customers. So if you plan on making edits to the theme files, and don\'t want your edits overwritten, the it\'s best to install the HiiWP Child Theme', 'hiiwp' ); ?></p>
-            <a class="button button-primary" href="<?php echo get_template_directory_uri() . '/hiiwp-child.zip'; ?>">Download Child Theme</a>
+            <a class="button button-primary" href="<?php echo get_template_directory_uri() . '/hiiwp-child.zip'; ?>"><span class="dashicons dashicons-download"></span> Download Child Theme</a>
             <a href="https://hiilite.ticksy.com/article/13193/" target="_blank">How do I install the child theme?</a>
         </div>
     </div>
@@ -44,16 +44,21 @@ if ( ! defined( 'ABSPATH' ) ) exit;
     <div class="feature-section two-col">
         <div class="col">
             <h3><?php _e( 'Load Demo Content', 'hiiwp' ); ?></h3>
-            <p><?php _e( 'Get a head start on your website and install content from one of our many demos. First, download the One Click Demo Import plugin, then head over to Appearance > Import Demo Data to get started.', 'hiiwp' ); ?></p>
-            <a href="/wp-admin/plugin-install.php?tab=plugin-information&amp;plugin=one-click-demo-import&amp;TB_iframe=true&amp;width=772&amp;height=677" class="thickbox open-plugin-details-modal button" aria-label="More information about One Click Demo Import" data-title="One Click Demo Import">Download One Click Demo Import</a>
-            <a class="button button-primary" href="<?php echo admin_url('themes.php?page=pt-one-click-demo-import'); ?>">View Demos</a>
+            <p><?php _e( 'Get a head start on your website and install content from one of our many demos. First, download and activate the One Click Demo Import plugin, then head over to Appearance > Import Demo Data to get started.', 'hiiwp' ); ?></p>
+            <?php
+	        if(class_exists('OCDI_Plugin')):?>
+	        <a class="button button-primary" href="<?php echo admin_url('themes.php?page=pt-one-click-demo-import'); ?>"><span class="dashicons dashicons-schedule"></span> View Demos</a>
+	        <?php
+	        endif;
+	        ?>
+            <a href="/wp-admin/plugin-install.php?tab=plugin-information&amp;plugin=one-click-demo-import&amp;TB_iframe=true&amp;width=772&amp;height=677" class="thickbox open-plugin-details-modal button" aria-label="More information about One Click Demo Import" data-title="One Click Demo Import"><span class="dashicons dashicons-download"></span> Download One Click Demo Import</a>
         </div>
  
         <div class="col">
             <h3><?php _e( 'Learn How To Use HiiWP', 'hiiwp' ); ?></h3>
             <p><?php _e( 'In this section, you will find quick tips and video tutorials on how to operate with HiiWP Theme. Or you can jump right in and start customizing your theme through the WordPress customizer.', 'hiiwp' ); ?></p>
-            <a class="button button-primary" href="https://hiilite.ticksy.com/articles/100012838" target="_blank">Learn</a>
-            <a class="button" href="<?php echo admin_url( 'customize.php' ); ?>">Customize</a>
+            <a class="button button-primary" href="https://hiilite.ticksy.com/articles/100012838" target="_blank"><span class="dashicons dashicons-welcome-learn-more"></span> Learn</a>
+            <a class="button" href="<?php echo admin_url( 'customize.php' ); ?>"><span class="dashicons dashicons-admin-customizer"></span> Customize</a>
         </div>
     </div>	
     

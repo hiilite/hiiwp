@@ -65,4 +65,12 @@ jQuery(document).ready(function ($) {
 	};
 		
 	HiiWP_Admin.init();
+	
+	
 });
+function tt_template_hide_admin_notice(){
+	jQuery('#theme-admin-notice').slideUp();
+	jQuery.post( ajaxurl, {'action':'template_hide_admin_notice'}, function(data){
+		
+	});
+}

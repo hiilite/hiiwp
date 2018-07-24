@@ -667,7 +667,7 @@ class HiiWP extends Hii {
      */
     public static function activation_redirect($plugin){    
 	    if( $plugin == plugin_basename( __FILE__ ) ) {     
-	    	exit( wp_redirect( admin_url( 'admin.php?page=admin.php?page=about_hii_seo' ) ) );
+	    	exit( wp_redirect( admin_url( 'themes.php?page=admin.php%3Fpage%3Dhiiwp-welcome' ) ) );
 	    }
     }
     
@@ -689,6 +689,7 @@ class HiiWP extends Hii {
 	     */
 		
 		$hiilite_dev_only_plugins = array(
+			
 			array(
 	            'name'      => 'Imsanity',
 	            'slug'      => 'imsanity',
@@ -733,12 +734,22 @@ class HiiWP extends Hii {
 	            'slug'      => 'ssl-insecure-content-fixer',
 	            'required'  => false,
 	        ),
+	        array(
+	            'name'      => 'Loginizer',
+	            'slug'      => 'loginizer',
+	            'required'  => false,
+	        ),
         );
 	    
 	    $plugins = array(
 	
 	        // This is an example of how to include a plugin pre-packaged with a theme.
-	        
+	        array(
+                'name'      => 'Envato Market',
+                'slug'      => 'envato-market',
+                'source'    => 'https://github.com/envato/wp-envato-market/archive/master.zip',
+                'required'  => false,
+            ),
 			array(
 	            'name'               => 'WPBakery Visual Composer', // The plugin name.
 	            'slug'               => 'js_composer', // The plugin slug (typically the folder name).
@@ -767,13 +778,6 @@ class HiiWP extends Hii {
 	            'slug'      => 'wordpress-seo',
 	            'required'  => false,
 	        ),
-	        
-			array(
-	            'name'      => 'Loginizer',
-	            'slug'      => 'loginizer',
-	            'required'  => false,
-	        ),
-	        
 	    );
 		
 		if( self::$hiilite_options['hiilite_developer'] ) { 

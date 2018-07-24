@@ -8,7 +8,7 @@
  * @since       1.0
  */
 $hiilite_options = HiiWP::get_options();
-$post_meta = get_post_meta(get_the_id());
+$post_meta = get_post_meta(get_the_ID());
 $team_member_content_layout = $hiilite_options['team_member_content_layout'];
 $team_member_image_style = $hiilite_options['team_member_image_style'];
 $output = '';
@@ -33,7 +33,12 @@ $output .= '<div class="container_inner">
 		$output .=  "</figure></div>";
 	endif; 
 		$output .= '<div class="flex-item col-9 align-top">';
-		$output .= '<div class="team-member-content">' . get_the_content() . '</div>';
+		$output .= '<div class="team-member-content">';
+		ob_start();
+		the_content();
+		$output .= ob_get_clean();
+		
+		$output .='</div>';
 		$output .= '</div>';	
 		
 		
@@ -76,4 +81,4 @@ endif;
 $output .=  '<div class="row"><div class="container_inner"><div class="in_grid">';
 $output .=  '<a class="button full-width align-center meet-the-team-btn" href="' . get_site_url() . '/team/">Meet the Whole Team</a>';
 $output .=  '</div></div></div>';
-echo $output; // WPCS: XSS ok.
+echo __hii($output); // WPCS: XSS ok.

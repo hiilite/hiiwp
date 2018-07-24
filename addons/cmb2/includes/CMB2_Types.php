@@ -104,7 +104,7 @@ class CMB2_Types {
 	 */
 	protected function _render() {
 		$this->field->peform_param_callback( 'before_field' );
-		echo $this->{$this->field->type()}(); // WPCS: XSS ok.
+		echo __hii($this->{$this->field->type()}()); // WPCS: XSS ok.
 		$this->field->peform_param_callback( 'after_field' );
 	}
 
@@ -440,7 +440,7 @@ class CMB2_Types {
 		$desc = sprintf( "\n" . '<%1$s class="cmb2-metabox-description">%2$s</%1$s>' . "\n", $tag, $desc );
 
 		if ( $echo ) {
-			echo $desc; // WPCS: XSS ok.
+			echo __hii($desc); // WPCS: XSS ok.
 		}
 
 		return $desc;

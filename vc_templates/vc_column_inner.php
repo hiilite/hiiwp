@@ -87,4 +87,4 @@ $output .= '<div ' . implode( ' ', $wrapper_attributes ) . '>';
 $output .= wpb_js_remove_wpautop( $content );
 $output .= '</div>';
 
-echo $output; // WPCS: XSS ok.
+echo __hii($output); // WPCS: XSS ok.

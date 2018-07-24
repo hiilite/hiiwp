@@ -337,7 +337,7 @@ class Cmb2_Metatabs_Options {
 					return;
 				}
 				$args = func_get_args();
-				echo $this->render_save_button( $args[0]->args['desc'] ); // WPCS: XSS ok.
+				echo __hii($this->render_save_button( $args[0]->args['desc'] )); // WPCS: XSS ok.
 			}, 10, 1 );
 	}
 	
@@ -623,7 +623,7 @@ class Cmb2_Metatabs_Options {
 			$css .= '</style>';
 		}
 		
-		echo $css; // WPCS: XSS ok.
+		echo __hii($css); // WPCS: XSS ok.
 	}
 	
 	/**
@@ -897,7 +897,7 @@ class Cmb2_Metatabs_Options {
 		// get bottom of page
 		$page .= $this->admin_page_bottom( $id );
 		
-		echo $page; // WPCS: XSS ok.
+		echo __hii($page); // WPCS: XSS ok.
 		
 		// reset the notices flag
 		self::$once = FALSE;
