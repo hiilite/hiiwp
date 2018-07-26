@@ -30,6 +30,12 @@ $(document).ready(function(){
 		$('#main_search input[name=s]').focus();
 	});
 	
+	$(window).scroll(function () {
+		$('.vc_row-parallax').each(function(index){
+			var $parallax_row = $(this);
+			$parallax_row.css("background-position","50% " + (($(window).scrollTop() / 4) - $parallax_row.offset().top / 2) + "px");
+	    });
+	}); 
 	
 	/*
 	Video Player size fix	
@@ -83,9 +89,9 @@ $(document).ready(function(){
 			
 		/* testimonial slider */
 		if($carousel.hasClass('testimonial-slider')){
+			width = $carousel.parent().width();
 			
 			var elementHeights, maxHeight;
-			setTimeout(function(){
 				elementHeights = $carousel.find('.flex-item').map(function() {
 				    return $(this).outerHeight();
 				}).get();
@@ -94,8 +100,9 @@ $(document).ready(function(){
 				height = maxHeight;
 
 				$carousel.height(height);
-			}, 200);
+				
 			
+			$carousel.width(width);
 			if($carousel.data('show_bullets') === true){
 				if(length > 1) {
 					$carousel.append('<ul class="bullets_navigation"></ul>')
@@ -115,7 +122,9 @@ $(document).ready(function(){
 				}).get();
 				
 				maxHeight = Math.max.apply(null, elementHeights);
-				height = maxHeight;				
+				height = maxHeight;	
+				width = $carousel.parent().width();	
+				$carousel.width(width);		
 				$carousel.height(height);
 			});
 		} 

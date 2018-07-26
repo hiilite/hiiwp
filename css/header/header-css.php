@@ -167,6 +167,7 @@ endif; ?>
 #logo_container {
     max-width: 100%;
     position: relative;
+    align-self: center;
     <?php 
     foreach(Hii::$options['logo_padding'] as $key=>$value){
 	    echo 'padding-'.$key.':'.$value.';';

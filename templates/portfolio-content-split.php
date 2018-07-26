@@ -13,6 +13,7 @@
 // TODO: Add back Category image thumbnail
 */
 $hiilite_options = HiiWP::get_options();
+$portfolio_work_image = $portfolio_work_color = '';
 $category = get_the_terms( $post->ID, 'work' );
 
 if(is_front_page() || is_archive(  )){ 
@@ -34,10 +35,10 @@ $contributers = (get_post_meta ( $post->ID, 'contributers_group', true))?get_pos
 $project_share = (get_post_meta ( $post->ID, 'project_share', true))?get_post_meta ( $post->ID, 'project_share', true):false;
 
 $social_url = esc_url( get_permalink($post->ID) );
-     
-$portfolio_work_image = (get_term_meta ( $category[0]->term_taxonomy_id, 'portfolio_work_image', true))?get_term_meta ( $category[0]->term_taxonomy_id, 'portfolio_work_image', true):false;
-$portfolio_work_color = (get_term_meta ( $category[0]->term_taxonomy_id, 'portfolio_work_color', true))?get_term_meta ( $category[0]->term_taxonomy_id, 'portfolio_work_color', true):false;
-
+if(is_array($category[0])):
+	$portfolio_work_image = (get_term_meta ( $category[0]->term_taxonomy_id, 'portfolio_work_image', true)) ? get_term_meta ( $category[0]->term_taxonomy_id, 'portfolio_work_image', true) : false;
+	$portfolio_work_color = (get_term_meta ( $category[0]->term_taxonomy_id, 'portfolio_work_color', true)) ? get_term_meta ( $category[0]->term_taxonomy_id, 'portfolio_work_color', true) : false;
+endif;
 $author_id=$post->post_author;
 
 $tags = get_the_terms( $post->ID, 'porfolio_tag');

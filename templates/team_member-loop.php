@@ -63,20 +63,14 @@ $output .=  '</div></div></article>';
 //
 /////////////////////////
 
-$team = new WP_Query(
-array(	'post_type'=>'team',
-		'posts_per_page'=>10,
-		'orderby' => 'rand'
-	));
-	
-if($team->have_posts()):
+
 	$output .= '<aside class="col-12 text-block">';
 	$output .= '<div class="in_grid">';
 	$output .= '<div class="align-center teams-title"><h4>More Team Members</h4></div>';
 	$output .=  do_shortcode('[teams show_image="true" show_title="true" heading_tag="h5" is_slider="true"]');
 	$output .= '</div>';
 	$output .= '</aside>';
-endif;
+
 //end team slider
 $output .=  '<div class="row"><div class="container_inner"><div class="in_grid">';
 $output .=  '<a class="button full-width align-center meet-the-team-btn" href="' . get_site_url() . '/team/">Meet the Whole Team</a>';

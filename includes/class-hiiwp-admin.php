@@ -978,6 +978,16 @@ class HiiWP_Admin {
 	function ocdi_import_files() {
 		return array(
 			array(
+				'import_file_name'           => 'Hii Agency',
+				'categories'                 => array( 'Agency', 'Business' ),
+				'import_file_url'            => 'https://s3.ca-central-1.amazonaws.com/hiiwp/demo-content/hiiagency/agency.wordpress.xml',
+				'import_widget_file_url'     => 'https://s3.ca-central-1.amazonaws.com/hiiwp/demo-content/hiiagency/demo.hiilite.com-agency-widgets.wie',
+				'import_customizer_file_url' => 'https://s3.ca-central-1.amazonaws.com/hiiwp/demo-content/hiiagency/hiiwp-child-export.dat',
+				'import_preview_image_url'   => 'https://hiilite.com/wp-content/uploads/2018/07/hiiagency.png',
+				//'import_notice'              => __( 'After you import this demo, you will have to setup the slider separately.', 'hiiwp' ),
+				'preview_url'                => 'https://demo.hiilite.com/agency/',
+			),
+			array(
 				'import_file_name'           => 'Hii Original',
 				'categories'                 => array( 'Business', 'Corperate' ),
 				'import_file_url'            => 'https://s3.ca-central-1.amazonaws.com/hiiwp/demo-content/hiioriginal/hiiwpcreativemulti-purposewordpresstheme.wordpress.xml',

@@ -128,29 +128,29 @@ FLEX JUSTIFY CONTENT
 
 /* Background Images */
 body .bg-img-pos-lt {
-	background-position: left top !important;
+	background-position: left top;
 }
 body .bg-img-pos-lc {
-	background-position: left center !important;
+	background-position: left center;
 }
 body .bg-img-pos-lb {
-	background-position: left bottom !important;
+	background-position: left bottom;
 }
 body .bg-img-pos-rt {
-	background-position: right top !important;
+	background-position: right top;
 }
 body .bg-img-pos-rc {
-	background-position: right center !important;
+	background-position: right center;
 }
 body .bg-img-pos-rb {
-	background-position: right bottom !important;
+	background-position: right bottom;
 }
 body .bg-img-pos-ct {
-	background-position: center top !important;
+	background-position: center top;
 }
 body .bg-img-pos-cc {
-	background-position: center center !important;
+	background-position: center center;
 }
 body .bg-img-pos-cb {
-	background-position: center bottom !important;
+	background-position: center bottom;
 }

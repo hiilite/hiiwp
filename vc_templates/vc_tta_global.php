@@ -75,8 +75,7 @@ switch($shortcode_type){
 			$output = '<amp-carousel ' . implode( ' ', $wrapper_attributes ) . '
 							  layout="responsive"
 							  width="'.$atts['slider_width'].'"
-							  height="'.$atts['slider_height'].'"
-							  style="width:'.$atts['slider_width'].'px; height:'.$atts['slider_height'].'px;min-height:'.$atts['slider_min_height'].'px;"
+							  style="width:'.$atts['slider_width'].'px; min-height:'.$atts['slider_min_height'].'px;"
 							  type="slides"';
 			$output .= ($atts['autoplay'] != 'none')?' autoplay delay="'.$atts['autoplay'].'000">':'>';
 			if(isset($atts['title']) && $atts['title'] != '')
