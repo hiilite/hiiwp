@@ -121,6 +121,12 @@ class HiiWP extends Hii {
     }
 	
 	
+	/**
+	 * hiiwp_enqueue_scripts function.
+	 * 
+	 * @access public
+	 * @return void
+	 */
 	public function hiiwp_enqueue_scripts () {
 		wp_enqueue_script('jquery-effects-core');
 		wp_enqueue_script('jquery-ui-widget');

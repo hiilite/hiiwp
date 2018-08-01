@@ -58,12 +58,17 @@ $(document).ready(function(){
 	 * @return void
 	 */
 	function goToSlide(slider, slideIndex) {
+		var current_height = slider.height();
 		slider.find('.slide.on')
 			.fadeOut(500)
 			.removeClass('on');
 		
 		slider.find('.slide:eq('+slideIndex+')')
-			.fadeIn(500)
+			.fadeIn(500, function(){
+				var slide_height = $(this).children().height();
+				if(slide_height > current_height) 
+					slider.height(slide_height);
+			})
 			.addClass('on');
 		slider.find('.bullets_navigation li.on')
 			.css('background-color', '')
@@ -327,7 +332,7 @@ $(document).ready(function(){
 					scrollableAreaClass: 'carousel-wrapper'
 				}); 
 				
-				var total_width = 1,
+				var total_width = 0,
 					$wrapper = $carousel.find('.smooth-scroll-wrapper'),
 					position = $wrapper.scrollLeft();
 					
@@ -342,7 +347,7 @@ $(document).ready(function(){
 				// slider.width = carousel.width / (12 / col-#) 
 				
 
-				$wrapper.find('.carousel-wrapper').width(total_width);
+				//$wrapper.find('.carousel-wrapper').width(total_width);
 				
 				var item_width = total_width / length,
 					left_indent = position.left;

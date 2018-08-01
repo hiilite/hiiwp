@@ -47,10 +47,8 @@ if($atts['active'] == true):
 	
 	$css_class = preg_replace( '/\s+/', ' ', apply_filters( VC_SHORTCODE_CUSTOM_CSS_FILTER_TAG, implode( ' ', array_filter( $css_classes ) ), $this->settings['base'], $atts ) );
 	$wrapper_attributes[] = 'class="' . esc_attr( trim( $css_class ) ) . '"';
-	
-	
 	$output = '';
-	$output .= '<div ' . implode( ' ', $wrapper_attributes ) . ' style="background:url('.$src.'); background-size:cover;">';
+	$output .= '<div ' . implode( ' ', $wrapper_attributes ) . ' style="background:url('.$src.');background-color:'.$atts['background_color'].'; background-size:cover;">';
 	$output .= '<div class="slide-text-overlay">';
 	$output .= $this->getTemplateVariable( 'content' );
 	$output .= '</div></div>';
