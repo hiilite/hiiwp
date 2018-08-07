@@ -78,19 +78,18 @@ if(isset($post)) $page_bg_img = (get_post_meta ( $post->ID, 'page_title_bgimg', 
 				<?php 
 					woocommerce_product_loop_start(); 
 					
-					if ( wc_get_loop_prop( 'total' ) ) :
-						while ( have_posts() ) : 
-							the_post(); 
-							/**
-							 * woocommerce_shop_loop hook.
-							 *
-							 * @hooked WC_Structured_Data::generate_product_data() - 10
-							 */
-							do_action( 'woocommerce_shop_loop' );
-							
-							wc_get_template_part( 'content', 'product' ); 
-						endwhile; // end of the loop. 
-					endif;
+					while ( have_posts() ) : 
+						the_post(); 
+						/**
+						 * woocommerce_shop_loop hook.
+						 *
+						 * @hooked WC_Structured_Data::generate_product_data() - 10
+						 */
+						do_action( 'woocommerce_shop_loop' );
+						
+						wc_get_template_part( 'content', 'product' ); 
+					endwhile; // end of the loop. 
+					
 						
 					woocommerce_product_loop_end(); 
 					

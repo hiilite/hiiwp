@@ -840,7 +840,7 @@ class HiiWP extends Hii {
 	    $optionKey="theme_is_activated_" . $code;
 	    if(!get_option($optionKey)) {
 	        call_user_func($function);
-	        update_option($optionKey , 1);
+	        update_option($optionKey , 1); 
 	    }
 	}
 	

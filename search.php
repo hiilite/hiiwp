@@ -21,7 +21,7 @@ if ( $hiilite_options['blog_sidebar_show'] == true ) $colcount .= ' col-9';
 
 $grid = ($hiilite_options['blog_full_width'] == false) ? 'in_grid' : '';
 
-echo '<div class="row content-area" id="home_blog_loop"><div class="container_inner '.$grid.'">'
+echo '<div class="row content-area" id="home_blog_loop"><div class="container_inner '.$grid.'">';
 if(have_posts()):
 echo '<div class="site-main '.$hiilite_options['blog_layouts'].$colcount.'" role="main">';
 
