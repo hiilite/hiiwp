@@ -30,6 +30,12 @@ $(document).ready(function(){
 		$('#main_search input[name=s]').focus();
 	});
 	
+	$(window).scroll(function () {
+		$('.vc_row-parallax').each(function(index){
+			var $parallax_row = $(this);
+			$parallax_row.css("background-position","50% " + (($(window).scrollTop() / 4) - $parallax_row.offset().top / 2) + "px");
+	    });
+	}); 
 	
 	/*
 	Video Player size fix	
@@ -52,12 +58,17 @@ $(document).ready(function(){
 	 * @return void
 	 */
 	function goToSlide(slider, slideIndex) {
+		var current_height = slider.height();
 		slider.find('.slide.on')
 			.fadeOut(500)
 			.removeClass('on');
 		
 		slider.find('.slide:eq('+slideIndex+')')
-			.fadeIn(500)
+			.fadeIn(500, function(){
+				var slide_height = $(this).children().height();
+				if(slide_height > current_height) 
+					slider.height(slide_height);
+			})
 			.addClass('on');
 		slider.find('.bullets_navigation li.on')
 			.css('background-color', '')
@@ -83,9 +94,9 @@ $(document).ready(function(){
 			
 		/* testimonial slider */
 		if($carousel.hasClass('testimonial-slider')){
+			width = $carousel.parent().width();
 			
 			var elementHeights, maxHeight;
-			setTimeout(function(){
 				elementHeights = $carousel.find('.flex-item').map(function() {
 				    return $(this).outerHeight();
 				}).get();
@@ -94,8 +105,9 @@ $(document).ready(function(){
 				height = maxHeight;
 
 				$carousel.height(height);
-			}, 200);
+				
 			
+			$carousel.width(width);
 			if($carousel.data('show_bullets') === true){
 				if(length > 1) {
 					$carousel.append('<ul class="bullets_navigation"></ul>')
@@ -115,7 +127,9 @@ $(document).ready(function(){
 				}).get();
 				
 				maxHeight = Math.max.apply(null, elementHeights);
-				height = maxHeight;				
+				height = maxHeight;	
+				width = $carousel.parent().width();	
+				$carousel.width(width);		
 				$carousel.height(height);
 			});
 		} 
@@ -318,7 +332,7 @@ $(document).ready(function(){
 					scrollableAreaClass: 'carousel-wrapper'
 				}); 
 				
-				var total_width = 1,
+				var total_width = 0,
 					$wrapper = $carousel.find('.smooth-scroll-wrapper'),
 					position = $wrapper.scrollLeft();
 					
@@ -333,7 +347,7 @@ $(document).ready(function(){
 				// slider.width = carousel.width / (12 / col-#) 
 				
 
-				$wrapper.find('.carousel-wrapper').width(total_width);
+				//$wrapper.find('.carousel-wrapper').width(total_width);
 				
 				var item_width = total_width / length,
 					left_indent = position.left;

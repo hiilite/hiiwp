@@ -14,10 +14,16 @@ if ( $hiilite_options['blog_sidebar_show'] == true ) {
 }
 
 $grid = ($hiilite_options['blog_full_width'] == false) ? 'in_grid' : '';
-
+switch($hiilite_options['blog_layouts']){
+	case 'boxed':
+		$blog_layouts = 'container_inner';
+		break;
+	default:
+		$blog_layouts = $hiilite_options['blog_layouts'];
+}
 echo '<div class="row content-area" id="home_blog_loop"><div class="container_inner '.$grid.' ">';
 if(have_posts()):
-echo '<div class="site-main '.$hiilite_options['blog_layouts'].$colcount.'" role="main">';
+echo '<div class="site-main '.$blog_layouts.$colcount.'" role="main">';
 
 	while(have_posts()):
 		the_post();

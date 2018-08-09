@@ -57,7 +57,7 @@ html {
 	-webkit-text-size-adjust: 100%;
 }
 
-body {
+body, html {
 	margin: 0;
 <?php echo get_font_css(Hii::$options['default_font']); ?>
 }
@@ -2145,7 +2145,8 @@ else echo Hii::$options['custom_format_3'];
 	list-style: none;
 	padding-left: 1em;
 }
-aside .widget ul li {
+aside .widget ul li,
+.widget_recent_entries li  {
 	padding: 5px 0;
 	border-bottom: 1px solid rgba(204, 204, 204, 0.2);
 }
@@ -2300,7 +2301,7 @@ hr.small {
 if(Hii::$options['testimonials_on']):
 	?>
 	.testimonial_item {
-	    padding: 0 3em;
+	    padding: 0 3em 1em 3em;
 	}
 	.testimonial_content { 
 		<?php echo get_font_css(Hii::$options[ 'testimonials_body_font' ]); ?>

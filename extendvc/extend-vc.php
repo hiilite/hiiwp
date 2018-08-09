@@ -1937,7 +1937,7 @@ vc_map( array(
 
 
 vc_map( array(
-	'name' => __( 'Slide', 'hiiwp' ),
+	'name' => __( 'Slides', 'hiiwp' ),
 	'base' => 'vc_tta_section',
 	'icon' => 'icon-wpb-ui-tta-section',
 	'allowed_container_element' => 'vc_row',
@@ -1983,6 +1983,13 @@ vc_map( array(
 			'description' => __( 'Select image from media library.', 'hiiwp' ),
 		),
 		array(
+			'type' => 'background_color',
+			'heading' => __( 'Slide Color', 'hiiwp' ),
+			'param_name' => 'colorpicker',
+			'value' => '',
+			'description' => __( 'Select a background color for the slide.', 'hiiwp' ),
+		),
+		array(
 			'type' => 'el_id',
 			'param_name' => 'tab_id',
 			'settings' => array(
@@ -1990,12 +1997,6 @@ vc_map( array(
 			),
 			'heading' => __( 'Section ID', 'hiiwp' ),
 			'description' => __( 'Enter section ID (Note: make sure it is unique and valid according to <a href="%s" target="_blank">w3c specification</a>).', 'hiiwp' ),
-		),
-		array(
-			'type' => 'css_editor',
-			'heading' => __( 'CSS box', 'hiiwp' ),
-			'param_name' => 'css',
-			'group' => __( 'Design Options', 'hiiwp' ),
 		),
 		array(
 			'type' => 'dropdown',
@@ -2015,7 +2016,13 @@ vc_map( array(
 			),
 			'description' => __( 'Positioning of background image.', 'hiiwp' ),
 			'group' => __( 'Design options', 'hiiwp' ),
-		)
+		),
+		array(
+			'type' => 'css_editor',
+			'heading' => __( 'CSS box', 'hiiwp' ),
+			'param_name' => 'css',
+			'group' => __( 'Designer Options', 'hiiwp' ),
+		),
 	),
 ) );
 
@@ -2220,7 +2227,7 @@ vc_map( array(
 		)
 
 ) );
-vc_remove_param( "vc_column_text", "css_animation" );
+//vc_remove_param( "vc_column_text", "css_animation" );
 
 
 vc_add_param( 'vc_row', array(
@@ -2780,6 +2787,13 @@ vc_map( array(
 			'description' => __( 'Select image from media library.', 'hiiwp' ),
 		),
 		array(
+			'type' => 'colorpicker',
+			'heading' => __( 'Slide Color', 'hiiwp' ),
+			'param_name' => 'background_color',
+			'value' => '',
+			'description' => __( 'Select background color for the slide.', 'hiiwp' ),
+		),
+		array(
 			'type' => 'dropdown',
 			'heading' => __( 'Image Position', 'hiiwp' ),
 			'param_name' => 'bg_img_pos',
@@ -2805,6 +2819,12 @@ vc_map( array(
 			),
 			'heading' => __( 'Section ID', 'hiiwp' ),
 			'description' => __( 'Enter section ID (Note: make sure it is unique and valid according to <a href="%s" target="_blank">w3c specification</a>).', 'hiiwp' ),
+		),
+		array(
+			'type' => 'css',
+			'heading' => __( 'CSS box', 'hiiwp' ),
+			'param_name' => 'css',
+			'group' => __( 'Designer Options', 'hiiwp' ),
 		),
 	),
 ) );

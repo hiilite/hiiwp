@@ -118,7 +118,6 @@ amp-carousel li.bullet_item {
 
 amp-carousel.slider {
 	min-width: 100%;
-	max-height: 100vh;
 	display: block;
 	position: relative;
 	
@@ -162,8 +161,8 @@ amp-carousel.carousel .carousel-wrapper:after {
     clear: both;
 }
 amp-carousel.carousel .slide {
-	display: block;
-	float:left;
+	display: inline-block;
+	white-space: normal;
 }
 amp-carousel.carousel .slide > img {
     max-height: 100%;
@@ -183,6 +182,7 @@ amp-carousel.carousel .slide  .slide_img_container img {
 }
 amp-carousel.carousel .carousel-wrapper{
 	position: relative;
+    white-space: nowrap;
 	width: auto;
 }
 amp-carousel.slider .hide {

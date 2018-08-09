@@ -20,7 +20,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
 }
 
-$template = wc_get_theme_slug_for_templates();
+$template = get_option( 'template' );
 
 switch( $template ) {
 	case 'twentyeleven' :

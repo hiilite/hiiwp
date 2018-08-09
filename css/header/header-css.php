@@ -14,7 +14,7 @@ header#main_header {
 	width: 100%;
 	align-items: center;
 	flex-wrap: wrap;
-	z-index: 9999;
+	z-index: 100;
 	transition: all 0.5s;
 	<?php 
 	get_background_css(Hii::$options['header_background']);
@@ -167,6 +167,7 @@ endif; ?>
 #logo_container {
     max-width: 100%;
     position: relative;
+    align-self: center;
     <?php 
     foreach(Hii::$options['logo_padding'] as $key=>$value){
 	    echo 'padding-'.$key.':'.$value.';';
