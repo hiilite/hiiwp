@@ -57,7 +57,7 @@ html {
 	-webkit-text-size-adjust: 100%;
 }
 
-body {
+body, html {
 	margin: 0;
 <?php echo get_font_css(Hii::$options['default_font']); ?>
 }
