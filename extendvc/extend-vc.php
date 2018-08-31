@@ -4,13 +4,9 @@ $hiilite_options = Hii::get_options();
 /*** Removing shortcodes ***/
 vc_remove_element("vc_wp_text"); 
 vc_remove_element("vc_wp_links");
-//vc_remove_element("vc_teaser_grid");
 vc_remove_element("vc_button");
 vc_remove_element("vc_cta_button");
 vc_remove_element("vc_cta_button2");
-//vc_remove_element("vc_carousel");
-//vc_remove_element("vc_tta_accordion");
-//vc_remove_element("vc_tta_tour");
 vc_remove_element('vc_button2');
 vc_remove_element('vc_btn');
 
@@ -1085,112 +1081,7 @@ if(class_exists('GFForms')) {
 	) );
 }
 
-////////////////////////////
-//
-//	Button
-//
-/////////////////////////////
-vc_map( array( 
-		"name" => "Hii Button", 
-		"base" => "button",
-		"category" => 'HiiWP',
-		"description" => "HiiWP Themes default button",
-		"icon" => "icon-wpb-ui-button",
-		"allowed_container_element" => 'vc_row',
-		"params" => array(
-			array(
-				"type" => "dropdown",
-				"holder" => "div",
-				"class" => "",
-				"heading" => "Button Type",
-				"description" => "Defined in the customizer",
-				"param_name" => "button_type",
-				"value" => array(
-					"Default" => "",
-					"Primary" => "button-primary",	
-					"Secondary" => "button-secondary",
-				),
-				'save_always' => true
-			),
-			
-			array(
-				"type" => "textfield",
-				"holder" => "div",
-				"class" => "",
-				"heading" => "Text",
-				"param_name" => "text"
-			),
-			array(
-				'type' => 'checkbox',
-				'heading' => __( 'Use a Google Font?', 'hiiwp' ),
-				'param_name' => 'use_google_font',
-				'description' => __( 'Override the default font and select from a list of Google Fonts.', 'hiiwp' ),
-				'value' => array( __( 'Yes', 'hiiwp' ) => 'true' ),
-			),
-			array(
-                'type' => 'google_fonts',
-                'param_name' => 'google_fonts',
-                'value' => __( 'Default value', 'hiiwp' ),
-                'font_family:'.rawurlencode('Exo:100,100italic,200,200italic,300,300italic,regular,italic,500,500italic,600,600italic,700,700italic,800,800italic,900,900italic').'|font_style:'.rawurlencode('900bold italic:900:italic'),
-                'settings' => array(
-                    'fields'=>array(
-	                    'font_family_description' => __('Select font family.','hiiwp'),
-                        'font_style_description' => __('Select font styling.','hiiwp')
-                  )
-                ),
-                'description' => __( 'Description for this group', 'hiiwp' ), 
-                "dependency" => array (
-					"element" => "use_google_font",
-					"value" => "true"
-				),
-            ),
-			array(
-				"type" => "vc_link",
-				"holder" => "div",
-				"class" => "",
-				"heading" => "Link",
-				"param_name" => "link"
-			),
-			
-			
-			array(
-				"type" => "dropdown",
-				"holder" => "div",
-				"class" => "",
-				"heading" => "Align",
-				"param_name" => "button_align",
-				"value" => array(
-					"Default" => "",
-					"Left" => "align-left",	
-					"Center" => "align-center",
-					"Right" => "align-right"	
-				),
-				'save_always' => true
-			),
-			array(
-				"type" => "textfield",
-				"holder" => "div",
-				"class" => "",
-				"heading" => "Classes",
-				"param_name" => "classes"
-			),
-            array(
-                "type" => "textfield",
-                "holder" => "div",
-                "class" => "",
-                "heading" => "ID",
-                "param_name" => "button_id",
-                "description" => "Set unique button ID attribute"
-            ),
-			array(
-	            'type' => 'css_editor',
-	            'heading' => __( 'Css', 'hiiwp' ),
-	            'param_name' => 'css',
-	            'group' => __( 'Design options', 'hiiwp' ),
-	        ),
-	       
-		)
-) );
+
 
 ////////////////////////////
 //
@@ -2126,7 +2017,7 @@ vc_map( array(
 ///////////////////////////// 
 vc_map( array(
 		"name" => "Text Block",
-		"base" => "vc_column_text",
+		"base" => "vc_column_text", 
 		"category" => 'HiiWP',
 		'icon' => 'icon-wpb-layer-shape-text',
 		'wrapper_class' => 'clearfix',

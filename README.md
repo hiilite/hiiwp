@@ -1,7 +1,7 @@
 # Hiilite Wordpress theme
 
 ### Change log
-#### v1.0
+#### v1.0.0
 - Major Updates to all files
 - All plugin territory functions moved to HiiWP Plus Plugin, now a required plugin install with theme.
 - Reworking of Carousel shortcodes.
