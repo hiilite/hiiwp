@@ -2,7 +2,7 @@
 .page-title {
 	overflow: hidden;
 	<?php 
-	if (Hii::$options['header_above_content'] == false){ echo 'z-index:100;top:0;'; } 
+	if (Hii::$options['header_above_content'] == false){ echo 'top:0;'; } 
 	echo 'position: relative;'; 
 	echo get_background_css(Hii::$options['title_background']);
 	echo (!empty(Hii::$options['title_height']))?'min-height:'.Hii::$options['title_height'].';':'';

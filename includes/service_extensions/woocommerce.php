@@ -38,7 +38,7 @@ function custom_fix_thumbnail() {
 	}
 }
 
-add_filter( 'woocommerce_before_add_to_cart_button', 'add_price_before_button', 99 );
+//add_filter( 'woocommerce_before_add_to_cart_button', 'add_price_before_button', 99 );
 function add_price_before_button(){
 	woocommerce_template_single_price();
 }
@@ -47,8 +47,8 @@ function wc_subscriptions_custom_price_string( $pricestring ) {
     $newprice = str_replace( 'and a', '', $newprice );
     return $newprice;
 }
-add_filter( 'woocommerce_subscriptions_product_price_string', 'wc_subscriptions_custom_price_string' );
-add_filter( 'woocommerce_subscription_price_string', 'wc_subscriptions_custom_price_string' );
+//add_filter( 'woocommerce_subscriptions_product_price_string', 'wc_subscriptions_custom_price_string' );
+//add_filter( 'woocommerce_subscription_price_string', 'wc_subscriptions_custom_price_string' );
 
 
 add_action( 'before_page_title', 'add_woocommerce_title_content' );

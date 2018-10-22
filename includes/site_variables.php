@@ -1,12 +1,46 @@
 <?php
-// SETTING
-/*
- *	HEADER -> MENUS
+/**
+ * HiiWP: Site Variables
+ *
+ * A collection of all the default settings in the theme.
+ *
+ * @package     hiiwp
+ * @copyright   Copyright (c) 2018, Peter Vigilante
+ * @license     http://opensource.org/licenses/gpl-2.0.php GNU Public License
+ * @since       1.0.1
  */
+/*--------------------------------------------------------------
+>>> TABLE OF CONTENTS:
+----------------------------------------------------------------
+1.0 General
+2.0 Logo
+3.0 Header
+	3.1 Header General
+	3.2 Header Top
+	3.3 Menu
+4.0 Footer
+5.0 Title
+6.0 Elements
+	6.1 Buttons
+	6.2 Social Icons
+7.0 Fonts
+	7.1 Headings
+	7.2 Paragraphs & Links
+	7.3 Icons
+8.0 Sidebar
+9.0 Testimonials
+10.0 Blog
+	10.1 Blog List
+	10.2 Blog Single
+	10.3 Pagination
+11.0 Portfolio
+12.0 Teams
+13.0 WooCommerce
+--------------------------------------------------------------*/
 $hiilite_options = array();
-/*
- *	GENERAL
- */
+/*--------------------------------------------------------------
+1.0 General
+--------------------------------------------------------------*/
  
 $hiilite_options['default_font']				= get_theme_mod( 'default_font', array(
         'font-family'    => 'Open Sans',
@@ -109,9 +143,9 @@ $hiilite_options['heading_font']				= get_theme_mod( 'heading_font', array(
         'color'          => $hiilite_options['color_two'],
     ) );
 
-/*
- * LOGO
- */
+/*--------------------------------------------------------------
+2.0 Logo
+--------------------------------------------------------------*/
 $hiilite_options['main_logo']					= get_theme_mod('main_logo', get_template_directory_uri().'/images/Hiilite_Hii_Logo.png');
 $image_id = attachment_url_to_postid( $hiilite_options['main_logo'] );
 if( isset( $image_id ) ) {
@@ -134,18 +168,20 @@ $hiilite_options['safari_icon_color']			= get_theme_mod('safari_icon_color', $hi
 $hiilite_options['logo_width']					= isset($image_url['width'])?($image_url['width'] * ($hiilite_options['logo_size_mod'] / 100)):(150 * ($hiilite_options['logo_size_mod'] / 100));
 $hiilite_options['logo_height']					= isset($image_url['height'])?($image_url['height'] * ($hiilite_options['logo_size_mod'] / 100)):'auto';
 
-// ?
+
 $hiilite_options['color_palette'] 				= array(
 	'color_one' 	=> $hiilite_options['color_one'], 
 	'color_two' 	=> $hiilite_options['color_two'], 
 	'color_three' 	=> $hiilite_options['color_three'], 
 	'color_four' 	=> $hiilite_options['color_four'], 
 	'color_five' 	=> $hiilite_options['color_five']);
-/*
- * HEADER
- *
- * HEADER -> HEADER
- */
+	
+/*--------------------------------------------------------------
+3.0 Header
+--------------------------------------------------------------*/
+/*--------------------------------------------------------------
+3.1 Header General
+--------------------------------------------------------------*/
 $hiilite_options['header_in_grid']				= get_theme_mod( 'header_in_grid', true );
 $hiilite_options['header_type'] 				= get_theme_mod( 'header_type', 'regular'); // regular | centered | fixed
 $hiilite_options['header_content_under']		= get_theme_mod( 'header_content_under', false);
@@ -195,18 +231,10 @@ $hiilite_options['header_top_bottom_border_color']	= get_theme_mod( 'header_top_
 
 $hiilite_options['header_top_pages_height']		= get_theme_mod( 'header_top_pages_height', '100px' );
 
-/*
- * HEADER -> WOOCOMMERCE MENU CART	
- */
-$hiilite_options['show_cart_menu']		= get_theme_mod( 'show_cart_menu', true );
-$hiilite_options['cart_menu_layout']		= get_theme_mod( 'cart_menu_layout', 'icon-only' );
-$hiilite_options['cart_menu_icon']		= get_theme_mod( 'cart_menu_icon', 'shopping-cart' );
 
-
-
-/*
- * HEADER -> HEADER TOP	
- */
+/*--------------------------------------------------------------
+3.2 Header Top
+--------------------------------------------------------------*/
 $hiilite_options['header_top_font']				= get_theme_mod( 'header_top_font', array(
         'font-family'    => $hiilite_options['default_font']['font-family'],
         'variant'        => '400',
@@ -224,59 +252,9 @@ $hiilite_options['header_top_center']			= get_theme_mod( 'header_top_center', fa
 $hiilite_options['header_top_right']			= get_theme_mod( 'header_top_right', false );
 
 
-
-
-
-
-// FOOTER 
-$hiilite_options['footer_font_color']			= '#8c8880';
-
-
-// FOOTER
-$hiilite_options['footer_background'] = get_theme_mod( 'footer_background', array(
-	'background-color'    => '#fff',
-	'background-image'    => '',
-	'background-repeat'   => 'no-repeat',
-	'background-size'     => 'cover',
-	'background-attachment'   => 'scroll',
-	'background-position' => 'left-top',
-));
-    
-
-$hiilite_options['footer_top_border_color']	= get_theme_mod( 'footer_top_border_color', '#eee' );
-$hiilite_options['footer_top_border_width']	= get_theme_mod( 'footer_top_border_width', '1px' );
-$hiilite_options['footer_top_background']	= get_theme_mod( 'footer_top_background', '#fff' );
-
-$hiilite_options['footer_in_grid']			= get_theme_mod( 'footer_in_grid', true );
-
-$hiilite_options['footer_padding']			= get_theme_mod( 'footer_padding', array(
-	'top' 		=> '1em',
-	'right' 	=> '1em',
-	'bottom' 		=> '1em',
-	'left' 	=> '1em',
-	) );
-	
-$hiilite_options['footer_top_col1']			= get_theme_mod( 'footer_top_col1', true );
-$hiilite_options['footer_top_col2']			= get_theme_mod( 'footer_top_col2', true );
-$hiilite_options['footer_top_col3']			= get_theme_mod( 'footer_top_col3', true );
-$hiilite_options['footer_top_col4']			= get_theme_mod( 'footer_top_col4', true );
-
-$hiilite_options[ 'footer_top_columns' ]    = get_theme_mod( 'footer_top_columns',  array(
-		'footer_column_1',
-		'footer_column_2',
-		'footer_column_3',
-		'footer_column_4')
-);
-$hiilite_options['show_footer_top_yesno']	= get_theme_mod( 'show_footer_top_yesno', true );
-$hiilite_options['footer_bottom_background_color']		= get_theme_mod( 'footer_bottom_background_color', '#c8c8c8' );
-$hiilite_options['footer_bottom_center']	= get_theme_mod( 'footer_bottom_center', true );
-$hiilite_options['footer_bottom_left']		= get_theme_mod( 'footer_bottom_left', false );
-$hiilite_options['footer_bottom_right']		= get_theme_mod( 'footer_bottom_right', false );
-
-$hiilite_options['footer_bottom_copyright_text'] = get_theme_mod('footer_bottom_copyright_text', '<small>Copyright © '.date('Y').' All rights reserved. <a href="https://hiilite.com/services/website-design/" target="_blank" rel="noopener" title="Web Design by Hiilite">Web Design</a>, <a href="https://photography.hiilite.com" target="_blank" rel="noopener" title="Photography Services by Hiilite">Photography</a>, <a href="https://hiilite.com/services/seo/" target="_blank" rel="noopener" title="SEO by Hiilite">SEO</a> by <a href="https://hiilite.com/" target="_blank" rel="noopener" title="Web Design, Photography and SEO by Hiilite">Hiilite</a></small>');
-
-
-// MENU
+/*--------------------------------------------------------------
+3.3 Menu
+--------------------------------------------------------------*/
 $hiilite_options['menu_margin']				= get_theme_mod( 'menu_margin', array(
 													'top' => 'auto',
 													'right' => '0',
@@ -359,136 +337,11 @@ $hiilite_options['mobile_menu_icon_color']	= get_theme_mod( 'mobile_menu_icon_co
 $hiilite_options['enable_search_bar_yesno'] = get_theme_mod( 'enable_search_bar_yesno', true );
 
 
-// TITLE
-$hiilite_options['show_page_titles']		= get_theme_mod( 'show_page_titles', true );
-$hiilite_options['title_height']			= get_theme_mod( 'title_height', '100px' );
-$hiilite_options['title_padding']			= get_theme_mod( 'title_padding', array(
-		'top'    => '0',
-		'right'  => '0',
-		'bottom' => '0',
-		'left'   => '0',
-	));
-$hiilite_options['title_font']				= get_theme_mod( 'title_font', array(
-	'font-family'    => 'Open Sans',
-    'variant'        => '600',
-    'font-size'      => '4rem',
-    'line-height'    => '1',
-    'letter-spacing' => '0',
-    'text-transform' => 'uppercase',
-    'color'          => '#222',
-    'text-align'	 => 'center',
-) );
 
-$default_show_title_on = get_post_types(array(), 'names');
-$hiilite_options['show_title_on'] 	= get_theme_mod( 'show_title_on', $default_show_title_on );
-$hiilite_options['title_background'] = get_theme_mod( 'title_background', array(
-	'color' => '#ffffff',
-	'image' => '',
-	'repeat' => 'no-repeat',
-	'position' => 'left-top',
-	'size' => 'cover',
-	'attach' => 'fixed',
-));
-
-
-
-// FONTS
-$hiilite_options['text_font']				= get_theme_mod( 'text_font', $hiilite_options['default_font']);
-$hiilite_options['text_margin']				= get_theme_mod( 'text_margin', '1em');
-$hiilite_options['typography_p_margin']				= get_theme_mod( 'typography_p_margin', array(
-	'top'	=> '0',
-	'bottom'=> $hiilite_options['text_margin'],
-));
-
-$hiilite_options['typography_h1_font']				= get_theme_mod( 'typography_h1_font', array(
-        'font-family'    => $hiilite_options['default_font']['font-family'],
-        'variant'        => '300',
-        'font-size'      => '2.5rem',
-        'line-height'    => '1.5',
-        'letter-spacing' => '0',
-        'text-transform' => 'none',
-        'color'          => '#333',
-        'text-align'	 => '',
-    ) );
-$hiilite_options['typography_h1_margin']			= get_theme_mod( 'typography_h1_margin', array(
-	'top' 		=> '0',
-	'bottom' 	=> '0.83em',
-	) );
-
-$hiilite_options['typography_h2_font']				= get_theme_mod( 'typography_h2_font', array(
-        'font-family'    => $hiilite_options['default_font']['font-family'],
-        'variant'        => '300',
-        'font-size'      => '2rem',
-        'line-height'    => '1.5',
-        'letter-spacing' => '0',
-        'text-transform' => 'none',
-        'color'          => '#666',
-        'text-align'	 => '',
-    ) );
-$hiilite_options['typography_h2_margin']			= get_theme_mod( 'typography_h2_margin', array(
-	'top' 		=> '0',
-	'bottom' 	=> '0.83em',
-	) );
-    
-$hiilite_options['typography_h3_font']				= get_theme_mod( 'typography_h3_font', array(
-        'font-family'    => $hiilite_options['default_font']['font-family'],
-        'variant'        => '400',
-        'font-size'      => '1.57rem',
-        'line-height'    => '1.5',
-        'letter-spacing' => '0',
-        'text-transform' => 'none',
-        'color'          => '#333',
-        'text-align'	 => '',
-    ) );
-$hiilite_options['typography_h3_margin']			= get_theme_mod( 'typography_h3_margin', array(
-	'top' 		=> '0',
-	'bottom' 	=> '0.83em',
-	) );    
-	
-$hiilite_options['typography_h4_font']				= get_theme_mod( 'typography_h4_font', array(
-        'font-family'    => $hiilite_options['default_font']['font-family'],
-        'variant'        => '600',
-        'font-size'      => '1.33rem',
-        'line-height'    => '1.5',
-        'letter-spacing' => '0',
-        'text-transform' => 'none',
-        'color'          => '#333',
-        'text-align'	 => '',
-    ) );
-$hiilite_options['typography_h4_margin']			= get_theme_mod( 'typography_h4_margin', array(
-	'top' 		=> '0',
-	'bottom' 	=> '0.83em',
-	) );
-    
-$hiilite_options['typography_h5_font']				= get_theme_mod( 'typography_h5_font', array(
-        'font-family'    => $hiilite_options['default_font']['font-family'],
-        'variant'        => '600',
-        'font-size'      => '0.84rem',
-        'line-height'    => '1.5',
-        'letter-spacing' => '0.15em',
-        'text-transform' => 'uppercase',
-        'color'          => '#767676',
-        'text-align'	 => '',
-    ) );
-$hiilite_options['typography_h5_margin']			= get_theme_mod( 'typography_h5_margin', array(
-	'top' 		=> '0',
-	'bottom' 	=> '0.83em',
-	) );
-    
-$hiilite_options['typography_h6_font']				= get_theme_mod( 'typography_h6_font', array(
-        'font-family'    => $hiilite_options['default_font']['font-family'],
-        'variant'        => '600',
-        'font-size'      => '0.6375rem',
-        'line-height'    => '1.5',
-        'letter-spacing' => '0',
-        'text-transform' => 'none',
-        'color'          => '#333',
-        'text-align'	 => '',
-    ) );
-$hiilite_options['typography_h6_margin']			= get_theme_mod( 'typography_h6_margin', array(
-	'top' 		=> '0',
-	'bottom' 	=> '0.83em',
-	) );    
+/*--------------------------------------------------------------
+4.0 Footer
+--------------------------------------------------------------*/
+$hiilite_options['footer_font_color']			= '#8c8880';
     
 $hiilite_options['typography_footer_headings_font']				= get_theme_mod( 'typography_footer_headings_font', array(
         'font-family'    => 'Lato',
@@ -520,24 +373,90 @@ $hiilite_options['typography_footer_headings_font']				= get_theme_mod( 'typogra
         'color'          => ' ',
     ) );
 
-$hiilite_options['typography_link_custom_css']	= get_theme_mod( 'typography_link_custom_css', 'a {
-	text-decoration:none;
-}' );
-$hiilite_options['link_color']				=get_theme_mod( 'link_color', array(
-        'link'    => $hiilite_options['color_one'],
-        'hover'   => $hiilite_options['color_two'],
-    ));
-$hiilite_options['typography_link_color']	= get_theme_mod( 'typography_link_color', $hiilite_options['color_one'] );
-$hiilite_options['typography_icon_custom_css']	= get_theme_mod( 'typography_icon_custom_css', '{
-	background: '.$hiilite_options['color_one'].';
-	display: inline-block;
-	width: 1.6em;
-	text-align: center;
-	color: white;
-	line-height: 1.6em;
-	border-radius: 2em;
-}' );
 
+$hiilite_options['footer_background'] = get_theme_mod( 'footer_background', array(
+	'background-color'    => '#fff',
+	'background-image'    => '',
+	'background-repeat'   => 'no-repeat',
+	'background-size'     => 'cover',
+	'background-attachment'   => 'scroll',
+	'background-position' => 'left-top',
+));
+    
+
+$hiilite_options['footer_top_border_color']	= get_theme_mod( 'footer_top_border_color', '#eee' );
+$hiilite_options['footer_top_border_width']	= get_theme_mod( 'footer_top_border_width', '1px' );
+$hiilite_options['footer_top_background']	= get_theme_mod( 'footer_top_background', '#fff' );
+
+$hiilite_options['footer_in_grid']			= get_theme_mod( 'footer_in_grid', true );
+
+$hiilite_options['footer_padding']			= get_theme_mod( 'footer_padding', array(
+	'top' 		=> '1em',
+	'right' 	=> '1em',
+	'bottom' 		=> '1em',
+	'left' 	=> '1em',
+	) );
+	
+$hiilite_options['footer_top_col1']			= get_theme_mod( 'footer_top_col1', true );
+$hiilite_options['footer_top_col2']			= get_theme_mod( 'footer_top_col2', true );
+$hiilite_options['footer_top_col3']			= get_theme_mod( 'footer_top_col3', true );
+$hiilite_options['footer_top_col4']			= get_theme_mod( 'footer_top_col4', true );
+
+$hiilite_options[ 'footer_top_columns' ]    = get_theme_mod( 'footer_top_columns',  array(
+		'footer_column_1',
+		'footer_column_2',
+		'footer_column_3',
+		'footer_column_4')
+);
+$hiilite_options['show_footer_top_yesno']	= get_theme_mod( 'show_footer_top_yesno', true );
+$hiilite_options['footer_bottom_background_color']		= get_theme_mod( 'footer_bottom_background_color', '#c8c8c8' );
+$hiilite_options['footer_bottom_center']	= get_theme_mod( 'footer_bottom_center', true );
+$hiilite_options['footer_bottom_left']		= get_theme_mod( 'footer_bottom_left', false );
+$hiilite_options['footer_bottom_right']		= get_theme_mod( 'footer_bottom_right', false );
+
+$hiilite_options['footer_bottom_copyright_text'] = get_theme_mod('footer_bottom_copyright_text', '<small>Copyright © '.date('Y').' All rights reserved. <a href="https://hiilite.com/services/website-design/" target="_blank" rel="noopener" title="Web Design by Hiilite">Web Design</a>, <a href="https://photography.hiilite.com" target="_blank" rel="noopener" title="Photography Services by Hiilite">Photography</a>, <a href="https://hiilite.com/services/seo/" target="_blank" rel="noopener" title="SEO by Hiilite">SEO</a> by <a href="https://hiilite.com/" target="_blank" rel="noopener" title="Web Design, Photography and SEO by Hiilite">Hiilite</a></small>');
+
+
+
+
+/*--------------------------------------------------------------
+5.0 Title
+--------------------------------------------------------------*/
+$hiilite_options['show_page_titles']		= get_theme_mod( 'show_page_titles', true );
+$hiilite_options['title_height']			= get_theme_mod( 'title_height', '100px' );
+$hiilite_options['title_padding']			= get_theme_mod( 'title_padding', array(
+		'top'    => '0',
+		'right'  => '0',
+		'bottom' => '0',
+		'left'   => '0',
+	));
+$hiilite_options['title_font']				= get_theme_mod( 'title_font', array(
+	'font-family'    => 'Open Sans',
+    'variant'        => '600',
+    'font-size'      => '4rem',
+    'line-height'    => '1',
+    'letter-spacing' => '0',
+    'text-transform' => 'uppercase',
+    'color'          => '#222',
+    'text-align'	 => 'center',
+) );
+
+$default_show_title_on = get_post_types(array(), 'names');
+$hiilite_options['show_title_on'] 	= get_theme_mod( 'show_title_on', $default_show_title_on );
+$hiilite_options['title_background'] = get_theme_mod( 'title_background', array(
+	'color' => '#ffffff',
+	'image' => '',
+	'repeat' => 'no-repeat',
+	'position' => 'left-top',
+	'size' => 'cover',
+	'attach' => 'fixed',
+));
+/*--------------------------------------------------------------
+6.0 Elements
+--------------------------------------------------------------*/
+/*--------------------------------------------------------------
+6.1 Buttons
+--------------------------------------------------------------*/
 /*
 *	Default Button
 */
@@ -637,18 +556,133 @@ $hiilite_options['typography_button_secondary_padding'] =  get_theme_mod('typogr
 	));
 $hiilite_options['typography_button_secondary_border_color'] =  get_theme_mod( 'typography_button_secondary_border_color', array(
 	'base'	=> '#ffffff',
-	'hover'	=>$hiilite_options['color_three']
-));
+	'hover'	=> $hiilite_options['color_three']
+)); 
 $hiilite_options['typography_button_secondary_border_width'] =  get_theme_mod( 'typography_button_secondary_border_width', '2px');
 $hiilite_options['typography_button_secondary_border_radius'] =  get_theme_mod( 'typography_button_secondary_border_radius', '2px');
 $hiilite_options['typography_button_secondary_custom_css']	= get_theme_mod( 'typography_button_secondary_custom_css', '.button-secondary {}' );
 
-/*
-*	Custom Formats
-*/
-$hiilite_options['custom_format_1']			= get_theme_mod( 'custom_format_1', '.custom_format_1 {}' );
-$hiilite_options['custom_format_2']			= get_theme_mod( 'custom_format_2', '.custom_format_2 {}' );
-$hiilite_options['custom_format_3']			= get_theme_mod( 'custom_format_3', '.custom_format_3 {}' );
+/*--------------------------------------------------------------
+6.3 Social Icons
+--------------------------------------------------------------*/
+$hiilite_options['social_icon_settings']				= get_theme_mod( 'social_icon_settings', array(
+        'font-size'      => '1rem',
+        'line-height'    => '1.2',
+        'color'          => $hiilite_options['color_one'],
+    ) );
+$hiilite_options['social_icon_settings_bg']				= get_theme_mod( 'social_icon_settings_bg', array(
+        'background'    => 'rgba(255,255,255,0)',
+    ));
+$hiilite_options['social_icon_settings_border_r']				= get_theme_mod( 'social_icon_settings_border_r', '2em');
+$hiilite_options['typography_social_icon_custom_css']	= get_theme_mod( 'typography_social_icon_custom_css', '.social-profiles a .fa, 
+.social-profiles .fa {
+	display: inline-block;
+	width: 1.6em;
+	text-align: center;
+}' );
+
+/*-------------------------------------------------------------- 
+7.0 Fonts
+--------------------------------------------------------------*/
+$hiilite_options['text_font']				= get_theme_mod( 'text_font', $hiilite_options['default_font']);
+$hiilite_options['text_margin']				= get_theme_mod( 'text_margin', '1em');
+$hiilite_options['typography_p_margin']				= get_theme_mod( 'typography_p_margin', array(
+	'top'	=> '0',
+	'bottom'=> $hiilite_options['text_margin'],
+));
+
+/*--------------------------------------------------------------
+7.1 Headings
+--------------------------------------------------------------*/
+$hiilite_options['typography_h1_font']				= get_theme_mod( 'typography_h1_font', array(
+        'font-family'    => $hiilite_options['default_font']['font-family'],
+        'variant'        => '300',
+        'font-size'      => '2.5rem',
+        'line-height'    => '1.5',
+        'letter-spacing' => '0',
+        'text-transform' => 'none',
+        'color'          => '#333',
+        'text-align'	 => '',
+    ) );
+$hiilite_options['typography_h1_margin']			= get_theme_mod( 'typography_h1_margin', array(
+	'top' 		=> '0',
+	'bottom' 	=> '0.83em',
+	) );
+
+$hiilite_options['typography_h2_font']				= get_theme_mod( 'typography_h2_font', array(
+        'font-family'    => $hiilite_options['default_font']['font-family'],
+        'variant'        => '300',
+        'font-size'      => '2rem',
+        'line-height'    => '1.5',
+        'letter-spacing' => '0',
+        'text-transform' => 'none',
+        'color'          => '#666',
+        'text-align'	 => '',
+    ) );
+$hiilite_options['typography_h2_margin']			= get_theme_mod( 'typography_h2_margin', array(
+	'top' 		=> '0',
+	'bottom' 	=> '0.83em',
+	) );
+    
+$hiilite_options['typography_h3_font']				= get_theme_mod( 'typography_h3_font', array(
+        'font-family'    => $hiilite_options['default_font']['font-family'],
+        'variant'        => '400',
+        'font-size'      => '1.57rem',
+        'line-height'    => '1.5',
+        'letter-spacing' => '0',
+        'text-transform' => 'none',
+        'color'          => '#333',
+        'text-align'	 => '',
+    ) );
+$hiilite_options['typography_h3_margin']			= get_theme_mod( 'typography_h3_margin', array(
+	'top' 		=> '0',
+	'bottom' 	=> '0.83em',
+	) );    
+	
+$hiilite_options['typography_h4_font']				= get_theme_mod( 'typography_h4_font', array(
+        'font-family'    => $hiilite_options['default_font']['font-family'],
+        'variant'        => '600',
+        'font-size'      => '1.33rem',
+        'line-height'    => '1.5',
+        'letter-spacing' => '0',
+        'text-transform' => 'none',
+        'color'          => '#333',
+        'text-align'	 => '',
+    ) );
+$hiilite_options['typography_h4_margin']			= get_theme_mod( 'typography_h4_margin', array(
+	'top' 		=> '0',
+	'bottom' 	=> '0.83em',
+	) );
+    
+$hiilite_options['typography_h5_font']				= get_theme_mod( 'typography_h5_font', array(
+        'font-family'    => $hiilite_options['default_font']['font-family'],
+        'variant'        => '600',
+        'font-size'      => '0.84rem',
+        'line-height'    => '1.5',
+        'letter-spacing' => '0.15em',
+        'text-transform' => 'uppercase',
+        'color'          => '#767676',
+        'text-align'	 => '',
+    ) );
+$hiilite_options['typography_h5_margin']			= get_theme_mod( 'typography_h5_margin', array(
+	'top' 		=> '0',
+	'bottom' 	=> '0.83em',
+	) );
+    
+$hiilite_options['typography_h6_font']				= get_theme_mod( 'typography_h6_font', array(
+        'font-family'    => $hiilite_options['default_font']['font-family'],
+        'variant'        => '600',
+        'font-size'      => '0.6375rem',
+        'line-height'    => '1.5',
+        'letter-spacing' => '0',
+        'text-transform' => 'none',
+        'color'          => '#333',
+        'text-align'	 => '',
+    ) );
+$hiilite_options['typography_h6_margin']			= get_theme_mod( 'typography_h6_margin', array(
+	'top' 		=> '0',
+	'bottom' 	=> '0.83em',
+	) );    
 
 $hiilite_options['h1_color']					= '#635d5d';
 $hiilite_options['h2_color']					= '#58b8a6';
@@ -657,12 +691,49 @@ $hiilite_options['h4_color']					= '#58b8a6';
 $hiilite_options['h5_color']					= '#635d5d';
 $hiilite_options['h6_color']					= '#635d5d';
 
+/*--------------------------------------------------------------
+7.2 Paragraphs & Links
+--------------------------------------------------------------*/
+$hiilite_options['typography_link_custom_css']	= get_theme_mod( 'typography_link_custom_css', 'a {
+	text-decoration:none;
+}' );
+$hiilite_options['link_color']				=get_theme_mod( 'link_color', array(
+        'link'    => $hiilite_options['color_one'],
+        'hover'   => $hiilite_options['color_two'],
+    ));
+$hiilite_options['typography_link_color']	= get_theme_mod( 'typography_link_color', $hiilite_options['color_one'] );
+
+
+
+/*
+*	Custom Formats
+*/
+$hiilite_options['custom_format_1']			= get_theme_mod( 'custom_format_1', '.custom_format_1 {}' );
+$hiilite_options['custom_format_2']			= get_theme_mod( 'custom_format_2', '.custom_format_2 {}' );
+$hiilite_options['custom_format_3']			= get_theme_mod( 'custom_format_3', '.custom_format_3 {}' );
+
+
+
+
+
+
+/*--------------------------------------------------------------
+7.3 Icons
+--------------------------------------------------------------*/
 $hiilite_options['icon_settings']				= get_theme_mod( 'icon_settings', array(
         'font-size'      => '',
         'line-height'    => '',
         'color'          => $hiilite_options['color_one'],
     ) );
-// Social
+$hiilite_options['typography_icon_custom_css']	= get_theme_mod( 'typography_icon_custom_css', '{
+	background: '.$hiilite_options['color_one'].';
+	display: inline-block;
+	width: 1.6em;
+	text-align: center;
+	color: white;
+	line-height: 1.6em;
+	border-radius: 2em;
+}' );
 $hiilite_options['typography_icon_custom_css']		= get_theme_mod('typography_icon_custom_css', '.fa-style-round {
 	background: '.get_theme_mod( 'color_one', '#ef5022').';
 	display: inline-block;
@@ -705,7 +776,40 @@ $hiilite_options['typography_icon_custom_css']		= get_theme_mod('typography_icon
 	background: none;
 }');
 
-// BLOG
+/*--------------------------------------------------------------
+8.0 Sidebar
+--------------------------------------------------------------*/
+$hiilite_options['sidebar_background']		= get_theme_mod( 'sidebar_background', '#f4f4f4');
+$hiilite_options['sidebar_padding'] 				= get_theme_mod( 'sidebar_padding', array(
+		'top'    => '1em',
+		'right'  => '1em',
+		'bottom' => '1em',
+		'left'   => '1em',
+	));
+$hiilite_options['sidebar_border_width']		= get_theme_mod( 'sidebar_border_width', '0px');
+$hiilite_options['sidebar_border_color']		= get_theme_mod( 'sidebar_border_color', '');
+
+$hiilite_options['sidebar_widget_margin'] 				= get_theme_mod( 'sidebar_widget_margin', array(
+		'top'    => '1em',
+		'right'  => '0em',
+		'bottom' => '1em',
+		'left'   => '0em',
+	));
+$hiilite_options['sidebar_widget_padding'] 				= get_theme_mod( 'sidebar_widget_padding', array(
+		'top'    => '0em',
+		'right'  => '0em',
+		'bottom' => '0em',
+		'left'   => '0em',
+	));
+$hiilite_options['sidebar_widget_border_width']		= get_theme_mod( 'sidebar_widget_border_width', '0px');
+$hiilite_options['sidebar_widget_border_color']		= get_theme_mod( 'sidebar_widget_border_color', '');
+
+/*--------------------------------------------------------------
+10.0 Blog
+--------------------------------------------------------------*/
+/*--------------------------------------------------------------
+10.1 Blog List
+--------------------------------------------------------------*/
 $hiilite_options['blog_layouts']			= get_theme_mod( 'blog_layouts', 'full-width' );
 $hiilite_options['blog_full_width']			= get_theme_mod( 'blog_full_width', false );
 $hiilite_options['blog_hide_password_protected_posts']= get_theme_mod( 'blog_hide_password_protected_posts', true );
@@ -758,7 +862,9 @@ $hiilite_options['blog_title_font']   = get_theme_mod('blog_title_font', array(
         'text-align'	=> 'left',
         'text-transform'	=> 'none',
     ) );
-// BLOG SINGLE
+/*--------------------------------------------------------------
+10.2 Blog Single
+--------------------------------------------------------------*/
 $hiilite_options['related_posts_font']    = get_theme_mod('related_posts_font', array(
         'font-family'    => ' ',
         'variant'        => ' ',
@@ -769,34 +875,53 @@ $hiilite_options['related_posts_font']    = get_theme_mod('related_posts_font', 
         'text-align'	=> 'left',
         'text-transform'	=> 'none',
     ) );
-// SIDEBAR
-$hiilite_options['sidebar_background']		= get_theme_mod( 'sidebar_background', '#f4f4f4');
-$hiilite_options['sidebar_padding'] 				= get_theme_mod( 'sidebar_padding', array(
-		'top'    => '1em',
-		'right'  => '1em',
-		'bottom' => '1em',
-		'left'   => '1em',
-	));
-$hiilite_options['sidebar_border_width']		= get_theme_mod( 'sidebar_border_width', '0px');
-$hiilite_options['sidebar_border_color']		= get_theme_mod( 'sidebar_border_color', '');
+$hiilite_options['blog_single_text_font']    = get_theme_mod('blog_single_text_font', array(
+        'font-family'    => ' ',
+        'variant'        => ' ',
+        'font-size'      => '16px',
+        'line-height'    => ' ',
+        'letter-spacing' => '0px',
+        'color'          => get_theme_mod('color_four','#333333'),
+        'text-align'	=> 'none',
+        'text-transform'	=> 'none',
+    ) );    
+/*--------------------------------------------------------------
+10.3 Pagination
+--------------------------------------------------------------*/
+$hiilite_options['pagination_active_page_color']	= get_theme_mod( 'pagination_active_page_color', '#818181' );
+$hiilite_options['pagination_non_active_page_color']	= get_theme_mod( 'pagination_non_active_page_color', '#e1e1e1' );
+$hiilite_options['pagination_text_color']	= get_theme_mod( 'pagination_text_color', '#ffffff' );
 
-$hiilite_options['sidebar_widget_margin'] 				= get_theme_mod( 'sidebar_widget_margin', array(
-		'top'    => '1em',
-		'right'  => '0em',
-		'bottom' => '1em',
-		'left'   => '0em',
-	));
-$hiilite_options['sidebar_widget_padding'] 				= get_theme_mod( 'sidebar_widget_padding', array(
-		'top'    => '0em',
-		'right'  => '0em',
-		'bottom' => '0em',
-		'left'   => '0em',
-	));
-$hiilite_options['sidebar_widget_border_width']		= get_theme_mod( 'sidebar_widget_border_width', '0px');
-$hiilite_options['sidebar_widget_border_color']		= get_theme_mod( 'sidebar_widget_border_color', '');
 
-// PORTFOLIO
-$hiilite_options['portfolio_layout']		= get_theme_mod( 'portfolio_layout', 'boxed' );
+/*--------------------------------------------------------------
+11.0 Testimonials
+--------------------------------------------------------------*/
+$hiilite_options['testimonials_body_font']	= get_theme_mod( 'testimonials_body_font', array(
+        'font-family'    => ' ',
+        'variant'        => ' ',
+        'font-size'      => ' ',
+        'line-height'    => ' ',
+        'letter-spacing' => '0px', 
+        'color'          => get_theme_mod('color_four','#333333'),
+        'text-align'	=> 'center',
+        'text-transform'	=> 'none',
+    ) );
+    
+$hiilite_options['testimonials_author_font']	= get_theme_mod( 'testimonials_author_font', array(
+        'font-family'    => ' ',
+        'variant'        => ' ',
+        'font-size'      => ' ',
+        'line-height'    => ' ',
+        'letter-spacing' => '0px',
+        'color'          => get_theme_mod('color_four','#333333'),
+        'text-align'	=> 'center',
+        'text-transform'	=> 'none',
+    ) );
+    
+/*--------------------------------------------------------------
+12.0 Portfolio
+--------------------------------------------------------------*/
+$hiilite_options['portfolio_layout']		= get_theme_mod( 'portfolio_layout', 'split' );
 
 $hiilite_options['portfolio_image_style']	= get_theme_mod( 'portfolio_image_style', 'default' );
 $hiilite_options['portfolio_show_info']		= get_theme_mod( 'portfolio_show_info', true );
@@ -804,7 +929,7 @@ $hiilite_options['portfolio_image_pos']		= get_theme_mod( 'portfolio_image_pos',
 $hiilite_options['portfolio_columns']		= get_theme_mod( 'portfolio_columns', 'col-4' );
 $hiilite_options['portfolio_show_filter']	= get_theme_mod( 'portfolio_show_filter', true );
 $hiilite_options['portfolio_in_grid']		= get_theme_mod( 'portfolio_in_grid', true );
-$hiilite_options['portfolio_show_post_title']= get_theme_mod( 'portfolio_show_post_title', false );
+$hiilite_options['portfolio_show_post_title']= get_theme_mod( 'portfolio_show_post_title', true );
 $hiilite_options['portfolio_heading_size']	= get_theme_mod( 'portfolio_heading_size', 'h5' );
 
 $hiilite_options['portfolio_heading_font']	= get_theme_mod( 'portfolio_heading_font', array(
@@ -820,7 +945,7 @@ $hiilite_options['portfolio_heading_font']	= get_theme_mod( 'portfolio_heading_f
     
 
 
-$hiilite_options['portfolio_show_post_meta']= get_theme_mod( 'portfolio_show_post_meta', false );
+$hiilite_options['portfolio_show_post_meta']= get_theme_mod( 'portfolio_show_post_meta', true );
 $hiilite_options['portfolio_meta_font']	= get_theme_mod( 'portfolio_meta_font', array(
         'font-family'    => ' ',
         'variant'        => '300',
@@ -832,7 +957,7 @@ $hiilite_options['portfolio_meta_font']	= get_theme_mod( 'portfolio_meta_font', 
         'text-transform'	=> 'none',
     ) );
     
-$hiilite_options['portfolio_add_padding']	= get_theme_mod( 'portfolio_add_padding', '20px' );
+$hiilite_options['portfolio_add_padding']	= get_theme_mod( 'portfolio_add_padding', '10px' );
 
 $hiilite_options['portfolio_excerpt_on']	= get_theme_mod( 'portfolio_excerpt_on', true );
 $hiilite_options['portfolio_excerpt_length']= get_theme_mod( 'portfolio_excerpt_length', '20' );
@@ -863,39 +988,12 @@ $hiilite_options['show_more_projects']		= get_theme_mod( 'show_more_projects', f
 
 $hiilite_options['portfolio_custom_css'] 	= get_theme_mod( 'portfolio_custom_css', '' );
 
-// PAGINATION
-$hiilite_options['pagination_active_page_color']	= get_theme_mod( 'pagination_active_page_color', '#818181' );
-$hiilite_options['pagination_non_active_page_color']	= get_theme_mod( 'pagination_non_active_page_color', '#e1e1e1' );
-$hiilite_options['pagination_text_color']	= get_theme_mod( 'pagination_text_color', '#ffffff' );
-
-// EVENT
 $hiilite_options['blog_date_style'] = get_theme_mod( 'blog_date_style', '' );
 
 
-// TESTIMONIALS
-$hiilite_options['testimonials_body_font']	= get_theme_mod( 'testimonials_body_font', array(
-        'font-family'    => ' ',
-        'variant'        => ' ',
-        'font-size'      => ' ',
-        'line-height'    => ' ',
-        'letter-spacing' => '0px', 
-        'color'          => get_theme_mod('color_four','#333333'),
-        'text-align'	=> 'center',
-        'text-transform'	=> 'none',
-    ) );
-    
-$hiilite_options['testimonials_author_font']	= get_theme_mod( 'testimonials_author_font', array(
-        'font-family'    => ' ',
-        'variant'        => ' ',
-        'font-size'      => ' ',
-        'line-height'    => ' ',
-        'letter-spacing' => '0px',
-        'color'          => get_theme_mod('color_four','#333333'),
-        'text-align'	=> 'center',
-        'text-transform'	=> 'none',
-    ) );
-
-// TEAMS
+/*--------------------------------------------------------------
+13.0 Teams
+--------------------------------------------------------------*/
 $hiilite_options['teams_cols'] 			= get_theme_mod( 'teams_cols', 'col-4' );
 $hiilite_options['teams_title_show']	= get_theme_mod( 'teams_title_show', true );
 $hiilite_options['teams_heading_tag']	= get_theme_mod( 'teams_heading_tag', 'h3' );
@@ -972,7 +1070,15 @@ $hiilite_options['team_member_position_font']	= get_theme_mod( 'team_member_posi
         'text-transform'	=> 'none',
     ) );
 
-
+/*--------------------------------------------------------------
+13.0 WooCommerce
+--------------------------------------------------------------*/
+/*
+ * HEADER -> WOOCOMMERCE MENU CART	
+ */
+$hiilite_options['show_cart_menu']		= get_theme_mod( 'show_cart_menu', true );
+$hiilite_options['cart_menu_layout']		= get_theme_mod( 'cart_menu_layout', 'icon-only' );
+$hiilite_options['cart_menu_icon']		= get_theme_mod( 'cart_menu_icon', 'shopping-cart' );
 $hiilite_options['product_default_image'] 		= get_theme_mod('product_default_image', '/wp-content/plugins/woocommerce/assets/images/placeholder.png');
 
 if(class_exists( 'WooCommerce' )){

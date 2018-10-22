@@ -117,7 +117,7 @@ body .gform_wrapper ul li.gfield.gform_rangeslider {
 .gform_wrapper .gform_footer input.button, .gform_wrapper .gform_footer input[type=submit] { 
 	cursor: pointer;
 	<?php 
-	get_font_css(Hii::$options[ 'typography_button_primary_font' ]);
+	echo get_font_css(Hii::$options[ 'typography_button_primary_font' ]);
 	echo 'background:'.Hii::$options[ 'typography_button_primary_background']['base'].';';
 	echo 'padding:'.get_spacing(Hii::$options[ 'typography_button_primary_padding' ]).';';
 	echo 'border: '.
@@ -126,7 +126,7 @@ body .gform_wrapper ul li.gfield.gform_rangeslider {
 		Hii::$options['typography_button_primary_border_color']['base'].
 		';';
 	echo 'border-radius:'.Hii::$options['typography_button_primary_border_radius'].';';
-	echo preg_replace('/[{}]/','',Hii::$options['typography_button_primary_custom_css']);?>
+	//echo preg_replace('/[{}]/','',Hii::$options['typography_button_primary_custom_css']);?>
 }
 .gform_wrapper .gform_footer input.button:hover, .gform_wrapper .gform_footer input[type=submit]:hover {
 	color: white;

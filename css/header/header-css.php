@@ -112,7 +112,7 @@ if(Hii::$options['header_top_area_yesno'] == true):
 		border-bottom-style: solid;
 		
 		<?php 
-		get_font_css(Hii::$options['header_top_font']);
+		echo get_font_css(Hii::$options['header_top_font']);
 	?>
 	}
 	#header_top a,
@@ -155,7 +155,7 @@ endif; ?>
 }
 #header_bottom .menu .menu-item a{
 	<?php 
-	get_font_css(get_theme_mod( 'header_bottom_font' ));
+	echo get_font_css(get_theme_mod( 'header_bottom_font' ));
 	?>
 }
 

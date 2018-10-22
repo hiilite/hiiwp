@@ -1,4 +1,15 @@
-<?php if(false): ?><style><?php endif; 
+<?php
+/**
+ * HiiWP: Menu-CSS
+ *
+ * Menu CSS file
+ *
+ * @package     hiiwp
+ * @copyright   Copyright (c) 2018, Peter Vigilante
+ * @license     http://opensource.org/licenses/gpl-2.0.php GNU Public License
+ * @since       1.0.1
+ */
+if(false): ?><style><?php endif; 
 
 $main_menu_colors = Hii::$options['main_menu_colors'];
 $second_level_menu_colors = Hii::$options['second_level_menu_colors'];	
@@ -140,18 +151,20 @@ ul.sub-menu {
 	    transform: scaleY(1) rotateY(0deg);
 		opacity: 1;
 	}
-	.sub-menu > .menu-item-has-children > a:after {
+	#main_header .sub-menu > .menu-item-has-children > a:after {
 	    font-family: FontAwesome;
 	    content: '\f105';
 	    float:right;
+	    transition: transform 0.4s;
 	}
-	.sub-menu > .menu-item-has-children:hover > a:after {
-		content: '\f107';
+	#main_header .sub-menu > .menu-item-has-children:hover > a:after {
+		transform: rotate(90deg);
 	}
 }
 @media (max-width:<?php echo Hii::$options['mobile_menu_switch'];?>){
 	#main_header ul.sub-menu {
 		height: 0;
+		position: relative;
 	}
 	#main_header .menu li.open > ul.sub-menu {
 		box-shadow: 0 0 1px rgba(0,0,0,0.4);
@@ -167,9 +180,10 @@ ul.sub-menu {
 	    padding: 1em 1.5em;
 	    font-family: FontAwesome;
 	    content: '\f105';
+	    transition: transform 0.4s;
 	}	
 	.menu-item-has-children.open:after{
-		content: '\f107';
+		transform: rotate(90deg);
 	}
 	
 	.mobile_menu_button {

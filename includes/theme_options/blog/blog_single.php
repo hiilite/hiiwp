@@ -126,9 +126,19 @@ Kirki::add_field( 'hiiwp', array(
 	),
 	'output'	  => array(
 		array(
-			'element'	=> '.blog-default-icon',
+			'element'	=> '.fa.post-format-icon',
 			'property'	=> 'color',
 		)  
     ),
+) );
+
+Kirki::add_field( 'hiiwp', array(
+    'type'        => 'typography',
+    'settings'    => 'blog_single_text_font',
+    'label'       => esc_attr__( 'Paragraph Font', 'hiiwp' ),
+    'description' => __( 'Define styles for paragraph text for just within a blog posat', 'hiiwp' ),
+    'section'     => $section,
+    'default'     => $hiilite_options['blog_single_text_font'],
+    'priority'    => 1,
 ) );
 ?>

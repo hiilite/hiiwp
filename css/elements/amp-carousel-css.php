@@ -155,6 +155,10 @@ amp-carousel.carousel {
 .smooth-scroll-wrapper.kinetic-active {
     overflow: hidden;
 }
+.smooth-scroll-wrapper.kinetic-active .carousel-wrapper {
+	white-space: nowrap;
+}
+
 amp-carousel.carousel .carousel-wrapper:after {
     content: '';
     display: block;
@@ -163,6 +167,7 @@ amp-carousel.carousel .carousel-wrapper:after {
 amp-carousel.carousel .slide {
 	display: inline-block;
 	white-space: normal;
+	margin-right: 10px;
 }
 amp-carousel.carousel .slide > img {
     max-height: 100%;

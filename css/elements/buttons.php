@@ -1,6 +1,3 @@
-<?php
-
-	 /* */ ?>
 .button {
 	-webkit-appearance: none;
 	display: inline-block;
@@ -69,6 +66,3 @@ else echo Hii::$options['typography_button_secondary_custom_css'];
 	border: 2px solid #989898;
 	color: #989898;
 }
-<?php
-
-	 /* */ ?>

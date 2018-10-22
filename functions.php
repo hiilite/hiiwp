@@ -25,7 +25,7 @@
  * @author      Peter Vigilante
  * @copyright   Copyright (c) 2018, Hiilite Creative Group
  * @license     http://opensource.org/licenses/https://opensource.org/licenses/MIT
- * @since       1.0
+ * @since       1.0.1
  */
 
 /**
@@ -79,7 +79,7 @@ class Hii {
 	 */
 	private function define_constants(){
 	    if ( ! defined( 'HIIWP_VERSION' ) ) {                
-			 define( 'HIIWP_VERSION', '1.0' );
+			 define( 'HIIWP_VERSION', '1.0.1' );
 		}
 		if ( ! defined( 'HIIWP_SLUG' ) ) {                
 		    define( 'HIIWP_SLUG', 'hiiwp' );           

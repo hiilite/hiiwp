@@ -5,10 +5,13 @@
  * @package     hiiwp
  * @copyright   Copyright (c) 2018, Peter Vigilante
  * @license     http://opensource.org/licenses/gpl-2.0.php GNU Public License
- * @since       1.0
+ * @since       1.0.1
  */
 global $post;
-if(!isset($atts)) $hiilite_options = Hii::get_options();
+if(isset($hiilite_options)) $hiilite_options =  array_intersect_key($hiilite_options + Hii::get_options(), Hii::get_options());
+else $hiilite_options = Hii::get_options();
+
+//print_r($hiilite_options);
 $post_meta = get_post_meta(get_the_id());
 $post_format_icon = $article_title = $dateline = $article_cat = $embedded_media = '';
 
@@ -45,6 +48,7 @@ endif;
 
 
 if($hiilite_options['blog_title_show'] == 'true' || $hiilite_options['blog_title_show'] == true) {
+	
 	if ( is_sticky() ) {
 		$post_format_icon .= '<i class="fa fa-thumb-tack post-format-icon"> </i>';
 	}
@@ -78,12 +82,12 @@ if($hiilite_options['blog_title_show'] == 'true' || $hiilite_options['blog_title
 		} 
 	}
 	$article_title .= '';
-	
+
 	$article_title .= '<' . $hiilite_options['blog_heading_tag'] . ' class="entry-title"><a href="' . get_the_permalink() . '">' . $post_format_icon . get_the_title().'</a></' . $hiilite_options['blog_heading_tag'] . '>';
 } 
 
 if($hiilite_options['blog_cats_show'] == 'true' || $hiilite_options['blog_cats_show'] === true):
-	$dateline = $article_cat.$dateline;
+	$article_title = $article_cat.$article_title;
 endif;
 
 if($hiilite_options['blog_date_pos'] == 'date-above'):
@@ -116,7 +120,7 @@ if($hiilite_options['blog_layouts'] =='boxed'){
 do_action( 'hii_before_blog_loop' );
 ?>
 <!--BLOG-LOOP-->
-<article <?php post_class('flex-item blog-article '.$cols); ?> id="post-<?php the_ID(); ?>" >
+<article <?php post_class('flex-item blog-article blog-loop '.$cols); ?> id="post-<?php the_ID(); ?>" >
 	<?php 
 	if($hiilite_options['blog_title_position'] == 'title-above') { 
 		echo '<header class="entry-header content-box col-12">';
@@ -166,7 +170,7 @@ do_action( 'hii_before_blog_loop' );
 			$more_button_class = get_theme_mod( 'blog_more_type', 'button' );
 			$more_button_class .= ($more_button_class != 'link' && $more_button_class != 'button')?' button readmore':' readmore';
 			?>
-			<a class="<?php echo sanitize_html_class($more_button_class);?>" href="<?php the_permalink() ?>" title="<?php echo __('Read more on ' . get_the_title(), 'hiiwp'); ?>"><?php echo esc_html__($hiilite_options['blog_more_ex'], 'hiiwp');?></a><?php 
+			<a class="<?php echo $more_button_class;?>" href="<?php the_permalink() ?>" title="<?php echo __('Read more on ' . get_the_title(), 'hiiwp'); ?>"><?php echo esc_html__($hiilite_options['blog_more_ex'], 'hiiwp');?></a><?php 
 		endif;
 		echo '</div>';
 		?>

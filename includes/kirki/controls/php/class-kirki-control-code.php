@@ -8,9 +8,11 @@
  * @package     Kirki
  * @subpackage  Controls
  * @copyright   Copyright (c) 2017, Aristeides Stathopoulos
- * @license     http://opensource.org/licenses/https://opensource.org/licenses/MIT
+ * @license    https://opensource.org/licenses/MIT
  * @since       1.0
  */
+
+// @codingStandardsIgnoreFile Generic.Files.OneClassPerFile.MultipleFound Generic.Classes.DuplicateClassName.Found
 
 // Exit if accessed directly.
 if ( ! defined( 'ABSPATH' ) ) {
@@ -34,7 +36,7 @@ if ( ! class_exists( 'WP_Customize_Code_Editor_Control' ) ) {
 		protected function content_template() {
 			?>
 			<div class="notice notice-error" data-type="error"><div class="notification-message">
-				<?php esc_attr_e( 'Please update your WordPress installation to a version newer than 4.9 to access the code control.', 'hiiwp' ); ?>
+				<?php esc_attr_e( 'Please update your WordPress installation to a version newer than 4.9 to access the code control.', 'kirki' ); ?>
 			</div></div>
 			<?php
 		}

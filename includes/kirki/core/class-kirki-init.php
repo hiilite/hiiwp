@@ -6,7 +6,7 @@
  * @category    Core
  * @author      Aristeides Stathopoulos
  * @copyright   Copyright (c) 2017, Aristeides Stathopoulos
- * @license     http://opensource.org/licenses/https://opensource.org/licenses/MIT
+ * @license    https://opensource.org/licenses/MIT
  * @since       1.0
  */
 
@@ -279,7 +279,7 @@ class Kirki_Init {
 	 */
 	public static function get_variables() {
 		// Log error for developers.
-		_doing_it_wrong( __METHOD__, esc_attr__( 'We detected you\'re using Kirki_Init::get_variables(). Please use Kirki_Util::get_variables() instead.', 'hiiwp' ), '3.0.10' );
+		_doing_it_wrong( __METHOD__, esc_attr__( 'We detected you\'re using Kirki_Init::get_variables(). Please use Kirki_Util::get_variables() instead.', 'kirki' ), '3.0.10' );
 		// Return result using the Kirki_Util class.
 		return Kirki_Util::get_variables();
 	}

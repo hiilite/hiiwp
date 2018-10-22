@@ -768,6 +768,11 @@ class HiiWP extends Hii {
 	            'required'  => false,
 	        ),
 	        array(
+	            'name'      => 'Facebook Tracking Pixel for Gravity Forms',
+	            'slug'      => 'gf-facebook-pixel-tracking',
+	            'required'  => false,
+	        ),
+	        array(
 	            'name'      => 'SSL Insecure Content Fixer',
 	            'slug'      => 'ssl-insecure-content-fixer',
 	            'required'  => false,
@@ -782,17 +787,17 @@ class HiiWP extends Hii {
 	    $plugins = array(
 	
 	        // This is an example of how to include a plugin pre-packaged with a theme.
-	        array(
+	        /*array(
                 'name'      => 'Envato Market',
                 'slug'      => 'envato-market',
                 'source'    => 'https://github.com/envato/wp-envato-market/archive/master.zip',
                 'required'  => false,
-            ),
+            ),*/
 			array(
 	            'name'               => 'WPBakery Visual Composer', // The plugin name.
 	            'slug'               => 'js_composer', // The plugin slug (typically the folder name).
 	            'source'             => 'https://hiilite.com/download/9034/', // The plugin source.
-	            'version'			 => '5.4.5',
+	            'version'			 => '5.5.4',
 	            'required'           => true, // If false, the plugin is only 'recommended' instead of required.
 	            'force_activation'   => true, // If true, plugin is activated upon theme activation and cannot be deactivated until theme switch.
 	            'force_deactivation' => false, // If true, plugin is deactivated upon theme switch, useful for theme-specific plugins.

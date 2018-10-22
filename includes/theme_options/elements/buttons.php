@@ -2,7 +2,7 @@
 $section = 'elements_button_section';
 
 Kirki::add_section( $section, array(
-    'priority'    => 6,
+    'priority'    => 1,
     'title'       => __( 'Buttons', 'hiiwp' ),
     'panel'		 => 'elements_panel',
 ) );
@@ -64,6 +64,7 @@ Kirki::add_field( 'hiiwp', array(
         'hover'  => esc_attr__( 'Hover Color', 'hiiwp' ),
     ),
     'default'     => $hiilite_options['typography_button_default_background'],
+    'transport'	  => 'refresh',
 	'priority'    => 1
 ) );
 Kirki::add_field( 'hiiwp', array(

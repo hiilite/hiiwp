@@ -1,4 +1,14 @@
 <?php
+/**
+ * HiiWP: Blog List
+ *
+ * Kirki options for the Blog list section
+ *
+ * @package     hiiwp
+ * @copyright   Copyright (c) 2018, Peter Vigilante
+ * @license     http://opensource.org/licenses/gpl-2.0.php GNU Public License
+ * @since       1.0.1
+ */
 $section = 'blog_section';
 //////////////////////
 //
@@ -290,7 +300,7 @@ Kirki::add_field( 'hiiwp', array(
     'priority'    => 1,
     'output'	  => array(
 		array(
-			'element'	=> '#home_blog_loop .blog-article .content-box',
+			'element'	=> '.blog-article .content-box',
 			'property'	=> 'border-width',
 		)  
     ),
@@ -308,7 +318,7 @@ Kirki::add_field( 'hiiwp', array(
 	),
 	'output'	  => array(
 		array(
-			'element'	=> '#home_blog_loop .blog-article .content-box',
+			'element'	=> '.blog-loop .content-box',
 			'property'	=> 'border-color',
 		)  
     ),
@@ -341,4 +351,3 @@ Kirki::add_field( 'hiiwp', array(
 		)  
     ),
 ) );
-?>
