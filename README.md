@@ -2,6 +2,9 @@
 
 ### Change log
 #### v1.0.1
+- Added visibility options to vc_row
+
+#### v1.0.1
 - Minor layout a design bug fixes
 - Fixed id on textblock
 - Removed default underline on hover for a tags

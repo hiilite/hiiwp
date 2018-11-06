@@ -1,5 +1,15 @@
 <?php
-	
+/**
+ * Extend VC
+ * Adds additional features to Visual Composer
+ *
+ * @package     HiiWP
+ * @category    Core
+ * @author      Peter Vigilante
+ * @copyright   Copyright (c) 2017, Hiilite Creative Group
+ * @license     http://opensource.org/licenses/https://opensource.org/licenses/MIT
+ * @since       1.0.2
+ */
 $hiilite_options = Hii::get_options();
 /*** Removing shortcodes ***/
 vc_remove_element("vc_wp_text"); 
@@ -158,7 +168,19 @@ $vc_row_params = array(
 			),
 			'description' => __( 'Positioning of background image.', 'hiiwp' ),
 			'group' => __( 'Design options', 'hiiwp' ),
-		));
+		),
+		array(
+			'type' => 'dropdown',
+			'heading' => __( 'Display to:', 'hiiwp' ),
+			'param_name' => 'row_visibility',
+			'description' => __( 'Set the visibility of the contents of this row', 'hiiwp' ),
+			'value' => array(
+				__( 'Everyone', 'hiiwp' ) => '',
+				__( 'Logged In Users', 'hiiwp' ) => 'in',
+				__( 'Logged Out Users', 'hiiwp' ) => 'out',
+			),
+			'group' => __( 'Advanced', 'hiiwp' ),
+		),);
 vc_map( array(
 	'name' => __( 'Row' , 'hiiwp' ),
 	"base" => "vc_row",
@@ -374,7 +396,19 @@ $vc_row_inner_params = array(
 			),
 			'description' => __( 'Positioning of background image.', 'hiiwp' ),
 			'group' => __( 'Design Options', 'hiiwp' ),
-		));
+		), 
+		array(
+			'type' => 'dropdown',
+			'heading' => __( 'Display to:', 'hiiwp' ),
+			'param_name' => 'row_visibility',
+			'description' => __( 'Set the visibility of the contents of this row', 'hiiwp' ),
+			'value' => array(
+				__( 'Everyone', 'hiiwp' ) => '',
+				__( 'Logged In Users', 'hiiwp' ) => 'in',
+				__( 'Logged Out Users', 'hiiwp' ) => 'out',
+			),
+			'group' => __( 'Advanced', 'hiiwp' ),
+		),);
 vc_map( array(
 	'name' => __( 'Inner Row' , 'hiiwp' ),
 	"base" => "vc_row_inner",

@@ -174,17 +174,29 @@ do_action( 'hii_before_header' );
 				do_action( 'hii_before_header_bottom' );
 				?>
 				<aside id="header_bottom" class="flex-item">
-					<div class="container_inner"><div class="in_grid">
-						<div id="header_bottom_left">
-							<?php
-							do_action( 'hii_header_bottom_left' );
-							?>
-						</div>
-						<div id="header_bottom_right">
-							<?php
-							do_action( 'hii_header_bottom_right' );
-							?>
-						</div>
+					<div class="container_inner">
+						<div class="in_grid">
+							<div id="header_bottom_left">
+								<?php
+								do_action( 'hii_header_bottom_left' );
+								?>
+							</div>
+							<div id="header_bottom_right">
+								<?php
+								do_action( 'hii_header_bottom_right' );
+								?>
+							</div>
+							<?php 
+
+								wp_nav_menu(array(
+										'menu' =>  'bottom-menu',
+										'container' => 'div',
+										'container_class' => 'align-center flex-item',
+										'container_id' => 'header_bottom_menu',
+										'items_wrap'  => '<ul id="%1s" class="%2$s bottom-menu">%3$s</ul>',
+										'theme_location' => 'bottom-menu',
+										'fallback_cb'    => false
+									));	 ?>
 						</div>
 					</div>
 				</aside>
