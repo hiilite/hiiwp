@@ -35,10 +35,8 @@ if(Hii::$options['header_top_home'] == true): ?>
 
 <?php
 endif;
-?>
 
 
-<?php
 if(Hii::$options['header_type'] == 'centered') : ?>
 
 	header.centered, 
@@ -104,15 +102,17 @@ if(Hii::$options['header_top_area_yesno'] == true):
 	/*
 	//  note: Header Top
 	*/	
-	$header_top_colors = get_theme_mod( 'header_top_colors' );
+	$header_top_colors = Hii::$options['header_top_colors']; 
+
 	?>
 	#header_top {
 		background: <?php echo get_theme_mod('header_top_background_color', '#f8f8f8');?>;
 		border-top: <?php echo get_theme_mod('header_top_border_width', '0px').' solid '.get_theme_mod('header_top_border_color', 'transparent');?>;
 		border-bottom-style: solid;
-		
+		position: relative;
+		z-index: 150;
 		<?php 
-		get_font_css(Hii::$options['header_top_font']);
+		echo get_font_css(Hii::$options['header_top_font']);
 	?>
 	}
 	#header_top a,
@@ -155,7 +155,7 @@ endif; ?>
 }
 #header_bottom .menu .menu-item a{
 	<?php 
-	get_font_css(get_theme_mod( 'header_bottom_font' ));
+	echo get_font_css(get_theme_mod( 'header_bottom_font' ));
 	?>
 }
 

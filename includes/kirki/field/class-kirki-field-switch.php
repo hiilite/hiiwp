@@ -5,7 +5,7 @@
  * @package     Kirki
  * @subpackage  Controls
  * @copyright   Copyright (c) 2017, Aristeides Stathopoulos
- * @license     http://opensource.org/licenses/https://opensource.org/licenses/MIT
+ * @license    https://opensource.org/licenses/MIT
  * @since       2.2.7
  */
 
@@ -39,8 +39,8 @@ class Kirki_Field_Switch extends Kirki_Field_Checkbox {
 		$this->choices = wp_parse_args(
 			$this->choices,
 			array(
-				'on'    => esc_attr__( 'On', 'hiiwp' ),
-				'off'   => esc_attr__( 'Off', 'hiiwp' ),
+				'on'    => esc_attr__( 'On', 'kirki' ),
+				'off'   => esc_attr__( 'Off', 'kirki' ),
 				'round' => false,
 			)
 		);

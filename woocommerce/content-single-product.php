@@ -35,7 +35,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 ?>
 <div class="summary entry-summary container_inner">
 	<div <?php post_class('in_grid'); ?>>
-		<div class="col-8 product_images">
+		<div class="col-6 product_images">
 		<?php
 			/**
 			 * woocommerce_before_single_product_summary hook.
@@ -46,23 +46,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 			do_action( 'woocommerce_before_single_product_summary' );
 			
 		?>
-			<div class="row">
-			<?php
-				woocommerce_output_product_data_tabs();
-				woocommerce_upsell_display();
-				/**
-				 * woocommerce_after_single_product_summary hook.
-				 *
-				 * @hooked woocommerce_output_product_data_tabs - 10
-				 * @hooked woocommerce_upsell_display - 15
-				 * @hooked woocommerce_output_related_products - 20
-				 */
-				//do_action( 'woocommerce_after_single_product_summary' );
-			?>
-			</div>
+			
 		</div>
 	
-		<div class="col-4 product_summary">
+		<div class="col-6 product_summary">
 		<?php
 			/*
 			woocommerce_template_single_excerpt();
@@ -88,6 +75,20 @@ if ( ! defined( 'ABSPATH' ) ) {
 		?>
 		</div>
 		<div class="col-12">
+			<div class="row">
+			<?php
+				woocommerce_output_product_data_tabs();
+				woocommerce_upsell_display();
+				/**
+				 * woocommerce_after_single_product_summary hook.
+				 *
+				 * @hooked woocommerce_output_product_data_tabs - 10
+				 * @hooked woocommerce_upsell_display - 15
+				 * @hooked woocommerce_output_related_products - 20
+				 */
+				//do_action( 'woocommerce_after_single_product_summary' );
+			?>
+			</div>
 			<?php
 			woocommerce_output_related_products();
 			?>

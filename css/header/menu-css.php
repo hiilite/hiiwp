@@ -1,4 +1,15 @@
-<?php if(false): ?><style><?php endif; 
+<?php
+/**
+ * HiiWP: Menu-CSS
+ *
+ * Menu CSS file
+ *
+ * @package     hiiwp
+ * @copyright   Copyright (c) 2018, Peter Vigilante
+ * @license     http://opensource.org/licenses/gpl-2.0.php GNU Public License
+ * @since       1.0.1
+ */
+if(false): ?><style><?php endif; 
 
 $main_menu_colors = Hii::$options['main_menu_colors'];
 $second_level_menu_colors = Hii::$options['second_level_menu_colors'];	
@@ -7,7 +18,9 @@ $third_level_menu_colors = Hii::$options['third_level_menu_colors'];
 #main-nav {
 	margin:<?php echo get_spacing(Hii::$options['menu_margin']);?>;
 }
-.main-menu.menu, #header_top .menu, #header_bottom .menu {
+.main-menu.menu, 
+#header_top .menu, 
+#header_bottom .menu {
 	list-style: none;
 	padding: 0;
 	margin: 0;
@@ -19,7 +32,7 @@ $third_level_menu_colors = Hii::$options['third_level_menu_colors'];
     display: flex;
     justify-content: space-evenly;
 }
-#main_header .menu .menu-item  {
+.menu .menu-item  {
 	position: relative;
 	cursor: pointer;
 }
@@ -45,7 +58,8 @@ $third_level_menu_colors = Hii::$options['third_level_menu_colors'];
 	color:<?php echo sanitize_rgba($main_menu_colors['hover']);?>;
 }
 
-#main-nav .main-menu, #header_top .menu {
+#main-nav .main-menu, 
+#header_top .menu {
 	<?php echo get_justify_content(Hii::$options['main_menu_align']); ?>
 }
 .left-menu {
@@ -66,7 +80,8 @@ $third_level_menu_colors = Hii::$options['third_level_menu_colors'];
 ul.sub-menu {
 	background: none;
 }
-#main_header ul.sub-menu {
+#main_header ul.sub-menu,
+#header_top ul.sub-menu {
     position: absolute;
     margin-left: 0;
     list-style: none;
@@ -81,12 +96,14 @@ ul.sub-menu {
 	z-index: 10; 
 	background-color: <?php echo Hii::$options['dropdown_background_color'];?>;
 }
-#main_header ul.sub-menu ul.sub-menu {
+#main_header ul.sub-menu ul.sub-menu,
+#header_top ul.sub-menu ul.sub-menu {
 	left:100%;
     top: 0;
 }
 
-#main_header .menu ul.sub-menu .menu-item a {
+#main_header .menu ul.sub-menu .menu-item a,
+#header_top .menu ul.sub-menu .menu-item a {
 	text-decoration: none;
 	display:block;
 	<?php 
@@ -94,10 +111,12 @@ ul.sub-menu {
 	echo get_theme_mod('second_level_menu_links_css');
 	?>
 }
-#main_header .menu ul.sub-menu .menu-item a:hover {
+#main_header .menu ul.sub-menu .menu-item a:hover,
+#header_top .menu ul.sub-menu .menu-item a:hover {
 	color:<?php echo sanitize_rgba($second_level_menu_colors['hover']);?>;
 }
-#main_header .menu ul.sub-menu .menu-item:hover {
+#main_header .menu ul.sub-menu .menu-item:hover,
+#header_top .menu ul.sub-menu .menu-item:hover {
 	background-color:<?php echo sanitize_rgba($second_level_menu_colors['hover_background']);?>;
 }
 <?php
@@ -135,23 +154,27 @@ ul.sub-menu {
 }
 
 @media (min-width:<?php echo Hii::$options['mobile_menu_switch'];?>){
-	#main_header .menu li:hover > ul.sub-menu {
+	#main_header .menu li:hover > ul.sub-menu,
+	#header_top .menu li:hover > ul.sub-menu {
 		box-shadow: 0 0 1px rgba(0,0,0,0.4);
 	    transform: scaleY(1) rotateY(0deg);
 		opacity: 1;
 	}
-	.sub-menu > .menu-item-has-children > a:after {
+	#main_header .sub-menu > .menu-item-has-children > a:after {
 	    font-family: FontAwesome;
 	    content: '\f105';
 	    float:right;
+	    transition: transform 0.4s;
 	}
-	.sub-menu > .menu-item-has-children:hover > a:after {
-		content: '\f107';
+	#main_header .sub-menu > .menu-item-has-children:hover > a:after {
+		transform: rotate(90deg);
 	}
 }
 @media (max-width:<?php echo Hii::$options['mobile_menu_switch'];?>){
-	#main_header ul.sub-menu {
+	#main_header ul.sub-menu,
+	#header_top ul.sub-menu {
 		height: 0;
+		position: relative;
 	}
 	#main_header .menu li.open > ul.sub-menu {
 		box-shadow: 0 0 1px rgba(0,0,0,0.4);
@@ -167,9 +190,10 @@ ul.sub-menu {
 	    padding: 1em 1.5em;
 	    font-family: FontAwesome;
 	    content: '\f105';
+	    transition: transform 0.4s;
 	}	
 	.menu-item-has-children.open:after{
-		content: '\f107';
+		transform: rotate(90deg);
 	}
 	
 	.mobile_menu_button {

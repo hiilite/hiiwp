@@ -1,4 +1,14 @@
 <?php
+/**
+ * HiiWP: Typography Settings
+ *
+ * Adds the customizer settings for the typography section
+ *
+ * @package     hiiwp
+ * @copyright   Copyright (c) 2018, Peter Vigilante
+ * @license     http://opensource.org/licenses/gpl-2.0.php GNU Public License
+ * @since       1.0.1
+ */
 Kirki::add_panel( 'typography_panel', array(
     'priority'    => 6,
     'title'       => __( 'Fonts', 'hiiwp' ),
@@ -19,15 +29,15 @@ Kirki::add_section( 'typography_text_section', array(
     'panel'		 => 'typography_panel',
 ) );
 
-Kirki::add_section( 'typography_social_icons_section', array(
+Kirki::add_section( 'typography_icons_section', array(
     'priority'    => 6,
-    'title'       => __( 'Social Icons', 'hiiwp' ),
-    'description' => __( 'Customize the default social icons', 'hiiwp' ),
+    'title'       => __( 'Icons', 'hiiwp' ),
+    'description' => __( 'Customize the default look of all site icons', 'hiiwp' ),
     'panel'		 => 'typography_panel',
 ) );
 
 include_once 'typography/headings.php';
 include_once 'typography/text.php';
-include_once 'typography/social_icons.php';
+include_once 'typography/icons.php';
 
 ?>

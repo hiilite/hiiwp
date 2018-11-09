@@ -1,5 +1,15 @@
 <?php
-	
+/**
+ * Extend VC
+ * Adds additional features to Visual Composer
+ *
+ * @package     HiiWP
+ * @category    Core
+ * @author      Peter Vigilante
+ * @copyright   Copyright (c) 2017, Hiilite Creative Group
+ * @license     http://opensource.org/licenses/https://opensource.org/licenses/MIT
+ * @since       1.0.2
+ */
 $hiilite_options = Hii::get_options();
 /*** Removing shortcodes ***/
 vc_remove_element("vc_wp_text"); 
@@ -8,7 +18,7 @@ vc_remove_element("vc_button");
 vc_remove_element("vc_cta_button");
 vc_remove_element("vc_cta_button2");
 vc_remove_element('vc_button2');
-vc_remove_element('vc_btn');
+//vc_remove_element('vc_btn');
 
 
 ////////////////////////////
@@ -158,7 +168,19 @@ $vc_row_params = array(
 			),
 			'description' => __( 'Positioning of background image.', 'hiiwp' ),
 			'group' => __( 'Design options', 'hiiwp' ),
-		));
+		),
+		array(
+			'type' => 'dropdown',
+			'heading' => __( 'Display to:', 'hiiwp' ),
+			'param_name' => 'row_visibility',
+			'description' => __( 'Set the visibility of the contents of this row', 'hiiwp' ),
+			'value' => array(
+				__( 'Everyone', 'hiiwp' ) => '',
+				__( 'Logged In Users', 'hiiwp' ) => 'in',
+				__( 'Logged Out Users', 'hiiwp' ) => 'out',
+			),
+			'group' => __( 'Advanced', 'hiiwp' ),
+		),);
 vc_map( array(
 	'name' => __( 'Row' , 'hiiwp' ),
 	"base" => "vc_row",
@@ -374,7 +396,19 @@ $vc_row_inner_params = array(
 			),
 			'description' => __( 'Positioning of background image.', 'hiiwp' ),
 			'group' => __( 'Design Options', 'hiiwp' ),
-		));
+		), 
+		array(
+			'type' => 'dropdown',
+			'heading' => __( 'Display to:', 'hiiwp' ),
+			'param_name' => 'row_visibility',
+			'description' => __( 'Set the visibility of the contents of this row', 'hiiwp' ),
+			'value' => array(
+				__( 'Everyone', 'hiiwp' ) => '',
+				__( 'Logged In Users', 'hiiwp' ) => 'in',
+				__( 'Logged Out Users', 'hiiwp' ) => 'out',
+			),
+			'group' => __( 'Advanced', 'hiiwp' ),
+		),);
 vc_map( array(
 	'name' => __( 'Inner Row' , 'hiiwp' ),
 	"base" => "vc_row_inner",
@@ -529,6 +563,15 @@ $vc_column_params = array(
 			),
 			'description' => __( 'Positioning of background image.', 'hiiwp' ),
 			'group' => __( 'Design Options', 'hiiwp' ),
+		),
+		array(
+			"type" => "textfield",
+			"holder" 		=> "div",
+			"class" 		=> "",
+			"heading" 		=> "On Click Action",
+			"param_name" 	=> "on_click",
+			"description"	=> "ex: ga('send', 'event', 'Category', 'Action', 'Label', 'Value');",
+			'group' 		=> __( 'Advanced', 'hiiwp' ),
 		));
 vc_map( array(
 	'name' => __( 'Column' , 'hiiwp' ),
@@ -668,6 +711,15 @@ $vc_column_inner_params = array(
 			),
 			'description' => __( 'Positioning of background image.', 'hiiwp' ),
 			'group' => __( 'Design Options', 'hiiwp' ),
+		),
+		array(
+			"type" => "textfield",
+			"holder" 		=> "div",
+			"class" 		=> "",
+			"heading" 		=> "On Click Action",
+			"param_name" 	=> "on_click",
+			"description"	=> "ex: ga('send', 'event', 'Category', 'Action', 'Label', 'Value');",
+			'group' 		=> __( 'Advanced', 'hiiwp' ),
 		));
 vc_map( array(
 	'name' => __( 'Inner Column' , 'hiiwp' ),
@@ -1569,6 +1621,108 @@ vc_map( array(
 				"default"	=> "300"
 			),
 			array(
+				'type'  	=> 'checkbox',
+				'heading'	=> __('Show Arrows', 'hiiwp'),
+				'param_name'=> 'show_arrows',
+				'value'		=> 'true',
+				'std' 		=> 'true',
+				'group'		=> __('Arrows', 'hiiwp'),
+			),
+			array(
+				'type'  	=> 'checkbox',
+				'heading'	=> __('Hide Arrows on Mobile', 'hiiwp'),
+				'param_name'=> 'hide_arrows_on_mobile',
+				'value'		=> false,
+				'group'		=> __('Arrows', 'hiiwp'),
+				'dependency' => array(
+					'element' => 'show_arrows',
+					'value' => 'true',
+				),
+			),
+			array(
+				'type'  	=> 'dropdown',
+				'heading'	=> __('Arrow Icon', 'hiiwp'),
+				'param_name'=> 'arrow_icon',
+				'class'		=> 'fa',
+				'value'		=> array(
+					'Arrow' => 'arrow',
+					'Arrow Circle' => 'arrow-alt-circle',
+					'Caret' => 'caret',
+					'Chevron' => 'chevron',
+					'Chevron Circle' => 'chevron-circle',
+				),
+				'std' 		=> 'chevron',
+				'group'		=> __('Arrows', 'hiiwp'),
+				'dependency' => array(
+					'element' => 'show_arrows',
+					'value' => 'true',
+				),
+			),
+			array(
+				'type'  	=> 'dropdown',
+				'heading'	=> __('Arrow Size', 'hiiwp'),
+				'param_name'=> 'arrow_size',
+				'value'		=> array(
+					'Small' => 'small',
+					'Regular' => 'regular',
+					'Large' => 'large',
+				),
+				'std' 		=> 'regular',
+				'group'		=> __('Arrows', 'hiiwp'),
+				'dependency' => array(
+					'element' => 'show_arrows',
+					'value' => 'true',
+				),
+			),
+			array(
+				'type'  	=> 'dropdown',
+				'heading'	=> __('Arrow Background Type', 'hiiwp'),
+				'param_name'=> 'arrow_background_type',
+				'class'		=> 'fa',
+				'value'		=> array(
+					'No Background'	=> 'none',
+					'Circle'		=> 'circle',
+					'Square'		=> 'square',
+					'Rounded Square'=> 'round-square',
+				),
+				'std' 		=> 'none',
+				'group'		=> __('Arrows', 'hiiwp'),
+				'dependency' => array(
+					'element' => 'show_arrows',
+					'value' => 'true',
+				),
+			),
+			array(
+				'type'  	=> 'colorpicker',
+				'heading'	=> __('Arrow Color', 'hiiwp'),
+				'param_name'=> 'arrow_color',
+				'group'		=> __('Arrows', 'hiiwp'),
+				'std'		=> '#333333',
+				'dependency' => array(
+					'element' => 'show_arrows',
+					'value' => 'true',
+				),
+			),
+			array(
+				'type'  	=> 'colorpicker',
+				'heading'	=> __('Arrow Background Color', 'hiiwp'),
+				'param_name'=> 'arrow_background_color',
+				'group'		=> __('Arrows', 'hiiwp'),
+				'std'		=> '#ffffff',
+				'dependency' => array(
+					'element' => 'arrow_background_type',
+					'value_not_equal_to' => array(
+							'none',
+						),
+				),
+			),
+			array(
+	            'type' => 'css_editor',
+	            'heading' => __( 'Css', 'hiiwp' ),
+	            'param_name' => 'item_css',
+	            'group' => __( 'Item Options', 'hiiwp' ),
+	        ),
+			array(
 	            'type' => 'css_editor',
 	            'heading' => __( 'Css', 'hiiwp' ),
 	            'param_name' => 'css',
@@ -2114,6 +2268,15 @@ vc_map( array(
 				'heading' => __( 'CSS box', 'hiiwp' ),
 				'param_name' => 'css',
 				'group' => __( 'Design Options', 'hiiwp' ),
+			),
+				array(
+				"type" => "textfield",
+				"holder" 		=> "div",
+				"class" 		=> "",
+				"heading" 		=> "On Click Action",
+				"param_name" 	=> "on_click",
+				"description"	=> "ex: ga('send', 'event', 'Category', 'Action', 'Label', 'Value');",
+				'group' 		=> __( 'Advanced', 'hiiwp' ),
 			),
 		)
 

@@ -127,8 +127,7 @@ ul.portfolio_terms li a {
 if(Hii::$options['portfolio_template'] == 'split') {
 ?>
 .single-portfolio .portfolio-gallery {
-	padding-top:3em;
-	padding-bottom:3em;
+	padding:1em;
 	background:<?php echo Hii::$options['portfolio_background']; ?>;	
 }
 <?php
@@ -265,15 +264,9 @@ if(Hii::$options['portfolio_template'] == 'split') {
 .project-info .project-description {
 	margin-top:1em;	
 }
-@media (max-width:912px){
-	.single-portfolio .portfolio > .container_inner > .in_grid {
-		flex-direction:column-reverse;	
-	}	
+@media (max-width:912px){	
 	.portfolio-gallery, .project-info {
 		width:100%;
 		flex:1 1 100%;	
-	}
-	.project-info {
-		padding:2em;	
 	}
 }

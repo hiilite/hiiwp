@@ -5,7 +5,7 @@
  * @package     Kirki
  * @subpackage  Controls
  * @copyright   Copyright (c) 2017, Aristeides Stathopoulos
- * @license     http://opensource.org/licenses/https://opensource.org/licenses/MIT
+ * @license    https://opensource.org/licenses/MIT
  * @since       2.2.7
  */
 
@@ -30,10 +30,10 @@ class Kirki_Field_Spacing extends Kirki_Field_Dimensions {
 				'right'  => ( isset( $this->default['top'] ) ),
 			),
 			'labels'   => array(
-				'top'    => esc_attr__( 'Top', 'hiiwp' ),
-				'bottom' => esc_attr__( 'Bottom', 'hiiwp' ),
-				'left'   => esc_attr__( 'Left', 'hiiwp' ),
-				'right'  => esc_attr__( 'Right', 'hiiwp' ),
+				'top'    => esc_attr__( 'Top', 'kirki' ),
+				'bottom' => esc_attr__( 'Bottom', 'kirki' ),
+				'left'   => esc_attr__( 'Left', 'kirki' ),
+				'right'  => esc_attr__( 'Right', 'kirki' ),
 			),
 		);
 

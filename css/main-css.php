@@ -7,43 +7,58 @@
  * @package     hiiwp
  * @copyright   Copyright (c) 2018, Peter Vigilante
  * @license     http://opensource.org/licenses/gpl-2.0.php GNU Public License
- * @since       1.0
+ * @since       1.0.1
  */
 global $is_IE; ?><style>
 /*--------------------------------------------------------------
 >>> TABLE OF CONTENTS:
 ----------------------------------------------------------------
-1.0 Normalize
-2.0 Accessibility
-3.0 Alignments
-4.0 Clearings
-5.0 Typography
-6.0 Forms
-7.0 Formatting
-8.0 Lists
-9.0 Tables
-10.0 Links
-11.0 Featured Image Hover
-12.0 Navigation
-13.0 Layout
-   13.1 Header 
-   13.2 Front Page
-   13.3 Regular Content
-   13.4 Posts
-   13.5 Pages
-   13.6 Footer
-14.0 Comments
-15.0 Widgets
-16.0 Media
-   16.1 Galleries
-17.0 Customizer
-18.0 SVGs Fallbacks
-19.0 Media Queries
-20.0 Print
+1.0 General
+	1.1 Normalize
+	1.2 Accessibility
+	1.3 Alignments
+	1.4 Clearings
+	1.5 Typography
+	1.6 Formatting
+	1.7 Lists
+	1.8 Tables
+	1.9 Widgets
+	1.10 Media
+	1.11 Layout
+2.0 Logo
+3.0 Header
+	3.1 Header General
+	3.2 Header Top
+	3.3 Menu
+4.0 Footer
+5.0 Title
+6.0 Elements
+	6.1 Buttons
+	6.2 Forms
+	6.3 Social Icons
+    6.4 Galleries
+7.0 Fonts/Typography
+	7.1 Headings
+	7.2 Paragraphs & Links
+	7.3 Icons
+8.0 Sidebar
+9.0 Testimonials
+10.0 Blog
+	10.1 Blog List
+	10.2 Blog Single
+	10.3 Pagination
+	10.4 Comments
+11.0 Portfolio
+12.0 Teams
+13.0 Extensions
+	13.7 WooCommerce
+14.0 Overwrites
 --------------------------------------------------------------*/
-
 /*--------------------------------------------------------------
-1.0 Normalize
+1.0 General
+--------------------------------------------------------------*/
+/*--------------------------------------------------------------
+1.1 Normalize
 --------------------------------------------------------------*/
 body * {
     -webkit-box-sizing: border-box;
@@ -172,9 +187,11 @@ template,
 	display: none;
 }
 
-
+[onclick] {
+	cursor:pointer;
+}
 /*--------------------------------------------------------------
-2.0 Accessibility
+1.2 Accessibility
 --------------------------------------------------------------*/
 
 /* Text meant only for screen readers. */
@@ -211,7 +228,7 @@ template,
 }
 
 /*--------------------------------------------------------------
-3.0 Alignments
+1.3 Alignments
 --------------------------------------------------------------*/
 
 .inline_block {
@@ -286,10 +303,17 @@ figure.alignright {
     margin-top: auto;
     margin-bottom: 0;
 }
+.text-align.center {
+	text-align: center;
+}
+
+.fl {
+	float: left;
+}
 
 
 /*--------------------------------------------------------------
-4.0 Clearings
+1.4 Clearings
 --------------------------------------------------------------*/
 
 .clear:before,
@@ -340,7 +364,7 @@ figure.alignright {
 }
 
 /*--------------------------------------------------------------
-5.0 Typography
+1.5 Typography
 --------------------------------------------------------------*/
 
 h1, 
@@ -373,14 +397,18 @@ i {
 }
 
 blockquote {
+	padding: 10px 20px;
+	border-left: 5px solid #d7e0e5;
+	margin: 0;
+	overflow: hidden;
+}
+blockquote p {
 	color: #666;
 	font-size: 18px;
 	font-size: 1.125rem;
 	font-style: italic;
 	line-height: 1.7;
-	margin: 0;
-	overflow: hidden;
-	padding: 0;
+	
 }
 
 blockquote cite {
@@ -449,17 +477,10 @@ blockquote:after {
 	outline: none;
 }
 <?php
-	
 get_template_part('css/typography/language-fixes', 'css');
-
-/*--------------------------------------------------------------
-6.0 Forms
---------------------------------------------------------------*/
-get_template_part('css/elements/forms');
-
 ?>
 /*--------------------------------------------------------------
-7.0 Formatting
+1.6 Formatting
 --------------------------------------------------------------*/
 
 hr {
@@ -479,8 +500,9 @@ hr {
 .transform-capitalize { text-transform: capitalize; }
 .transform-none { text-transform: none; }
 
+
 /*--------------------------------------------------------------
-8.0 Lists
+1.7 Lists
 --------------------------------------------------------------*/
 
 ul,
@@ -504,11 +526,15 @@ li > ol {
 }
 
 dt {
-	font-weight: 700;
+	font-weight: 400;
 }
 
 dd {
-	margin: 0 1.5em 1.5em;
+	<?php	
+	echo get_font_css(Hii::$options['text_font']);
+	if(Hii::$options['text_margin'] != '') echo 'margin-bottom:'.Hii::$options['text_margin'].';';
+?>
+	margin-left:0;
 }
 
 ol li ol li {
@@ -516,7 +542,7 @@ ol li ol li {
 }
 
 /*--------------------------------------------------------------
-9.0 Tables
+1.8 Tables
 --------------------------------------------------------------*/
 
 table {
@@ -555,54 +581,213 @@ td:last-child {
 	padding-right: 0;
 }
 
-
 /*--------------------------------------------------------------
-10.0 Links
+1.10 Media
 --------------------------------------------------------------*/
-<?php
-	$link_color = Hii::$options['link_color']; ?>
-a,  
-a .fa {
-	color:<?php echo sanitize_rgba($link_color['link']);?>;
-	
-	-webkit-transition: color 80ms ease-in, -webkit-box-shadow 130ms ease-in-out;
-	transition: color 80ms ease-in, -webkit-box-shadow 130ms ease-in-out;
-	transition: color 80ms ease-in, box-shadow 130ms ease-in-out;
-	transition: color 80ms ease-in, box-shadow 130ms ease-in-out, -webkit-box-shadow 130ms ease-in-out;
-}
-<?php echo Hii::$options['typography_link_custom_css']; ?>
 
-h1 a, 
-h2 a, 
-h3 a, 
-h4 a, 
-h5 a, 
-h6 a {
-	color: #303030;
-	text-decoration: none;
-	-webkit-transition: color 80ms ease-in, -webkit-box-shadow 130ms ease-in-out;
-	transition: color 80ms ease-in, -webkit-box-shadow 130ms ease-in-out;
-	transition: color 80ms ease-in, box-shadow 130ms ease-in-out;
-	transition: color 80ms ease-in, box-shadow 130ms ease-in-out, -webkit-box-shadow 130ms ease-in-out;
+img,
+video {
+	height: auto; /* Make sure images are scaled correctly. */
+	max-width: 100%; /* Adhere to container width. */
 }
 
-/* Hover effects */
-a:not(.button):hover, 
-a:not(.button):active,
-h1 a:hover, 
-h2 a:hover, 
-h3 a:hover, 
-h4 a:hover, 
-h5 a:hover, 
-h6 a:hover  {
-	color:<?php echo sanitize_rgba($link_color['hover']);?>;
-	outline: 0;
-	-webkit-box-shadow: inset 0 0 0 rgba(0, 0, 0, 0), 0 2px 0 <?php echo sanitize_rgba($link_color['hover']);?>;
-	box-shadow: inset 0 0 0 rgba(0, 0, 0, 0), 0 2px 0 <?php echo sanitize_rgba($link_color['hover']);?>;
+.page-content .wp-smiley,
+.entry-content .wp-smiley,
+.comment-content .wp-smiley {
+	border: none;
+	margin-bottom: 0;
+	margin-top: 0;
+	padding: 0;
 }
 
+/* Make sure embeds and iframes fit their containers. */
 
+embed,
+iframe,
+object {
+	margin-bottom: 1.5em;
+	max-width: 100%;
+}
 
+.blog-article embed, .blog-article iframe, .blog-article object {
+    height:auto;
+    margin-bottom: 0 !important;
+}
+
+.wp-caption,
+.gallery-caption {
+	color: #666;
+	font-size: 13px;
+	font-size: 0.8125rem;
+	font-style: italic;
+	margin-bottom: 1.5em;
+	max-width: 100%;
+}
+
+.wp-caption img[class*="wp-image-"] {
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.wp-caption .wp-caption-text {
+	margin: 0.8075em 0;
+}
+
+/* Media Elements */
+
+.mejs-container {
+	margin-bottom: 1.5em;
+}
+
+/* Audio Player */
+
+.mejs-controls a.mejs-horizontal-volume-slider,
+.mejs-controls a.mejs-horizontal-volume-slider:focus,
+.mejs-controls a.mejs-horizontal-volume-slider:hover {
+	background: transparent;
+	border: 0;
+}
+
+/* Playlist Color Overrides: Light */
+
+.site-content .wp-playlist-light {
+	border-color: #eee;
+	color: #222;
+}
+
+.site-content .wp-playlist-light .wp-playlist-current-item .wp-playlist-item-album {
+	color: #333;
+}
+
+.site-content .wp-playlist-light .wp-playlist-current-item .wp-playlist-item-artist {
+	color: #767676;
+}
+
+.site-content .wp-playlist-light .wp-playlist-item {
+	border-bottom: 1px dotted #eee;
+	-webkit-transition: background-color 0.2s ease-in-out, border-color 0.2s ease-in-out, color 0.3s ease-in-out;
+	transition: background-color 0.2s ease-in-out, border-color 0.2s ease-in-out, color 0.3s ease-in-out;
+}
+
+.site-content .wp-playlist-light .wp-playlist-item:hover,
+.site-content .wp-playlist-light .wp-playlist-item:focus {
+	border-bottom-color: rgba(0, 0, 0, 0);
+	background-color: #767676;
+	color: #fff;
+}
+
+.site-content .wp-playlist-light a.wp-playlist-caption:hover,
+.site-content .wp-playlist-light .wp-playlist-item:hover a,
+.site-content .wp-playlist-light .wp-playlist-item:focus a {
+	color: #fff;
+}
+
+/* Playlist Color Overrides: Dark */
+
+.site-content .wp-playlist-dark {
+	background: #222;
+	border-color: #333;
+}
+
+.site-content .wp-playlist-dark .mejs-container .mejs-controls {
+	background-color: #333;
+}
+
+.site-content .wp-playlist-dark .wp-playlist-caption {
+	color: #fff;
+}
+
+.site-content .wp-playlist-dark .wp-playlist-current-item .wp-playlist-item-album {
+	color: #eee;
+}
+
+.site-content .wp-playlist-dark .wp-playlist-current-item .wp-playlist-item-artist {
+	color: #aaa;
+}
+
+.site-content .wp-playlist-dark .wp-playlist-playing {
+	background-color: #333;
+}
+
+.site-content .wp-playlist-dark .wp-playlist-item {
+	border-bottom: 1px dotted #555;
+	-webkit-transition: background-color 0.2s ease-in-out, border-color 0.2s ease-in-out, color 0.3s ease-in-out;
+	transition: background-color 0.2s ease-in-out, border-color 0.2s ease-in-out, color 0.3s ease-in-out;
+}
+
+.site-content .wp-playlist-dark .wp-playlist-item:hover,
+.site-content .wp-playlist-dark .wp-playlist-item:focus {
+	border-bottom-color: rgba(0, 0, 0, 0);
+	background-color: #aaa;
+	color: #222;
+}
+
+.site-content .wp-playlist-dark a.wp-playlist-caption:hover,
+.site-content .wp-playlist-dark .wp-playlist-item:hover a,
+.site-content .wp-playlist-dark .wp-playlist-item:focus a {
+	color: #222;
+}
+
+/* Playlist Style Overrides */
+
+.site-content .wp-playlist {
+	padding: 0.625em 0.625em 0.3125em;
+}
+
+.site-content .wp-playlist-current-item .wp-playlist-item-title {
+	font-weight: 700;
+}
+
+.site-content .wp-playlist-current-item .wp-playlist-item-album {
+	font-style: normal;
+}
+
+.site-content .wp-playlist-current-item .wp-playlist-item-artist {
+	font-size: 10px;
+	font-size: 0.625rem;
+	font-weight: 800;
+	letter-spacing: 0.1818em;
+	text-transform: uppercase;
+}
+
+.site-content .wp-playlist-item {
+	padding: 0 0.3125em;
+	cursor: pointer;
+}
+
+.site-content .wp-playlist-item:last-of-type {
+	border-bottom: none;
+}
+
+.site-content .wp-playlist-item a {
+	padding: 0.3125em 0;
+	border-bottom: none;
+}
+
+.site-content .wp-playlist-item a,
+.site-content .wp-playlist-item a:focus,
+.site-content .wp-playlist-item a:hover {
+	-webkit-box-shadow: none;
+	box-shadow: none;
+	background: transparent;
+}
+
+.site-content .wp-playlist-item-length {
+	top: 5px;
+}
+
+/* SVG Icons base styles */
+
+.icon {
+	display: inline-block;
+	fill: currentColor;
+	height: 1em;
+	position: relative; /* Align more nicely with capital letters */
+	top: -0.0625em;
+	vertical-align: middle;
+	width: 1em;
+}
 /* Fixes linked images */
 .entry-content a img,
 .widget a img {
@@ -621,12 +806,313 @@ h6 a:hover  {
 .post-navigation a:hover .icon {
 	color: #222;
 }
+/*--------------------------------------------------------------
+1.11 Layout
+--------------------------------------------------------------*/
+.flex-container {
+	display: flex;
+	flex-wrap:wrap;
+	width: 100%;
+	box-sizing: border-box;
+}
+.flex-item {
+	flex: 1 1 auto;
+	<?php if($is_IE) echo 'flex-basis: 0%';?>
+}
+.flex-item.item-align-auto, .wpb_column.item-align-auto {
+	align-self:auto;
+}
+.flex-item.item-align-start, .wpb_column.item-align-start {
+	align-self:flex-start;
+}
+.flex-item.item-align-end, .wpb_column.item-align-end {
+	align-self:flex-end;
+}
+.flex-item.item-align-center, .wpb_column.item-align-center {
+	align-self:center;
+}
+.flex-item.item-align-stretch, .wpb_column.item-align-stretch {
+	align-self:stretch;
+}
+.flex-item.item-align-baseline, .wpb_column.item-align-baseline {
+	align-self:baseline;
+}
+
+
+
+.link-list {
+	list-style: none;
+	margin: 1em 0;
+	padding: 0;
+	line-height: 2;
+}
+.link-list a {
+	text-decoration: none;
+	text-transform: uppercase;
+}
+
+.row-o-content-top .flex-item, .row-o-content-top {
+    margin-top: 0;
+}
+
+.content-box {
+	padding: 1rem;
+	box-sizing: border-box;
+	display: block;
+    width: 100%;
+}
+
+
+img {
+	max-width: 100%;
+	height: auto;
+}
+img.full-width, .row, .wpb_content_element {
+	min-width: 100%;
+	scroll-snap-type: proximity;
+ 
+	/* older spec implementation */
+	scroll-snap-destination: 0% 100%;
+	scroll-snap-points-x: repeat(100%);
+}
+.full-width,.threequarter-width,.half-width,.third-width,.twothird-width,.quarter-width,
+.col-12,.col-9,.col-7,.col-8,.col-6,.col-4,.col-3,.col-2,.col-1,
+.vc_col-lg-1, .vc_col-lg-10, .vc_col-lg-11, .vc_col-lg-12, .vc_col-lg-2, .vc_col-lg-3, .vc_col-lg-4, .vc_col-lg-5, .vc_col-lg-6, .vc_col-lg-7, .vc_col-lg-8, .vc_col-lg-9, .vc_col-md-1, .vc_col-md-10, .vc_col-md-11, .vc_col-md-12, .vc_col-md-2, .vc_col-md-3, .vc_col-md-4, .vc_col-md-5, .vc_col-md-6, .vc_col-md-7, .vc_col-md-8, .vc_col-md-9, .vc_col-sm-1, .vc_col-sm-10, .vc_col-sm-11, .vc_col-sm-12, .vc_col-sm-2, .vc_col-sm-3, .vc_col-sm-4, .vc_col-sm-5, .vc_col-sm-6, .vc_col-sm-7, .vc_col-sm-8, .vc_col-sm-9, .vc_col-xs-1, .vc_col-xs-10, .vc_col-xs-11, .vc_col-xs-12, .vc_col-xs-2, .vc_col-xs-3, .vc_col-xs-4, .vc_col-xs-5, .vc_col-xs-6, .vc_col-xs-7, .vc_col-xs-8, .vc_col-xs-9 {
+    box-sizing: border-box;
+    min-width: 100px;
+}
+
+<?php 
+$alt_cols =	array(false,false,false,'quarter-width','third-width',false,'half-width',false,'twothird-width','threequarter-width',false,false,'full-width');
+
+for($i = 12; $i>0;$i--):
+	echo '.vc_col-sm-'.$i.', .col-'.$i;
+	echo ($alt_cols[$i])?', .'.$alt_cols[$i]:'';
+	echo '{';
+		$perc_ratio = floor((($i/12)*100));
+		$min_width = ($i>4)?'320':'160';
+		echo ($i < 12)?'min-width:'.$min_width.'px;':'max-width:100%;';
+		echo 'width:'.$perc_ratio.'%;'.
+			 'flex:1 1 '.$perc_ratio.'%;';
+		if($is_IE) echo 'flex-basis: '.($perc_ratio - 5).'%;';
+	echo '}';
+endfor; ?>
+
+/* 
+	MOBILE
+*/
+@media (max-width:768px){ <?php 
+	for($i = 12; $i>0;$i--):
+		$perc_ratio = floor((($i/12)*100));
+		echo '.vc_col-xs-'.$i.'{'.
+			 'width:'.$perc_ratio.'%;'.
+			 'flex:1 1 '.$perc_ratio.'%;'.
+			 '}';
+	endfor; ?>
+}
+
+/* 
+	TABLET
+*/
+@media (min-width:768px){ <?php 
+	for($i = 12; $i>0;$i--):
+		$perc_ratio = floor((($i/12)*100));
+		echo '.vc_col-md-'.$i.'{'.
+			 'width:'.$perc_ratio.'%;'.
+			 'flex:1 1 '.$perc_ratio.'%;'.
+			 '}';
+	endfor; ?>
+}
+
+/* 
+	DESKTOP
+*/
+@media (min-width:992px){ <?php 
+	for($i = 12; $i>0;$i--):
+		$perc_ratio = floor((($i/12)*100));
+		echo '.vc_col-lg-'.$i.'{'.
+			 'width:'.$perc_ratio.'%;'.
+			 'flex:1 1 '.$perc_ratio.'%;'.
+			 '}';
+	endfor; ?>
+}
+
+
+.fixed_columns .flex-item {
+	min-width: 0;
+	position: relative;
+	box-sizing: border-box;
+	max-width: 100%;
+}
+.fixed_columns {
+	align-items: stretch;
+}
 
 /*--------------------------------------------------------------
-11.0 Featured Image Hover
+6.2 Forms
 --------------------------------------------------------------*/
+<?php get_template_part('css/elements/forms'); ?>
 /*--------------------------------------------------------------
-13.4 Posts
+6.3 Social Icons
+--------------------------------------------------------------*/
+.social-profiles a .fa, 
+.social-profiles .fa {
+	<?php echo get_font_css($hiilite_options['social_icon_settings']); ?>
+	<?php echo get_background_css($hiilite_options['social_icon_settings_bg']); ?>
+	border:<?php echo get_theme_mod('social_icon_settings_border', '0'); ?> solid;
+	border-radius:<?php echo get_theme_mod('social_icon_settings_border_r', '0'); ?>;
+	box-sizing: content-box;
+}
+
+<?php 
+echo Hii::$options['typography_social_icon_custom_css'];?>
+/*--------------------------------------------------------------
+6.4 Galleries
+--------------------------------------------------------------*/
+
+.gallery-item {
+	display: inline-block;
+	text-align: left;
+	vertical-align: top;
+	margin: 0;
+	padding: 0 10px 0 0;
+	width: 50%;
+}
+
+.gallery-columns-1 .gallery-item {
+	width: 100%;
+}
+
+.gallery-columns-2 .gallery-item {
+	max-width: 50%;
+}
+
+.gallery-item a,
+.gallery-item a:hover,
+.gallery-item a:focus {
+	-webkit-box-shadow: none;
+	box-shadow: none;
+	background: none;
+	display: inline-block;
+	max-width: 100%;
+	width: 100%;
+}
+
+.gallery-item a img {
+	display: block;
+	-webkit-transition: -webkit-filter 0.2s ease-in;
+	transition: -webkit-filter 0.2s ease-in;
+	transition: filter 0.2s ease-in;
+	transition: filter 0.2s ease-in, -webkit-filter 0.2s ease-in;
+	-webkit-backface-visibility: hidden;
+	backface-visibility: hidden;
+	padding: 10px;
+	width: 100%;
+}
+
+.gallery-item a:hover img,
+.gallery-item a:focus img {
+	-webkit-filter: opacity(60%);
+	filter: opacity(60%);
+}
+
+.gallery-caption {
+	display: block;
+	text-align: left;
+	padding: 0 10px 0 0;
+	margin-bottom: 0;
+}
+
+/*--------------------------------------------------------------
+6.5 Accordian
+--------------------------------------------------------------*/
+.wpb_accordion_section h3 {
+    display: inline-block;
+    color: #333;
+    font-size: 100%;
+}
+.accordion .wpb_accordion_wrapper .wpb_accordion_header {
+    padding: 0.5em 1em;
+}
+details.wpb_accordion_section.group {
+    margin: 1em;
+}
+.wpb_gmaps_widget .wpb_wrapper {
+	padding:0;
+}
+
+/*--------------------------------------------------------------
+7.2 Paragraph & Links
+--------------------------------------------------------------*/
+<?php
+	$link_color = Hii::$options['link_color']; ?>
+a,  
+a .fa {
+	color:<?php echo sanitize_rgba($link_color['link']);?>;
+	
+	-webkit-transition: color 80ms ease-in, -webkit-box-shadow 130ms ease-in-out; 
+	transition: color 80ms ease-in, -webkit-box-shadow 130ms ease-in-out;
+	transition: color 80ms ease-in, box-shadow 130ms ease-in-out;
+	transition: color 80ms ease-in, box-shadow 130ms ease-in-out, -webkit-box-shadow 130ms ease-in-out;
+}
+<?php echo Hii::$options['typography_link_custom_css']; ?>
+
+h1 a, 
+h2 a, 
+h3 a, 
+h4 a, 
+h5 a, 
+h6 a {
+	color: #303030;
+	text-decoration: none;
+}
+
+/* Hover effects */
+a:not([class*=button]):hover, 
+a:not([class*=button]):active,
+h1 a:hover, 
+h2 a:hover, 
+h3 a:hover, 
+h4 a:hover, 
+h5 a:hover, 
+h6 a:hover  {
+	color:<?php echo sanitize_rgba($link_color['hover']);?>;
+	outline: 0;
+}
+
+<?php 
+	
+if(strpos(Hii::$options['custom_format_1'], '.custom_format_1') === false) echo '.custom_format_1 { '.Hii::$options['custom_format_1']. '}';
+else echo Hii::$options['custom_format_1'];
+	
+if(strpos(Hii::$options['custom_format_2'], '.custom_format_2') === false) echo '.custom_format_2 { '.Hii::$options['custom_format_2']. '}';
+else echo Hii::$options['custom_format_2'];
+	
+if(strpos(Hii::$options['custom_format_3'], '.custom_format_3') === false) echo '.custom_format_3 { '.Hii::$options['custom_format_3']. '}';
+else echo Hii::$options['custom_format_3'];
+?>
+
+/*--------------------------------------------------------------
+7.3 Icons
+--------------------------------------------------------------*/
+
+a .fa, .fa {
+	display: inline-block;
+	width: 1em;
+	text-align: center;
+	line-height: 1;
+	<?php echo get_font_css(get_theme_mod('icon_settings')); ?>
+	<?php echo get_font_css(get_theme_mod('icon_settings_bg')); ?>
+	border:<?php echo get_theme_mod('icon_settings_border', '0'); ?> solid;
+	border-radius:<?php echo get_theme_mod('icon_settings_border_r', '0'); ?>;
+	box-sizing: content-box;
+}
+
+<?php 
+echo Hii::$options['typography_icon_custom_css'];
+?>
+/*--------------------------------------------------------------
+10.0 Blog
 --------------------------------------------------------------*/
 
 /* Post Landing Page */
@@ -667,23 +1153,23 @@ h6 a:hover  {
 .entry-meta {
 	color: <?php echo Hii::$options['title_font']['color'];?>;
 	font-size: 11px;
-	font-size: 0.6875rem;
-	font-weight: 800;
-	letter-spacing: 0.1818em;
-	padding-bottom: 0.25em;
-	text-transform: uppercase;
+	margin: 10px 0;
 }
 .cat-links, .tags-links {
     display: block;
     font-size: 11px;
     font-size: 0.6875rem;
     font-weight: 400;
-    letter-spacing: 0.1818em;
     position: relative;
     text-transform: uppercase;
+    margin: 10px 0;
 }
 .page-title .entry-meta a {
 	color: <?php echo Hii::$options['title_font']['color'];?>;
+}
+
+.single-post .blog-article p {
+	<?php echo get_font_css(Hii::$options['blog_single_text_font']); ?>
 }
 
 .byline,
@@ -699,7 +1185,9 @@ li.recentcomments {
     text-overflow: ellipsis;
     overflow: hidden;
 }
-
+/*--------------------------------------------------------------
+10.3 Pagination
+--------------------------------------------------------------*/
 .pagination,
 .comments-pagination {
 	font-size: 16px;
@@ -998,7 +1486,7 @@ div#disqus_thread {
 }
 
 /*--------------------------------------------------------------
-14.0 Comments
+10.4 Comments
 --------------------------------------------------------------*/
 
 #comments {
@@ -1116,270 +1604,9 @@ div#disqus_thread {
 	text-align: right;
 }
 
-/*--------------------------------------------------------------
-16.0 Media
---------------------------------------------------------------*/
-
-img,
-video {
-	height: auto; /* Make sure images are scaled correctly. */
-	max-width: 100%; /* Adhere to container width. */
-}
-
-.page-content .wp-smiley,
-.entry-content .wp-smiley,
-.comment-content .wp-smiley {
-	border: none;
-	margin-bottom: 0;
-	margin-top: 0;
-	padding: 0;
-}
-
-/* Make sure embeds and iframes fit their containers. */
-
-embed,
-iframe,
-object {
-	margin-bottom: 1.5em;
-	max-width: 100%;
-}
-
-.blog-article embed, .blog-article iframe, .blog-article object {
-    height:auto;
-    margin-bottom: 0 !important;
-}
-
-.wp-caption,
-.gallery-caption {
-	color: #666;
-	font-size: 13px;
-	font-size: 0.8125rem;
-	font-style: italic;
-	margin-bottom: 1.5em;
-	max-width: 100%;
-}
-
-.wp-caption img[class*="wp-image-"] {
-	display: block;
-	margin-left: auto;
-	margin-right: auto;
-}
-
-.wp-caption .wp-caption-text {
-	margin: 0.8075em 0;
-}
-
-/* Media Elements */
-
-.mejs-container {
-	margin-bottom: 1.5em;
-}
-
-/* Audio Player */
-
-.mejs-controls a.mejs-horizontal-volume-slider,
-.mejs-controls a.mejs-horizontal-volume-slider:focus,
-.mejs-controls a.mejs-horizontal-volume-slider:hover {
-	background: transparent;
-	border: 0;
-}
-
-/* Playlist Color Overrides: Light */
-
-.site-content .wp-playlist-light {
-	border-color: #eee;
-	color: #222;
-}
-
-.site-content .wp-playlist-light .wp-playlist-current-item .wp-playlist-item-album {
-	color: #333;
-}
-
-.site-content .wp-playlist-light .wp-playlist-current-item .wp-playlist-item-artist {
-	color: #767676;
-}
-
-.site-content .wp-playlist-light .wp-playlist-item {
-	border-bottom: 1px dotted #eee;
-	-webkit-transition: background-color 0.2s ease-in-out, border-color 0.2s ease-in-out, color 0.3s ease-in-out;
-	transition: background-color 0.2s ease-in-out, border-color 0.2s ease-in-out, color 0.3s ease-in-out;
-}
-
-.site-content .wp-playlist-light .wp-playlist-item:hover,
-.site-content .wp-playlist-light .wp-playlist-item:focus {
-	border-bottom-color: rgba(0, 0, 0, 0);
-	background-color: #767676;
-	color: #fff;
-}
-
-.site-content .wp-playlist-light a.wp-playlist-caption:hover,
-.site-content .wp-playlist-light .wp-playlist-item:hover a,
-.site-content .wp-playlist-light .wp-playlist-item:focus a {
-	color: #fff;
-}
-
-/* Playlist Color Overrides: Dark */
-
-.site-content .wp-playlist-dark {
-	background: #222;
-	border-color: #333;
-}
-
-.site-content .wp-playlist-dark .mejs-container .mejs-controls {
-	background-color: #333;
-}
-
-.site-content .wp-playlist-dark .wp-playlist-caption {
-	color: #fff;
-}
-
-.site-content .wp-playlist-dark .wp-playlist-current-item .wp-playlist-item-album {
-	color: #eee;
-}
-
-.site-content .wp-playlist-dark .wp-playlist-current-item .wp-playlist-item-artist {
-	color: #aaa;
-}
-
-.site-content .wp-playlist-dark .wp-playlist-playing {
-	background-color: #333;
-}
-
-.site-content .wp-playlist-dark .wp-playlist-item {
-	border-bottom: 1px dotted #555;
-	-webkit-transition: background-color 0.2s ease-in-out, border-color 0.2s ease-in-out, color 0.3s ease-in-out;
-	transition: background-color 0.2s ease-in-out, border-color 0.2s ease-in-out, color 0.3s ease-in-out;
-}
-
-.site-content .wp-playlist-dark .wp-playlist-item:hover,
-.site-content .wp-playlist-dark .wp-playlist-item:focus {
-	border-bottom-color: rgba(0, 0, 0, 0);
-	background-color: #aaa;
-	color: #222;
-}
-
-.site-content .wp-playlist-dark a.wp-playlist-caption:hover,
-.site-content .wp-playlist-dark .wp-playlist-item:hover a,
-.site-content .wp-playlist-dark .wp-playlist-item:focus a {
-	color: #222;
-}
-
-/* Playlist Style Overrides */
-
-.site-content .wp-playlist {
-	padding: 0.625em 0.625em 0.3125em;
-}
-
-.site-content .wp-playlist-current-item .wp-playlist-item-title {
-	font-weight: 700;
-}
-
-.site-content .wp-playlist-current-item .wp-playlist-item-album {
-	font-style: normal;
-}
-
-.site-content .wp-playlist-current-item .wp-playlist-item-artist {
-	font-size: 10px;
-	font-size: 0.625rem;
-	font-weight: 800;
-	letter-spacing: 0.1818em;
-	text-transform: uppercase;
-}
-
-.site-content .wp-playlist-item {
-	padding: 0 0.3125em;
-	cursor: pointer;
-}
-
-.site-content .wp-playlist-item:last-of-type {
-	border-bottom: none;
-}
-
-.site-content .wp-playlist-item a {
-	padding: 0.3125em 0;
-	border-bottom: none;
-}
-
-.site-content .wp-playlist-item a,
-.site-content .wp-playlist-item a:focus,
-.site-content .wp-playlist-item a:hover {
-	-webkit-box-shadow: none;
-	box-shadow: none;
-	background: transparent;
-}
-
-.site-content .wp-playlist-item-length {
-	top: 5px;
-}
-
-/* SVG Icons base styles */
-
-.icon {
-	display: inline-block;
-	fill: currentColor;
-	height: 1em;
-	position: relative; /* Align more nicely with capital letters */
-	top: -0.0625em;
-	vertical-align: middle;
-	width: 1em;
-}
 
 /*--------------------------------------------------------------
-16.1 Galleries
---------------------------------------------------------------*/
-
-.gallery-item {
-	display: inline-block;
-	text-align: left;
-	vertical-align: top;
-	margin: 0 0 1.5em;
-	padding: 0 1em 0 0;
-	width: 50%;
-}
-
-.gallery-columns-1 .gallery-item {
-	width: 100%;
-}
-
-.gallery-columns-2 .gallery-item {
-	max-width: 50%;
-}
-
-.gallery-item a,
-.gallery-item a:hover,
-.gallery-item a:focus {
-	-webkit-box-shadow: none;
-	box-shadow: none;
-	background: none;
-	display: inline-block;
-	max-width: 100%;
-}
-
-.gallery-item a img {
-	display: block;
-	-webkit-transition: -webkit-filter 0.2s ease-in;
-	transition: -webkit-filter 0.2s ease-in;
-	transition: filter 0.2s ease-in;
-	transition: filter 0.2s ease-in, -webkit-filter 0.2s ease-in;
-	-webkit-backface-visibility: hidden;
-	backface-visibility: hidden;
-}
-
-.gallery-item a:hover img,
-.gallery-item a:focus img {
-	-webkit-filter: opacity(60%);
-	filter: opacity(60%);
-}
-
-.gallery-caption {
-	display: block;
-	text-align: left;
-	padding: 0 10px 0 0;
-	margin-bottom: 0;
-}
-
-/*--------------------------------------------------------------
-18.0 SVGs Fallbacks
+15.0 SVGs Fallbacks
 --------------------------------------------------------------*/
 
 .svg-fallback {
@@ -1670,17 +1897,33 @@ table td {
 	max-width: <?php echo Hii::$options['grid_width'];?>;
 }
 <?php
-get_template_part('css/vc_elements/row', 'css');	
+get_template_part('css/vc_elements/row', 'css');
+/*--------------------------------------------------------------
+6.0 Elements
+--------------------------------------------------------------*/
+/*--------------------------------------------------------------
+6.1 Buttons
+--------------------------------------------------------------*/
 get_template_part('css/elements/buttons'); 
+/*--------------------------------------------------------------
+6.3 Sliders
+--------------------------------------------------------------*/
 get_template_part('css/elements/amp-carousel', 'css');
 get_template_part('css/elements/hii_post_carousel', 'css');
 
+/*--------------------------------------------------------------
+3.0 Header
+--------------------------------------------------------------*/
 get_template_part('css/header/header', 'css'); 
+/*--------------------------------------------------------------
+3.3 Menu
+--------------------------------------------------------------*/
 get_template_part('css/header/menu', 'css');
-get_template_part('css/elements/page_titles', 'css');
-/*
-//	note: FOOTER 
-*/
+
+
+/*--------------------------------------------------------------
+4.0 Footer
+--------------------------------------------------------------*/
 $footer_top_colors = get_theme_mod('footer_top_colors');
 $footer_bottom_colors = get_theme_mod('footer_bottom_colors');	
 ?>
@@ -1780,144 +2023,12 @@ if(get_theme_mod( 'show_footer_top_yesno', true )): ?>
 ?>
 }
 
-.flex-container {
-	display: flex;
-	flex-wrap:wrap;
-	width: 100%;
-	box-sizing: border-box;
-}
-.flex-item {
-	flex: 1 1 auto;
-	<?php if($is_IE) echo 'flex-basis: 0%';?>
-}
-.flex-item.item-align-auto, .wpb_column.item-align-auto {
-	align-self:auto;
-}
-.flex-item.item-align-start, .wpb_column.item-align-start {
-	align-self:flex-start;
-}
-.flex-item.item-align-end, .wpb_column.item-align-end {
-	align-self:flex-end;
-}
-.flex-item.item-align-center, .wpb_column.item-align-center {
-	align-self:center;
-}
-.flex-item.item-align-stretch, .wpb_column.item-align-stretch {
-	align-self:stretch;
-}
-.flex-item.item-align-baseline, .wpb_column.item-align-baseline {
-	align-self:baseline;
-}
+/*--------------------------------------------------------------
+5.0 Title
+--------------------------------------------------------------*/
+<?php get_template_part('css/elements/page_titles', 'css');?>
 
 
-
-.link-list {
-	list-style: none;
-	margin: 1em 0;
-	padding: 0;
-	line-height: 2;
-}
-.link-list a {
-	text-decoration: none;
-	text-transform: uppercase;
-}
-
-.row-o-content-top .flex-item, .row-o-content-top {
-    margin-top: 0;
-}
-
-.content-box {
-	padding: 1rem;
-	box-sizing: border-box;
-	display: block;
-    width: 100%;
-}
-
-
-img {
-	max-width: 100%;
-	height: auto;
-}
-img.full-width, .row, .wpb_content_element {
-	min-width: 100%;
-	scroll-snap-type: proximity;
-
-	/* older spec implementation */
-	scroll-snap-destination: 0% 100%;
-	scroll-snap-points-x: repeat(100%);
-}
-.full-width,.threequarter-width,.half-width,.third-width,.twothird-width,.quarter-width,
-.col-12,.col-9,.col-7,.col-8,.col-6,.col-4,.col-3,.col-2,.col-1,
-.vc_col-lg-1, .vc_col-lg-10, .vc_col-lg-11, .vc_col-lg-12, .vc_col-lg-2, .vc_col-lg-3, .vc_col-lg-4, .vc_col-lg-5, .vc_col-lg-6, .vc_col-lg-7, .vc_col-lg-8, .vc_col-lg-9, .vc_col-md-1, .vc_col-md-10, .vc_col-md-11, .vc_col-md-12, .vc_col-md-2, .vc_col-md-3, .vc_col-md-4, .vc_col-md-5, .vc_col-md-6, .vc_col-md-7, .vc_col-md-8, .vc_col-md-9, .vc_col-sm-1, .vc_col-sm-10, .vc_col-sm-11, .vc_col-sm-12, .vc_col-sm-2, .vc_col-sm-3, .vc_col-sm-4, .vc_col-sm-5, .vc_col-sm-6, .vc_col-sm-7, .vc_col-sm-8, .vc_col-sm-9, .vc_col-xs-1, .vc_col-xs-10, .vc_col-xs-11, .vc_col-xs-12, .vc_col-xs-2, .vc_col-xs-3, .vc_col-xs-4, .vc_col-xs-5, .vc_col-xs-6, .vc_col-xs-7, .vc_col-xs-8, .vc_col-xs-9 {
-    box-sizing: border-box;
-    min-width: 100px;
-}
-
-<?php 
-$alt_cols =	array(false,false,false,'quarter-width','third-width',false,'half-width',false,'twothird-width','threequarter-width',false,false,'full-width');
-
-for($i = 12; $i>0;$i--):
-	echo '.vc_col-sm-'.$i.', .col-'.$i;
-	echo ($alt_cols[$i])?', .'.$alt_cols[$i]:'';
-	echo '{';
-		$perc_ratio = floor((($i/12)*100));
-		$min_width = ($i>4)?'320':'160';
-		echo ($i < 12)?'min-width:'.$min_width.'px;':'max-width:100%;';
-		echo 'width:'.$perc_ratio.'%;'.
-			 'flex:1 1 '.$perc_ratio.'%;';
-		if($is_IE) echo 'flex-basis: '.($perc_ratio - 5).'%;';
-	echo '}';
-endfor; ?>
-
-/* 
-	MOBILE
-*/
-@media (max-width:768px){ <?php 
-	for($i = 12; $i>0;$i--):
-		$perc_ratio = floor((($i/12)*100));
-		echo '.vc_col-xs-'.$i.'{'.
-			 'width:'.$perc_ratio.'%;'.
-			 'flex:1 1 '.$perc_ratio.'%;'.
-			 '}';
-	endfor; ?>
-}
-
-/* 
-	TABLET
-*/
-@media (min-width:768px){ <?php 
-	for($i = 12; $i>0;$i--):
-		$perc_ratio = floor((($i/12)*100));
-		echo '.vc_col-md-'.$i.'{'.
-			 'width:'.$perc_ratio.'%;'.
-			 'flex:1 1 '.$perc_ratio.'%;'.
-			 '}';
-	endfor; ?>
-}
-
-/* 
-	DESKTOP
-*/
-@media (min-width:992px){ <?php 
-	for($i = 12; $i>0;$i--):
-		$perc_ratio = floor((($i/12)*100));
-		echo '.vc_col-lg-'.$i.'{'.
-			 'width:'.$perc_ratio.'%;'.
-			 'flex:1 1 '.$perc_ratio.'%;'.
-			 '}';
-	endfor; ?>
-}
-
-
-.fixed_columns .flex-item {
-	min-width: 0;
-	position: relative;
-	box-sizing: border-box;
-	max-width: 100%;
-}
-.fixed_columns {
-	align-items: stretch;
-}
 .tagline {
 	background: #f2f2f2;
 	width: 100%;
@@ -1945,13 +2056,17 @@ endfor; ?>
     flex: 2 1 100px;
 }
 .text-block-icon {
-	margin: auto;
-	padding: 1em;
+	padding: 1em 0;
 }
-.small { font-size: 16px; }
-.regular { font-size: 20px; }
-.large { font-size: 35px; }
-.extra-large { font-size: 50px; }
+.text-block-icon.align-left {
+	padding-right: 1em;
+	padding-top: 0;
+	margin-top: 0;
+}
+.small, .fa.small { font-size: 16px; }
+.regular, .fa.regular  { font-size: 20px; }
+.large, .fa.large  { font-size: 35px; }
+.extra-large, .fa.extra-large  { font-size: 50px; }
 
 .author_details img {
 	margin-right: 1em; 
@@ -1969,15 +2084,13 @@ endfor; ?>
 	flex-wrap: wrap;
 	break-inside:avoid;
 }
-#home_blog_loop .blog-article .content-box {
+.blog-loop .content-box {
 	border-style: solid;
 }
 .blog-article header {
 	width: 100%;
 }
 .blog-article .content-box {
-	padding-top: 2px;
-	padding: 2px 1em;
 	margin: 0 auto;
 }
 .blog-article figure {
@@ -1986,6 +2099,9 @@ endfor; ?>
 }
 .blog-article .single-blog-post figure {
 	padding: 0;
+}
+.blog-article .single-blog-post figure img {
+	width: 100%;
 }
 
 /*
@@ -2081,48 +2197,10 @@ endfor; ?>
 }
 /* END Numbered Pagination */
 
-<?php 
 
-if(Hii::$options['portfolio_on']): 
-	get_template_part( 'css/portfolio/portfolio', 'css');
-endif;
-if(Hii::$options['teams_on']):
-	get_template_part( 'css/elements/teams', 'css');
-endif; 
-
-echo Hii::$options['typography_icon_custom_css'];?>
-
-a .fa, .fa {
-	display: inline-block;
-	width: 1.5em;
-	text-align: center;
-	line-height: 1;
-	<?php echo get_font_css(get_theme_mod('icon_settings')); ?>
-	<?php echo get_font_css(get_theme_mod('icon_settings_bg')); ?>
-	border:<?php echo get_theme_mod('icon_settings_border', '0'); ?> solid;
-	border-radius:<?php echo get_theme_mod('icon_settings_border_r', '0'); ?>;
-	box-sizing: content-box;
-}
-
-
-
-<?php 
-echo Hii::$options['typography_icon_custom_css'];
-	
-if(strpos(Hii::$options['custom_format_1'], '.custom_format_1') === false) echo '.custom_format_1 { '.Hii::$options['custom_format_1']. '}';
-else echo Hii::$options['custom_format_1'];
-	
-if(strpos(Hii::$options['custom_format_2'], '.custom_format_2') === false) echo '.custom_format_2 { '.Hii::$options['custom_format_2']. '}';
-else echo Hii::$options['custom_format_2'];
-	
-if(strpos(Hii::$options['custom_format_3'], '.custom_format_3') === false) echo '.custom_format_3 { '.Hii::$options['custom_format_3']. '}';
-else echo Hii::$options['custom_format_3'];
-?>
-
-
-/*
-//	note: Widgets
-*/
+/*--------------------------------------------------------------
+8.0 Sidebar
+--------------------------------------------------------------*/
 .sidebar,
 .widget {
 	<?php echo get_font_css(get_theme_mod( 'sidebar_widget_text_font' )); ?>
@@ -2184,26 +2262,98 @@ aside .widget ul li,
 	?>
 	border: <?php echo Hii::$options['sidebar_widget_border_width'].' solid '.Hii::$options['sidebar_widget_border_color'];?>;
 }
-/* Re coloring*/
-.color_one  { color: <?php echo Hii::$options['color_one'];?>; }
-.color_two 	{ color: <?php echo Hii::$options['color_two'];?>; }
-.color_three{ color: <?php echo Hii::$options['color_three'];?>; }
-.color_four { color: <?php echo Hii::$options['color_four'];?>; }
-.white, .page-title h1.white, 
-.white h1, .white h2, .white h3, .white h4, .white h5, .white h6, .white p, .white label { color:white; }
-.bg_color_one  { background-color: <?php echo Hii::$options['color_one'];?>; }
-.bg_color_two 	{ background-color: <?php echo Hii::$options['color_two'];?>; }
-.bg_color_three{ background-color: <?php echo Hii::$options['color_three'];?>; }
-.bg_color_four { background-color: <?php echo Hii::$options['color_four'];?>; }
-.bg_white { background-color:white; }
 
 
 
-/*
-//	note: Complimentary styles	
-*/
+/*--------------------------------------------------------------
+9.0 Testimonials
+--------------------------------------------------------------*/
+<?php
+	
+if(Hii::$options['testimonials_on']):
+	?>
+	.testimonial_item {
+	    padding: 0 1em 1em 1em;
+	}
+	.testimonial_content { 
+		<?php echo get_font_css(Hii::$options[ 'testimonials_body_font' ]); ?>
+	}
+	.testimonial_author {
+		<?php echo get_font_css(Hii::$options[ 'testimonials_author_font' ]); ?>
+	}
+	.testimonial_item .circle.testimonial_image {
+	    overflow: hidden;
+	    border-radius: 100%;
+	    width: 100px;
+	    height: 100px;
+	}
+<?php endif ?>
 
-/* Single Team Member Page */
+
+#closelightbox{position:fixed;width:100vw;height:100vh;z-index:9999;}
+
+
+/*--------------------------------------------------------------
+10.0 Blog
+--------------------------------------------------------------*/
+hr.small {
+	width: 60px;
+	border-style: solid;
+}
+
+.relatedarticle {
+	max-width: 220px;
+}
+.relatedposts .relatedarticle {
+	max-width: 220px;
+	overflow: hidden;
+	display: block;
+	    float: left;
+    vertical-align: top;
+}
+.relatedposts .relatedarticle p {
+	max-width: 200px;
+	text-overflow: ellipsis;
+	white-space: normal;
+	overflow: hidden;
+	margin-top: 0;
+}
+
+.post-grid h5 {
+	height:4em;
+	text-overflow: ellipsis;
+	overflow: hidden;
+}
+.post-grid figure {
+    position: relative;
+    padding-top:56%;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    margin-bottom: 0.5em;
+}
+
+.post-grid figure img {
+    position: absolute;
+    top: 0;
+    min-height: 100%;
+    max-width: 100%;
+    width: auto;
+    min-width: 100%;
+}
+<?php
+/*--------------------------------------------------------------
+11.0 Portfolio
+--------------------------------------------------------------*/
+if(Hii::$options['portfolio_on']): 
+	get_template_part( 'css/portfolio/portfolio', 'css');
+endif;
+/*--------------------------------------------------------------
+12.0 Teams
+--------------------------------------------------------------*/
+if(Hii::$options['teams_on']):
+	get_template_part( 'css/elements/teams', 'css');
+endif; ?>
 
 .team-member-content {
 	padding-left: 1em;
@@ -2250,84 +2400,9 @@ aside .widget ul li,
 }
 /* END Single Team Member Page */
 
-hr.small {
-	width: 60px;
-	border-style: solid;
-}
-
-.relatedarticle {
-	max-width: 220px;
-}
-.relatedposts .relatedarticle {
-	max-width: 220px;
-	overflow: hidden;
-	display: inline-block;
-	padding: 1em;
-    vertical-align: top;
-}
-.relatedposts .relatedarticle p {
-	max-width: 200px;
-	text-overflow: ellipsis;
-	white-space: normal;
-	overflow: hidden;
-	margin-top: 0;
-}
-
-.post-grid h5 {
-	height:4em;
-	text-overflow: ellipsis;
-	overflow: hidden;
-}
-.post-grid figure {
-    position: relative;
-    padding-top:56%;
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
-    margin-bottom: 0.5em;
-}
-
-.post-grid figure img {
-    position: absolute;
-    top: 0;
-    min-height: 100%;
-    max-width: 100%;
-    width: auto;
-    min-width: 100%;
-}
-
-<?php
-	
-if(Hii::$options['testimonials_on']):
-	?>
-	.testimonial_item {
-	    padding: 0 3em 1em 3em;
-	}
-	.testimonial_content { 
-		<?php echo get_font_css(Hii::$options[ 'testimonials_body_font' ]); ?>
-	}
-	.testimonial_author {
-		<?php echo get_font_css(Hii::$options[ 'testimonials_author_font' ]); ?>
-	}
-	.testimonial_item .circle.testimonial_image {
-	    overflow: hidden;
-	    border-radius: 100%;
-	    width: 100px;
-	    height: 100px;
-	}
-<?php endif ?>
-
-.text-align.center {
-	text-align: center;
-}
-
-.fl {
-	float: left;
-}
-
-#closelightbox{position:fixed;width:100vw;height:100vh;z-index:9999;}
-
-
+/*--------------------------------------------------------------
+13.3 Food Menu
+--------------------------------------------------------------*/
 .menu-title, .menu-ingredients, .menu-price {
     padding-top: 0.5em;
 }
@@ -2362,23 +2437,9 @@ if(Hii::$options['testimonials_on']):
     top: -3em;
 }
 
-.wpb_accordion_section h3 {
-    display: inline-block;
-    color: #333;
-    font-size: 100%;
-}
-.accordion .wpb_accordion_wrapper .wpb_accordion_header {
-    padding: 0.5em 1em;
-}
-details.wpb_accordion_section.group {
-    margin: 1em;
-}
-.wpb_gmaps_widget .wpb_wrapper {
-	padding:0;
-}
-/*
- //	note: Tribe_Events	
- */
+/*--------------------------------------------------------------
+13.7 The Event Calendar
+--------------------------------------------------------------*/
 .tribe-events-cost.col-3.align-right {
     font-size: 3em;
 }
@@ -2389,10 +2450,9 @@ details.wpb_accordion_section.group {
 }
 <?php
 
-
-/*
- //	note: WP_User_Manager	
- */
+/*--------------------------------------------------------------
+13.4 WP User Manager
+--------------------------------------------------------------*/
 if(class_exists('WP_User_Manager')): ?>
 	.wpum-profile-card .wpum-profile-img {
 	    position: relative;
@@ -2416,25 +2476,45 @@ if(class_exists('WP_User_Manager')): ?>
 	}
 	<?php
 endif;
-
+/*--------------------------------------------------------------
+13.5 VC Manager
+--------------------------------------------------------------*/
 if(class_exists('Vc_Manager')): 
 	get_template_part('css/service_extensions/js_composer', 'css');	
 endif;
+/*--------------------------------------------------------------
+13.6 BuddyPress
+--------------------------------------------------------------*/
 if(class_exists('BuddyPress')): 
 	get_template_part('css/service_extensions/buddypress', 'css');	
 endif;
+/*--------------------------------------------------------------
+13.7 WooCommerce
+--------------------------------------------------------------*/
 if(class_exists('WooCommerce')):
 	get_template_part('css/service_extensions/woocommerce', 'css');	
 endif;
+/*--------------------------------------------------------------
+13.8 Sensei
+--------------------------------------------------------------*/
 if(class_exists('Sensei_Main')):
 	get_template_part('css/service_extensions/sensei', 'css');	
 endif;
+/*--------------------------------------------------------------
+13.9 Gravity Forms
+--------------------------------------------------------------*/
 if(class_exists('GFForms')):
 	get_template_part('css/service_extensions/gravityforms', 'css');	
 endif;
+/*--------------------------------------------------------------
+13.10 Contact Form 7
+--------------------------------------------------------------*/
 if(class_exists('WPCF7')):
 	get_template_part('css/service_extensions/contactform7', 'css');	
 endif;
+/*--------------------------------------------------------------
+13.11 SportsPress
+--------------------------------------------------------------*/
 if(class_exists('SportsPress')):
 	get_template_part( 'css/service_extensions/sportspress', 'css');
 endif;
@@ -2455,17 +2535,23 @@ if(is_user_logged_in()):
 	<?php
 endif;
 
-echo '
-.custom_format_1 {
-	'.preg_replace('/[{}]/','',Hii::$options['custom_format_1']).'
-}
-.custom_format_2 {
-	'.preg_replace('/[{}]/','',Hii::$options['custom_format_2']).'
-}
-.custom_format_3 {
-	'.preg_replace('/[{}]/','',Hii::$options['custom_format_3']).'
-}';
+?>
+/*--------------------------------------------------------------
+14.0 Overwrites
+--------------------------------------------------------------*/
+.color_one  { color: <?php echo Hii::$options['color_one'];?>; }
+.color_two 	{ color: <?php echo Hii::$options['color_two'];?>; }
+.color_three{ color: <?php echo Hii::$options['color_three'];?>; }
+.color_four { color: <?php echo Hii::$options['color_four'];?>; }
+.white, .page-title h1.white, 
+.white h1, .white h2, .white h3, .white h4, .white h5, .white h6, .white p, .white label { color:white; }
+.bg_color_one  { background-color: <?php echo Hii::$options['color_one'];?>; }
+.bg_color_two 	{ background-color: <?php echo Hii::$options['color_two'];?>; }
+.bg_color_three{ background-color: <?php echo Hii::$options['color_three'];?>; }
+.bg_color_four { background-color: <?php echo Hii::$options['color_four'];?>; }
+.bg_white { background-color:white; }
 
+<?php
 
 do_action ( 'custom_css' );
 echo Hii::$options['custom_css'];

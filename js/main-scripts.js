@@ -1,3 +1,13 @@
+/**
+ * HiiWP: Main-Scripts
+ *
+ * Main JS file
+ *
+ * @package     hiiwp
+ * @copyright   Copyright (c) 2018, Peter Vigilante
+ * @license     http://opensource.org/licenses/gpl-2.0.php GNU Public License
+ * @since       1.0.1
+ */
 (function($){
 	
 $(document).ready(function(){
@@ -191,12 +201,12 @@ $(document).ready(function(){
 				width = $carousel.parent().width();
 				
 				$carousel.width(width);
-				$carousel.find('.slide').each(function(){
+				/*$carousel.find('.slide').each(function(){
 					$(this).css('max-width', function(){
 						col_name = this.className.match(/\bcol-[0-9]/);
 						return Math.max($carousel.width() / (12 / col_name[0].match(/[0-9]/)), 250);
 					});
-				});
+				});*/
 			});
 			
 			$carousel.find('a.slide').on('touchend', function(e){
@@ -249,9 +259,8 @@ $(document).ready(function(){
 					}
 					autoPlayInterval();
 				}
-				
-				
-				if($carousel.data('show_arrows') === true) {
+
+				if($carousel.data('show_arrows') == true) {
 					
 					$carousel.append('<div class="amp-carousel-button amp-carousel-button-prev" role="button" aria-label="previous"></div><div class="amp-carousel-button amp-carousel-button-next" role="button" aria-label="next"></div>');
 					
@@ -262,6 +271,10 @@ $(document).ready(function(){
 					if($carousel.data('arrow_background_type') !== 'none'){
 						$prev_button.css('background-color', $carousel.data('arrow_background_color')); 
 						$next_button.css('background-color', $carousel.data('arrow_background_color'));
+					}
+					if($carousel.data('arrow_color') != ''){
+						$prev_button.css('color', $carousel.data('arrow_color')); 
+						$next_button.css('color', $carousel.data('arrow_color'));
 					}
 					/*
 						NEXT BUTTON CLICKED
@@ -338,10 +351,10 @@ $(document).ready(function(){
 					
 				$wrapper.find('.slide').each(function(){
 					total_width += $(this).outerWidth(true);
-					$(this).css('max-width', function(){
+					/*$(this).css('max-width', function(){
 						col_name = this.className.match(/\bcol-[0-9]/);
 						return (col_name)?Math.max($carousel.width() / (12 / col_name[0].match(/[0-9]/)), 250):false;
-					});
+					});*/
 				});
 				
 				// slider.width = carousel.width / (12 / col-#) 
@@ -363,6 +376,10 @@ $(document).ready(function(){
 					if($carousel.data('arrow_background_type') !== 'none'){
 						$prev_button.css('background-color', $carousel.data('arrow_background_color')); 
 						$next_button.css('background-color', $carousel.data('arrow_background_color'));
+					}
+					if($carousel.data('arrow_color') != ''){
+						$prev_button.css('color', $carousel.data('arrow_color')); 
+						$next_button.css('color', $carousel.data('arrow_color'));
 					}
 					
 					

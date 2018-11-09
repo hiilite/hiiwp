@@ -13,6 +13,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @var $content - shortcode content
  * Shortcode class
  * @var $this WPBakeryShortCode_VC_Column_text
+ * @since 1.0.1 
  */
 $white = $el_class = $css = $css_animation = $white_text = $icon_html = $icon_html_start = $icon_html_end = '';
 $atts = vc_map_get_attributes( $this->getShortcode(), $atts );
@@ -25,7 +26,10 @@ extract( shortcode_atts( array(
 	'white_text'	=> false,
 	'css'			=> '',
 	'el_class'		=> '',
-   ), $atts ) );
+    'el_id'			=> '',
+    'on_click'			=> ''
+   ), 
+   $atts ) );
    
 if($white_text == 'yes') {
 	$white = 'white';	
@@ -55,7 +59,11 @@ if (!empty($icon)){
 $css_class = preg_replace( '/\s+/', ' ', apply_filters( VC_SHORTCODE_CUSTOM_CSS_FILTER_TAG, implode( ' ', array_filter( $css_classes ) ), $this->settings['base'], $atts ));
 
 $wrapper_attributes[] = 'class="' . esc_attr( trim( $css_class ) ) . '"';
-	
+
+if(! empty($on_click) ){
+	$wrapper_attributes[] = 'onclick="'. $on_click .'"';
+}
+
 $output = '<div '. implode( ' ', $wrapper_attributes ) .'>';
 $output .= $icon_html;
 $output .= $icon_html_start.wpb_js_remove_wpautop( $content, true ).$icon_html_end;

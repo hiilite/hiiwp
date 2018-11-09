@@ -825,6 +825,12 @@ class HiiWP_Admin {
 	        'type'       => 'checkbox',
 	    ));
 	    $cmb->add_field( array(
+	        'name'       => __( 'Show Page Loader', 'hiiwp' ),
+	        'desc'       => __( 'The page loader is used to hide the font popping that may occur when using Google Fonts. The loader will wait until all fonts are loaded before showing the site', 'hiiwp' ),
+	        'id'         => 'show_page_loader',
+	        'type'       => 'checkbox',
+	    ));
+	    $cmb->add_field( array(
 	        'name'       => __( 'Load Viewport Units Buggyfill™', 'hiiwp' ),
 	        'desc'       => __( 'Provides hacks for you to get viewport units working in old IE and Android Stock Browser', 'hiiwp' ),
 	        'id'         => 'load_viewport_units_buggyfill',

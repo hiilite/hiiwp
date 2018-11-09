@@ -1,4 +1,7 @@
 <?php if(false): ?><style><?php endif; ?>
+.vc_grid.vc_row {
+	width: 100%;
+}
 .row-o-full-height {
 	min-height: 100vh;
 	display: flex;

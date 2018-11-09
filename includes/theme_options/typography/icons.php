@@ -1,10 +1,20 @@
 <?php
-$section = 'typography_social_icons_section';
+/**
+ * HiiWP: Icon Settings
+ *
+ * Adds the customizer settings for the Icons section
+ *
+ * @package     hiiwp
+ * @copyright   Copyright (c) 2018, Peter Vigilante
+ * @license     http://opensource.org/licenses/gpl-2.0.php GNU Public License
+ * @since       1.0.1
+ */
+$section = 'typography_icons_section';
 
 Kirki::add_field( 'hiiwp', array(
     'type'        => 'typography',
     'settings'    => 'icon_settings',
-    'label'       => esc_attr__( 'Social Icon Color', 'hiiwp' ),
+    'label'       => esc_attr__( 'Icon Color', 'hiiwp' ),
     'description' => __( 'Define color for social icons', 'hiiwp' ),
     'section'     => $section,
     'default'     => $hiilite_options['icon_settings'],
@@ -13,7 +23,7 @@ Kirki::add_field( 'hiiwp', array(
 Kirki::add_field( 'hiiwp', array(
 	'type'        => 'multicolor',
 	'settings'    => 'icon_settings_bg',
-	'label'		  => 'Social Icon Background',
+	'label'		  => 'Icon Background',
 	'section'     => $section,
 	'priority'    => 1,
 	'choices'     => array(

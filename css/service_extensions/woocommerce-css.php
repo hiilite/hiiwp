@@ -1,4 +1,15 @@
-<?php if(false): ?><style><?php endif; ?>
+<?php
+/**
+ * HiiWP: Woocommerce-CSS
+ *
+ * Service extension CSS file for WooCommerce
+ *
+ * @package     hiiwp
+ * @copyright   Copyright (c) 2018, Peter Vigilante
+ * @license     http://opensource.org/licenses/gpl-2.0.php GNU Public License
+ * @since       1.0.1
+ */
+if(false): ?><style><?php endif; ?>
 .woocommerce label {
     display: block;
 }
@@ -13,6 +24,7 @@
 	margin-bottom: 0;
 	color: <?php echo Hii::$options['title_font']['color']; ?>;
 	font-size:0.92rem;
+	    width: 100%;
 }
 .woocommerce .products ul li, .woocommerce ul.products li {
     list-style: none outside;
@@ -61,20 +73,20 @@
 .woocommerce a.button,
 .woocommerce button.button {
 	<?php
-	get_font_css(Hii::$options[ 'typography_button_default_font' ]);
+	echo get_font_css(Hii::$options[ 'typography_button_default_font' ]);
 	echo 'background:'.Hii::$options[ 'typography_button_default_background' ]['base'].';';
 	echo 'padding:'.get_spacing(Hii::$options[ 'typography_button_default_padding' ]).';';
 	echo 'border:'.
-		Hii::$options['typography_button_default_border_width'].
+		Hii::$options['typography_button_default_border_width']. 
 		' solid '.
 		Hii::$options['typography_button_default_border_color']['base'].
 		';';
 	echo 'border-radius:'.Hii::$options[ 'typography_button_default_border_radius' ].';';
-	echo preg_replace('/[{}]/','',Hii::$options['typography_button_custom_css']);?>
+	//echo preg_replace('/[{}]/','',Hii::$options['typography_button_custom_css']);?>
 }
 
 .woocommerce #respond input#submit.alt, .woocommerce a.button.alt, .woocommerce button.button.alt, .woocommerce input.button.alt {<?php 
-	get_font_css(Hii::$options[ 'typography_button_primary_font' ]);
+	echo get_font_css(Hii::$options[ 'typography_button_primary_font' ]);
 	echo 'background:'.Hii::$options[ 'typography_button_primary_background']['base'].';';
 	echo 'padding:'.get_spacing(Hii::$options[ 'typography_button_primary_padding' ]).';';
 	echo 'border: '.
@@ -83,10 +95,12 @@
 		Hii::$options['typography_button_primary_border_color']['base'].
 		';';
 	echo 'border-radius:'.Hii::$options['typography_button_primary_border_radius'].';';
-	echo preg_replace('/[{}]/','',Hii::$options['typography_button_primary_custom_css']);?>
+	//echo preg_replace('/[{}]/','',Hii::$options['typography_button_primary_custom_css']);?>
 	
 }
-
+.woocommerce #respond input#submit.disabled, .woocommerce #respond input#submit:disabled, .woocommerce #respond input#submit:disabled[disabled], .woocommerce a.button.disabled, .woocommerce a.button:disabled, .woocommerce a.button:disabled[disabled], .woocommerce button.button.disabled, .woocommerce button.button:disabled, .woocommerce button.button:disabled[disabled], .woocommerce input.button.disabled, .woocommerce input.button:disabled, .woocommerce input.button:disabled[disabled] {
+	<?php echo 'padding:'.get_spacing(Hii::$options[ 'typography_button_default_padding' ]).';'; ?>
+}
 .woocommerce div.product p.price, .woocommerce div.product span.price {
     color: #525252;
 }
@@ -161,7 +175,7 @@ div:last-child {
 }
 
 .woocommerce .cart span.subscription-details {
-    display: block;
+    display: inline-block;
 }
 
 .woocommerce .cart .price > span.woocommerce-Price-amount.amount {
@@ -276,7 +290,7 @@ ul.product-categories li.product a {
 }
 
 
-ul.products li.product, ul.product-categories li.product {
+ul.products li.product, ul.product-categories li.product { 
     float: none;
     flex: 1 1 auto;
     margin: 1em;
@@ -326,4 +340,8 @@ ul.product-categories li.product {
 	.woocommerce ul.products li.product, .woocommerce-page ul.products li.product {
 		width:46%;
 	}
+}
+
+.woocommerce ul.products li.product, .woocommerce-page ul.products li.product {
+	margin-right: 0;
 }

@@ -1,6 +1,20 @@
 # Hiilite Wordpress theme
 
 ### Change log
+#### v1.0.2
+- Added visibility options to vc_row
+- Added fix for support licensing
+- Added option to remove page loader animation
+- Fixed CSS Async & Javascript Defering
+
+#### v1.0.1
+- Minor layout a design bug fixes
+- Fixed id on textblock
+- Removed default underline on hover for a tags
+- Fixed Post Grid design options not applying
+- Fixed slider arrows not showing
+- Separated Social Icons and default Site Icons in the customizer settings
+
 #### v1.0.0
 - Major Updates to all files
 - All plugin territory functions moved to HiiWP Plus Plugin, now a required plugin install with theme.

@@ -42,7 +42,7 @@ Kirki::add_field( 'hiiwp', array(
 ) );
 
 /*
-Header Top	
+Header Top	 
 */
 Kirki::add_field( 'hiiwp', array(
 	'type'        => 'typography',
@@ -79,10 +79,7 @@ Kirki::add_field( 'hiiwp', array(
 	    'link'   => esc_attr__( 'Link Color', 'hiiwp' ),
         'hover'   => esc_attr__( 'Hover Color', 'hiiwp' ),
     ),
-    'default'     => array(
-        'link'   => '',
-        'hover'  => '',
-    ),
+    'default'     => $hiilite_options['header_top_colors'],
     'active_callback'	  => array(
 		array(
 		    'setting'  => 'header_top_area_yesno',

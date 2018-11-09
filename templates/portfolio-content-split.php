@@ -80,7 +80,7 @@ echo '<div class="in_grid  align-top">';
 		echo "<dl>";
 		do_action( 'hii_before_split_portfolio_sidebar_content' );	
 		
-		echo "	<dt itemprop='headline' class='project-title'>{$page_title}</dt>
+		echo "	<dt>Date</dt>
 				<dd><time class='time op-published' datetime='".get_the_date('c',$work_id)."'><span class='date'>".get_the_date('F jS, Y',$work_id)."</span></time></dd>";
 
 		if($portfolio_client) {
@@ -110,7 +110,7 @@ echo '<div class="in_grid  align-top">';
 		echo "</dl>";
 		
 		if($portfolio_description) {
-			echo '<dt>About This Project</dt>';
+			echo '<dt>Overview</dt>';
 			echo '<dd>'.$portfolio_description.'</dd>';
 			
 		}
