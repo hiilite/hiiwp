@@ -25,7 +25,7 @@ if( (isset($post)
 		
 		if(isset($post)) {
 			$page_title_color = (get_post_meta ( $post->ID, 'page_title_color', true))?get_post_meta ( $post->ID, 'page_title_color', true):false;
-			$page_bg_color = (get_post_meta ( $post->ID, 'page_title_bg', true))?get_post_meta ( $post->ID, 'page_title_bg', true):false;
+			$page_title_bg = (get_post_meta ( $post->ID, 'page_title_bg', true))?get_post_meta ( $post->ID, 'page_title_bg', true):false;
 			
 			if(! is_archive()):
 				$page_bg_img = (get_post_meta ( $post->ID, 'page_title_bgimg', false))?get_post_meta ( $post->ID, 'page_title_bgimg'):false;
@@ -35,7 +35,7 @@ if( (isset($post)
 		
 		if($page_title != ''){
 		?>
-		<div class="page-title" style="<?php echo ($page_bg_img)?'background-image:url('.$page_bg_img[0].');':'';?><?php echo ($page_bg_color)?'background-color:'.$page_bg_color.';':'';?>">
+		<div class="page-title" style="<?php echo ($page_bg_img)?'background-image:url('.$page_bg_img[0].');':''; echo ($page_title_bg)?'background-color:'.$page_title_bg.';':'';?>">
 			<div class="container_inner">
 				<div class="in_grid content-box">
 					<?php do_action( 'before_page_title' );?>

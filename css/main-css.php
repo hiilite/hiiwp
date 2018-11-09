@@ -2307,8 +2307,8 @@ hr.small {
 .relatedposts .relatedarticle {
 	max-width: 220px;
 	overflow: hidden;
-	display: inline-block;
-	padding: 1em;
+	display: block;
+	    float: left;
     vertical-align: top;
 }
 .relatedposts .relatedarticle p {

@@ -117,6 +117,11 @@ class Hii {
 		    include_once( $filename );
 		} 
 		
+		if ( ! class_exists( 'AM_License_Menu' ) ) {
+			require_once( HIILITE_DIR . '/includes/service_extensions/am-license-menu.php' );
+			AM_License_Menu::instance( __FILE__, 'HiiWP', HIIWP_VERSION, 'theme', 'https://hiilite.com/' );
+		    
+		}
 		
 		$this->hooks		= new HiiWP_Hooks();
 		$this->post_types	= new HiiWP_Post_Types();
@@ -380,7 +385,7 @@ endif;
 */
 add_action( 'wp_enqueue_scripts', 'enqueue_load_fa' );
 function enqueue_load_fa() {
-    wp_enqueue_style( 'load-fa', get_template_directory_uri(  ).'/css/font-awesome/css/font-awesome.min.css' );
+    wp_enqueue_style( 'load-fa-css', get_template_directory_uri(  ).'/css/font-awesome/css/font-awesome.min.css' );
 }
 
 /**
@@ -799,17 +804,17 @@ function numeric_posts_nav() {
 		$links[] = $paged + 1;
 	}
 
-	echo '<div class="navigation"><ul>' . "\n";
+	echo '<div class="navigation"><ul>';
 
 	/**	Previous Post Link */
 	if ( get_previous_posts_link() )
-		printf( '<li>%s</li>' . "\n", get_previous_posts_link() );
+		printf( '<li>%s</li>', get_previous_posts_link() );
 
 	/**	Link to first page, plus ellipses if necessary */
 	if ( ! in_array( 1, $links ) ) {
 		$class = 1 == $paged ? ' class="active"' : '';
 		
-		printf( '<li%s><a href="%s" class="button-dis">%s</a></li>' . "\n", $class, esc_url( get_pagenum_link( 1 ) ), '1' );
+		printf( '<li%s><a href="%s" class="button-dis">%s</a></li>', $class, esc_url( get_pagenum_link( 1 ) ), '1' );
 		if ( ! in_array( 2, $links ) )
 			echo '<li>…</li>';
 	}
@@ -821,24 +826,24 @@ function numeric_posts_nav() {
 		if($paged == $link):
 			echo '<li class="active"><span class="button button-dis">'.$paged.'</span></li>';
 		else:
-			printf( '<li%s><a href="%s" class="button">%s</a></li>' . "\n", $class, esc_url( get_pagenum_link( $link ) ), $link );
+			printf( '<li%s><a href="%s" class="button">%s</a></li>', $class, esc_url( get_pagenum_link( $link ) ), $link );
 		endif;
 	}
 
 	/**	Link to last page, plus ellipses if necessary */
 	if ( ! in_array( $max, $links ) ) {
 		if ( ! in_array( $max - 1, $links ) )
-			echo '<li>…</li>' . "\n";
+			echo '<li>…</li>';
 
 		$class = $paged == $max ? ' class="active"' : '';
-		printf( '<li%s><a href="%s" class="button">%s</a></li>' . "\n", $class, esc_url( get_pagenum_link( $max ) ), $max );
+		printf( '<li%s><a href="%s" class="button">%s</a></li>', $class, esc_url( get_pagenum_link( $max ) ), $max );
 	}
 
 	/**	Next Post Link */
 	if ( get_next_posts_link() )
-		printf( '<li>%s</li>' . "\n", get_next_posts_link() );
+		printf( '<li>%s</li>', get_next_posts_link() );
 
-	echo '</ul></div>' . "\n";
+	echo '</ul></div>';
 
 }
 endif;
@@ -948,15 +953,15 @@ function hiilite_numeric_posts_nav() {
 		        $links[] = $paged + 1;
 		    }
 		 
-		    echo '<div class="num-pagination row"><ul>' . "\n";
+		    echo '<div class="num-pagination row"><ul>';
 		 
 		    if ( get_previous_posts_link() )
-		        printf( '<li>%s</li>' . "\n", get_previous_posts_link() );
+		        printf( '<li>%s</li>', get_previous_posts_link() );
 		 
 		    if ( ! in_array( 1, $links ) ) {
 		        $class = 1 == $paged ? ' class="active"' : '';
 		 
-		        printf( '<li%s><a href="%s">%s</a></li>' . "\n", $class, esc_url( get_pagenum_link( 1 ) ), '1' );
+		        printf( '<li%s><a href="%s">%s</a></li>', $class, esc_url( get_pagenum_link( 1 ) ), '1' );
 		 
 		        if ( ! in_array( 2, $links ) )
 		            echo '<li>…</li>';
@@ -965,21 +970,21 @@ function hiilite_numeric_posts_nav() {
 		    sort( $links );
 		    foreach ( (array) $links as $link ) {
 		        $class = $paged == $link ? ' class="active"' : '';
-		        printf( '<li%s><a href="%s">%s</a></li>' . "\n", $class, esc_url( get_pagenum_link( $link ) ), $link );
+		        printf( '<li%s><a href="%s">%s</a></li>', $class, esc_url( get_pagenum_link( $link ) ), $link );
 		    }
 		 
 		    if ( ! in_array( $max, $links ) ) {
 		        if ( ! in_array( $max - 1, $links ) )
-		            echo '<li>…</li>' . "\n";
+		            echo '<li>…</li>';
 		 
 		        $class = $paged == $max ? ' class="active"' : '';
-		        printf( '<li%s><a href="%s">%s</a></li>' . "\n", $class, esc_url( get_pagenum_link( $max ) ), $max );
+		        printf( '<li%s><a href="%s">%s</a></li>', $class, esc_url( get_pagenum_link( $max ) ), $max );
 		    }
 		 
 		    if ( get_next_posts_link() )
-		        printf( '<li>%s</li>' . "\n", get_next_posts_link() );
+		        printf( '<li>%s</li>', get_next_posts_link() );
 		 
-		    echo '</ul></div>' . "\n";
+		    echo '</ul></div>';
 		
 		// END Numbered Pagination Option
 		} else {

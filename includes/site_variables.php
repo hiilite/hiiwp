@@ -208,6 +208,10 @@ $hiilite_options['header_above_content'] = get_theme_mod('header_above_content',
 $hiilite_options['header_top_area_yesno']		= get_theme_mod( 'header_top_area_yesno', false );
 
 $hiilite_options['header_top_background_color']	= get_theme_mod( 'header_top_background_color', 'rgba(248,248,248,1)' );
+$hiilite_options['header_top_colors']			= get_theme_mod( 'header_top_colors', array(
+			        'link'   => '',
+			        'hover'  => ''
+			));
 $hiilite_options['header_top_border_width']		= get_theme_mod( 'header_top_border_width', '0px' );
 $hiilite_options['header_top_border_color']		= get_theme_mod( 'header_top_border_color', '' );
 
@@ -1103,6 +1107,7 @@ $hii_seo_setting_defaults =  array(
 	'defer_all_javascript'			=> false,
 	'load_viewport_units_buggyfill'	=> false,
 	'async_all_css'					=> false,
+	'show_page_loader'				=> false,
 	'hiilite_developer'				=> false,
 );
 

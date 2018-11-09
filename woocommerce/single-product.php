@@ -21,7 +21,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 get_header( 'shop' );
 get_template_part( 'templates/title' );
- ?>
+?>
 <div id="product-<?php the_ID(); ?>" <?php post_class('row'); ?>>
 	<div class="in_grid content-box">
 

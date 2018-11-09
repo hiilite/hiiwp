@@ -1,8 +1,11 @@
 # Hiilite Wordpress theme
 
 ### Change log
-#### v1.0.1
+#### v1.0.2
 - Added visibility options to vc_row
+- Added fix for support licensing
+- Added option to remove page loader animation
+- Fixed CSS Async & Javascript Defering
 
 #### v1.0.1
 - Minor layout a design bug fixes

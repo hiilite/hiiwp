@@ -72,11 +72,7 @@ switch($shortcode_type){
 			}
 			
 			
-			$output = '<amp-carousel ' . implode( ' ', $wrapper_attributes ) . '
-							  layout="responsive"
-							  width="'.$atts['slider_width'].'"
-							  style="width:'.$atts['slider_width'].'px; min-height:'.$atts['slider_min_height'].'px;"
-							  type="slides"';
+			$output = '<amp-carousel ' . implode( ' ', $wrapper_attributes ) . ' layout="responsive" width="'.$atts['slider_width'].'" style="width:'.$atts['slider_width'].'px; min-height:'.$atts['slider_min_height'].'px;" type="slides"';
 			$output .= ($atts['autoplay'] != 'none')?' autoplay delay="'.$atts['autoplay'].'000">':'>';
 			if(isset($atts['title']) && $atts['title'] != '')
 			{

@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) )	exit;
 /**
  * HiiWP class.
  *
- * @since 0.4.9
+ * @since 1.0.2
  */
 class HiiWP extends Hii {
 	
@@ -29,7 +29,7 @@ class HiiWP extends Hii {
 		}
 		return self::$_instance;
 	}
-	
+	 
 	/**
 	 * __construct function.
 	 * 
@@ -71,13 +71,14 @@ class HiiWP extends Hii {
 	    */
         //add_action('wp_print_scripts','add_load_css',7);
 		add_action('wp_head', array($this, 'add_load_css' ),7);
-		add_action('hii_body_start', array($this, 'add_loading_svg'));
+		if(self::$hiilite_options['show_page_loader']) {
+			add_action('hii_body_start', array($this, 'add_loading_svg'));
+		}
 		
-		/*
 	    if(self::$hiilite_options['async_all_css']) {
 			add_filter('style_loader_tag', array($this, 'link_to_loadCSS_script' ),9999,3);
 		}
-		*/
+		
         
 		
         if ( ! function_exists( '_wp_render_title_tag' ) ) :
@@ -113,11 +114,11 @@ class HiiWP extends Hii {
      * @return void
      */
     public function hiiwp_init(){
-	    /*
+	    
 	    if( self::$hiilite_options['defer_all_javascript'] ) {
 		    add_filter('script_loader_tag', array( $this, 'add_defer_attribute'), 10, 2);
 	    }
-		*/
+		
     }
 	
 	
@@ -159,54 +160,17 @@ class HiiWP extends Hii {
 	 * @return void
 	 */
 	public function add_load_css(){ 
-	    ?>
-	    <style>
-		    html body > .wrapper {
-		    	opacity: 0;
-		    	transition: opacity 0.25s;
-		    }
-		    
-		    html[class*="-active"] body > .wrapper {
-			    opacity: 1;
-		    }
-		</style>
-	    <noscript><style>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
-	    <?php
+	    if(self::$hiilite_options['show_page_loader']) {
+	    	?><style>html body > .wrapper{opacity:0;transition:opacity 0.25s;}html[class*="-active"] body > .wrapper{opacity: 1;}</style><noscript><style>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript><?php
+		}
 	    if(self::$hiilite_options['async_all_css']) {
-	    ?>
-		    <script>/*! 
-				loadCSS: load a CSS file asynchronously. 
-				[c]2014 @scottjehl, Filament Group, Inc. 
-				Licensed MIT 
-				*/
-				
-				function loadCSS( href, before, media ){ 
-					"use strict"; 
-					var ss = window.document.createElement( "link" ); 
-					var ref = before || window.document.getElementsByTagName( "script" )[ 0 ]; 
-					ss.rel = "stylesheet"; 
-					ss.href = href; 
-					ss.media = "only x"; 
-					ref.parentNode.insertBefore( ss, ref ); 
-					setTimeout( function(){ 
-						ss.media = media || "all"; 
-					} ); 
-					return ss; 
-				}
-			</script>
-			<?php
+	    	?><script>/*! loadCSS: load a CSS file asynchronously.[c]2014 @scottjehl, Filament Group, Inc.Licensed MIT */function loadCSS( href, before, media ){"use strict";var ss = window.document.createElement( "link" );var ref = before || window.document.getElementsByTagName( "script" )[ 0 ];ss.rel = "stylesheet";ss.href = href;ss.media = "only x";ref.parentNode.insertBefore( ss, ref );setTimeout( function(){ss.media = media || "all";} );return ss;}</script><?php
 		}
 		
 	}
 	
 	public function add_loading_svg(){
-		?><svg id="page-loader" style="width: 150px;height: 150px;position: fixed; z-index: 99999; top: 0; bottom: 0; margin: auto;left: 0;right: 0; transition:all 0.4s; ">
-			<circle cx="75" cy="75" r="20" />
-			<circle cx="75" cy="75" r="35" />
-			<circle cx="75" cy="75" r="50" />
-			<circle cx="75" cy="75" r="65" />
-		</svg>
-		<?php
+		?><svg id="page-loader" style="width: 150px;height: 150px;position: fixed; z-index: 99999; top: 0; bottom: 0; margin: auto;left: 0;right: 0; transition:all 0.4s; "><circle cx="75" cy="75" r="20" /><circle cx="75" cy="75" r="35" /><circle cx="75" cy="75" r="50" /><circle cx="75" cy="75" r="65" /></svg><?php
 	}
 	
 	/**
@@ -224,7 +188,7 @@ class HiiWP extends Hii {
 		    $dom->loadHTML($html);
 		    $a = $dom->getElementById($handle.'-css');
 		    if($a)
-		    	return "<script>if (typeof loadCSS == 'function') { loadCSS('" . $a->getAttribute('href') . "',0,'" . $a->getAttribute('media') . "'); }</script>\n";	
+		    	return "<script>if (typeof loadCSS == 'function') { loadCSS('" . $a->getAttribute('href') . "',0,'" . $a->getAttribute('media') . "'); }</script>";	
 		    else
 		    	return $html;
 		} else {
@@ -288,9 +252,7 @@ class HiiWP extends Hii {
 		$safari_icon = self::$hiilite_options['safari_icon'];
 		$safari_icon_color = self::$hiilite_options['safari_icon_color'];
 		echo "<link rel='mask-icon' href='$safari_icon' color='$safari_icon_color'>";
-		?>
-		<meta name="apple-mobile-web-app-capable" content="yes">
-		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"><?php
+		?><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"><?php
 	}
 	
 	/**
@@ -302,7 +264,7 @@ class HiiWP extends Hii {
 	public function canonical_for_comments() {
 	  global $cpage, $post;
 	  if ( $cpage > 1 ) :
-	    echo "n";
+	    echo "";
 	      echo "<link rel='canonical' href='";
 	      echo get_permalink( $post->ID );
 	      echo "' />";
@@ -467,8 +429,22 @@ class HiiWP extends Hii {
 	 * @return void
 	 */
 	public function add_defer_attribute($tag, $handle) {
+
+		// Scripts to exclude
+		$exclude_scripts = array(
+			'jquery',
+			'jquery-core',
+			'webfont-loader'
+		);
 		if(is_admin() || is_customize_preview()) return $tag;
-		return str_replace( ' src', ' defer=defer src', $tag );
+		
+		if( in_array($handle, $exclude_scripts) ) {
+			return $tag;
+		} else {
+			return str_replace( ' src', ' defer=defer src', $tag );
+		}
+			
+		return $tag;
 	}
 	
 	

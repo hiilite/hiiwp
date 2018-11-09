@@ -24,6 +24,7 @@ if(false): ?><style><?php endif; ?>
 	margin-bottom: 0;
 	color: <?php echo Hii::$options['title_font']['color']; ?>;
 	font-size:0.92rem;
+	    width: 100%;
 }
 .woocommerce .products ul li, .woocommerce ul.products li {
     list-style: none outside;
@@ -76,7 +77,7 @@ if(false): ?><style><?php endif; ?>
 	echo 'background:'.Hii::$options[ 'typography_button_default_background' ]['base'].';';
 	echo 'padding:'.get_spacing(Hii::$options[ 'typography_button_default_padding' ]).';';
 	echo 'border:'.
-		Hii::$options['typography_button_default_border_width'].
+		Hii::$options['typography_button_default_border_width']. 
 		' solid '.
 		Hii::$options['typography_button_default_border_color']['base'].
 		';';
@@ -174,7 +175,7 @@ div:last-child {
 }
 
 .woocommerce .cart span.subscription-details {
-    display: block;
+    display: inline-block;
 }
 
 .woocommerce .cart .price > span.woocommerce-Price-amount.amount {
