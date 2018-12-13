@@ -9,9 +9,7 @@
  * @since       1.0.1
  */
 (function($){
-	
-$(document).ready(function(){
-
+$('body').ready(function(){
 	/* Mobile Menu */
 	$('.mobile_menu_button').on('click tap', function(e){
 		if($(window).width() <= parseInt(mobile_menu_switch)) {
@@ -93,6 +91,7 @@ $(document).ready(function(){
 	 *
 	 */
 	$('amp-carousel').each(function(index){
+		console.log(index);
 		var $carousel = $(this);
 		var width = ($carousel.attr('width') != undefined)?$carousel.attr('width'):1000,
 			height = ($carousel.attr('height') != undefined)?$carousel.attr('height'):500,
@@ -693,7 +692,37 @@ $(document).ready(function(){
 	if (typeof window.viewportUnitsBuggyfill == 'function') { 
 		window.viewportUnitsBuggyfill.init(); 
 	}
-	 
+
+	$.fn.change = function(cb, e) {
+	    e = e || { subtree:true, childList:true, characterData:true };
+	    $(this).each(function() {
+	      function callback(changes) { cb.call(node, changes, this); }
+	      var node = this;
+	      (new MutationObserver(callback)).observe(node, e);
+	    });
+	  };
+	  
+	  
+	/*
+	LAYOUT FILTERS
+	*/
+	
+	$('.layout-switcher').on('click', '[data-layout]', function(e){
+		var layout_type = $(this).data('layout');
+		var container = $('.' + $(this).data('container') );
+		
+		container.removeClass('boxed masonry full-width')
+		container.addClass(layout_type);
+		switch(layout_type){
+			case 'boxed':
+				container.addClass('square');
+			break;
+			case 'masonry':
+				container.removeClass('square');
+			break;
+		}
+	});
+  	 
 });})(jQuery);
 
 

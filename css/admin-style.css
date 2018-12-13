@@ -379,6 +379,10 @@ p.cmb-add-row {
 /*--------------------------------------------------------------
 2.2 Visual Composer
 --------------------------------------------------------------*/
+.vc_element.vc_vc_column.vc_container-block > .flex-item {
+    width: 100% !important;
+}
+
 .wpb_row_container>.wpb_vc_column, .wpb_row_container>.wpb_vc_column>.wpb_element_wrapper {
     padding-left: 2px;
     padding-right: 2px;
@@ -416,6 +420,8 @@ p.cmb-add-row {
 select.arrow_type.dropdown {
   font-family: FontAwesome, sans-serif !important;
 }
+
+
 
 /*--------------------------------------------------------------
 4.0 Welcome Screen

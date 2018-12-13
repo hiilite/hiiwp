@@ -205,7 +205,7 @@ if($hiilite_options['blog_rel_articles'] == true):
 	$my_query = new WP_Query($related_args);
 	if( $my_query->have_posts() ) :
 		?>
-		<amp-carousel height="300" layout="fixed-height" type="carousel" class="relatedposts carousel">
+		<amp-carousel height="300" layout="fixed-height" type="carousel" class="relatedposts carousel" data-show_arrows="true" data-arrow_icon="chevron" data-hide_arrows_on_mobile data-arrow_size="regular" data-arrow_color="#333333" data-arrow_background_type="round" data-arrow_background_color="#ffffff">
 			<div class="carousel-wrapper">
 		      <?php
 			while ($my_query->have_posts()) : $my_query->the_post();

@@ -1,16 +1,15 @@
-<?php get_header();
+<?php
+/* HiiWP Template: archive-testimonial
+ *
+ * @package     hiiwp
+ * @copyright   Copyright (c) 2018, Peter Vigilante
+ * @license     http://opensource.org/licenses/gpl-2.0.php GNU Public License
+ * @since       1.0.3
+ */
+get_header();
+
 get_template_part( 'templates/title' );
-if(have_posts()):
-	echo '<div class="row"><div class="container_inner"><div class="in_grid">';
 
-	while(have_posts()):
-		the_post();
-		
-		get_template_part('templates/testimonial', 'loop');
-		
-		
-	endwhile;
-	echo '</div></div></div>';
+get_template_part('templates/testimonial', 'archive');
 
-endif;
-get_footer(); ?>
+get_footer();

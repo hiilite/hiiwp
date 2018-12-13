@@ -66,10 +66,20 @@ if ( ! defined( 'ABSPATH' ) ) exit;
     <div class="feature-section two-col">
 	    <div class="col">
 	        
+            <h3><?php _e( 'Licencing', 'hiiwp' ); ?></h3>
+            <p>With a licence key, you can get constant updates to you theme including improvements to speed, security, browser compatibility, and an ever growing feature list. You can purchase a licence key from <a href="https://hiilite.com/shop/wordpress/themes/hiiwp/" target="_blank">Hiilite.com</a> or manage your existing subscriptions from your <a href="https://hiilite.com/my-account/" target="_blank">account dashboard</a>.</p>
+            <a class="button button-primary" href="https://hiilite.com/shop/wordpress/themes/hiiwp/" target="_blank"><span class="dashicons 
+dashicons-admin-network"></span> Purchase Licence Keys</a>
+			<a class="button button-primary" href="https://hiilite.com/my-account/" target="_blank"><span class="dashicons dashicons-tickets-alt"></span> Manage Licence Keys</a>
+        </div>
+        
+	    <div class="col">
+	        
             <h3><?php _e( 'Support', 'hiiwp' ); ?></h3>
-            <p>To get your support related question answered in the fastest timing, please head over to our <a href="https://hiilite.ticksy.com/submit/" target="_blank">support page</a> and open Support ticket. To open a support ticket you should have a valid support subscription in case if your support has expired you can purchase support extension from ThemeForest.</p>
+            <p>To get your support related question answered in the fastest timing, please head over to our <a href="https://hiilite.ticksy.com/submit/" target="_blank">support page</a> and open Support ticket. To open a support ticket you should have a valid support subscription in case if your support has expired you can purchase support extension from <a href="https://hiilite.com/shop/wordpress/themes/hiiwp/" target="_blank">Hiilite.com</a>.</p>
 <p>
 Before applying for support please make sure you understand the rules of support and go through all steps described and listed in <a href="https://hiilite.ticksy.com/article/13191" target="_blank">Support Policy</a> in order to get your issues solved as soon as possible.</p>
+			<a class="button button-primary" href="https://hiilite.ticksy.com/submit/" target="_blank"><span class="dashicons dashicons-editor-help"></span> Get Support</a>
         </div>
         
     </div>

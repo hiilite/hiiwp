@@ -7,7 +7,7 @@
  * @package     hiiwp
  * @copyright   Copyright (c) 2018, Peter Vigilante
  * @license     http://opensource.org/licenses/gpl-2.0.php GNU Public License
- * @since       1.0.1
+ * @since       1.0.3
  */
 global $is_IE; ?><style>
 /*--------------------------------------------------------------
@@ -311,6 +311,18 @@ figure.alignright {
 	float: left;
 }
 
+.m-auto { 
+    margin: auto !important; 
+}
+.mr-auto {
+  margin-right: auto !important;
+}
+.mb-auto {
+  margin-bottom: auto !important;
+}
+.ml-auto {
+  margin-left: auto !important;
+}
 
 /*--------------------------------------------------------------
 1.4 Clearings
@@ -1888,6 +1900,10 @@ table td {
 .row {
 	box-sizing: border-box;
 	background-position: center top;
+	display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
 }
 .vc_section { 
 	width: 100%;
@@ -2117,54 +2133,6 @@ if(get_theme_mod( 'show_footer_top_yesno', true )): ?>
 	padding: 0.5em 1em;
 	margin-left:0.5em;
 	margin-right:0.5em;
-}
-
-<?php if(Hii::$options['blog_layouts'] == 'boxed'): ?>
-.boxed .blog-article h4 {
-    overflow: hidden;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-}
-
-.boxed .blog-article p {
-    overflow: hidden;
-    display: -webkit-box;
-    -webkit-line-clamp: 3;
-    -webkit-box-orient: vertical;
-    font-size: 0.9em;
-}
-<?php endif; ?>
-.masonry {
-	display: block;
-	column-width: 17em;
-	-moz-column-width: 17em;
-	column-gap:0;
-	-moz-column-gap:0;
-}
-.masonry img {
-    min-width: 100%;
-}
-.masonry article{
-	-webkit-column-break-inside: avoid;
-    page-break-inside: avoid;
-    break-inside: avoid;
-}
-.col-count-1 {
-	column-count:1;
-	-moz-column-count:1;
-}
-.col-count-2 {
-	column-count:2;
-	-moz-column-count:2;
-}
-.col-count-3 {
-	column-count:3;
-	-moz-column-count:3;
-}
-.col-count-4 {
-	column-count:4;
-	-moz-column-count:4;
 }
 
 /* Numbered Pagination */

@@ -814,6 +814,8 @@ $hiilite_options['sidebar_widget_border_color']		= get_theme_mod( 'sidebar_widge
 /*--------------------------------------------------------------
 10.1 Blog List
 --------------------------------------------------------------*/
+
+$hiilite_options['blog_show_filter']		= get_theme_mod( 'blog_show_filter', true );
 $hiilite_options['blog_layouts']			= get_theme_mod( 'blog_layouts', 'full-width' );
 $hiilite_options['blog_full_width']			= get_theme_mod( 'blog_full_width', false );
 $hiilite_options['blog_hide_password_protected_posts']= get_theme_mod( 'blog_hide_password_protected_posts', true );
@@ -930,7 +932,7 @@ $hiilite_options['portfolio_layout']		= get_theme_mod( 'portfolio_layout', 'spli
 $hiilite_options['portfolio_image_style']	= get_theme_mod( 'portfolio_image_style', 'default' );
 $hiilite_options['portfolio_show_info']		= get_theme_mod( 'portfolio_show_info', true );
 $hiilite_options['portfolio_image_pos']		= get_theme_mod( 'portfolio_image_pos', 'image-behind' );
-$hiilite_options['portfolio_columns']		= get_theme_mod( 'portfolio_columns', 'col-4' );
+$hiilite_options['portfolio_columns']		= get_theme_mod( 'portfolio_columns', '3' );
 $hiilite_options['portfolio_show_filter']	= get_theme_mod( 'portfolio_show_filter', true );
 $hiilite_options['portfolio_in_grid']		= get_theme_mod( 'portfolio_in_grid', true );
 $hiilite_options['portfolio_show_post_title']= get_theme_mod( 'portfolio_show_post_title', true );

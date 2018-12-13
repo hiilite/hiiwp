@@ -44,13 +44,13 @@ Kirki::add_field( 'hiiwp', array(
 	'transport'   => 'postMessage',
     'output' => array(
 		array(
-			'element'  => '.menu .menu-item a, .search_button .fa',
+			'element'  => '.menu .menu-item a, .search_button .fa, .nav-link',
 			'property' => 'padding',
 		),
 	),
 	'js_vars' => array(
 		array(
-			'element'  => '.menu .menu-item a, .search_button .fa',
+			'element'  => '.menu .menu-item a, .search_button .fa, .nav-link',
 			'property' => 'padding',
 		),
 	),

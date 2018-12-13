@@ -8,13 +8,12 @@
  * @author      Peter Vigilante
  * @copyright   Copyright (c) 2017, Hiilite Creative Group
  * @license     http://opensource.org/licenses/https://opensource.org/licenses/MIT
- * @since       1.0
+ * @since       1.0.3
  */
 if ( ! defined( 'ABSPATH' ) )	exit;
 /**
  * HiiWP class.
  *
- * @since 1.0.2
  */
 class HiiWP extends Hii {
 	
@@ -129,6 +128,11 @@ class HiiWP extends Hii {
 	 * @return void
 	 */
 	public function hiiwp_enqueue_scripts () {
+		$ajax_url         = HiiWP_Ajax::get_endpoint();
+		$ajax_data 		  = array(
+			'ajax_url'                => $ajax_url,
+		);
+		
 		wp_enqueue_script('jquery-effects-core');
 		wp_enqueue_script('jquery-ui-widget');
 		wp_enqueue_script('modernizr', HIIWP_URL.'/js/vender/modernizr-custom.js');
@@ -146,6 +150,7 @@ class HiiWP extends Hii {
 		
 		wp_enqueue_script('main-scripts', HIIWP_URL.'/js/main-scripts.js', array( 'jquery', 'smoothTouchScroll' ), HIIWP_VERSION, true);
 		wp_localize_script('main-scripts', 'mobile_menu_switch', self::$hiilite_options['mobile_menu_switch']);
+		wp_localize_script( 'main-scripts', 'hiiwp_ajax', $ajax_data );
 		
 		if(self::$hiilite_options['is_woocommerce']){
 			wp_enqueue_script( 'prettyPhoto-init', $woocommerce->plugin_url() . '/assets/js/prettyPhoto/jquery.prettyPhoto.init.js', array( 'jquery' ), $woocommerce->version, true );
@@ -161,7 +166,7 @@ class HiiWP extends Hii {
 	 */
 	public function add_load_css(){ 
 	    if(self::$hiilite_options['show_page_loader']) {
-	    	?><style>html body > .wrapper{opacity:0;transition:opacity 0.25s;}html[class*="-active"] body > .wrapper{opacity: 1;}</style><noscript><style>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript><?php
+	    	?><style>html body > .wrapper{opacity:0;transition:opacity 0.25s;}html[class*="-active"] body > .wrapper{opacity: 1;}</style><noscript><style>html body > .wrapper{opacity:1;} body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}#page-loader{display:none;}</style></noscript><?php
 		}
 	    if(self::$hiilite_options['async_all_css']) {
 	    	?><script>/*! loadCSS: load a CSS file asynchronously.[c]2014 @scottjehl, Filament Group, Inc.Licensed MIT */function loadCSS( href, before, media ){"use strict";var ss = window.document.createElement( "link" );var ref = before || window.document.getElementsByTagName( "script" )[ 0 ];ss.rel = "stylesheet";ss.href = href;ss.media = "only x";ref.parentNode.insertBefore( ss, ref );setTimeout( function(){ss.media = media || "all";} );return ss;}</script><?php
@@ -284,6 +289,8 @@ class HiiWP extends Hii {
 		add_submenu_page('hii_seo_settings', __('Customize', 'hiiwp'), __('Customize', 'hiiwp'), 'manage_options', 'customize.php');
 		
 		add_submenu_page('hii_seo_settings', __('Install Plugins', 'hiiwp'), __('Install Plugins', 'hiiwp'), 'manage_options', 'themes.php?page=tgmpa-install-plugins');
+		
+		add_submenu_page('hii_seo_settings', __('About HiiWP', 'hiiwp'), __('About HiiWP', 'hiiwp'), 'manage_options', '?page=admin.php%3Fpage%3Dhiiwp-welcome');
 		
 	}
 	
@@ -434,7 +441,8 @@ class HiiWP extends Hii {
 		$exclude_scripts = array(
 			'jquery',
 			'jquery-core',
-			'webfont-loader'
+			'webfont-loader',
+			'sv-wc-payment-gateway-payment-form'
 		);
 		if(is_admin() || is_customize_preview()) return $tag;
 		
@@ -547,6 +555,11 @@ class HiiWP extends Hii {
 	 * @return void
 	 */
 	public function enqueue_admin_scripts() {
+		$ajax_url         = HiiWP_Ajax::get_endpoint();
+		$ajax_data 		  = array(
+			'ajax_url'                => $ajax_url,
+		);
+		
 		wp_enqueue_script( HIIWP_SLUG . '-pointer-js', HIIWP_URL.'/js/hiiwp-pointer.js', array( 'jquery' ), HIIWP_VERSION );
 		
 		wp_enqueue_style( HIIWP_SLUG . '-select2', HIIWP_URL . '/js/vender/select2/css/select2.css', HIIWP_VERSION );
@@ -558,6 +571,7 @@ class HiiWP extends Hii {
         wp_enqueue_style( HIIWP_SLUG . '-admin-css' );
 		
 		$tour_pointer_messages['hiiwp_intro_tour'] =  $this->load_intro_tour();
+		
 		//Localization allows us to send variables to the JS script. In this case, we are sending the pointers array
 		wp_localize_script( HIIWP_SLUG . '-pointer-js', 'hiiwp_admin', 
 		array(  'ajax_url'              =>  admin_url( 'admin-ajax.php'),
@@ -565,6 +579,8 @@ class HiiWP extends Hii {
 		    'hiiwp_tour_pointers'     =>  $tour_pointer_messages
 			)
 		);
+		
+		wp_localize_script( HIIWP_SLUG .'-admin-js', 'hiiwp_ajax', $ajax_data );
 	}
 
 	/**
@@ -782,7 +798,7 @@ class HiiWP extends Hii {
 	            'name'               => 'HiiWP Plus', // The plugin name.
 	            'slug'               => 'hiiwp-plus', // The plugin slug (typically the folder name).
 	            'source'             => 'https://github.com/hiilite/hiiwp-plus/archive/master.zip', // The plugin source.
-	            'version'			 => '1.0.0',
+	            'version'			 => '1.0.3',
 	            'required'           => true, // If false, the plugin is only 'recommended' instead of required.
 	            'force_activation'   => true, // If true, plugin is activated upon theme activation and cannot be deactivated until theme switch.
 	            'force_deactivation' => true, // If true, plugin is deactivated upon theme switch, useful for theme-specific plugins.

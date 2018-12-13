@@ -15,9 +15,27 @@ $main_menu_colors = Hii::$options['main_menu_colors'];
 $second_level_menu_colors = Hii::$options['second_level_menu_colors'];	
 $third_level_menu_colors = Hii::$options['third_level_menu_colors'];
 ?>
-#main-nav {
-	margin:<?php echo get_spacing(Hii::$options['menu_margin']);?>;
+/* Bootstrap Compatibility */
+.navbar {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+ <?php 
+	// TODO: Add option to add padding around .navbar
+	// padding: $navbar-padding-y $navbar-padding-x;  
+?>
 }
+.navbar > .container,
+.navbar > .container-fluid {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.navbar-nav,
 .main-menu.menu, 
 #header_top .menu, 
 #header_bottom .menu {
@@ -28,6 +46,29 @@ $third_level_menu_colors = Hii::$options['third_level_menu_colors'];
 	flex-wrap: wrap;
 	justify-content: center;
 }
+
+.navbar-nav .dropdown-menu {
+	position: static;
+	float: none;
+}
+
+.navbar-text,
+.nav-link {
+  display: inline-block;
+}
+
+.navbar-collapse {
+  flex-basis: 100%;
+  flex-grow: 1;
+  align-items: center;
+  display: flex;
+}
+/* END Bootstrap Compatibility */
+
+#main-nav {
+	margin:<?php echo get_spacing(Hii::$options['menu_margin']);?>;
+}
+
 #footer-nav .menu {
     display: flex;
     justify-content: space-evenly;
@@ -211,7 +252,7 @@ ul.sub-menu {
 		position: absolute;
 		top: 100%;
 	    width: 100%;
-	    overflow: auto;
+	    overflow: visible;
 	    display: none;
 	    left:0;
 	    background: <?php echo Hii::$options[ 'moblie_menu_background_color' ]?>;

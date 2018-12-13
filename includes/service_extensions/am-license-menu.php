@@ -193,6 +193,10 @@ if ( ! class_exists( 'AM_License_Menu' ) ) {
 				$this,
 				'config_page'
 			) );
+			add_submenu_page( 'hii_seo_settings', $this->ame_settings_menu_title, $this->ame_settings_menu_title, 'manage_options', 'admin.php?page='.$this->ame_activation_tab_key.'&tab='.$this->ame_activation_tab_key, array(
+				$this,
+				'config_page'
+			) );
 		}
 
 		/**
@@ -341,6 +345,8 @@ if ( ! class_exists( 'AM_License_Menu' ) ) {
                 <form action='options.php' method='post'>
                     <div class="main">
 						<?php
+						echo sprintf( '<p>' . __( 'You can manage your license key from your account <a href="%s" target="_blank">dashboard</a>.', 'hiiwp' ) . '</p>', esc_url( $this->ame_renew_license_url ) );
+
 						if ( $tab == $this->ame_activation_tab_key ) {
 							settings_fields( $this->ame_data_key );
 							do_settings_sections( $this->ame_activation_tab_key );
@@ -354,9 +360,9 @@ if ( ! class_exists( 'AM_License_Menu' ) ) {
                     </div>
                 </form>
             </div>
-			<?php
+			<?php 
 		}
-
+ 
 		// Register settings
 		public function load_settings() {
 			register_setting( $this->ame_data_key, $this->ame_data_key, array( $this, 'validate_options' ) );
@@ -371,11 +377,11 @@ if ( ! class_exists( 'AM_License_Menu' ) ) {
 			), $this->ame_activation_tab_key, $this->ame_api_key );
 			
 			// TODO
-			add_settings_field( 'instance', __( 'API Instance Key', 'hiiwp' ), array(
+			/*add_settings_field( 'instance', __( 'API Instance Key', 'hiiwp' ), array(
 				$this,
 				'wc_am_api_key_instance'
 			), $this->ame_activation_tab_key, $this->ame_api_key );
-			
+			*/
 			
 			add_settings_field( $this->ame_api_key, __( 'API Key', 'hiiwp' ), array(
 				$this,
@@ -835,7 +841,7 @@ if ( ! class_exists( 'AM_License_Menu' ) ) {
 				add_filter( 'pre_set_site_transient_update_themes', array( $this, 'update_check' ) );
 
 				// Check For Theme Information to display on the update details page
-				//add_filter( 'themes_api', array( $this, 'request' ), 10, 3 );
+				add_filter( 'themes_api', array( $this, 'request' ), 10, 3 );
 
 			}
 		}

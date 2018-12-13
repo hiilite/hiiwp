@@ -1,6 +1,13 @@
 # Hiilite Wordpress theme
 
 ### Change log
+#### v1.0.3
+- Added new Filter Bar to Portfolio and Blogs
+- Updates to WooCommerce Templates
+- WordPress 5.0 compatibility
+- Restructured archive template files. deprecating old archive-{post_type} files
+
+
 #### v1.0.2
 - Added visibility options to vc_row
 - Added fix for support licensing

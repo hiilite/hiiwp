@@ -7,7 +7,7 @@
  * @package     hiiwp
  * @copyright   Copyright (c) 2016, Peter Vigilante
  * @license     http://opensource.org/licenses/gpl-2.0.php GNU Public License
- * @since       1.0
+ * @since       1.0.3
  */
 
 $hiilite_options = Hii::get_options();
@@ -118,7 +118,7 @@ echo "<header id='main_header' class='". sanitize_html_class($hiilite_options['h
 		wp_nav_menu(array(
 			'menu' =>  'header-menu',
 			'container' => 'nav',
-			'container_class' => 'flex-item',
+			'container_class' => 'navbar',
 			'container_id' => 'main-nav',
 			'items_wrap'  => '<ul id="%1s" class="%2$s main-menu">%3$s</ul>',
 			'theme_location' => 'header-menu',

@@ -25,7 +25,7 @@
  * @author      Peter Vigilante
  * @copyright   Copyright (c) 2018, Hiilite Creative Group
  * @license     http://opensource.org/licenses/https://opensource.org/licenses/MIT
- * @since       1.0.1
+ * @since       1.0.3
  */
 
 /**
@@ -79,7 +79,7 @@ class Hii {
 	 */
 	private function define_constants(){
 	    if ( ! defined( 'HIIWP_VERSION' ) ) {                
-			 define( 'HIIWP_VERSION', '1.0.2' );
+			 define( 'HIIWP_VERSION', '1.0.3' );
 		}
 		if ( ! defined( 'HIIWP_SLUG' ) ) {                
 		    define( 'HIIWP_SLUG', 'hiiwp' );           
@@ -91,6 +91,10 @@ class Hii {
 		    $file = get_template_directory(); 
 			$link = str_replace( WP_CONTENT_DIR, WP_CONTENT_URL, $file );
 		    define( 'HIIWP_URL', $link );
+		}
+		
+		if ( ! defined( 'HIIWP_PLUS_REQUIRED_VERSION' ) ) {                
+			 define( 'HIIWP_PLUS_REQUIRED_VERSION', '1.0.3' );
 		}
 	}
 	
@@ -342,6 +346,22 @@ class Hii {
 			$types = $post_types;
 		endif;
 		return $types;
+	}
+	
+	public static function versionCompare($version1, $operator, $version2) {
+    
+	    $_fv = intval ( trim ( str_replace ( '.', '', $version1 ) ) );
+	    $_sv = intval ( trim ( str_replace ( '.', '', $version2 ) ) );
+	    
+	    if (strlen ( $_fv ) > strlen ( $_sv )) {
+	        $_sv = str_pad ( $_sv, strlen ( $_fv ), 0 );
+	    }
+	    
+	    if (strlen ( $_fv ) < strlen ( $_sv )) {
+	        $_fv = str_pad ( $_fv, strlen ( $_sv ), 0 );
+	    }
+	    
+	    return version_compare ( ( string ) $_fv, ( string ) $_sv, $operator );
 	}
     
 }

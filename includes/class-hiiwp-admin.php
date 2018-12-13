@@ -38,6 +38,7 @@ class HiiWP_Admin {
 
 		$this->welcome_screen	= new HiiWP_Welcome_Screen();
 		
+		add_action( 'admin_notices', array( $this, 'admin_notices') );
 		add_action( 'cmb2_admin_init', array( $this, 'hii_seo_options_page' ) );
 		add_action( 'add_meta_boxes', array( $this, 'page_options_meta_box' ));
 		add_action( 'save_post', array( $this, 'page_seo_options_meta_box_save' ), 999 );
@@ -66,6 +67,40 @@ class HiiWP_Admin {
 		
 	}
 	
+
+	
+	public function admin_notices() {
+		if(is_plugin_active('hiiwp-plus/hiiwp-plus.php')) {
+			
+			// if HiiWP Plus is older version then theme requirement
+			if( Hii::versionCompare(HIIWP_PLUS_REQUIRED_VERSION, ">", HiiWP_Plus()->version) ){
+				?>
+				<div class="notice notice-error">
+					<p><?php _e('The HiiWP Plus is out of date, please ', 'hiiwp'); ?>
+						<a href="<?php echo admin_url( 'themes.php?page=tgmpa-install-plugins' ); ?>"><?php _e('download and activate HiiWP Plus '. HIIWP_PLUS_REQUIRED_VERSION, 'hiiwp'); ?></a></p>
+				</div>
+				<?php
+			} 
+			// if HiiWP is older version then the plugin
+			elseif ( Hii::versionCompare(HIIWP_VERSION, "<", HiiWP_Plus()->version)){
+				?>
+				<div class="notice notice-error">
+					<p><?php _e('Your theme is out of date with  HiiWP Plus, please update to ensure compatibility', 'hiiwp'); ?></p>
+				</div>
+				<?php
+			}
+				
+		// if HiiWP Plus is not active
+		} else {
+			?>
+			<div class="notice notice-error">
+				<p><?php _e('The HiiWP Plus is required with this theme, please ', 'hiiwp'); ?>
+					<a href="<?php echo admin_url( 'themes.php?page=tgmpa-install-plugins' ); ?>"><?php _e('download and activate HiiWP Plus '. HIIWP_PLUS_REQUIRED_VERSION, 'hiiwp'); ?></a></p>
+			</div>
+			<?php
+		}
+		
+	}
 	
 	/**
 	 * edit_per_page function.
@@ -985,33 +1020,13 @@ class HiiWP_Admin {
 		return array(
 			array(
 				'import_file_name'           => 'Hii Agency',
-				'categories'                 => array( 'Agency', 'Business' ),
-				'import_file_url'            => 'https://s3.ca-central-1.amazonaws.com/hiiwp/demo-content/hiiagency/agency.wordpress.xml',
-				'import_widget_file_url'     => 'https://s3.ca-central-1.amazonaws.com/hiiwp/demo-content/hiiagency/demo.hiilite.com-agency-widgets.wie',
+				'categories'                 => array( 'Agency' ),
+				'import_file_url'            => 'https://s3.ca-central-1.amazonaws.com/hiiwp/demo-content/hiiagency/hiiwpdemos.wordpress.2018-11-28.xml',
+				'import_widget_file_url'     => 'https://s3.ca-central-1.amazonaws.com/hiiwp/demo-content/hiiagency/demo.hiilite.com-widgets.wie',
 				'import_customizer_file_url' => 'https://s3.ca-central-1.amazonaws.com/hiiwp/demo-content/hiiagency/hiiwp-child-export.dat',
-				'import_preview_image_url'   => 'https://hiilite.com/wp-content/uploads/2018/07/hiiagency.png',
+				'import_preview_image_url'   => 'https://demo.hiilite.com/wp-content/uploads/2018/11/hiilite-agency-demo.png',
 				//'import_notice'              => __( 'After you import this demo, you will have to setup the slider separately.', 'hiiwp' ),
-				'preview_url'                => 'https://demo.hiilite.com/agency/',
-			),
-			array(
-				'import_file_name'           => 'Hii Original',
-				'categories'                 => array( 'Business', 'Corperate' ),
-				'import_file_url'            => 'https://s3.ca-central-1.amazonaws.com/hiiwp/demo-content/hiioriginal/hiiwpcreativemulti-purposewordpresstheme.wordpress.xml',
-				'import_widget_file_url'     => 'https://s3.ca-central-1.amazonaws.com/hiiwp/demo-content/hiioriginal/demo.hiilite.com-hiiwp-widgets.wie',
-				'import_customizer_file_url' => 'https://s3.ca-central-1.amazonaws.com/hiiwp/demo-content/hiioriginal/hiiwp-child-export.dat',
-				'import_preview_image_url'   => 'https://hiilite.com/wp-content/uploads/2018/05/hiioriginal.png',
-				//'import_notice'              => __( 'After you import this demo, you will have to setup the slider separately.', 'hiiwp' ),
-				'preview_url'                => 'https://demo.hiilite.com/hiiwp/',
-			),
-			array(
-				'import_file_name'           => 'Hii Dental',
-				'categories'                 => array( 'Dental', 'Business' ),
-				'import_file_url'            => 'https://s3.ca-central-1.amazonaws.com/hiiwp/demo-content/hiidental/hiidental.wordpress.xml',
-				'import_widget_file_url'     => 'https://s3.ca-central-1.amazonaws.com/hiiwp/demo-content/hiidental/demo.hiilite.com-hiidental-widgets.wie',
-				'import_customizer_file_url' => 'https://s3.ca-central-1.amazonaws.com/hiiwp/demo-content/hiidental/hiiwp-child-export.dat',
-				'import_preview_image_url'   => 'https://hiilite.com/wp-content/uploads/2018/05/hiidental.png',
-				//'import_notice'              => __( 'A special note for this import.', 'your-textdomain' ),
-				'preview_url'                => 'https://demo.hiilite.com/hiidental/',
+				'preview_url'                => 'https://demo.hiilite.com/',
 			),
 		);
 	}

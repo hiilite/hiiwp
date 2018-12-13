@@ -51,7 +51,9 @@ class HiiWP_Post_Types {
 		add_action('cmb2_admin_init', array( $this, 'cmb2_post_metaboxes' ) );		
 		add_filter( 'posts_where', array( $this, 'password_post_filter' ) );
 		
-		
+		add_filter('manage_portfolio_posts_columns', array($this,'portfolio_table_head'));	
+		add_action( 'manage_portfolio_posts_custom_column', array($this,'portfolio_table_content'), 10, 2 );
+			
 	}	
 	
 	/**
@@ -146,7 +148,6 @@ class HiiWP_Post_Types {
 		    'default'          => '',
 		) );
 		
-		
 	}
 	
 	
@@ -158,10 +159,40 @@ class HiiWP_Post_Types {
 	 * @return void
 	 */
 	public function password_post_filter( $where = '' ) {
-	    if (!is_single() && !is_admin() && get_theme_mod( 'blog_hide_password_protected_posts', true ) === true ) {
+	    if (!is_single() && !is_admin() && is_home() && get_theme_mod( 'blog_hide_password_protected_posts', true ) === true ) {
 	        $where .= " AND post_password = ''";
 	    }
 	    return $where;
 	}
+	
+	/**
+	* Add Favorites column to Portfolio posts		
+	*/
+	public function portfolio_table_head( $defaults ) {
+	    $defaults['favorite']  = 'Favorite';
+	    return $defaults;
+	}
+	
+	public function portfolio_table_content( $column_name, $post_id ) {
+	    if ($column_name == 'favorite') {
+		    $status = get_post_meta($post_id, 'favorite_post', true);
+		    
+		    if($status == true) {
+				echo '<span class="dashicons dashicons-star-filled post-favorite"  data-post-id="'.$post_id.'" data-favorite="true"></span>';
+			}
+			else {
+				echo '<span class="dashicons dashicons-star-empty post-favorite"  data-post-id="'.$post_id.'" data-favorite="false"></span>';	
+			}
+	    }
+    }
+    
+    public function mark_favorite() {
+	    /*if ( ! add_post_meta( id, 'favorite_post', status, true ) ) { 
+		   update_post_meta( id, 'favorite_post', status );
+		}*/
+
+	    wp_send_json("hii");
+	}
+
 	
 }
