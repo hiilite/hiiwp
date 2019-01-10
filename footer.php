@@ -144,6 +144,15 @@ do_action( 'hii_before_footer' );
 	</div>
 	<?php  ?>
 </footer>
+
+<?php
+if($hiilite_options['btt_yesno'] == true) {
+	echo '<div id="back-to-top">
+			<i class="fa fa-'.get_theme_mod('btt_icon_style').'"></i>
+		</div>';	
+}	
+?>
+
 <?php do_action( 'hii_after_footer' ); ?>
 			
 	</div>

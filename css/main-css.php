@@ -31,6 +31,7 @@ global $is_IE; ?><style>
 	3.2 Header Top
 	3.3 Menu
 4.0 Footer
+	4.1 Back To Top
 5.0 Title
 6.0 Elements
 	6.1 Buttons
@@ -1202,15 +1203,55 @@ li.recentcomments {
 --------------------------------------------------------------*/
 .pagination,
 .comments-pagination {
-	font-size: 16px;
 	font-size: 0.875rem;
-	font-weight: 800;
-	padding: 2em 0 3em;
-	text-align: center;
+    font-weight: 800;
+    margin: 2em 0 3em;
+    text-align: center;
+    border: 1px solid #ddd;
+    width: 100%;
 }
 div#disqus_thread {
     width: 100%;
 }
+
+/*
+//	note: Pagination 
+*/
+.pagination ul {
+	list-style:none;
+	margin: 0;
+    padding: 0;
+}
+.pagination ul li {
+	display:inline-block;
+}
+.pagination ul li a.button, .pagination ul li .button-dis  {
+	padding: 0.5em 1em;
+	margin-left:0.5em;
+	margin-right:0.5em;
+}
+
+/* Numbered Pagination */
+.pagination a,
+.pagination a:hover,
+.pagination li.active a,
+.pagination li.disabled {
+    color: <?php echo Hii::$options['pagination_text_color'];?>;
+    text-decoration:none;
+    display: inline-block;
+    background-color: <?php echo Hii::$options['pagination_non_active_page_color'];?>;
+    cursor: pointer;
+    padding: 0.5rem;
+}
+.pagination a .fa {
+	color: <?php echo Hii::$options['pagination_text_color'];?>;
+}
+ 
+.pagination li a:hover,
+.pagination li.active a {
+    background-color: <?php echo Hii::$options['pagination_active_page_color'];?>;
+}
+/* END Numbered Pagination */
 
 .pagination .icon,
 .comments-pagination .icon {
@@ -1240,35 +1281,27 @@ div#disqus_thread {
 	width: auto;
 }
 
-.prev.page-numbers,
-.next.page-numbers {
-	background-color: #ddd;
-	-webkit-border-radius: 2px;
-	border-radius: 2px;
-	display: inline-block;
-	line-height: 1;
-	padding: 0.25em 0.5em 0.4em;
-}
 
-.prev.page-numbers,
-.next.page-numbers {
+.pagination .next,
+.pagination .prev {
+    display: inline-block;
 	-webkit-transition: background-color 0.2s ease-in-out, border-color 0.2s ease-in-out, color 0.3s ease-in-out;
 	transition: background-color 0.2s ease-in-out, border-color 0.2s ease-in-out, color 0.3s ease-in-out;
 }
 
-.prev.page-numbers:focus,
-.prev.page-numbers:hover,
-.next.page-numbers:focus,
-.next.page-numbers:hover {
+.pagination .prev:focus,
+.pagination .prev:hover,
+.pagination .next:focus,
+.pagination .next:hover {
 	background-color: #767676;
 	color: #fff;
 }
 
-.prev.page-numbers {
+.pagination .prev {
 	float: left;
 }
 
-.next.page-numbers {
+.pagination .next {
 	float: right;
 }
 
@@ -2040,6 +2073,26 @@ if(get_theme_mod( 'show_footer_top_yesno', true )): ?>
 }
 
 /*--------------------------------------------------------------
+4.1 Back To Top
+--------------------------------------------------------------*/
+#back-to-top {
+	display: none;
+	position:fixed;
+	bottom:2rem;
+	right:2rem;	
+	cursor: pointer;
+	padding: <?php echo get_spacing(Hii::$options[ 'btt_icon_padding' ]) ?>;
+	z-index:999;
+	background-color: <?php echo get_theme_mod('btt_background_color'); ?>;
+	border: <?php echo get_theme_mod('btt_border_size'); ?> solid <?php echo get_theme_mod('btt_border_color'); ?>;
+	border-radius: <?php echo get_theme_mod('btt_border_radius'); ?>;
+}
+#back-to-top .fa::before {
+	color: <?php echo get_theme_mod('btt_icon_color'); ?>;
+	font-size: <?php echo get_theme_mod('btt_icon_size'); ?>;
+}
+
+/*--------------------------------------------------------------
 5.0 Title
 --------------------------------------------------------------*/
 <?php get_template_part('css/elements/page_titles', 'css');?>
@@ -2120,50 +2173,6 @@ if(get_theme_mod( 'show_footer_top_yesno', true )): ?>
 	width: 100%;
 }
 
-/*
-//	note: Pagination 
-*/
-.pagination ul {
-	list-style:none;
-}
-.pagination ul li {
-	display:inline-block;
-}
-.pagination ul li a.button, .pagination ul li .button-dis  {
-	padding: 0.5em 1em;
-	margin-left:0.5em;
-	margin-right:0.5em;
-}
-
-/* Numbered Pagination */
-.num-pagination li a,
-.num-pagination li a:hover,
-.num-pagination li.active a,
-.num-pagination li.disabled {
-    color: <?php echo Hii::$options['pagination_text_color'];?>;
-    text-decoration:none;
-}
- 
-.num-pagination li {
-    display: inline;
-}
- 
-.num-pagination li a,
-.num-pagination li a:hover,
-.num-pagination li.active a,
-.num-pagination li.disabled {
-    background-color: <?php echo Hii::$options['pagination_non_active_page_color'];?>;
-    border-radius: 3px;
-    cursor: pointer;
-    padding: 10px;
-    padding: 0.5rem;
-}
- 
-.num-pagination li a:hover,
-.num-pagination li.active a {
-    background-color: <?php echo Hii::$options['pagination_active_page_color'];?>;
-}
-/* END Numbered Pagination */
 
 
 /*--------------------------------------------------------------

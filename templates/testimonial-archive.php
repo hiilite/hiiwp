@@ -17,6 +17,7 @@ if(have_posts()):
 		get_template_part('templates/testimonial', 'loop');
 		
 	endwhile;
+	hiilite_numeric_posts_nav();
 	echo '</div></div></div>';
 
 endif;

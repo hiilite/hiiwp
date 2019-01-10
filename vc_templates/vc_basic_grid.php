@@ -87,11 +87,20 @@ if(isset($atts)) {
 				}
 			}
 		} 
+		if(!isset($atts['orderby'])) {
+		    $query['orderby'] = 'ID';
+		}
+		if(!isset($atts['order'])) {
+		    $query['order'] = 'DESC';
+		 }
+		
 		$query = array(
 			'post_type' => $atts['post_type'],
 			'paged'		=> $paged,
 			'posts_per_page' => isset($atts['max_items'])?$atts['max_items']:10,
 			'tax_query'	=> $taxquery,
+			'orderby' => $atts['orderby'],
+			'order' => $atts['order']
 		);
 		
 		

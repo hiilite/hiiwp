@@ -931,7 +931,7 @@ class HiiWP_Admin {
 	        ),
 	        
 	        'boxes'      => $boxes,
-	        'tabs'       => $tabs,
+	        'tabs'       => apply_filters( 'hiiwp_settings_tabs', $tabs ),
 	        'cols'       => 1,
 	        'savetxt'    => 'Save',
 	    );

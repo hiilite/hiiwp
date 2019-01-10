@@ -36,7 +36,7 @@ class HiiWP extends Hii {
 	 * @return void
 	 */
 	public function __construct() {
-		$hiilite_options = self::$hiilite_options = self::get_options();
+		$hiilite_options = self::$hiilite_options = self::$options = self::get_options();
 		
 		
 		add_action( 'init', array( $this, 'hiiwp_init') );
@@ -74,7 +74,7 @@ class HiiWP extends Hii {
 			add_action('hii_body_start', array($this, 'add_loading_svg'));
 		}
 		
-	    if(self::$hiilite_options['async_all_css']) {
+	    if(self::$hiilite_options['async_all_css'] && $GLOBALS['pagenow'] !== 'wp-login.php') {
 			add_filter('style_loader_tag', array($this, 'link_to_loadCSS_script' ),9999,3);
 		}
 		
@@ -101,7 +101,7 @@ class HiiWP extends Hii {
 	 */
 	public static function get_options() {
 		require(HIILITE_DIR . '/includes/site_variables.php');
-		self::$options = $hiilite_options;
+		self::$options = apply_filters( 'hiiwp_settings', $hiilite_options);
         return self::$options;
     }
     
@@ -290,7 +290,7 @@ class HiiWP extends Hii {
 		
 		add_submenu_page('hii_seo_settings', __('Install Plugins', 'hiiwp'), __('Install Plugins', 'hiiwp'), 'manage_options', 'themes.php?page=tgmpa-install-plugins');
 		
-		add_submenu_page('hii_seo_settings', __('About HiiWP', 'hiiwp'), __('About HiiWP', 'hiiwp'), 'manage_options', '?page=admin.php%3Fpage%3Dhiiwp-welcome');
+		add_submenu_page('hii_seo_settings', __('About HiiWP', 'hiiwp'), __('About HiiWP', 'hiiwp'), 'manage_options', 'themes.php?page=hiiwp-welcome');
 		
 	}
 	
@@ -902,4 +902,3 @@ class HiiWP extends Hii {
 }
 
 new HiiWP();
-?>

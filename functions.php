@@ -403,9 +403,9 @@ endif;
 /*
 	TEMPORARY until Kirki fixes font-awesome loader.
 */
-add_action( 'wp_enqueue_scripts', 'enqueue_load_fa' );
+//add_action( 'wp_enqueue_scripts', 'enqueue_load_fa' );
 function enqueue_load_fa() {
-    wp_enqueue_style( 'load-fa-css', get_template_directory_uri(  ).'/css/font-awesome/css/font-awesome.min.css' );
+   // wp_enqueue_style( 'load-fa-css', get_template_directory_uri(  ).'/css/font-awesome/css/font-awesome.min.css' );
 }
 
 /**
@@ -973,10 +973,10 @@ function hiilite_numeric_posts_nav() {
 		        $links[] = $paged + 1;
 		    }
 		 
-		    echo '<div class="num-pagination row"><ul>';
+		    echo '<div class="row"><nav class="navigation pagination" role="navigation"><ul>';
 		 
 		    if ( get_previous_posts_link() )
-		        printf( '<li>%s</li>', get_previous_posts_link() );
+		        printf( '<li class="prev">%s</li>', get_previous_posts_link() );
 		 
 		    if ( ! in_array( 1, $links ) ) {
 		        $class = 1 == $paged ? ' class="active"' : '';
@@ -990,7 +990,7 @@ function hiilite_numeric_posts_nav() {
 		    sort( $links );
 		    foreach ( (array) $links as $link ) {
 		        $class = $paged == $link ? ' class="active"' : '';
-		        printf( '<li%s><a href="%s">%s</a></li>', $class, esc_url( get_pagenum_link( $link ) ), $link );
+		        printf( '<li%s><a href="%s" class="page-numbers">%s</a></li>', $class, esc_url( get_pagenum_link( $link ) ), $link );
 		    }
 		 
 		    if ( ! in_array( $max, $links ) ) {
@@ -998,20 +998,20 @@ function hiilite_numeric_posts_nav() {
 		            echo '<li>…</li>';
 		 
 		        $class = $paged == $max ? ' class="active"' : '';
-		        printf( '<li%s><a href="%s">%s</a></li>', $class, esc_url( get_pagenum_link( $max ) ), $max );
+		        printf( '<li%s><a href="%s" class="page-numbers">%s</a></li>', $class, esc_url( get_pagenum_link( $max ) ), $max );
 		    }
 		 
 		    if ( get_next_posts_link() )
-		        printf( '<li>%s</li>', get_next_posts_link() );
+		        printf( '<li class="next">%s</li>', get_next_posts_link() );
 		 
 		    echo '</ul></div>';
 		
 		// END Numbered Pagination Option
 		} else {
-			echo '<div class="pagination row">';
+			echo '<div class="row">';
 			the_posts_pagination( array(
-				'prev_text' => '<span class="screen-reader-text">' . __( 'Previous page', 'hiiwp' ) . '</span><i class="fa fa-angle-left"></i>',
-				'next_text' => '<span class="screen-reader-text">' . __( 'Next page', 'hiiwp' ) . '</span><i class="fa fa-angle-right"></i>',
+				'prev_text' =>  '<i class="fa fa-angle-left"></i>' . __( 'Previous page', 'hiiwp' ),
+				'next_text' => __( 'Next page', 'hiiwp' ) . '<i class="fa fa-angle-right"></i>',
 				'before_page_number' => '<span class="meta-nav screen-reader-text">' . __( 'Page', 'hiiwp' ) . ' </span>',
 			) );
 			echo '</div>';

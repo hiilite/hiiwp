@@ -23,6 +23,7 @@
 6.0 Elements
 	6.1 Buttons
 	6.2 Social Icons
+	6.3 Back To Top
 7.0 Fonts
 	7.1 Headings
 	7.2 Paragraphs & Links
@@ -567,7 +568,7 @@ $hiilite_options['typography_button_secondary_border_radius'] =  get_theme_mod( 
 $hiilite_options['typography_button_secondary_custom_css']	= get_theme_mod( 'typography_button_secondary_custom_css', '.button-secondary {}' );
 
 /*--------------------------------------------------------------
-6.3 Social Icons
+6.2 Social Icons
 --------------------------------------------------------------*/
 $hiilite_options['social_icon_settings']				= get_theme_mod( 'social_icon_settings', array(
         'font-size'      => '1rem',
@@ -584,6 +585,33 @@ $hiilite_options['typography_social_icon_custom_css']	= get_theme_mod( 'typograp
 	width: 1.6em;
 	text-align: center;
 }' );
+
+/*--------------------------------------------------------------
+6.3 Back To Top
+--------------------------------------------------------------*/
+$hiilite_options['btt_yesno']		= get_theme_mod( 'btt_yesno', false );
+
+$hiilite_options['btt_icon_style']				= get_theme_mod( 'btt_icon_style', 'chevron-up');
+
+$hiilite_options['btt_icon_size']				= get_theme_mod( 'btt_icon_size', '1rem');
+
+$hiilite_options['btt_icon_padding'] =  get_theme_mod('btt_icon_padding', array(
+		'top'    => '0.4rem',
+		'right'  => '0.5rem',
+		'bottom' => '0.5rem',
+		'left'   => '0.5rem',
+	));
+
+$hiilite_options['btt_icon_color']				= get_theme_mod( 'btt_icon_color', '#000000');
+
+$hiilite_options['btt_background_color']		= get_theme_mod( 'btt_background_color', 'rgba(255,255,255,0.7)');
+
+$hiilite_options['btt_border_color']			= get_theme_mod( 'btt_border_color', '#000000');
+
+$hiilite_options['btt_border_size']				= get_theme_mod( 'btt_border_size', '2px');
+
+$hiilite_options['btt_border_radius']			= get_theme_mod( 'btt_border_radius', '2rem');
+
 
 /*-------------------------------------------------------------- 
 7.0 Fonts

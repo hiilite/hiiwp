@@ -49,7 +49,7 @@ if(have_posts()):
 	endwhile;	
 	
 	echo "</div>";
-	
+	hiilite_numeric_posts_nav();
 endif;
 
 do_action( 'after_portfolio' );

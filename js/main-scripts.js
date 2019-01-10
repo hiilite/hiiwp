@@ -702,6 +702,23 @@ $('body').ready(function(){
 	    });
 	  };
 	  
+	 /*
+	BACK TO TP
+	*/
+	$(window).on('scroll', function(){
+	  var scroll = $(window).scrollTop();
+	
+	  if (scroll >= 100) $('#back-to-top').css('display','block');
+	  else $('#back-to-top').css('display','none');
+	});
+	
+	$('#back-to-top').click(function() {
+		$('html, body').animate({
+	      scrollTop: 0
+	    }, 700);
+	    return false;	
+	});
+	 
 	  
 	/*
 	LAYOUT FILTERS

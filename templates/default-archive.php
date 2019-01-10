@@ -56,7 +56,7 @@ if(have_posts()):
 	</div>
 	<?php
 	endif;
-	
+	hiilite_numeric_posts_nav();
 	echo '</div>'; //end in_grid
 	
 	echo '</div></section>';
