@@ -9,9 +9,7 @@
  * @since       1.0.1
  */
 (function($){
-	
 $(document).ready(function(){
-
 	/* Mobile Menu */
 	$('.mobile_menu_button').on('click tap', function(e){
 		if($(window).width() <= parseInt(mobile_menu_switch)) {
@@ -169,12 +167,23 @@ $(document).ready(function(){
 			
 			contentHeights = $carousel.find('.slide-text-overlay').map(function() {
 				    return $(this).outerHeight(); 
-				    
 				}).get();
 			maxContentHeight = Math.max.apply(null, contentHeights);
 			
 			height = (maxContentHeight);
 			$carousel.height(height);	
+			
+			// Confrim height after content is loaded
+			setTimeout(function(){
+				contentHeights = $carousel.find('.slide-text-overlay').map(function() {
+				    return $(this).outerHeight(); 
+				}).get();
+				maxContentHeight = Math.max.apply(null, contentHeights);
+				
+				height = (maxContentHeight);
+				$carousel.height(height);
+				console.log(height);
+				}, 500);
 			$(window).on('resize',function(){
 				width = $carousel.parent().width();
 				
@@ -693,7 +702,54 @@ $(document).ready(function(){
 	if (typeof window.viewportUnitsBuggyfill == 'function') { 
 		window.viewportUnitsBuggyfill.init(); 
 	}
+
+	$.fn.change = function(cb, e) {
+	    e = e || { subtree:true, childList:true, characterData:true };
+	    $(this).each(function() {
+	      function callback(changes) { cb.call(node, changes, this); }
+	      var node = this;
+	      (new MutationObserver(callback)).observe(node, e);
+	    });
+	  };
+	  
+	 /*
+	BACK TO TP
+	*/
+	$(window).on('scroll', function(){
+	  var scroll = $(window).scrollTop();
+	
+	  if (scroll >= 100) $('#back-to-top').css('display','block');
+	  else $('#back-to-top').css('display','none');
+	});
+	
+	$('#back-to-top').click(function() {
+		$('html, body').animate({
+	      scrollTop: 0
+	    }, 700);
+	    return false;	
+	});
 	 
+	  
+	/*
+	LAYOUT FILTERS
+	*/
+	
+	$('.layout-switcher').on('click', '[data-layout]', function(e){
+		var layout_type = $(this).data('layout');
+		var container = $('.' + $(this).data('container') );
+		
+		container.removeClass('boxed masonry full-width')
+		container.addClass(layout_type);
+		switch(layout_type){
+			case 'boxed':
+				container.addClass('square');
+			break;
+			case 'masonry':
+				container.removeClass('square');
+			break;
+		}
+	});
+  	 
 });})(jQuery);
 
 

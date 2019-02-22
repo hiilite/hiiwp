@@ -25,7 +25,7 @@
  * @author      Peter Vigilante
  * @copyright   Copyright (c) 2018, Hiilite Creative Group
  * @license     http://opensource.org/licenses/https://opensource.org/licenses/MIT
- * @since       1.0.1
+ * @since       1.0.3
  */
 
 /**
@@ -79,7 +79,7 @@ class Hii {
 	 */
 	private function define_constants(){
 	    if ( ! defined( 'HIIWP_VERSION' ) ) {                
-			 define( 'HIIWP_VERSION', '1.0.2' );
+			 define( 'HIIWP_VERSION', '1.0.3' );
 		}
 		if ( ! defined( 'HIIWP_SLUG' ) ) {                
 		    define( 'HIIWP_SLUG', 'hiiwp' );           
@@ -91,6 +91,10 @@ class Hii {
 		    $file = get_template_directory(); 
 			$link = str_replace( WP_CONTENT_DIR, WP_CONTENT_URL, $file );
 		    define( 'HIIWP_URL', $link );
+		}
+		
+		if ( ! defined( 'HIIWP_PLUS_REQUIRED_VERSION' ) ) {                
+			 define( 'HIIWP_PLUS_REQUIRED_VERSION', '1.0.3' );
 		}
 	}
 	
@@ -342,6 +346,22 @@ class Hii {
 			$types = $post_types;
 		endif;
 		return $types;
+	}
+	
+	public static function versionCompare($version1, $operator, $version2) {
+    
+	    $_fv = intval ( trim ( str_replace ( '.', '', $version1 ) ) );
+	    $_sv = intval ( trim ( str_replace ( '.', '', $version2 ) ) );
+	    
+	    if (strlen ( $_fv ) > strlen ( $_sv )) {
+	        $_sv = str_pad ( $_sv, strlen ( $_fv ), 0 );
+	    }
+	    
+	    if (strlen ( $_fv ) < strlen ( $_sv )) {
+	        $_fv = str_pad ( $_fv, strlen ( $_sv ), 0 );
+	    }
+	    
+	    return version_compare ( ( string ) $_fv, ( string ) $_sv, $operator );
 	}
     
 }
@@ -953,10 +973,10 @@ function hiilite_numeric_posts_nav() {
 		        $links[] = $paged + 1;
 		    }
 		 
-		    echo '<div class="num-pagination row"><ul>';
+		    echo '<div class="row"><nav class="navigation pagination" role="navigation"><ul>';
 		 
 		    if ( get_previous_posts_link() )
-		        printf( '<li>%s</li>', get_previous_posts_link() );
+		        printf( '<li class="prev">%s</li>', get_previous_posts_link() );
 		 
 		    if ( ! in_array( 1, $links ) ) {
 		        $class = 1 == $paged ? ' class="active"' : '';
@@ -970,7 +990,7 @@ function hiilite_numeric_posts_nav() {
 		    sort( $links );
 		    foreach ( (array) $links as $link ) {
 		        $class = $paged == $link ? ' class="active"' : '';
-		        printf( '<li%s><a href="%s">%s</a></li>', $class, esc_url( get_pagenum_link( $link ) ), $link );
+		        printf( '<li%s><a href="%s" class="page-numbers">%s</a></li>', $class, esc_url( get_pagenum_link( $link ) ), $link );
 		    }
 		 
 		    if ( ! in_array( $max, $links ) ) {
@@ -978,20 +998,20 @@ function hiilite_numeric_posts_nav() {
 		            echo '<li>…</li>';
 		 
 		        $class = $paged == $max ? ' class="active"' : '';
-		        printf( '<li%s><a href="%s">%s</a></li>', $class, esc_url( get_pagenum_link( $max ) ), $max );
+		        printf( '<li%s><a href="%s" class="page-numbers">%s</a></li>', $class, esc_url( get_pagenum_link( $max ) ), $max );
 		    }
 		 
 		    if ( get_next_posts_link() )
-		        printf( '<li>%s</li>', get_next_posts_link() );
+		        printf( '<li class="next">%s</li>', get_next_posts_link() );
 		 
 		    echo '</ul></div>';
 		
 		// END Numbered Pagination Option
 		} else {
-			echo '<div class="pagination row">';
+			echo '<div class="row">';
 			the_posts_pagination( array(
-				'prev_text' => '<span class="screen-reader-text">' . __( 'Previous page', 'hiiwp' ) . '</span><i class="fa fa-angle-left"></i>',
-				'next_text' => '<span class="screen-reader-text">' . __( 'Next page', 'hiiwp' ) . '</span><i class="fa fa-angle-right"></i>',
+				'prev_text' =>  '<i class="fa fa-angle-left"></i>' . __( 'Previous page', 'hiiwp' ),
+				'next_text' => __( 'Next page', 'hiiwp' ) . '<i class="fa fa-angle-right"></i>',
 				'before_page_number' => '<span class="meta-nav screen-reader-text">' . __( 'Page', 'hiiwp' ) . ' </span>',
 			) );
 			echo '</div>';

@@ -11,7 +11,6 @@ global $post;
 if(isset($hiilite_options)) $hiilite_options =  array_intersect_key($hiilite_options + Hii::get_options(), Hii::get_options());
 else $hiilite_options = Hii::get_options();
 
-//print_r($hiilite_options);
 $post_meta = get_post_meta(get_the_id());
 $post_format_icon = $article_title = $dateline = $article_cat = $embedded_media = '';
 

@@ -7,7 +7,7 @@
  * @package     hiiwp
  * @copyright   Copyright (c) 2018, Peter Vigilante
  * @license     http://opensource.org/licenses/gpl-2.0.php GNU Public License
- * @since       1.0.1
+ * @since       1.0.3
  */
 global $is_IE; ?><style>
 /*--------------------------------------------------------------
@@ -31,6 +31,7 @@ global $is_IE; ?><style>
 	3.2 Header Top
 	3.3 Menu
 4.0 Footer
+	4.1 Back To Top
 5.0 Title
 6.0 Elements
 	6.1 Buttons
@@ -311,6 +312,18 @@ figure.alignright {
 	float: left;
 }
 
+.m-auto { 
+    margin: auto !important; 
+}
+.mr-auto {
+  margin-right: auto !important;
+}
+.mb-auto {
+  margin-bottom: auto !important;
+}
+.ml-auto {
+  margin-left: auto !important;
+}
 
 /*--------------------------------------------------------------
 1.4 Clearings
@@ -1190,15 +1203,55 @@ li.recentcomments {
 --------------------------------------------------------------*/
 .pagination,
 .comments-pagination {
-	font-size: 16px;
 	font-size: 0.875rem;
-	font-weight: 800;
-	padding: 2em 0 3em;
-	text-align: center;
+    font-weight: 800;
+    margin: 2em 0 3em;
+    text-align: center;
+    border: 1px solid #ddd;
+    width: 100%;
 }
 div#disqus_thread {
     width: 100%;
 }
+
+/*
+//	note: Pagination 
+*/
+.pagination ul {
+	list-style:none;
+	margin: 0;
+    padding: 0;
+}
+.pagination ul li {
+	display:inline-block;
+}
+.pagination ul li a.button, .pagination ul li .button-dis  {
+	padding: 0.5em 1em;
+	margin-left:0.5em;
+	margin-right:0.5em;
+}
+
+/* Numbered Pagination */
+.pagination a,
+.pagination a:hover,
+.pagination li.active a,
+.pagination li.disabled {
+    color: <?php echo Hii::$options['pagination_text_color'];?>;
+    text-decoration:none;
+    display: inline-block;
+    background-color: <?php echo Hii::$options['pagination_non_active_page_color'];?>;
+    cursor: pointer;
+    padding: 0.5rem;
+}
+.pagination a .fa {
+	color: <?php echo Hii::$options['pagination_text_color'];?>;
+}
+ 
+.pagination li a:hover,
+.pagination li.active a {
+    background-color: <?php echo Hii::$options['pagination_active_page_color'];?>;
+}
+/* END Numbered Pagination */
 
 .pagination .icon,
 .comments-pagination .icon {
@@ -1228,35 +1281,27 @@ div#disqus_thread {
 	width: auto;
 }
 
-.prev.page-numbers,
-.next.page-numbers {
-	background-color: #ddd;
-	-webkit-border-radius: 2px;
-	border-radius: 2px;
-	display: inline-block;
-	line-height: 1;
-	padding: 0.25em 0.5em 0.4em;
-}
 
-.prev.page-numbers,
-.next.page-numbers {
+.pagination .next,
+.pagination .prev {
+    display: inline-block;
 	-webkit-transition: background-color 0.2s ease-in-out, border-color 0.2s ease-in-out, color 0.3s ease-in-out;
 	transition: background-color 0.2s ease-in-out, border-color 0.2s ease-in-out, color 0.3s ease-in-out;
 }
 
-.prev.page-numbers:focus,
-.prev.page-numbers:hover,
-.next.page-numbers:focus,
-.next.page-numbers:hover {
+.pagination .prev:focus,
+.pagination .prev:hover,
+.pagination .next:focus,
+.pagination .next:hover {
 	background-color: #767676;
 	color: #fff;
 }
 
-.prev.page-numbers {
+.pagination .prev {
 	float: left;
 }
 
-.next.page-numbers {
+.pagination .next {
 	float: right;
 }
 
@@ -1888,6 +1933,10 @@ table td {
 .row {
 	box-sizing: border-box;
 	background-position: center top;
+	display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
 }
 .vc_section { 
 	width: 100%;
@@ -2024,6 +2073,26 @@ if(get_theme_mod( 'show_footer_top_yesno', true )): ?>
 }
 
 /*--------------------------------------------------------------
+4.1 Back To Top
+--------------------------------------------------------------*/
+#back-to-top {
+	display: none;
+	position:fixed;
+	bottom:2rem;
+	right:2rem;	
+	cursor: pointer;
+	padding: <?php echo get_spacing(Hii::$options[ 'btt_icon_padding' ]) ?>;
+	z-index:999;
+	background-color: <?php echo get_theme_mod('btt_background_color'); ?>;
+	border: <?php echo get_theme_mod('btt_border_size'); ?> solid <?php echo get_theme_mod('btt_border_color'); ?>;
+	border-radius: <?php echo get_theme_mod('btt_border_radius'); ?>;
+}
+#back-to-top .fa::before {
+	color: <?php echo get_theme_mod('btt_icon_color'); ?>;
+	font-size: <?php echo get_theme_mod('btt_icon_size'); ?>;
+}
+
+/*--------------------------------------------------------------
 5.0 Title
 --------------------------------------------------------------*/
 <?php get_template_part('css/elements/page_titles', 'css');?>
@@ -2104,98 +2173,6 @@ if(get_theme_mod( 'show_footer_top_yesno', true )): ?>
 	width: 100%;
 }
 
-/*
-//	note: Pagination 
-*/
-.pagination ul {
-	list-style:none;
-}
-.pagination ul li {
-	display:inline-block;
-}
-.pagination ul li a.button, .pagination ul li .button-dis  {
-	padding: 0.5em 1em;
-	margin-left:0.5em;
-	margin-right:0.5em;
-}
-
-<?php if(Hii::$options['blog_layouts'] == 'boxed'): ?>
-.boxed .blog-article h4 {
-    overflow: hidden;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-}
-
-.boxed .blog-article p {
-    overflow: hidden;
-    display: -webkit-box;
-    -webkit-line-clamp: 3;
-    -webkit-box-orient: vertical;
-    font-size: 0.9em;
-}
-<?php endif; ?>
-.masonry {
-	display: block;
-	column-width: 17em;
-	-moz-column-width: 17em;
-	column-gap:0;
-	-moz-column-gap:0;
-}
-.masonry img {
-    min-width: 100%;
-}
-.masonry article{
-	-webkit-column-break-inside: avoid;
-    page-break-inside: avoid;
-    break-inside: avoid;
-}
-.col-count-1 {
-	column-count:1;
-	-moz-column-count:1;
-}
-.col-count-2 {
-	column-count:2;
-	-moz-column-count:2;
-}
-.col-count-3 {
-	column-count:3;
-	-moz-column-count:3;
-}
-.col-count-4 {
-	column-count:4;
-	-moz-column-count:4;
-}
-
-/* Numbered Pagination */
-.num-pagination li a,
-.num-pagination li a:hover,
-.num-pagination li.active a,
-.num-pagination li.disabled {
-    color: <?php echo Hii::$options['pagination_text_color'];?>;
-    text-decoration:none;
-}
- 
-.num-pagination li {
-    display: inline;
-}
- 
-.num-pagination li a,
-.num-pagination li a:hover,
-.num-pagination li.active a,
-.num-pagination li.disabled {
-    background-color: <?php echo Hii::$options['pagination_non_active_page_color'];?>;
-    border-radius: 3px;
-    cursor: pointer;
-    padding: 10px;
-    padding: 0.5rem;
-}
- 
-.num-pagination li a:hover,
-.num-pagination li.active a {
-    background-color: <?php echo Hii::$options['pagination_active_page_color'];?>;
-}
-/* END Numbered Pagination */
 
 
 /*--------------------------------------------------------------

@@ -27,7 +27,10 @@ $prepareContent = $this->getTemplateVariable( 'content' );
 
 $class_to_filter = $this->getTtaGeneralClasses();
 $class_to_filter .= vc_shortcode_custom_css_class( $css, ' ' ) . $this->getExtraClass( $el_class );
-
+$css_classes = array(
+				'slider',
+				$class_to_filter
+			);
 
 switch($shortcode_type){
 	case 'vc_tta_pageable':
@@ -35,9 +38,7 @@ switch($shortcode_type){
 		
 			$slider_type = '';
 			$wrapper_attributes = array();
-			$css_classes = array(
-				'slider',
-			);
+			
 			
 			/* Arrow & Bullet Attributes*/
 			$data_attributes_str = '';
@@ -53,6 +54,8 @@ switch($shortcode_type){
 				'bullet_color' 	=> $atts['bullet_color'],
 				'slider_min_height' => $atts['slider_min_height']
 			);
+			
+			$atts['slider_min_height'] = (is_numeric($atts['slider_min_height']))?$atts['slider_min_height'].'px':$atts['slider_min_height'];
 			
 			foreach($data_attributes as $key=>$value) {
 				$data_attributes_str .= "data-$key='$value' ";
@@ -72,7 +75,7 @@ switch($shortcode_type){
 			}
 			
 			
-			$output = '<amp-carousel ' . implode( ' ', $wrapper_attributes ) . ' layout="responsive" width="'.$atts['slider_width'].'" style="width:'.$atts['slider_width'].'px; min-height:'.$atts['slider_min_height'].'px;" type="slides"';
+			$output = '<amp-carousel ' . implode( ' ', $wrapper_attributes ) . ' layout="responsive" width="'.$atts['slider_width'].'" style="width:'.$atts['slider_width'].'px; min-height:'.$atts['slider_min_height'].';" type="slides"';
 			$output .= ($atts['autoplay'] != 'none')?' autoplay delay="'.$atts['autoplay'].'000">':'>';
 			if(isset($atts['title']) && $atts['title'] != '')
 			{

@@ -7,7 +7,7 @@
  * @package     hiiwp
  * @copyright   Copyright (c) 2016, Peter Vigilante
  * @license     http://opensource.org/licenses/gpl-2.0.php GNU Public License
- * @since       1.0
+ * @since       1.0.3
  */
 
 $hiilite_options = Hii::get_options();
@@ -29,11 +29,12 @@ endif; // end enable_search_bar_yesno
 
 if($hiilite_options['header_top_area_yesno'] == true): 
 	do_action( 'hii_before_header_top' );
-	?><aside id="header_top"><div class="container_inner"><div class="in_grid"><?php 
+	?><aside id="header_top"><div class="container_inner"><?php
+		if($hiilite_options['header_in_grid'] == true) { echo '<div class="in_grid">'; }
 			do_action( 'hii_header_top_left' );
 			do_action( 'hii_header_top_center' );
 			do_action( 'hii_header_top_right' );	
-	  ?></div></div></aside><?php 
+	  if($hiilite_options['header_in_grid'] == true) { echo '</div>'; } ?></div></aside><?php 
 	do_action( 'hii_after_header_top' );
 endif;
 
@@ -118,7 +119,7 @@ echo "<header id='main_header' class='". sanitize_html_class($hiilite_options['h
 		wp_nav_menu(array(
 			'menu' =>  'header-menu',
 			'container' => 'nav',
-			'container_class' => 'flex-item',
+			'container_class' => 'navbar',
 			'container_id' => 'main-nav',
 			'items_wrap'  => '<ul id="%1s" class="%2$s main-menu">%3$s</ul>',
 			'theme_location' => 'header-menu',

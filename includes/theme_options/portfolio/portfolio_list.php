@@ -1,4 +1,14 @@
 <?php
+/**
+ * HiiWP: portfolio-list
+ *
+ * Portfolio theme options
+ *
+ * @package     hiiwp
+ * @copyright   Copyright (c) 2018, Peter Vigilante
+ * @license     http://opensource.org/licenses/gpl-2.0.php GNU Public License
+ * @since       1.0.3
+ */
 $section = 'portfolio_section';
 
 Kirki::add_field( 'hiiwp', array(
@@ -104,10 +114,10 @@ Kirki::add_field( 'hiiwp', array(
 	'default'     => $hiilite_options['portfolio_columns'],
 	'priority'    => 1,
 	'choices'     => array(
-		'col-12'   => '1 Column',
-		'col-6'   => '2 Columns',
-		'col-4'   => '3 Columns',
-		'col-3'	  => '4 Columns',
+		'1'   => '1 Column',
+		'2'   => '2 Columns',
+		'3'   => '3 Columns',
+		'4'	  => '4 Columns',
 	),
 ) );
 

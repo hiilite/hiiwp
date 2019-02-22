@@ -19,6 +19,8 @@ class HiiWP_Ajax {
 	public function __construct() {
 		add_action( 'init', array( __CLASS__, 'add_endpoint') );
 		add_action( 'template_redirect', array( __CLASS__, 'do_ajax'), 0 );
+		add_action( 'wp_ajax_mark_favorite', array( 'HiiWP_Post_Types', 'mark_favorite'), 0 );
+		add_action( 'wp_ajax_nopriv_mark_favorite', array( 'HiiWP_Post_Types', 'mark_favorite'), 0 );
 	}
 	
 	/**

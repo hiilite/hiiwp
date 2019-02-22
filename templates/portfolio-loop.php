@@ -16,10 +16,9 @@ $portfolio_image_pos 	= (isset($atts['portfolio_image_pos']))		?$atts['portfolio
 $portfolio_show_info 	= (isset($atts['portfolio_show_info']))		?$atts['portfolio_show_info']:$hiilite_options['portfolio_show_info'];
 $portfolio_heading_size = (isset($atts['portfolio_heading_size']))	?$atts['portfolio_heading_size']:$hiilite_options['portfolio_heading_size'];
 
-if(isset($is_slider) && $is_slider == true) $portfolio_columns .= ' slide';
+if(isset($is_slider) && $is_slider == true) $portfolio_image_pos .= ' slide';
 ?>
-<!--PORTFOLIO-LOOP-->
-<article  <?php post_class("portfolio-piece flex-item {$portfolio_columns} {$portfolio_image_pos} "); ?> id="post-<?php the_ID(); ?>" >
+<article  <?php post_class("portfolio-piece flex-item {$portfolio_image_pos} "); ?> id="post-<?php the_ID(); ?>" >
 	<div class="portfolio-piece-wrapper"><?php
 		if(has_post_thumbnail($post->id)): 
 				
@@ -28,11 +27,10 @@ if(isset($is_slider) && $is_slider == true) $portfolio_columns .= ' slide';
 			$img = wp_get_attachment_image_src( $tn_id, 'large' );
 			$width = $img[1];
 			$height = $img[2];
-			if($portfolio_image_style == 'square') {
-				$image_aspect_style = ($height < $width)?'height:100%;max-width:none;width:auto;':'height:auto;';
-			} 
-			echo "<figure class='portfolio-piece-image flex-item {$portfolio_image_style}'>";
-			echo "<a href='".get_the_permalink()."'><img src='".$img[0]."' layout='responsive' width='{$width}' height='{$height}' style='{$image_aspect_style}'></a>";
+			$image_aspect_style = ($height < $width)?'landscape':'portrait';
+
+			echo "<figure class='portfolio-piece-image flex-item'>";
+			echo "<a href='".get_the_permalink()."'><img src='".$img[0]."' layout='responsive' width='{$width}' height='{$height}' class='{$image_aspect_style}'></a>";
 			echo "</figure>";
 		endif;
 		if($portfolio_show_info == true): ?>

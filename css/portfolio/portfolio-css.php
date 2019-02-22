@@ -1,4 +1,78 @@
-<?php if(false): ?><style><?php endif; ?>
+<?php
+/**
+ * HiiWP: portfolio-css
+ *
+ * Main CSS file
+ *
+ * @package     hiiwp
+ * @copyright   Copyright (c) 2018, Peter Vigilante
+ * @license     http://opensource.org/licenses/gpl-2.0.php GNU Public License
+ * @since       1.0.3
+ */
+$hiilite_options = HiiWP::get_options();
+if(false): ?><style><?php endif; ?>
+/* MASONRY LAYOUT */
+.masonry {
+	display: block;
+	column-gap:0;
+	-moz-column-gap:0;
+	column-width: 17em;
+}
+.masonry.columns-1 { columns: 1; }
+.masonry.columns-2 { columns: 2; }
+.masonry.columns-3 { columns: 3; }
+.masonry.columns-4 { columns: 4; }
+
+.masonry img {
+    min-width: 100%;
+}
+.masonry article{
+	-webkit-column-break-inside: avoid;
+    page-break-inside: avoid;
+    break-inside: avoid;
+}
+
+/* BOXED LAYOUT */
+.boxed { align-items: flex-start; }
+.boxed.columns-1 > .flex-item { flex: 1 1 100%; width: 100%; }
+.boxed.columns-2 > .flex-item { flex: 1 1 50%; width: 50%; }
+.boxed.columns-3 > .flex-item { flex: 1 1 33.33%; width: 33.33%; }
+.boxed.columns-4 > .flex-item { flex: 1 1 25%; width: 25%; }
+
+.boxed .landscape {
+	height: 100%;
+    max-width: none;
+    width: auto;
+}
+.boxed .portrait {
+	height: auto;
+}
+
+.full-width > .flex-item,
+.full-width img { width: 100%; }
+
+.boxed .blog-article h4 {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+
+.boxed .blog-article p {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    font-size: 0.9em;
+}
+
+
+.layout-boxed {
+	display:flex;
+	flex-direction:row;
+	flex-wrap:wrap;	
+}
+
 ul.portfolio_terms {
     list-style: none;
     padding: 0;
@@ -45,11 +119,25 @@ ul.portfolio_child_terms {
     border-bottom: 1px solid;
 }
 
-.layout-boxed {
-	display:flex;
-	flex-direction:row;
-	flex-wrap:wrap;	
+
+
+.col-count-1 {
+	column-count:1;
+	-moz-column-count:1;
 }
+.col-count-2 {
+	column-count:2;
+	-moz-column-count:2;
+}
+.col-count-3 {
+	column-count:3;
+	-moz-column-count:3;
+}
+.col-count-4 {
+	column-count:4;
+	-moz-column-count:4;
+}
+
 ul.portfolio_terms li a {
     line-height: 3;
 }
@@ -71,6 +159,7 @@ ul.portfolio_terms li a {
 .portfolio-piece {
 	padding: <?php echo Hii::$options['portfolio_add_padding']; ?>;
 	min-width: 250px;
+	transition: all 1s;
 }
 .portfolio-piece.col-3 {
 	max-width: 25%;
@@ -93,8 +182,12 @@ ul.portfolio_terms li a {
 		max-width: 100%;
 	}
 }
+.portfolio-piece-image {
+	transition: all 1s;
+}
 .portfolio-piece img {
 	display: block;
+	transition: all 1s;
 }
 .portfolio-piece-content {
 	border-style: solid;
@@ -179,16 +272,24 @@ if(Hii::$options['portfolio_template'] == 'split') {
 	overflow:hidden;
 	position: relative;
 }
+.square .portfolio-piece-image,
 .portfolio-piece-image.square {
 	position: relative;
 	height: 0;
 	overflow: hidden;
 	padding-top: 100%;
 }
+.square .portfolio-piece-image img,
 .portfolio-piece-image.square img {
 	position: absolute;
-	top: 0;
-	left: 0;
+    min-width: 100%;
+    min-height: 100%;
+    left: 50%;
+    top: 50%;
+    width: auto;
+    -webkit-transform: translate(-50%,-50%);
+    -ms-transform: translate(-50%,-50%);
+    transform: translate(-50%,-50%);
 }
 
 .portfolio-piece.image-left .portfolio-piece-wrapper {
@@ -210,12 +311,13 @@ if(Hii::$options['portfolio_template'] == 'split') {
     position: absolute;
     bottom: -100%;
     transition: all 0.4s;
-
+	opacity: 0;
     display: flex;
     flex-direction: column;
 }
 .portfolio-piece.image-behind:hover .portfolio-piece-content {
 	bottom:0;
+	opacity: 1;
 }
 
 .project-info .project-icon {

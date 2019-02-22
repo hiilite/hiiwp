@@ -53,17 +53,17 @@ Kirki::add_field( 'hiiwp', array(
 	),
 	'output'	  => array(
 		array(
-			'element'	=> '.num-pagination li a:hover, .num-pagination li.active a',
+			'element'	=> '.pagination a:hover, .pagination li.active a',
 			'property'	=> 'background-color',
 		)  
     ),
     'active_callback'	=> array(
-		array(
-			'setting'  => 'blog_pag_style',
-			'operator' => '==',
-			'value'    => 'option-2',
-		),
-	),
+	    array(
+		    'setting'	=> 'blog_pag_show',
+		    'operator'	=> '==',
+		    'value'	=> true,
+	    ),
+    ),
 ) );
 Kirki::add_field( 'hiiwp', array(
 	'type'        => 'color',
@@ -77,17 +77,17 @@ Kirki::add_field( 'hiiwp', array(
 	),
 	'output'	  => array(
 		array(
-			'element'	=> '.num-pagination li a, .num-pagination li a:hover, .num-pagination li.active a, .num-pagination li.disabled',
+			'element'	=> '.pagination a, .pagination a:hover, .pagination li.active a, .pagination li.disabled',
 			'property'	=> 'background-color',
 		)  
     ),
     'active_callback'	=> array(
-		array(
-			'setting'  => 'blog_pag_style',
-			'operator' => '==',
-			'value'    => 'option-2',
-		),
-	),
+	    array(
+		    'setting'	=> 'blog_pag_show',
+		    'operator'	=> '==',
+		    'value'	=> true,
+	    ),
+    ),
 ) );
 Kirki::add_field( 'hiiwp', array(
 	'type'        => 'color',
@@ -101,16 +101,16 @@ Kirki::add_field( 'hiiwp', array(
 	),
 	'output'	  => array(
 		array(
-			'element'	=> '.num-pagination li a, .num-pagination li a:hover, .num-pagination li.active a, .num-pagination li.disabled ',
+			'element'	=> '.pagination li a, .pagination li a:hover, .pagination li.active a, .pagination li.disabled ',
 			'property'	=> 'color',
 		)  
     ),
     'active_callback'	=> array(
-		array(
-			'setting'  => 'blog_pag_style',
-			'operator' => '==',
-			'value'    => 'option-2',
-		),
-	),
+	    array(
+		    'setting'	=> 'blog_pag_show',
+		    'operator'	=> '==',
+		    'value'	=> true,
+	    ),
+    ),
 ) );
 ?>

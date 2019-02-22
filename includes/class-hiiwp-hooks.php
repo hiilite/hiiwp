@@ -7,7 +7,7 @@
  * @author      Peter Vigilante
  * @copyright   Copyright (c) 2018, Hiilite Creative Group
  * @license     http://opensource.org/licenses/https://opensource.org/licenses/MIT
- * @since       1.0
+ * @since       1.0.3
  */
 if ( ! defined( 'ABSPATH' ) ) exit;
 /**
@@ -45,7 +45,9 @@ class HiiWP_Hooks extends Hii {
 		'hii_before_sidebar',
 		'hii_after_sidebar',
 		'before_page_title',
-		'after_page_title'
+		'after_page_title',
+		'before_portfolio',
+		'after_portfolio'
 		
 	);
 	/**
@@ -71,6 +73,9 @@ class HiiWP_Hooks extends Hii {
 		add_action('hii_split_portfolio_sidebar_tags', array($this,'hii_split_portfolio_sidebar_tags'));
 		add_action('hii_split_portfolio_sidebar_team', array($this,'hii_split_portfolio_sidebar_team'));	
 		add_action('hii_split_portfolio_sidebar_about', array($this,'hii_split_portfolio_sidebar_about'));	
+		
+		add_action('before_portfolio', array($this,'before_portfolio'));	
+		add_action('after_portfolio', array($this,'after_portfolio'));	
 		
 		foreach($this->hii_hooks as $hook) {
 			add_action($hook, function() use ( $hook ){
@@ -327,6 +332,36 @@ class HiiWP_Hooks extends Hii {
 		
 		echo wp_kses_post($about); // WPCS: XSS ok.
 	}
-
+	
+	/**
+	 * before_portfolio function.
+	 * 
+	 * @access public
+	 * @return void
+	 */
+	public function before_portfolio($args){
+		$hiilite_options = HiiWP::get_options();
+		
+		$html = '<div class="row"><div class="container_inner">';
+		if($hiilite_options['portfolio_in_grid'] == true) $html .= '<div class="in_grid">';
+		
+		echo wp_kses_post($html);
+	}
+	
+	/**
+	 * before_portfolio function.
+	 * 
+	 * @access public
+	 * @return void
+	 */
+	public function after_portfolio($args){
+		$hiilite_options = HiiWP::get_options();
+		
+		$html = '';
+		if($hiilite_options['portfolio_in_grid'] == true) $html .= '</div>';
+		$html .= '</div></div>';
+		
+		echo wp_kses_post($html);
+	}
 	
 }

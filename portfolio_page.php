@@ -8,14 +8,14 @@ Template Name: Portfolio Page
  * @package     hiiwp
  * @copyright   Copyright (c) 2018, Peter Vigilante
  * @license     http://opensource.org/licenses/gpl-2.0.php GNU Public License
- * @since       1.0
+ * @since       1.0.3
  */
 $hiilite_options = HiiWP::get_options();
-
-
+$templates	= new HiiWP_Plus_Template_Loader();
 get_header();
+
 get_template_part( 'templates/title' );
-echo '<!--PORTFOLIO_PAGE-->';
+
 if(have_posts()):
 	while(have_posts()):
 		the_post();
@@ -23,28 +23,14 @@ if(have_posts()):
 	endwhile;
 endif; 
 
+$current_post_type = $hiilite_options['portfolio_slug'];
 $args = array(
 	'posts_per_page' => -1,
-	'post_type' => $hiilite_options['portfolio_slug']
+	'post_type' => $current_post_type
 );
-$portfolio_query = new WP_Query($args);
-do_action( 'before_portfolio' );
+$wp_query = new WP_Query($args);
 
-if($portfolio_query->have_posts()):
-	echo '<div class="row"><div class="container_inner">';
-	if($hiilite_options['portfolio_in_grid'] == true) echo '<div class="in_grid">';
-	while($portfolio_query->have_posts()):
-		$portfolio_query->the_post();
-		
-		get_template_part('templates/portfolio', 'loop');
-		
-		
-	endwhile;
-	if($hiilite_options['portfolio_in_grid'] == true) echo '</div>';
-	echo '</div></div>';
-	
-endif;
+include( $templates->locate_template('portfolio-archive.php') ); 
 
-do_action( 'after_portfolio' );
-
-get_footer(); ?>
+wp_reset_query( );
+get_footer();

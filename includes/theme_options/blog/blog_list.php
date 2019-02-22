@@ -7,7 +7,7 @@
  * @package     hiiwp
  * @copyright   Copyright (c) 2018, Peter Vigilante
  * @license     http://opensource.org/licenses/gpl-2.0.php GNU Public License
- * @since       1.0.1
+ * @since       1.0.3
  */
 $section = 'blog_section';
 //////////////////////
@@ -23,6 +23,14 @@ Kirki::add_section( $section, array(
 ) );
 
 //////////////////////
+Kirki::add_field( 'hiiwp', array(
+    'type'        => 'switch',
+    'settings'    => 'blog_show_filter',
+    'label'       => __( 'Show Category Filters', 'hiiwp' ),
+    'section'     => $section,
+    'default'     => $hiilite_options['blog_show_filter'],
+    'priority'    => 1,
+) );
 
 Kirki::add_field( 'hiiwp', array(
 	'type'        => 'radio-image',
