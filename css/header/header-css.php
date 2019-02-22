@@ -18,7 +18,9 @@ header#main_header {
 	transition: all 0.5s;
 	<?php 
 	get_background_css(Hii::$options['header_background']);
-	if(Hii::$options['header_content_under'] == true)
+	
+	if  ( Hii::$options['header_content_under'] == true || 
+		( get_post_meta(get_the_id(), 'header_content_under', true) == 'on' ) )
 		echo 'position: absolute;';
 	else
 		echo 'position: relative;';

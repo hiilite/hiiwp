@@ -282,10 +282,14 @@ if(Hii::$options['portfolio_template'] == 'split') {
 .square .portfolio-piece-image img,
 .portfolio-piece-image.square img {
 	position: absolute;
-	top: 0;
-	left: 0;
-	min-width: 100%;
-	min-height: 100%;
+    min-width: 100%;
+    min-height: 100%;
+    left: 50%;
+    top: 50%;
+    width: auto;
+    -webkit-transform: translate(-50%,-50%);
+    -ms-transform: translate(-50%,-50%);
+    transform: translate(-50%,-50%);
 }
 
 .portfolio-piece.image-left .portfolio-piece-wrapper {

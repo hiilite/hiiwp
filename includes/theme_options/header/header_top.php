@@ -197,13 +197,13 @@ Kirki::add_field( 'hiiwp', array(
 	    )),
     'output' => array(
 		array(
-			'element'  => '#header_top .in_grid',
+			'element'  => '#header_top .container_inner',
 			'property' => 'padding',
 		),
 	),
 	'js_vars' => array(
 		array(
-			'element'  => '#header_top .in_grid',
+			'element'  => '#header_top .container_inner',
 			'property' => 'padding',
 		),
 	),

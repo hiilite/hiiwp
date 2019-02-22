@@ -125,6 +125,18 @@ class HiiWP_Post_Types {
 		) );
 		
 		$cmb->add_field( array(
+		    'name' => 'Header Overlaps Content',
+		    'id'   => 'header_content_under',
+		    'type' => 'select',
+		    'default' => 'default',
+		    'options'  => array(
+			    'default' 	=> 'Theme Default',
+		        'on' 		=> 'Overlap',
+		        'off'    	=> 'Under',
+		    )
+		) );
+		
+		$cmb->add_field( array(
 		    'name'             => 'Header Background Color',
 		    'desc'             => 'Edit color sets in the theme customizer',
 		    'id'               => 'header_bg',

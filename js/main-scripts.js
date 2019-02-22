@@ -9,7 +9,7 @@
  * @since       1.0.1
  */
 (function($){
-$('body').ready(function(){
+$(document).ready(function(){
 	/* Mobile Menu */
 	$('.mobile_menu_button').on('click tap', function(e){
 		if($(window).width() <= parseInt(mobile_menu_switch)) {
@@ -91,7 +91,6 @@ $('body').ready(function(){
 	 *
 	 */
 	$('amp-carousel').each(function(index){
-		console.log(index);
 		var $carousel = $(this);
 		var width = ($carousel.attr('width') != undefined)?$carousel.attr('width'):1000,
 			height = ($carousel.attr('height') != undefined)?$carousel.attr('height'):500,
@@ -168,12 +167,23 @@ $('body').ready(function(){
 			
 			contentHeights = $carousel.find('.slide-text-overlay').map(function() {
 				    return $(this).outerHeight(); 
-				    
 				}).get();
 			maxContentHeight = Math.max.apply(null, contentHeights);
 			
 			height = (maxContentHeight);
 			$carousel.height(height);	
+			
+			// Confrim height after content is loaded
+			setTimeout(function(){
+				contentHeights = $carousel.find('.slide-text-overlay').map(function() {
+				    return $(this).outerHeight(); 
+				}).get();
+				maxContentHeight = Math.max.apply(null, contentHeights);
+				
+				height = (maxContentHeight);
+				$carousel.height(height);
+				console.log(height);
+				}, 500);
 			$(window).on('resize',function(){
 				width = $carousel.parent().width();
 				

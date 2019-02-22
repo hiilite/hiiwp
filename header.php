@@ -29,11 +29,12 @@ endif; // end enable_search_bar_yesno
 
 if($hiilite_options['header_top_area_yesno'] == true): 
 	do_action( 'hii_before_header_top' );
-	?><aside id="header_top"><div class="container_inner"><div class="in_grid"><?php 
+	?><aside id="header_top"><div class="container_inner"><?php
+		if($hiilite_options['header_in_grid'] == true) { echo '<div class="in_grid">'; }
 			do_action( 'hii_header_top_left' );
 			do_action( 'hii_header_top_center' );
 			do_action( 'hii_header_top_right' );	
-	  ?></div></div></aside><?php 
+	  if($hiilite_options['header_in_grid'] == true) { echo '</div>'; } ?></div></aside><?php 
 	do_action( 'hii_after_header_top' );
 endif;
 

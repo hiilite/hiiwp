@@ -403,9 +403,9 @@ endif;
 /*
 	TEMPORARY until Kirki fixes font-awesome loader.
 */
-//add_action( 'wp_enqueue_scripts', 'enqueue_load_fa' );
+add_action( 'wp_enqueue_scripts', 'enqueue_load_fa' );
 function enqueue_load_fa() {
-   // wp_enqueue_style( 'load-fa-css', get_template_directory_uri(  ).'/css/font-awesome/css/font-awesome.min.css' );
+    wp_enqueue_style( 'load-fa-css', get_template_directory_uri(  ).'/css/font-awesome/css/font-awesome.min.css' );
 }
 
 /**

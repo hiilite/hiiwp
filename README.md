@@ -6,6 +6,7 @@
 - Updates to WooCommerce Templates
 - WordPress 5.0 compatibility
 - Restructured archive template files. deprecating old archive-{post_type} files
+- Fix to HiiSlider background slide image alignment
 
 
 #### v1.0.2
