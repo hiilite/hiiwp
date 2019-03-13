@@ -11,8 +11,6 @@
 (function($){
 $(document).ready(function(){
 	
-	// Initiate Polyfill for CSS Scroll Snapping
-	cssScrollSnapPolyfill();
 	
 	/* Mobile Menu */
 	$('.mobile_menu_button').on('click tap', function(e){
