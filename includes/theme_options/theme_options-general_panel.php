@@ -689,6 +689,3 @@ Kirki::add_field( 'hiiwp', array(
 		'height'   => '500',
 	),
 ) );
-
-
-	?>

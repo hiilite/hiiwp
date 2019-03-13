@@ -2,6 +2,16 @@
 $section = 'portfolio_piece_section';
 
 Kirki::add_field( 'hiiwp', array(
+    'type'        => 'switch',
+    'settings'    => 'portfolio_single_in_grid',
+    'label'       => __( 'Portfolio Piece in Grid', 'hiiwp' ),
+    'description' => __('Enabling this option will display a portfolio pieces content in grid', 'hiiwp'),
+    'section'     => $section,
+    'default'     => $hiilite_options['portfolio_single_in_grid'],
+    'priority'    => 1,
+) );
+
+Kirki::add_field( 'hiiwp', array(
     'type'        => 'radio-image',
     'settings'    => 'portfolio_template',
     'label'       => __( 'Portfolio Template', 'hiiwp' ),
@@ -15,6 +25,9 @@ Kirki::add_field( 'hiiwp', array(
         'split' => get_template_directory_uri() . '/images/icons/portfolio-split.png',
     ),
 ) );
+
+
+
 Kirki::add_field( 'hiiwp', array(
 	'type'        => 'color',
 	'settings'    => 'portfolio_background',

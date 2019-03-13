@@ -32,19 +32,13 @@ if( (isset($post)
 			endif;
 		}
 		
-		
 		if($page_title != ''){
-		?>
-		<div class="page-title" style="<?php echo ($page_bg_img)?'background-image:url('.$page_bg_img[0].');':''; echo ($page_title_bg)?'background-color:'.$page_title_bg.';':'';?>">
-			<div class="container_inner">
-				<div class="in_grid content-box">
-					<?php do_action( 'before_page_title' );?>
-					<h1 style="<?php echo ($page_title_color)?'color:'.$page_title_color.';':'';?>"><?php echo esc_html__($page_title, 'hiiwp'); ?></h1>
-					<?php do_action( 'after_page_title' ); ?>
-				</div>
-			</div>
-		</div>
-	<?php 
+		?><div class="page-title" style="<?php echo ($page_bg_img)?'background-image:url('.$page_bg_img[0].');':''; echo ($page_title_bg)?'background-color:'.$page_title_bg.';':'';?>"><div class="container_inner"><div class="in_grid content-box"><?php do_action( 'before_page_title' );
+		?><h1 style="<?php 
+			echo ($page_title_color)?'color:'.$page_title_color.';':'';?>"><?php echo esc_html__($page_title, 'hiiwp'); 
+		?></h1><?php
+		 do_action( 'after_page_title' ); 
+		?></div></div></div><?php 
 		}
 	endif;
 endif; 

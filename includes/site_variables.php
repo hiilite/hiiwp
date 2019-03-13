@@ -65,6 +65,7 @@ $hiilite_options['grid_width']					= get_theme_mod( 'grid_width', '1100px');
  
 $hiilite_options['portfolio_on'] 				= get_theme_mod( 'portfolio_on', true);
 $hiilite_options['portfolio_title'] 			= get_theme_mod( 'portfolio_title', 'Portfolio');
+$hiilite_options['portfolio_single_in_grid'] 	= get_theme_mod( 'portfolio_single_in_grid', true);
 $hiilite_options['portfolio_slug'] 				= get_theme_mod( 'portfolio_slug', 'portfolio');
 $hiilite_options['portfolio_tax_title'] 		= get_theme_mod( 'portfolio_tax_title', 'Work');
 $hiilite_options['portfolio_tax_slug'] 			= get_theme_mod( 'portfolio_tax_slug', 'work');

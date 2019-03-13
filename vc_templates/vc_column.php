@@ -94,8 +94,7 @@ if ( ! empty( $el_id ) ) {
 }
 
 if(! empty($on_click) ){
-	// $wrapper_attributes[] = 'onclick="'. htmlspecialchars($on_click, ENT_QUOTES) .'"';
-	$wrapper_attributes[] = 'onclick="'. htmlspecialchars("$on_click", ENT_QUOTES) .'"';
+	$wrapper_attributes[] = 'onclick="'. htmlspecialchars($on_click, ENT_QUOTES) .'"';
 }
 
 $css_class = preg_replace( '/\s+/', ' ', apply_filters( VC_SHORTCODE_CUSTOM_CSS_FILTER_TAG, implode( ' ', array_filter( $css_classes ) ), $this->settings['base'], $atts ) );

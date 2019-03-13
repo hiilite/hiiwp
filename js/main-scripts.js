@@ -6,10 +6,14 @@
  * @package     hiiwp
  * @copyright   Copyright (c) 2018, Peter Vigilante
  * @license     http://opensource.org/licenses/gpl-2.0.php GNU Public License
- * @since       1.0.1
+ * @since       1.0.4
  */
 (function($){
 $(document).ready(function(){
+	
+	// Initiate Polyfill for CSS Scroll Snapping
+	cssScrollSnapPolyfill();
+	
 	/* Mobile Menu */
 	$('.mobile_menu_button').on('click tap', function(e){
 		if($(window).width() <= parseInt(mobile_menu_switch)) {
@@ -182,7 +186,6 @@ $(document).ready(function(){
 				
 				height = (maxContentHeight);
 				$carousel.height(height);
-				console.log(height);
 				}, 500);
 			$(window).on('resize',function(){
 				width = $carousel.parent().width();

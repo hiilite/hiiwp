@@ -8,7 +8,7 @@
  * @author      Peter Vigilante
  * @copyright   Copyright (c) 2017, Hiilite Creative Group
  * @license     http://opensource.org/licenses/https://opensource.org/licenses/MIT
- * @since       1.0.3
+ * @since       1.0.4
  */
 if ( ! defined( 'ABSPATH' ) )	exit;
 /**
@@ -64,7 +64,7 @@ class HiiWP extends Hii {
         add_action( 'tgmpa_register', array($this, 'hiilite_register_required_plugins' ));
         add_filter( 'get_the_archive_title', array($this, 'modify_archive_title' ));
         
-        
+        add_filter( 'navigation_markup_template', array($this, 'modify_navigation_markup_template'), 10, 2 );
         /*
 	     // TODO: More testing and adding option to remove before turning on again  
 	    */
@@ -75,7 +75,7 @@ class HiiWP extends Hii {
 		}
 		
 	    if(self::$hiilite_options['async_all_css'] && $GLOBALS['pagenow'] !== 'wp-login.php') {
-			add_filter('style_loader_tag', array($this, 'link_to_loadCSS_script' ),9999,3);
+			add_filter('style_loader_tag', array($this, 'link_to_loadCSS_script' ), 9999,3);
 		}
 		
         
@@ -132,7 +132,11 @@ class HiiWP extends Hii {
 		$ajax_data 		  = array(
 			'ajax_url'                => $ajax_url,
 		);
-		
+		//wp_deregister_script( 'jquery' );
+   		//wp_register_script( 'jquery', "https://code.jquery.com/jquery-2.2.4.min.js", array(), '2.2.4' );
+   		//wp_deregister_script( 'jquery-migrate' );
+   		//wp_register_script( 'jquery-migrate', "https://code.jquery.com/jquery-migrate-3.0.0.min.js", array(), '3.0.0' );
+    
 		wp_enqueue_script('jquery-effects-core');
 		wp_enqueue_script('jquery-ui-widget');
 		wp_enqueue_script('modernizr', HIIWP_URL.'/js/vender/modernizr-custom.js');
@@ -147,6 +151,8 @@ class HiiWP extends Hii {
 			wp_enqueue_script('viewportUnitsBuggyfill', HIIWP_URL.'/js/vender/viewport-units-buggyfill.js');
 		}
 		
+		//wp_deregister_script('waypoints');
+		//wp_register_script( 'waypoints', HIIWP_URL .'/js/vender/jquery.waypoints.min.js' , array( 'jquery' ), HIIWP_VERSION, true );
 		
 		wp_enqueue_script('main-scripts', HIIWP_URL.'/js/main-scripts.js', array( 'jquery', 'smoothTouchScroll' ), HIIWP_VERSION, true);
 		wp_localize_script('main-scripts', 'mobile_menu_switch', self::$hiilite_options['mobile_menu_switch']);
@@ -192,10 +198,12 @@ class HiiWP extends Hii {
 			$dom = new DOMDocument();
 		    $dom->loadHTML($html);
 		    $a = $dom->getElementById($handle.'-css');
-		    if($a)
-		    	return "<script>if (typeof loadCSS == 'function') { loadCSS('" . $a->getAttribute('href') . "',0,'" . $a->getAttribute('media') . "'); }</script>";	
-		    else
-		    	return $html;
+		    if($a) {
+			    $html = "<script>(function(){if (typeof loadCSS == 'function') { loadCSS('" . $a->getAttribute('href') . "',0,'" . $a->getAttribute('media') . "'); }}())</script>";
+			    return $html;	
+		    } else {
+			    return $html;
+		    }
 		} else {
 			return $html;
 		}
@@ -209,6 +217,9 @@ class HiiWP extends Hii {
 	 */
 	public function hiiwp_head(){
 		global $cpage, $post, $wp_scripts, $woocommerce, $hiilite_options;
+		
+		echo '<meta name="theme-color" content="#30b5c4"/>';
+		echo '<link rel="manifest" href="'.get_stylesheet_directory_uri( ).'/manifest.json">';
 		
 		ob_start();
 		include_once(HIILITE_DIR . '/css/main-css.php');
@@ -429,7 +440,6 @@ class HiiWP extends Hii {
 	/**
 	 * add_defer_attribute function.
 	 * 
-	 * DEPRICATED
 	 * @access public
 	 * @param mixed $tag
 	 * @param mixed $handle
@@ -439,7 +449,7 @@ class HiiWP extends Hii {
 
 		// Scripts to exclude
 		$exclude_scripts = array(
-			'jquery',
+			//'jquery',
 			'jquery-core',
 			'webfont-loader',
 			'sv-wc-payment-gateway-payment-form'
@@ -498,6 +508,43 @@ class HiiWP extends Hii {
 	    }
 	  
 	    return $title;
+	}
+	
+	
+	public function modify_navigation_markup_template( $template, $class ) {
+		global $post;
+		
+		$back_link = '<div class="nav-back">';
+		switch (get_post_type($post)) {
+			case get_theme_mod( 'portfolio_slug', 'portfolio' ):
+				$back_link .= '<a href="'. get_bloginfo( 'url' ) . '/' . self::$hiilite_options['portfolio_slug'] .'">Back to Portfolio</a>';
+				break;
+			case 'team':
+				$back_link .= '<a href="'. get_bloginfo( 'url' ) . '/' . self::$hiilite_options['team_slug'] .'">Back to Team</a>';
+				break;
+			case 'menu':
+				$back_link .= '<a href="'. get_bloginfo( 'url' ) . '/' . self::$hiilite_options['menu_slug'] .'">Back to Menu</a>';
+				break;
+			case 'post':
+				
+				$blog_link = ( get_option( 'page_for_posts' ) != false ) ? get_permalink( get_option( 'page_for_posts' ) ) : esc_url( home_url() );
+				$back_link .= '<a class="back_to_blog" href="' . $blog_link . '">Back to blog</a>';
+				break;
+			default:
+				$back_link .= '';
+				break;
+		}
+		$back_link .= '</div>';
+		
+		
+		
+		
+		
+		$template = '<nav class="navigation %1$s" role="navigation">
+				        <h2 class="screen-reader-text">%2$s</h2>
+				        <div class="nav-links">'.$back_link.' %3$s</div>
+				    </nav>';
+		return $template;
 	}
 
 	/**

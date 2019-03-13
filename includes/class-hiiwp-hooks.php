@@ -47,7 +47,9 @@ class HiiWP_Hooks extends Hii {
 		'before_page_title',
 		'after_page_title',
 		'before_portfolio',
-		'after_portfolio'
+		'after_portfolio',
+		'hii_before_portfolio_single',
+		'hii_after_portfolio_single'
 		
 	);
 	/**
@@ -160,11 +162,11 @@ class HiiWP_Hooks extends Hii {
 	public function hii_doctype(){
 		$doctype = '<!doctype html>';
 		$html_tag = '<html '. get_language_attributes() .'>';
-		return $doctype.$html_tag;
+		echo $doctype.$html_tag;
 	}
 	
 	/**
-	 * hii_doctype function.
+	 * hii_header_hgroup function.
 	 * 
 	 * @access public
 	 * @return void

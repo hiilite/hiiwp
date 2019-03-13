@@ -52,7 +52,9 @@ do_action( 'hii_before_split_portfolio' );
 <?php
 echo '<div class="container_inner">';
 
-echo '<div class="in_grid  align-top">';
+echo '<div class="';
+if($hiilite_options['portfolio_single_in_grid'] == true) echo ' in_grid';
+echo 'align-top">';
 	?>
 	<span itemprop="articleSection" class="labels"><?php the_category(' '); ?></span>
 	<meta itemprop="dateModified" content="<?php the_modified_date('Y-m-d'); ?>">

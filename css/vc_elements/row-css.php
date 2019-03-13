@@ -2,20 +2,19 @@
 .vc_grid.vc_row {
 	width: 100%;
 }
+
+
 .row-o-full-height {
 	min-height: 100vh;
 	display: flex;
-	scroll-snap-type: proximity;
-
-	/* older spec implementation */
-	scroll-snap-destination: 0% 100%;
-	scroll-snap-points-x: repeat(100%);
+    scroll-snap-align: start;
 }
 .row_reverse {
 	flex-direction: row-reverse;
 }
 .row-o-content-middle, .row-o-content-middle>.container_inner {
 	align-items: center;
+	margin: auto;
 }
 .row-o-direction-row>.container_inner, .flex-container.row-o-direction-row, .row-o-direction-row .vc_column-inner .wpb_wrapper.flex-container {
 	flex-direction: row !important;

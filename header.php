@@ -7,14 +7,14 @@
  * @package     hiiwp
  * @copyright   Copyright (c) 2016, Peter Vigilante
  * @license     http://opensource.org/licenses/gpl-2.0.php GNU Public License
- * @since       1.0.3
+ * @since       1.0.4
  */
 
 $hiilite_options = Hii::get_options();
 $bg_color = '';
 
 
-echo do_action('hii_doctype');
+do_action('hii_doctype');
 ?><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1"><?php 
 wp_head(); 
 ?></head><body <?php body_class(); ?>><?php 
@@ -62,12 +62,12 @@ if(isset($post->ID)):
 	if($header_bg) :
 		$bg_color = 'style="background-color:'.$header_bg.'"';		
 	elseif( post_type_exists('portfolio') && ( isset($hiilite_options['portfolio_on']) && $hiilite_options['portfolio_on'] == true  )):
-		if($category = get_the_terms( $post->ID, $hiilite_options['portfolio_tax_slug'] )) {  
+		/*if($category = get_the_terms( $post->ID, $hiilite_options['portfolio_tax_slug'] )) {  
 			$portfolio_work_color = (get_term_meta ( $category[0]->term_taxonomy_id, 'portfolio_work_color', true))?get_term_meta ( $category[0]->term_taxonomy_id, 'portfolio_work_color', true):false;	
 			if($portfolio_work_color) {
 				$bg_color = 'style="background-color:'.$portfolio_work_color.'"';	
 			} 
-		}
+		}*/
 	endif;
 endif;
 
@@ -148,16 +148,12 @@ echo "<header id='main_header' class='". sanitize_html_class($hiilite_options['h
 	?></div><?php 
 	if($hiilite_options['header_bottom_on']): 
 	do_action( 'hii_before_header_bottom' );
-	?><aside id="header_bottom" class="flex-item">
-		<div class="container_inner">
-			<div class="in_grid">
-				<div id="header_bottom_left"><?php
+	?><aside id="header_bottom" class="flex-item"><div class="container_inner"><div class="in_grid"><div id="header_bottom_left"><?php
 					do_action( 'hii_header_bottom_left' );
 				?></div>
 				<div id="header_bottom_right"><?php
 					do_action( 'hii_header_bottom_right' );
 				?></div><?php 
-
 					wp_nav_menu(array(
 							'menu' =>  'bottom-menu',
 							'container' => 'div',
@@ -166,10 +162,8 @@ echo "<header id='main_header' class='". sanitize_html_class($hiilite_options['h
 							'items_wrap'  => '<ul id="%1s" class="%2$s bottom-menu">%3$s</ul>',
 							'theme_location' => 'bottom-menu',
 							'fallback_cb'    => false
-						));	 ?>
-			</div>
-		</div>
-	</aside><?php 
+						));	 
+		?></div></div></aside><?php 
 	do_action( 'hii_after_header_bottom' );
 	endif;
 echo "</header>";

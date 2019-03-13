@@ -23,27 +23,25 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 if ( ! empty( $breadcrumb ) ) {
 
-	$output = $wrap_before;
-	$output .= '<a href="/shop/">Back to Shop</a> - ';
+	echo $wrap_before;
+
 	foreach ( $breadcrumb as $key => $crumb ) {
 
-		$output .= $before;
+		echo $before;
 
 		if ( ! empty( $crumb[1] ) && sizeof( $breadcrumb ) !== $key + 1 ) {
-			$output .= '<a href="' . esc_url( $crumb[1] ) . '">' . esc_html( $crumb[0] ) . '</a>';
+			echo '<a href="' . esc_url( $crumb[1] ) . '">' . esc_html( $crumb[0] ) . '</a>';
 		} else {
-			$output .= esc_html( $crumb[0] );
+			echo esc_html( $crumb[0] );
 		}
 
-		$output .= $after;
+		echo $after;
 
 		if ( sizeof( $breadcrumb ) !== $key + 1 ) {
-			$output .= $delimiter;
+			echo $delimiter;
 		}
-
 	}
 
-	$output .= $wrap_after;
-	
-	echo wp_kses_post($output); // WPCS: XSS ok.
+	echo $wrap_after;
+
 }

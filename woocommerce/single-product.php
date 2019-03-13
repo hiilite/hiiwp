@@ -21,11 +21,16 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 get_header( 'shop' );
 get_template_part( 'templates/title' );
-?>
-<div id="product-<?php the_ID(); ?>" <?php post_class('row'); ?>>
-	<div class="in_grid content-box">
 
-	<?php 
+	/**
+	 * woocommerce_before_main_content hook.
+	 *
+	 * @hooked woocommerce_output_content_wrapper - 10 (outputs opening divs for the content)
+	 * @hooked woocommerce_breadcrumb - 20
+	 */
+	do_action( 'woocommerce_before_main_content' );
+		
+		
 	while ( have_posts() ) : the_post();
 		wc_get_template_part( 'content', 'single-product' );
 	endwhile; // end of the loop. 
@@ -36,9 +41,13 @@ get_template_part( 'templates/title' );
 	 * @hooked woocommerce_output_content_wrapper_end - 10 (outputs closing divs for the content)
 	 */
 	do_action( 'woocommerce_after_main_content' );
-?>
-	</div>
-</div>
-<?php get_footer( 'shop' );
+	
+	/**
+	 * woocommerce_sidebar hook.
+	 *
+	 * @hooked woocommerce_get_sidebar - 10
+	 */
+	do_action( 'woocommerce_sidebar' );
+get_footer( 'shop' );
 
 /* Omit closing PHP tag at the end of PHP files to avoid "headers already sent" issues. */

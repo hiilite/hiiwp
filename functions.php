@@ -25,7 +25,7 @@
  * @author      Peter Vigilante
  * @copyright   Copyright (c) 2018, Hiilite Creative Group
  * @license     http://opensource.org/licenses/https://opensource.org/licenses/MIT
- * @since       1.0.3
+ * @since       1.0.4
  */
 
 /**
@@ -79,7 +79,7 @@ class Hii {
 	 */
 	private function define_constants(){
 	    if ( ! defined( 'HIIWP_VERSION' ) ) {                
-			 define( 'HIIWP_VERSION', '1.0.3' );
+			 define( 'HIIWP_VERSION', '1.0.4' );
 		}
 		if ( ! defined( 'HIIWP_SLUG' ) ) {                
 		    define( 'HIIWP_SLUG', 'hiiwp' );           
@@ -133,23 +133,12 @@ class Hii {
 		$this->theme_options= new HiiWP_Theme_Options();
 		$this->menus		= new HiiWP_Menus();
 		self::$html 		= new HiiWP_HTML_Elements();
-				
-		
-		
 		
 		add_action( 'after_setup_theme', array($this, 'setup'));
 		add_action( 'after_switch_theme', array( $this, 'activate') );
 		
 		add_action( 'after_switch_theme', array( 'HiiWP_Ajax', 'add_endpoint'), 10);
 		add_action( 'after_switch_theme', 'flush_rewrite_rules', 15);
-		
-		add_action('wp_enqueue_scripts', array( $this, 'add_scripts' ));
-		
-		
-	}
-	
-	public function add_scripts() {
-		
 	}
 	
 	private function add_dependencies(){
@@ -1019,6 +1008,50 @@ function hiilite_numeric_posts_nav() {
 	endif;
 }
 endif;
+
+if(!function_exists('hii_post_navigation')):
+	function hii_post_navigation( $args = array() ){
+		echo get_hii_post_navigation( $args );
+	}
+	
+		function get_hii_post_navigation( $args = array() ){
+			$args = wp_parse_args( $args, array( 
+		        'prev_text' => '%title',  
+		        'next_text' => '%title',  
+		        'in_same_term' => false,  
+		        'excluded_terms' => '',  
+		        'taxonomy' => 'category',  
+		        'screen_reader_text' => __( 'Post navigation' ),  
+				) ); 
+		 
+		    $navigation = ''; 
+		 
+		    $previous = get_previous_post_link( 
+			        '<div class="nav-previous">%link</div>',  
+			        $args['prev_text'],  
+			        $args['in_same_term'],  
+			        $args['excluded_terms'],  
+			        $args['taxonomy'] 
+				); 
+		 
+		    $next = get_next_post_link( 
+			        '<div class="nav-next">%link</div>',  
+			        $args['next_text'],  
+			        $args['in_same_term'],  
+			        $args['excluded_terms'],  
+			        $args['taxonomy'] 
+				); 
+			
+			
+		    // Only add markup if there's somewhere to navigate to. 
+		    if ( $previous || $next ) { 
+		        $navigation = _navigation_markup( $previous . $next, 'post-navigation', $args['screen_reader_text'] ); 
+		    } 
+		 
+		    return $navigation; 
+		}
+endif;
+
 
 /**
  * cmb2_output_portfolio_imgs function.

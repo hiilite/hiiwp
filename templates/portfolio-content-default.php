@@ -18,16 +18,21 @@ $portfolio_images = (get_post_meta ( $post->ID, 'project_iamges', true))?get_pos
 $imgs_in_grid = (get_post_meta ( $post->ID, 'imgs_in_grid', true))?get_post_meta ( $post->ID, 'imgs_in_grid', true):false;
 ?>
 <!--PORTFOLIO-CONTENT-DEFAULT-->
-<article  <?php post_class('row'); ?> itemscope itemtype="http://schema.org/Article" id="post-<?php the_ID(); ?>" >
+<article <?php post_class('row'); ?> itemscope itemtype="http://schema.org/Article" id="post-<?php the_ID(); ?>" >
 	
-	<meta itemscope itemprop="mainEntityOfPage"  itemType="https://schema.org/WebPage" itemid="<?php echo esc_url( home_url() )?>"/>
+<meta itemscope itemprop="mainEntityOfPage"  itemType="https://schema.org/WebPage" itemid="<?php echo esc_url( home_url() )?>"/>
+<span itemprop="author" itemscope itemtype="https://schema.org/Person"><meta itemprop="name" content="<?php the_author_meta('display_name'); ?>"></span>
+<span itemprop="articleSection" class="labels"><?php the_category(' '); ?></span>
+<meta itemprop="dateModified" content="<?php the_modified_date('Y-m-d'); ?>">
+<meta itemprop="datePublished" content="<?php the_time('Y-m-d'); ?>">
+
 <?php
-echo '<div class="container_inner">';
+echo '<div class="container_inner scroll_snap_container">';
 $show_featureimage = false;
 if($show_featureimage):
-?><div class="full-width"> 
+?><div class="col-12"> 
 	<?php
-		
+		 
 		if(has_post_thumbnail($post->id) && get_post_meta(get_the_id(), 'hide_page_feature_image', true) != 'on'): 
 			
 		$tn_id = get_post_thumbnail_id( $post->ID );
@@ -35,18 +40,12 @@ if($show_featureimage):
 		$width = $img[1];
 		$height = $img[2];
 	?>
-	<figure class="flex-item full-width">
+	<figure class="flex-item">
 		<img src='<?php echo esc_url($img[0]);?>' layout='responsive' width='<?php echo intval($width);?>' height='<?php echo intval($height);?>'>
 	</figure>
 	<?php endif; ?>
 </div><?php
 	endif;
-echo '<div class="full-width  align-top">';
-	?>
-	<span itemprop="articleSection" class="labels"><?php the_category(' '); ?></span>
-	<meta itemprop="dateModified" content="<?php the_modified_date('Y-m-d'); ?>">
-	<meta itemprop="datePublished" content="<?php the_time('Y-m-d'); ?>">
-	<?php
 		
 		$show_title = false;
 		if($show_title):
@@ -57,23 +56,15 @@ echo '<div class="full-width  align-top">';
 	}
 	
 	endif;
-?>
-<span itemprop="author" itemscope itemtype="https://schema.org/Person"><meta itemprop="name" content="<?php the_author_meta('display_name'); ?>"></span>
-<?php	
-	echo '<div class="'; 
-	echo (!$vc_enabled)?'content-box in_grid':'in_grid';
-	echo '">';
-	the_content();
-	echo '</div>';
-		
-	if($imgs_in_grid == true) {
-		echo '<div class="in_grid">';
-	}
-	cmb2_output_portfolio_imgs($portfolio_images);
 	
-	if($imgs_in_grid == true) {
-		echo '</div>';
-	}
+	echo ($hiilite_options['portfolio_single_in_grid'] === true)?'<div class="in_grid">':'';
+	the_content();
+	echo ($hiilite_options['portfolio_single_in_grid'] === true)?'</div>':'';
+		
+	if($imgs_in_grid == true) 	echo '<div class="in_grid">';
+		cmb2_output_portfolio_imgs($portfolio_images);
+	
+	if($imgs_in_grid == true) 	echo '</div>';
 	
 	$source = get_post_meta( $post->ID, 'source_article_link');
 	if($source && $source[0] != ''){ ?>
@@ -94,7 +85,7 @@ echo '<div class="full-width  align-top">';
 			?></span>
 		</div>
 	<?php }
-		echo '</div>';
+
 echo '</div>';
 if($hiilite_options['show_more_projects']):
 ?>
@@ -139,6 +130,18 @@ if($hiilite_options['portfolio_comments']):
 		comments_template();
 	echo '</div>';
 endif;
+
+if($hiilite_options['show_next_prev_posts'] == true):
+echo '<div class="container_inner next-prev-posts">';
 	
+	hii_post_navigation( array(
+						'prev_text' => '<span class="screen-reader-text">' . __( 'Previous Post', 'hiiwp' ) . '</span><span aria-hidden="true" class="nav-subtitle">' . __( 'Previous', 'hiiwp' ) . '</span> <span class="nav-title"><span class="nav-title-icon-wrapper"><i class="fa fa-angle-left"></i></span>%title</span>',
+						'next_text' => '<span class="screen-reader-text">' . __( 'Next Post', 'hiiwp' ) . '</span><span aria-hidden="true" class="nav-subtitle">' . __( 'Next', 'hiiwp' ) . '</span> <span class="nav-title">%title<span class="nav-title-icon-wrapper"><i class="fa fa-angle-right"></i></span></span>',
+					) );
+	
+	
+echo '</div>';
+
+endif;
+
 echo '</article>';
-?>

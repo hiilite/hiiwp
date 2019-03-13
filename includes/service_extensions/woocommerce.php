@@ -62,4 +62,11 @@ function add_woocommerce_title_content() {
 		do_action( 'woocommerce_before_main_content' );
 	}
 }
-?>
+
+
+add_filter( 'woocommerce_breadcrumb_defaults', 'wcc_change_breadcrumb_home_text' );
+function wcc_change_breadcrumb_home_text( $defaults ) {
+    // Change the breadcrumb home text from 'Home' to 'Apartment'
+	$defaults['wrap_before'] = '<nav class="woocommerce-breadcrumb in_grid" itemprop="breadcrumb">';
+	return $defaults;
+}

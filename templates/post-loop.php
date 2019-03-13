@@ -89,7 +89,7 @@ $article_title = $article_title.$dateline;
 				if(is_single() && get_post_meta(get_the_id(), 'show_page_title', true) != 'on') {
 					
 					$blog_link = ( get_option( 'page_for_posts' ) != false ) ? get_permalink( get_option( 'page_for_posts' ) ) : esc_url( home_url() );
-					echo '<a class="back_to_blog" href="' . $blog_link . '"><i class="fa fa-angle-left"></i>Back to blog</a><br>';
+					echo '<a class="back_to_blog" href="' . $blog_link . '"><i class="fa fa-angle-left"></i><br>';
 					echo wp_kses_post($article_title); // WPCS: XSS ok.
 				}
 				?>
@@ -268,7 +268,9 @@ if($hiilite_options['blog_comments_show'] == true):
 	endif;
 	echo '</div>';
 endif;
-
+?>
+	</div>
+<?php
 if($hiilite_options['show_next_prev_posts'] == true):
 echo '<div class="container_inner next-prev-posts">';
 	the_post_navigation( array(
@@ -278,5 +280,5 @@ echo '<div class="container_inner next-prev-posts">';
 echo '</div>';
 endif;
 ?>
-	</div>
+	
 </article>

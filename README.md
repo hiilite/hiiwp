@@ -1,6 +1,11 @@
 # Hiilite Wordpress theme
 
 ### Change log
+#### v1.0.4
+- Update to WooCommerce Templates
+- Performance Updates
+- Accessibility Updates
+
 #### v1.0.3
 - Added new Filter Bar to Portfolio and Blogs
 - Updates to WooCommerce Templates

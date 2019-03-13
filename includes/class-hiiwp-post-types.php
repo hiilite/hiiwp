@@ -108,6 +108,7 @@ class HiiWP_Post_Types {
 		    'id'               => 'page_title_bg',
 		    'type'             => 'colorpicker',
 		    'default'          => '',
+		    'options' => array( 'alpha' => true )
 		) );
 		
 		$cmb->add_field( array(
@@ -142,6 +143,7 @@ class HiiWP_Post_Types {
 		    'id'               => 'header_bg',
 		    'type'             => 'colorpicker',
 		    'default'          => '',
+		    'options' => array( 'alpha' => true )
 		) );
 		
 		$cmb->add_field( array(
@@ -150,6 +152,7 @@ class HiiWP_Post_Types {
 		    'id'               => 'page_bg',
 		    'type'             => 'colorpicker',
 		    'default'          => '',
+		    'options' => array( 'alpha' => true )
 		) );
 		
 		$cmb->add_field( array(
@@ -158,6 +161,7 @@ class HiiWP_Post_Types {
 		    'id'               => 'page_title_color',
 		    'type'             => 'colorpicker',
 		    'default'          => '',
+		    'options' => array( 'alpha' => true )
 		) );
 		
 	}

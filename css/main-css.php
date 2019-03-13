@@ -880,13 +880,8 @@ img {
 	max-width: 100%;
 	height: auto;
 }
-img.full-width, .row, .wpb_content_element {
+img.full-width, .row {
 	min-width: 100%;
-	scroll-snap-type: proximity;
- 
-	/* older spec implementation */
-	scroll-snap-destination: 0% 100%;
-	scroll-snap-points-x: repeat(100%);
 }
 .full-width,.threequarter-width,.half-width,.third-width,.twothird-width,.quarter-width,
 .col-12,.col-9,.col-7,.col-8,.col-6,.col-4,.col-3,.col-2,.col-1,
@@ -1492,17 +1487,42 @@ div#disqus_thread {
 
 .post-navigation .nav-previous {
 	float: left;
-	width: 50%;
+	text-align: left;
+    min-width: 150px;
+    max-width: 50%;
+    width: 33%;
+	padding: 10px;
 }
 
 .post-navigation .nav-next {
 	float: right;
-	text-align: right;
-	width: 50%;
+    text-align: right;
+    min-width: 150px;
+    max-width: 50%;
+    width: 33%;
+    padding: 10px;
 }
-
+.post-navigation .nav-back {
+    display: inline-block;
+    margin: auto;
+    text-align: center;
+    min-width: 200px;
+    width: 33%;
+    padding: 10px;
+}
+@media (max-width:500px){
+    .post-navigation .nav-back {
+        clear:both;
+        width: 100%;
+    }
+    .post-navigation .nav-next,
+    .post-navigation .nav-previous {
+	    width: 50%;
+	}
+}
 .post-navigation .nav-links {
 	padding: 1em 0;
+	text-align: center;
 }
 
 .nav-subtitle {
@@ -2147,7 +2167,6 @@ if(get_theme_mod( 'show_footer_top_yesno', true )): ?>
 	position: relative;
 }
 .blog-article {
-	padding-bottom: 2em;
 	margin-top: 0;
 	display: flex;
 	flex-wrap: wrap;

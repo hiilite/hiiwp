@@ -146,7 +146,7 @@ final class Kirki_Fonts_Google_Local {
 	 * @return string
 	 */
 	public function get_variant_fontface_css( $variant ) {
-		$font_face = "@font-face{font-family:'{$this->family}';";
+		$font_face = "@font-face{font-family:'{$this->family}'; font-display:auto;";
 
 		// Get the font-style.
 		$font_style = ( false !== strpos( $variant, 'italic' ) ) ? 'italic' : 'normal';
