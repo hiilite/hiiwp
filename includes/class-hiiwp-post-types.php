@@ -6,9 +6,9 @@
  * @package     HiiWP
  * @category    Core
  * @author      Peter Vigilante
- * @copyright   Copyright (c) 2017, Hiilite Creative Group
+ * @copyright   Copyright (c) 2019, Hiilite Creative Group
  * @license     http://opensource.org/licenses/https://opensource.org/licenses/MIT
- * @since       0.4.3
+ * @since       1.0.4
  */
 if ( ! defined( 'ABSPATH' ) )	exit;
 /**
@@ -51,8 +51,10 @@ class HiiWP_Post_Types {
 		add_action('cmb2_admin_init', array( $this, 'cmb2_post_metaboxes' ) );		
 		add_filter( 'posts_where', array( $this, 'password_post_filter' ) );
 		
-		add_filter('manage_portfolio_posts_columns', array($this,'portfolio_table_head'));	
-		add_action( 'manage_portfolio_posts_custom_column', array($this,'portfolio_table_content'), 10, 2 );
+		//add_filter('manage_portfolio_posts_columns', array($this,'portfolio_table_head'));	
+		//add_action( 'manage_portfolio_posts_custom_column', array($this,'portfolio_table_content'), 10, 2 );
+		
+		add_action("wp_ajax_my_user_vote", "my_user_vote");
 			
 	}	
 	
@@ -207,8 +209,9 @@ class HiiWP_Post_Types {
 		   update_post_meta( id, 'favorite_post', status );
 		}*/
 
-	    wp_send_json("hii");
+	    //wp_send_json("hii");
+	    
+	    echo 'hiih';
 	}
 
-	
 }

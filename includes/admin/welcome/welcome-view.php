@@ -1,15 +1,20 @@
 <?php
- 
 /**
- * Welcome Page View
+ * Welcome Page View.
+ * Displays the Welcome page
  *
- * @since 1.0
- * @package HiiWP
+ * @package     HiiWP
+ * @category    Core
+ * @author      Peter Vigilante
+ * @copyright   Copyright (c) 2019, Hiilite Creative Group
+ * @license     http://opensource.org/licenses/https://opensource.org/licenses/MIT
+ * @since       1.0.4
  */
+
 if ( ! defined( 'ABSPATH' ) ) exit; 
  
-?>
-<?php add_thickbox(); ?>
+
+add_thickbox(); ?>
 <div class="wrap about-wrap"> 
  
     <h1><span class="dashicons dashicons-hii-hii"></span> <?php printf( __( 'Welcome to HiiWP &nbsp; %s', 'hiiwp' ), HIIWP_VERSION ); ?></h1>
@@ -33,26 +38,46 @@ if ( ! defined( 'ABSPATH' ) ) exit;
             <p><?php _e( 'To get the most out of the HiiWP Theme, be sure to install the required and suggested plugins before using. The WPBakery Page Builder and HiiWP Plus are required.', 'hiiwp' ); ?></p>
             <a class="button button-primary" href="<?php echo admin_url( 'themes.php?page=tgmpa-install-plugins' ); ?>"><span class="dashicons dashicons-admin-plugins"></span> Install Plugins</a>
         </div>
+        
         <div class="col">
+            <h3><?php _e( 'Install Design', 'hiiwp' ); ?></h3>
+            <?php
+	        if(class_exists('OCDI_Plugin')):?>
+				<p><?php _e( 'Upload and install the design you purchased from ', 'hiiwp' ); ?><a href="https://hiilite.com/shop/themes/" target="_blank">Hiilite.com</a></p>
+				
+				<a class="button button-primary" href="<?php echo admin_url('themes.php?page=pt-one-click-demo-import'); ?>"><span class="dashicons dashicons-schedule"></span> <?php _e( 'Install Design','hiiwp');?></a>
+	        <?php
+		    else: ?>
+		   		<p><?php _e( 'Get a head start on your website and install content from one of our many','hiiwp');?>
+			   		<a href="https://hiilite.com/shop/themes/" target="_blank"><?php _e('prebuilt designs.','hiiwp');?></a>
+			   		<?php _e('prebuilt designs. First, download and activate the One Click Demo Import plugin, then head over to Appearance > Import Demo Data to get started.', 'hiiwp' ); ?>
+			   	</p>
+		    		
+		    		<?php 
+			    	if( is_multisite() ) { ?>
+		    			<a href="/wp-admin/network/plugin-install.php?tab=plugin-information&amp;plugin=one-click-demo-import&amp;TB_iframe=true&amp;width=772&amp;height=677" class="thickbox open-plugin-details-modal button" aria-label="More information about One Click Demo Import" data-title="One Click Demo Import"><span class="dashicons dashicons-download"></span> <?php _e( 'Download One Click Demo Import','hiiwp');?></a><?php
+			    	} else {
+				    	?>
+					<a href="/wp-admin/plugin-install.php?tab=plugin-information&amp;plugin=one-click-demo-import&amp;TB_iframe=true&amp;width=772&amp;height=677" class="thickbox open-plugin-details-modal button" aria-label="More information about One Click Demo Import" data-title="One Click Demo Import"><span class="dashicons dashicons-download"></span> <?php _e( 'Download One Click Demo Import','hiiwp');?></a>
+		    		<?php
+				} 
+	        endif;
+	        ?>
+	        
+         
+        </div>
+        
+    </div>
+ 
+    <div class="feature-section two-col">
+	    <div class="col">
             <h3><?php _e( 'Install Child Theme', 'hiiwp' ); ?></h3>
             <p><?php _e( 'We are constantly updating the HiiWP theme to make it better for our customers. So if you plan on making edits to the theme files, and don\'t want your edits overwritten, the it\'s best to install the HiiWP Child Theme', 'hiiwp' ); ?></p>
             <a class="button button-primary" href="<?php echo get_template_directory_uri() . '/hiiwp-child.zip'; ?>"><span class="dashicons dashicons-download"></span> Download Child Theme</a>
             <a href="https://hiilite.ticksy.com/article/13193/" target="_blank">How do I install the child theme?</a>
         </div>
-    </div>
- 
-    <div class="feature-section two-col">
-        <div class="col">
-            <h3><?php _e( 'Load Demo Content', 'hiiwp' ); ?></h3>
-            <p><?php _e( 'Get a head start on your website and install content from one of our many demos. First, download and activate the One Click Demo Import plugin, then head over to Appearance > Import Demo Data to get started.', 'hiiwp' ); ?></p>
-            <?php
-	        if(class_exists('OCDI_Plugin')):?>
-	        <a class="button button-primary" href="<?php echo admin_url('themes.php?page=pt-one-click-demo-import'); ?>"><span class="dashicons dashicons-schedule"></span> View Demos</a>
-	        <?php
-	        endif;
-	        ?>
-            <a href="/wp-admin/plugin-install.php?tab=plugin-information&amp;plugin=one-click-demo-import&amp;TB_iframe=true&amp;width=772&amp;height=677" class="thickbox open-plugin-details-modal button" aria-label="More information about One Click Demo Import" data-title="One Click Demo Import"><span class="dashicons dashicons-download"></span> Download One Click Demo Import</a>
-        </div>
+        
+        
  
         <div class="col">
             <h3><?php _e( 'Learn How To Use HiiWP', 'hiiwp' ); ?></h3>

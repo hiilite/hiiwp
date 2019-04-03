@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Intellectual Property rights, and copyright, reserved by Todd Lahman, LLC as allowed by law include,
  * but are not limited to, the working concept, function, and behavior of this software,
@@ -8,7 +7,7 @@
  * @package     WooCommerce API Manager plugin and theme library
  * @author      Todd Lahman LLC https://www.toddlahman.com/
  * @copyright   Copyright (c) Todd Lahman LLC (support@toddlahman.com)
- * @since       1.0
+ * @since       1.0.4
  * @license     http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
@@ -144,7 +143,7 @@ if ( ! class_exists( 'AM_License_Menu' ) ) {
 				$this->ame_options           = get_option( $this->ame_data_key );
 				$this->ame_plugin_name       = $this->plugin_or_theme == 'plugin' ? untrailingslashit( plugin_basename( $this->file ) ) : get_stylesheet(); // same as plugin slug. if a theme use a theme name like 'twentyeleven'
 				$this->ame_product_id        = get_option( $this->ame_product_id_key ); // Software Title
-				$this->ame_renew_license_url = $this->api_url . 'my-account'; // URL to renew an API Key. Trailing slash in the upgrade_url is required.
+				$this->ame_renew_license_url = $this->api_url . 'my-account/api-keys/'; // URL to renew an API Key. Trailing slash in the upgrade_url is required.
 				$this->ame_instance_id       = get_option( $this->ame_instance_key ); // Instance ID (unique to each blog activation)
 				/**
 				 * Some web hosts have security policies that block the : (colon) and // (slashes) in http://,
@@ -299,7 +298,7 @@ if ( ! class_exists( 'AM_License_Menu' ) ) {
 				return;
 			} ?>
             <div class="notice notice-error">
-                <p><?php printf( __( 'The <strong>%s</strong> API Key has not been activated, so the %s is inactive! %sClick here%s to activate <strong>%s</strong>.', 'hiiwp' ), esc_attr( $this->software_title ), esc_attr( $this->plugin_or_theme ), '<a href="' . esc_url( admin_url( 'options-general.php?page=' . $this->ame_activation_tab_key ) ) . '">', '</a>', esc_attr( $this->software_title ) ); ?></p>
+                <p><?php printf( __( 'Your <strong>%s</strong> API Key has not been activated, so the %s is inactive and will not receive updates! %sClick here%s to activate <strong>%s</strong>.', 'hiiwp' ), esc_attr( $this->software_title ), esc_attr( $this->plugin_or_theme ), '<a href="' . esc_url( admin_url( 'options-general.php?page=' . $this->ame_activation_tab_key ) ) . '">', '</a>', esc_attr( $this->software_title ) ); ?></p>
             </div>
 			<?php
 		}
@@ -346,6 +345,8 @@ if ( ! class_exists( 'AM_License_Menu' ) ) {
                     <div class="main">
 						<?php
 						echo sprintf( '<p>' . __( 'You can manage your license key from your account <a href="%s" target="_blank">dashboard</a>.', 'hiiwp' ) . '</p>', esc_url( $this->ame_renew_license_url ) );
+						
+						echo sprintf( '<p>' . __( 'If you don\'t have a licence key you can <a href="%s" target="_blank">purchase one here.</a>.', 'hiiwp' ) . '</p>', esc_url( $this->api_url.'shop/themes/hiiwp' ) );
 
 						if ( $tab == $this->ame_activation_tab_key ) {
 							settings_fields( $this->ame_data_key );

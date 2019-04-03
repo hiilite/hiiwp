@@ -66,12 +66,15 @@ jQuery(document).ready(function ($) {
 		
 	HiiWP_Admin.init();
 	
+
 	
 	/* Update Porfolio items when Favorit star is clicked */
 	$('.post-favorite').click(function() {
 		var status = $(this).attr('data-favorite');
 		var post_id = $(this).attr('data-post-id');
-		if(status == 'true') {
+		
+		
+		/*if(status == 'true') {*/
 			$.ajax({
 				type: 'POST',
 				url:  hiiwp_ajax.ajax_url.toString().replace( "%%endpoint%%", "mark_favorite" ),
@@ -79,21 +82,21 @@ jQuery(document).ready(function ($) {
 				success: function(data) {
 					console.log(hiiwp_ajax.ajax_url);
 					console.log(data);
-					/*$(this).attr('data-favorite', 'false');
+					$(this).attr('data-favorite', 'false');
 					$(this).removeClass('dashicons-star-filled');
-					$(this).addClass('dashicons-star-empty');*/
+					$(this).addClass('dashicons-star-empty');
 				},
 				error: function(errorThrown){
 					console.log(errorThrown);
 				}
 			});
-		}
+		/*}
 		else {
 			$(this).attr('data-favorite', 'true');
 			$(this).removeClass('dashicons-star-empty');
 			$(this).addClass('dashicons-star-filled');
-			/* set to true */
-		}
+			//set to true
+		}*/
 	});
 
 });

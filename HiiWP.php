@@ -6,7 +6,7 @@
  * @package     HiiWP
  * @category    Core
  * @author      Peter Vigilante
- * @copyright   Copyright (c) 2017, Hiilite Creative Group
+ * @copyright   Copyright (c) 2019, Hiilite Creative Group
  * @license     http://opensource.org/licenses/https://opensource.org/licenses/MIT
  * @since       1.0.4
  */
@@ -109,6 +109,8 @@ class HiiWP extends Hii {
     /**
      * hiiwp_init function.
      * 
+     * Run on WordPress Initialization
+     *
      * @access public
      * @return void
      */
@@ -132,10 +134,6 @@ class HiiWP extends Hii {
 		$ajax_data 		  = array(
 			'ajax_url'                => $ajax_url,
 		);
-		//wp_deregister_script( 'jquery' );
-   		//wp_register_script( 'jquery', "https://code.jquery.com/jquery-2.2.4.min.js", array(), '2.2.4' );
-   		//wp_deregister_script( 'jquery-migrate' );
-   		//wp_register_script( 'jquery-migrate', "https://code.jquery.com/jquery-migrate-3.0.0.min.js", array(), '3.0.0' );
     
 		wp_enqueue_script('jquery-effects-core');
 		wp_enqueue_script('jquery-ui-widget');
@@ -151,9 +149,6 @@ class HiiWP extends Hii {
 			wp_enqueue_script('viewportUnitsBuggyfill', HIIWP_URL.'/js/vender/viewport-units-buggyfill.js');
 		}
 		
-		//wp_deregister_script('waypoints');
-		//wp_register_script( 'waypoints', HIIWP_URL .'/js/vender/jquery.waypoints.min.js' , array( 'jquery' ), HIIWP_VERSION, true );
-		
 		wp_enqueue_script('main-scripts', HIIWP_URL.'/js/main-scripts.js', array( 'jquery', 'smoothTouchScroll' ), HIIWP_VERSION, true);
 		wp_localize_script('main-scripts', 'mobile_menu_switch', self::$hiilite_options['mobile_menu_switch']);
 		wp_localize_script( 'main-scripts', 'hiiwp_ajax', $ajax_data );
@@ -166,6 +161,8 @@ class HiiWP extends Hii {
 	
 	/**
 	 * add_load_css function.
+	 *
+	 * Script to run the page load animation
 	 * 
 	 * @access public
 	 * @return void
@@ -180,6 +177,15 @@ class HiiWP extends Hii {
 		
 	}
 	
+	
+	/**
+	 * add_loading_svg function.
+	 * 
+	 * Adds page loader SVG
+	 *
+	 * @access public
+	 * @return void
+	 */
 	public function add_loading_svg(){
 		?><svg id="page-loader" style="width: 150px;height: 150px;position: fixed; z-index: 99999; top: 0; bottom: 0; margin: auto;left: 0;right: 0; transition:all 0.4s; "><circle cx="75" cy="75" r="20" /><circle cx="75" cy="75" r="35" /><circle cx="75" cy="75" r="50" /><circle cx="75" cy="75" r="65" /></svg><?php
 	}
@@ -219,7 +225,7 @@ class HiiWP extends Hii {
 		global $cpage, $post, $wp_scripts, $woocommerce, $hiilite_options;
 		
 		echo '<meta name="theme-color" content="#30b5c4"/>';
-		echo '<link rel="manifest" href="'.get_stylesheet_directory_uri( ).'/manifest.json">';
+		//echo '<link rel="manifest" href="'.get_stylesheet_directory_uri( ).'/manifest.json">';
 		
 		ob_start();
 		include_once(HIILITE_DIR . '/css/main-css.php');
@@ -301,7 +307,7 @@ class HiiWP extends Hii {
 		
 		add_submenu_page('hii_seo_settings', __('Install Plugins', 'hiiwp'), __('Install Plugins', 'hiiwp'), 'manage_options', 'themes.php?page=tgmpa-install-plugins');
 		
-		add_submenu_page('hii_seo_settings', __('About HiiWP', 'hiiwp'), __('About HiiWP', 'hiiwp'), 'manage_options', 'themes.php?page=hiiwp-welcome');
+		add_submenu_page('hii_seo_settings', __('About HiiWP', 'hiiwp'), __('About HiiWP', 'hiiwp'), 'manage_options', 'themes.php?page=admin.php%3Fpage%3Dhiiwp-welcome');
 		
 	}
 	
@@ -628,6 +634,8 @@ class HiiWP extends Hii {
 		);
 		
 		wp_localize_script( HIIWP_SLUG .'-admin-js', 'hiiwp_ajax', $ajax_data );
+		
+		//wp_localize_script( HIIWP_SLUG .'-admin-js', 'hiiwp_ajax', array( 'ajaxurl' => admin_url( 'admin-ajax.php' )));
 	}
 
 	/**
@@ -796,7 +804,7 @@ class HiiWP extends Hii {
 	            'name'               => 'Gravity Forms',
 	            'slug'               => 'gravityforms', 
 	            'source'             => 'https://hiilite.com/download/9030/',
-	            'version'			 => '2.2.5.20',
+	            'version'			 => '2.4.7',
 	            'required'           => false, 
 	            'force_activation'   => false, 
 	            'force_deactivation' => false, 
@@ -824,19 +832,11 @@ class HiiWP extends Hii {
         );
 	    
 	    $plugins = array(
-	
-	        // This is an example of how to include a plugin pre-packaged with a theme.
-	        /*array(
-                'name'      => 'Envato Market',
-                'slug'      => 'envato-market',
-                'source'    => 'https://github.com/envato/wp-envato-market/archive/master.zip',
-                'required'  => false,
-            ),*/
 			array(
-	            'name'               => 'WPBakery Visual Composer', // The plugin name.
+	            'name'               => 'WPBakery Page Builder', // The plugin name.
 	            'slug'               => 'js_composer', // The plugin slug (typically the folder name).
 	            'source'             => 'https://hiilite.com/download/9034/', // The plugin source.
-	            'version'			 => '5.5.4',
+	            'version'			 	=> '5.7',
 	            'required'           => true, // If false, the plugin is only 'recommended' instead of required.
 	            'force_activation'   => true, // If true, plugin is activated upon theme activation and cannot be deactivated until theme switch.
 	            'force_deactivation' => false, // If true, plugin is deactivated upon theme switch, useful for theme-specific plugins.
@@ -858,6 +858,11 @@ class HiiWP extends Hii {
 	        array(
 	            'name'      => 'Yoast SEO',
 	            'slug'      => 'wordpress-seo',
+	            'required'  => false,
+	        ),
+	        array(
+	            'name'      => 'Classic Editor',
+	            'slug'      => 'classic-editor',
 	            'required'  => false,
 	        ),
 	    );
@@ -882,7 +887,7 @@ class HiiWP extends Hii {
 	        'message'      => '',                      // Message to output right before the plugins table.
 	        'strings'      => array(
 	            'page_title'                      => __( 'Install HiiWP Recommended Plugins', 'hiiwp' ),
-	            'menu_title'                      => __( 'Install HiiWP Plugins', 'hiiwp' ),
+	            'menu_title'                      => __( 'Recommended Plugins', 'hiiwp' ),
 	            'installing'                      => __( 'Installing HiiWP Plugin: %s', 'hiiwp' ), // %s = plugin name.
 	            'oops'                            => __( 'Something went wrong with the plugin API.', 'hiiwp' ),
 	            'notice_can_install_required'     => _n_noop( 'This theme requires the following plugin: %1$s.', 'This theme requires the following plugins: %1$s.', 'hiiwp' ), // %1$s = plugin name(s).

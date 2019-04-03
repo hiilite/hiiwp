@@ -92,28 +92,6 @@ Kirki::add_field( 'hiiwp', array(
 	)
 ) );
 
-// BORDER TOP
-Kirki::add_field( 'hiiwp', array(
-    'type'        => 'dimension',
-    'settings'    => 'header_top_border_width',
-    'label'       => __( 'Header Top Border Thickness', 'hiiwp' ),
-    'section'     => $section,
-    'default'     => $hiilite_options['header_top_border_width'],
-    'priority'    => 4,
-    
-) );
-
-Kirki::add_field( 'hiiwp', array(
-    'type'        => 'color',
-    'settings'    => 'header_top_border_color',
-    'label'       => __( 'Header Top Border Color', 'hiiwp' ),
-    'description'       => __( 'Choose a color for the header top border. Note: If color has not been chosen, border bottom will not be displayed', 'hiiwp' ),
-    'section'     => $section,
-    'default'     => $hiilite_options['header_top_border_color'],
-    'priority'    => 4,
-    
-) );
-
 
 Kirki::add_field( 'hiiwp', array(
 	'type'        => 'typography',

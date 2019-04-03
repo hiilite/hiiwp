@@ -118,6 +118,66 @@ Kirki::add_field( 'hiiwp', array(
 	),
 ) );
 
+
+
+// Header Top Border Top
+Kirki::add_field( 'hiiwp', array(
+	'type'        => 'color',
+    'settings'    => 'header_top_border_color',
+    'label'       => __( 'Header Top Border Color', 'hiiwp' ),
+    'description' => __('Define top border color for Header Top', 'hiiwp'),
+    'section'     => $section,
+    'priority'    => 7,
+    'default'     => '',
+    'required'	  => array(
+		array(
+		    'setting'  => 'header_top_area_yesno',
+			'operator' => '==',
+			'value'    => true,
+	    )),
+    'transport'   => 'postMessage',
+    'output' => array(
+		array(
+			'element'  => '#header_top',
+			'property' => 'border-top-color',
+		),
+	),
+	'js_vars' => array(
+		array(
+			'element'  => '#header_top',
+			'property' => 'border-top-color',
+		),
+	),
+) );
+
+Kirki::add_field( 'hiiwp', array(
+    'type'        => 'dimension',
+    'settings'    => 'header_top_border_width',
+    'label'       => __( 'Header Top Border Thickness', 'hiiwp' ),
+    'section'     => $section,
+    'default'     => '0px',
+    'priority'    => 7,
+    'transport'   => 'postMessage',
+    'required'	  => array(
+		array(
+		    'setting'  => 'header_top_area_yesno',
+			'operator' => '==',
+			'value'    => true,
+	    )),
+    'output' => array(
+		array(
+			'element'  => '#header_top',
+			'property' => 'border-top-width',
+		),
+	),
+	'js_vars' => array(
+		array(
+			'element'  => '#header_top',
+			'property' => 'border-top-width',
+		),
+	),
+) );
+
 // Header Top Border Bottom
 Kirki::add_field( 'hiiwp', array(
 	'type'        => 'color',

@@ -195,14 +195,7 @@ $hiilite_options['header_padding'] 				= get_theme_mod( 'header_padding', array(
 		'left'   => '0',
 	));
 
-$hiilite_options['header_background'] = get_theme_mod( 'header_background', array(
-	'background-color'    => '#fff',
-	'background-image'    => '',
-	'background-repeat'   => 'no-repeat',
-	'background-size'     => 'cover',
-	'background-attachment'   => 'scroll',
-	'background-position' => 'left-top',
-));
+$hiilite_options['header_background']	= get_theme_mod( 'header_background', '' );
 
 $hiilite_options['header_above_content'] = get_theme_mod('header_above_content', $hiilite_options['header_content_under']);
 

@@ -19,7 +19,7 @@
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
 }
-
+$vc_enabled = (get_post_meta($post->ID, '_wpb_vc_js_status', true) == 'true')?true:false;
 
 /**
  * woocommerce_before_single_product hook.
@@ -74,8 +74,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 			do_action( 'woocommerce_single_product_summary' );
 		?>
 		</div>
-		<div class="col-12">
-			<div class="row">
+	</div>
+	<div class="row">
+		<div class="<?php echo (!$vc_enabled)?'in_grid':'col-12';?>">
+			
 			<?php
 				woocommerce_output_product_data_tabs();
 				woocommerce_upsell_display();
@@ -88,11 +90,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 				 */
 				//do_action( 'woocommerce_after_single_product_summary' );
 			?>
-			</div>
+		</div>
 			<?php
 			woocommerce_output_related_products();
 			?>
-		</div>
 	</div><!-- .summary -->
 	
 </div>

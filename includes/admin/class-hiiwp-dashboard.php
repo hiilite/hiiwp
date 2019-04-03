@@ -6,16 +6,16 @@
  * @package     HiiWP
  * @category    Core
  * @author      Peter Vigilante
- * @copyright   Copyright (c) 2017, Hiilite Creative Group
+ * @copyright   Copyright (c) 2019, Hiilite Creative Group
  * @license     http://opensource.org/licenses/https://opensource.org/licenses/MIT
- * @since       0.4.3
+ * @since       1.0.4
  */
 
 /**
  * HiiWP_Widgets class.
  * Handels the creation of widgets to be used in sidebars. Initial creation is done in HiiWP_Shortcodes.
  *
- * @since 0.4.3
+ * @since 1.0.4
  */
 if ( ! defined( 'ABSPATH' ) )	exit;
  
@@ -42,19 +42,50 @@ class HiiWP_Dashboard {
 	
 	
 	public function hiilite_add_dashboard_widgets() {
-	    wp_add_dashboard_widget( 'hiilite_dashboard_welcome', 'Welcome', array($this, 'hiilite_add_welcome_widget' ));
+	    wp_add_dashboard_widget( 'hiilite_dashboard_welcome', 'Your Running The HiiWP Framework', array($this, 'hiilite_add_welcome_widget' ));
 	}
 	
 	public function hiilite_add_welcome_widget(){ ?>
-	 
-		<h3>You are running the HiiWP WordPress Theme - <a href="https://hiilite.com" target="_blank" rel="noopener">By Hiilite Creative Group</a></h3>
-	<p>Hiilite works with a mix of local, regional, provincial and international clients. We are equally happy working face-to-face and working remotely. We serve BC, Western Canada and beyond from a little corner of paradise - Kelowna, BC.</p>
-	<h4>Need Help</h4>
-	<p>
-		<a href="https://hiilite.ticksy.com/" target="_blank">Read Knowledge Base</a> | <a href="https://hiilite.ticksy.com/" target="_blank">Submit a Support Ticket</a>
-	</p><div id="social-icons">
-	<a href="https://www.facebook.com/hiilite" target="_blank"><img src="https://hiilite.com/wp-content/uploads/2014/11/Facebook-32.png" width="32" height="32" alt="Facebook" scale="0"></a><a href="https://twitter.com/hiilite" target="_blank"><img src="https://hiilite.com/wp-content/uploads/2014/11/Twitter-Bird-32.png" width="32" height="32" alt="Twitter" scale="0"></a><a href="https://plus.google.com/u/0/b/107657092449987968512/107657092449987968512" target="_blank"><img src="https://hiilite.com/wp-content/uploads/2014/11/Google-Plus-32.png" width="32" height="32" alt="Google" scale="0"></a>
-	</div><?php 
+	 	<div class="wp-badge welcome__logo" style="padding-top: 80px;height: 20px;width: 90px;font-size: 10px;float: right;"><?php printf( __( 'Version %s', 'hiiwp' ), HIIWP_VERSION ); ?></div>
+		<h3><strong><?php _e( 'What would you like to do?','hiiwp');?></strong></h3>
+		<ul>
+			<li><a href="<?php echo admin_url( 'customize.php' ); ?>"><span class="dashicons dashicons-admin-customizer"></span> <?php _e( 'Customize Design','hiiwp');?></a></li>
+			<li><a href="<?php echo admin_url( 'themes.php?page=tgmpa-install-plugins' ); ?>"><span class="dashicons dashicons-admin-plugins"></span> <?php _e( 'Install Recommended Plugins','hiiwp');?></a></li>
+			
+		</ul>
+		<hr>
+		
+		<h3><strong><?php _e( 'Adding a Design?', 'hiiwp' ); ?></strong></h3>
+        <?php
+        if(class_exists('OCDI_Plugin')):?>
+			<p><?php _e( 'Upload and install the design you purchased from ', 'hiiwp' ); ?><a href="https://hiilite.com/shop/themes/" target="_blank">Hiilite.com</a></p>
+			
+			<a class="button button-primary" href="<?php echo admin_url('themes.php?page=pt-one-click-demo-import'); ?>"><span class="dashicons dashicons-schedule"></span> <?php _e( 'Install Design','hiiwp');?></a>
+        <?php
+	    else: ?>
+	   		<p><?php _e( 'Get a head start on your website and install content from one of our many','hiiwp');?>
+		   		<a href="https://hiilite.com/shop/themes/" target="_blank"><?php _e('prebuilt designs.','hiiwp');?></a>
+		   		<?php _e('prebuilt designs. First, download and activate the One Click Demo Import plugin, then head over to Appearance > Import Demo Data to get started.', 'hiiwp' ); ?>
+		   	</p>
+	    		
+	    		<?php 
+		    	if( is_multisite() ) { ?>
+	    			<a href="/wp-admin/network/plugin-install.php?tab=plugin-information&amp;plugin=one-click-demo-import&amp;TB_iframe=true&amp;width=772&amp;height=677" class="thickbox open-plugin-details-modal button" aria-label="More information about One Click Demo Import" data-title="One Click Demo Import"><span class="dashicons dashicons-download"></span> <?php _e( 'Download One Click Demo Import','hiiwp');?></a><?php
+		    	} else {
+			    	?>
+				<a href="/wp-admin/plugin-install.php?tab=plugin-information&amp;plugin=one-click-demo-import&amp;TB_iframe=true&amp;width=772&amp;height=677" class="thickbox open-plugin-details-modal button" aria-label="More information about One Click Demo Import" data-title="One Click Demo Import"><span class="dashicons dashicons-download"></span> <?php _e( 'Download One Click Demo Import','hiiwp');?></a>
+	    		<?php
+			} 
+        endif;
+        ?>
+        
+
+		<hr>
+		<h3><strong><?php _e( 'Need Help','hiiwp');?></strong></h3>
+		<p>
+			<a class="button" href="https://hiilite.ticksy.com/articles/100012838" target="_blank" rel="noopener"><?php _e( 'Read Knowledge Base','hiiwp');?></a> <a href="https://hiilite.ticksy.com/submit/#100012838" target="_blank" rel="noopener" class="button"><?php _e( 'Submit a Support Ticket','hiiwp');?></a>
+		</p>
+	<?php 
 	}
 	
 	
@@ -124,6 +155,13 @@ class HiiWP_Dashboard {
 		
 	}*/
 
+	
+	/**
+	 * hiilite_login_logo function.
+	 * 
+	 * @access public
+	 * @return void
+	 */
 	public function hiilite_login_logo() { 
 		$hiilite_options['main_logo'] = get_theme_mod('main_logo', get_template_directory_uri().'/images/logoNormal@2x.png');
 		$image_id = attachment_url_to_postid( $hiilite_options['main_logo'] );
@@ -149,10 +187,10 @@ class HiiWP_Dashboard {
 	        .button, .wp-core-ui .button-primary.button  {
 		            box-shadow: none;
 		            text-shadow:none;
-				<?php echo preg_replace('/[{}]/','',get_theme_mod('typography_button_custom_css')); ?>
+				
 			}
-			
-			<?php
+			<?php echo preg_replace('/[{}]/','',get_theme_mod('typography_button_custom_css')); 
+				
 			echo get_theme_mod('admin_custom_css');
 			?>
 	    </style>

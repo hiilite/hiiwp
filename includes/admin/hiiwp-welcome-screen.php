@@ -1,12 +1,16 @@
 <?php
- 
 /**
  * Welcome Screen Init
+ * Actions for initializing the Welcome Screen
  *
- * Welcome Screen initializer.
- *
- * @since 1.0
+ * @package     HiiWP
+ * @category    Core
+ * @author      Peter Vigilante
+ * @copyright   Copyright (c) 2019, Hiilite Creative Group
+ * @license     http://opensource.org/licenses/https://opensource.org/licenses/MIT
+ * @since       1.0.4
  */
+
  
 if ( ! defined( 'ABSPATH' ) ) exit; 
  

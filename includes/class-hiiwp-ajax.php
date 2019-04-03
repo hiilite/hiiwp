@@ -6,7 +6,7 @@
  * @package     HiiWP
  * @category    Core
  * @author      Peter Vigilante
- * @copyright   Copyright (c) 2017, Hiilite Creative Group
+ * @copyright   Copyright (c) 2019, Hiilite Creative Group
  * @license     http://opensource.org/licenses/https://opensource.org/licenses/MIT
  * @since       0.4.1
  */
@@ -70,9 +70,7 @@ class HiiWP_Ajax {
    			do_action( 'hiiwp_ajax_' . sanitize_text_field( $action ) );
    			die();
    		}
-	}
-	
-	
+	}	
 
 }
 

@@ -6,9 +6,9 @@
  * @package     HiiWP
  * @category    Core
  * @author      Peter Vigilante
- * @copyright   Copyright (c) 2017, Hiilite Creative Group
+ * @copyright   Copyright (c) 2019, Hiilite Creative Group
  * @license     http://opensource.org/licenses/https://opensource.org/licenses/MIT
- * @since       0.4.1
+ * @since       1.0.4
  */
 if ( ! defined( 'ABSPATH' ) ) exit; 
 
@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 /**
  * HiiWP_Admin class.
  *
- * @since 0.4.1
+ * @since 1.0.4
  */
 class HiiWP_Admin {
 	
@@ -32,11 +32,12 @@ class HiiWP_Admin {
 		} 
 		if ( file_exists( HIILITE_DIR . '/includes/admin/hiiwp-welcome-screen.php' ) ) {
 		    require_once( HIILITE_DIR . '/includes/admin/hiiwp-welcome-screen.php' );
+		    $this->welcome_screen	= new HiiWP_Welcome_Screen();
 		}
 		
 		$this->dashboard		= new HiiWP_Dashboard();
 
-		$this->welcome_screen	= new HiiWP_Welcome_Screen();
+		
 		
 		add_action( 'admin_notices', array( $this, 'admin_notices') );
 		add_action( 'cmb2_admin_init', array( $this, 'hii_seo_options_page' ) );
@@ -64,7 +65,7 @@ class HiiWP_Admin {
 		add_action( 'admin_head', array( $this, 'admin_custom_styles' ) );
 		
 		add_filter( 'pt-ocdi/import_files', array($this, 'ocdi_import_files') );
-		
+		add_action( 'pt-ocdi/after_import', array($this, 'ocdi_after_import_setup') );
 	}
 	
 
@@ -892,17 +893,19 @@ class HiiWP_Admin {
 	             'site_validation'
 	         ),
 	    );
-	    $tabs[] = array(
-	        'id'    => 'hiilite_info_tab',
-	        'title' => 'Structured Data',
-	        'desc'  => '<p>Your company information is used to fill in the Rich Snippet/Structured Data fields used by Google.</p>',
-	        'boxes' => array(
-	            'main_company_info',
-	            'company_address_info',
-	            'company_geo_info',
-	            'company_hours_info',
-	        ),
-	    );
+	    if( HiiWP::$hiilite_options['hiilite_developer'] ):
+		    $tabs[] = array(
+		        'id'    => 'hiilite_info_tab',
+		        'title' => 'Structured Data',
+		        'desc'  => '<p>Your company information is used to fill in the Rich Snippet/Structured Data fields used by Google.</p>',
+		        'boxes' => array(
+		            'main_company_info',
+		            'company_address_info',
+		            'company_geo_info',
+		            'company_hours_info',
+		        ),
+		    );
+	    endif;
 	    $tabs[] = array(
 	        'id'    => 'hiilite_social_tab',
 	        'title' => 'Social',
@@ -1006,9 +1009,16 @@ class HiiWP_Admin {
 		return $return;
 	}
 	 
-	/*
-	Speed up the WP Admin by removing or slowing down heartbeat	
-	*/
+	
+	/**
+	 * optimize_heartbeat_settings function.
+	 * 
+	 * Speed up the WP Admin by removing or slowing down heartbeat	
+	 *
+	 * @access public
+	 * @param mixed $settings
+	 * @return void
+	 */
 	public function optimize_heartbeat_settings( $settings ) {
 	    $settings['autostart'] = false;
 	    $settings['interval'] = 60;
@@ -1016,12 +1026,20 @@ class HiiWP_Admin {
 	}
 
 	
-	function ocdi_import_files() {
+	/**
+	 * ocdi_import_files function.
+	 * 
+	 * Add theme demo content downloads
+	 *
+	 * @access public
+	 * @return void
+	 */
+	public function ocdi_import_files() {
 		return array(
 			array(
 				'import_file_name'           => 'Hii Agency',
 				'categories'                 => array( 'Agency' ),
-				'import_file_url'            => 'https://s3.ca-central-1.amazonaws.com/hiiwp/demo-content/hiiagency/hiiwpdemos.wordpress.2018-11-28.xml',
+				'import_file_url'            => 'https://s3.ca-central-1.amazonaws.com/hiiwp/demo-content/hiiagency/hiiwpdemos.wordpress.2019-04-03.xml',
 				'import_widget_file_url'     => 'https://s3.ca-central-1.amazonaws.com/hiiwp/demo-content/hiiagency/demo.hiilite.com-widgets.wie',
 				'import_customizer_file_url' => 'https://s3.ca-central-1.amazonaws.com/hiiwp/demo-content/hiiagency/hiiwp-child-export.dat',
 				'import_preview_image_url'   => 'https://demo.hiilite.com/wp-content/uploads/2018/11/hiilite-agency-demo.png',
@@ -1030,7 +1048,26 @@ class HiiWP_Admin {
 			),
 		);
 	}
+	
+	public function ocdi_after_import_setup( $selected_import ) {
+		if ( 'Hii Agency' === $selected_import['import_file_name'] ) {
+			// Assign menus to their locations.
+			$main_menu = get_term_by( 'name', 'Main Menu', 'nav_menu' );
+		
+			set_theme_mod( 'nav_menu_locations', array(
+					'main-menu' => $main_menu->term_id,
+				)
+			);
+			// Assign front page and posts page (blog page).
+			$front_page_id = get_page_by_title( 'Home' );
+			$blog_page_id  = get_page_by_title( 'Blog' );
+		
+			update_option( 'show_on_front', 'page' );
+			update_option( 'page_on_front', $front_page_id->ID );
+			update_option( 'page_for_posts', $blog_page_id->ID );
+		}
+		flush_rewrite_rules();
+	}
 
 }
 new HiiWP_Admin();
-?>

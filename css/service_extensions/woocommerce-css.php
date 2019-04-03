@@ -7,7 +7,7 @@
  * @package     hiiwp
  * @copyright   Copyright (c) 2018, Peter Vigilante
  * @license     http://opensource.org/licenses/gpl-2.0.php GNU Public License
- * @since       1.0.1
+ * @since       1.0.4
  */
 if(false): ?><style><?php endif; ?>
 .woocommerce label {
@@ -19,7 +19,6 @@ if(false): ?><style><?php endif; ?>
 /*
 	PRODUCT GENERAL
 */
-
 body.woocommerce .woocommerce-breadcrumb {
 	position: relative;
 	z-index: 99;

@@ -1,10 +1,11 @@
-# Hiilite Wordpress theme
+# HiiWP Framework
 
 ### Change log
 #### v1.0.4
 - Update to WooCommerce Templates
 - Performance Updates
 - Accessibility Updates
+- Removed Structured Data tab (developer mode only)
 
 #### v1.0.3
 - Added new Filter Bar to Portfolio and Blogs

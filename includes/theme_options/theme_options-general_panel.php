@@ -183,7 +183,7 @@ Kirki::add_field( 'hiiwp', array(
 
 //////////////////
 // Menus
-Kirki::add_field( 'hiiwp', array(
+/*Kirki::add_field( 'hiiwp', array(
 	'type'        => 'switch',
 	'settings'    => 'menus_on',
 	'label'       => esc_attr__( 'Food Menu', 'hiiwp' ),
@@ -256,7 +256,7 @@ Kirki::add_field( 'hiiwp', array(
 			'value'    => true,
 		),
 	),
-) );
+) );*/
 
 
 
