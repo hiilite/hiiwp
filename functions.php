@@ -94,7 +94,7 @@ class Hii {
 		}
 		
 		if ( ! defined( 'HIIWP_PLUS_REQUIRED_VERSION' ) ) {                
-			 define( 'HIIWP_PLUS_REQUIRED_VERSION', '1.0.3' );
+			 define( 'HIIWP_PLUS_REQUIRED_VERSION', '1.0.4' );
 		}
 	}
 	

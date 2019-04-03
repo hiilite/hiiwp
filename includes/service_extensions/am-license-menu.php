@@ -920,7 +920,7 @@ if ( ! class_exists( 'AM_License_Menu' ) ) {
 		/**
 		 * Sends and receives data to and from the server API
 		 *
-		 * @since  1.0.0
+		 * @since  1.0.4
 		 *
 		 * @param array $args
 		 *
@@ -935,20 +935,23 @@ if ( ! class_exists( 'AM_License_Menu' ) ) {
 			if ( is_wp_error( $request ) || wp_remote_retrieve_response_code( $request ) != 200 ) {
 				return false;
 			}
-
-			$response = unserialize( wp_remote_retrieve_body( $request ) );
-
-			/**
-			 * For debugging errors from the API
-			 * For errors like: unserialize(): Error at offset 0 of 170 bytes
-			 * Comment out $response above first
-			 */
-			// $response = wp_remote_retrieve_body( $request );
-			// print_r($response); exit;
-
-			if ( is_object( $response ) ) {
-				return $response;
-			} else {
+			
+			try {
+				$response = unserialize( wp_remote_retrieve_body( $request ) );
+				/**
+				 * For debugging errors from the API
+				 * For errors like: unserialize(): Error at offset 0 of 170 bytes
+				 * Comment out $response above first
+				 */
+				// $response = wp_remote_retrieve_body( $request );
+				// print_r($response); exit;
+	
+				if ( is_object( $response ) ) {
+					return $response;
+				} else {
+					return false;
+				}
+			} catch(Exception $e) {
 				return false;
 			}
 		}
