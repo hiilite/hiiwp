@@ -4,7 +4,7 @@
  *
  * @package     HiiWP
  * @category    Core
- * @author      Peter Vigilante
+ * @author      Hiilite Creative Group
  * @copyright   Copyright (c) 2017, Hiilite Creative Group
  * @license     http://opensource.org/licenses/https://opensource.org/licenses/MIT
  * @since       1.0.2

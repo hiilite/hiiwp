@@ -110,7 +110,7 @@ $(document).ready(function(){
 				}).get();
 				maxHeight = Math.max.apply(null, elementHeights);
 			
-				height = maxHeight;
+				height = maxHeight + 30;
 
 				$carousel.height(height);
 				
@@ -135,7 +135,7 @@ $(document).ready(function(){
 				}).get();
 				
 				maxHeight = Math.max.apply(null, elementHeights);
-				height = maxHeight;	
+				height = maxHeight + 30;	
 				width = $carousel.parent().width();	
 				$carousel.width(width);		
 				$carousel.height(height);
@@ -182,7 +182,6 @@ $(document).ready(function(){
 				
 				height = (maxContentHeight);
 				$carousel.height(height);
-				console.log(height);
 				}, 500);
 			$(window).on('resize',function(){
 				width = $carousel.parent().width();

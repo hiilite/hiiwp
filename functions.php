@@ -22,10 +22,10 @@
  *
  * @package     HiiWP
  * @category    Core
- * @author      Peter Vigilante
+ * @author      Hiilite Creative Group
  * @copyright   Copyright (c) 2018, Hiilite Creative Group
  * @license     http://opensource.org/licenses/https://opensource.org/licenses/MIT
- * @since       1.0.3
+ * @since       1.0.5
  */
 
 /**
@@ -79,7 +79,7 @@ class Hii {
 	 */
 	private function define_constants(){
 	    if ( ! defined( 'HIIWP_VERSION' ) ) {                
-			 define( 'HIIWP_VERSION', '1.0.3' );
+			 define( 'HIIWP_VERSION', '1.0.4' );
 		}
 		if ( ! defined( 'HIIWP_SLUG' ) ) {                
 		    define( 'HIIWP_SLUG', 'hiiwp' );           
@@ -92,10 +92,7 @@ class Hii {
 			$link = str_replace( WP_CONTENT_DIR, WP_CONTENT_URL, $file );
 		    define( 'HIIWP_URL', $link );
 		}
-		
-		if ( ! defined( 'HIIWP_PLUS_REQUIRED_VERSION' ) ) {                
-			 define( 'HIIWP_PLUS_REQUIRED_VERSION', '1.0.3' );
-		}
+	
 	}
 	
 	/**
@@ -121,17 +118,16 @@ class Hii {
 		    include_once( $filename );
 		} 
 		
-		if ( ! class_exists( 'AM_License_Menu' ) ) {
-			require_once( HIILITE_DIR . '/includes/service_extensions/am-license-menu.php' );
-			AM_License_Menu::instance( __FILE__, 'HiiWP', HIIWP_VERSION, 'theme', 'https://hiilite.com/' );
-		    
-		}
-		
 		$this->hooks		= new HiiWP_Hooks();
 		$this->post_types	= new HiiWP_Post_Types();
 		$this->sidebars		= new HiiWP_Sidebars();
 		$this->theme_options= new HiiWP_Theme_Options();
+		$this->shortcodes	= new HiiWP_Shortcodes();
+		$this->post_types	= new HiiWP_Post_Types();
 		$this->menus		= new HiiWP_Menus();
+		$this->settings     = new HiiWP_Settings();
+		$this->taxonomy     = new HiiWP_Taxonomy();
+		$this->schema       = new HiiWP_Schema();
 		self::$html 		= new HiiWP_HTML_Elements();
 				
 		
@@ -144,6 +140,8 @@ class Hii {
 		add_action( 'after_switch_theme', 'flush_rewrite_rules', 15);
 		
 		add_action('wp_enqueue_scripts', array( $this, 'add_scripts' ));
+		
+		require_once( 'includes/class-hiiwp-shortcodes.php' );
 		
 		
 	}

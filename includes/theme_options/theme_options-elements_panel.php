@@ -5,7 +5,7 @@
  * Adds the customizer the Elements panel
  *
  * @package     hiiwp
- * @copyright   Copyright (c) 2018, Peter Vigilante
+ * @copyright   Copyright (c) 2018, Hiilite Creative Group
  * @license     http://opensource.org/licenses/gpl-2.0.php GNU Public License
  * @since       1.0.1
  */

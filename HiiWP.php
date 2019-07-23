@@ -8,7 +8,7 @@
  * @author      Peter Vigilante
  * @copyright   Copyright (c) 2017, Hiilite Creative Group
  * @license     http://opensource.org/licenses/https://opensource.org/licenses/MIT
- * @since       1.0.3
+ * @since       1.0.4
  */
 if ( ! defined( 'ABSPATH' ) )	exit;
 /**
@@ -45,7 +45,7 @@ class HiiWP extends Hii {
 		add_action( 'wp_head', array($this, 'add_favicons'));
 		add_action( 'wp_head', array($this, 'add_tracking_codes'));
 		add_action( 'wp_head', array($this, 'canonical_for_comments') );
-		add_filter('upload_mimes', array( $this, 'cc_mime_types' ) );
+		add_filter( 'upload_mimes', array( $this, 'cc_mime_types' ) );
 		
 		add_action( 'wp_footer', array( $this, 'print_inline_script'), 100 );
 		
@@ -63,8 +63,8 @@ class HiiWP extends Hii {
         add_filter( 'widget_text','do_shortcode');
         add_action( 'tgmpa_register', array($this, 'hiilite_register_required_plugins' ));
         add_filter( 'get_the_archive_title', array($this, 'modify_archive_title' ));
-        
-        
+  
+
         /*
 	     // TODO: More testing and adding option to remove before turning on again  
 	    */
@@ -155,6 +155,7 @@ class HiiWP extends Hii {
 		if(self::$hiilite_options['is_woocommerce']){
 			wp_enqueue_script( 'prettyPhoto-init', $woocommerce->plugin_url() . '/assets/js/prettyPhoto/jquery.prettyPhoto.init.js', array( 'jquery' ), $woocommerce->version, true );
 		} 
+		
 	}
 	
 	
@@ -290,8 +291,6 @@ class HiiWP extends Hii {
 		
 		add_submenu_page('hii_seo_settings', __('Install Plugins', 'hiiwp'), __('Install Plugins', 'hiiwp'), 'manage_options', 'themes.php?page=tgmpa-install-plugins');
 		
-		add_submenu_page('hii_seo_settings', __('About HiiWP', 'hiiwp'), __('About HiiWP', 'hiiwp'), 'manage_options', 'themes.php?page=hiiwp-welcome');
-		
 	}
 	
 	
@@ -347,9 +346,6 @@ class HiiWP extends Hii {
 	 * @access public
 	 * @return void
 	 */
-	public function hiiwp_welcome(){
-		require_once( HIILITE_DIR . '/includes/admin/hiiwp-welcome-screen.php');
-	}
 	
 	public function default_content_setup(){
 		// Add starter content.
@@ -754,6 +750,15 @@ class HiiWP extends Hii {
 	            'force_activation'   => false, 
 	            'force_deactivation' => false, 
 	        ),
+	        array(
+	            'name'               => 'Collapse Admin Bar', // The plugin name.
+	            'slug'               => 'collapse-admin-bar', // The plugin slug (typically the folder name).
+	            'source'             => 'https://hiilite.com/download/13711/', // The plugin source.
+	            'version'			 => '1.1',
+	            'required'           => false, 
+	            'force_activation'   => false, 
+	            'force_deactivation' => false, 
+	        ),
 			array(
 	            'name'      => 'Gravity Forms Google Analytics Event Tracking',
 	            'slug'      => 'gravity-forms-google-analytics-event-tracking',
@@ -793,15 +798,6 @@ class HiiWP extends Hii {
 	            'required'           => true, // If false, the plugin is only 'recommended' instead of required.
 	            'force_activation'   => true, // If true, plugin is activated upon theme activation and cannot be deactivated until theme switch.
 	            'force_deactivation' => false, // If true, plugin is deactivated upon theme switch, useful for theme-specific plugins.
-	        ),
-	        array(
-	            'name'               => 'HiiWP Plus', // The plugin name.
-	            'slug'               => 'hiiwp-plus', // The plugin slug (typically the folder name).
-	            'source'             => 'https://github.com/hiilite/hiiwp-plus/archive/master.zip', // The plugin source.
-	            'version'			 => '1.0.3',
-	            'required'           => true, // If false, the plugin is only 'recommended' instead of required.
-	            'force_activation'   => true, // If true, plugin is activated upon theme activation and cannot be deactivated until theme switch.
-	            'force_deactivation' => true, // If true, plugin is deactivated upon theme switch, useful for theme-specific plugins.
 	        ),
 			array(
 	            'name'      => 'One Click Demo Import',

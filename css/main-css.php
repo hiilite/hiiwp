@@ -5,9 +5,9 @@
  * Main CSS file
  *
  * @package     hiiwp
- * @copyright   Copyright (c) 2018, Peter Vigilante
+ * @copyright   Copyright (c) 2018, Hiilite Creative Group
  * @license     http://opensource.org/licenses/gpl-2.0.php GNU Public License
- * @since       1.0.3
+ * @since       1.0.5
  */
 global $is_IE; ?><style>
 /*--------------------------------------------------------------
@@ -1850,8 +1850,6 @@ p .alignright {
     font-style: italic;
 }
 
-
-
 <?php 
 	
 //////////////////////
@@ -2250,7 +2248,7 @@ aside .widget ul li,
 if(Hii::$options['testimonials_on']):
 	?>
 	.testimonial_item {
-	    padding: 0 1em 1em 1em;
+	    padding: 0 3em 1em 3em;
 	}
 	.testimonial_content { 
 		<?php echo get_font_css(Hii::$options[ 'testimonials_body_font' ]); ?>

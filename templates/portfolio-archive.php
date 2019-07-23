@@ -2,12 +2,12 @@
 /* HiiWP Template: portfolio-archive
  *
  * @package     hiiwp
- * @copyright   Copyright (c) 2018, Peter Vigilante
+ * @copyright   Copyright (c) 2018, Hiilite Creative Group
  * @license     http://opensource.org/licenses/gpl-2.0.php GNU Public License
  * @since       1.0.3
  */
 $hiilite_options = HiiWP::get_options();
-$templates	= new HiiWP_Plus_Template_Loader();
+$templates	= new HiiWP_Template_Loader();
 
 do_action( 'before_portfolio' );
 

@@ -4,7 +4,7 @@
  *
  * @package     HiiWP
  * @category    Core
- * @author      Peter Vigilante
+ * @author      Hiilite Creative Group
  * @copyright   Copyright (c) 2018, Hiilite Creative Group
  * @license     http://opensource.org/licenses/https://opensource.org/licenses/MIT
  * @since       1.0.3
@@ -154,17 +154,18 @@ class HiiWP_Hooks extends Hii {
 	/**
 	 * hii_doctype function.
 	 * 
+	 * Function called in header file
+	 * 
 	 * @access public
 	 * @return void
-	 */
+	 
 	public function hii_doctype(){
-		$doctype = '<!doctype html>';
-		$html_tag = '<html '. get_language_attributes() .'>';
-		return $doctype.$html_tag;
-	}
+		$doctype = '<!DOCTYPE html>';
+		return $doctype;
+	}*/
 	
 	/**
-	 * hii_doctype function.
+	 * hii_header_hgroup function.
 	 * 
 	 * @access public
 	 * @return void

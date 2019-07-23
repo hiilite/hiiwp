@@ -5,7 +5,7 @@
  * Service extension CSS file for WooCommerce
  *
  * @package     hiiwp
- * @copyright   Copyright (c) 2018, Peter Vigilante
+ * @copyright   Copyright (c) 2018, Hiilite Creative Group
  * @license     http://opensource.org/licenses/gpl-2.0.php GNU Public License
  * @since       1.0.1
  */
@@ -68,6 +68,9 @@ if(false): ?><style><?php endif; ?>
     margin: 0.5em auto;
     float: none;
     text-align: center;
+}
+.woocommerce-tabs.wc-tabs-wrapper {
+	width: 100%;
 }
 .woocommerce, .woocommerce div.product, .woocommerce_before_shop_loop, .woocommerce-page amp-carousel .slide li.product {
 	width: 100%;

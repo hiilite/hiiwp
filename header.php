@@ -5,7 +5,7 @@
  * WordPress header file
  *
  * @package     hiiwp
- * @copyright   Copyright (c) 2016, Peter Vigilante
+ * @copyright   Copyright (c) 2016, Hiilite Creative Group
  * @license     http://opensource.org/licenses/gpl-2.0.php GNU Public License
  * @since       1.0.3
  */
@@ -14,7 +14,9 @@ $hiilite_options = Hii::get_options();
 $bg_color = '';
 
 
-echo do_action('hii_doctype');
+// echo do_action('hii_doctype');
+// action declared in class-hiiwp-hooks
+echo '<!DOCTYPE html>';
 ?><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1"><?php 
 wp_head(); 
 ?></head><body <?php body_class(); ?>><?php 

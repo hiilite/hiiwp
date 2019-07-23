@@ -5,7 +5,7 @@
  *
  * @package     HiiWP
  * @category    Core
- * @author      Peter Vigilante
+ * @author      Hiilite Creative Group
  * @copyright   Copyright (c) 2017, Hiilite Creative Group
  * @license     http://opensource.org/licenses/https://opensource.org/licenses/MIT
  * @since       0.4.1
@@ -30,13 +30,8 @@ class HiiWP_Admin {
 		foreach (glob(HIILITE_DIR."/includes/admin/class-hiiwp-*.php") as $filename) {
 		    include_once( $filename );
 		} 
-		if ( file_exists( HIILITE_DIR . '/includes/admin/hiiwp-welcome-screen.php' ) ) {
-		    require_once( HIILITE_DIR . '/includes/admin/hiiwp-welcome-screen.php' );
-		}
 		
 		$this->dashboard		= new HiiWP_Dashboard();
-
-		$this->welcome_screen	= new HiiWP_Welcome_Screen();
 		
 		add_action( 'admin_notices', array( $this, 'admin_notices') );
 		add_action( 'cmb2_admin_init', array( $this, 'hii_seo_options_page' ) );
@@ -70,35 +65,6 @@ class HiiWP_Admin {
 
 	
 	public function admin_notices() {
-		if(is_plugin_active('hiiwp-plus/hiiwp-plus.php')) {
-			
-			// if HiiWP Plus is older version then theme requirement
-			if( Hii::versionCompare(HIIWP_PLUS_REQUIRED_VERSION, ">", HiiWP_Plus()->version) ){
-				?>
-				<div class="notice notice-error">
-					<p><?php _e('The HiiWP Plus is out of date, please ', 'hiiwp'); ?>
-						<a href="<?php echo admin_url( 'themes.php?page=tgmpa-install-plugins' ); ?>"><?php _e('download and activate HiiWP Plus '. HIIWP_PLUS_REQUIRED_VERSION, 'hiiwp'); ?></a></p>
-				</div>
-				<?php
-			} 
-			// if HiiWP is older version then the plugin
-			elseif ( Hii::versionCompare(HIIWP_VERSION, "<", HiiWP_Plus()->version)){
-				?>
-				<div class="notice notice-error">
-					<p><?php _e('Your theme is out of date with  HiiWP Plus, please update to ensure compatibility', 'hiiwp'); ?></p>
-				</div>
-				<?php
-			}
-				
-		// if HiiWP Plus is not active
-		} else {
-			?>
-			<div class="notice notice-error">
-				<p><?php _e('The HiiWP Plus is required with this theme, please ', 'hiiwp'); ?>
-					<a href="<?php echo admin_url( 'themes.php?page=tgmpa-install-plugins' ); ?>"><?php _e('download and activate HiiWP Plus '. HIIWP_PLUS_REQUIRED_VERSION, 'hiiwp'); ?></a></p>
-			</div>
-			<?php
-		}
 		
 	}
 	

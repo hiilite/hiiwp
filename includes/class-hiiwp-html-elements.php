@@ -4,7 +4,7 @@
  *
  * A helper class for outputting common HTML elements.
  *
- * @copyright   Copyright (c) 2015, Pippin Williamson
+ * @copyright   Copyright (c) 2015, Hiilite Creative Group
  * @license     http://opensource.org/licenses/gpl-2.0.php GNU Public License
  * @since       0.4.9
  */

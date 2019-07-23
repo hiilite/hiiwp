@@ -4,7 +4,7 @@
  * Copied from Walker_Nav_Menu_Edit class in core /wp-admin/includes/class-walker-nav-menu-edit.php
  *
  * @package     hiiwp
- * @copyright   Copyright (c) 2016, Alessandro Tesoro
+ * @copyright   Copyright (c) 2016, Hiilite Creative Group
  * @license     http://opensource.org/licenses/gpl-2.0.php GNU Public License
  * @since       0.4.9
  */

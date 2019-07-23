@@ -5,7 +5,7 @@
  * Visual Composer VC_Basic_Grid compiler
  *
  * @package     hiiwp
- * @copyright   Copyright (c) 2018, Peter Vigilante
+ * @copyright   Copyright (c) 2018, Hiilite Creative Group
  * @license     http://opensource.org/licenses/gpl-2.0.php GNU Public License
  * @since       1.0.1
  */
@@ -135,6 +135,7 @@ $colcount = ' col-count-'.$hiilite_options['blog_col'];
 
 wp_enqueue_script( 'prettyphoto' );
 wp_enqueue_style( 'prettyphoto' );
+
 if ( isset( $this->atts['style'] ) && 'pagination' === $this->atts['style'] ) {
 	wp_enqueue_script( 'twbs-pagination' );
 }

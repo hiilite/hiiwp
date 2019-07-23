@@ -5,7 +5,7 @@
  * WordPress footer file
  *
  * @package     hiiwp
- * @copyright   Copyright (c) 2016, Peter Vigilante
+ * @copyright   Copyright (c) 2016, Hiilite Creative Group
  * @license     http://opensource.org/licenses/gpl-2.0.php GNU Public License
  * @since       1.0
  */

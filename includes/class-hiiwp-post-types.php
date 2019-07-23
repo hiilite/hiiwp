@@ -5,7 +5,7 @@
  *
  * @package     HiiWP
  * @category    Core
- * @author      Peter Vigilante
+ * @author      Hiilite Creative Group
  * @copyright   Copyright (c) 2017, Hiilite Creative Group
  * @license     http://opensource.org/licenses/https://opensource.org/licenses/MIT
  * @since       0.4.3
@@ -53,8 +53,64 @@ class HiiWP_Post_Types {
 		
 		add_filter('manage_portfolio_posts_columns', array($this,'portfolio_table_head'));	
 		add_action( 'manage_portfolio_posts_custom_column', array($this,'portfolio_table_content'), 10, 2 );
+		
+		add_action( 'init', array( $this, 'register_post_types'), 0 );
+		add_action('cmb2_init', array( $this, 'add_post_options' ) );
+
+		add_action( 'after_setup_theme', array( $this, 'ensure_post_thumbnails_support' ) );
 			
 	}	
+	
+	
+	/**
+	 * register_post_types function.
+	 * 
+	 * @access public
+	 * @return void
+	 */
+	public function register_post_types() {
+		global $hiilite_options;
+		require_once( 'post_types/post_type-portfolio.php' );
+		require_once( 'post_types/post_type-team.php' );
+		require_once( 'post_types/post_type-testimonial.php' );
+		require_once( 'post_types/post_type-menu.php' );
+		
+		
+		flush_rewrite_rules();
+	}
+	
+	public function add_post_options() {
+		require_once( 'post_options/post_options-testimonials.php' );
+		require_once( 'post_options/post_options-menu.php' );
+	}
+
+	/**
+	 * Run on activation.
+	 * @access public
+	 * @since 1.0.0
+	 */
+	public function activation () {
+		$this->flush_rewrite_rules();
+	} // End activation()
+
+	/**
+	 * Flush the rewrite rules
+	 * @access public
+	 * @since 1.0.0
+	 */
+	private function flush_rewrite_rules () {
+		$this->register_post_type();
+		flush_rewrite_rules();
+	} // End flush_rewrite_rules()
+
+	/**
+	 * Ensure that "post-thumbnails" support is available for those themes that don't register it.
+	 * @access public
+	 * @since  1.0.0
+	 */
+	public function ensure_post_thumbnails_support () {
+		if ( ! current_theme_supports( 'post-thumbnails' ) ) { add_theme_support( 'post-thumbnails' ); }
+	} // End ensure_post_thumbnails_support()
 	
 	/**
 	 * cmb2_post_metaboxes function.
@@ -97,8 +153,8 @@ class HiiWP_Post_Types {
 		    'default' => 'default',
 		    'options'  => array(
 			    'default' => 'Theme Default',
-		        'hide' => 'Hide Image Title',
-		        'show'    => 'Show Image Title',
+		        'hide' => 'Hide Feature Image',
+		        'show'    => 'Show Feature Image',
 		    )
 		) );
 		

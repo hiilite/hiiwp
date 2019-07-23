@@ -5,7 +5,7 @@
  * Adds the customizer settings for the Back To Top button
  *
  * @package     hiiwp
- * @copyright   Copyright (c) 2018, Heather Treadgold
+ * @copyright   Copyright (c) 2018, Hiilite Creative Group
  * @license     http://opensource.org/licenses/gpl-2.0.php GNU Public License
  * @since       1.0.2
  */

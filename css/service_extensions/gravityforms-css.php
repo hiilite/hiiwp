@@ -34,7 +34,7 @@
 body .gform_wrapper ul li.gfield {
     display: inline-block;
     flex: 1 1 auto;
-    min-width: 30%;
+    min-width: 50%;
 }
 body .gform_wrapper ul li.gsection {
 	min-width: 100%;

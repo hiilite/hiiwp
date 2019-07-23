@@ -5,7 +5,7 @@
  *
  * @package     HiiWP
  * @category    Core
- * @author      Peter Vigilante
+ * @author      Hiilite Creative Group
  * @copyright   Copyright (c) 2017, Hiilite Creative Group
  * @license     http://opensource.org/licenses/https://opensource.org/licenses/MIT
  * @since       0.4.3
@@ -79,6 +79,9 @@ class HiiWP_Theme_Options extends Hii {
 		require_once( HIILITE_DIR . '/includes/theme_options/theme_options-title_panel.php' );
 		require_once( HIILITE_DIR . '/includes/theme_options/theme_options-typography_panel.php' );
 		require_once( HIILITE_DIR . '/includes/theme_options/theme_options-woocommerce.php' );
+		require_once( HIILITE_DIR . '/includes/theme_options/theme_options-portfolio_section.php' );
+		require_once( HIILITE_DIR . '/includes/theme_options/theme_options-team_section.php' );
+		require_once( HIILITE_DIR . '/includes/theme_options/theme_options-testimonial_section.php' );
 	}
 	
 	
