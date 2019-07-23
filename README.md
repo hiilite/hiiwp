@@ -1,6 +1,21 @@
 # Hiilite Wordpress theme
 
 ### Change log
+#### v1.0.5
+- Deprecated HiiPlus plugin, moved template files back into core theme
+- Added mobile responsiveness fixes/chanes to carousel sliders
+- Changes to portfolio post type
+- Fixed built in post type customizer options
+- Updated deprecated WooCommerce template files
+- Attributed Copyright to Hiilite Creative Group
+- Various bug fixes
+- Various content/text fixes across build
+
+
+#### v1.0.4
+- This version never made it past dev
+
+
 #### v1.0.3
 - Added new Filter Bar to Portfolio and Blogs
 - Updates to WooCommerce Templates
