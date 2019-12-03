@@ -15,7 +15,16 @@
 - Minor bug fixes
 
 #### v1.0.52
-- Added new blockquote foramtting options to customizer
+- Added new blockquote formatting options to customizer
+
+#### v1.0.5
+- Removed HiiWP Activation API & All References to Activation / Deactivation
+- Deprecated HiiPlus plugin, moved template files back into core theme
+- Added mobile responsiveness fixes/chanes to carousel sliders
+- Added mobile responsiveness fixes/changes to carousel sliders
+- Changes to portfolio post type
+- Fixed built in post type customizer options
+- Updated deprecated WooCommerce template files
 
 #### v1.0.3
 - Added new Filter Bar to Portfolio and Blogs
