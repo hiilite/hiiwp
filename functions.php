@@ -25,7 +25,7 @@
  * @author      Hiilite Creative Group
  * @copyright   Copyright (c) 2018, Hiilite Creative Group
  * @license     http://opensource.org/licenses/https://opensource.org/licenses/MIT
- * @since       1.0.5
+ * @since       1.0.6
  */
 
 /**
