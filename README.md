@@ -2,6 +2,18 @@
 
 ### Change log
 
+#### v1.0.6
+- Changed default page template from Full Width to In Grid
+- Updated 404 page to new design
+- Added Delight Scripts functionality to customizer (beta, developers only, off by default)
+- Added mobile logo switch functionality to header (options in customizer)
+- Added live updating CSS functionality to custom CSS field in customizer
+- Added Blockquote default CSS & styles to customizer
+- Removed unused Kirki integration code
+- Fixed longstanding PHP warning bug relating to social icons
+- Added IWP & Time Capsule as recommended / auto installs in developer mode
+- Minor bug fixes
+
 #### v1.0.52
 - Added new blockquote foramtting options to customizer
 
