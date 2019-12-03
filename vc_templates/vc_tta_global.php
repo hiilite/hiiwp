@@ -65,6 +65,9 @@ switch($shortcode_type){
 			if($atts['slider_full_height'] == true){
 				$css_classes[] = 'slider_full_height';
 			}
+			if($atts['slider_layout'] == 'videobg'){
+				$css_classes[] = 'videobg';
+			}
 			$css_class = preg_replace( '/\s+/', ' ', apply_filters( VC_SHORTCODE_CUSTOM_CSS_FILTER_TAG, implode( ' ', array_filter( $css_classes ) ), $this->settings['base'], $atts ) );
 			
 			
@@ -77,17 +80,15 @@ switch($shortcode_type){
 			
 			$output = '<amp-carousel ' . implode( ' ', $wrapper_attributes ) . ' layout="responsive" width="'.$atts['slider_width'].'" style="width:'.$atts['slider_width'].'px; min-height:'.$atts['slider_min_height'].';" type="slides"';
 			$output .= ($atts['autoplay'] != 'none')?' autoplay delay="'.$atts['autoplay'].'000">':'>';
-			if(isset($atts['title']) && $atts['title'] != '')
-			{
+			if(isset($atts['title']) && $atts['title'] != '') {
 				$output .= '<strong>'.$atts['title'].'</strong>';
 			}
 			$output .= $prepareContent;
 			$output .= '</amp-carousel>';
-		
 	break;
-
-//////////////////////////////////////////////////////
 	
+//////////////////////////////////////////////////////
+
 	default:
 		$css_class = apply_filters( VC_SHORTCODE_CUSTOM_CSS_FILTER_TAG, $class_to_filter, $this->settings['base'], $atts );
 

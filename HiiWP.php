@@ -58,7 +58,7 @@ class HiiWP extends Hii {
 		
 		add_action( 'after_switch_theme', array( $this, 'set_permalink_structure') ); // Load admin JavaScript. Do an is_admin() check before calling My_Custom_Plugin
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_admin_scripts' ), 100 );
-		add_action( 'wp_ajax_hiiwp_disable_tour_mode', array( $this, 'hiiwp_disable_tour_mode' )); //Used to disable tour mode
+		add_action( 'wp_ajax_hiiwp_disable_tour_mode', array( $this, 'hiiwp_disable_tour_mode' )); // Used to disable tour mode
         add_filter( 'auto_update_theme', '__return_true' );
         add_filter( 'widget_text','do_shortcode');
         add_action( 'tgmpa_register', array($this, 'hiilite_register_required_plugins' ));
@@ -141,12 +141,14 @@ class HiiWP extends Hii {
 		wp_enqueue_script('smoothTouchScroll', HIIWP_URL.'/js/vender/jquery.smoothTouchScroll.min.js', array('jquery', 'jquery-ui-widget'));
 		wp_enqueue_script('touchSwipe', HIIWP_URL.'/js/vender/jquery.touchSwipe.min.js', array('jquery', 'jquery-ui-core'));
 		
-		
 		// TODO: Add option to turn on in theme advanced settings, or auto load when video widgets are used 
 		if( self::$hiilite_options['load_viewport_units_buggyfill'] ) {
 			wp_enqueue_script('viewportUnitsBuggyfill', HIIWP_URL.'/js/vender/viewport-units-buggyfill.js');
 		}
 		
+		if(self::$hiilite_options['list_anim_yesno'] == true) {
+			wp_enqueue_script('delight-scripts', HIIWP_URL.'/js/hiiwp-delight-scripts.js');
+		}
 		
 		wp_enqueue_script('main-scripts', HIIWP_URL.'/js/main-scripts.js', array( 'jquery', 'smoothTouchScroll' ), HIIWP_VERSION, true);
 		wp_localize_script('main-scripts', 'mobile_menu_switch', self::$hiilite_options['mobile_menu_switch']);
@@ -719,6 +721,16 @@ class HiiWP extends Hii {
 			array(
 	            'name'      => 'Imsanity',
 	            'slug'      => 'imsanity',
+	            'required'  => false,
+	        ),
+	        array(
+	            'name'      => 'InfiniteWP - Client',
+	            'slug'      => 'iwp-client',
+	            'required'  => false,
+	        ),
+	        array(
+	            'name'      => 'Backup and Staging by WP Time Capsule',
+	            'slug'      => 'wp-time-capsule',
 	            'required'  => false,
 	        ),
 	        array(

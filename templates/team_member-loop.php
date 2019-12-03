@@ -16,6 +16,19 @@ $output = '';
 
 <article <?php post_class('row single-team-member'); ?> id="post-<?php the_ID(); ?>" >
 <?php
+	
+$output .=  '<div class="team-member-content flex-item col-9 content-box">';
+		if($hiilite_options['team_member_title_show'] == true) {
+			$team_member_heading_tag = $hiilite_options['team_member_heading_tag'];
+			$output .=  "<{$team_member_heading_tag} class='team-member-name'><a href='".get_the_permalink()."'>".get_the_title()."</a></{$team_member_heading_tag}>";
+		}
+		if($hiilite_options['team_member_show_position'] == true) {
+			$output .=  "<div itemprop='articleSection' class='team-member-position'>"; 
+			$terms = get_the_terms( $post->id, 'position');
+			if($terms) $output .=  esc_html__($terms[0]->name, 'hiiwp');
+			$output .=  "</div>";
+		}
+	
 $output .= '<div class="container_inner">
 	<div class="in_grid team-member-wrapper">';
 
@@ -40,19 +53,6 @@ $output .= '<div class="container_inner">
 		
 		$output .='</div>';
 		$output .= '</div>';	
-		
-		
-$output .=  '<div class="team-member-content flex-item col-9 content-box">';
-		if($hiilite_options['team_member_title_show'] == true) {
-			$team_member_heading_tag = $hiilite_options['team_member_heading_tag'];
-			$output .=  "<{$team_member_heading_tag} class='team-member-name'><a href='".get_the_permalink()."'>".get_the_title()."</a></{$team_member_heading_tag}>";
-		}
-		if($hiilite_options['team_member_show_position'] == true) {
-			$output .=  "<div itemprop='articleSection' class='team-member-position'>"; 
-			$terms = get_the_terms( $post->id, 'position');
-			if($terms) $output .=  esc_html__($terms[0]->name, 'hiiwp');
-			$output .=  "</div>";
-		}
 
 $output .=  '</div></div></article>';
 

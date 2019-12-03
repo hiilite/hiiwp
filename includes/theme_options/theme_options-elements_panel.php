@@ -18,4 +18,5 @@ Kirki::add_panel( 'elements_panel', array(
 include_once 'elements/buttons.php';
 include_once 'elements/social_icons.php';
 include_once 'elements/back_to_top.php';
+include_once 'elements/delight_elements.php';
 ?>

@@ -38,6 +38,7 @@ global $is_IE; ?><style>
 	6.2 Forms
 	6.3 Social Icons
     6.4 Galleries
+    6.5 Delight Elements
 7.0 Fonts/Typography
 	7.1 Headings
 	7.2 Paragraphs & Links
@@ -54,6 +55,7 @@ global $is_IE; ?><style>
 13.0 Extensions
 	13.7 WooCommerce
 14.0 Overwrites
+15.0 404 Page Not Found
 --------------------------------------------------------------*/
 /*--------------------------------------------------------------
 1.0 General
@@ -416,11 +418,17 @@ blockquote {
 	overflow: hidden;
 }
 blockquote p {
-	color: #666;
+	/*color: #666;
 	font-size: 18px;
 	font-size: 1.125rem;
 	font-style: italic;
-	line-height: 1.7;
+	line-height: 1.7;*/
+	
+	<?php	
+	echo get_font_css(Hii::$options['blockquote_font']);
+	if(Hii::$options['typography_p_margin'] != '') echo 'margin-top:'.Hii::$options['typography_p_margin']['top'].';';
+	if(Hii::$options['typography_p_margin'] != '') echo 'margin-bottom:'.Hii::$options['typography_p_margin']['bottom'].';';
+?>
 	
 }
 
@@ -475,6 +483,7 @@ big {
 
 blockquote {
 	quotes: "" "";
+	<?php echo get_font_css(Hii::$options['blockquote_font']); ?>
 }
 
 q {
@@ -1035,9 +1044,13 @@ echo Hii::$options['typography_social_icon_custom_css'];?>
 	padding: 0 10px 0 0;
 	margin-bottom: 0;
 }
+/*--------------------------------------------------------------
+6.5 Delight Elements
+--------------------------------------------------------------*/
+
 
 /*--------------------------------------------------------------
-6.5 Accordian
+6.6 Accordian
 --------------------------------------------------------------*/
 .wpb_accordion_section h3 {
     display: inline-block;
@@ -1146,6 +1159,17 @@ echo Hii::$options['typography_icon_custom_css'];
 	width: 20px;
 }
 
+.default_archive {
+	margin-top: <?php echo Hii::$options['blog_roll_margin_top']; ?>;
+	margin-bottom: <?php echo Hii::$options['blog_roll_margin_bottom']; ?>;
+}
+
+.cat-links i, .posted-on i, .tags-links i {
+    font-size: 14px;
+    padding-right: 6px;
+    color:<?php echo sanitize_rgba($link_color['hover']);?>;
+}
+
 .entry-header .entry-title {
 	margin-bottom: 0.25em;
 }
@@ -1164,9 +1188,13 @@ echo Hii::$options['typography_icon_custom_css'];
 }
 
 .entry-meta {
+	display: inline-block;
 	color: <?php echo Hii::$options['title_font']['color'];?>;
 	font-size: 11px;
-	margin: 10px 0;
+	margin: 0;
+	padding-top: 20px;
+	padding-bottom: 20px;
+	padding-right: 20px;
 }
 .cat-links, .tags-links {
     display: block;
@@ -1175,7 +1203,12 @@ echo Hii::$options['typography_icon_custom_css'];
     font-weight: 400;
     position: relative;
     text-transform: uppercase;
-    margin: 10px 0;
+    display: inline-block;
+    margin: 0;
+}
+.cat-links a, .posted-on a {
+	padding-top: 20px;
+	padding-bottom: 20px;
 }
 .page-title .entry-meta a {
 	color: <?php echo Hii::$options['title_font']['color'];?>;
@@ -1197,6 +1230,39 @@ echo Hii::$options['typography_icon_custom_css'];
 li.recentcomments {
     text-overflow: ellipsis;
     overflow: hidden;
+}
+.entry-footer .cat-tags-links .cat-links .fa, .entry-footer .cat-tags-links .tags-links .fa {
+	padding-right: 1rem;
+}
+blockquote {
+  background: <?php echo Hii::$options['blockquote_background_color'] ?>;
+  border-left: 10px solid <?php echo Hii::$options['blockquote_color'] ?>;
+  margin: 1.5em 10px;
+  padding: 0.5em 10px;
+  quotes: "\201C""\201D";
+}
+blockquote:before {
+  color: <?php echo Hii::$options['blockquote_color'] ?>;
+  content: open-quote;
+  font-size: 4em;
+  line-height: 0.1em;
+  margin-right: 0.25em;
+  vertical-align: -0.4em;
+}
+blockquote:after {
+  color: <?php echo Hii::$options['blockquote_color'] ?>;
+  content: close-quote;
+  font-size: 4em;
+  line-height: 0.1em;
+  margin-right: 0.25em;
+  vertical-align: -0.4em;
+}
+blockquote p,
+.single-post .blog-article blockquote p {
+  display: inline;
+  font-style: italic;
+  <?php echo get_font_css(Hii::$options['blockquote_font']); ?>
+  color:<?php echo Hii::$options['blockquote_font']['color'];?> !important;
 }
 /*--------------------------------------------------------------
 10.3 Pagination
@@ -1943,6 +2009,79 @@ table td {
 .in_grid {
 	max-width: <?php echo Hii::$options['grid_width'];?>;
 }
+amp-carousel.videobg iframe {
+	height: 60vw;
+	max-width: 105% !important;
+	width: 105% !important;
+	pointer-events: none;
+	margin-top: -4rem;
+}
+amp-carousel.videobg {
+	min-height: 53vw !important;
+	height: 53vw !important;
+	position: relative;
+}
+@media (max-width: 1660px) {
+	amp-carousel.videobg iframe {
+    	margin-top: -6rem !important;
+	}
+}
+@media (max-width: 1499px) {
+	amp-carousel.videobg {
+    	min-height: 53vw !important;
+    	height: 53vw !important;
+	}
+	amp-carousel.videobg iframe {
+    	margin-top: -5rem !important;
+	}
+}
+@media (max-width: 1185px) {
+	amp-carousel.videobg iframe {
+    	margin-top: -4rem !important;
+	}
+}
+@media (max-width: 958px) {
+	amp-carousel.videobg iframe {
+    	height: 63vw !important;
+    	max-width: 104% !important;
+	}
+	amp-carousel.videobg iframe {
+    	margin-top: -4rem !important;
+	}
+}
+@media (max-width: 840px) {
+	amp-carousel.videobg iframe {
+    	height: 57vw;
+    	max-width: 104% !important;
+	}
+	amp-carousel.videobg iframe {
+	    margin-top: -1rem !important;
+	}
+}
+@media (max-width: 750px) {
+	amp-carousel.videobg {
+    	min-height: 52vw !important;
+    	height: 52vw !important;
+	}
+}
+@media (max-width: 644px) {
+	amp-carousel.videobg {
+    	min-height: 51vw !important;
+    	height: 51vw !important;
+	}
+}
+@media (max-width: 395px) {
+	amp-carousel.videobg {
+    	min-height: 50vw !important;
+    	height: 50vw !important;
+	}
+}
+@media (max-width: 395px) {
+	amp-carousel.videobg {
+    	min-height: 49vw !important;
+    	height: 49vw !important;
+	}
+}
 <?php
 get_template_part('css/vc_elements/row', 'css');
 /*--------------------------------------------------------------
@@ -2161,7 +2300,11 @@ if(get_theme_mod( 'show_footer_top_yesno', true )): ?>
 	margin: 0 auto;
 }
 .blog-article figure {
-	padding: 0 1em;
+	padding-top: calc(1rem + 20px);
+	padding-bottom: 1rem;
+	padding-left: 1rem;
+	padding-right: 1rem;
+	margin: 0;
 	text-align: center;
 }
 .blog-article .single-blog-post figure {
@@ -2315,6 +2458,9 @@ hr.small {
     max-width: 100%;
     width: auto;
     min-width: 100%;
+}
+.wp-audio-shortcode {
+    min-width: 0 !important;
 }
 <?php
 /*--------------------------------------------------------------
@@ -2526,8 +2672,135 @@ endif;
 .bg_color_four { background-color: <?php echo Hii::$options['color_four'];?>; }
 .bg_white { background-color:white; }
 
-<?php
+/*--------------------------------------------------------------
+15.0 404 Page
+--------------------------------------------------------------*/
+.notfound-home-btn {
+	z-index: 99999999999999999;
+	position: relative;
+}
+.not-found-text {
+	max-width: 770px;
+	padding-top: 3rem;
+	padding-bottom: 2rem;
+}
+.page_not_found {
+	margin-bottom: 2rem;
+}
+.page_not_found .error-page {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	text-align: center;
+	height: 100%;
+	font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+}
+.page_not_found .error-page h1 {
+	font-size: 40vh;
+	font-weight: bold;
+	position: relative;
+	margin: -8vh 0 0;
+	padding: 0;
+	line-height: 1.1;
+}
+.page_not_found .error-page h1:after {
+	content: attr(data-h1);
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	color: transparent;
+	/* webkit only for graceful degradation to IE */
+	background: -webkit-repeating-linear-gradient(-45deg, #71b7e6, #69a6ce, #b98acc, #ee8176, #b98acc, #69a6ce, #9b59b6);
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+	background-size: 400%;
+	text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.25);
+	animation: animateTextBackground 10s ease-in-out infinite;
+}
+.page_not_found .error-page h1 + p {
+	color: #d6d6d6;
+	font-size: 8vh;
+	font-weight: bold;
+	line-height: 10vh;
+	max-width: 600px;
+	position: relative;
+	margin: 0 auto;
+}
+.page_not_found .error-page h1 + p:after {
+	content: attr(data-p);
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	color: transparent;
+	text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.5);
+	-webkit-background-clip: text;
+	-moz-background-clip: text;
+	background-clip: text;
+}
 
+.page_not_found #particles-js {
+	position: fixed;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+}
+
+@media (max-width: 768px) {
+	.not-found-text {
+		margin-bottom: 3rem;
+	}
+}
+	
+@keyframes animateTextBackground {
+	0% {
+		background-position: 0 0;
+	}
+	25% {
+		background-position: 100% 0;
+	}
+	50% {
+		background-position: 100% 100%;
+	}
+	75% {
+		background-position: 0 100%;
+	}
+	100% {
+		background-position: 0 0;
+	}
+}
+@media (max-width: 767px) {
+	.page_not_found .error-page h1 {
+		font-size: 32vw;
+	}
+	.page_not_found .error-page h1 + p {
+	    font-size: 8vw;
+	    line-height: 10vw;
+	    max-width: 70vw;
+	}
+}
+.page_not_found a.back {
+	position: fixed;
+	right: 40px;
+	bottom: 40px;
+	background: -webkit-repeating-linear-gradient(-45deg, #71b7e6, #69a6ce, #b98acc, #ee8176);
+	border-radius: 5px;
+	box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+	color: #fff;
+	font-size: 16px;
+	font-weight: bold;
+	line-height: 24px;
+	padding: 15px 30px;
+	text-decoration: none;
+	transition: 0.25s all ease-in-out;
+}
+.page_not_found a.back:hover {
+	box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+}
+
+<?php
 do_action ( 'custom_css' );
 echo Hii::$options['custom_css'];
 echo Hii::$options['portfolio_custom_css'];

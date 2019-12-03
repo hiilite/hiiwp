@@ -19,7 +19,11 @@ $_post_format = get_post_format();
 $blogs_image_style = $hiilite_options['blogs_image_style'];
 
 if($hiilite_options['blog_cats_show'] == 'true' || $hiilite_options['blog_cats_show'] == true):
-	$article_cat .= '<span class="cat-links"><span class="screen-reader-text">Tags</span>'.get_the_category_list(', ').'</span>';
+	if ( !empty ( get_the_category_list() ) ) {
+		$article_cat .= '<span class="cat-links"><i class="fa fa-folder-open"></i><span class="screen-reader-text">Tags</span>'.get_the_category_list(', ').'</span>';
+	} else {
+		$article_cat .= '<span class="cat-links"><span class="screen-reader-text">Tags</span>'.get_the_category_list(', ').'</span>';
+	}
 else:
 	$categories = get_the_category();$cats ='';
 	foreach($categories as $cat){
@@ -27,11 +31,9 @@ else:
 	}
 endif;
 
-
-
 if($hiilite_options['blog_meta_show'] == 'true'):
 	$dateline .= '<div class="entry-meta">';
-		$dateline .= '<span class="posted-on"><span class="screen-reader-text">Posted on</span>';
+		$dateline .= '<span class="posted-on"><i class="fa fa-calendar-o"></i> <span class="screen-reader-text">Posted on</span>';
 			$dateline .= '<a href="'.get_the_permalink().'" rel="bookmark">';
 				$dateline .= '<time class="time op-published" datetime="' . get_the_time('c') . '">';
 					$dateline .= get_the_time('d F, Y');
@@ -44,7 +46,6 @@ if($hiilite_options['blog_meta_show'] == 'true'):
 		$dateline .= HiiWP_Templates::edit_link();
 	$dateline .= '</div>';
 endif;
-
 
 if($hiilite_options['blog_title_show'] == 'true' || $hiilite_options['blog_title_show'] == true) {
 	
@@ -136,13 +137,12 @@ do_action( 'hii_before_blog_loop' );
 		break;
 		default:
 			if(has_post_thumbnail($post->ID)): 
-				echo '<div class="flex-item ' . $thumb_size . '"' . '><figure class="post-thumbnail ' . $blogs_image_style . '">';
+				echo '<div class="flex-item ' . $thumb_size . '"' . '><figure class="blog-loop-thumb post-thumbnail ' . $blogs_image_style . '">';
 				$tn_id = get_post_thumbnail_id( $post->ID );
 				$img = wp_get_attachment_image_src( $tn_id, 'large' );
 				$width = ($img[1])?$img[1]:$hiilite_options['logo_width'];
 				$height = ($img[2])?$img[2]:$hiilite_options['logo_height'];
 				$img_src = ($img[0] != '')?$img[0]:$hiilite_options['main_logo'];
-				
 				
 					echo '<a href="' . get_the_permalink() . '">';
 					echo '<img src=' . $img_src . ' width="' . $width . '" height="' . $height . '" alt="Read more on ' . get_the_title() . '">';

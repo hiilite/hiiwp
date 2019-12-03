@@ -1567,7 +1567,6 @@ vc_map( array(
 		"icon" => "icon-wpb-images-carousel",
 		"allowed_container_element" => 'vc_row',
 		"params" => array(
-			
 			array(
 				"type" => "attach_images",
 				"holder" => "div",
@@ -1575,7 +1574,6 @@ vc_map( array(
 				"heading" => "Images",
 				"param_name" => "media_grid_images"
 			),
-			
 			array(
 				"type" => "dropdown",
 				"holder" => "div",
@@ -1757,10 +1755,11 @@ vc_map( array(
 			'type'  	=> 'dropdown',
 			'heading'	=> __('Slider Layout', 'hiiwp'),
 			'param_name'=> 'slider_layout',
-			'description' => __( 'Responsive: will fit to the content within the slider (ideal for slides with text content). Fixed: Will maintain a fixed aspect ratio based on an initially set width and height (ideal for background image only sliders)', 'hiiwp' ),
+			'description' => __( 'Responsive: will fit to the content within the slider (ideal for slides with text content). Fixed: Will maintain a fixed aspect ratio based on an initially set width and height (ideal for background image only sliders.) Video Background: responsive 16:9 area for background videos. Corresponding video background options on individual slides.', 'hiiwp' ),
 			'value'		=> array(
 				'Responsive' => 'responsive',
 				'Fixed' => 'fixed',
+				'Video Background' => 'videobg',
 			),
 			'std' 		=> 'responsive',
 		),
@@ -3710,6 +3709,24 @@ vc_map( array(
 			'description' => __( 'The content will start out visible', 'hiiwp' ),
 			'value' => array( __( 'Yes', 'hiiwp' ) => 'yes' ),
 		),*/
+		array(
+			'type' => 'checkbox',
+			'heading' => __( 'Youtube Video Background', 'hiiwp' ),
+			'param_name' => 'video_background',
+			'description' => __( 'Use a video for slide background', 'hiiwp' ),
+			'value' => array( __( 'Yes', 'hiiwp' ) => 'yes' ),
+			'std'	=> 'no',
+		),
+		array(
+			'type' => 'textfield',
+			'heading' => __( 'Youtube Video ID', 'hiiwp' ),
+			'param_name' => 'video_id',
+			'description' => __( 'example: dQw4w9WgXcQ', 'hiiwp' ),
+			'dependency'    => array(
+				'element'   => 'video_background',
+				'value'     => 'yes'
+			),
+		),
 		array(
 			'type' => 'textfield',
 			'param_name' => 'title',

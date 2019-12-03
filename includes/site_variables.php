@@ -24,6 +24,7 @@
 	6.1 Buttons
 	6.2 Social Icons
 	6.3 Back To Top
+	6.4 Delight Elements
 7.0 Fonts
 	7.1 Headings
 	7.2 Paragraphs & Links
@@ -59,7 +60,7 @@ $hiilite_options['color_four']					= get_theme_mod( 'color_four', '#b4b4b4');
 $hiilite_options['color_five']					= get_theme_mod( 'color_five', '');
 $hiilite_options['default_background_color']	= get_theme_mod( 'default_background_color', '');
 $hiilite_options['secondary_background_color']	= get_theme_mod( 'secondary_background_color', '');
-/*$hiilite_options['selection_color']				= get_theme_mod( 'selection_color', '');*/
+$hiilite_options['selection_color']				= get_theme_mod( 'selection_color', '');
 
 $hiilite_options['grid_width']					= get_theme_mod( 'grid_width', '1100px');
  
@@ -168,6 +169,14 @@ $hiilite_options['safari_icon_color']			= get_theme_mod('safari_icon_color', $hi
 
 $hiilite_options['logo_width']					= isset($image_url['width'])?($image_url['width'] * ($hiilite_options['logo_size_mod'] / 100)):(150 * ($hiilite_options['logo_size_mod'] / 100));
 $hiilite_options['logo_height']					= isset($image_url['height'])?($image_url['height'] * ($hiilite_options['logo_size_mod'] / 100)):'auto';
+
+$hiilite_options['mobile_logo']					= get_theme_mod('mobile_logo', get_template_directory_uri().'/images/Hiilite_Hii_Mobile_Logo.png');
+$mobile_image_id = attachment_url_to_postid( $hiilite_options['mobile_logo'] );
+if( isset( $mobile_image_id ) ) {
+	$mobile_image_url  = wp_get_attachment_metadata($mobile_image_id); 
+}
+$hiilite_options['mobile_logo_size_mod'] 		= get_theme_mod( 'mobile_logo_size_mod', 100);
+$hiilite_options['mobile_logo_width']			= isset($mobile_image_url['width'])?($mobile_image_url['width'] * ($hiilite_options['mobile_logo_size_mod'] / 100)):(150 * ($hiilite_options['mobile_logo_size_mod'] / 100));
 
 
 $hiilite_options['color_palette'] 				= array(
@@ -413,11 +422,11 @@ $hiilite_options[ 'footer_top_columns' ]    = get_theme_mod( 'footer_top_columns
 		'footer_column_3',
 		'footer_column_4')
 );
-$hiilite_options['show_footer_top_yesno']	= get_theme_mod( 'show_footer_top_yesno', true );
-$hiilite_options['footer_bottom_background_color']		= get_theme_mod( 'footer_bottom_background_color', '#c8c8c8' );
-$hiilite_options['footer_bottom_center']	= get_theme_mod( 'footer_bottom_center', true );
-$hiilite_options['footer_bottom_left']		= get_theme_mod( 'footer_bottom_left', false );
-$hiilite_options['footer_bottom_right']		= get_theme_mod( 'footer_bottom_right', false );
+$hiilite_options['show_footer_top_yesno']			= get_theme_mod( 'show_footer_top_yesno', true );
+$hiilite_options['footer_bottom_background_color']	= get_theme_mod( 'footer_bottom_background_color', '#c8c8c8' );
+$hiilite_options['footer_bottom_center']			= get_theme_mod( 'footer_bottom_center', true );
+$hiilite_options['footer_bottom_left']				= get_theme_mod( 'footer_bottom_left', false );
+$hiilite_options['footer_bottom_right']				= get_theme_mod( 'footer_bottom_right', false );
 
 $hiilite_options['footer_bottom_copyright_text'] = get_theme_mod('footer_bottom_copyright_text', '<small>Copyright © '.date('Y').' All rights reserved. <a href="https://hiilite.com/services/website-design/" target="_blank" rel="noopener" title="Web Design by Hiilite">Web Design</a>, <a href="https://photography.hiilite.com" target="_blank" rel="noopener" title="Photography Services by Hiilite">Photography</a>, <a href="https://hiilite.com/services/seo/" target="_blank" rel="noopener" title="SEO by Hiilite">SEO</a> by <a href="https://hiilite.com/" target="_blank" rel="noopener" title="Web Design, Photography and SEO by Hiilite">Hiilite</a></small>');
 
@@ -613,6 +622,11 @@ $hiilite_options['btt_border_size']				= get_theme_mod( 'btt_border_size', '2px'
 $hiilite_options['btt_border_radius']			= get_theme_mod( 'btt_border_radius', '2rem');
 
 
+/*--------------------------------------------------------------
+6.4 Delight Elements
+--------------------------------------------------------------*/
+$hiilite_options['list_anim_yesno'] = get_theme_mod( 'list_anim_yesno', true );
+
 /*-------------------------------------------------------------- 
 7.0 Fonts
 --------------------------------------------------------------*/
@@ -736,6 +750,14 @@ $hiilite_options['link_color']				=get_theme_mod( 'link_color', array(
 $hiilite_options['typography_link_color']	= get_theme_mod( 'typography_link_color', $hiilite_options['color_one'] );
 
 
+/*
+*	Blockquotes
+*/
+
+$hiilite_options['blockquote_font']				= get_theme_mod( 'blockquote_font', $hiilite_options['default_font']);
+$hiilite_options['blockquote_background_color'] = get_theme_mod('blockquote_background_color', '#f9f9f9');
+$hiilite_options['blockquote_color'] = get_theme_mod('blockquote_color', '#d7e0e5');
+
 
 /*
 *	Custom Formats
@@ -843,7 +865,7 @@ $hiilite_options['sidebar_widget_border_color']		= get_theme_mod( 'sidebar_widge
 10.1 Blog List
 --------------------------------------------------------------*/
 
-$hiilite_options['blog_show_filter']		= get_theme_mod( 'blog_show_filter', true );
+$hiilite_options['blog_show_filter']		= get_theme_mod( 'blog_show_filter', false );
 $hiilite_options['blog_layouts']			= get_theme_mod( 'blog_layouts', 'full-width' );
 $hiilite_options['blog_full_width']			= get_theme_mod( 'blog_full_width', false );
 $hiilite_options['blog_hide_password_protected_posts']= get_theme_mod( 'blog_hide_password_protected_posts', true );

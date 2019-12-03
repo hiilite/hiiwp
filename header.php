@@ -16,7 +16,9 @@ $bg_color = '';
 
 // echo do_action('hii_doctype');
 // action declared in class-hiiwp-hooks
-echo '<!DOCTYPE html>';
+$doctype = '<!DOCTYPE html>';
+$html_tag = '<html '. get_language_attributes() .'>';
+echo $doctype.$html_tag;
 ?><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1"><?php 
 wp_head(); 
 ?></head><body <?php body_class(); ?>><?php 
@@ -94,14 +96,18 @@ echo "<header id='main_header' class='". sanitize_html_class($hiilite_options['h
 						'fallback_cb'    => false
 					));		
 			?></div><?php
-		} 
+		}
 		
 		
 		if(get_theme_mod('hide_logo') != true):
-			?><div id="logo_container" class="<?php if($hiilite_options['header_center_right_on'] && !$hiilite_options['header_center_left_on']){ echo 'align-left';} ?>"><a href="<?php echo esc_url( home_url() ); ?>"><img src="<?php echo esc_url($hiilite_options['main_logo']);?>" width="<?php echo intval($hiilite_options['logo_width']);?>" alt="<?php echo hii_get_the_title();?>"></a></div><?php 
+			?><div id="logo_container" class="<?php if($hiilite_options['header_center_right_on'] && !$hiilite_options['header_center_left_on']){ echo 'align-left';} ?>"><a href="<?php echo esc_url( home_url() ); ?>"><img id="logo_img" src="<?php echo esc_url($hiilite_options['main_logo']);?>" width="<?php echo intval($hiilite_options['logo_width']);?>" alt="<?php echo hii_get_the_title();?>">
+			<?php if(get_theme_mod('mobile_logo') != false): ?>
+				<img id="mobile_logo" src="<?php echo esc_url($hiilite_options['mobile_logo']);?>" width="<?php echo intval($hiilite_options['mobile_logo_width']);?>" alt="<?php echo hii_get_the_title();?>">
+			<?php endif; ?>
+			</a></div><?php 
 		endif;
 		
-		if($hiilite_options['header_center_right_on'] && $hiilite_options['header_type'] != 'regular'){ 	
+		if($hiilite_options['header_center_right_on'] && $hiilite_options['header_type'] != 'regular') { 	
 		?><div id="header_center_right" class="flex-item"><?php 
 			if ( is_active_sidebar( 'header_center_right' ) ) :
 				if(!dynamic_sidebar( 'header_center_right' )){}

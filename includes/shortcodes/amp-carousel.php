@@ -109,11 +109,11 @@ function add_amp_carousel_shortcode( $atts ){
     	
 		foreach ( $query->posts as $attachment) :
 			$count++;
-	       $image = wp_get_attachment_image_src( $attachment->ID, 'full' );
-	       $hratio = ((int) $height / (int) $image[2]);
-	       $output .= "<div ".implode( ' ', $item_wrapper_attributes )." style='width:".($image[1]*$hratio)."px;height:calc('.$height.'px + 30px);'>";
-		   $output .= '<img src="'.$image[0].'" width="'.($image[1]*$hratio).'" height="'.($image[2]*$hratio).'"  alt="'.get_the_title().'">';
-		   $output .= '</div>';
+			$image = wp_get_attachment_image_src( $attachment->ID, 'full' );
+		    $hratio = ((int) $height / (int) $image[2]);
+		    $output .= "<div ".implode( ' ', $item_wrapper_attributes )." style='width:".($image[1]*$hratio)."px;height:calc('.$height.'px + 30px);'>";
+			$output .= '<img src="'.$image[0].'" width="'.($image[1]*$hratio).'" height="'.($image[2]*$hratio).'"  alt="'.get_the_title().'">';
+			$output .= '</div>';
 	    endforeach;
 	    if($thumbnails):
 	    	$output .= '<div class="thumbnails">';

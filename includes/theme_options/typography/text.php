@@ -88,6 +88,42 @@ Kirki::add_field( 'hiiwp', array(
 	),
 ) );
 
+/*
+*
+*	Blockquotes
+*	
+*/
+
+
+Kirki::add_field( 'hiiwp', array(
+    'type'        => 'typography',
+    'settings'    => 'blockquote_font',
+    'label'       => esc_attr__( 'Blockquote Font', 'hiiwp' ),
+    'description' => __( 'Define styles for blockquote text', 'hiiwp' ),
+    'section'     => $section,
+    'default'     => $hiilite_options['text_font'],
+    'priority'    => 1,
+) );
+
+Kirki::add_field( 'hiiwp', array(
+    'type'        => 'color',
+    'settings'    => 'blockquote_background_color',
+    'label'       => esc_attr__( 'Blockquote Background Color', 'hiiwp' ),
+    'description'       => __( 'Blockquote background color', 'hiiwp' ),
+    'section'     => $section,
+    'default'     => $hiilite_options['blockquote_background_color'],
+    'priority'    => 1,
+) );
+Kirki::add_field( 'hiiwp', array(
+    'type'        => 'color',
+    'settings'    => 'blockquote_color',
+    'label'       => esc_attr__( 'Blockquote Highlight Color', 'hiiwp' ),
+    'description'       => __( 'Blockquote left border and quote color', 'hiiwp' ),
+    'section'     => $section,
+    'default'     => $hiilite_options['blockquote_color'],
+    'priority'    => 1,
+) );
+
 
 /*
 *

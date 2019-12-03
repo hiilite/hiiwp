@@ -471,18 +471,30 @@ Kirki::add_field( 'hiiwp', array(
 	),
 ) );
 
-/*
-// Color Palete
 Kirki::add_field( 'hiiwp', array(
 	'type'        => 'color',
-	'settings'    => 'color_one',
-	'label'       => __( 'First Main Color (Color 1)', 'hiiwp' ),
-	'description' => __('Choose the most dominant theme color, by default will color link and button hover effects', 'hiiwp'),
+	'settings'    => 'selection_color',
+	'label'       => __( 'Text Selection Color', 'hiiwp' ),
+	'description' => __('Choose the color users see when selecting text', 'hiiwp'),
 	'section'     => $section,
-	'default'     => $hiilite_options['color_one'],
+	'default'     => $hiilite_options['selection_color'],
 	'priority'    => 1,
-	
+	'transport'   => 'postMessage',
+	'output' => array(
+		array(
+			'element'  => '::selection',
+			'property' => 'background-color',
+		),
+	),
+	'js_vars' => array(
+		array(
+			'element'  => '::selection',
+			'property' => 'background-color',
+		),
+	),
 ) );
+
+/*
 Kirki::add_field( 'hiiwp', array(
 	'type'        => 'color',
 	'settings'    => 'color_two',
@@ -568,28 +580,6 @@ Kirki::add_field( 'hiiwp', array(
 	),
 ) );
 
-Kirki::add_field( 'hiiwp', array(
-	'type'        => 'color',
-	'settings'    => 'selection_color',
-	'label'       => __( 'Text Selection Color', 'hiiwp' ),
-	'description' => __('Choose the color users see when selecting text', 'hiiwp'),
-	'section'     => $section,
-	'default'     => $hiilite_options['selection_color'],
-	'priority'    => 1,
-	'transport'   => 'postMessage',
-	'output' => array(
-		array(
-			'element'  => '::selection',
-			'property' => 'background-color',
-		),
-	),
-	'js_vars' => array(
-		array(
-			'element'  => '::selection',
-			'property' => 'background-color',
-		),
-	),
-) );
 */
 // Enable Overlapping Content
 /*
@@ -644,7 +634,13 @@ Kirki::add_section( 'general_section_custom_code', array(
     'priority'       => 1,
     'capability'     => 'edit_theme_options'
 ) );
-
+/*
+*
+* Custom Code Field for Front End CSS
+* 'postMessage' allows text to be applied without page reload
+* See js/customizer-preview.js for postMessage scipt
+*	
+*/
 Kirki::add_field( 'hiiwp', array(
 	'type'        => 'code',
 	'settings'    => 'custom_css',
@@ -653,6 +649,7 @@ Kirki::add_field( 'hiiwp', array(
 	'section'     => 'general_section_custom_code',
 	'default'     => $hiilite_options['custom_css'],
 	'priority'    => 2,
+	'transport'   => 'postMessage',
 	'choices'     => array(
 		'language' => 'css',
 		'theme'    => 'monokai',

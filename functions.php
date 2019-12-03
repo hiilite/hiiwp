@@ -79,7 +79,7 @@ class Hii {
 	 */
 	private function define_constants(){
 	    if ( ! defined( 'HIIWP_VERSION' ) ) {                
-			 define( 'HIIWP_VERSION', '1.0.4' );
+			 define( 'HIIWP_VERSION', '1.0.6' );
 		}
 		if ( ! defined( 'HIIWP_SLUG' ) ) {                
 		    define( 'HIIWP_SLUG', 'hiiwp' );           
@@ -404,6 +404,11 @@ endif;
 add_action( 'wp_enqueue_scripts', 'enqueue_load_fa' );
 function enqueue_load_fa() {
     wp_enqueue_style( 'load-fa-css', get_template_directory_uri(  ).'/css/font-awesome/css/font-awesome.min.css' );
+}
+
+add_action( 'customize_controls_enqueue_scripts', 'wpdocs_scripts_method' );
+function wpdocs_scripts_method() {
+	wp_enqueue_script( 'customize_preview', HIIWP_URL.'/js/customizer-preview.js' );
 }
 
 /**
@@ -1017,6 +1022,14 @@ function hiilite_numeric_posts_nav() {
 	endif;
 }
 endif;
+
+function register_particle_js() {
+	if ( is_404() ) {
+		wp_enqueue_script( 'particles', 'https://cdnjs.cloudflare.com/ajax/libs/particles.js/2.0.0/particles.min.js' );
+		wp_enqueue_script( '404-particles', get_template_directory_uri() . '/js/vender/particles/404-particles.js' );
+	}
+}
+add_action( 'wp_enqueue_scripts', 'register_particle_js' );
 
 /**
  * cmb2_output_portfolio_imgs function.

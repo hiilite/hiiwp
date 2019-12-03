@@ -15,7 +15,6 @@ Kirki::add_field( 'hiiwp', array(
 	'default'     => $hiilite_options['main_logo'],
 	'priority'    => 1,
 ) );
-
 Kirki::add_field( 'hiiwp', array(
 	'type'        => 'switch',
 	'settings'    => 'hide_logo',
@@ -25,7 +24,6 @@ Kirki::add_field( 'hiiwp', array(
 	'default'     => false,
 	'priority'    => 1,
 ) );
-
 Kirki::add_field( 'hiiwp', array(
 	'type'        => 'slider',
 	'settings'    => 'logo_size_mod',
@@ -53,7 +51,6 @@ Kirki::add_field( 'hiiwp', array(
 		),
 	),
 ) );
-
 Kirki::add_field( 'hiiwp', array(
 	'type'        => 'spacing',
 	'settings'    => 'logo_padding',
@@ -76,6 +73,45 @@ Kirki::add_field( 'hiiwp', array(
 		),
 	),
 ) );
+
+
+Kirki::add_field( 'hiiwp', array(
+	'type'        => 'image',
+	'settings'    => 'mobile_logo',
+	'label'       => __( 'Mobile Logo', 'hiiwp' ),
+	'description' => __( 'Choose a different logo to display on mobile devices', 'hiiwp' ),
+	'section'     => $section,
+	'default'     => $hiilite_options['mobile_logo'],
+	'priority'    => 3,
+) );
+Kirki::add_field( 'hiiwp', array(
+	'type'        => 'slider',
+	'settings'    => 'mobile_logo_size_mod',
+	'label'       => esc_attr__( 'A percentage that the mobile logo should be scaled too', 'hiiwp' ),
+	'section'     => $section,
+	'default'     => $hiilite_options['mobile_logo_size_mod'],
+	'priority'    => 3,
+	'choices'     => array(
+		'min'  => '0',
+		'max'  => '200',
+		'step' => '1',
+	),
+	'active_callback'    => array(
+		array(
+			'setting'  => 'mobile_logo',
+			'operator' => '!=',
+			'value'    => false,
+		),
+	),
+	'active_callback'    => array(
+		array(
+			'setting'  => 'hide_logo',
+			'operator' => '!=',
+			'value'    => true,
+		),
+	),
+) );
+
 
 Kirki::add_field( 'hiiwp', array(
 	'type'        => 'image',

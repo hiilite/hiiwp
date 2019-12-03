@@ -141,4 +141,5 @@ Kirki::add_field( 'hiiwp', array(
     'default'     => $hiilite_options['blog_single_text_font'],
     'priority'    => 1,
 ) );
+
 ?>

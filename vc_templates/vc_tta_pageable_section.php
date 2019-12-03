@@ -11,7 +11,12 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 $post_id = get_the_id();
 $atts = vc_map_get_attributes( $this->getShortcode(), $atts );
+$vbg = '';
 if($atts['active'] == true):
+
+	if(isset($atts['video_background']) == 'yes') {
+		$vbg = 'has_video_background';	
+	}
 	
 	$css = $el_class = '';
 	$this->resetVariables( $atts, $content );
@@ -41,6 +46,7 @@ if($atts['active'] == true):
 		$css_classes[] = ' bg-img-pos-' . $bg_img_pos;
 	}
 	
+	$css_classes[] = $vbg;
 	$css_classes[] = 'slide';
 	$css_classes[] = esc_attr( $this->getElementClasses() );
 	
@@ -49,6 +55,49 @@ if($atts['active'] == true):
 	$wrapper_attributes[] = 'class="' . esc_attr( trim( $css_class ) ) . '"';
 	$output = '';
 	$output .= '<div ' . implode( ' ', $wrapper_attributes ) . ' style="background-image:url('.$src.');background-color:'.$atts['background_color'].'; background-size:cover;">';
+	if(isset($atts['video_background']) == 'yes') {
+		$output .= '<div id="player"></div>';
+		//$output .= '<div id="video-bg-container"><iframe style="width: 104%; margin-top: -7rem;" width="560" height="315" src="https://www.youtube.com/embed/' . $atts['video_id'] . '?autoplay=1&modestbranding=0&mute=1&loop=1&controls=0&disablekb=1&enablejsapi=1&iv_load_policy=3&playsinline=1&rel=0" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" ></iframe></div>';
+		$output .= '<script>
+		
+		var tag = document.createElement("script");
+	
+	    tag.src = "https://www.youtube.com/iframe_api";
+	    var firstScriptTag = document.getElementsByTagName("script")[0];
+	    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+		
+		var player;
+	    function onYouTubePlayerAPIReady() {
+	        player = new YT.Player("player", {
+	          height: "315",
+	          width: "560",
+	          videoId: "' . $atts['video_id'] . '",
+	          events: {
+	            "onReady": onPlayerReady,
+	            "onStateChange": onPlayerStateChange
+	          },
+	          playerVars: {autoplay: 1, modestbranding: 1, mute: 1, loop: 1, controls: 0, disablekb: 1, enablejsapi: 1, iv_load_policy: 3, playsinline: 1, rel: 0, showinfo: 0, ecver: 2}
+	        });
+	    }
+	
+	    function onPlayerReady(event) {
+		    event.target.mute();
+	        event.target.playVideo();
+	    }
+	
+	    function onPlayerStateChange(event) {        
+	        if(event.data === 0) {      
+		        jQuery.noConflict();
+				(function( $ ) {
+				  $(function() {
+				    $("#player").fadeOut();
+				  });
+				})(jQuery);    
+	        }
+	    }
+		</script>';
+	}
+	
 	$output .= '<div class="slide-text-overlay">';
 	$output .= $this->getTemplateVariable( 'content' );
 	$output .= '</div></div>';

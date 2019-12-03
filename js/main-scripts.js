@@ -727,7 +727,6 @@ $(document).ready(function(){
 	    }, 700);
 	    return false;	
 	});
-	 
 	  
 	/*
 	LAYOUT FILTERS

@@ -155,7 +155,7 @@ endif; ?>
 #header_bottom {
 	border-bottom-style: solid;
 }
-#header_bottom .menu .menu-item a{
+#header_bottom .menu .menu-item a {
 	<?php 
 	echo get_font_css(get_theme_mod( 'header_bottom_font' ));
 	?>
@@ -165,6 +165,21 @@ endif; ?>
 	justify-content: center;
 }
 
+<?php if(get_theme_mod('mobile_logo') != false): ?>
+#mobile_logo {
+	display: none;
+	height: auto;
+    transition: all 0.5s;
+}
+@media (max-width:<?php echo get_theme_mod('mobile_menu_switch','768px')?>) {
+	#mobile_logo {
+		display: block;
+	}
+	img#logo_img {
+		display: none;
+	}
+}
+<?php endif; ?>
 
 #logo_container {
     max-width: 100%;
@@ -177,7 +192,7 @@ endif; ?>
     ?>
 }
 
-#logo_container img {
+#logo_img {
     height: auto;
     transition: all 0.5s;
     display:block;

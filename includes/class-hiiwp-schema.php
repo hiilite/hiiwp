@@ -532,7 +532,7 @@ class HiiWP_Schema {
 				$html .= ' ],';
 			}
 			
-			if(isset($options['business_social'])){
+			if( isset($options['business_social']) && isset($socialprofile['social_url']) ) {
 				$html .= '"sameAs" : [';
 				$comma = '';
 				foreach($options['business_social'] as $socialprofile):
