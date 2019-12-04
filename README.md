@@ -12,6 +12,7 @@
 - Removed unused Kirki integration code
 - Fixed longstanding PHP warning bug relating to social icons
 - Added IWP & Time Capsule as recommended / auto installs in developer mode
+- Updated Logos To Properly Reflect Hiilite's Current Brand
 - Minor bug fixes
 
 #### v1.0.52
