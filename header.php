@@ -101,7 +101,7 @@ echo "<header id='main_header' class='". sanitize_html_class($hiilite_options['h
 		
 		if(get_theme_mod('hide_logo') != true):
 			?><div id="logo_container" class="<?php if($hiilite_options['header_center_right_on'] && !$hiilite_options['header_center_left_on']){ echo 'align-left';} ?>"><a href="<?php echo esc_url( home_url() ); ?>"><img id="logo_img" src="<?php echo esc_url($hiilite_options['main_logo']);?>" width="<?php echo intval($hiilite_options['logo_width']);?>" alt="<?php echo hii_get_the_title();?>">
-			<?php if(get_theme_mod('mobile_logo') != false): ?>
+			<?php if( !empty($hiilite_options['mobile_logo']) ): ?>
 				<img id="mobile_logo" src="<?php echo esc_url($hiilite_options['mobile_logo']);?>" width="<?php echo intval($hiilite_options['mobile_logo_width']);?>" alt="<?php echo hii_get_the_title();?>">
 			<?php endif; ?>
 			</a></div><?php 

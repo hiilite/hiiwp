@@ -14,7 +14,7 @@ $atts = vc_map_get_attributes( $this->getShortcode(), $atts );
 $vbg = '';
 if($atts['active'] == true):
 
-	if(isset($atts['video_background']) == 'yes') {
+	if($atts['video_background'] == 'yes') {
 		$vbg = 'has_video_background';	
 	}
 	
@@ -55,9 +55,9 @@ if($atts['active'] == true):
 	$wrapper_attributes[] = 'class="' . esc_attr( trim( $css_class ) ) . '"';
 	$output = '';
 	$output .= '<div ' . implode( ' ', $wrapper_attributes ) . ' style="background-image:url('.$src.');background-color:'.$atts['background_color'].'; background-size:cover;">';
-	if(isset($atts['video_background']) == 'yes') {
+	if( $vbg == 'has_video_background') {
 		$output .= '<div id="player"></div>';
-		//$output .= '<div id="video-bg-container"><iframe style="width: 104%; margin-top: -7rem;" width="560" height="315" src="https://www.youtube.com/embed/' . $atts['video_id'] . '?autoplay=1&modestbranding=0&mute=1&loop=1&controls=0&disablekb=1&enablejsapi=1&iv_load_policy=3&playsinline=1&rel=0" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" ></iframe></div>';
+		
 		$output .= '<script>
 		
 		var tag = document.createElement("script");

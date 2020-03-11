@@ -806,7 +806,7 @@ class HiiWP extends Hii {
 	            'name'               => 'WPBakery Visual Composer', // The plugin name.
 	            'slug'               => 'js_composer', // The plugin slug (typically the folder name).
 	            'source'             => 'https://hiilite.com/download/9034/', // The plugin source.
-	            'version'			 => '5.5.4',
+	            'version'			 => '6.1.0',
 	            'required'           => true, // If false, the plugin is only 'recommended' instead of required.
 	            'force_activation'   => true, // If true, plugin is activated upon theme activation and cannot be deactivated until theme switch.
 	            'force_deactivation' => false, // If true, plugin is deactivated upon theme switch, useful for theme-specific plugins.
