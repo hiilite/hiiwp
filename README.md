@@ -2,6 +2,13 @@
 
 ### Change log
 
+#### v1.0.7
+- Updated versions of required and recommended plugins / Updated Hiilite site download files
+- Removed One Click Demo Import from Recommended plugins
+- Fixed Mobile Logo Scripts/Functions
+- Updated All Theme Assets to Reflect Hiilite Rebrand
+- Fixed Hii Video Background Slider Bugs
+
 #### v1.0.6
 - Changed default page template from Full Width to In Grid
 - Updated 404 page to new design
