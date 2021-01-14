@@ -6,9 +6,9 @@ Template Name: Portfolio Page
  * HiiWP Template: portfolio_page
  *
  * @package     hiiwp
- * @copyright   Copyright (c) 2021, Hiilite Creative Group
+ * @copyright   Copyright (c) 2018, Hiilite Creative Group
  * @license     http://opensource.org/licenses/gpl-2.0.php GNU Public License
- * @since       1.0.8
+ * @since       1.0.3
  */
 $hiilite_options = HiiWP::get_options();
 $templates	= new HiiWP_Plus_Template_Loader();

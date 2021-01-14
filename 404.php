@@ -22,7 +22,7 @@ get_template_part( 'templates/title' );
 		</div>
 	</div>
 </section>
-
+ 
 <?php
 get_footer(); 
 ?>

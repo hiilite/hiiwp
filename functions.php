@@ -140,6 +140,11 @@ class Hii {
 		
 		add_action('admin_enqueue_scripts', array( $this, 'add_admin_scripts' ));
 		
+		add_action( 'customize_controls_enqueue_scripts', 'wpdocs_scripts_method' );
+		function wpdocs_scripts_method() {
+			wp_enqueue_script( 'customize_preview', HIIWP_URL.'/js/customizer-preview.js' );
+		}
+		
 		require_once( 'includes/class-hiiwp-shortcodes.php' );
 		
 		/* SAFE SVG REQUISITES */
@@ -151,17 +156,28 @@ class Hii {
 		if($hiilite_options['lottie_on'] == true){
     	    require_once( get_template_directory().'/vc_templates/lottie.php' );
     	}
-		
-		if($hiilite_options['fa_pro_on'] == true && $hiilite_options['fa_kit'] != '' && strpos($hiilite_options['fa_kit'], 'YOUR_KIT') === false) {
-        	wp_enqueue_script( 'fa-script', $hiilite_options['fa_kit']);       
-    	}
 	}
 	
 	public function add_scripts() {
-		global  $hiilite_options;
+	    global  $hiilite_options;
+	    
 	    if($hiilite_options['lottie_on'] == true) {
-	        wp_enqueue_script( 'script', get_template_directory_uri() . '/js/vender/lottie-player.js', array ( 'jquery' ));
+	        wp_enqueue_script( 'lottie-script', get_template_directory_uri() . '/js/vender/lottie-player.js', array ( 'jquery' ));
 	    }
+
+	   if($hiilite_options['fa_pro_on'] == true && $hiilite_options['fa_kit'] != '' && strpos($hiilite_options['fa_kit'], 'YOUR_KIT') === false) {
+            wp_enqueue_script( 'fa-script', $hiilite_options['fa_kit']);
+            
+    	}
+	}
+	
+	public function add_admin_scripts() {
+	    global  $hiilite_options;
+
+	   if($hiilite_options['fa_pro_on'] == true && $hiilite_options['fa_kit'] != '' && strpos($hiilite_options['fa_kit'], 'YOUR_KIT') === false) {
+            wp_enqueue_script( 'fa-script', $hiilite_options['fa_kit']);
+            
+    	}
 	}
 	
 	private function add_dependencies(){
@@ -415,17 +431,11 @@ endif;
 /*
 	TEMPORARY until Kirki fixes font-awesome loader.
 */
-
 if($hiilite_options['fa_pro_on'] == false){
-	add_action( 'wp_enqueue_scripts', 'enqueue_load_fa' );
-		function enqueue_load_fa() {
-			wp_enqueue_style( 'load-fa-css', get_template_directory_uri(  ).'/css/font-awesome/css/font-awesome.min.css' );
-        }
-}
-
-add_action( 'customize_controls_enqueue_scripts', 'wpdocs_scripts_method' );
-function wpdocs_scripts_method() {
-	wp_enqueue_script( 'customize_preview', HIIWP_URL.'/js/customizer-preview.js' );
+    add_action( 'wp_enqueue_scripts', 'enqueue_load_fa' );
+    function enqueue_load_fa() {
+        wp_enqueue_style( 'load-fa-css', get_template_directory_uri(  ).'/css/font-awesome/css/font-awesome.min.css' );
+    }
 }
 
 /**

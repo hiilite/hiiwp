@@ -12,4 +12,4 @@ get_template_part( 'templates/title' );
 
 get_template_part('templates/team', 'archive');
 
-get_footer();
+get_footer(); 

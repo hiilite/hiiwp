@@ -5,7 +5,7 @@
  * Main CSS file
  *
  * @package     hiiwp
- * @copyright   Copyright (c) 2018, Hiilite Creative Group
+ * @copyright   Copyright (c) 2021, Hiilite Creative Group
  * @license     http://opensource.org/licenses/gpl-2.0.php GNU Public License
  * @since       1.0.8
  */
@@ -13,7 +13,7 @@ global $is_IE; ?><style>
 /*--------------------------------------------------------------
 >>> TABLE OF CONTENTS:
 ----------------------------------------------------------------
-1.0 General
+1.0 General 
 	1.1 Normalize
 	1.2 Accessibility
 	1.3 Alignments
@@ -2212,9 +2212,7 @@ if(get_theme_mod( 'show_footer_top_yesno', true )): ?>
 #footer_page .widget_nav_menu {
     padding: 1rem;
 }
-#footer_page .menu li.menu-item {
-    padding-bottom: 0.8rem;
-}
+
 #footer_page .menu {
 	display: block;
 }

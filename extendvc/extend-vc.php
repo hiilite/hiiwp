@@ -6,9 +6,9 @@
  * @package     HiiWP
  * @category    Core
  * @author      Hiilite Creative Group
- * @copyright   Copyright (c) 2017, Hiilite Creative Group
+ * @copyright   Copyright (c) 2021, Hiilite Creative Group
  * @license     http://opensource.org/licenses/https://opensource.org/licenses/MIT
- * @since       1.0.2
+ * @since       1.0.8
  */
 $hiilite_options = Hii::get_options();
 /*** Removing shortcodes ***/
@@ -2243,7 +2243,7 @@ vc_map( array(
  * Hii Button
  * Adds Visual Composer option for the Hii Button.
  *
- * @since  1.0.1
+ * @since  1.0.8
  */
 vc_map( array( 
 		"name" => "Hii Button", 
@@ -2307,6 +2307,50 @@ vc_map( array(
 				"param_name" => "link"
 			),
 			array(
+				'type' 			=> 'iconpicker',
+				'heading' 		=> __( 'Icon', 'hiiwp' ),
+				'param_name' 	=> 'icon',
+				'description' 	=> __( 'Add an Icon to the text box', 'hiiwp' ),
+				'group'			=> __( 'Icon', 'hiiwp' ),
+				'settings' 		=> array(
+					'emptyIcon'		=> true,
+					'type'			=> 'fontawesome',
+					'iconsPerPage'	=> 200
+				),
+			),
+			array(
+				'type' 			=> 'dropdown',
+				'heading' 		=> __( 'Icon Size', 'hiiwp' ),
+				'param_name' 	=> 'icon_size',
+				'group'			=> __('Icon', 'hiiwp'),
+				'description' 	=> __( 'Size of the icon', 'hiiwp' ),
+				'value' => array(
+					__( 'Small', 'hiiwp' ) => 'small',
+					__( 'Medium', 'hiiwp' ) => 'regular',
+					__( 'Large', 'hiiwp' ) => 'large',
+					__( 'Extra Large', 'hiiwp' ) => 'extra-large',
+				),
+			),
+			array(
+				'type' 			=> 'dropdown',
+				'heading' 		=> __( 'Icon Position', 'hiiwp' ),
+				'param_name' 	=> 'icon_position',
+				'group'			=> __('Icon', 'hiiwp'),
+				'description' 	=> __( 'Where would you like the icon positioned in relation to the text box', 'hiiwp' ),
+				'value' => array(
+					__( 'Left', 'hiiwp' ) => 'left',
+					__( 'Right', 'hiiwp' ) => 'right',
+				),
+			),
+			array(
+				'type' 			=> 'colorpicker',
+				'heading' 		=> __( 'Icon Color', 'hiiwp' ),
+				'param_name' 	=> 'icon_color',
+				'group'			=> __('Icon', 'hiiwp'),
+				'description' 	=> __( 'Color of icon', 'hiiwp' ),
+				'value'			=> '#000000'
+			),
+			array(
 				"type" => "dropdown",
 				"holder" => "div",
 				"class" => "",
@@ -2350,50 +2394,7 @@ vc_map( array(
 				"description"	=> "ex: ga('send', 'event', 'Category', 'Action', 'Label', 'Value');",
 				'group' 		=> __( 'Advanced', 'hiiwp' ),
 			),
-			array(
-				'type' 			=> 'iconpicker',
-				'heading' 		=> __( 'Icon', 'hiiwp' ),
-				'param_name' 	=> 'icon',
-				'description' 	=> __( 'Add an Icon to the text box', 'hiiwp' ),
-				'group'			=> __( 'Icon', 'hiiwp' ),
-				'settings' 		=> array(
-					'emptyIcon'		=> true,
-					'type'			=> 'fontawesome',
-					'iconsPerPage'	=> 200
-				),
-			),
-			array(
-				'type' 			=> 'dropdown',
-				'heading' 		=> __( 'Icon Size', 'hiiwp' ),
-				'param_name' 	=> 'icon_size',
-				'group'			=> __('Icon', 'hiiwp'),
-				'description' 	=> __( 'Size of the icon', 'hiiwp' ),
-				'value' => array(
-					__( 'Small', 'hiiwp' ) => 'small',
-					__( 'Regular', 'hiiwp' ) => 'regular',
-					__( 'Large', 'hiiwp' ) => 'large',
-					__( 'Extra Large', 'hiiwp' ) => 'extra-large',
-				),
-			),
-			array(
-				'type' 			=> 'dropdown',
-				'heading' 		=> __( 'Icon Position', 'hiiwp' ),
-				'param_name' 	=> 'icon_position',
-				'group'			=> __('Icon', 'hiiwp'),
-				'description' 	=> __( 'Where would you like the icon positioned in relation to the text box', 'hiiwp' ),
-				'value' => array(
-					__( 'Left', 'hiiwp' ) => 'left',
-					__( 'Right', 'hiiwp' ) => 'right',
-				),
-			),
-			array(
-				'type' 			=> 'colorpicker',
-				'heading' 		=> __( 'Icon Color', 'hiiwp' ),
-				'param_name' 	=> 'icon_color',
-				'group'			=> __('Icon', 'hiiwp'),
-				'description' 	=> __( 'Color of icon', 'hiiwp' ),
-				'value'			=> '#c3c3c3'
-			),
+	       
 		)
 ) );
 

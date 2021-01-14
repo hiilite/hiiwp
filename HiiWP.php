@@ -6,9 +6,9 @@
  * @package     HiiWP
  * @category    Core
  * @author      Peter Vigilante
- * @copyright   Copyright (c) 2021, Hiilite Creative Group
+ * @copyright   Copyright (c) 2017, Hiilite Creative Group
  * @license     http://opensource.org/licenses/https://opensource.org/licenses/MIT
- * @since       1.0.8
+ * @since       1.0.4
  */
 if ( ! defined( 'ABSPATH' ) )	exit;
 /**
@@ -159,7 +159,6 @@ class HiiWP extends Hii {
 		} 
 		
 	}
-	
 	
 	/**
 	 * add_load_css function.
@@ -817,6 +816,11 @@ class HiiWP extends Hii {
 	            'required'           => true, // If false, the plugin is only 'recommended' instead of required.
 	            'force_activation'   => true, // If true, plugin is activated upon theme activation and cannot be deactivated until theme switch.
 	            'force_deactivation' => false, // If true, plugin is deactivated upon theme switch, useful for theme-specific plugins.
+	        ),
+	        array(
+	            'name'      => 'Font Awesome',
+	            'slug'      => 'font-awesome',
+	            'required'  => true,
 	        ),
 	        array(
 	            'name'      => 'Yoast SEO',

@@ -28,6 +28,7 @@ switch($post_type):
 	default:
 		get_template_part('templates/default', 'archive');
 		break;
+		
 endswitch;
 
 get_footer();

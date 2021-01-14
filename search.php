@@ -1,5 +1,5 @@
 <?php
-// store the post type from the URL string
+// store the post type from the URL string 
 // check to see if there was a post type in the
 // URL string and if a results template for that
 // post type actually exists

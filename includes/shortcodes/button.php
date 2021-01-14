@@ -2,7 +2,7 @@
 /**
  * Returns the output of a Hii Button shortcode
  *
- * @since  1.0.1
+ * @since  1.0.8
  * @return object Button
  */
 function add_button_shortcode( $atts ){
