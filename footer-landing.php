@@ -5,7 +5,7 @@
  * WordPress footer file
  *
  * @package     hiiwp
- * @copyright   Copyright (c) 2016, Hiilite Creative Group
+ * @copyright   Copyright (c) 2021, Hiilite Creative Group
  * @license     http://opensource.org/licenses/gpl-2.0.php GNU Public License
  * @since       1.0.8
  */
@@ -15,7 +15,6 @@ do_action( 'hii_after_content' );
 do_action( 'hii_before_footer' );
 ?>			
 <!-- FOOTER -->
-
 <?php do_action( 'hii_after_footer' ); ?>
 			
 	</div>

@@ -17,20 +17,12 @@
 - Reduced default line height of headings
 - Restyled custom Kirki fields in customizer 
 
-### v1.0.8
+### v1.0.7
 - Updated versions of required and recommended plugins / Updated Hiilite site download files
-- Rebuilt mobile logo switch functionality
-- Upgraded Kirki to latest build
-- Updated VC elements to add latest WP Bakery template functionality
-- Added fontawesome pro functionality 
-- Added icons to custom button elements
-- Changed grid_left & grid_right functionality to work with variable grid width
-- Added safe SVG upload & use functionality 
-- Added SVG icon functionality
-- Added Lottie animation functionality 
-- Added Lottie VC element
-- Reduced default line height of headings
-- Restyled custom Kirki fields in customizer
+- Removed One Click Demo Import from Recommended plugins
+- Fixed Mobile Logo Scripts/Functions
+- Updated All Theme Assets to Reflect Hiilite Rebrand
+- Fixed Hii Video Background Slider Bugs
 
 #### v1.0.6
 - Changed default page template from Full Width to In Grid

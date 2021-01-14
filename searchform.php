@@ -8,7 +8,5 @@
 	title="<?php echo esc_attr_x( 'Search for:', 'label', 'hiiwp' ) ?>" />
 	
 </form>
-	
-	<?php
-		
-		?>
+<?php
+?>

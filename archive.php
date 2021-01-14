@@ -2,7 +2,7 @@
 /* HiiWP Template: archive
  *
  * @package     hiiwp
- * @copyright   Copyright (c) 2018, Hiilite Creative Group
+ * @copyright   Copyright (c) 2021, Hiilite Creative Group
  * @license     http://opensource.org/licenses/gpl-2.0.php GNU Public License
  * @since       1.0.8
  */
@@ -28,7 +28,6 @@ switch($post_type):
 	default:
 		get_template_part('templates/default', 'archive');
 		break;
-		
 endswitch;
 
 get_footer();
