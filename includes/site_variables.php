@@ -53,6 +53,10 @@ $hiilite_options['default_font']				= get_theme_mod( 'default_font', array(
         'text-transform' => 'none',
         'color'          => '#333333',
     ) ); 
+    
+$hiilite_options['fa_pro_on']					= get_theme_mod('fa_pro_on', false);
+$hiilite_options['fa_kit']					= get_theme_mod('fa_kit', 'https://kit.fontawesome.com/YOUR_KIT.js');
+
 $hiilite_options['color_one']					= get_theme_mod( 'color_one', 'rgba(48,181,196,1)');
 $hiilite_options['color_two']					= get_theme_mod( 'color_two', '#303030');
 $hiilite_options['color_three']					= get_theme_mod( 'color_three', '#b4b4b4');
@@ -62,7 +66,9 @@ $hiilite_options['default_background_color']	= get_theme_mod( 'default_backgroun
 $hiilite_options['secondary_background_color']	= get_theme_mod( 'secondary_background_color', '');
 $hiilite_options['selection_color']				= get_theme_mod( 'selection_color', '');
 
-$hiilite_options['grid_width']					= get_theme_mod( 'grid_width', '1100px');
+$hiilite_options['grid_width']					= get_theme_mod( 'grid_width', '1440px');
+ 
+$hiilite_options['lottie_on'] 				    = get_theme_mod( 'lottie_on', false);
  
 $hiilite_options['portfolio_on'] 				= get_theme_mod( 'portfolio_on', true);
 $hiilite_options['portfolio_title'] 			= get_theme_mod( 'portfolio_title', 'Portfolio');
@@ -132,8 +138,6 @@ $hiilite_options['testimonials_body_padding'] 				= get_theme_mod( 'testimonials
 	));
 
 
-
-
 $hiilite_options['custom_css']					= get_theme_mod( 'custom_css', '');
 $hiilite_options['admin_custom_css']			= get_theme_mod( 'admin_custom_css', '');
 $hiilite_options['custom_js']					= get_theme_mod( 'custom_js', '');
@@ -163,9 +167,10 @@ $hiilite_options['logo_padding'] 				= get_theme_mod( 'logo_padding', array(
 	));
 
 $hiilite_options['favicon']						= get_theme_mod('favicon', get_template_directory_uri().'/images/favicon.png');
+/* Removed Safari Icon Customizer Option - Related files: HiiWP.php lines 260-263, site_variables.php lines 166-169, theme_options.php lines 126-146
 $hiilite_options['safari_icon']					= get_theme_mod('safari_icon', get_template_directory_uri().'/images/website_icon.svg');
 $hiilite_options['safari_icon_color']			= get_theme_mod('safari_icon_color', $hiilite_options['color_one']);
-
+*/
 
 $hiilite_options['logo_width']					= isset($image_url['width'])?($image_url['width'] * ($hiilite_options['logo_size_mod'] / 100)):(150 * ($hiilite_options['logo_size_mod'] / 100));
 $hiilite_options['logo_height']					= isset($image_url['height'])?($image_url['height'] * ($hiilite_options['logo_size_mod'] / 100)):'auto';
@@ -554,7 +559,7 @@ $hiilite_options['typography_button_secondary_font']	= get_theme_mod( 'typograph
         'letter-spacing' => '0px',
         'text-align'	 => 'center',
         'text-transform' => 'uppercase',
-        'color'          => '#ffffff',
+        'color'          => 'rgba(48,181,196,1)',
     ) );
 $hiilite_options['typography_button_secondary_background'] =  get_theme_mod( 'typography_button_secondary_background', array(
 	'base'	=> 'rgba(255,255,255,0)',
@@ -569,7 +574,7 @@ $hiilite_options['typography_button_secondary_padding'] =  get_theme_mod('typogr
 		'left'   => '2em',
 	));
 $hiilite_options['typography_button_secondary_border_color'] =  get_theme_mod( 'typography_button_secondary_border_color', array(
-	'base'	=> '#ffffff',
+	'base'	=> 'rgba(48,181,196,1)',
 	'hover'	=> $hiilite_options['color_three']
 )); 
 $hiilite_options['typography_button_secondary_border_width'] =  get_theme_mod( 'typography_button_secondary_border_width', '2px');
@@ -652,7 +657,7 @@ $hiilite_options['typography_h1_font']				= get_theme_mod( 'typography_h1_font',
     ) );
 $hiilite_options['typography_h1_margin']			= get_theme_mod( 'typography_h1_margin', array(
 	'top' 		=> '0',
-	'bottom' 	=> '0.83em',
+	'bottom' 	=> '0.5rem',
 	) );
 
 $hiilite_options['typography_h2_font']				= get_theme_mod( 'typography_h2_font', array(
@@ -667,7 +672,7 @@ $hiilite_options['typography_h2_font']				= get_theme_mod( 'typography_h2_font',
     ) );
 $hiilite_options['typography_h2_margin']			= get_theme_mod( 'typography_h2_margin', array(
 	'top' 		=> '0',
-	'bottom' 	=> '0.83em',
+	'bottom' 	=> '0.5rem',
 	) );
     
 $hiilite_options['typography_h3_font']				= get_theme_mod( 'typography_h3_font', array(
@@ -682,7 +687,7 @@ $hiilite_options['typography_h3_font']				= get_theme_mod( 'typography_h3_font',
     ) );
 $hiilite_options['typography_h3_margin']			= get_theme_mod( 'typography_h3_margin', array(
 	'top' 		=> '0',
-	'bottom' 	=> '0.83em',
+	'bottom' 	=> '0.5rem',
 	) );    
 	
 $hiilite_options['typography_h4_font']				= get_theme_mod( 'typography_h4_font', array(
@@ -697,7 +702,7 @@ $hiilite_options['typography_h4_font']				= get_theme_mod( 'typography_h4_font',
     ) );
 $hiilite_options['typography_h4_margin']			= get_theme_mod( 'typography_h4_margin', array(
 	'top' 		=> '0',
-	'bottom' 	=> '0.83em',
+	'bottom' 	=> '0.5rem',
 	) );
     
 $hiilite_options['typography_h5_font']				= get_theme_mod( 'typography_h5_font', array(
@@ -712,7 +717,7 @@ $hiilite_options['typography_h5_font']				= get_theme_mod( 'typography_h5_font',
     ) );
 $hiilite_options['typography_h5_margin']			= get_theme_mod( 'typography_h5_margin', array(
 	'top' 		=> '0',
-	'bottom' 	=> '0.83em',
+	'bottom' 	=> '0.5rem',
 	) );
     
 $hiilite_options['typography_h6_font']				= get_theme_mod( 'typography_h6_font', array(
@@ -727,7 +732,7 @@ $hiilite_options['typography_h6_font']				= get_theme_mod( 'typography_h6_font',
     ) );
 $hiilite_options['typography_h6_margin']			= get_theme_mod( 'typography_h6_margin', array(
 	'top' 		=> '0',
-	'bottom' 	=> '0.83em',
+	'bottom' 	=> '0.5rem',
 	) );    
 
 $hiilite_options['h1_color']					= '#635d5d';
@@ -741,7 +746,7 @@ $hiilite_options['h6_color']					= '#635d5d';
 7.2 Paragraphs & Links
 --------------------------------------------------------------*/
 $hiilite_options['typography_link_custom_css']	= get_theme_mod( 'typography_link_custom_css', 'a {
-	text-decoration:none;
+	text-decoration: underline;
 }' );
 $hiilite_options['link_color']				=get_theme_mod( 'link_color', array(
         'link'    => $hiilite_options['color_one'],

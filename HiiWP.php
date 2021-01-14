@@ -8,7 +8,7 @@
  * @author      Peter Vigilante
  * @copyright   Copyright (c) 2017, Hiilite Creative Group
  * @license     http://opensource.org/licenses/https://opensource.org/licenses/MIT
- * @since       1.0.4
+ * @since       1.0.8
  */
 if ( ! defined( 'ABSPATH' ) )	exit;
 /**
@@ -257,9 +257,11 @@ class HiiWP extends Hii {
 	public static function add_favicons(){		
 		$favicon = self::$hiilite_options['favicon'];
 		echo "<link rel='shortcut icon' href='$favicon'>";
+		/* Removed Safari Icon Customizer Option - Related files: HiiWP.php lines 260-263, site_variables.php lines 166-169, theme_options.php lines 126-146
 		$safari_icon = self::$hiilite_options['safari_icon'];
 		$safari_icon_color = self::$hiilite_options['safari_icon_color'];
 		echo "<link rel='mask-icon' href='$safari_icon' color='$safari_icon_color'>";
+		*/
 		?><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"><?php
 	}
 	
@@ -744,11 +746,6 @@ class HiiWP extends Hii {
 	            'required'  => false,
 	        ),
 	        array(
-	            'name'      => 'Optimus',
-	            'slug'      => 'optimus',
-	            'required'  => false,
-	        ),
-	        array(
 	            'name'      => 'Cloudflare',
 	            'slug'      => 'cloudflare',
 	            'required'  => false,
@@ -757,7 +754,7 @@ class HiiWP extends Hii {
 	            'name'               => 'Gravity Forms',
 	            'slug'               => 'gravityforms', 
 	            'source'             => 'https://hiilite.com/download/9030/',
-	            'version'			 => '2.2.5.20',
+	            'version'			 => '2.4.22',
 	            'required'           => false, 
 	            'force_activation'   => false, 
 	            'force_deactivation' => false, 
@@ -765,7 +762,7 @@ class HiiWP extends Hii {
 	        array(
 	            'name'               => 'Collapse Admin Bar', // The plugin name.
 	            'slug'               => 'collapse-admin-bar', // The plugin slug (typically the folder name).
-	            'source'             => 'https://hiilite.com/download/13711/', // The plugin source.
+	            'source'             => 'https://hiilite.com/download/18028/', // The plugin source.
 	            'version'			 => '1.1',
 	            'required'           => false, 
 	            'force_activation'   => false, 
@@ -787,8 +784,18 @@ class HiiWP extends Hii {
 	            'required'  => false,
 	        ),
 	        array(
-	            'name'      => 'Loginizer',
-	            'slug'      => 'loginizer',
+	            'name'      => 'WPS Limit Login',
+	            'slug'      => 'wps-limit-login',
+	            'required'  => false,
+	        ),
+	        array(
+	            'name'      => 'WPS Hide Login',
+	            'slug'      => 'wps-hide-login',
+	            'required'  => false,
+	        ),
+	        array(
+	            'name'      => 'Sucuri Security – Auditing, Malware Scanner and Security Hardening',
+	            'slug'      => 'sucuri-scanner',
 	            'required'  => false,
 	        ),
         );
@@ -811,15 +818,28 @@ class HiiWP extends Hii {
 	            'force_activation'   => true, // If true, plugin is activated upon theme activation and cannot be deactivated until theme switch.
 	            'force_deactivation' => false, // If true, plugin is deactivated upon theme switch, useful for theme-specific plugins.
 	        ),
-			array(
-	            'name'      => 'One Click Demo Import',
-	            'slug'      => 'one-click-demo-import',
-	            'required'  => false,
-	        ),
 	        array(
 	            'name'      => 'Yoast SEO',
 	            'slug'      => 'wordpress-seo',
 	            'required'  => false,
+	        ),
+	        array(
+	            'name'               => 'WPMU DEV Dashboard',
+	            'slug'               => 'wpmudev-updates',
+	            'source'             => 'https://hiilite.com/download/18025/', // The plugin source.
+	            'version'			 => '4.10.6',
+	            'required'           => false, 
+	            'force_activation'   => false, 
+	            'force_deactivation' => false, 
+	        ),
+	        array(
+	            'name'               => 'Smush Pro',
+	            'slug'               => 'wp-smush-pro',
+	            'source'             => 'https://hiilite.com/download/18022/', // The plugin source.
+	            'version'			 => '3.8.2',
+	            'required'           => false, 
+	            'force_activation'   => false, 
+	            'force_deactivation' => false, 
 	        ),
 	    );
 		

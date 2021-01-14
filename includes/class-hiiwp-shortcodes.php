@@ -36,5 +36,5 @@ class HiiWP_Shortcodes {
 		} 
 		
 	}
-	
+
 }

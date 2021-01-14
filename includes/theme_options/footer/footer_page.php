@@ -32,3 +32,41 @@ Kirki::add_field( 'hiiwp', array(
 	    )),
 ) );
 
+Kirki::add_field( 'hiiwp', array(
+	'type'        => 'spacing',
+	'settings'    => 'footer_page_padding',
+	'label'       => __( 'Footer Page Padding', 'hiiwp' ),
+	'description' => __('Set padding for footer page section', 'hiiwp'),
+	'section'     => $section,
+	'default'     => array(
+		'top'    => '1em',
+		'bottom' => '1em',
+	),
+	'priority'    => 8,
+	'required'	  => array(
+		array(
+			'setting'  => 'footer_page_on',
+			'operator' => '==',
+			'value'    => true,
+	)),
+	'transport'   => 'postMessage',
+    'active_callback'	=> array(
+		array(
+			'setting'  => 'footer_text_yesno',
+			'operator' => '==',
+			'value'    => true,
+		),
+	),
+    'output' => array(
+		array(
+			'element'  => '#footer_page',
+			'property' => 'padding',
+		),
+	),
+	'js_vars' => array(
+		array(
+			'element'  => '#footer_page',
+			'property' => 'padding',
+		),
+	),
+) );

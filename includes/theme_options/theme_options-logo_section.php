@@ -117,12 +117,13 @@ Kirki::add_field( 'hiiwp', array(
 	'type'        => 'image',
 	'settings'    => 'favicon',
 	'label'       => __( 'Favicon', 'hiiwp' ),
-	'description' => __( 'Ideally use square images around 64x64', 'hiiwp' ),
+	'description' => __( 'Use a square image', 'hiiwp' ),
 	'section'     => $section,
 	'priority'    => 4,
 	'default'     => $hiilite_options['favicon'],
 ) );
 
+/* Removed Safari Icon Customizer Option - Related files: HiiWP.php lines 260-263, site_variables.php lines 166-169, theme_options.php lines 126-146
 Kirki::add_field( 'hiiwp', array(
 	'type'        => 'image',
 	'settings'    => 'safari_icon',
@@ -142,4 +143,5 @@ Kirki::add_field( 'hiiwp', array(
 	'priority'    => 4,
 	'default'     => $hiilite_options['safari_icon_color'],
 ) );
+*/
 	?>

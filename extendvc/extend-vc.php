@@ -26,6 +26,7 @@ vc_remove_element('vc_button2');
 //	ROW
 //
 ////////////////////////////
+
 $vc_row_params = array(
 		array(
 			'type' => 'checkbox',
@@ -84,11 +85,27 @@ $vc_row_params = array(
 		),
 		
 		array(
-			'type' => 'checkbox',
-			'heading' => __( 'Parallax', 'hiiwp' ),
-			'param_name' => 'parallax',
-			'value' => array(__( 'Yes', 'hiiwp' ) => 'yes'),
-			'description' => __( 'Make row background image parallax. (Must set a Background image in Design Options tab.)', 'hiiwp' ),
+			'type' => 'textfield',
+			'heading' => esc_html__( 'Parallax speed', 'js_composer' ),
+			'param_name' => 'parallax_speed_video',
+			'value' => '1.5',
+			'description' => esc_html__( 'Enter parallax speed ratio (Note: Default value is 1.5, min value is 1)', 'js_composer' ),
+			'dependency' => array(
+				'element' => 'video_bg_parallax',
+				'not_empty' => true,
+			),
+		),
+		
+		array(
+			'type' => 'textfield',
+			'heading' => esc_html__( 'Parallax speed', 'js_composer' ),
+			'param_name' => 'parallax_speed_bg',
+			'value' => '1.5',
+			'description' => esc_html__( 'Enter parallax speed ratio (Note: Default value is 1.5, min value is 1)', 'js_composer' ),
+			'dependency' => array(
+				'element' => 'parallax',
+				'not_empty' => true,
+			),
 		),
 		
 		array(
@@ -2169,118 +2186,57 @@ vc_map( array(
 //
 ///////////////////////////// 
 vc_map( array(
-		"name" => "Text Block",
-		"base" => "vc_column_text", 
-		"category" => 'HiiWP',
-		'icon' => 'icon-wpb-layer-shape-text',
-		'wrapper_class' => 'clearfix',
-		'category' => __( 'Content', 'hiiwp' ),
-		'description' => __( 'A block of text with WYSIWYG editor', 'hiiwp' ),
-		'params' => array(
-			array(
-				'type' => 'textarea_html',
-				'holder' => 'div',
-				'heading' => __( 'Text', 'hiiwp' ),
-				'param_name' => 'content',
-				'value' => __( '<p>I am text block. Click edit button to change this text. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus, luctus nec ullamcorper mattis, pulvinar dapibus leo.</p>', 'hiiwp' ),
-			),
-			array(
-				'type' => 'checkbox',
-				'heading' => __( 'White Text', 'hiiwp' ),
-				'param_name' => 'white_text',
-				'description' => __( 'Set text color to white.', 'hiiwp' ),
-				'value' => array( __( 'Yes', 'hiiwp' ) => 'yes' ),
-			),
-			array(
-				'type' => 'el_id',
-				'heading' => __( 'Element ID', 'hiiwp' ),
-				'param_name' => 'el_id',
-				'description' => sprintf( __( 'Enter element ID (Note: make sure it is unique and valid according to <a href="%s" target="_blank">w3c specification</a>).', 'hiiwp' ), 'http://www.w3schools.com/tags/att_global_id.asp' ),
-			),
-			array(
-				'type' => 'textfield',
-				'heading' => __( 'Extra class name', 'hiiwp' ),
-				'param_name' => 'el_class',
-				'description' => __( 'Style particular content element differently - add a class name and refer to it in custom CSS.', 'hiiwp' ),
-			),
-			array(
-				'type' 			=> 'iconpicker',
-				'heading' 		=> __( 'Icon', 'hiiwp' ),
-				'param_name' 	=> 'icon',
-				'description' 	=> __( 'Add an Icon to the text box', 'hiiwp' ),
-				'group'			=> __( 'Icon', 'hiiwp' ),
-				'settings' 		=> array(
-					'emptyIcon'		=> true,
-					'type'			=> 'fontawesome',
-					'iconsPerPage'	=> 200
-				),
-			),
-			array(
-				'type' 			=> 'dropdown',
-				'heading' 		=> __( 'Icon Size', 'hiiwp' ),
-				'param_name' 	=> 'icon_size',
-				'group'			=> __('Icon', 'hiiwp'),
-				'description' 	=> __( 'Size of the icon', 'hiiwp' ),
-				'value' => array(
-					__( 'Small', 'hiiwp' ) => 'small',
-					__( 'Regular', 'hiiwp' ) => 'regular',
-					__( 'Large', 'hiiwp' ) => 'large',
-					__( 'Extra Large', 'hiiwp' ) => 'extra-large',
-				),
-			),
-			array(
-				'type' 			=> 'dropdown',
-				'heading' 		=> __( 'Icon Position', 'hiiwp' ),
-				'param_name' 	=> 'icon_position',
-				'group'			=> __('Icon', 'hiiwp'),
-				'description' 	=> __( 'Where would you like the icon positioned in relation to the text box', 'hiiwp' ),
-				'value' => array(
-					__( 'Top', 'hiiwp' ) => 'top',
-					__( 'Right', 'hiiwp' ) => 'right',
-					__( 'Bottom', 'hiiwp' ) => 'bottom',
-					__( 'Left', 'hiiwp' ) => 'left',
-				),
-			),
-			array(
-				'type' 			=> 'dropdown',
-				'heading' 		=> __( 'Icon Align', 'hiiwp' ),
-				'param_name' 	=> 'icon_align',
-				'group'			=> __('Icon', 'hiiwp'),
-				'description' 	=> __( 'How would you like the icon aligned', 'hiiwp' ),
-				'value' => array(
-					__( 'Center', 'hiiwp' ) => 'center',
-					__( 'Left', 'hiiwp' ) => 'left',
-					__( 'Right', 'hiiwp' ) => 'right',
-				),
-			),
-			array(
-				'type' 			=> 'colorpicker',
-				'heading' 		=> __( 'Icon Color', 'hiiwp' ),
-				'param_name' 	=> 'icon_color',
-				'group'			=> __('Icon', 'hiiwp'),
-				'description' 	=> __( 'Color of icon', 'hiiwp' ),
-				'value'			=> '#c3c3c3'
-			),
-			
-			array(
-				'type' => 'css_editor',
-				'heading' => __( 'CSS box', 'hiiwp' ),
-				'param_name' => 'css',
-				'group' => __( 'Design Options', 'hiiwp' ),
-			),
-				array(
-				"type" => "textfield",
-				"holder" 		=> "div",
-				"class" 		=> "",
-				"heading" 		=> "On Click Action",
-				"param_name" 	=> "on_click",
-				"description"	=> "ex: ga('send', 'event', 'Category', 'Action', 'Label', 'Value');",
-				'group' 		=> __( 'Advanced', 'hiiwp' ),
-			),
-		)
-
+	'name' => __( 'Text Block', 'js_composer' ),
+	'base' => 'vc_column_text', 
+	'icon' => 'icon-wpb-layer-shape-text',
+	'wrapper_class' => 'clearfix',
+	'category' => __( 'Content', 'js_composer' ),
+	'description' => __( 'A block of text with WYSIWYG editor', 'js_composer' ),
+	'params' => array(
+		array(
+			'type'          => 'textarea_html',
+			'holder'        => 'div',
+			'heading'       => __( 'Text', 'js_composer' ),
+			'param_name'    => 'content',
+			'value'         => '<p>' . __( 'I am text block. Click edit button to change this text. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus, luctus nec ullamcorper mattis, pulvinar dapibus leo.', 'js_composer' ) . '</p>',
+		),
+		vc_map_add_css_animation(),
+		array(
+			'type'          => 'checkbox',
+			'heading'       => __( 'White Text', 'hiiwp' ),
+			'param_name'    => 'white_text',
+			'description'   => __( 'Set text color to white.', 'hiiwp' ),
+			'value'         => array( __( 'Yes', 'hiiwp' ) => 'yes' ),
+		),
+		array(
+			'type'          => 'el_id',
+			'heading'       => __( 'Element ID', 'js_composer' ),
+			'param_name'    => 'el_id',
+			'description'   => sprintf( __( 'Enter element ID (Note: make sure it is unique and valid according to %sw3c specification%s).', 'js_composer' ), '<a href="https://www.w3schools.com/tags/att_global_id.asp" target="_blank">', '</a>' ),
+		),
+		array(
+			'type'          => 'textfield',
+			'heading'       => __( 'Extra class name', 'js_composer' ),
+			'param_name'    => 'el_class',
+			'description'   => __( 'Style particular content element differently - add a class name and refer to it in custom CSS.', 'js_composer' ),
+		),
+		array(
+			'type'          => 'css_editor',
+			'heading'       => __( 'CSS box', 'js_composer' ),
+			'param_name'    => 'css',
+			'group'         => __( 'Design Options', 'js_composer' ),
+		),
+		array(
+			"type"          => "textfield",
+			"holder" 		=> "div",
+			"class" 		=> "",
+			"heading" 		=> "On Click Action",
+			"param_name" 	=> "on_click",
+			"description"	=> "ex: ga('send', 'event', 'Category', 'Action', 'Label', 'Value');",
+			"group" 		=> __( 'On Click', 'hiiwp' ),
+		),
+	)
 ) );
-//vc_remove_param( "vc_column_text", "css_animation" );
 
 
 /**
@@ -2394,7 +2350,50 @@ vc_map( array(
 				"description"	=> "ex: ga('send', 'event', 'Category', 'Action', 'Label', 'Value');",
 				'group' 		=> __( 'Advanced', 'hiiwp' ),
 			),
-	       
+			array(
+				'type' 			=> 'iconpicker',
+				'heading' 		=> __( 'Icon', 'hiiwp' ),
+				'param_name' 	=> 'icon',
+				'description' 	=> __( 'Add an Icon to the text box', 'hiiwp' ),
+				'group'			=> __( 'Icon', 'hiiwp' ),
+				'settings' 		=> array(
+					'emptyIcon'		=> true,
+					'type'			=> 'fontawesome',
+					'iconsPerPage'	=> 200
+				),
+			),
+			array(
+				'type' 			=> 'dropdown',
+				'heading' 		=> __( 'Icon Size', 'hiiwp' ),
+				'param_name' 	=> 'icon_size',
+				'group'			=> __('Icon', 'hiiwp'),
+				'description' 	=> __( 'Size of the icon', 'hiiwp' ),
+				'value' => array(
+					__( 'Small', 'hiiwp' ) => 'small',
+					__( 'Regular', 'hiiwp' ) => 'regular',
+					__( 'Large', 'hiiwp' ) => 'large',
+					__( 'Extra Large', 'hiiwp' ) => 'extra-large',
+				),
+			),
+			array(
+				'type' 			=> 'dropdown',
+				'heading' 		=> __( 'Icon Position', 'hiiwp' ),
+				'param_name' 	=> 'icon_position',
+				'group'			=> __('Icon', 'hiiwp'),
+				'description' 	=> __( 'Where would you like the icon positioned in relation to the text box', 'hiiwp' ),
+				'value' => array(
+					__( 'Left', 'hiiwp' ) => 'left',
+					__( 'Right', 'hiiwp' ) => 'right',
+				),
+			),
+			array(
+				'type' 			=> 'colorpicker',
+				'heading' 		=> __( 'Icon Color', 'hiiwp' ),
+				'param_name' 	=> 'icon_color',
+				'group'			=> __('Icon', 'hiiwp'),
+				'description' 	=> __( 'Color of icon', 'hiiwp' ),
+				'value'			=> '#c3c3c3'
+			),
 		)
 ) );
 
@@ -3216,17 +3215,6 @@ vc_remove_param( "vc_single_image", "title" );
 vc_remove_param( "vc_single_image", "style" ); 
 vc_remove_param( "vc_single_image", "img_link_target" );
 vc_remove_param( "vc_single_image", "border_color" );
-
-/*
- *	vc_video
- */
-vc_add_param( 'vc_video', array(
-    'type' => 'checkbox',
-    'heading' => __( 'Default Padding', 'hiiwp' ),
-    'param_name' => 'default_padding',
-    'description' => __('Add default theme padding of 1em to match text blocks.', 'hiiwp'),
-));
-vc_remove_param( "vc_video", "title" );
 
 /*
  *	WooCommerce

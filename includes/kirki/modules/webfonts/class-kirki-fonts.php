@@ -4,9 +4,9 @@
  *
  * @package     Kirki
  * @category    Core
- * @author      Aristeides Stathopoulos
- * @copyright   Copyright (c) 2017, Aristeides Stathopoulos
- * @license    https://opensource.org/licenses/MIT
+ * @author      Ari Stathopoulos (@aristath)
+ * @copyright   Copyright (c) 2020, David Vongries
+ * @license     https://opensource.org/licenses/MIT
  * @since       1.0
  */
 
@@ -70,7 +70,6 @@ final class Kirki_Fonts {
 	public static function get_all_fonts() {
 		$standard_fonts = self::get_standard_fonts();
 		$google_fonts   = self::get_google_fonts();
-
 		return apply_filters( 'kirki_fonts_all', array_merge( $standard_fonts, $google_fonts ) );
 	}
 
@@ -98,22 +97,6 @@ final class Kirki_Fonts {
 	}
 
 	/**
-	 * Return an array of backup fonts based on the font-category
-	 *
-	 * @return array
-	 */
-	public static function get_backup_fonts() {
-		$backup_fonts = array(
-			'sans-serif'  => 'Helvetica, Arial, sans-serif',
-			'serif'       => 'Georgia, serif',
-			'display'     => '"Comic Sans MS", cursive, sans-serif',
-			'handwriting' => '"Comic Sans MS", cursive, sans-serif',
-			'monospace'   => '"Lucida Console", Monaco, monospace',
-		);
-		return apply_filters( 'kirki_fonts_backup_fonts', $backup_fonts );
-	}
-
-	/**
 	 * Return an array of all available Google Fonts.
 	 *
 	 * @return array    All Google Fonts.
@@ -123,8 +106,13 @@ final class Kirki_Fonts {
 		// Get fonts from cache.
 		self::$google_fonts = get_site_transient( 'kirki_googlefonts_cache' );
 
-		// If we're debugging, don't use cached.
-		if ( defined( 'WP_DEBUG' ) && WP_DEBUG ) {
+		/**
+		 * Reset the cache if we're using action=kirki-reset-cache in the URL.
+		 *
+		 * Note to code reviewers:
+		 * There's no need to check nonces or anything else, this is a simple true/false evaluation.
+		 */
+		if ( ! empty( $_GET['action'] ) && 'kirki-reset-cache' === $_GET['action'] ) { // phpcs:ignore WordPress.Security.NonceVerification
 			self::$google_fonts = false;
 		}
 
@@ -135,7 +123,7 @@ final class Kirki_Fonts {
 
 		// If we got this far, cache was empty so we need to get from JSON.
 		ob_start();
-		include wp_normalize_path( dirname( __FILE__ ) . '/webfonts.json' );
+		include wp_normalize_path( dirname( __FILE__ ) . '/webfonts.json' ); // phpcs:ignore WPThemeReview.CoreFunctionality.FileInclude
 
 		$fonts_json = ob_get_clean();
 		$fonts      = json_decode( $fonts_json, true );
@@ -155,7 +143,7 @@ final class Kirki_Fonts {
 		self::$google_fonts = apply_filters( 'kirki_fonts_google_fonts', $google_fonts );
 
 		// Save the array in cache.
-		$cache_time = apply_filters( 'kirki_googlefonts_transient_time', HOUR_IN_SECONDS );
+		$cache_time = apply_filters( 'kirki_googlefonts_transient_time', DAY_IN_SECONDS );
 		set_site_transient( 'kirki_googlefonts_cache', self::$google_fonts, $cache_time );
 
 		return self::$google_fonts;
@@ -207,29 +195,29 @@ final class Kirki_Fonts {
 	 */
 	public static function get_all_variants() {
 		return array(
-			'100'       => esc_attr__( 'Ultra-Light 100', 'kirki' ),
-			'100light'  => esc_attr__( 'Ultra-Light 100', 'kirki' ),
-			'100italic' => esc_attr__( 'Ultra-Light 100 Italic', 'kirki' ),
-			'200'       => esc_attr__( 'Light 200', 'kirki' ),
-			'200italic' => esc_attr__( 'Light 200 Italic', 'kirki' ),
-			'300'       => esc_attr__( 'Book 300', 'kirki' ),
-			'300italic' => esc_attr__( 'Book 300 Italic', 'kirki' ),
-			'400'       => esc_attr__( 'Normal 400', 'kirki' ),
-			'regular'   => esc_attr__( 'Normal 400', 'kirki' ),
-			'italic'    => esc_attr__( 'Normal 400 Italic', 'kirki' ),
-			'500'       => esc_attr__( 'Medium 500', 'kirki' ),
-			'500italic' => esc_attr__( 'Medium 500 Italic', 'kirki' ),
-			'600'       => esc_attr__( 'Semi-Bold 600', 'kirki' ),
-			'600bold'   => esc_attr__( 'Semi-Bold 600', 'kirki' ),
-			'600italic' => esc_attr__( 'Semi-Bold 600 Italic', 'kirki' ),
-			'700'       => esc_attr__( 'Bold 700', 'kirki' ),
-			'700italic' => esc_attr__( 'Bold 700 Italic', 'kirki' ),
-			'800'       => esc_attr__( 'Extra-Bold 800', 'kirki' ),
-			'800bold'   => esc_attr__( 'Extra-Bold 800', 'kirki' ),
-			'800italic' => esc_attr__( 'Extra-Bold 800 Italic', 'kirki' ),
-			'900'       => esc_attr__( 'Ultra-Bold 900', 'kirki' ),
-			'900bold'   => esc_attr__( 'Ultra-Bold 900', 'kirki' ),
-			'900italic' => esc_attr__( 'Ultra-Bold 900 Italic', 'kirki' ),
+			'100'       => esc_html__( 'Ultra-Light 100', 'kirki' ),
+			'100light'  => esc_html__( 'Ultra-Light 100', 'kirki' ),
+			'100italic' => esc_html__( 'Ultra-Light 100 Italic', 'kirki' ),
+			'200'       => esc_html__( 'Light 200', 'kirki' ),
+			'200italic' => esc_html__( 'Light 200 Italic', 'kirki' ),
+			'300'       => esc_html__( 'Book 300', 'kirki' ),
+			'300italic' => esc_html__( 'Book 300 Italic', 'kirki' ),
+			'400'       => esc_html__( 'Normal 400', 'kirki' ),
+			'regular'   => esc_html__( 'Normal 400', 'kirki' ),
+			'italic'    => esc_html__( 'Normal 400 Italic', 'kirki' ),
+			'500'       => esc_html__( 'Medium 500', 'kirki' ),
+			'500italic' => esc_html__( 'Medium 500 Italic', 'kirki' ),
+			'600'       => esc_html__( 'Semi-Bold 600', 'kirki' ),
+			'600bold'   => esc_html__( 'Semi-Bold 600', 'kirki' ),
+			'600italic' => esc_html__( 'Semi-Bold 600 Italic', 'kirki' ),
+			'700'       => esc_html__( 'Bold 700', 'kirki' ),
+			'700italic' => esc_html__( 'Bold 700 Italic', 'kirki' ),
+			'800'       => esc_html__( 'Extra-Bold 800', 'kirki' ),
+			'800bold'   => esc_html__( 'Extra-Bold 800', 'kirki' ),
+			'800italic' => esc_html__( 'Extra-Bold 800 Italic', 'kirki' ),
+			'900'       => esc_html__( 'Ultra-Bold 900', 'kirki' ),
+			'900bold'   => esc_html__( 'Ultra-Bold 900', 'kirki' ),
+			'900italic' => esc_html__( 'Ultra-Bold 900 Italic', 'kirki' ),
 		);
 	}
 

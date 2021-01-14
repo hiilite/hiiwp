@@ -4,9 +4,9 @@
  *
  * @package     Kirki
  * @category    Core
- * @author      Aristeides Stathopoulos
- * @copyright   Copyright (c) 2017, Aristeides Stathopoulos
- * @license    https://opensource.org/licenses/MIT
+ * @author      Ari Stathopoulos (@aristath)
+ * @copyright   Copyright (c) 2020, David Vongries
+ * @license     https://opensource.org/licenses/MIT
  * @since       1.0
  */
 
@@ -25,10 +25,19 @@ class Kirki_Init {
 	private $control_types = array();
 
 	/**
+	 * Should we show a nag for the deprecated fontawesome field?
+	 *
+	 * @static
+	 * @access private
+	 * @since 3.0.42
+	 * @var bool
+	 */
+	private static $show_fa_nag = false;
+
+	/**
 	 * The class constructor.
 	 */
 	public function __construct() {
-
 		self::set_url();
 		add_action( 'after_setup_theme', array( $this, 'set_url' ) );
 		add_action( 'wp_loaded', array( $this, 'add_to_customizer' ), 1 );
@@ -37,6 +46,9 @@ class Kirki_Init {
 		add_action( 'customize_register', array( $this, 'remove_panels' ), 99999 );
 		add_action( 'customize_register', array( $this, 'remove_sections' ), 99999 );
 		add_action( 'customize_register', array( $this, 'remove_controls' ), 99999 );
+
+		add_action( 'admin_notices', array( $this, 'admin_notices' ) );
+		add_action( 'admin_init', array( $this, 'dismiss_nag' ) );
 
 		new Kirki_Values();
 		new Kirki_Sections();
@@ -49,7 +61,6 @@ class Kirki_Init {
 	 * @access public
 	 */
 	public static function set_url() {
-
 		if ( Kirki_Util::is_plugin() ) {
 			return;
 		}
@@ -79,7 +90,6 @@ class Kirki_Init {
 	 * @return array
 	 */
 	public function default_control_types( $control_types = array() ) {
-
 		$this->control_types = array(
 			'checkbox'              => 'Kirki_Control_Checkbox',
 			'kirki-background'      => 'Kirki_Control_Background',
@@ -92,7 +102,6 @@ class Kirki_Init {
 			'kirki-dimension'       => 'Kirki_Control_Dimension',
 			'kirki-dimensions'      => 'Kirki_Control_Dimensions',
 			'kirki-editor'          => 'Kirki_Control_Editor',
-			'kirki-fontawesome'     => 'Kirki_Control_FontAwesome',
 			'kirki-image'           => 'Kirki_Control_Image',
 			'kirki-multicolor'      => 'Kirki_Control_Multicolor',
 			'kirki-multicheck'      => 'Kirki_Control_MultiCheck',
@@ -115,7 +124,6 @@ class Kirki_Init {
 			'upload'                => 'Kirki_Control_Upload',
 		);
 		return array_merge( $this->control_types, $control_types );
-
 	}
 
 	/**
@@ -151,7 +159,8 @@ class Kirki_Init {
 		}
 
 		$skip_control_types = apply_filters(
-			'kirki_control_types_exclude', array(
+			'kirki_control_types_exclude',
+			array(
 				'Kirki_Control_Repeater',
 				'WP_Customize_Control',
 			)
@@ -216,7 +225,6 @@ class Kirki_Init {
 	 * @var object The WordPress Customizer object.
 	 */
 	public function add_fields() {
-
 		global $wp_customize;
 		foreach ( Kirki::$fields as $args ) {
 
@@ -243,7 +251,6 @@ class Kirki_Init {
 	 * @since 2.0.0
 	 */
 	private function fields_from_filters() {
-
 		$fields = apply_filters( 'kirki_controls', array() );
 		$fields = apply_filters( 'kirki_fields', $fields );
 
@@ -264,7 +271,6 @@ class Kirki_Init {
 	 * @return bool
 	 */
 	public static function is_plugin() {
-		// Return result using the Kirki_Util class.
 		return Kirki_Util::is_plugin();
 	}
 
@@ -278,9 +284,9 @@ class Kirki_Init {
 	 * @return array Formatted as array( 'variable-name' => value ).
 	 */
 	public static function get_variables() {
+
 		// Log error for developers.
-		_doing_it_wrong( __METHOD__, esc_attr__( 'We detected you\'re using Kirki_Init::get_variables(). Please use Kirki_Util::get_variables() instead.', 'kirki' ), '3.0.10' );
-		// Return result using the Kirki_Util class.
+		_doing_it_wrong( __METHOD__, esc_html__( 'We detected you\'re using Kirki_Init::get_variables(). Please use Kirki_Util::get_variables() instead.', 'kirki' ), '3.0.10' );
 		return Kirki_Util::get_variables();
 	}
 
@@ -320,6 +326,93 @@ class Kirki_Init {
 	public function remove_controls( $wp_customize ) {
 		foreach ( Kirki::$controls_to_remove as $control ) {
 			$wp_customize->remove_control( $control );
+		}
+	}
+
+	/**
+	 * Shows an admin notice.
+	 *
+	 * @access public
+	 * @since 3.0.42
+	 * @return void
+	 */
+	public function admin_notices() {
+
+		// No need for a nag if we don't need to recommend installing the FA plugin.
+		if ( ! self::$show_fa_nag ) {
+			return;
+		}
+
+		// No need for a nag if FA plugin is already installed.
+		if ( defined( 'FONTAWESOME_DIR_PATH' ) ) {
+			return;
+		}
+
+		// No need for a nag if current user can't install plugins.
+		if ( ! current_user_can( 'install_plugins' ) ) {
+			return;
+		}
+
+		// No need for a nag if user has dismissed it.
+		$dismissed = get_user_meta( get_current_user_id(), 'kirki_fa_nag_dismissed', true );
+		if ( true === $dismissed || 1 === $dismissed || '1' === $dismissed ) {
+			return;
+		}
+
+		?>
+		<div class="notice notice-info is-dismissible">
+			<p>
+				<?php esc_html_e( 'Your theme uses a Font Awesome field for icons. To avoid issues with missing icons on your frontend we recommend you install the official Font Awesome plugin.', 'kirki' ); ?>
+			</p>
+			<p>
+				<a class="button button-primary" href="<?php echo esc_url( admin_url( 'plugin-install.php?tab=plugin-information&plugin=font-awesome&TB_iframe=true&width=600&height=550' ) ); ?>"><?php esc_html_e( 'Install Plugin', 'kirki' ); ?></a>
+				<a class="button button-secondary" href="<?php echo esc_url( wp_nonce_url( admin_url( '?dismiss-nag=font-awesome-kirki' ), 'kirki-dismiss-nag', 'nonce' ) ); ?>"><?php esc_html_e( 'Don\'t show this again', 'kirki' ); ?></a>
+			</p>
+		</div>
+		<?php
+	}
+
+	/**
+	 * Dismisses the nag.
+	 *
+	 * @access public
+	 * @since 3.0.42
+	 * @return void
+	 */
+	public function dismiss_nag() {
+		if ( isset( $_GET['nonce'] ) && wp_verify_nonce( $_GET['nonce'], 'kirki-dismiss-nag' ) ) { // phpcs:ignore WordPress.Security.ValidatedSanitizedInput
+			if ( get_current_user_id() && isset( $_GET['dismiss-nag'] ) && 'font-awesome-kirki' === $_GET['dismiss-nag'] ) {
+				update_user_meta( get_current_user_id(), 'kirki_fa_nag_dismissed', true );
+			}
+		}
+	}
+
+	/**
+	 * Handles showing a nag if the theme is using the deprecated fontawesome field
+	 *
+	 * @static
+	 * @access protected
+	 * @since 3.0.42
+	 * @param array $args The field arguments.
+	 * @return void
+	 */
+	protected static function maybe_show_fontawesome_nag( $args ) {
+
+		// If we already know we want it, skip check.
+		if ( self::$show_fa_nag ) {
+			return;
+		}
+
+		// Check if the field is fontawesome.
+		if ( isset( $args['type'] ) && in_array( $args['type'], array( 'fontawesome', 'kirki-fontawesome' ), true ) ) {
+
+			// Skip check if theme has disabled FA enqueueing via a filter.
+			if ( ! apply_filters( 'kirki_load_fontawesome', true ) ) {
+				return;
+			}
+
+			// If we got this far, we need to show the nag.
+			self::$show_fa_nag = true;
 		}
 	}
 }

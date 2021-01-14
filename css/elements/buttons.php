@@ -124,3 +124,40 @@ else echo Hii::$options['typography_button_secondary_custom_css'];
     border-top-left-radius: 0;
     border-bottom-left-radius: 0;
 }
+
+.button.icon_button, .btn.icon_button {
+	display: inline-flex;
+    align-items: center;
+}
+.icon_button.icon_button_left_small span {
+    margin-bottom:-2px;
+    margin-left:0.5rem;
+}
+.icon_button.icon_button_left_regular span {
+    margin-bottom:-2px;
+    margin-left:0.5rem;
+}
+.icon_button.icon_button_left_large span {
+    margin-bottom:-4px;
+    margin-left:0.5rem;
+}
+.icon_button.icon_button_left_extra-large span {
+    margin-bottom:-6px;
+    margin-left:0.5rem;
+}
+.icon_button.icon_button_right_small span {
+    margin-bottom:-1px;
+    margin-right:0.5rem;
+}
+.icon_button.icon_button_right_regular span {
+    margin-bottom:-2px;
+    margin-right:0.5rem;
+}
+.icon_button.icon_button_right_large span {
+    margin-bottom:-4px;
+    margin-right:0.5rem;
+}
+.icon_button.icon_button_right_extra-large span {
+    margin-bottom:-5px;
+    margin-right:0.5rem;
+}

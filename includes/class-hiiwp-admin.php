@@ -127,14 +127,15 @@ class HiiWP_Admin {
 	 * 
 	 * @access public
 	 * @return void
-	 */
+	*/
 	public function custom_colors() {
 		
 		include_once(HIILITE_DIR . '/includes/site_variables.php');
-		echo '<style>';
+		/* ? failed to open stream: No such file or directory - mysterious file missing */
+		/* echo '<style>';
 			include_once(HIILITE_DIR . '/css/editor-style.php');
 		echo '</style>';
-		add_editor_style( HIILITE_DIR.'/css/editor-style.css' ); 
+		add_editor_style( HIILITE_DIR.'/css/editor-style.css' ); */
 	}
 	
 

@@ -7,10 +7,10 @@
  * @package     hiiwp
  * @copyright   Copyright (c) 2016, Hiilite Creative Group
  * @license     http://opensource.org/licenses/gpl-2.0.php GNU Public License
- * @since       1.0.3
+ * @since       1.0.8
  */
 
-$hiilite_options = Hii::get_options();
+$hiilite_options = Hii::get_options(); 
 $bg_color = '';
 
 
@@ -100,11 +100,13 @@ echo "<header id='main_header' class='". sanitize_html_class($hiilite_options['h
 		
 		
 		if(get_theme_mod('hide_logo') != true):
-			?><div id="logo_container" class="<?php if($hiilite_options['header_center_right_on'] && !$hiilite_options['header_center_left_on']){ echo 'align-left';} ?>"><a href="<?php echo esc_url( home_url() ); ?>"><img id="logo_img" src="<?php echo esc_url($hiilite_options['main_logo']);?>" width="<?php echo intval($hiilite_options['logo_width']);?>" alt="<?php echo hii_get_the_title();?>">
+			?><div id="logo_container" class="<?php if($hiilite_options['header_center_right_on'] && !$hiilite_options['header_center_left_on']){ echo 'align-left';} ?>"><a href="<?php echo esc_url( home_url() ); ?>"><img id="logo_img" src="<?php echo esc_url($hiilite_options['main_logo']);?>" width="<?php echo intval($hiilite_options['logo_width']);?>" alt="<?php echo hii_get_the_title();?>"></a>
 			<?php if( !empty($hiilite_options['mobile_logo']) ): ?>
-				<img id="mobile_logo" src="<?php echo esc_url($hiilite_options['mobile_logo']);?>" width="<?php echo intval($hiilite_options['mobile_logo_width']);?>" alt="<?php echo hii_get_the_title();?>">
-			<?php endif; ?>
-			</a></div><?php 
+				<a href="<?php echo esc_url( home_url() ); ?>"><img id="mobile_logo" src="<?php echo esc_url($hiilite_options['mobile_logo']);?>" width="<?php echo intval($hiilite_options['mobile_logo_width']);?>" alt="<?php echo hii_get_the_title();?>"></a>
+			<?php else: ?> 
+				<a href="<?php echo esc_url( home_url() ); ?>"><img id="mobile_logo" src="<?php echo esc_url($hiilite_options['main_logo']);?>" width="<?php echo intval($hiilite_options['mobile_logo_width']);?>" alt="<?php echo hii_get_the_title();?>"></a>
+			<? endif; ?>
+			</div><?php 
 		endif;
 		
 		if($hiilite_options['header_center_right_on'] && $hiilite_options['header_type'] != 'regular') { 	

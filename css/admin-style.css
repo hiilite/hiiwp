@@ -179,17 +179,60 @@ a {
 /*--------------------------------------------------------------
 2.0 Kirki Styles
 --------------------------------------------------------------*/
+.customize-control-kirki-switch .switch-on {
+    padding-right: 6px !important;
+}
+
+#customize-control-mobile_logo, #customize-control-main_logo, #customize-control-hide_logo {
+	background: rgba(0,0,0,0.1);
+	padding: 1rem;
+	width: calc(100% - 2rem);
+	margin-bottom: 0 !important;
+}
+
+#customize-control-mobile_logo, #customize-control-main_logo, #customize-control-portfolio_on, #customize-control-teams_on, #customize-control-menus_on, #customize-control-testimonials_on, 
+#customize-control-main_menu_align, #customize-control-main_menu_background_color, #customize-control-testimonials_body_font, #customize-control-teams_cols, #customize-control-team_member_content_padding,
+#customize-control-portfolio_show_filter, #customize-control-nav_menu_item-30, #customize-control-nav_menu_locations-header-menu {
+	border-top-left-radius: 6px;
+	border-top-right-radius: 6px;
+}
+#customize-control-logo_size_mod, #customize-control-mobile_logo_size_mod, #customize-control-menu_margin, #customize-control-mobile_menu_icon_color, #customize-control-testimonials_author_padding, 
+#customize-control-teams_border_color, #customize-control-team_member_position_font, #customize-control-portfolio_border_width, #customize-control-nav_menu-2-delete, #customize-control-nav_menu_locations-bottom-menu {
+	border-bottom-left-radius: 6px;
+	border-bottom-right-radius: 6px;
+}
+
+#customize-control-nav_menu-2-name {
+	border-top-left-radius: 6px;
+	border-top-right-radius: 6px;
+	border-bottom-left-radius: 6px;
+	border-bottom-right-radius: 6px;
+}
+
+#customize-control-nav_menu_item-30 {
+    padding-top: 1rem;
+}
+
+#customize-control-mobile_logo_size_mod, #customize-control-logo_size_mod {
+	background: rgba(0,0,0,0.1);
+	padding: 1rem;
+	width: calc(100% - 2rem);
+}
+
 li[id*=testimonials].customize-control,li[id*=menu].customize-control,li[id*=team].customize-control, li[id*=portfolio].customize-control {
     background: rgba(0,0,0,0.1);
     margin-bottom: 0;
     padding-bottom: 1em;
     padding-left: 1em;
+    padding-right: 1em;
     box-sizing: border-box;
 }
 
 ul li[id*=testimonials_on].customize-control,ul li[id*=menus_on].customize-control,li[id*=teams_on].customize-control,li[id*=portfolio_on].customize-control {
     padding-top: 1em;
     margin-top: 1em;
+    padding-right: 1em;
+    padding-right: 1em;
 }
 
 /* Customizer */
@@ -334,7 +377,7 @@ ul.cmb2-checkbox-list.cmb2-list li {
     width: 100%;
 }
 span.select2 {
-    min-width: 150px;
+    min-width: 100px;
 }
 .postbox.cmb-row.cmb-repeatable-grouping {
     box-sizing: border-box;

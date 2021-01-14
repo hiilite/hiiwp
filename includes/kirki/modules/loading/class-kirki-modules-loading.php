@@ -4,8 +4,8 @@
  *
  * @package     Kirki
  * @subpackage  Modules
- * @copyright   Copyright (c) 2017, Aristeides Stathopoulos
- * @license    https://opensource.org/licenses/MIT
+ * @copyright   Copyright (c) 2020, David Vongries
+ * @license     https://opensource.org/licenses/MIT
  * @since       3.0.0
  */
 
@@ -56,7 +56,6 @@ class Kirki_Modules_Loading {
 	 * @since 3.0.0
 	 */
 	public function init() {
-
 		global $wp_customize;
 		if ( ! $wp_customize ) {
 			return;
@@ -70,7 +69,6 @@ class Kirki_Modules_Loading {
 		add_action( 'wp_footer', array( $this, 'add_loader_to_footer' ) );
 		add_action( 'wp_head', array( $this, 'add_loader_styles_to_header' ), 99 );
 		$this->remove_default_loading_styles();
-
 	}
 
 	/**

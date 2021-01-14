@@ -4,8 +4,8 @@
  *
  * @package     Kirki
  * @subpackage  Controls
- * @copyright   Copyright (c) 2017, Aristeides Stathopoulos
- * @license    https://opensource.org/licenses/MIT
+ * @copyright   Copyright (c) 2020, David Vongries
+ * @license     https://opensource.org/licenses/MIT
  * @since       3.0.0
  */
 
@@ -22,7 +22,6 @@ class Kirki_Output_Field_Background extends Kirki_Output {
 	 * @param array $value  The field's value.
 	 */
 	protected function process_output( $output, $value ) {
-
 		$output = wp_parse_args(
 			$output,
 			array(

@@ -4,8 +4,8 @@
  *
  * @package     Kirki
  * @subpackage  Controls
- * @copyright   Copyright (c) 2017, Aristeides Stathopoulos
- * @license    https://opensource.org/licenses/MIT
+ * @copyright   Copyright (c) 2020, David Vongries
+ * @license     https://opensource.org/licenses/MIT
  * @since       1.0
  */
 
@@ -52,7 +52,6 @@ class Kirki_Control_Select extends Kirki_Control_Base {
 	 */
 	public function to_json() {
 		parent::to_json();
-
 		$this->json['multiple']    = $this->multiple;
 		$this->json['placeholder'] = $this->placeholder;
 	}

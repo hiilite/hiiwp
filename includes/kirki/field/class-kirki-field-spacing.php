@@ -4,8 +4,8 @@
  *
  * @package     Kirki
  * @subpackage  Controls
- * @copyright   Copyright (c) 2017, Aristeides Stathopoulos
- * @license    https://opensource.org/licenses/MIT
+ * @copyright   Copyright (c) 2020, David Vongries
+ * @license     https://opensource.org/licenses/MIT
  * @since       2.2.7
  */
 
@@ -21,7 +21,6 @@ class Kirki_Field_Spacing extends Kirki_Field_Dimensions {
 	 * @access protected
 	 */
 	protected function set_choices() {
-
 		$default_args = array(
 			'controls' => array(
 				'top'    => ( isset( $this->default['top'] ) ),
@@ -30,14 +29,13 @@ class Kirki_Field_Spacing extends Kirki_Field_Dimensions {
 				'right'  => ( isset( $this->default['top'] ) ),
 			),
 			'labels'   => array(
-				'top'    => esc_attr__( 'Top', 'kirki' ),
-				'bottom' => esc_attr__( 'Bottom', 'kirki' ),
-				'left'   => esc_attr__( 'Left', 'kirki' ),
-				'right'  => esc_attr__( 'Right', 'kirki' ),
+				'top'    => esc_html__( 'Top', 'kirki' ),
+				'bottom' => esc_html__( 'Bottom', 'kirki' ),
+				'left'   => esc_html__( 'Left', 'kirki' ),
+				'right'  => esc_html__( 'Right', 'kirki' ),
 			),
 		);
 
 		$this->choices = wp_parse_args( $this->choices, $default_args );
-
 	}
 }

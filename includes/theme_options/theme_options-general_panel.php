@@ -23,8 +23,16 @@ Kirki::add_section( $section, array(
     'priority'       => 1,
     'capability'     => 'edit_theme_options'
 ) );
-
-
+Kirki::add_field( 'hiiwp', array(
+    'type'        => 'switch',
+    'settings'    => 'lottie_on',
+    'label'       => esc_attr__( 'Lottie Animations', 'hiiwp' ),
+    'section'     => $section,
+    'default'     => $hiilite_options['lottie_on'],
+    'value'          => true,
+    'priority'      => 1,
+    'description'    => __( 'Turn on Lottie Animations', 'hiiwp' ),
+) );
 //////////////////
 // Portfolio
 Kirki::add_field( 'hiiwp', array(
@@ -470,6 +478,49 @@ Kirki::add_field( 'hiiwp', array(
 		),
 	),
 ) );
+
+// Font Awesome Pro
+Kirki::add_field( 'hiiwp', array(
+	'type'        => 'switch',
+	'settings'    => 'fa_pro_on',
+	'label'       => esc_attr__( 'Use External Version of Font Awesome', 'hiiwp' ),
+	'section'     => $section,
+	'default'     => false,
+	'priority'	  => 1,
+	'description'    => __( 'Use an external version of Font Awesome instead of the built in version', 'hiiwp'),
+) );
+
+Kirki::add_field( 'hiiwp', [
+	'type'     => 'custom',
+	'settings' => 'fa_notice',
+	'label'    => esc_html__( 'Important Notice', 'hiiwp' ),
+	'section'  => $section,
+		'default'         => '<p><strong>If you wish to use Font Awesome Pro, you will require a subscription</strong> <a href="https://fontawesome.com/pro" target="_blank">Get Pro</a></p>',
+	'priority'    => 1,
+	'active_callback'	=> array(
+		array(
+			'setting'  => 'fa_pro_on',
+			'operator' => '==',
+			'value'    => true,
+		),
+	),
+] );
+
+Kirki::add_field( 'hiiwp', [
+	'type'     => 'text',
+	'settings' => 'fa_kit',
+	'label'    => esc_html__( 'Kit URL', 'hiiwp' ),
+	'section'  => $section,
+	'default'  => esc_html__( 'https://kit.fontawesome.com/YOUR_KIT.js', 'hiiwp' ),
+	'priority' => 1,
+	'active_callback'	=> array(
+		array(
+			'setting'  => 'fa_pro_on',
+			'operator' => '==',
+			'value'    => true,
+		),
+	),
+] );
 
 Kirki::add_field( 'hiiwp', array(
 	'type'        => 'color',

@@ -7,7 +7,7 @@
  * @package     hiiwp
  * @copyright   Copyright (c) 2018, Hiilite Creative Group
  * @license     http://opensource.org/licenses/gpl-2.0.php GNU Public License
- * @since       1.0.5
+ * @since       1.0.8
  */
 global $is_IE; ?><style>
 /*--------------------------------------------------------------
@@ -1121,6 +1121,14 @@ else echo Hii::$options['custom_format_3'];
 /*--------------------------------------------------------------
 7.3 Icons
 --------------------------------------------------------------*/
+.vc_icon_element.vc_icon_element-outer .vc_icon_element-inner .vc_icon_element-icon.fas:before,
+.vc_icon_element.vc_icon_element-outer .vc_icon_element-inner .vc_icon_element-icon.fad:before {
+	font-weight:900;
+}
+
+.vc_icon_element.vc_icon_element-outer .vc_icon_element-inner .vc_icon_element-icon.fal:before {
+	font-weight:300;
+}
 
 a .fa, .fa {
 	display: inline-block;
@@ -1897,7 +1905,7 @@ figure.single-image.hover-image .hover_image-img {
     transition: all 0.5s;
     width:100%;
 }
-figure.single-image.hover-image.text-block .hover_image-img {
+figure.single-image.hover-image.text-block .hover_image-img, figure.single-image.hover-image.wpb_text_column .hover_image-img {
     padding: 1em;
 }
 figure.single-image.hover-image:hover .hover_image-img {
@@ -1976,15 +1984,18 @@ table td {
 	flex-wrap: wrap;
 	box-sizing: border-box;
 }
+
+<?php
+$grid_width = Hii::$options['grid_width'];
+?>
 .grid-left {
-    padding-left: calc((100vw - 1100px)/2) !important;
-    min-width: initial;
+    padding-left: calc((100vw - <?php echo $grid_width; ?>)/2) !important;
 }
 .grid-right {
-    padding-right: calc((100vw - 1100px)/2) !important;
-    min-width: initial;
+    padding-right: calc((100vw - <?php echo $grid_width; ?>)/2) !important;
 }
-@media (max-width: 1100px) {
+
+@media (max-width: <?php echo $grid_width; ?>) {
     .grid-right {
         padding-right: 0 !important;
         min-width: initial;
@@ -2097,6 +2108,24 @@ get_template_part('css/elements/buttons');
 get_template_part('css/elements/amp-carousel', 'css');
 get_template_part('css/elements/hii_post_carousel', 'css');
 
+
+/*--------------------------------------------------------------
+	Lottie Player
+---------------------------------------------------------------*/
+?>
+.lottie-container-left {
+    display:flex;
+    justify-content:flex-start;
+}
+.lottie-container-center {
+    display:flex;
+    justify-content:center;
+}
+.lottie-container-right {
+    display:flex;
+    justify-content:flex-end;
+}
+<?php
 /*--------------------------------------------------------------
 3.0 Header
 --------------------------------------------------------------*/
@@ -2180,6 +2209,12 @@ if(get_theme_mod( 'show_footer_top_yesno', true )): ?>
 	align-items: center;
 	flex-wrap: wrap;
 }
+#footer_page .widget_nav_menu {
+    padding: 1rem;
+}
+#footer_page .menu li.menu-item {
+    padding-bottom: 0.8rem;
+}
 #footer_page .menu {
 	display: block;
 }
@@ -2242,10 +2277,10 @@ if(get_theme_mod( 'show_footer_top_yesno', true )): ?>
 	padding: 0 1em;
 }
 
-.text-block {
+.wpb_text_column, .text-block {
 	padding: 1em;
 }
-.text-block .text-block {
+.wpb_text_column .wpb_text_column, .text-block .text-block {
  	padding:0;
 }
 .text-block.with-icon {
@@ -2612,6 +2647,17 @@ endif;
 /*--------------------------------------------------------------
 13.7 WooCommerce
 --------------------------------------------------------------*/
+?>
+.woocommerce-breadcrumb {
+    margin-bottom: 1rem !important;
+}
+.post-type-archive-product .product {
+    padding: 0.5rem !important;
+}
+.page-title #container {
+    width: 100%;
+}
+<?php
 if(class_exists('WooCommerce')):
 	get_template_part('css/service_extensions/woocommerce', 'css');	
 endif;
@@ -2657,6 +2703,22 @@ if(is_user_logged_in()):
 endif;
 
 ?>
+/*--------------------------------------------------------------
+ SVGs
+--------------------------------------------------------------*/
+/**
+ * Fix SVGs not showing correctly as featured images.
+ */
+#postimagediv .inside .svg img {
+    width: 100%;
+}
+/**
+ * Fix for Gutenberg not showing featured images correctly.
+ */
+img.components-responsive-wrapper__content[src$=".svg"] {
+    position: relative;
+}
+
 /*--------------------------------------------------------------
 14.0 Overwrites
 --------------------------------------------------------------*/

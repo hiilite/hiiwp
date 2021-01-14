@@ -62,7 +62,6 @@ if ( _.isUndefined( window.kirkiSetSettingValue ) ) {
 					break;
 
 				case 'kirki-select':
-				case 'kirki-fontawesome':
 					$this.setSelectWoo( $this.findElement( setting, 'select' ), value );
 					break;
 
@@ -830,7 +829,13 @@ kirki = jQuery.extend( kirki, {
 				} );
 
 				element.on( 'change keyup paste click', function() {
-					kirki.setting.set( control.id, jQuery( this ).val() );
+					var val = jQuery( this ).val();
+					if ( isNaN( val ) ) {
+						val = parseFloat( val, 10 );
+						val = ( isNaN( val ) ) ? 0 : val;
+						jQuery( this ).attr( 'value', val );
+					}
+					kirki.setting.set( control.id, val );
 				} );
 			}
 
@@ -860,8 +865,6 @@ kirki = jQuery.extend( kirki, {
 
 				// Make sure value is properly formatted.
 				value = ( 'array' === saveAs && _.isString( value ) ) ? { url: value } : value;
-
-				control.container.find( '.kirki-controls-loading-spinner' ).hide();
 
 				// Tweaks for save_as = id.
 				if ( ( 'id' === saveAs || 'ID' === saveAs ) && '' !== value ) {
@@ -901,7 +904,7 @@ kirki = jQuery.extend( kirki, {
 							previewImage  = jsonImg.url;
 
 						if ( ! _.isUndefined( jsonImg.sizes ) ) {
-							previewImg = jsonImg.sizes.full.url;
+							previewImage = jsonImg.sizes.full.url;
 							if ( ! _.isUndefined( jsonImg.sizes.medium ) ) {
 								previewImage = jsonImg.sizes.medium.url;
 							} else if ( ! _.isUndefined( jsonImg.sizes.thumbnail ) ) {
@@ -1400,8 +1403,8 @@ kirki = jQuery.extend( kirki, {
 					numericValue,
 					unit;
 
-				// Early exit if value is undefined.
-				if ( 'undefined' === typeof value ) {
+				// Early exit if value is not a string or a number.
+				if ( 'string' !== typeof value || 'number' !== typeof value ) {
 					return true;
 				}
 
@@ -1812,8 +1815,6 @@ wp.customize.controlConstructor['kirki-date'] = wp.customize.kirkiDynamicControl
 			dateFormat: 'yy-mm-dd'
 		} );
 
-		control.container.find( '.kirki-controls-loading-spinner' ).hide();
-
 		// Save the changes
 		this.container.on( 'change keyup paste', 'input.datepicker', function() {
 			control.setting.set( jQuery( this ).val() );
@@ -1968,13 +1969,15 @@ wp.customize.controlConstructor['kirki-editor'] = wp.customize.kirkiDynamicContr
 			id      = 'kirki-editor-' + control.id.replace( '[', '' ).replace( ']', '' ),
 			editor;
 
-		wp.editor.initialize( id, {
-			tinymce: {
-				wpautop: true
-			},
-			quicktags: true,
-			mediaButtons: true
-		} );
+		if ( wp.editor && wp.editor.initialize ) {
+			wp.editor.initialize( id, {
+				tinymce: {
+					wpautop: true
+				},
+				quicktags: true,
+				mediaButtons: true
+			} );
+		}
 
 		editor = tinyMCE.get( id );
 
@@ -1988,45 +1991,6 @@ wp.customize.controlConstructor['kirki-editor'] = wp.customize.kirkiDynamicContr
 				wp.customize.instance( control.id ).set( content );
 			} );
 		}
-	}
-} );
-/* global fontAwesomeJSON */
-wp.customize.controlConstructor['kirki-fontawesome'] = wp.customize.kirkiDynamicControl.extend( {
-
-	initKirkiControl: function() {
-
-		var control  = this,
-			element  = this.container.find( 'select' ),
-			icons    = jQuery.parseJSON( fontAwesomeJSON ),
-			selectValue,
-			selectWooOptions = {
-				data: [],
-				escapeMarkup: function( markup ) {
-					return markup;
-				},
-				templateResult: function( val ) {
-					return '<i class="fa fa-lg fa-' + val.id + '" aria-hidden="true"></i>' + ' ' + val.text;
-				},
-				templateSelection: function( val ) {
-					return '<i class="fa fa-lg fa-' + val.id + '" aria-hidden="true"></i>' + ' ' + val.text;
-				}
-			},
-			select;
-
-		_.each( icons.icons, function( icon ) {
-			selectWooOptions.data.push( {
-				id: icon.id,
-				text: icon.name
-			} );
-		} );
-
-		select = jQuery( element ).selectWoo( selectWooOptions );
-
-		select.on( 'change', function() {
-			selectValue = jQuery( this ).val();
-			control.setting.set( selectValue );
-		} );
-		select.val( control.setting._value ).trigger( 'change' );
 	}
 } );
 wp.customize.controlConstructor['kirki-multicheck'] = wp.customize.kirkiDynamicControl.extend( {
@@ -2245,8 +2209,6 @@ wp.customize.controlConstructor.repeater = wp.customize.Control.extend( {
 
 		// The current value set in Control Class (set in Kirki_Customize_Repeater_Control::to_json() function)
 		var settingValue = this.params.value;
-
-		control.container.find( '.kirki-controls-loading-spinner' ).hide();
 
 		// The hidden field that keeps the data saved (though we never update it)
 		this.settingField = this.container.find( '[data-customize-setting-link]' ).first();
@@ -3086,7 +3048,6 @@ wp.customize.controlConstructor['kirki-slider'] = wp.customize.kirkiDynamicContr
 		} );
 	}
 } );
-/* global kirkiControlLoader */
 wp.customize.controlConstructor['kirki-sortable'] = wp.customize.Control.extend( {
 
 	// When we're finished loading continue processing
@@ -3096,31 +3057,12 @@ wp.customize.controlConstructor['kirki-sortable'] = wp.customize.Control.extend(
 
 		var control = this;
 
-		// Init the control.
-		if ( ! _.isUndefined( window.kirkiControlLoader ) && _.isFunction( kirkiControlLoader ) ) {
-			kirkiControlLoader( control );
-		} else {
-			control.initKirkiControl();
-		}
-	},
-
-	initKirkiControl: function() {
-
-		'use strict';
-
-		var control = this;
-
-		control.container.find( '.kirki-controls-loading-spinner' ).hide();
-
-		// Set the sortable container.
-		control.sortableContainer = control.container.find( 'ul.sortable' ).first();
-
 		// Init sortable.
-		control.sortableContainer.sortable( {
+		jQuery( control.container.find( 'ul.sortable' ).first() ).sortable( {
 
 			// Update value when we stop sorting.
-			stop: function() {
-				control.updateValue();
+			update: function() {
+				control.setting.set( control.getNewVal() );
 			}
 		} ).disableSelection().find( 'li' ).each( function() {
 
@@ -3131,26 +3073,25 @@ wp.customize.controlConstructor['kirki-sortable'] = wp.customize.Control.extend(
 		} ).click( function() {
 
 			// Update value on click.
-			control.updateValue();
+			control.setting.set( control.getNewVal() );
 		} );
 	},
 
 	/**
-	 * Updates the sorting list
+	 * Getss thhe new vvalue.
+	 *
+	 * @since 3.0.35
+	 * @returns {Array}
 	 */
-	updateValue: function() {
-
-		'use strict';
-
-		var control = this,
-			newValue = [];
-
-		this.sortableContainer.find( 'li' ).each( function() {
-			if ( ! jQuery( this ).is( '.invisible' ) ) {
-				newValue.push( jQuery( this ).data( 'value' ) );
+	getNewVal: function() {
+		var items  = jQuery( this.container.find( 'li' ) ),
+			newVal = [];
+		_.each ( items, function( item ) {
+			if ( ! jQuery( item ).hasClass( 'invisible' ) ) {
+				newVal.push( jQuery( item ).data( 'value' ) );
 			}
 		} );
-		control.setting.set( newValue );
+		return newVal;
 	}
 } );
 wp.customize.controlConstructor['kirki-switch'] = wp.customize.kirkiDynamicControl.extend( {
@@ -3197,7 +3138,6 @@ wp.customize.controlConstructor['kirki-typography'] = wp.customize.kirkiDynamicC
 		control.renderFontSelector();
 		control.renderBackupFontSelector();
 		control.renderVariantSelector();
-		control.localFontsCheckbox();
 
 		// Font-size.
 		if ( 'undefined' !== typeof control.params.default['font-size'] ) {
@@ -3478,7 +3418,7 @@ wp.customize.controlConstructor['kirki-typography'] = wp.customize.kirkiDynamicC
 			} else {
 				fontWeight = ( ! _.isString( value.variant ) ) ? '400' : value.variant.match( /\d/g );
 				fontWeight = ( ! _.isObject( fontWeight ) ) ? '400' : fontWeight.join( '' );
-				fontStyle  = ( -1 !== value.variant.indexOf( 'italic' ) ) ? 'italic' : 'normal';
+				fontStyle  = ( value.variant && -1 !== value.variant.indexOf( 'italic' ) ) ? 'italic' : 'normal';
 			}
 
 			control.saveValue( 'font-weight', fontWeight );
@@ -3593,22 +3533,6 @@ wp.customize.controlConstructor['kirki-typography'] = wp.customize.kirkiDynamicC
 			google: googleFonts,
 			standard: standardFonts
 		};
-	},
-
-	localFontsCheckbox: function() {
-		var control           = this,
-			checkboxContainer = control.container.find( '.kirki-host-font-locally' ),
-			checkbox          = control.container.find( '.kirki-host-font-locally input' ),
-			checked           = jQuery( checkbox ).is( ':checked' );
-
-		if ( control.setting._value && control.setting._value.downloadFont ) {
-			jQuery( checkbox ).attr( 'checked', 'checked' );
-		}
-
-		jQuery( checkbox ).on( 'change', function() {
-			checked = jQuery( checkbox ).is( ':checked' );
-			control.saveValue( 'downloadFont', checked );
-		} );
 	},
 
 	/**

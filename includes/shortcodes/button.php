@@ -6,6 +6,7 @@
  * @return object Button
  */
 function add_button_shortcode( $atts ){
+    //return '<pre>'.print_r($atts,true).'</pre>';
 	global $qode_options_proya;
 	$is_vc = (class_exists('Vc_Manager'))?true:false;
 	$el_class = $width = $css = $offset = $output = $style = '';
@@ -22,6 +23,11 @@ function add_button_shortcode( $atts ){
       'color'			=> '',
       'use_google_font' => false,
       'on_click'		=> '',
+      'icon'    => '',
+      'icon_size' => 'small',
+      'icon_position' => 'left',
+      'icon_color'  => '#000',
+      
    );
    //print_r($atts);
    extract( shortcode_atts( $args, $atts ) );
@@ -34,6 +40,15 @@ function add_button_shortcode( $atts ){
 		$text_align,
 		$vc_css, 
 	); 
+	if($icon != '') {
+	    $css_classes[] = 'icon_button';
+	}
+	if($icon_position == 'left') {
+	    $css_classes[] = 'icon_button_left_'.$icon_size;
+	}
+	if($icon_position == 'right') {
+	    $css_classes[] = 'icon_button_right_'.$icon_size;
+	}
 	if(isset($use_google_font) && $use_google_font != false){
 		$google_fonts = explode('|',$atts['google_fonts']);
 	    $font_family = explode('%3A', $google_fonts[0]);
@@ -91,10 +106,22 @@ function add_button_shortcode( $atts ){
 		$wrapper_attributes[] = 'onclick="'. $on_click .'"';
 	}
 	
+    $icon_left = '';
+    $icon_right = '';
+	if($icon != '') {
+	    if($icon_position == 'left') {
+	        $icon_left = '<i class="'.$icon.' '.$icon_size.'" style="color:'.$icon_color.';"></i>';
+	    }
+	    if($icon_position == 'right') {
+	        $icon_right = '<i class="'.$icon.' '.$icon_size.'" style="color:'.$icon_color.';"></i>';
+	    }
+	}
+	
 	
 	$align_start = ($button_align != '')?'<div class="'.$button_align.'">':'';
 	$align_end = ($button_align != '')?'</div>':'';
-	return $align_start."<a ".implode( ' ', $wrapper_attributes )." $button_id href='{$link}' target={$target} {$style}>{$text}</a>".$align_end;
+	
+	return $align_start."<a ".implode( ' ', $wrapper_attributes )." $button_id href='{$link}' target={$target} {$style}>{$icon_left} <span>{$text}</span> {$icon_right}</a>".$align_end;
 }
 add_shortcode( 'button', 'add_button_shortcode' );
 	

@@ -7,66 +7,40 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Shortcode attributes
  * @var $atts
  * @var $el_class
+ * @var $el_id
  * @var $css_animation
  * @var $css
- * @var $el_id
  * @var $content - shortcode content
  * Shortcode class
- * @var $this WPBakeryShortCode_VC_Column_text
- * @since 1.0.1 
+ * @var WPBakeryShortCode_Vc_Column_text $this
  */
-$white = $el_class = $css = $css_animation = $white_text = $icon_html = $icon_html_start = $icon_html_end = '';
+$white = $el_class = $el_id = $css = $css_animation = '';
 $atts = vc_map_get_attributes( $this->getShortcode(), $atts );
-extract( shortcode_atts( array(
-	'icon'			=> false,
-	'icon_position'	=> 'top',
-	'icon_size'		=> 'small',
-	'icon_color'	=> '#c3c3c3',
-	'icon_align'	=> 'center',
-	'white_text'	=> false,
-	'css'			=> '',
-	'el_class'		=> '',
-    'el_id'			=> '',
-    'on_click'			=> ''
-   ), 
-   $atts ) );
-   
+extract( $atts );
+
 if($white_text == 'yes') {
 	$white = 'white';	
 }
 
+$class_to_filter = $white . ' wpb_text_column wpb_content_element ' . $this->getCSSAnimation( $css_animation );
+$class_to_filter .= vc_shortcode_custom_css_class( $css, ' ' ) . $this->getExtraClass( $el_class );
+$css_class = apply_filters( VC_SHORTCODE_CUSTOM_CSS_FILTER_TAG, $class_to_filter, $this->settings['base'], $atts );
 $wrapper_attributes = array();
-// build attributes for wrapper
+
 if ( ! empty( $el_id ) ) {
 	$wrapper_attributes[] = 'id="' . esc_attr( $el_id ) . '"';
 }
 
-$css_classes = array(
-	$this->getExtraClass( $el_class ),
-	'text-block',
-	$white,
-	vc_shortcode_custom_css_class( $css, ' ' ),
-);
-
-
-if (!empty($icon)){
-	$icon_html = "<div class='text-block-icon align-{$icon_align}'><i class='{$icon} {$icon_size}' style='color:{$icon_color};'> </i></div>";
-	$css_classes[] = " with-icon icon-{$icon_position}";
-	$icon_html_start = "<div class='with-icon-text'>";
-	$icon_html_end = '</div>';
-}
-
-$css_class = preg_replace( '/\s+/', ' ', apply_filters( VC_SHORTCODE_CUSTOM_CSS_FILTER_TAG, implode( ' ', array_filter( $css_classes ) ), $this->settings['base'], $atts ));
-
-$wrapper_attributes[] = 'class="' . esc_attr( trim( $css_class ) ) . '"';
-
 if(! empty($on_click) ){
-	$wrapper_attributes[] = 'onclick="'. $on_click .'"';
+	$wrapper_attributes[] .= 'onclick="'. $on_click .'"';
 }
 
-$output = '<div '. implode( ' ', $wrapper_attributes ) .'>';
-$output .= $icon_html;
-$output .= $icon_html_start.wpb_js_remove_wpautop( $content, true ).$icon_html_end;
-$output .= '</div>';
+$output = '
+	<div class="' . esc_attr( $css_class ) . '" ' . implode( ' ', $wrapper_attributes ) . '>
+		<div class="wpb_wrapper">
+			' . wpb_js_remove_wpautop( $content, true ) . '
+		</div>
+	</div>
+';
 
 echo __hii($output); // WPCS: XSS ok.

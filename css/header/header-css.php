@@ -164,7 +164,7 @@ endif; ?>
 #header_bottom .bottom-menu {
 	justify-content: center;
 }
-<?php if(get_theme_mod('mobile_logo') != false): ?>
+
 #mobile_logo {
 	display: none;
 	height: auto;
@@ -178,7 +178,6 @@ endif; ?>
 		display: none;
 	}
 }
-<?php endif; ?>
 #logo_container {
     max-width: 100%;
     position: relative;
