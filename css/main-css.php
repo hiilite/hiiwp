@@ -103,7 +103,7 @@ figure {
 
 pre {
 	font-family: monospace, monospace;
-	font-size: 1em;
+	font-size: 1rem;
 }
 
 a {
@@ -130,7 +130,7 @@ code,
 kbd,
 samp {
 	font-family: monospace, monospace;
-	font-size: 1em;
+	font-size: 1rem;
 }
 
 dfn {
@@ -249,7 +249,7 @@ img.alignright {
 }
 p img.alignright,
 figure.alignright {
-	margin-left: 1em;
+	margin-left: 1rem;
 }
 .align-left, 
 .alignleft {
@@ -262,7 +262,7 @@ img.alignleft {
 }
 p img.alignleft,
 figure.alignright {
-	margin-right: 1em;
+	margin-right: 1rem;
 }
 
 .align-center, 
@@ -530,7 +530,7 @@ hr {
 ul,
 ol {
 	margin: 0 0 1.5em;
-	padding: 0 0 0 1em;
+	padding: 0 0 0 1rem;
 }
 
 ul {
@@ -804,11 +804,11 @@ object {
 .icon {
 	display: inline-block;
 	fill: currentColor;
-	height: 1em;
+	height: 1rem;
 	position: relative; /* Align more nicely with capital letters */
 	top: -0.0625em;
 	vertical-align: middle;
-	width: 1em;
+	width: 1rem;
 }
 /* Fixes linked images */
 .entry-content a img,
@@ -817,12 +817,12 @@ object {
 	box-shadow: 0 0 0 8px #fff;
 }
 .entry-content img.alignleft {
-	padding-right:1em;
-	padding-bottom: 1em;
+	padding-right:1rem;
+	padding-bottom: 1rem;
 }
 .entry-content img.alignright {
-	padding-left:1em;
-	padding-bottom: 1em;
+	padding-left:1rem;
+	padding-bottom: 1rem;
 }
 .post-navigation a:focus .icon,
 .post-navigation a:hover .icon {
@@ -864,7 +864,7 @@ object {
 
 .link-list {
 	list-style: none;
-	margin: 1em 0;
+	margin: 1rem 0;
 	padding: 0;
 	line-height: 2;
 }
@@ -1058,10 +1058,10 @@ echo Hii::$options['typography_social_icon_custom_css'];?>
     font-size: 100%;
 }
 .accordion .wpb_accordion_wrapper .wpb_accordion_header {
-    padding: 0.5em 1em;
+    padding: 0.5em 1rem;
 }
 details.wpb_accordion_section.group {
-    margin: 1em;
+    margin: 1rem;
 }
 .wpb_gmaps_widget .wpb_wrapper {
 	padding:0;
@@ -1132,7 +1132,7 @@ else echo Hii::$options['custom_format_3'];
 
 a .fa, .fa {
 	display: inline-block;
-	width: 1em;
+	width: 1rem;
 	text-align: center;
 	line-height: 1;
 	<?php echo get_font_css(get_theme_mod('icon_settings')); ?>
@@ -1253,7 +1253,7 @@ blockquote:before {
   color: <?php echo Hii::$options['blockquote_color'] ?>;
   content: open-quote;
   font-size: 4em;
-  line-height: 0.1em;
+  line-height: 0.1rem;
   margin-right: 0.25em;
   vertical-align: -0.4em;
 }
@@ -1261,7 +1261,7 @@ blockquote:after {
   color: <?php echo Hii::$options['blockquote_color'] ?>;
   content: close-quote;
   font-size: 4em;
-  line-height: 0.1em;
+  line-height: 0.1rem;
   margin-right: 0.25em;
   vertical-align: -0.4em;
 }
@@ -1300,7 +1300,7 @@ div#disqus_thread {
 	display:inline-block;
 }
 .pagination ul li a.button, .pagination ul li .button-dis  {
-	padding: 0.5em 1em;
+	padding: 0.5em 1rem;
 	margin-left:0.5em;
 	margin-right:0.5em;
 }
@@ -1402,7 +1402,7 @@ div#disqus_thread {
 .search .entry-meta a.post-edit-link {
 	color: #222;
 	display: inline-block;
-	margin-left: 1em;
+	margin-left: 1rem;
 	white-space: nowrap;
 }
 
@@ -1445,7 +1445,7 @@ div#disqus_thread {
 .page-links .page-number {
 	color: #767676;
 	display: inline-block;
-	padding: 0.5em 1em;
+	padding: 0.5em 1rem;
 }
 
 .page-links a {
@@ -1477,7 +1477,7 @@ div#disqus_thread {
 }
 
 .entry-footer .cat-links + .tags-links {
-	margin-top: 1em;
+	margin-top: 1rem;
 }
 
 .entry-footer .cat-links a,
@@ -1576,7 +1576,7 @@ div#disqus_thread {
 }
 
 .post-navigation .nav-links {
-	padding: 1em 0;
+	padding: 1rem 0;
 }
 
 .nav-subtitle {
@@ -1586,7 +1586,7 @@ div#disqus_thread {
 	font-size: 11px;
 	font-size: 0.6875rem;
 	letter-spacing: 0.1818em;
-	margin-bottom: 1em;
+	margin-bottom: 1rem;
 	text-transform: uppercase;
 }
 
@@ -1672,7 +1672,7 @@ div#disqus_thread {
 
 .comment-metadata a.comment-edit-link {
 	color: #222;
-	margin-left: 1em;
+	margin-left: 1rem;
 }
 
 .comment-body {
@@ -1690,10 +1690,10 @@ div#disqus_thread {
 .comment-reply-link .icon {
 	color: #222;
 	left: -2em;
-	height: 1em;
+	height: 1rem;
 	position: absolute;
 	top: 0;
-	width: 1em;
+	width: 1rem;
 }
 
 .children .comment-author .avatar {
@@ -1906,7 +1906,10 @@ figure.single-image.hover-image .hover_image-img {
     width:100%;
 }
 figure.single-image.hover-image.text-block .hover_image-img, figure.single-image.hover-image.wpb_text_column .hover_image-img {
-    padding: 1em;
+    padding: 1rem;
+}
+.wpb_text_column, .text-block {
+    padding: 1rem;
 }
 figure.single-image.hover-image:hover .hover_image-img {
     opacity: 1;
@@ -1916,7 +1919,7 @@ figure.single-image.hover-image:hover .hover_image-img {
     float: right;
 }
 p .alignright {
-	margin-left:1em;
+	margin-left:1rem;
 }
 .wp-caption-text {
 	color: #637282;
@@ -2272,11 +2275,11 @@ if(get_theme_mod( 'show_footer_top_yesno', true )): ?>
 	background: #f2f2f2;
 	width: 100%;
 	text-align: center;
-	padding: 0 1em;
+	padding: 0 1rem;
 }
 
 .wpb_text_column, .text-block {
-	padding: 1em;
+	padding: 1rem;
 }
 .wpb_text_column .wpb_text_column, .text-block .text-block {
  	padding:0;
@@ -2295,10 +2298,10 @@ if(get_theme_mod( 'show_footer_top_yesno', true )): ?>
     flex: 2 1 100px;
 }
 .text-block-icon {
-	padding: 1em 0;
+	padding: 1rem 0;
 }
 .text-block-icon.align-left {
-	padding-right: 1em;
+	padding-right: 1rem;
 	padding-top: 0;
 	margin-top: 0;
 }
@@ -2308,7 +2311,7 @@ if(get_theme_mod( 'show_footer_top_yesno', true )): ?>
 .extra-large, .fa.extra-large  { font-size: 50px; }
 
 .author_details img {
-	margin-right: 1em; 
+	margin-right: 1rem; 
 }
 .author_bio_section {
 	background: rgba(240,240,240,0.8);
@@ -2372,7 +2375,7 @@ if(get_theme_mod( 'show_footer_top_yesno', true )): ?>
 .sidebar ul ul,
 .widget ul ul{
 	list-style: none;
-	padding-left: 1em;
+	padding-left: 1rem;
 }
 aside .widget ul li,
 .widget_recent_entries li  {
@@ -2384,7 +2387,7 @@ aside .widget ul li,
 	border: <?php echo Hii::$options['sidebar_border_width'].' solid '.Hii::$options['sidebar_border_color'];?>;
 }
 .sidebar .depth_2 {
-	padding-left:1em;	
+	padding-left:1rem;	
 }
 .sidebar .depth_3 {
 	padding-left:2em;	
@@ -2424,7 +2427,7 @@ aside .widget ul li,
 if(Hii::$options['testimonials_on']):
 	?>
 	.testimonial_item {
-	    padding: 0 3em 1em 3em;
+	    padding: 0 3em 1rem 3em;
 	}
 	.testimonial_content { 
 		<?php echo get_font_css(Hii::$options[ 'testimonials_body_font' ]); ?>
@@ -2510,8 +2513,8 @@ if(Hii::$options['teams_on']):
 endif; ?>
 
 .team-member-content {
-	padding-left: 1em;
-	padding-right: 1em;
+	padding-left: 1rem;
+	padding-right: 1rem;
 }
 .related-team-member {
 	max-width: 250px;
@@ -2521,7 +2524,7 @@ endif; ?>
 	max-width: 250px;
 	overflow: hidden;
 	display: inline-block;
-	padding: 1em;
+	padding: 1rem;
     vertical-align: top;
 }
 .single-team-member .related-team-member p {
