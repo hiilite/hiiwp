@@ -456,12 +456,12 @@ jQuery.noConflict();(function( $ ) {$(function() {
 	
 	if(hii_post_count > 0) {
 	
-		/* set up initail display of items */
+		/* set up initial display of items */
 		$('.hii_post_carousel #hii_post-1').addClass('hii_pc_left');
 		$('.hii_post_carousel #hii_post-2').addClass('hii_pc_center');
 		$('.hii_post_carousel #hii_post-3').addClass('hii_pc_right');
 		
-		/* set initial carousel hight */
+		/* set initial carousel height */
 		function hiiCarouselHight() {
 			var elementHeights = $('.hii_post_carousel_wrap > div').map(function() {
 				return $(this)[0].getBoundingClientRect().height;
@@ -606,7 +606,7 @@ jQuery.noConflict();(function( $ ) {$(function() {
 	ACCORDION
 	*/
 	
-	/* Check if Deatils and Summery are supported */
+	/* Check if Details and Summary are supported */
 	var isDetailsSupported = (function(doc) {
 	var el = doc.createElement('details');
 	var fake;
@@ -635,7 +635,7 @@ jQuery.noConflict();(function( $ ) {$(function() {
 
 	/* If not supported, use JS */
 	if (!isDetailsSupported) {
-		/* set to show, tabse with attr of OPEN */
+		/* set to show, tabs with attr of OPEN */
 		$('.wpb_accordion_section').each(function() {
 			if($(this).attr('open'))
 			{
@@ -658,7 +658,11 @@ jQuery.noConflict();(function( $ ) {$(function() {
 	*/
 	function trackingLink($this, type){
 		var href = $this.html();
-		return "ga('send', 'event', 'Contact Links', '"+type+"','"+href+"')";
+		if (typeof ga === "function") {
+			return "ga('send', 'event', 'Contact Links', '"+type+"','"+href+"')";
+		} else {
+			return "__gaTracker('send', 'event', 'Contact Links', '"+type+"','"+href+"')";
+		}
 	}
 
 	
@@ -716,7 +720,7 @@ jQuery.noConflict();(function( $ ) {$(function() {
 	  };
 	  
 	 /*
-	BACK TO TP
+	BACK TO TOP
 	*/
 	$(window).on('scroll', function(){
 	  var scroll = $(window).scrollTop();
