@@ -9,8 +9,7 @@
  * @since       1.0.8
  */
 jQuery.noConflict();(function( $ ) {$(function() {
-	
-	console.log('hii');
+
 	$('#page-loader').css('opacity',0);
 	$('html body > .wrapper').css('opacity',1);
 	
@@ -28,13 +27,17 @@ jQuery.noConflict();(function( $ ) {$(function() {
 	});
 	
 	$(window).on('resize',function(){
-		if($(document).width() >= parseInt(mobile_menu_switch)) {
-			$('#main-nav').fadeIn(250);	
-			$('#main_header .sub-menu').removeClass('open').slideUp(250);
-		} else {
-			$('#main-nav').hide(0);
-			$('#main_header .sub-menu').removeClass('open').slideUp(250);
-		}
+	    var width = $(window).width();
+        	if($(window).width() != width){
+                if($(document).width() >= parseInt(mobile_menu_switch)) {
+        			$('#main-nav').fadeIn(250);	
+        			$('#main_header .sub-menu').removeClass('open').slideUp(250);
+        		} else {
+        			$('#main-nav').hide(0);
+        			$('#main_header .sub-menu').removeClass('open').slideUp(250);
+        		}
+            }
+		
 	});
 	
 	$('.search_button').on( 'click', function(e){
