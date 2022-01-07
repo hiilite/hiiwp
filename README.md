@@ -2,6 +2,9 @@
 
 ### Change log
 
+### v1.0.9
+- Fixed mobile dropdown menu disappearing on scroll.
+
 ### v1.0.8
 - Updated versions of required and recommended plugins / Updated Hiilite site download files
 - Rebuilt mobile logo switch functionality
