@@ -2,6 +2,9 @@
 
 ### Change log
 
+### v1.1
+- Removed code confilcitng with with the Authorize.net pluging's Accept.js
+
 ### v1.0.9
 - Fixed mobile dropdown menu disappearing on scroll.
 
