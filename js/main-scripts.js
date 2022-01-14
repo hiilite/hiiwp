@@ -712,15 +712,16 @@ jQuery.noConflict();(function( $ ) {$(function() {
 	if (typeof window.viewportUnitsBuggyfill == 'function') { 
 		window.viewportUnitsBuggyfill.init(); 
 	}
-
-	$.fn.change = function(cb, e) {
+	
+	// Commenting this out for now. Doesn't seem to be used by anything and conflicts with the Authorize.net pluging's Accept.js
+	/*$.fn.change = function(cb, e) {
 	    e = e || { subtree:true, childList:true, characterData:true };
 	    $(this).each(function() {
 	      function callback(changes) { cb.call(node, changes, this); }
 	      var node = this;
 	      (new MutationObserver(callback)).observe(node, e);
 	    });
-	  };
+	  };*/
 	  
 	 /*
 	BACK TO TOP
